@@ -221,8 +221,32 @@ export async function getUserByPhone(phone) {
   }
 }
 
+// Insertar datos de pre-checkout (antes de pago)
+export async function insertPreCheckoutCustomer(customerData) {
+  try {
+    const result = await supabaseRequest('pre_checkout_customers', 'POST', customerData);
+    console.log('✅ Pre-checkout customer guardado:', result);
+    
+    if (!result || (Array.isArray(result) && result.length === 0)) {
+      return { 
+        success: false, 
+        error: 'No se pudo guardar en Supabase (respuesta vacía)'
+      };
+    }
+    
+    return { 
+      success: true, 
+      data: Array.isArray(result) ? result[0] : result
+    };
+  } catch (error) {
+    console.error('❌ Error insertando pre-checkout customer:', error);
+    return { success: false, error: error.message };
+  }
+}
+
 export default {
   insertRegistration,
   getUserByAccessCode,
-  getUserByPhone
+  getUserByPhone,
+  insertPreCheckoutCustomer
 };

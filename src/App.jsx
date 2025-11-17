@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from './components/TopNav';
-import { insertRegistration } from './lib/supabase';
+import { insertRegistration, insertPreCheckoutCustomer } from './lib/supabase';
 import { sendAccessCode } from './lib/notifications';
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -17,9 +17,12 @@ function App() {
   
   // Estado para pre-checkout
   const [checkoutEmail, setCheckoutEmail] = useState('');
-  const [checkoutName, setCheckoutName] = useState('');
+  const [checkoutFirstName, setCheckoutFirstName] = useState('');
+  const [checkoutLastName, setCheckoutLastName] = useState('');
+  const [checkoutPhone, setCheckoutPhone] = useState('');
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [sessionId, setSessionId] = useState('');
+  const [customerId, setCustomerId] = useState('');
   
   const [migrantFirstName, setMigrantFirstName] = useState('');
   const [migrantLastName, setMigrantLastName] = useState('');
@@ -122,6 +125,83 @@ function App() {
     return `${limited.slice(0, 3)} ${limited.slice(3, 6)} ${limited.slice(6)}`;
   };
 
+  const handleCheckout = async () => {
+    // Validar campos
+    if (!checkoutFirstName || !checkoutLastName || !checkoutEmail || !checkoutPhone) {
+      alert('Por favor completa todos los campos.');
+      return;
+    }
+
+    // Validar formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(checkoutEmail)) {
+      alert('Por favor ingresa un email válido.');
+      return;
+    }
+
+    // Validar teléfono (10 dígitos)
+    const cleanPhone = checkoutPhone.replace(/\s/g, '');
+    if (cleanPhone.length !== 10) {
+      alert('Por favor ingresa un teléfono válido de 10 dígitos.');
+      return;
+    }
+
+    setIsProcessingPayment(true);
+    
+    try {
+      // 1. Primero guardar en Supabase
+      const customerData = {
+        first_name: checkoutFirstName,
+        last_name: checkoutLastName,
+        email: checkoutEmail,
+        phone: `+1${cleanPhone}`,
+        country: 'USA',
+        status: 'pending_payment',
+        created_at: new Date().toISOString(),
+        traffic_source: trafficSource || 'direct',
+      };
+
+      const supabaseResult = await insertPreCheckoutCustomer(customerData);
+
+      if (!supabaseResult.success) {
+        console.error('Error guardando en Supabase:', supabaseResult.error);
+        throw new Error('Error al guardar información. Por favor intenta de nuevo.');
+      }
+
+      // 2. Crear sesión de Stripe con el customer_id de Supabase
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: checkoutEmail,
+          migrantName: `${checkoutFirstName} ${checkoutLastName}`,
+          phone: `+1${cleanPhone}`,
+          customerId: supabaseResult.data.id, // ID de Supabase para tracking
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al crear sesión de pago');
+      }
+
+      // 3. Guardar session_id para después
+      setSessionId(data.sessionId);
+      setCustomerId(supabaseResult.data.id);
+
+      // 4. Redirigir a Stripe Checkout
+      window.location.href = data.url;
+      
+    } catch (error) {
+      console.error('Error en checkout:', error);
+      alert(error.message || 'Hubo un error al procesar el pago. Por favor intenta de nuevo.');
+      setIsProcessingPayment(false);
+    }
+  };
+
   const formatMXPhone = (value) => {
     const numbers = value.replace(/\D/g, '');
     // Limitar a máximo 10 dígitos
@@ -134,43 +214,6 @@ function App() {
   const clearError = () => {
     setFormError('');
     setMissingFields([]);
-  };
-
-  const handleCheckout = async () => {
-    if (!checkoutEmail || !checkoutName) {
-      alert('Por favor ingresa tu nombre y email para continuar.');
-      return;
-    }
-
-    setIsProcessingPayment(true);
-    
-    try {
-      // Llamar a la API para crear sesión de Stripe
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: checkoutEmail,
-          migrantName: checkoutName,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Error al crear sesión de pago');
-      }
-
-      // Redirigir a Stripe Checkout
-      window.location.href = data.url;
-      
-    } catch (error) {
-      console.error('Error en checkout:', error);
-      alert('Hubo un error al procesar el pago. Por favor intenta de nuevo.');
-      setIsProcessingPayment(false);
-    }
   };
 
   const handleContactRequest = async () => {
@@ -1173,22 +1216,37 @@ Equipo SaludCompartida`,
 
             {/* Formulario de checkout */}
             <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Tu nombre completo
-                </label>
-                <input
-                  type="text"
-                  value={checkoutName}
-                  onChange={(e) => setCheckoutName(e.target.value)}
-                  placeholder="Ej: María González"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all"
-                />
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Nombre *
+                  </label>
+                  <input
+                    type="text"
+                    value={checkoutFirstName}
+                    onChange={(e) => setCheckoutFirstName(e.target.value)}
+                    placeholder="Ej: María"
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Apellido *
+                  </label>
+                  <input
+                    type="text"
+                    value={checkoutLastName}
+                    onChange={(e) => setCheckoutLastName(e.target.value)}
+                    placeholder="Ej: González"
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all"
+                  />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Tu email
+                  Tu email *
                 </label>
                 <input
                   type="email"
@@ -1202,9 +1260,32 @@ Equipo SaludCompartida`,
                 </p>
               </div>
 
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Tu teléfono en USA *
+                </label>
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 px-4 py-3 border-2 border-gray-300 rounded-xl bg-gray-50">
+                    <span className="text-2xl">🇺🇸</span>
+                    <span className="font-semibold text-gray-700">+1</span>
+                  </div>
+                  <input
+                    type="tel"
+                    value={checkoutPhone}
+                    onChange={(e) => setCheckoutPhone(formatUSPhone(e.target.value))}
+                    placeholder="555 123 4567"
+                    maxLength="12"
+                    className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all"
+                  />
+                </div>
+                <p className="text-sm text-gray-500 mt-2">
+                  Formato: 555 123 4567 (10 dígitos)
+                </p>
+              </div>
+
               <button
                 onClick={handleCheckout}
-                disabled={isProcessingPayment || !checkoutEmail || !checkoutName}
+                disabled={isProcessingPayment || !checkoutEmail || !checkoutFirstName || !checkoutLastName || !checkoutPhone}
                 className="w-full bg-gradient-to-r from-cyan-600 to-pink-600 text-white py-5 px-8 rounded-xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3"
               >
                 {isProcessingPayment ? (
