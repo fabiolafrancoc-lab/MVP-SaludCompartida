@@ -5,6 +5,8 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 // Función helper para hacer requests a Supabase
 async function supabaseRequest(endpoint, method = 'GET', body = null) {
+  const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
+  
   const options = {
     method,
     headers: {
@@ -19,12 +21,22 @@ async function supabaseRequest(endpoint, method = 'GET', body = null) {
     options.body = JSON.stringify(body);
   }
 
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, options);
+  console.log('📡 Supabase Request:', {
+    url,
+    method,
+    body: body ? JSON.stringify(body, null, 2) : 'none',
+    headers: { ...options.headers, apikey: '***hidden***', Authorization: '***hidden***' }
+  });
+
+  const response = await fetch(url, options);
+  
+  console.log('📡 Supabase Response Status:', response.status, response.statusText);
   
   if (!response.ok) {
     let errorMessage = 'Error en la petición a Supabase';
     try {
       const error = await response.json();
+      console.error('❌ Error Response Body:', error);
       errorMessage = error.message || error.hint || JSON.stringify(error);
     } catch (e) {
       errorMessage = `HTTP ${response.status}: ${response.statusText}`;
@@ -34,6 +46,8 @@ async function supabaseRequest(endpoint, method = 'GET', body = null) {
 
   // Para INSERT/POST, Supabase puede retornar respuesta vacía (201 Created)
   const text = await response.text();
+  console.log('📡 Supabase Response Body (raw):', text);
+  
   return text ? JSON.parse(text) : {};
 }
 
@@ -224,23 +238,44 @@ export async function getUserByPhone(phone) {
 // Insertar datos de pre-checkout (antes de pago)
 export async function insertPreCheckoutCustomer(customerData) {
   try {
-    const result = await supabaseRequest('pre_checkout_customers', 'POST', customerData);
-    console.log('✅ Pre-checkout customer guardado:', result);
+    console.log('🔄 Intentando guardar pre-checkout:', customerData);
+    console.log('🔑 Usando Supabase URL:', SUPABASE_URL);
+    console.log('🔑 Anon Key existe:', SUPABASE_ANON_KEY ? 'SÍ' : 'NO');
     
-    if (!result || (Array.isArray(result) && result.length === 0)) {
+    const result = await supabaseRequest('pre_checkout_customers', 'POST', customerData);
+    console.log('✅ RESPUESTA RAW de Supabase:', JSON.stringify(result, null, 2));
+    console.log('✅ Tipo de respuesta:', typeof result, Array.isArray(result) ? '(array)' : '(objeto)');
+    
+    // Supabase puede retornar array o objeto único
+    let savedData = result;
+    if (Array.isArray(result) && result.length > 0) {
+      savedData = result[0];
+      console.log('📦 Extraído primer elemento del array:', savedData);
+    }
+    
+    // Verificar si tenemos un ID (indica éxito)
+    if (!savedData || !savedData.id) {
+      console.error('❌ No se obtuvo ID de Supabase');
+      console.error('❌ savedData completo:', savedData);
       return { 
         success: false, 
-        error: 'No se pudo guardar en Supabase (respuesta vacía)'
+        error: 'Error al guardar información. Por favor intenta de nuevo.'
       };
     }
     
+    console.log('✅ Pre-checkout guardado exitosamente con ID:', savedData.id);
     return { 
       success: true, 
-      data: Array.isArray(result) ? result[0] : result
+      data: savedData
     };
   } catch (error) {
     console.error('❌ Error insertando pre-checkout customer:', error);
-    return { success: false, error: error.message };
+    console.error('❌ Error message:', error.message);
+    console.error('❌ Error stack:', error.stack);
+    return { 
+      success: false, 
+      error: 'Error al guardar información. Por favor intenta de nuevo.' 
+    };
   }
 }
 

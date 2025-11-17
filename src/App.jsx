@@ -165,10 +165,12 @@ function App() {
 
       if (!supabaseResult.success) {
         console.error('Error guardando en Supabase:', supabaseResult.error);
-        throw new Error('Error al guardar información. Por favor intenta de nuevo.');
+        throw new Error(supabaseResult.error || 'Error al guardar información. Por favor intenta de nuevo.');
       }
 
-      // 2. Crear sesión de Stripe con el customer_id de Supabase
+      console.log('✅ Datos guardados exitosamente en Supabase');
+
+      // 2. Crear sesión de pago con el customer_id de Supabase
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -185,14 +187,14 @@ function App() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Error al crear sesión de pago');
+        throw new Error(data.error || 'Error al procesar el pago');
       }
 
       // 3. Guardar session_id para después
       setSessionId(data.sessionId);
       setCustomerId(supabaseResult.data.id);
 
-      // 4. Redirigir a Stripe Checkout
+      // 4. Redirigir a página de pago
       window.location.href = data.url;
       
     } catch (error) {
@@ -908,7 +910,7 @@ Equipo SaludCompartida`,
                 Migrantes como tú ya duermen tranquilos
               </h2>
               <p className="text-xl text-gray-600">
-                Esto es lo que dicen quienes ya protegen a su familia con SaludCompartida
+                Esto es lo que dicen quienes ya cuidan de su familia con SaludCompartida
               </p>
             </div>
 
@@ -953,7 +955,7 @@ Equipo SaludCompartida`,
               
               <p className="text-2xl mb-8 leading-relaxed">
                 Este no es para todos. Es un programa piloto <strong>exclusivo</strong> para los primeros 100 migrantes 
-                que decidan proteger a su familia HOY.
+                que decidan cuidar de su familia HOY.
               </p>
 
               <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-2xl p-8 mb-8">
@@ -1052,7 +1054,7 @@ Equipo SaludCompartida`,
 
             <p className="text-2xl mb-12 text-gray-300 leading-relaxed max-w-3xl mx-auto">
               Por el precio de <strong className="text-white">2 cafés al mes</strong>, duermes tranquilo sabiendo que 
-              tu familia está protegida 24/7.
+              tu familia está cuidada 24/7.
             </p>
 
             <div className="bg-white rounded-3xl shadow-2xl p-12 mb-12 max-w-2xl mx-auto">
@@ -1132,7 +1134,7 @@ Equipo SaludCompartida`,
         <div className="max-w-4xl mx-auto px-6 py-16">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-              Último paso para proteger a tu familia
+              Último paso para cuidar de tu familia
             </h1>
             <p className="text-xl text-gray-600">
               Completa tu suscripción y recibe acceso inmediato
@@ -1301,7 +1303,7 @@ Equipo SaludCompartida`,
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
-                    <span>Ir a pago seguro con Stripe</span>
+                    <span>Continuar al pago seguro</span>
                   </>
                 )}
               </button>
@@ -1314,7 +1316,7 @@ Equipo SaludCompartida`,
                   <div className="flex-1">
                     <p className="font-semibold text-blue-900 mb-1">Pago 100% seguro</p>
                     <p className="text-sm text-blue-800">
-                      Tu información de pago está encriptada y protegida por Stripe, líder mundial en procesamiento de pagos. 
+                      Tu información de pago está encriptada y protegida por nuestro procesador de pagos líder mundial. 
                       Nunca almacenamos datos de tu tarjeta.
                     </p>
                   </div>
@@ -1349,7 +1351,7 @@ Equipo SaludCompartida`,
               ¡Suscripción Activada! 🎉
             </h1>
             <p className="text-2xl text-gray-600">
-              Tu familia ya está protegida
+              Tu familia ya recibe atención
             </p>
           </div>
 
