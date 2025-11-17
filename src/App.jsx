@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import TopNav from './components/TopNav';
 import { insertRegistration } from './lib/supabase';
 import { sendAccessCode } from './lib/notifications';
+import { loadStripe } from '@stripe/stripe-js';
 
 function App() {
   const navigate = useNavigate();
@@ -13,6 +14,12 @@ function App() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [showContactSuccess, setShowContactSuccess] = useState(false);
   const [isSubmittingContact, setIsSubmittingContact] = useState(false);
+  
+  // Estado para pre-checkout
+  const [checkoutEmail, setCheckoutEmail] = useState('');
+  const [checkoutName, setCheckoutName] = useState('');
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [sessionId, setSessionId] = useState('');
   
   const [migrantFirstName, setMigrantFirstName] = useState('');
   const [migrantLastName, setMigrantLastName] = useState('');
@@ -127,6 +134,43 @@ function App() {
   const clearError = () => {
     setFormError('');
     setMissingFields([]);
+  };
+
+  const handleCheckout = async () => {
+    if (!checkoutEmail || !checkoutName) {
+      alert('Por favor ingresa tu nombre y email para continuar.');
+      return;
+    }
+
+    setIsProcessingPayment(true);
+    
+    try {
+      // Llamar a la API para crear sesión de Stripe
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: checkoutEmail,
+          migrantName: checkoutName,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al crear sesión de pago');
+      }
+
+      // Redirigir a Stripe Checkout
+      window.location.href = data.url;
+      
+    } catch (error) {
+      console.error('Error en checkout:', error);
+      alert('Hubo un error al procesar el pago. Por favor intenta de nuevo.');
+      setIsProcessingPayment(false);
+    }
   };
 
   const handleContactRequest = async () => {
@@ -613,7 +657,7 @@ Equipo SaludCompartida`,
                   </div>
                   
                   <button
-                    onClick={() => setCurrentPage('register')}
+                    onClick={() => setCurrentPage('checkout')}
                     className="w-full bg-gradient-to-r from-cyan-600 to-pink-600 text-white py-5 px-8 rounded-xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3"
                   >
                     <span>Cuida a tu familia ahora</span>
@@ -879,7 +923,7 @@ Equipo SaludCompartida`,
               </div>
 
               <button
-                onClick={() => setCurrentPage('register')}
+                onClick={() => setCurrentPage('checkout')}
                 className="bg-white text-red-600 py-6 px-12 rounded-2xl font-black text-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-4"
               >
                 <span>Quiero mi cupo AHORA →</span>
@@ -1005,7 +1049,7 @@ Equipo SaludCompartida`,
               </div>
 
               <button
-                onClick={() => setCurrentPage('register')}
+                onClick={() => setCurrentPage('checkout')}
                 className="w-full bg-gradient-to-r from-cyan-600 to-pink-600 text-white py-6 px-8 rounded-2xl font-black text-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-4"
               >
                 <span>Sí, quiero cuidar de mi familia</span>
@@ -1036,10 +1080,268 @@ Equipo SaludCompartida`,
     );
   }
 
+  // Página de Checkout - Pre-pago con Stripe
+  if (currentPage === 'checkout') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50">
+        <TopNav onBack={() => setCurrentPage('landing')} hideUser={true} />
+
+        <div className="max-w-4xl mx-auto px-6 py-16">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+              Último paso para proteger a tu familia
+            </h1>
+            <p className="text-xl text-gray-600">
+              Completa tu suscripción y recibe acceso inmediato
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl shadow-2xl p-10 mb-8">
+            {/* Resumen del plan */}
+            <div className="border-b border-gray-200 pb-6 mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Plan SaludCompartida
+              </h2>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <div>
+                    <p className="font-semibold text-gray-900">Doctor 24/7 por WhatsApp</p>
+                    <p className="text-sm text-gray-600">Respuesta en minutos, consultas ilimitadas</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <div>
+                    <p className="font-semibold text-gray-900">40-75% de descuento en medicinas</p>
+                    <p className="text-sm text-gray-600">En más de 1,700 farmacias en México</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <div>
+                    <p className="font-semibold text-gray-900">Terapia psicológica semanal</p>
+                    <p className="text-sm text-gray-600">Sesiones con psicólogos certificados</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Precio */}
+            <div className="bg-gradient-to-br from-cyan-50 to-pink-50 rounded-2xl p-8 mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-xl text-gray-700">Suscripción mensual</span>
+                <div className="text-right">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-5xl font-black text-gray-900">$12</span>
+                    <span className="text-2xl text-gray-600">/mes</span>
+                  </div>
+                  <p className="text-sm text-gray-500">Por toda tu familia</p>
+                </div>
+              </div>
+              
+              <div className="bg-white/60 rounded-lg p-4 space-y-2 text-sm">
+                <p className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Cancela en cualquier momento</span>
+                </p>
+                <p className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Sin contratos ni compromisos</span>
+                </p>
+                <p className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Pago 100% seguro con Stripe</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Formulario de checkout */}
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Tu nombre completo
+                </label>
+                <input
+                  type="text"
+                  value={checkoutName}
+                  onChange={(e) => setCheckoutName(e.target.value)}
+                  placeholder="Ej: María González"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Tu email
+                </label>
+                <input
+                  type="email"
+                  value={checkoutEmail}
+                  onChange={(e) => setCheckoutEmail(e.target.value)}
+                  placeholder="tu@email.com"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all"
+                />
+                <p className="text-sm text-gray-500 mt-2">
+                  Te enviaremos los códigos de acceso a este email
+                </p>
+              </div>
+
+              <button
+                onClick={handleCheckout}
+                disabled={isProcessingPayment || !checkoutEmail || !checkoutName}
+                className="w-full bg-gradient-to-r from-cyan-600 to-pink-600 text-white py-5 px-8 rounded-xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3"
+              >
+                {isProcessingPayment ? (
+                  <>
+                    <svg className="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Procesando...</span>
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    <span>Ir a pago seguro con Stripe</span>
+                  </>
+                )}
+              </button>
+
+              <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <div className="flex-1">
+                    <p className="font-semibold text-blue-900 mb-1">Pago 100% seguro</p>
+                    <p className="text-sm text-blue-800">
+                      Tu información de pago está encriptada y protegida por Stripe, líder mundial en procesamiento de pagos. 
+                      Nunca almacenamos datos de tu tarjeta.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-center text-gray-500 text-sm">
+            Al continuar aceptas nuestros <a href="/terms" className="text-cyan-600 underline">términos de servicio</a> y <a href="/privacy" className="text-cyan-600 underline">política de privacidad</a>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Página de Confirmación de Suscripción Exitosa
+  if (currentPage === 'subscription-success') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-cyan-50">
+        <TopNav hideUser={true} />
+
+        <div className="max-w-4xl mx-auto px-6 py-16">
+          <div className="text-center mb-12">
+            <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl animate-pulse">
+              <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+              ¡Suscripción Activada! 🎉
+            </h1>
+            <p className="text-2xl text-gray-600">
+              Tu familia ya está protegida
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl shadow-2xl p-10 mb-8">
+            <div className="border-l-4 border-green-500 bg-green-50 rounded-lg p-6 mb-8">
+              <h2 className="text-2xl font-bold text-green-900 mb-3">
+                ✅ Pago Confirmado
+              </h2>
+              <p className="text-green-800 text-lg">
+                Tu suscripción de <strong>$12/mes</strong> está activa. Ahora completemos tu registro para 
+                enviarte los códigos de acceso para ti y tu familia.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-gradient-to-br from-cyan-50 to-pink-50 rounded-2xl p-6">
+                <h3 className="font-bold text-lg text-gray-900 mb-3">
+                  🎁 Tienes acceso inmediato a:
+                </h3>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700"><strong>Doctor 24/7</strong> por WhatsApp (ilimitado)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700"><strong>40-75% de descuento</strong> en medicinas (1,700+ farmacias)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700"><strong>Terapia psicológica</strong> semanal</span>
+                  </li>
+                </ul>
+              </div>
+
+              <button
+                onClick={() => setCurrentPage('register')}
+                className="w-full bg-gradient-to-r from-cyan-600 to-pink-600 text-white py-6 px-8 rounded-xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3"
+              >
+                <span>Completar registro y recibir códigos →</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
+            <div className="flex items-start gap-3">
+              <svg className="w-6 h-6 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p className="font-semibold text-blue-900 mb-2">Próximo paso:</p>
+                <p className="text-blue-800">
+                  Completa el formulario de registro con los datos tuyos y de tu familiar en México. 
+                  Te enviaremos los códigos de acceso por email y WhatsApp en menos de 5 minutos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (currentPage === 'register') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50">
-  <TopNav onBack={() => setCurrentPage('landing')} hideUser={true} />
+  <TopNav onBack={() => setCurrentPage('subscription-success')} hideUser={true} />
 
         <div className="max-w-7xl mx-auto px-6 py-8">
           
