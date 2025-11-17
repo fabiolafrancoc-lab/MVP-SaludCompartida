@@ -149,26 +149,34 @@ function App() {
     setIsProcessingPayment(true);
     
     try {
-      // 1. Primero guardar en Supabase
+      // 1. Primero guardar en Supabase usando API del backend
       const customerData = {
         first_name: checkoutFirstName,
         last_name: checkoutLastName,
         email: checkoutEmail,
         phone: `+1${cleanPhone}`,
         country: 'USA',
-        status: 'pending_payment',
-        created_at: new Date().toISOString(),
         traffic_source: trafficSource || 'direct',
       };
 
-      const supabaseResult = await insertPreCheckoutCustomer(customerData);
+      console.log('📤 Enviando datos a backend:', customerData);
 
-      if (!supabaseResult.success) {
+      const saveResponse = await fetch('/api/save-pre-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(customerData),
+      });
+
+      const supabaseResult = await saveResponse.json();
+
+      if (!saveResponse.ok || !supabaseResult.success) {
         console.error('Error guardando en Supabase:', supabaseResult.error);
         throw new Error(supabaseResult.error || 'Error al guardar información. Por favor intenta de nuevo.');
       }
 
-      console.log('✅ Datos guardados exitosamente en Supabase');
+      console.log('✅ Datos guardados exitosamente en Supabase:', supabaseResult.data);
 
       // 2. Crear sesión de pago con el customer_id de Supabase
       const response = await fetch('/api/create-checkout-session', {
