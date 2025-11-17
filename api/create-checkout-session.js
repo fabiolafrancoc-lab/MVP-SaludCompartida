@@ -37,8 +37,8 @@ export default async function handler(req, res) {
         },
       ],
       
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://saludcompartida.app'}/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://saludcompartida.app'}/?checkout=cancelled`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.saludcompartida.app'}/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.saludcompartida.app'}/?checkout=cancelled`,
       
       metadata: {
         migrant_name: migrantName,
