@@ -10,32 +10,41 @@ export default async function handler(req, res) {
   try {
     const { email, migrantName } = req.body;
 
+    console.log('🔵 Creating Stripe session for:', email);
+    console.log('🔵 STRIPE_SECRET_KEY exists:', !!process.env.STRIPE_SECRET_KEY);
+    console.log('🔵 STRIPE_PRICE_ID:', process.env.STRIPE_PRICE_ID);
+
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY no configurado');
+    }
+
+    if (!process.env.STRIPE_PRICE_ID) {
+      throw new Error('STRIPE_PRICE_ID no configurado');
+    }
+
     // Crear sesión de Stripe Checkout
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'subscription',
       customer_email: email,
-      client_reference_id: email, // Para identificar después
+      client_reference_id: email,
       
       line_items: [
         {
-          price: process.env.STRIPE_PRICE_ID, // ID del plan $12/mes (crear en Stripe Dashboard)
+          price: process.env.STRIPE_PRICE_ID,
           quantity: 1,
         },
       ],
       
-      // URLs de redirección
       success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://saludcompartida.app'}/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://saludcompartida.app'}/?checkout=cancelled`,
       
-      // Metadata para tracking
       metadata: {
         migrant_name: migrantName,
         program: 'SaludCompartida',
         plan: 'mensual-12usd',
       },
       
-      // Configuración de suscripción
       subscription_data: {
         metadata: {
           migrant_name: migrantName,
@@ -43,12 +52,11 @@ export default async function handler(req, res) {
         },
       },
       
-      // Permitir códigos promocionales
       allow_promotion_codes: true,
-      
-      // Billing address collection
       billing_address_collection: 'auto',
     });
+
+    console.log('✅ Stripe session created:', session.id);
 
     return res.status(200).json({ 
       sessionId: session.id,
@@ -56,7 +64,7 @@ export default async function handler(req, res) {
     });
     
   } catch (error) {
-    console.error('Error creando Checkout Session:', error);
+    console.error('❌ Error creando Checkout Session:', error);
     return res.status(500).json({ 
       error: 'Error al crear la sesión de pago',
       details: error.message 
