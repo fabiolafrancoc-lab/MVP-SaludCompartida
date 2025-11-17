@@ -1,55 +1,11 @@
-// Configuración de Supabase usando fetch API (sin necesidad de instalación)
+// Configuración de Supabase usando el cliente oficial
+import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://ozpffhjaknxwoueaojkh.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96cGZmaGpha254d291ZWFvamtoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4MjA5MDUsImV4cCI6MjA3ODM5NjkwNX0.Co05GFfcqmANmlT5tiQ-2fpN6VYc3w2m3PSKdHFCvds';
 
-// Función helper para hacer requests a Supabase
-async function supabaseRequest(endpoint, method = 'GET', body = null) {
-  const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
-  
-  const options = {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Prefer': 'return=representation' // Para que retorne los datos insertados
-    }
-  };
-
-  if (body) {
-    options.body = JSON.stringify(body);
-  }
-
-  console.log('📡 Supabase Request:', {
-    url,
-    method,
-    body: body ? JSON.stringify(body, null, 2) : 'none',
-    headers: { ...options.headers, apikey: '***hidden***', Authorization: '***hidden***' }
-  });
-
-  const response = await fetch(url, options);
-  
-  console.log('📡 Supabase Response Status:', response.status, response.statusText);
-  
-  if (!response.ok) {
-    let errorMessage = 'Error en la petición a Supabase';
-    try {
-      const error = await response.json();
-      console.error('❌ Error Response Body:', error);
-      errorMessage = error.message || error.hint || JSON.stringify(error);
-    } catch (e) {
-      errorMessage = `HTTP ${response.status}: ${response.statusText}`;
-    }
-    throw new Error(errorMessage);
-  }
-
-  // Para INSERT/POST, Supabase puede retornar respuesta vacía (201 Created)
-  const text = await response.text();
-  console.log('📡 Supabase Response Body (raw):', text);
-  
-  return text ? JSON.parse(text) : {};
-}
+// Crear cliente de Supabase
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Función para generar código de acceso único
 function generateAccessCode() {
@@ -64,7 +20,6 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
   const familyAccessCode = generateAccessCode();
   
   const newRegistration = {
-    // Datos del migrante (columnas 1-11)
     migrant_first_name: migrantData.firstName,
     migrant_last_name: migrantData.lastName,
     migrant_mother_last_name: migrantData.motherLastName || null,
@@ -72,8 +27,6 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     migrant_country_code: migrantData.countryCode || '+1',
     migrant_phone: migrantData.phone,
     migrant_access_code: migrantAccessCode,
-    
-    // Datos del familiar (columnas 12-20)
     family_first_name: familyData.firstName,
     family_last_name: familyData.lastName,
     family_mother_last_name: familyData.motherLastName || null,
@@ -82,23 +35,29 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     family_phone: familyData.phone,
     family_access_code: familyAccessCode,
     family_country: familyData.country || null,
-    
-    // Origen de tráfico
     traffic_source: trafficSource
   };
 
   console.log('🔄 Intentando guardar en Supabase:', newRegistration);
   
   try {
-    const result = await supabaseRequest('registrations', 'POST', newRegistration);
-    console.log('✅ RESPUESTA REAL DE SUPABASE:', result);
+    const { data, error } = await supabase
+      .from('registrations')
+      .insert([newRegistration])
+      .select();
+
+    if (error) {
+      console.error('❌ ERROR insertando registro:', error);
+      return { success: false, error: error.message };
+    }
+
+    console.log('✅ RESPUESTA de Supabase:', data);
     
-    // Verificar si realmente se insertó algo
-    if (!result || (Array.isArray(result) && result.length === 0)) {
-      console.error('❌ Supabase retornó vacío - posible problema de RLS o columnas');
+    if (!data || data.length === 0) {
+      console.error('❌ Supabase retornó vacío');
       return { 
         success: false, 
-        error: 'No se pudo insertar en Supabase (respuesta vacía)',
+        error: 'No se pudo insertar en Supabase',
         migrantAccessCode,
         familyAccessCode 
       };
@@ -106,13 +65,12 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     
     return { 
       success: true, 
-      data: result, 
+      data: data[0], 
       migrantAccessCode,
       familyAccessCode 
     };
   } catch (error) {
     console.error('❌ ERROR REAL insertando registro:', error);
-    console.error('❌ Mensaje de error:', error.message);
     return { success: false, error: error.message };
   }
 }
@@ -121,14 +79,15 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
 export async function getUserByAccessCode(accessCode) {
   try {
     // Buscar en códigos de migrante
-    let result = await supabaseRequest(
-      `registrations?migrant_access_code=eq.${accessCode}&select=*`,
-      'GET'
-    );
+    let { data, error } = await supabase
+      .from('registrations')
+      .select('*')
+      .eq('migrant_access_code', accessCode);
     
-    if (result && result.length > 0) {
-      // Código de migrante encontrado - retornar datos del migrante
-      const user = result[0];
+    if (error) throw error;
+    
+    if (data && data.length > 0) {
+      const user = data[0];
       return { 
         success: true, 
         data: {
@@ -146,14 +105,15 @@ export async function getUserByAccessCode(accessCode) {
     }
     
     // Si no es código de migrante, buscar en códigos de familiar
-    result = await supabaseRequest(
-      `registrations?family_access_code=eq.${accessCode}&select=*`,
-      'GET'
-    );
+    ({ data, error } = await supabase
+      .from('registrations')
+      .select('*')
+      .eq('family_access_code', accessCode));
     
-    if (result && result.length > 0) {
-      // Código de familiar encontrado - retornar datos del familiar
-      const user = result[0];
+    if (error) throw error;
+    
+    if (data && data.length > 0) {
+      const user = data[0];
       return { 
         success: true, 
         data: {
@@ -181,13 +141,15 @@ export async function getUserByAccessCode(accessCode) {
 export async function getUserByPhone(phone) {
   try {
     // Buscar en teléfonos de migrante
-    let result = await supabaseRequest(
-      `registrations?migrant_phone=eq.${phone}&select=*`,
-      'GET'
-    );
+    let { data, error } = await supabase
+      .from('registrations')
+      .select('*')
+      .eq('migrant_phone', phone);
     
-    if (result && result.length > 0) {
-      const user = result[0];
+    if (error) throw error;
+    
+    if (data && data.length > 0) {
+      const user = data[0];
       return { 
         success: true, 
         data: {
@@ -205,13 +167,15 @@ export async function getUserByPhone(phone) {
     }
     
     // Si no es teléfono de migrante, buscar en teléfonos de familiar
-    result = await supabaseRequest(
-      `registrations?family_phone=eq.${phone}&select=*`,
-      'GET'
-    );
+    ({ data, error } = await supabase
+      .from('registrations')
+      .select('*')
+      .eq('family_phone', phone));
     
-    if (result && result.length > 0) {
-      const user = result[0];
+    if (error) throw error;
+    
+    if (data && data.length > 0) {
+      const user = data[0];
       return { 
         success: true, 
         data: {
@@ -235,15 +199,12 @@ export async function getUserByPhone(phone) {
   }
 }
 
-// Insertar datos de pre-checkout (antes de pago) usando función SQL
+// Insertar datos de pre-checkout usando cliente oficial de Supabase
 export async function insertPreCheckoutCustomer(customerData) {
   try {
     console.log('🔄 Intentando guardar pre-checkout:', customerData);
-    console.log('🔑 Usando Supabase URL:', SUPABASE_URL);
-    console.log('🔑 Anon Key existe:', SUPABASE_ANON_KEY ? 'SÍ' : 'NO');
     
-    // Llamar a la función SQL en lugar de INSERT directo
-    const functionParams = {
+    const { data, error } = await supabase.rpc('insert_pre_checkout_customer', {
       p_first_name: customerData.first_name,
       p_last_name: customerData.last_name,
       p_email: customerData.email,
@@ -251,48 +212,36 @@ export async function insertPreCheckoutCustomer(customerData) {
       p_country: customerData.country || 'USA',
       p_status: customerData.status || 'pending_payment',
       p_traffic_source: customerData.traffic_source || 'direct'
-    };
-    
-    console.log('📞 Llamando función SQL con:', functionParams);
-    
-    const result = await supabaseRequest(
-      'rpc/insert_pre_checkout_customer', 
-      'POST', 
-      functionParams
-    );
-    
-    console.log('✅ RESPUESTA RAW de Supabase:', JSON.stringify(result, null, 2));
-    console.log('✅ Tipo de respuesta:', typeof result, Array.isArray(result) ? '(array)' : '(objeto)');
-    
-    // La función RPC retorna un array
-    let savedData = result;
-    if (Array.isArray(result) && result.length > 0) {
-      savedData = result[0];
-      console.log('📦 Extraído primer elemento del array:', savedData);
+    });
+
+    if (error) {
+      console.error('❌ Error de Supabase:', error);
+      throw error;
     }
-    
-    // Verificar si tenemos un ID (indica éxito)
+
+    console.log('✅ Respuesta de Supabase:', data);
+
+    // La función RPC retorna un array
+    const savedData = Array.isArray(data) && data.length > 0 ? data[0] : data;
+
     if (!savedData || !savedData.id) {
-      console.error('❌ No se obtuvo ID de Supabase');
-      console.error('❌ savedData completo:', savedData);
-      return { 
-        success: false, 
+      console.error('❌ No se obtuvo ID');
+      return {
+        success: false,
         error: 'Error al guardar información. Por favor intenta de nuevo.'
       };
     }
-    
-    console.log('✅ Pre-checkout guardado exitosamente con ID:', savedData.id);
-    return { 
-      success: true, 
+
+    console.log('✅ Pre-checkout guardado con ID:', savedData.id);
+    return {
+      success: true,
       data: savedData
     };
   } catch (error) {
-    console.error('❌ Error insertando pre-checkout customer:', error);
-    console.error('❌ Error message:', error.message);
-    console.error('❌ Error stack:', error.stack);
-    return { 
-      success: false, 
-      error: 'Error al guardar información. Por favor intenta de nuevo.' 
+    console.error('❌ Error insertando pre-checkout:', error);
+    return {
+      success: false,
+      error: 'Error al guardar información. Por favor intenta de nuevo.'
     };
   }
 }
