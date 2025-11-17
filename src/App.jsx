@@ -149,36 +149,9 @@ function App() {
     setIsProcessingPayment(true);
     
     try {
-      // 1. Primero guardar en Supabase usando API del backend
-      const customerData = {
-        first_name: checkoutFirstName,
-        last_name: checkoutLastName,
-        email: checkoutEmail,
-        phone: `+1${cleanPhone}`,
-        country: 'USA',
-        traffic_source: trafficSource || 'direct',
-      };
+      console.log('📤 Creando sesión de pago directamente (sin pre-save)');
 
-      console.log('📤 Enviando datos a backend:', customerData);
-
-      const saveResponse = await fetch('/api/save-pre-checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(customerData),
-      });
-
-      const supabaseResult = await saveResponse.json();
-
-      if (!saveResponse.ok || !supabaseResult.success) {
-        console.error('Error guardando en Supabase:', supabaseResult.error);
-        throw new Error(supabaseResult.error || 'Error al guardar información. Por favor intenta de nuevo.');
-      }
-
-      console.log('✅ Datos guardados exitosamente en Supabase:', supabaseResult.data);
-
-      // 2. Crear sesión de pago con el customer_id de Supabase
+      // Crear sesión de Stripe directamente, sin guardar antes en Supabase
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -188,7 +161,8 @@ function App() {
           email: checkoutEmail,
           migrantName: `${checkoutFirstName} ${checkoutLastName}`,
           phone: `+1${cleanPhone}`,
-          customerId: supabaseResult.data.id, // ID de Supabase para tracking
+          firstName: checkoutFirstName,
+          lastName: checkoutLastName,
         }),
       });
 
@@ -198,11 +172,9 @@ function App() {
         throw new Error(data.error || 'Error al procesar el pago');
       }
 
-      // 3. Guardar session_id para después
-      setSessionId(data.sessionId);
-      setCustomerId(supabaseResult.data.id);
+      console.log('✅ Sesión de Stripe creada:', data.sessionId);
 
-      // 4. Redirigir a página de pago
+      // Redirigir a Stripe Checkout
       window.location.href = data.url;
       
     } catch (error) {
