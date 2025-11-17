@@ -235,18 +235,36 @@ export async function getUserByPhone(phone) {
   }
 }
 
-// Insertar datos de pre-checkout (antes de pago)
+// Insertar datos de pre-checkout (antes de pago) usando función SQL
 export async function insertPreCheckoutCustomer(customerData) {
   try {
     console.log('🔄 Intentando guardar pre-checkout:', customerData);
     console.log('🔑 Usando Supabase URL:', SUPABASE_URL);
     console.log('🔑 Anon Key existe:', SUPABASE_ANON_KEY ? 'SÍ' : 'NO');
     
-    const result = await supabaseRequest('pre_checkout_customers', 'POST', customerData);
+    // Llamar a la función SQL en lugar de INSERT directo
+    const functionParams = {
+      p_first_name: customerData.first_name,
+      p_last_name: customerData.last_name,
+      p_email: customerData.email,
+      p_phone: customerData.phone,
+      p_country: customerData.country || 'USA',
+      p_status: customerData.status || 'pending_payment',
+      p_traffic_source: customerData.traffic_source || 'direct'
+    };
+    
+    console.log('📞 Llamando función SQL con:', functionParams);
+    
+    const result = await supabaseRequest(
+      'rpc/insert_pre_checkout_customer', 
+      'POST', 
+      functionParams
+    );
+    
     console.log('✅ RESPUESTA RAW de Supabase:', JSON.stringify(result, null, 2));
     console.log('✅ Tipo de respuesta:', typeof result, Array.isArray(result) ? '(array)' : '(objeto)');
     
-    // Supabase puede retornar array o objeto único
+    // La función RPC retorna un array
     let savedData = result;
     if (Array.isArray(result) && result.length > 0) {
       savedData = result[0];
