@@ -23,6 +23,11 @@ async function buffer(readable) {
 }
 
 export default async function handler(req, res) {
+  // Permitir GET para verificación de Stripe
+  if (req.method === 'GET') {
+    return res.status(200).json({ status: 'Webhook endpoint is active' });
+  }
+  
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
