@@ -19,6 +19,7 @@ import Migrant from './migrant.jsx'
 import MigrantContact from './migrantcontact.jsx'
 import WhatsAppDemo from './pages/WhatsAppDemo.jsx'
 import SubscriptionSuccess from './pages/SubscriptionSuccess.jsx'
+import Registro from './pages/Registro.jsx'
 import { UserProvider } from './contexts/UserContext'
 
 createRoot(document.getElementById('root')).render(
@@ -43,6 +44,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/account" element={<Account />} /> {/* 👈 Mi Cuenta */}
           <Route path="/whatsapp-demo" element={<WhatsAppDemo />} /> {/* 👈 Demo Íconos WhatsApp */}
           <Route path="/subscription-success" element={<SubscriptionSuccess />} /> {/* 👈 Éxito Pago */}
+          <Route path="/registro" element={<Registro />} /> {/* 👈 Registro después de pago */}
         </Routes>
       </BrowserRouter>
     </UserProvider>
