@@ -23,13 +23,18 @@ export default async function handler(req, res) {
     } = req.body;
 
     console.log('📱 Enviando códigos por WhatsApp...');
+    console.log('Migrante:', migrantPhone, migrantCode);
+    console.log('Familiar:', familyPhone, familyCode);
+
+    let migrantSid = null;
+    let familySid = null;
 
     // Enviar código al migrante
-    if (migrantPhone) {
+    if (migrantPhone && migrantCode) {
       const migrantMessage = await client.messages.create({
         from: whatsappFrom,
         to: `whatsapp:${migrantPhone}`,
-        body: `🎉 ¡Bienvenido a SaludCompartida, ${migrantName}!
+        body: `🎉 ¡Bienvenido a SaludCompartida, ${migrantName || 'Usuario'}!
 
 Tu código de acceso es: *${migrantCode}*
 
@@ -43,17 +48,18 @@ Con este código podrás:
 ¡Gracias por cuidar la salud de tu familia! 💙`
       });
 
-      console.log('✅ WhatsApp enviado al migrante:', migrantMessage.sid);
+      migrantSid = migrantMessage.sid;
+      console.log('✅ WhatsApp enviado al migrante:', migrantSid);
     }
 
     // Enviar código al familiar en México
-    if (familyPhone) {
+    if (familyPhone && familyCode) {
       const familyMessage = await client.messages.create({
         from: whatsappFrom,
         to: `whatsapp:${familyPhone}`,
-        body: `🎉 ¡Hola ${familyName}!
+        body: `🎉 ¡Hola ${familyName || 'Usuario'}!
 
-${migrantName} te ha inscrito en SaludCompartida.
+${migrantName || 'Tu familiar'} te ha inscrito en SaludCompartida.
 
 Tu código de acceso es: *${familyCode}*
 
@@ -67,14 +73,15 @@ Ahora tienes acceso a:
 ¡Tu familia está cuidando de tu salud! 💙`
       });
 
-      console.log('✅ WhatsApp enviado al familiar:', familyMessage.sid);
+      familySid = familyMessage.sid;
+      console.log('✅ WhatsApp enviado al familiar:', familySid);
     }
 
     return res.status(200).json({ 
       success: true,
       message: 'Códigos enviados por WhatsApp',
-      migrantSid: migrantMessage?.sid,
-      familySid: familyMessage?.sid
+      migrantSid: migrantSid,
+      familySid: familySid
     });
 
   } catch (error) {
