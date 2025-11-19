@@ -9,9 +9,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { email, migrantName } = req.body;
+    const { email, migrantName, phone, firstName, lastName } = req.body;
 
     console.log('🔵 Creating Stripe session for:', email);
+    console.log('🔵 Phone:', phone);
     console.log('🔵 STRIPE_SECRET_KEY exists:', !!process.env.STRIPE_SECRET_KEY);
     console.log('🔵 STRIPE_PRICE_ID:', process.env.STRIPE_PRICE_ID);
 
@@ -42,6 +43,9 @@ export default async function handler(req, res) {
       
       metadata: {
         migrant_name: migrantName,
+        phone: phone,
+        first_name: firstName,
+        last_name: lastName,
         program: 'SaludCompartida',
         plan: 'mensual-12usd',
       },
@@ -49,6 +53,7 @@ export default async function handler(req, res) {
       subscription_data: {
         metadata: {
           migrant_name: migrantName,
+          phone: phone,
           program: 'SaludCompartida',
         },
       },
