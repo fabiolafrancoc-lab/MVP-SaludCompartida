@@ -7,6 +7,21 @@ function generateAccessCode() {
   return Math.random().toString(36).substring(2, 10).toUpperCase();
 }
 
+// Configuración necesaria para webhooks de Stripe
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+async function buffer(readable) {
+  const chunks = [];
+  for await (const chunk of readable) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+  }
+  return Buffer.concat(chunks);
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -18,7 +33,11 @@ export default async function handler(req, res) {
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
+    // Obtener el raw body
+    const buf = await buffer(req);
+    const body = buf.toString();
+    
+    event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
   } catch (err) {
     console.error('❌ Webhook signature verification failed:', err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
