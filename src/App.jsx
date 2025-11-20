@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from './components/TopNav';
-import BubblesIntro from './components/BubblesIntro';
+import BubblesProblemStage from './components/BubblesProblemStage';
 import BubblesSolucion from './components/BubblesSolucion';
 import { insertRegistration, insertPreCheckoutCustomer } from './lib/supabase';
 import { sendAccessCode } from './lib/notifications';
@@ -24,7 +24,8 @@ import {
 function App() {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState('landing');
-  const [showBubbles, setShowBubbles] = useState(true);
+  const [showProblemStage, setShowProblemStage] = useState(true);
+  const [showSolucionBubbles, setShowSolucionBubbles] = useState(false);
   const [spotsLeft, setSpotsLeft] = useState(100);
   const totalSpots = 100;
   const [showConfetti, setShowConfetti] = useState(false);
@@ -661,11 +662,20 @@ Equipo SaludCompartida`,
 
   // Landing Page de Ventas
   if (currentPage === 'landing') {
-    // Mostrar bubbles primero como intro
-    if (showBubbles) {
-      return <BubblesIntro onComplete={() => setShowBubbles(false)} />;
+    // ETAPA 1: BubblesProblemStage (15 segundos con preguntas y burbujas)
+    if (showProblemStage) {
+      return <BubblesProblemStage onComplete={() => {
+        setShowProblemStage(false);
+        setShowSolucionBubbles(true);
+      }} />;
     }
 
+    // ETAPA 2: BubblesSolucion (solución con burbujas)
+    if (showSolucionBubbles) {
+      return <BubblesSolucion onComplete={() => setShowSolucionBubbles(false)} />;
+    }
+
+    // ETAPA 3: Landing page principal con 3 secciones
     return (
       <div className="min-h-screen bg-white">
         {/* Header con Menú de Navegación */}
@@ -673,7 +683,10 @@ Equipo SaludCompartida`,
           hideUser={true} 
           showLoginButton={true}
           showMenu={true}
-          onRestartBubbles={() => setShowBubbles(true)}
+          onRestartBubbles={() => {
+            setShowProblemStage(true);
+            setShowSolucionBubbles(false);
+          }}
         />
 
         {/* PARTE 1: RESUMEN DEL PROBLEMA - Diseño limpio sin tanto color */}
