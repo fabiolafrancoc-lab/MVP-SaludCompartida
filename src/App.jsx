@@ -655,9 +655,9 @@ Equipo SaludCompartida`,
               
               {/* Left - Mensaje Emocional */}
               <div className="space-y-8">
-                <div className="inline-flex items-center gap-2 bg-orange-100 border-2 border-orange-300 rounded-full px-6 py-2 animate-pulse">
-                  <span className="w-3 h-3 bg-orange-500 rounded-full animate-ping"></span>
-                  <span className="text-orange-800 font-bold text-sm">Solo {spotsLeft} familias de 100 cupos disponibles</span>
+                <div className="inline-flex items-center gap-2 bg-cyan-100 border-2 border-cyan-300 rounded-full px-6 py-2">
+                  <span className="w-3 h-3 bg-cyan-500 rounded-full"></span>
+                  <span className="text-cyan-800 font-bold text-sm">Cobertura médica completa para tu familia</span>
                 </div>
 
                 <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight">
@@ -930,20 +930,19 @@ Equipo SaludCompartida`,
               </div>
               
               <h2 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
-                ⚠️ Solo aceptamos 100 familias en total
+                ⚠️ La decisión es ahora
               </h2>
               
               <p className="text-2xl mb-8 leading-relaxed">
-                Este no es para todos. Es un programa piloto <strong>exclusivo</strong> para los primeros 100 migrantes 
-                que decidan cuidar de su familia HOY.
+                Cada día que pasa sin cobertura médica es un riesgo innecesario para tu familia.
               </p>
 
               <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-2xl p-8 mb-8">
                 <p className="text-xl mb-4">
-                  Cada hora que pasa, más familias se registran y los cupos se acaban.
+                  Miles de familias ya confían en nosotros para proteger a quienes más aman.
                 </p>
                 <p className="text-3xl font-black">
-                  Si te vas ahora, el cupo que viste ya no estará cuando regreses.
+                  ¿Vas a esperar a que pase algo para actuar?
                 </p>
               </div>
 
@@ -951,11 +950,11 @@ Equipo SaludCompartida`,
                 onClick={() => setCurrentPage('checkout')}
                 className="bg-white text-red-600 py-6 px-12 rounded-2xl font-black text-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-4"
               >
-                <span>Quiero mi cupo AHORA →</span>
+                <span>Proteger a mi familia AHORA →</span>
               </button>
 
               <p className="text-white/90 mt-6 text-lg">
-                ⏰ Los cupos se asignan por orden de llegada • No esperes más
+                ⏰ Activa tu membresía en menos de 2 minutos
               </p>
             </div>
           </div>
@@ -1085,7 +1084,7 @@ Equipo SaludCompartida`,
 
               <div className="mt-4 space-y-2">
                 <p className="text-gray-500 text-sm">
-                  Solo {spotsLeft} cupos disponibles • Pago recurrente seguro (crédito o débito)
+                  Pago recurrente seguro (crédito o débito) • Cancela cuando quieras
                 </p>
                 <p className="text-gray-400 text-xs flex items-center justify-center gap-1">
                   <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1489,31 +1488,31 @@ Equipo SaludCompartida`,
 
             <div className="space-y-8">
               
-              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-500 via-pink-500 to-rose-500 p-8 shadow-xl animate-pulse">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-500 p-8 shadow-xl">
                 <div className="relative z-10">
                   <div className="mb-6">
                     <p className="text-white/90 text-sm font-medium uppercase tracking-wider mb-2">
-                      Cupos Disponibles - Programa Piloto
+                      Membresía Activa
                     </p>
                     <div className="flex items-baseline gap-3 mb-4">
-                      <p className="text-white text-5xl font-bold animate-bounce">
-                        {spotsLeft}
+                      <p className="text-white text-5xl font-bold">
+                        $12
                       </p>
                       <p className="text-white/80 text-lg">
-                        de {totalSpots} cupos
+                        al mes
                       </p>
                     </div>
                     
                     <div className="bg-white/20 rounded-xl p-4 mb-4">
                       <p className="text-white text-sm leading-relaxed">
-                        <strong>Hemos recibido 4,500 solicitudes</strong> y solo podemos aceptar 1,000 participantes. 
-                        <span className="block mt-2 text-yellow-200 font-semibold">⏰ Quedan 3 días para seleccionar los 1,000 participantes.</span>
+                        <strong>Cobertura completa para 4 personas</strong> con acceso inmediato a telemedicina, recetas digitales, descuentos en farmacias y terapia psicológica.
+                        <span className="block mt-2 text-cyan-200 font-semibold">✅ Sin contratos • Cancela cuando quieras</span>
                       </p>
                     </div>
                   </div>
                   
                   <p className="text-white/80 text-sm font-medium">
-                    ⚡ El registro no garantiza que seas seleccionado
+                    💳 Pago seguro con tarjeta de crédito o débito
                   </p>
                 </div>
                 
@@ -1526,7 +1525,7 @@ Equipo SaludCompartida`,
                   
                   <div className="mb-10">
                     <h3 className="text-3xl font-bold text-gray-900 mb-3">
-                      Comienza Tu Registro
+                      Activa Tu Membresía
                     </h3>
                     <p className="text-gray-600 text-lg leading-relaxed">
                       Completa tu información para tener la oportunidad de ser seleccionado en nuestro programa piloto
@@ -1897,15 +1896,15 @@ Equipo SaludCompartida`,
                 </p>
               </div>
 
-              <div className="bg-gradient-to-r from-orange-100 to-pink-100 border-2 border-orange-300 rounded-2xl p-6 mb-6">
+              <div className="bg-gradient-to-r from-cyan-100 to-blue-100 border-2 border-cyan-300 rounded-2xl p-6 mb-6">
                 <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-orange-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  <svg className="w-6 h-6 text-cyan-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <div className="flex-1">
-                    <p className="font-bold text-gray-900 mb-1">¡Solo quedan {spotsLeft} cupos disponibles!</p>
+                    <p className="font-bold text-gray-900 mb-1">¡Registro completado con éxito!</p>
                     <p className="text-sm text-gray-700">
-                      Cada hora se llenan más espacios. Los códigos de acceso se enviarán por orden de llegada a los seleccionados.
+                      Recibirás tus códigos de acceso en los próximos minutos. Revisa tu WhatsApp y correo electrónico.
                     </p>
                   </div>
                 </div>
