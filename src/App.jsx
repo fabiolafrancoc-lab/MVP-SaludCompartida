@@ -660,6 +660,49 @@ Equipo SaludCompartida`,
           onRestartBubbles={() => setShowBubbles(true)}
         />
 
+        {/* RESUMEN RÁPIDO - Diseño limpio sin tanto color */}
+        <section className="relative bg-white py-12 md:py-16">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-3">
+                Sabemos exactamente cómo te sientes
+              </h2>
+              <p className="text-lg text-gray-600">
+                Miles de migrantes como tú viven con estas preocupaciones
+              </p>
+            </div>
+
+            {/* Lista de problemas - diseño minimalista */}
+            <div className="space-y-3 mb-10">
+              <div className="flex items-center gap-4 bg-gray-50 rounded-xl p-4 border-l-4 border-red-500">
+                <span className="text-2xl">😔</span>
+                <p className="text-gray-800 font-medium">Te sientes culpable por estar lejos de tu familia</p>
+              </div>
+              
+              <div className="flex items-center gap-4 bg-gray-50 rounded-xl p-4 border-l-4 border-orange-500">
+                <span className="text-2xl">😰</span>
+                <p className="text-gray-800 font-medium">Te preocupa que se enfermen y no puedas ayudar</p>
+              </div>
+              
+              <div className="flex items-center gap-4 bg-gray-50 rounded-xl p-4 border-l-4 border-yellow-500">
+                <span className="text-2xl">💸</span>
+                <p className="text-gray-800 font-medium">Las medicinas son demasiado caras para ellos</p>
+              </div>
+              
+              <div className="flex items-center gap-4 bg-gray-50 rounded-xl p-4 border-l-4 border-purple-500">
+                <span className="text-2xl">🚨</span>
+                <p className="text-gray-800 font-medium">Tienes miedo de las emergencias médicas</p>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <p className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                Pero hay una solución ↓
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* FASE 2: LA SOLUCIÓN - Fondo Oscuro */}
         <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 py-16">
