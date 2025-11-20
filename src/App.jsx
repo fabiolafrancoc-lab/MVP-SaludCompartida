@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from './components/TopNav';
+import BubblesIntro from './components/BubblesIntro';
 import { insertRegistration, insertPreCheckoutCustomer } from './lib/supabase';
 import { sendAccessCode } from './lib/notifications';
 import { loadStripe } from '@stripe/stripe-js';
@@ -8,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 function App() {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState('landing');
+  const [showBubbles, setShowBubbles] = useState(true);
   const [spotsLeft, setSpotsLeft] = useState(100);
   const totalSpots = 100;
   const [showConfetti, setShowConfetti] = useState(false);
@@ -644,6 +646,11 @@ Equipo SaludCompartida`,
 
   // Landing Page de Ventas
   if (currentPage === 'landing') {
+    // Mostrar bubbles primero como intro
+    if (showBubbles) {
+      return <BubblesIntro onComplete={() => setShowBubbles(false)} />;
+    }
+
     return (
       <div className="min-h-screen bg-white">
         <TopNav hideUser={true} />
