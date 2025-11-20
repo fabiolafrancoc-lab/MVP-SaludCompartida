@@ -48,7 +48,7 @@ const testimonials = [
   "Trabajo 12 horas para mantenerlos, pero no estoy ahí cuando me necesitan. —Arturo Peña, Chicago IL",
 ];
 
-const SaludCompartidaProblemStage = () => {
+const SaludCompartidaProblemStage = ({ onComplete }) => {
   const [showQuestion1, setShowQuestion1] = useState(false);
   const [showQuestion2, setShowQuestion2] = useState(false);
   const [showOnlyOneQuestion, setShowOnlyOneQuestion] = useState(false);
@@ -113,11 +113,16 @@ const SaludCompartidaProblemStage = () => {
     // A los 7 segundos: mostrar solo UNA pregunta
     setTimeout(() => setShowOnlyOneQuestion(true), 7000);
     
+    // Después de 15 segundos, pasar a la siguiente etapa
+    setTimeout(() => {
+      if (onComplete) onComplete();
+    }, 15000);
+    
     return () => {
       clearInterval(mainInterval);
       clearInterval(bgInterval);
     };
-  }, []);
+  }, [onComplete]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
