@@ -153,7 +153,7 @@ export default function LandingBubblesSimple() {
                 Tu familia merece tranquilidad. Tú mereces dormir en paz.
               </div>
               <button
-                onClick={() => navigate('/como-funciona')}
+                onClick={() => navigate('/')}
                 className="inline-block px-16 py-6 bg-white text-cyan-600 text-2xl font-extrabold rounded-full shadow-2xl hover:bg-gray-50 hover:scale-110 transition-all uppercase tracking-wide"
               >
                 Protege a Tu Familia Ahora

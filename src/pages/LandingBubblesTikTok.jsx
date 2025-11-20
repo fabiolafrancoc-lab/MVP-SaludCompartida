@@ -210,7 +210,7 @@ export default function LandingBubblesTikTok() {
             {/* CTA */}
             <div className="text-center mt-10">
               <button
-                onClick={() => navigate('/como-funciona')}
+                onClick={() => navigate('/')}
                 className="px-12 py-5 bg-gradient-to-r from-cyan-500 to-pink-500 text-white text-xl md:text-2xl font-black rounded-full shadow-2xl hover:scale-105 transition-all uppercase animate-pulse"
               >
                 Cuidar Ahora
