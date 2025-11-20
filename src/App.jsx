@@ -6,6 +6,20 @@ import BubblesSolucion from './components/BubblesSolucion';
 import { insertRegistration, insertPreCheckoutCustomer } from './lib/supabase';
 import { sendAccessCode } from './lib/notifications';
 import { loadStripe } from '@stripe/stripe-js';
+import { 
+  GuiltIcon, 
+  WorriedIcon, 
+  MoneyStressIcon, 
+  EmergencyIcon,
+  PeaceIcon,
+  HeartIcon,
+  SavingsIcon,
+  DoctorIcon,
+  PharmacyIcon,
+  TherapyIcon,
+  FamilyIcon,
+  ShieldIcon
+} from './components/icons/CustomIcons';
 
 function App() {
   const navigate = useNavigate();
@@ -654,14 +668,16 @@ Equipo SaludCompartida`,
 
     return (
       <div className="min-h-screen bg-white">
+        {/* Header con Menú de Navegación */}
         <TopNav 
           hideUser={true} 
           showLoginButton={true}
+          showMenu={true}
           onRestartBubbles={() => setShowBubbles(true)}
         />
 
-        {/* RESUMEN RÁPIDO - Diseño limpio sin tanto color */}
-        <section className="relative bg-white py-12 md:py-16">
+        {/* PARTE 1: RESUMEN DEL PROBLEMA - Diseño limpio sin tanto color */}
+        <section id="problema" className="relative bg-white py-12 md:py-16">
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-3">
@@ -675,22 +691,22 @@ Equipo SaludCompartida`,
             {/* Lista de problemas - diseño minimalista */}
             <div className="space-y-3 mb-10">
               <div className="flex items-center gap-4 bg-gray-50 rounded-xl p-4 border-l-4 border-red-500">
-                <span className="text-2xl">😔</span>
+                <GuiltIcon className="w-12 h-12 flex-shrink-0" />
                 <p className="text-gray-800 font-medium">Te sientes culpable por estar lejos de tu familia</p>
               </div>
               
               <div className="flex items-center gap-4 bg-gray-50 rounded-xl p-4 border-l-4 border-orange-500">
-                <span className="text-2xl">😰</span>
+                <WorriedIcon className="w-12 h-12 flex-shrink-0" />
                 <p className="text-gray-800 font-medium">Te preocupa que se enfermen y no puedas ayudar</p>
               </div>
               
               <div className="flex items-center gap-4 bg-gray-50 rounded-xl p-4 border-l-4 border-yellow-500">
-                <span className="text-2xl">💸</span>
+                <MoneyStressIcon className="w-12 h-12 flex-shrink-0" />
                 <p className="text-gray-800 font-medium">Las medicinas son demasiado caras para ellos</p>
               </div>
               
               <div className="flex items-center gap-4 bg-gray-50 rounded-xl p-4 border-l-4 border-purple-500">
-                <span className="text-2xl">🚨</span>
+                <EmergencyIcon className="w-12 h-12 flex-shrink-0" />
                 <p className="text-gray-800 font-medium">Tienes miedo de las emergencias médicas</p>
               </div>
             </div>
@@ -703,8 +719,221 @@ Equipo SaludCompartida`,
           </div>
         </section>
 
-        {/* FASE 2: LA SOLUCIÓN - Fondo Oscuro */}
-        <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white overflow-hidden">
+        {/* PARTE 2: SALUDCOMPARTIDA ESTÁ PARA AYUDARTE - Fondo Blanco con Logo */}
+        <section id="solucion" className="relative bg-white py-16 md:py-24">
+          <div className="max-w-6xl mx-auto px-6">
+            
+            {/* Logo de SaludCompartida */}
+            <div className="text-center mb-12">
+              <div className="inline-block mb-6">
+                <img 
+                  src="/logo.png" 
+                  alt="SaludCompartida Logo" 
+                  className="h-16 md:h-20 mx-auto"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextElementSibling.style.display = 'block';
+                  }}
+                />
+                <div style={{display: 'none'}} className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-pink-600">
+                  SaludCompartida
+                </div>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
+                SaludCompartida está para Ayudarte
+              </h2>
+              <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto">
+                La solución que conecta tu esfuerzo en Estados Unidos con el bienestar de tu familia en México
+              </p>
+            </div>
+
+            {/* Grid de Beneficios - Diseño limpio */}
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              
+              {/* Para Ti */}
+              <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl p-8 shadow-xl border-2 border-cyan-200">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-black text-gray-900">Para Ti en USA</h3>
+                </div>
+
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-cyan-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <PeaceIcon className="w-10 h-10 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-gray-900">Tranquilidad Mental</p>
+                        <p className="text-gray-600">Duermes sin preocupaciones, sabiendo que están protegidos 24/7</p>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-cyan-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <HeartIcon className="w-10 h-10 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-gray-900">Cumples Tu Rol</p>
+                        <p className="text-gray-600">Les das beneficios reales aunque estés lejos</p>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-cyan-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <SavingsIcon className="w-10 h-10 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-gray-900">Ahorras Dinero</p>
+                        <p className="text-gray-600">Tu inversión de $12/mes genera ahorros de más de $200 al mes para ellos</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+
+                <div className="mt-8 bg-white/80 rounded-xl p-4 border-2 border-cyan-300">
+                  <p className="text-center font-bold text-gray-900 text-lg">
+                    💳 Solo $12 al mes
+                  </p>
+                  <p className="text-center text-sm text-gray-600">Por toda tu familia</p>
+                </div>
+              </div>
+
+              {/* Para Tu Familia */}
+              <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-3xl p-8 shadow-xl border-2 border-pink-200">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-black text-gray-900">Para Tu Familia en México</h3>
+                </div>
+
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <DoctorIcon className="w-10 h-10 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-gray-900">Doctor 24/7 por WhatsApp</p>
+                        <p className="text-gray-600">Consultas ilimitadas sin esperas ni filas</p>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <PharmacyIcon className="w-10 h-10 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-gray-900">Medicinas hasta 75% más baratas</p>
+                        <p className="text-gray-600">En más de 5,000 farmacias en todo México</p>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <TherapyIcon className="w-10 h-10 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-gray-900">Terapia Psicológica Semanal</p>
+                        <p className="text-gray-600">Apoyo emocional profesional</p>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <FamilyIcon className="w-10 h-10 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-gray-900">Hasta 4 Personas Cubiertas</p>
+                        <p className="text-gray-600">Toda la familia protegida</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Cómo Funciona - Timeline Visual */}
+            <div className="bg-gradient-to-br from-gray-50 to-cyan-50 rounded-3xl p-10 shadow-xl">
+              <h3 className="text-3xl font-black text-gray-900 text-center mb-12">
+                ¿Cómo funciona? Simple y rápido
+              </h3>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
+                    <span className="text-3xl font-black text-white">1</span>
+                  </div>
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">Tú te suscribes</h4>
+                  <p className="text-gray-600 leading-relaxed">
+                    Pagas $12/mes con tu tarjeta. Sin contratos ni compromisos.
+                  </p>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
+                    <span className="text-3xl font-black text-white">2</span>
+                  </div>
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">Ellos reciben acceso</h4>
+                  <p className="text-gray-600 leading-relaxed">
+                    Código de acceso por WhatsApp en menos de 30 segundos.
+                  </p>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
+                    <span className="text-3xl font-black text-white">3</span>
+                  </div>
+                  <h4 className="text-xl font-bold text-gray-900 mb-3">Usan los servicios</h4>
+                  <p className="text-gray-600 leading-relaxed">
+                    Doctor disponible, descuentos activos y terapia lista. Todo ahora.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PARTE 3: CTA PRINCIPAL - Fondo con gradiente */}
+        <section id="registrate" className="relative bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-700 py-16 md:py-24 overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 py-16">
             
             {/* Header */}

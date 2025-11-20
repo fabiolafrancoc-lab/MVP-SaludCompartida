@@ -1,23 +1,33 @@
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 
-// TopNav now supports: logo, back button, user info, login button, and restart bubbles
+// TopNav now supports: logo, back button, user info, login button, restart bubbles, and section navigation
 const TopNav = ({ 
   logoSrc = '/saludcompartida logo WT.png', 
   logoAlt = 'SaludCompartida', 
   onBack, 
   hideUser = false,
   onRestartBubbles = null,
-  showLoginButton = false
+  showLoginButton = false,
+  showMenu = false
 }) => {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleScrollToTop = () => {
     if (typeof window !== 'undefined' && window.scrollTo) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleScrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setMenuOpen(false);
     }
   };
 
@@ -38,34 +48,80 @@ const TopNav = ({
     if (typeof onRestartBubbles === 'function') {
       setTimeout(() => {
         onRestartBubbles();
+        setMenuOpen(false);
       }, 300); // Pequeño delay para que se vea el scroll
     }
   };
 
   return (
-    <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+    <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
         {/* Logo - clickeable para volver al inicio */}
         <div 
-          className="flex items-center gap-2 md:gap-4 cursor-pointer"
+          className="flex items-center gap-2 md:gap-4 cursor-pointer group"
           onClick={onRestartBubbles ? handleRestartBubbles : handleScrollToTop}
         >
-          <img src={logoSrc} alt={logoAlt} className="h-10 md:h-12 object-contain hover:opacity-80 transition-opacity" />
+          <img src={logoSrc} alt={logoAlt} className="h-10 md:h-12 object-contain group-hover:opacity-80 transition-opacity" />
         </div>
         
-        {/* Navegación derecha */}
-        <nav className="flex items-center gap-2 md:gap-4">
-          {/* Botón para volver a las bubbles (solo visible en desktop) */}
-          {onRestartBubbles && (
+        {/* Menú de navegación - Desktop */}
+        {showMenu && (
+          <nav className="hidden lg:flex items-center gap-6">
             <button
               onClick={handleRestartBubbles}
-              className="text-xs md:text-sm text-gray-600 hover:text-cyan-600 font-medium transition-colors hidden lg:flex items-center gap-1"
-              title="Ver introducción de nuevo"
+              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
               Inicio
+            </button>
+            <button
+              onClick={() => handleScrollToSection('problema')}
+              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+            >
+              El Problema
+            </button>
+            <button
+              onClick={() => handleScrollToSection('solucion')}
+              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+            >
+              La Solución
+            </button>
+            <button
+              onClick={() => navigate('/quienes-somos')}
+              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+            >
+              Quiénes Somos
+            </button>
+            <button
+              onClick={() => navigate('/beneficios')}
+              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+            >
+              Beneficios
+            </button>
+            <button
+              onClick={() => navigate('/contacto')}
+              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+            >
+              Contacto
+            </button>
+          </nav>
+        )}
+        
+        {/* Navegación derecha */}
+        <div className="flex items-center gap-2 md:gap-4">
+          {/* Menú hamburguesa - Mobile */}
+          {showMenu && (
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden text-gray-600 hover:text-cyan-600 transition-colors"
+              aria-label="Menú"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {menuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
             </button>
           )}
 
@@ -103,8 +159,52 @@ const TopNav = ({
               Volver
             </button>
           )}
-        </nav>
+        </div>
       </div>
+
+      {/* Menú móvil desplegable */}
+      {showMenu && menuOpen && (
+        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
+          <nav className="flex flex-col py-4 px-6 space-y-4">
+            <button
+              onClick={handleRestartBubbles}
+              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
+            >
+              Inicio
+            </button>
+            <button
+              onClick={() => handleScrollToSection('problema')}
+              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
+            >
+              El Problema
+            </button>
+            <button
+              onClick={() => handleScrollToSection('solucion')}
+              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
+            >
+              La Solución
+            </button>
+            <button
+              onClick={() => { navigate('/quienes-somos'); setMenuOpen(false); }}
+              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
+            >
+              Quiénes Somos
+            </button>
+            <button
+              onClick={() => { navigate('/beneficios'); setMenuOpen(false); }}
+              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
+            >
+              Beneficios
+            </button>
+            <button
+              onClick={() => { navigate('/contacto'); setMenuOpen(false); }}
+              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
+            >
+              Contacto
+            </button>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };

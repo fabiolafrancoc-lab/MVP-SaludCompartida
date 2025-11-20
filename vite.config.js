@@ -5,6 +5,12 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/',
+  server: {
+    port: 5173,
+    strictPort: false,
+    host: true,
+    open: false
+  },
   build: {
     outDir: 'dist',
     rollupOptions: {
@@ -12,5 +18,8 @@ export default defineConfig({
         manualChunks: undefined
       }
     }
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom']
   }
 })

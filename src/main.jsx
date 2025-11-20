@@ -23,6 +23,9 @@ import Registro from './pages/Registro.jsx'
 import LandingBubblesSimple from './pages/LandingBubblesSimple.jsx'
 import LandingBubblesTikTok from './pages/LandingBubblesTikTok.jsx'
 import MicroLanding from './pages/MicroLanding.jsx'
+import QuienesSomos from './pages/QuienesSomos.jsx'
+import BeneficiosDetallados from './pages/BeneficiosDetallados.jsx'
+import Contacto from './pages/Contacto.jsx'
 import { UserProvider } from './contexts/UserContext'
 
 createRoot(document.getElementById('root')).render(
@@ -52,6 +55,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/facebook" element={<LandingBubblesSimple />} /> {/* 👈 Landing Facebook (mismo que IG) */}
           <Route path="/tiktok" element={<LandingBubblesTikTok />} /> {/* 👈 Landing TikTok (8-10s) */}
           <Route path="/como-funciona" element={<MicroLanding />} /> {/* 👈 Micro-landing demo */}
+          <Route path="/quienes-somos" element={<QuienesSomos />} /> {/* 👈 Quiénes Somos */}
+          <Route path="/beneficios" element={<BeneficiosDetallados />} /> {/* 👈 Beneficios Detallados */}
+          <Route path="/contacto" element={<Contacto />} /> {/* 👈 Contacto (nueva versión) */}
         </Routes>
       </BrowserRouter>
     </UserProvider>
