@@ -20,6 +20,9 @@ import MigrantContact from './migrantcontact.jsx'
 import WhatsAppDemo from './pages/WhatsAppDemo.jsx'
 import SubscriptionSuccess from './pages/SubscriptionSuccess.jsx'
 import Registro from './pages/Registro.jsx'
+import LandingBubblesSimple from './pages/LandingBubblesSimple.jsx'
+import LandingBubblesTikTok from './pages/LandingBubblesTikTok.jsx'
+import MicroLanding from './pages/MicroLanding.jsx'
 import { UserProvider } from './contexts/UserContext'
 
 createRoot(document.getElementById('root')).render(
@@ -45,6 +48,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/whatsapp-demo" element={<WhatsAppDemo />} /> {/* 👈 Demo Íconos WhatsApp */}
           <Route path="/subscription-success" element={<SubscriptionSuccess />} /> {/* 👈 Éxito Pago */}
           <Route path="/registro" element={<Registro />} /> {/* 👈 Registro después de pago */}
+          <Route path="/instagram" element={<LandingBubblesSimple />} /> {/* 👈 Landing Instagram/Facebook */}
+          <Route path="/facebook" element={<LandingBubblesSimple />} /> {/* 👈 Landing Facebook (mismo que IG) */}
+          <Route path="/tiktok" element={<LandingBubblesTikTok />} /> {/* 👈 Landing TikTok (8-10s) */}
+          <Route path="/como-funciona" element={<MicroLanding />} /> {/* 👈 Micro-landing demo */}
         </Routes>
       </BrowserRouter>
     </UserProvider>
