@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from './components/TopNav';
 import BubblesIntro from './components/BubblesIntro';
+import BubblesSolucion from './components/BubblesSolucion';
 import { insertRegistration, insertPreCheckoutCustomer } from './lib/supabase';
 import { sendAccessCode } from './lib/notifications';
 import { loadStripe } from '@stripe/stripe-js';
@@ -653,7 +654,11 @@ Equipo SaludCompartida`,
 
     return (
       <div className="min-h-screen bg-white">
-        <TopNav hideUser={true} />
+        <TopNav 
+          hideUser={true} 
+          showLoginButton={true}
+          onRestartBubbles={() => setShowBubbles(true)}
+        />
 
         {/* FASE 2: LA SOLUCIÓN - Fondo Oscuro */}
         <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white overflow-hidden">
@@ -1073,6 +1078,9 @@ Equipo SaludCompartida`,
             </p>
           </div>
         </section>
+
+        {/* Bubbles de Solución al final */}
+        <BubblesSolucion />
       </div>
     );
   }
