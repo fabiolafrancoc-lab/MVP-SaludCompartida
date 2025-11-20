@@ -650,7 +650,7 @@ Equipo SaludCompartida`,
 
         {/* Hero Section - Emocional */}
         <section className="relative bg-gradient-to-br from-cyan-50 via-white to-pink-50 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 py-20">
+          <div className="max-w-7xl mx-auto px-6 py-12">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               
               {/* Left - Mensaje Emocional */}
@@ -660,7 +660,7 @@ Equipo SaludCompartida`,
                   <span className="text-cyan-800 font-bold text-sm">Atención médica 24/7 para tu familia</span>
                 </div>
 
-                <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+                <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
                   Ya no tienes que sentirte
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-pink-600">
                     culpable por estar lejos
@@ -674,7 +674,7 @@ Equipo SaludCompartida`,
 
                 <div className="bg-white rounded-2xl shadow-2xl border-4 border-cyan-500 p-8">
                   <div className="flex items-baseline gap-3 mb-4">
-                    <span className="text-6xl font-black text-gray-900">$12</span>
+                    <span className="text-4xl font-black text-gray-900">$12</span>
                     <div>
                       <span className="text-2xl text-gray-600">/mes</span>
                       <p className="text-sm text-gray-500">Por toda tu familia</p>
@@ -726,10 +726,10 @@ Equipo SaludCompartida`,
         </section>
 
         {/* Hero Testimonial - Reemplazar sección de problemas */}
-        <section className="py-20 bg-gradient-to-br from-cyan-50 via-white to-blue-50">
+        <section className="py-12 bg-gradient-to-br from-cyan-50 via-white to-blue-50">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
                 Miles de familias como tú ya duermen tranquilos
               </h2>
               <p className="text-xl text-gray-600">
@@ -803,10 +803,10 @@ Equipo SaludCompartida`,
         </section>
 
         {/* Solución - Beneficios PRINCIPALES */}
-        <section className="py-20 bg-white">
+        <section className="py-12 bg-white">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 Imagina esto en lugar de la angustia...
               </h2>
               <p className="text-2xl text-gray-600">
@@ -893,10 +893,10 @@ Equipo SaludCompartida`,
         </section>
 
         {/* Social Proof - Testimonios (reducido a 3) */}
-        <section className="py-20 bg-gradient-to-br from-gray-50 to-cyan-50">
+        <section className="py-12 bg-gradient-to-br from-gray-50 to-cyan-50">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 Lo que dicen nuestras familias
               </h2>
               <p className="text-xl text-gray-600">
@@ -931,9 +931,9 @@ Equipo SaludCompartida`,
         </section>
 
         {/* CTA Simple Section - Sin FOMO artificial */}
-        <section className="py-20 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 text-white">
+        <section className="py-12 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 text-white">
           <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-black mb-6 leading-tight">
               Empieza a cuidar de tu familia hoy
             </h2>
             
@@ -964,7 +964,7 @@ Equipo SaludCompartida`,
         </section>
 
         {/* Garantía Section */}
-        <section className="py-20 bg-white">
+        <section className="py-12 bg-white">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-4 border-green-500 rounded-3xl p-12 shadow-2xl">
               <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl">
@@ -973,7 +973,7 @@ Equipo SaludCompartida`,
                 </svg>
               </div>
 
-              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6">
                 Garantía 100% Sin Riesgo
               </h2>
 
@@ -1030,7 +1030,7 @@ Equipo SaludCompartida`,
         {/* CTA Final - Fuerte y emocional */}
         <section className="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-cyan-900 text-white">
           <div className="max-w-5xl mx-auto px-6 text-center">
-            <h2 className="text-5xl md:text-6xl font-black mb-8 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-black mb-8 leading-tight">
               Ya no tienes que elegir entre<br />tu vida en EE.UU. y tu familia en México
             </h2>
 
@@ -1115,7 +1115,7 @@ Equipo SaludCompartida`,
 
         <div className="max-w-4xl mx-auto px-6 py-16">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+            <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
               Último paso para cuidar de tu familia
             </h1>
             <p className="text-xl text-gray-600">
@@ -1169,7 +1169,7 @@ Equipo SaludCompartida`,
                 <span className="text-xl text-gray-700">Suscripción mensual</span>
                 <div className="text-right">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-black text-gray-900">$12</span>
+                    <span className="text-3xl font-black text-gray-900">$12</span>
                     <span className="text-2xl text-gray-600">/mes</span>
                   </div>
                   <p className="text-sm text-gray-500">Por toda tu familia</p>
@@ -1329,7 +1329,7 @@ Equipo SaludCompartida`,
               </svg>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+            <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
               ¡Suscripción Activada! 🎉
             </h1>
             <p className="text-2xl text-gray-600">
@@ -1498,7 +1498,7 @@ Equipo SaludCompartida`,
                       Membresía Activa
                     </p>
                     <div className="flex items-baseline gap-3 mb-4">
-                      <p className="text-white text-5xl font-bold">
+                      <p className="text-white text-3xl font-bold">
                         $12
                       </p>
                       <p className="text-white/80 text-lg">
