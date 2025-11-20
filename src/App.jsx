@@ -655,12 +655,12 @@ Equipo SaludCompartida`,
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
         
-        {/* Logo Header Fixed */}
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+        {/* Logo Header Fixed - Siempre a la izquierda */}
+        <div className="fixed top-6 left-6 z-50">
           <img 
-            src="/saludcompartida logo WT.png" 
+            src="/saludcompartida-transp dark-bg-no-tagline copy 2.jpg" 
             alt="SaludCompartida"
-            className="h-12 md:h-16 cursor-pointer hover:opacity-80 transition"
+            className="h-10 md:h-12 cursor-pointer hover:opacity-80 transition"
             onClick={() => setShowProblemStage(true)}
           />
         </div>
