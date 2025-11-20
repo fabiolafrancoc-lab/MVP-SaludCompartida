@@ -657,7 +657,7 @@ Equipo SaludCompartida`,
               <div className="space-y-8">
                 <div className="inline-flex items-center gap-2 bg-cyan-100 border-2 border-cyan-300 rounded-full px-6 py-2">
                   <span className="w-3 h-3 bg-cyan-500 rounded-full"></span>
-                  <span className="text-cyan-800 font-bold text-sm">Cobertura médica completa para tu familia</span>
+                  <span className="text-cyan-800 font-bold text-sm">Atención médica 24/7 para tu familia</span>
                 </div>
 
                 <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight">
