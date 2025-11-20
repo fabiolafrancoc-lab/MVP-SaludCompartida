@@ -6,8 +6,7 @@ const BubblesIntro = ({ onComplete }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [visibleBubbles, setVisibleBubbles] = useState([]);
 
-  // Cada slide tiene una pregunta principal + múltiples bubbles de dolor real
-  // MUCHAS bubbles para crear sensación abrumadora de desprotección y ansiedad
+  // SOLO 2 PREGUNTAS con MUCHAS bubbles que crean el efecto de "cientos de casos"
   const slides = [
     {
       question: "¿Te sientes culpable por estar lejos de tu familia?",
@@ -19,133 +18,64 @@ const BubblesIntro = ({ onComplete }) => {
         "Mi papá tuvo una crisis y yo aquí trabajando",
         "No pude abrazar a mi hermana cuando perdió su bebé",
         "Mi abuela falleció y llegué tarde al funeral",
-        "Mi esposa me necesitaba y yo a 3,000 km"
+        "Mi esposa me necesitaba y yo a 3,000 km",
+        "No estuve cuando mi hijo dio sus primeros pasos",
+        "Mi mamá se cayó y tardé 2 días en enterarme",
+        "Perdí el cumpleaños 15 de mi hija",
+        "No pude despedirme de mi tío antes de morir",
+        "Mi hermano estuvo solo en el hospital",
+        "No vi crecer a mis hijos",
+        "Cada día me siento más lejos de ellos",
+        "Ya no me reconocen cuando voy",
+        "Mi familia sufre y yo no puedo hacer nada",
+        "Trabajo para darles mejor vida pero no estoy",
+        "Siento que los abandoné",
+        "No puedo dormir por la culpa"
       ]
     },
     {
-      question: "¿Te despiertas con miedo pensando 'y si algo les pasa'?",
+      question: "Trabajo dos turnos y el dinero que envío a casa no es suficiente",
       bubbles: [
-        "¿Y si mi mamá se cae y está sola en casa?",
-        "¿Y si necesitan un doctor a las 3 AM?",
-        "¿Y si tienen una emergencia y no contestan?",
-        "¿Y si se enferman y no tienen dinero?",
-        "No puedo dormir pensando en ellos",
-        "Cada llamada perdida me da pánico",
-        "¿Y si pasa algo y me entero después?",
-        "Vivo con ansiedad 24/7"
-      ]
-    },
-    {
-      question: "¿Las medicinas son demasiado caras para tu familia?",
-      bubbles: [
-        "Mi papá necesita medicina de $800 al mes",
-        "Las pastillas de presión cuestan $600",
-        "No alcanzan para el tratamiento completo",
-        "Tienen que partir las pastillas a la mitad",
-        "Eligen entre comer o comprar medicina",
-        "Me piden $1,200 cada mes para farmacias",
-        "Las inyecciones de insulina son carísimas",
-        "Dejan de tomar su medicina porque no hay dinero",
-        "Gastan todo en medicinas y no les alcanza",
-        "Necesito mandar $300 extra cada semana"
-      ]
-    },
-    {
-      question: "¿Trabajas 12 horas al día y aún no alcanza?",
-      bubbles: [
-        "Trabajo doble turno y aún no es suficiente",
+        "Trabajo 12 horas diarias y no alcanza",
         "Hago dos trabajos pero siempre piden más",
-        "Mando $500 cada semana y nunca alcanza",
-        "Sacrifico mi vida aquí y siento que no sirve",
+        "Mando $500 cada semana y se acaba en 3 días",
         "Me rompo la espalda y ellos siguen sin doctor",
-        "Trabajo hasta enfermarme y no les puedo dar más",
-        "Ya no sé qué más hacer para ayudarlos",
-        "Me siento impotente desde esta distancia"
-      ]
-    },
-    {
-      question: "¿Te duele no estar ahí cuando más te necesitan?",
-      bubbles: [
-        "Mi mamá lloró por teléfono 'te necesito aquí'",
-        "No pude ir al funeral de mi abuela",
-        "Mi hijo me pregunta '¿cuándo vienes papá?'",
-        "Mi hermana estaba sola en el hospital",
-        "Se sienten abandonados y yo también",
-        "Extraño abrazarlos todos los días",
-        "No estuve cuando más me necesitaban",
-        "Perdí momentos que nunca volverán"
-      ]
-    },
-    {
-      question: "¿Te angustia pensar en una emergencia médica?",
-      bubbles: [
-        "¿Qué pasa si tienen un accidente?",
-        "¿De dónde saco $5,000 de un día para otro?",
-        "No tienen seguro ni ahorros",
-        "Una ambulancia cuesta $2,000 pesos",
-        "¿Y si necesitan cirugía urgente?",
-        "Los hospitales piden todo por adelantado",
-        "Tengo terror de que pase algo grave",
-        "Una emergencia los deja en la ruina",
-        "¿Qué hago si pasa algo esta noche?",
-        "Vivo con miedo constante"
-      ]
-    },
-    {
-      question: "¿Sientes que el dinero que mandas se va en doctores y medicinas?",
-      bubbles: [
-        "Cada mes $600 en consultas",
-        "$800 en medicinas mensuales",
-        "$400 en análisis de laboratorio",
-        "Una consulta son $500 pesos",
-        "Los estudios médicos son carísimos",
-        "Se gasta todo en salud y no les alcanza para nada",
-        "Mando dinero y se acaba en 2 días",
-        "Siempre están enfermos, siempre gastando"
+        "Trabajo hasta enfermarme pero no les puedo dar más",
+        "Ya vendí todo lo que tenía aquí",
+        "No tengo vida, solo trabajo y trabajo",
+        "Duermo 4 horas para hacer más dinero",
+        "Sacrifiqué mi salud por mandarles dinero",
+        "No veo a mis amigos, solo trabajo",
+        "Los fines de semana también trabajo",
+        "No he tomado vacaciones en 3 años",
+        "Me enfermé del estrés y no puedo parar",
+        "Cada llamada es pidiendo más dinero",
+        "Las medicinas cuestan $800 al mes",
+        "Los doctores cobran $500 por consulta",
+        "Los análisis cuestan $400 cada uno",
+        "Una emergencia son $5,000 pesos mínimo",
+        "Nunca alcanza para todo lo que necesitan",
+        "Me siento impotente desde aquí"
       ]
     }
   ];
 
   useEffect(() => {
     if (currentSlide < slides.length) {
-      // Resetear bubbles visibles
-      setVisibleBubbles([]);
-      
-      // TIMING AJUSTADO: Más lento para que se puedan leer
+      // MOSTRAR TODO AL MISMO TIEMPO - pregunta y todas las bubbles aparecen juntas
       const currentSlideBubbles = slides[currentSlide].bubbles;
-      currentSlideBubbles.forEach((_, index) => {
-        let delay;
-        
-        if (index < 3) {
-          // Primeras 3 bubbles: LENTAS (1200ms) - se pueden leer bien
-          delay = index * 1200;
-        } else if (index < 6) {
-          // Siguientes 3: MEDIA velocidad (800ms) - todavía legibles
-          delay = (3 * 1200) + ((index - 3) * 800);
-        } else {
-          // Resto: MÁS RÁPIDO (400ms) - crea acumulación sin ser flash
-          delay = (3 * 1200) + (3 * 800) + ((index - 6) * 400);
-        }
-        
-        setTimeout(() => {
-          setVisibleBubbles(prev => [...prev, currentSlideBubbles[index]]);
-        }, delay);
-      });
+      
+      // Mostrar todas las bubbles inmediatamente
+      setVisibleBubbles(currentSlideBubbles);
 
-      // Calcular tiempo total + pausa para leer antes de avanzar automáticamente
-      const slowBubbles = Math.min(3, currentSlideBubbles.length);
-      const mediumBubbles = Math.min(3, Math.max(0, currentSlideBubbles.length - 3));
-      const fastBubbles = Math.max(0, currentSlideBubbles.length - 6);
-      
-      const totalTime = (slowBubbles * 1200) + (mediumBubbles * 800) + (fastBubbles * 400) + 3000; // +3s para leer
-      
+      // Avanzar automáticamente después de 8 segundos (tiempo para leer algunas y ver el efecto)
       const timer = setTimeout(() => {
         if (currentSlide < slides.length - 1) {
           setCurrentSlide(currentSlide + 1);
         } else {
           onComplete();
         }
-      }, totalTime);
+      }, 8000); // 8 segundos por slide
 
       return () => clearTimeout(timer);
     }
@@ -197,32 +127,27 @@ const BubblesIntro = ({ onComplete }) => {
 
       {/* Contenido principal */}
       <div className="h-full flex flex-col items-center justify-start px-4 md:px-8 pt-20 pb-8 overflow-hidden">
-        {/* Pregunta principal arriba - fija */}
-        <div className="text-center mb-6 md:mb-8 max-w-3xl">
-          <h2 className="text-xl md:text-3xl lg:text-4xl font-black text-white leading-tight">
+        {/* Pregunta principal arriba - fija y grande */}
+        <div className="text-center mb-6 md:mb-8 max-w-4xl z-10 relative">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight drop-shadow-2xl">
             {slides[currentSlide].question}
           </h2>
         </div>
 
-        {/* Bubbles tipo chat - aparecen desde abajo como mensajes bombardeando */}
-        <div className="w-full max-w-4xl flex-1 overflow-y-auto space-y-2 md:space-y-3 px-4 scrollbar-hide">
+        {/* Mar de bubbles - aparecen TODAS al mismo tiempo creando efecto abrumador */}
+        <div className="w-full max-w-6xl flex-1 overflow-y-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 px-4 scrollbar-hide opacity-90">
           {visibleBubbles.map((bubble, index) => (
             <div
               key={index}
-              className="animate-message-slide-up"
-              style={{ animationDelay: `${index * 50}ms` }}
+              className="animate-fade-in-instant"
+              style={{ 
+                animationDelay: `${index * 30}ms`, // Aparecen muy rápido una tras otra
+                opacity: index > 8 ? '0.6' : '0.9' // Las de atrás más transparentes
+              }}
             >
-              {/* Burbujas estilo chat de WhatsApp/iMessage */}
-              <div className={`
-                ${currentSlide === slides.length - 1 
-                  ? 'bg-gradient-to-r from-cyan-600 to-blue-600' 
-                  : 'bg-gradient-to-r from-gray-700 to-gray-800'
-                }
-                rounded-2xl md:rounded-3xl p-3 md:p-4 shadow-lg
-                max-w-[85%] ${index % 2 === 0 ? 'ml-0' : 'ml-auto'}
-                border-l-4 ${currentSlide === slides.length - 1 ? 'border-cyan-400' : 'border-red-500'}
-              `}>
-                <p className="text-white text-sm md:text-base font-semibold leading-tight">
+              {/* Bubbles pequeñas tipo chat - difíciles de leer todas pero se ve que hay MUCHAS */}
+              <div className="bg-gradient-to-r from-gray-700/80 to-gray-800/80 rounded-xl md:rounded-2xl p-2 md:p-3 shadow-lg border-l-2 border-red-500/50 backdrop-blur-sm">
+                <p className="text-white text-xs md:text-sm font-medium leading-tight line-clamp-3">
                   {bubble}
                 </p>
               </div>
@@ -236,28 +161,21 @@ const BubblesIntro = ({ onComplete }) => {
           from { width: 0%; }
           to { width: 100%; }
         }
-        @keyframes message-slide-up {
+        @keyframes fade-in-instant {
           from {
             opacity: 0;
-            transform: translateY(30px) scale(0.8);
+            transform: scale(0.95);
           }
           to {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: scale(1);
           }
         }
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
         .animate-progress {
-          animation: progress 4s linear;
+          animation: progress 8s linear;
         }
-        .animate-message-slide-up {
-          animation: message-slide-up 0.3s ease-out forwards;
-        }
-        .animate-bounce-slow {
-          animation: bounce-slow 2s ease-in-out infinite;
+        .animate-fade-in-instant {
+          animation: fade-in-instant 0.2s ease-out forwards;
         }
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
@@ -265,6 +183,12 @@ const BubblesIntro = ({ onComplete }) => {
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
       `}</style>
     </div>
