@@ -103,19 +103,6 @@ const BubblesIntro = ({ onComplete }) => {
         "Mando dinero y se acaba en 2 días",
         "Siempre están enfermos, siempre gastando"
       ]
-    },
-    {
-      question: "NO ESTÁS SOLO - 4,253 familias ya lo solucionaron",
-      bubbles: [
-        "Ahora duermen tranquilos",
-        "Sus familias tienen doctor 24/7",
-        "Ahorran $250 al mes en medicinas",
-        "Ya no viven con miedo",
-        "Por solo $12 al mes",
-        "Tú también puedes protegerlos",
-        "SaludCompartida es la solución",
-        "Únete hoy, protégelos ahora"
-      ]
     }
   ];
 
@@ -124,20 +111,20 @@ const BubblesIntro = ({ onComplete }) => {
       // Resetear bubbles visibles
       setVisibleBubbles([]);
       
-      // TIMING VARIABLE: Primeras bubbles lentas, luego se aceleran hasta congestionar
+      // TIMING AJUSTADO: Más lento para que se puedan leer
       const currentSlideBubbles = slides[currentSlide].bubbles;
       currentSlideBubbles.forEach((_, index) => {
         let delay;
         
         if (index < 3) {
-          // Primeras 3 bubbles: LENTAS (800ms) - construyendo tensión
-          delay = index * 800;
+          // Primeras 3 bubbles: LENTAS (1200ms) - se pueden leer bien
+          delay = index * 1200;
         } else if (index < 6) {
-          // Siguientes 3: MEDIA velocidad (500ms) - acelerando
-          delay = (3 * 800) + ((index - 3) * 500);
+          // Siguientes 3: MEDIA velocidad (800ms) - todavía legibles
+          delay = (3 * 1200) + ((index - 3) * 800);
         } else {
-          // Resto: BOMBARDEO RÁPIDO (150ms) - congestión total
-          delay = (3 * 800) + (3 * 500) + ((index - 6) * 150);
+          // Resto: MÁS RÁPIDO (400ms) - crea acumulación sin ser flash
+          delay = (3 * 1200) + (3 * 800) + ((index - 6) * 400);
         }
         
         setTimeout(() => {
@@ -145,12 +132,12 @@ const BubblesIntro = ({ onComplete }) => {
         }, delay);
       });
 
-      // Calcular tiempo total considerando la velocidad variable
+      // Calcular tiempo total + pausa para leer antes de avanzar automáticamente
       const slowBubbles = Math.min(3, currentSlideBubbles.length);
       const mediumBubbles = Math.min(3, Math.max(0, currentSlideBubbles.length - 3));
       const fastBubbles = Math.max(0, currentSlideBubbles.length - 6);
       
-      const totalTime = (slowBubbles * 800) + (mediumBubbles * 500) + (fastBubbles * 150) + 2500;
+      const totalTime = (slowBubbles * 1200) + (mediumBubbles * 800) + (fastBubbles * 400) + 3000; // +3s para leer
       
       const timer = setTimeout(() => {
         if (currentSlide < slides.length - 1) {
@@ -165,6 +152,7 @@ const BubblesIntro = ({ onComplete }) => {
   }, [currentSlide, onComplete, slides]);
 
   const handleTap = () => {
+    // Permitir avanzar manualmente si el usuario quiere
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
     } else {
@@ -241,25 +229,6 @@ const BubblesIntro = ({ onComplete }) => {
             </div>
           ))}
         </div>
-
-        {/* Mensaje especial en último slide - LA ÚNICA SOLUCIÓN */}
-        {currentSlide === slides.length - 1 && visibleBubbles.length > 5 && (
-          <div className="mt-4 md:mt-6 text-center animate-bounce-slow">
-            <p className="text-cyan-400 text-xl md:text-3xl font-black mb-1">
-              ✨ SaludCompartida ✨
-            </p>
-            <p className="text-white text-base md:text-xl font-bold">
-              La única solución que necesitas
-            </p>
-          </div>
-        )}
-
-        {/* Indicador de tap */}
-        {currentSlide < slides.length - 1 && (
-          <p className="text-white/40 text-sm mt-8 animate-pulse">
-            Toca para continuar
-          </p>
-        )}
       </div>
 
       <style jsx>{`
