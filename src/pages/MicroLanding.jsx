@@ -46,9 +46,11 @@ export default function MicroLanding() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/10 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="text-2xl md:text-3xl font-black text-white">
-              SaludCompartida
-            </div>
+            <img 
+              src="/saludcompartida-transp dark-bg-no-tagline copy 2.jpg" 
+              alt="SaludCompartida" 
+              className="h-10 md:h-12 w-auto"
+            />
           </div>
           <p className="hidden md:block text-sm text-cyan-400 italic">
             SaludCompartida está donde está tu corazón
@@ -268,7 +270,7 @@ export default function MicroLanding() {
             {/* Main Headline - MÁS COMPACTO */}
             <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight drop-shadow-2xl">
               ¿Cuánto vale la tranquilidad<br/>
-              de saber que están <span className="text-cyan-400">cuid</span>ados?
+              de saber que están <span className="text-cyan-400">cuidados?</span>
             </h2>
 
             {/* Pain Point - COMPACTO */}
