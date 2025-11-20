@@ -98,22 +98,13 @@ export default function LandingBubblesTikTok() {
         bubble.style.boxShadow = '0 3px 15px rgba(0, 0, 0, 0.1)';
       }, 800);
 
-      // Cuando quedan 3-4 burbujas, mostrar el logo
+      // Cuando quedan 3-4 burbujas, mostrar el logo INMEDIATAMENTE
       if (bubblesCreated >= totalBubbles - 3) {
+        setShowLogo(true);
+        // Esperar solo 2 segundos y mostrar beneficios
         setTimeout(() => {
-          setShowLogo(true);
-          // Logo toma control: fase entering
-          setTimeout(() => {
-            setLogoPhase('full');
-            // Después de estar en full, retrocede
-            setTimeout(() => {
-              setLogoPhase('receding');
-              setTimeout(() => {
-                setShowSolution(true);
-              }, 800);
-            }, 2000);
-          }, 1500);
-        }, 500);
+          setShowSolution(true);
+        }, 2000);
       }
 
       bubbleIndex++;
@@ -158,77 +149,69 @@ export default function LandingBubblesTikTok() {
         />
       </div>
 
-      {/* LOGO CINEMATOGRÁFICO - Desde el fondo hacia adelante */}
-      {showLogo && (
-        <div className={`fixed inset-0 z-[3000] flex items-center justify-center transition-all duration-1000 ${
-          logoPhase === 'entering' ? 'logo-entering' : logoPhase === 'full' ? 'logo-full' : 'logo-receding'
-        }`}>
-          <div className="text-center">
-            <h1 className={`font-black text-white transition-all duration-1000 ${
-              logoPhase === 'entering' ? 'text-[120px] md:text-[180px]' : 
-              logoPhase === 'full' ? 'text-[150px] md:text-[220px]' : 
-              'text-6xl md:text-7xl'
-            }`} style={{
-              textShadow: '0 0 80px rgba(6, 182, 212, 0.8), 0 0 40px rgba(236, 72, 153, 0.6)',
-              letterSpacing: logoPhase === 'full' ? '0.05em' : '0.02em'
+      {/* LOGO CINEMATOGRÁFICO - Background oscuro inmediato */}
+      {showLogo && !showSolution && (
+        <div className="fixed inset-0 z-[3000] bg-gray-900 flex items-center justify-center animate-fadeInFast">
+          <div className="text-center px-4">
+            <h1 className="text-6xl md:text-8xl font-black text-white mb-6 animate-logoZoom" style={{
+              textShadow: '0 0 60px rgba(6, 182, 212, 0.6)'
             }}>
               SaludCompartida
             </h1>
+            <p className="text-2xl md:text-3xl text-white font-light">
+              Te ayudamos a cuidar donde está tu corazón
+            </p>
           </div>
         </div>
       )}
 
-      {/* Solution Section - Beneficios sin iconos */}
+      {/* Beneficios - Líneas blancas simples */}
       {showSolution && (
-        <div 
-          className="fixed inset-0 z-[2500] bg-gradient-to-br from-cyan-500 via-cyan-600 to-pink-500 flex flex-col items-center justify-center px-4 py-12 animate-fadeInFast"
-        >
-          <div className="max-w-5xl text-center text-white">
-            {/* Logo pequeño arriba */}
-            <div className="text-4xl md:text-5xl font-black mb-8 drop-shadow-2xl">
-              SaludCompartida
+        <div className="fixed inset-0 z-[3000] bg-gray-900 flex flex-col items-center justify-center px-6 py-12 animate-fadeInFast">
+          <div className="max-w-4xl w-full text-left space-y-6">
+            {/* Logo arriba */}
+            <div className="text-center mb-12">
+              <h1 className="text-5xl md:text-6xl font-black text-white mb-3">
+                SaludCompartida
+              </h1>
+              <p className="text-xl md:text-2xl text-white/80 font-light">
+                Te ayudamos a cuidar donde está tu corazón
+              </p>
             </div>
 
-            <div className="text-xl md:text-2xl font-light mb-10 drop-shadow-lg">
-              Protegiendo a tu familia desde aquí,<br className="hidden md:block"/>
-              cuidando su salud desde allá
+            {/* Beneficios - Líneas limpias */}
+            <div className="space-y-5 text-white">
+              <div className="border-l-4 border-cyan-400 pl-6 py-3">
+                <h3 className="text-2xl md:text-3xl font-bold mb-2">Telemedicina 24/7</h3>
+                <p className="text-lg md:text-xl text-white/80">Acceso inmediato a médicos profesionales, cualquier hora del día</p>
+              </div>
+
+              <div className="border-l-4 border-pink-400 pl-6 py-3">
+                <h3 className="text-2xl md:text-3xl font-bold mb-2">Receta Electrónica</h3>
+                <p className="text-lg md:text-xl text-white/80">Recibe tu prescripción digital de ser necesario</p>
+              </div>
+
+              <div className="border-l-4 border-purple-400 pl-6 py-3">
+                <h3 className="text-2xl md:text-3xl font-bold mb-2">Descuento en Farmacias</h3>
+                <p className="text-lg md:text-xl text-white/80">Hasta 60% de ahorro en medicamentos</p>
+              </div>
+
+              <div className="border-l-4 border-yellow-400 pl-6 py-3">
+                <h3 className="text-2xl md:text-3xl font-bold mb-2">Terapia Psicológica</h3>
+                <p className="text-lg md:text-xl text-white/80">Una sesión semanal con psicólogos certificados</p>
+              </div>
+
+              <div className="border-l-4 border-green-400 pl-6 py-3">
+                <h3 className="text-2xl md:text-3xl font-bold mb-2">Hasta 4 Miembros</h3>
+                <p className="text-lg md:text-xl text-white/80">Protege hasta 4 personas con un solo plan</p>
+              </div>
             </div>
 
-            {/* Services Grid COMPACTO SIN ICONOS */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10 text-xs md:text-sm">
-              <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 border border-white/40 hover:bg-white/30 transition-all">
-                <div className="font-bold mb-1">Telemedicina 24/7</div>
-                <div className="opacity-90">Acceso inmediato</div>
-              </div>
-
-              <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 border border-white/40 hover:bg-white/30 transition-all">
-                <div className="font-bold mb-1">Descuento Farmacias</div>
-                <div className="opacity-90">Hasta 60% ahorro</div>
-              </div>
-
-              <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 border border-white/40 hover:bg-white/30 transition-all">
-                <div className="font-bold mb-1">Terapia Psicológica</div>
-                <div className="opacity-90">1 sesión semanal</div>
-              </div>
-
-              <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 border border-white/40 hover:bg-white/30 transition-all">
-                <div className="font-bold mb-1">Hasta 4 Miembros</div>
-                <div className="opacity-90">Un solo plan</div>
-              </div>
-            </div>
-
-            {/* CTA Section COMPACTO */}
-            <div className="bg-black/30 backdrop-blur-md rounded-2xl p-6 md:p-8 border-2 border-white/60">
-              <div className="text-2xl md:text-4xl font-black mb-3 leading-tight">
-                Deja de preocuparte.<br/>
-                Empieza a proteger.
-              </div>
-              <div className="text-base md:text-lg font-normal mb-6 opacity-95">
-                Tu familia merece tranquilidad
-              </div>
+            {/* CTA */}
+            <div className="text-center mt-12">
               <button
                 onClick={() => navigate('/como-funciona')}
-                className="inline-block px-8 md:px-12 py-4 md:py-5 bg-white text-cyan-600 text-lg md:text-xl font-extrabold rounded-full shadow-2xl hover:bg-gray-50 hover:scale-105 transition-all uppercase tracking-wide"
+                className="px-12 py-5 bg-gradient-to-r from-cyan-500 to-pink-500 text-white text-xl md:text-2xl font-black rounded-full shadow-2xl hover:scale-105 transition-all uppercase"
               >
                 Proteger Ahora
               </button>
@@ -238,48 +221,6 @@ export default function LandingBubblesTikTok() {
       )}
 
       <style>{`
-        /* Efecto cinematográfico: Logo desde el fondo */
-        .logo-entering {
-          background: radial-gradient(circle, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 100%);
-          animation: logoEnter 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .logo-full {
-          background: radial-gradient(circle, rgba(0,0,0,0.98) 0%, rgba(0,0,0,1) 100%);
-        }
-
-        .logo-receding {
-          background: transparent;
-          pointer-events: none;
-          animation: logoRecede 0.8s ease-out;
-        }
-
-        @keyframes logoEnter {
-          0% {
-            opacity: 0;
-            transform: perspective(1000px) translateZ(-2000px) scale(0.3);
-          }
-          60% {
-            opacity: 0.8;
-            transform: perspective(1000px) translateZ(-100px) scale(1.1);
-          }
-          100% {
-            opacity: 1;
-            transform: perspective(1000px) translateZ(0) scale(1);
-          }
-        }
-
-        @keyframes logoRecede {
-          0% {
-            opacity: 1;
-            transform: perspective(1000px) translateZ(0) scale(1);
-          }
-          100% {
-            opacity: 0;
-            transform: perspective(1000px) translateZ(-1000px) scale(0.5);
-          }
-        }
-
         @keyframes fadeInFast {
           from {
             opacity: 0;
@@ -289,8 +230,23 @@ export default function LandingBubblesTikTok() {
           }
         }
 
+        @keyframes logoZoom {
+          from {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
         .animate-fadeInFast {
           animation: fadeInFast 0.5s ease-out;
+        }
+
+        .animate-logoZoom {
+          animation: logoZoom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
       `}</style>
     </div>
