@@ -48,7 +48,7 @@ const testimonials = [
   "Trabajo 12 horas para mantenerlos, pero no estoy ahí cuando me necesitan. —Arturo Peña, Chicago IL",
 ];
 
-const BubblesProblemStage = ({ onComplete }) => {
+const SaludCompartidaProblemStage = () => {
   const [showQuestion1, setShowQuestion1] = useState(false);
   const [showQuestion2, setShowQuestion2] = useState(false);
   const [showOnlyOneQuestion, setShowOnlyOneQuestion] = useState(false);
@@ -113,16 +113,11 @@ const BubblesProblemStage = ({ onComplete }) => {
     // A los 7 segundos: mostrar solo UNA pregunta
     setTimeout(() => setShowOnlyOneQuestion(true), 7000);
     
-    // Después de 15 segundos, pasar a la siguiente etapa
-    setTimeout(() => {
-      if (onComplete) onComplete();
-    }, 15000);
-    
     return () => {
       clearInterval(mainInterval);
       clearInterval(bgInterval);
     };
-  }, [onComplete]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
@@ -133,10 +128,6 @@ const BubblesProblemStage = ({ onComplete }) => {
           src="/saludcompartida logo WT.png" 
           alt="SaludCompartida"
           className="h-12 md:h-16"
-          onError={(e) => {
-            e.target.style.display = 'none';
-            e.target.parentElement.innerHTML = '<div class="text-white text-2xl md:text-3xl font-bold">SaludCompartida</div>';
-          }}
         />
       </div>
 
@@ -282,4 +273,4 @@ const BubblesProblemStage = ({ onComplete }) => {
   );
 };
 
-export default BubblesProblemStage;
+export default SaludCompartidaProblemStage;

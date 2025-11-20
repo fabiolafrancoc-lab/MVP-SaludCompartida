@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from './components/TopNav';
-import BubblesProblemStage from './components/BubblesProblemStage';
+import SaludCompartidaProblemStage from './components/BubblesProblemStage';
 import BubblesSolucion from './components/BubblesSolucion';
 import { insertRegistration, insertPreCheckoutCustomer } from './lib/supabase';
 import { sendAccessCode } from './lib/notifications';
@@ -662,15 +662,12 @@ Equipo SaludCompartida`,
 
   // Landing Page de Ventas
   if (currentPage === 'landing') {
-    // ETAPA 1: BubblesProblemStage (15 segundos con preguntas y burbujas)
+    // ETAPA 1: BubblesProblemStage (preguntas y testimonios)
     if (showProblemStage) {
-      return <BubblesProblemStage onComplete={() => {
-        setShowProblemStage(false);
-        setShowSolucionBubbles(true);
-      }} />;
+      return <SaludCompartidaProblemStage />;
     }
 
-    // ETAPA 2: BubblesSolucion (solución con burbujas)
+    // ETAPA 2: BubblesSolucion
     if (showSolucionBubbles) {
       return <BubblesSolucion onComplete={() => setShowSolucionBubbles(false)} />;
     }
