@@ -648,241 +648,209 @@ Equipo SaludCompartida`,
       <div className="min-h-screen bg-white">
         <TopNav hideUser={true} />
 
-        {/* Hero Section - Emocional */}
-        <section className="relative bg-gradient-to-br from-cyan-50 via-white to-pink-50 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 py-12">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+        {/* FASE 2: LA SOLUCIÓN - Fondo Oscuro */}
+        <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 py-16">
+            
+            {/* Header */}
+            <div className="text-center mb-16">
+              <h1 className="text-4xl md:text-5xl font-black mb-4">
+                SaludCompartida: La solución que buscabas
+              </h1>
+              <p className="text-xl text-gray-300 mb-2">
+                Suscripción de servicios de salud
+              </p>
+              <p className="text-sm text-gray-400 italic">
+                (No es un seguro)
+              </p>
+            </div>
+
+            {/* Two columns: Para ti / Para tus seres queridos */}
+            <div className="grid lg:grid-cols-2 gap-12 mb-16">
               
-              {/* Left - Mensaje Emocional */}
-              <div className="space-y-8">
-                <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
-                  Ya no tienes que sentirte
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-pink-600">
-                    culpable por estar lejos
-                  </span>
-                </h1>
+              {/* PARA TI (Migrante) */}
+              <div className="bg-gradient-to-br from-cyan-900/40 to-blue-900/40 backdrop-blur-lg rounded-3xl p-8 border-2 border-cyan-400/30 shadow-2xl">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center">
+                    <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-black">Para ti en Estados Unidos</h2>
+                </div>
 
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  Cuida la salud de tu familia en México <strong>como si estuvieras ahí</strong>, 
-                  con doctor 24/7, terapia semanal y medicinas a mitad de precio.
-                </p>
-
-                <div className="bg-white rounded-2xl shadow-2xl border-4 border-cyan-500 p-8">
-                  <div className="flex items-baseline gap-3 mb-4">
-                    <span className="text-4xl font-black text-gray-900">$12</span>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="text-4xl">😌</div>
                     <div>
-                      <span className="text-2xl text-gray-600">/mes</span>
-                      <p className="text-sm text-gray-500">Por toda tu familia</p>
+                      <h3 className="text-xl font-bold mb-2">Tranquilidad</h3>
+                      <p className="text-gray-300">Duermes sabiendo que están protegidos 24/7</p>
                     </div>
                   </div>
-                  
-                  <button
-                    onClick={() => setCurrentPage('checkout')}
-                    className="w-full bg-gradient-to-r from-cyan-600 to-pink-600 text-white py-5 px-8 rounded-xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3"
-                  >
-                    <span>Cuida a tu familia ahora</span>
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </button>
 
-                  <p className="text-center text-gray-500 text-sm mt-4">
-                    ✓ Pago recurrente con tarjeta (crédito/débito) • ✓ Cancela cuando quieras • ✓ 100% Privado y seguro
+                  <div className="flex items-start gap-4">
+                    <div className="text-4xl">❤️</div>
+                    <div>
+                      <h3 className="text-xl font-bold mb-2">Cumples tu rol</h3>
+                      <p className="text-gray-300">Les das beneficios reales aunque estés lejos</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="text-4xl">💰</div>
+                    <div>
+                      <h3 className="text-xl font-bold mb-2">Ahorros comprobados</h3>
+                      <p className="text-gray-300">Tus $12/mes generan ahorros de $200+ al mes para ellos</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 bg-cyan-500/20 border-2 border-cyan-400/50 rounded-xl p-4">
+                  <p className="text-center text-lg font-bold">
+                    💳 Solo $12 al mes
                   </p>
                 </div>
               </div>
 
-              {/* Right - Imagen emocional */}
-              <div className="relative">
-                <div className="rounded-3xl overflow-hidden shadow-2xl">
-                  <img 
-                    src="/familyeating.jpeg"
-                    alt="Familia unida"
-                    className="w-full h-[600px] object-cover"
-                  />
-                </div>
-                
-                {/* Floating testimonial */}
-                <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-2xl p-6 max-w-md border-l-4 border-cyan-500">
-                  <div className="flex items-start gap-3">
-                    <svg className="w-8 h-8 text-cyan-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+              {/* PARA TUS SERES QUERIDOS (México) */}
+              <div className="bg-gradient-to-br from-pink-900/40 to-purple-900/40 backdrop-blur-lg rounded-3xl p-8 border-2 border-pink-400/30 shadow-2xl">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-purple-500 rounded-xl flex items-center justify-center">
+                    <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-black">Para tus seres queridos en México</h2>
+                </div>
+
+                <div className="space-y-5">
+                  <div className="flex items-start gap-4 bg-white/5 rounded-xl p-4">
+                    <div className="text-3xl">🏥</div>
                     <div>
-                      <p className="text-gray-700 italic mb-2">"{testimonials[currentTestimonial].quote}"</p>
-                      <p className="text-sm font-bold text-gray-900">{testimonials[currentTestimonial].author}</p>
-                      <p className="text-xs text-gray-500">{testimonials[currentTestimonial].role}</p>
+                      <h3 className="text-lg font-bold mb-1">Consultas médicas ilimitadas 24/7</h3>
+                      <p className="text-sm text-gray-300">Por WhatsApp, sin esperas, sin límites</p>
                     </div>
                   </div>
+
+                  <div className="flex items-start gap-4 bg-white/5 rounded-xl p-4">
+                    <div className="text-3xl">💊</div>
+                    <div>
+                      <h3 className="text-lg font-bold mb-1">40-75% descuento en medicinas</h3>
+                      <p className="text-sm text-gray-300">En más de 5,000 farmacias en todo México</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 bg-white/5 rounded-xl p-4">
+                    <div className="text-3xl">🧠</div>
+                    <div>
+                      <h3 className="text-lg font-bold mb-1">Terapia psicológica semanal</h3>
+                      <p className="text-sm text-gray-300">Con psicólogos certificados</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 bg-white/5 rounded-xl p-4">
+                    <div className="text-3xl">👨‍👩‍👧‍👦</div>
+                    <div>
+                      <h3 className="text-lg font-bold mb-1">Hasta 4 personas protegidas</h3>
+                      <p className="text-sm text-gray-300">Toda tu familia con una sola suscripción</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Visual Timeline: Cómo funciona */}
+            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10">
+              <h3 className="text-2xl md:text-3xl font-black text-center mb-10">
+                ¿Cómo funciona? En 3 simples pasos
+              </h3>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                    <span className="text-3xl font-black text-white">1</span>
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Tú te suscribes</h4>
+                  <p className="text-gray-300">Pagas $12/mes con tu tarjeta</p>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                    <span className="text-3xl font-black text-white">2</span>
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Ellos reciben acceso</h4>
+                  <p className="text-gray-300">Código por WhatsApp en 30 segundos</p>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-pink-400 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl">
+                    <span className="text-3xl font-black text-white">3</span>
+                  </div>
+                  <h4 className="text-xl font-bold mb-2">Usan los servicios</h4>
+                  <p className="text-gray-300">Doctor, descuentos y terapia AHORA</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Hero Testimonial - Reemplazar sección de problemas */}
-        <section className="py-12 bg-gradient-to-br from-cyan-50 via-white to-blue-50">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-                Miles de familias como tú ya duermen tranquilos
-              </h2>
-              <p className="text-xl text-gray-600">
-                Tú también puedes cuidar a tu familia desde hoy
+        {/* FASE 3: CONVERSIÓN - Fondo Blanco */}
+        <section className="relative bg-white overflow-hidden py-12 md:py-20">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            {/* Headline emocional */}
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6 leading-tight">
+              ¿Quieres estar más tranquilo?
+            </h2>
+            <p className="text-xl md:text-2xl text-gray-700 mb-10 font-semibold">
+              ¿Quieres darle beneficios reales a tus seres queridos?
+            </p>
+
+            {/* CTA Principal */}
+            <div className="bg-gradient-to-br from-cyan-50 to-purple-50 rounded-3xl p-8 md:p-12 shadow-2xl border-4 border-cyan-300 mb-10">
+              <div className="mb-8">
+                <div className="inline-block bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-6 py-3 rounded-full text-lg font-bold mb-6">
+                  Solo $12/mes • Hasta 4 personas
+                </div>
+                <p className="text-2xl md:text-3xl font-black text-gray-900 mb-4">
+                  Empieza a cuidarlos desde hoy
+                </p>
+                <p className="text-gray-600 text-lg mb-6">
+                  Suscripción de servicios de salud • No es un seguro
+                </p>
+              </div>
+
+              <button
+                onClick={() => setCurrentPage('checkout')}
+                className="w-full md:w-auto px-12 py-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 text-white text-xl md:text-2xl font-black rounded-full hover:shadow-2xl hover:scale-105 transform transition-all duration-300 shadow-xl"
+              >
+                Suscríbete hoy →
+              </button>
+
+              <p className="text-sm text-gray-500 mt-6">
+                ✓ Sin contratos • ✓ Cancela cuando quieras • ✓ Acceso inmediato
               </p>
             </div>
 
-            {/* Featured Testimonial */}
-            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-cyan-400">
-              <div className="grid md:grid-cols-2 gap-0">
-                <div className="relative h-80 md:h-auto">
-                  <img 
-                    src="/familyeating.jpeg" 
-                    alt="Familia reunida" 
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            {/* Social Proof - Testimonial rápido */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200 max-w-2xl mx-auto">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-400 rounded-full flex items-center justify-center text-white text-lg font-black">
+                  M
                 </div>
-                
-                <div className="p-10 flex flex-col justify-center bg-gradient-to-br from-cyan-50 to-white">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <svg key={i} className="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <blockquote className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 leading-relaxed">
-                    "Ya no me despierto en las noches con miedo de que le pase algo a mi mamá y no pueda ayudarla."
-                  </blockquote>
-                  
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-pink-400 rounded-full flex items-center justify-center text-white text-2xl font-black">
-                      M
-                    </div>
-                    <div>
-                      <p className="font-bold text-lg text-gray-900">María G.</p>
-                      <p className="text-gray-600">Phoenix, AZ</p>
-                      <p className="text-sm text-gray-500 italic">Hija de doña Rosa</p>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6 bg-cyan-100 border-2 border-cyan-300 rounded-xl p-4">
-                    <p className="text-sm text-cyan-900 font-semibold">
-                      ✅ Usa SaludCompartida desde hace 6 meses • Su mamá ha tenido 12 consultas médicas por WhatsApp
-                    </p>
+                <div className="text-left">
+                  <p className="font-bold text-gray-900">María G.</p>
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                      </svg>
+                    ))}
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Quick benefits strip */}
-            <div className="mt-12 grid md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-cyan-200 text-center">
-                <div className="text-4xl font-black text-cyan-600 mb-2">24/7</div>
-                <p className="text-gray-700 font-semibold">Doctor disponible por WhatsApp</p>
-              </div>
-              <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-200 text-center">
-                <div className="text-4xl font-black text-purple-600 mb-2">40-75%</div>
-                <p className="text-gray-700 font-semibold">Ahorro en medicinas</p>
-              </div>
-              <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-pink-200 text-center">
-                <div className="text-4xl font-black text-pink-600 mb-2">$12</div>
-                <p className="text-gray-700 font-semibold">Al mes por toda tu familia</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Solución - Beneficios PRINCIPALES */}
-        <section className="py-12 bg-white">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Imagina esto en lugar de la angustia...
-              </h2>
-              <p className="text-2xl text-gray-600">
-                Por solo <strong className="text-cyan-600">$12 al mes</strong>, tu familia tendrá:
+              <p className="text-gray-700 italic text-left">
+                "Ya no me despierto en las noches con miedo de que le pase algo a mi mamá y no pueda ayudarla."
               </p>
-            </div>
-
-            <div className="space-y-8">
-              {/* Doctor 24/7 - MÁS IMPORTANTE */}
-              <div className="bg-gradient-to-r from-cyan-50 to-cyan-100 border-4 border-cyan-500 rounded-3xl p-10 shadow-2xl transform hover:scale-105 transition-all duration-300">
-                <div className="flex items-start gap-6">
-                  <div className="w-20 h-20 bg-gradient-to-br from-cyan-500 to-cyan-700 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xl">
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-3">
-                      <h3 className="text-3xl font-black text-gray-900">Doctor 24/7 por WhatsApp</h3>
-                      <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">
-                        LO MÁS IMPORTANTE
-                      </span>
-                    </div>
-                    <p className="text-xl text-gray-700 mb-4 leading-relaxed">
-                      ¿Tu mamá se siente mal a las 3 AM? <strong>En 5 minutos</strong> ya está hablando con un médico real. 
-                      Sin esperas, sin salir de casa, <strong>ilimitado</strong>.
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      <span className="bg-cyan-200 text-cyan-900 px-4 py-2 rounded-lg font-semibold text-sm">✓ Respuesta en minutos</span>
-                      <span className="bg-cyan-200 text-cyan-900 px-4 py-2 rounded-lg font-semibold text-sm">✓ Consultas ilimitadas</span>
-                      <span className="bg-cyan-200 text-cyan-900 px-4 py-2 rounded-lg font-semibold text-sm">✓ Médicos certificados</span>
-                      <span className="bg-cyan-200 text-cyan-900 px-4 py-2 rounded-lg font-semibold text-sm">✓ Recetas digitales</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Descuentos en medicinas */}
-              <div className="bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-300 rounded-3xl p-8 shadow-xl">
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">40-75% de Descuento en Medicinas</h3>
-                    <p className="text-lg text-gray-700 mb-3">
-                      Ahorra <strong>cientos de dólares al mes</strong> en medicamentos. Acceso a más de 
-                      <strong> 1,700 farmacias</strong> en todo México.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="bg-green-200 text-green-900 px-3 py-1 rounded-lg font-medium text-sm">✓ 1,700+ farmacias</span>
-                      <span className="bg-green-200 text-green-900 px-3 py-1 rounded-lg font-medium text-sm">✓ Sin límite de uso</span>
-                      <span className="bg-green-200 text-green-900 px-3 py-1 rounded-lg font-medium text-sm">✓ Toda la familia</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Terapia */}
-              <div className="bg-gradient-to-r from-purple-50 to-purple-100 border-2 border-purple-300 rounded-3xl p-8 shadow-xl">
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Terapia Psicológica Semanal</h3>
-                    <p className="text-lg text-gray-700 mb-3">
-                      Tu familia ya no estará sola. <strong>Sesiones semanales</strong> con psicólogos profesionales 
-                      para manejar la soledad, ansiedad y depresión.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="bg-purple-200 text-purple-900 px-3 py-1 rounded-lg font-medium text-sm">✓ Sesiones cada semana</span>
-                      <span className="bg-purple-200 text-purple-900 px-3 py-1 rounded-lg font-medium text-sm">✓ Psicólogos certificados</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
