@@ -180,6 +180,15 @@ export default function Pago() {
 
   // Función para enviar códigos de acceso por WhatsApp y Email
   const sendAccessCodes = async (migrantCode, familyCode, userData) => {
+    console.log('🚀 Iniciando envío de códigos...');
+    console.log('📋 Datos del usuario:', {
+      migrantEmail: userData.email,
+      migrantPhone: userData.phoneId,
+      familyPhone: userData.familyMember.phoneId,
+      migrantCode,
+      familyCode
+    });
+
     try {
       // 1. ENVIAR WHATSAPP AL MIGRANTE (USA)
       const migrantMessage = `🎉 ¡Bienvenido a SaludCompartida!
@@ -198,7 +207,8 @@ Haz clic en "¿Tienes tu Código?" e ingresa tu código.
 
 ¿Necesitas ayuda? Escríbenos a este número.`;
 
-      await fetch('/api/send-whatsapp', {
+      console.log('📱 Enviando WhatsApp a migrante:', userData.phoneId);
+      const whatsappMigrantResponse = await fetch('/api/send-whatsapp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -206,7 +216,9 @@ Haz clic en "¿Tienes tu Código?" e ingresa tu código.
           message: migrantMessage,
           type: 'access-code'
         })
-      }).catch(err => console.error('Error enviando WhatsApp migrante:', err));
+      });
+      const whatsappMigrantData = await whatsappMigrantResponse.json();
+      console.log('✅ WhatsApp migrante:', whatsappMigrantData);
 
       // 2. ENVIAR WHATSAPP AL FAMILIAR (MÉXICO)
       const familyMessage = `🎉 ¡Bienvenido a SaludCompartida!
@@ -226,7 +238,8 @@ Beneficios disponibles:
 
 ¿Necesitas ayuda? Escríbenos a este número.`;
 
-      await fetch('/api/send-whatsapp', {
+      console.log('📱 Enviando WhatsApp a familiar:', userData.familyMember.phoneId);
+      const whatsappFamilyResponse = await fetch('/api/send-whatsapp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -234,7 +247,9 @@ Beneficios disponibles:
           message: familyMessage,
           type: 'access-code'
         })
-      }).catch(err => console.error('Error enviando WhatsApp familiar:', err));
+      });
+      const whatsappFamilyData = await whatsappFamilyResponse.json();
+      console.log('✅ WhatsApp familiar:', whatsappFamilyData);
 
       // 3. ENVIAR EMAIL AL MIGRANTE
       const migrantEmailMessage = `
@@ -267,7 +282,8 @@ Beneficios disponibles:
         <p>Tu familiar también recibirá su código por WhatsApp.</p>
       `;
 
-      await fetch('/api/send-email', {
+      console.log('📧 Enviando email a migrante:', userData.email);
+      const emailMigrantResponse = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -276,9 +292,67 @@ Beneficios disponibles:
           message: migrantEmailMessage,
           type: 'direct'
         })
-      }).catch(err => console.error('Error enviando email:', err));
+      });
+      const emailMigrantData = await emailMigrantResponse.json();
+      console.log('✅ Email migrante:', emailMigrantData);
 
-      console.log('✅ Códigos enviados exitosamente');
+      // 4. ENVIAR NOTIFICACIÓN INTERNA (contact@ y ffranco@)
+      const notificationMessage = `
+        <h2>🎉 Nueva Suscripción Completada</h2>
+        
+        <h3>Datos del Migrante (USA):</h3>
+        <ul>
+          <li><strong>Nombre:</strong> ${userData.firstName} ${userData.lastName}</li>
+          <li><strong>Email:</strong> ${userData.email}</li>
+          <li><strong>Teléfono:</strong> ${userData.phoneId}</li>
+          <li><strong>Código:</strong> ${migrantCode}</li>
+        </ul>
+
+        <h3>Datos del Familiar (México):</h3>
+        <ul>
+          <li><strong>Nombre:</strong> ${userData.familyMember.firstName} ${userData.familyMember.lastName}</li>
+          <li><strong>WhatsApp:</strong> ${userData.familyMember.phoneId}</li>
+          <li><strong>Código:</strong> ${familyCode}</li>
+        </ul>
+
+        <h3>Detalles de Pago:</h3>
+        <ul>
+          <li><strong>Monto:</strong> $12.00 USD</li>
+          <li><strong>Fecha:</strong> ${new Date().toLocaleString('es-MX')}</li>
+        </ul>
+      `;
+
+      console.log('📧 Enviando notificaciones internas...');
+      
+      // Enviar a contact@saludcompartida.com
+      const notifContact = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'contact@saludcompartida.com',
+          subject: '🎉 Nueva Suscripción - SaludCompartida',
+          message: notificationMessage,
+          type: 'direct'
+        })
+      });
+      const notifContactData = await notifContact.json();
+      console.log('✅ Notificación a contact@:', notifContactData);
+
+      // Enviar a ffranco@saludcompartida.com
+      const notifFfranco = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'ffranco@saludcompartida.com',
+          subject: '🎉 Nueva Suscripción - SaludCompartida',
+          message: notificationMessage,
+          type: 'direct'
+        })
+      });
+      const notifFfrancoData = await notifFfranco.json();
+      console.log('✅ Notificación a ffranco@:', notifFfrancoData);
+
+      console.log('✅ Todos los códigos y notificaciones enviados exitosamente');
     } catch (error) {
       console.error('❌ Error enviando códigos:', error);
     }
