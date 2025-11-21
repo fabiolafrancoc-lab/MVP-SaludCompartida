@@ -50,6 +50,11 @@ function App() {
   // Estado para trackear origen de tráfico
   const [trafficSource, setTrafficSource] = useState('');
 
+  // Debug: monitorear cambio de showProblemStage
+  useEffect(() => {
+    console.log('showProblemStage cambió a:', showProblemStage);
+  }, [showProblemStage]);
+
   const testimonials = [
     {
       quote: "Ya no me despierto en las noches con miedo de que le pase algo a mi mamá y no pueda ayudarla.",
@@ -926,8 +931,6 @@ Equipo SaludCompartida`,
             </div>
           </div>
         </section>
-
-        <BubblesSolucion />
       </div>
     );
   }
