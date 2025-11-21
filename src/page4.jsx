@@ -291,7 +291,7 @@ const Page4 = () => {
       color: "#FF9500",
       onClick: () => {
         window.scrollTo(0, 0);
-        navigate('/savings', { state: { name: `${familyFirstName || ''} ${familyLastName || ''}`.trim() } });
+        navigate('/savings', { state: { name: userName } });
       }
     },
     {

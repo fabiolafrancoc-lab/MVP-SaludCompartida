@@ -1368,7 +1368,7 @@ SaludCompartida`,
             src="/saludcompartida logo WT.png" 
             alt="SaludCompartida" 
             className="h-16 cursor-pointer"
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/page4')}
           />
           <button
             onClick={() => {

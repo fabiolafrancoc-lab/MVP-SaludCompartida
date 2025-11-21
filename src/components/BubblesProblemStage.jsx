@@ -197,7 +197,10 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
       {/* Botón de Código de Acceso - Lado Derecho */}
       <div className="fixed top-32 right-6 z-50 pointer-events-auto">
         <button
-          onClick={() => navigate('/page3')}
+          onClick={() => {
+            window.scrollTo(0, 0);
+            navigate('/page3');
+          }}
           className="bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl shadow-2xl hover:shadow-pink-500/50 hover:scale-105 transition-all border-2 border-white/30 p-4 text-center"
         >
           <div className="text-sm font-bold mb-1">¿Tienes tu Código?</div>
