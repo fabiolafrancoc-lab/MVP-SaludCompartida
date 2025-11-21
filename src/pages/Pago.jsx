@@ -114,7 +114,7 @@ export default function Pago() {
         subscriptionDate: new Date().toISOString(),
         confirmationNumber: 'SC' + Math.random().toString(36).substring(2, 10).toUpperCase(),
         plan: 'Plan Familiar',
-        amount: 29.99,
+        amount: 12.00,
         cardLast4: cardNumber.replace(/\s/g, '').slice(-4),
         status: 'active'
       };
@@ -197,7 +197,7 @@ export default function Pago() {
                   <p className="font-semibold text-gray-900">Plan Familiar</p>
                   <p className="text-sm text-gray-600">Hasta 5 personas</p>
                 </div>
-                <p className="text-2xl font-bold text-cyan-600">$29.99</p>
+                <p className="text-2xl font-bold text-cyan-600">$12.00</p>
               </div>
               
               <div className="space-y-3">
@@ -333,7 +333,7 @@ export default function Pago() {
                       Procesando...
                     </span>
                   ) : (
-                    `Pagar $29.99 USD`
+                    `Pagar $12.00 USD`
                   )}
                 </button>
 

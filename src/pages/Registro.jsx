@@ -12,6 +12,12 @@ export default function Registro() {
   const [email, setEmail] = useState('');
   const [whatsappNumber, setWhatsappNumber] = useState('');
   const [countryCode, setCountryCode] = useState('+1');
+  
+  // Datos del familiar en México
+  const [familyFirstName, setFamilyFirstName] = useState('');
+  const [familyLastName, setFamilyLastName] = useState('');
+  const [familyWhatsapp, setFamilyWhatsapp] = useState('');
+  
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [errors, setErrors] = useState({});
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -51,6 +57,21 @@ export default function Registro() {
       newErrors.whatsappNumber = 'Debe tener 10 dígitos';
     }
     
+    // Validación del familiar en México
+    if (!familyFirstName.trim()) {
+      newErrors.familyFirstName = 'El nombre del familiar es requerido';
+    }
+    
+    if (!familyLastName.trim()) {
+      newErrors.familyLastName = 'El apellido del familiar es requerido';
+    }
+    
+    if (!familyWhatsapp.trim()) {
+      newErrors.familyWhatsapp = 'El WhatsApp del familiar es requerido';
+    } else if (familyWhatsapp.replace(/\s/g, '').length !== 10) {
+      newErrors.familyWhatsapp = 'Debe tener 10 dígitos';
+    }
+    
     if (!acceptedTerms) {
       newErrors.acceptedTerms = 'Debes aceptar los términos y condiciones';
     }
@@ -68,6 +89,14 @@ export default function Registro() {
       phone: whatsappNumber.replace(/\s/g, ''),
       countryCode: countryCode,
       phoneId: `${countryCode}${whatsappNumber.replace(/\s/g, '')}`,
+      // Datos del familiar en México
+      familyMember: {
+        firstName: familyFirstName.trim(),
+        lastName: familyLastName.trim(),
+        whatsapp: familyWhatsapp.replace(/\s/g, ''),
+        countryCode: '+52',
+        phoneId: `+52${familyWhatsapp.replace(/\s/g, '')}`
+      },
       registeredAt: new Date().toISOString()
     };
     
@@ -84,6 +113,9 @@ export default function Registro() {
     setMotherLastName('');
     setEmail('');
     setWhatsappNumber('');
+    setFamilyFirstName('');
+    setFamilyLastName('');
+    setFamilyWhatsapp('');
     setAcceptedTerms(false);
     setErrors({});
     
@@ -292,6 +324,112 @@ export default function Registro() {
                     {errors.whatsappNumber}
                   </p>
                 )}
+              </div>
+
+              {/* Separador - Datos del familiar en México */}
+              <div className="border-t-2 border-gray-200 pt-6 mt-6">
+                <div className="bg-gradient-to-r from-cyan-50 to-pink-50 rounded-xl p-4 mb-5">
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">
+                    👨‍👩‍👧‍👦 Datos de tu Familiar en México
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Ambos recibirán códigos de acceso por WhatsApp
+                  </p>
+                </div>
+
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-2">
+                      Nombre del Familiar <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={familyFirstName}
+                      onChange={(e) => {
+                        setFamilyFirstName(e.target.value);
+                        setErrors({ ...errors, familyFirstName: '' });
+                      }}
+                      placeholder="Ejemplo: Juan"
+                      className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-lg ${
+                        errors.familyFirstName ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      }`}
+                    />
+                    {errors.familyFirstName && (
+                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                        {errors.familyFirstName}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-2">
+                      Apellido del Familiar <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={familyLastName}
+                      onChange={(e) => {
+                        setFamilyLastName(e.target.value);
+                        setErrors({ ...errors, familyLastName: '' });
+                      }}
+                      placeholder="Ejemplo: Pérez"
+                      className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-lg ${
+                        errors.familyLastName ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      }`}
+                    />
+                    {errors.familyLastName && (
+                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                        {errors.familyLastName}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-2">
+                      WhatsApp del Familiar en México <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex gap-2">
+                      <div className="px-4 py-3 border-2 border-gray-300 rounded-lg font-semibold text-lg bg-gray-100 text-gray-700 flex items-center">
+                        🇲🇽 +52
+                      </div>
+                      <input
+                        type="tel"
+                        value={familyWhatsapp}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, '');
+                          if (value.length <= 10) {
+                            const formatted = value.length <= 3 ? value :
+                                            value.length <= 6 ? `${value.slice(0, 3)} ${value.slice(3)}` :
+                                            `${value.slice(0, 3)} ${value.slice(3, 6)} ${value.slice(6)}`;
+                            setFamilyWhatsapp(formatted);
+                            setErrors({ ...errors, familyWhatsapp: '' });
+                          }
+                        }}
+                        placeholder="555 123 4567"
+                        className={`flex-1 px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-lg ${
+                          errors.familyWhatsapp ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                        }`}
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Formato: +52 XXX XXX XXXX (10 dígitos México)
+                    </p>
+                    {errors.familyWhatsapp && (
+                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                        {errors.familyWhatsapp}
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
 
               <div>
