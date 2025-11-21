@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { CheckCircle, Download, Mail, CreditCard, Calendar, FileText } from 'lucide-react';
 import Footer from '../components/Footer';
 
@@ -6,6 +7,11 @@ export default function Confirmacion() {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state || JSON.parse(localStorage.getItem('subscriptionData') || '{}');
+
+  // Scroll al tope cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Si no hay datos de suscripción, redirigir
   if (!data.confirmationNumber) {

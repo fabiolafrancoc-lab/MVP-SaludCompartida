@@ -65,6 +65,11 @@ export default function Page3() {
   const [userDataLoaded, setUserDataLoaded] = useState(false); // Indica si ya cargamos datos del localStorage
   const [codeVerified, setCodeVerified] = useState(false); // Indica si el código fue verificado en Supabase
 
+  // Scroll al tope cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Auto-select country code based on geolocation (only for Mexico)
   useEffect(() => {
     if (!geoLoading && detectedCountry) {

@@ -19,6 +19,11 @@ export default function Pago() {
   // Errores
   const [errors, setErrors] = useState({});
 
+  // Scroll al tope cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Cargar datos del usuario registrado
   useEffect(() => {
     const registrationData = localStorage.getItem('registrationUser');

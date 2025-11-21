@@ -22,6 +22,11 @@ export default function Registro() {
   const [errors, setErrors] = useState({});
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
+  // Scroll al tope cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     if (!geoLoading && detectedCountry) {
       if (detectedCountry === 'US') {

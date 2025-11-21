@@ -208,6 +208,11 @@ const Page4 = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userPhone, setUserPhone] = useState('');
   
+  // Scroll al tope cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   useEffect(() => {
     try {
       // Primero usar currentUser del contexto
