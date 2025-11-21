@@ -163,11 +163,120 @@ export default function Pago() {
 
       localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
 
+      // ENVIAR CÓDIGOS POR WHATSAPP Y EMAIL
+      sendAccessCodes(migrantCode, familyCode, userData);
+
       // Redirigir a confirmación después de 3 segundos
       setTimeout(() => {
         navigate('/confirmacion', { state: subscriptionData });
       }, 3000);
     }, 2000);
+  };
+
+  // Función para enviar códigos de acceso por WhatsApp y Email
+  const sendAccessCodes = async (migrantCode, familyCode, userData) => {
+    try {
+      // 1. ENVIAR WHATSAPP AL MIGRANTE (USA)
+      const migrantMessage = `🎉 ¡Bienvenido a SaludCompartida!
+
+Tu código de acceso: ${migrantCode}
+
+Ingresa a: www.saludcompartida.app
+Haz clic en "¿Tienes tu Código?" e ingresa tu código.
+
+¡Tu familia está protegida! 💙
+
+- Telemedicina 24/7
+- Descuentos en farmacias
+- Terapia psicológica
+- Acceso para tu familiar en México
+
+¿Necesitas ayuda? Escríbenos a este número.`;
+
+      await fetch('/api/send-whatsapp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: userData.phoneId,
+          message: migrantMessage,
+          type: 'access-code'
+        })
+      }).catch(err => console.error('Error enviando WhatsApp migrante:', err));
+
+      // 2. ENVIAR WHATSAPP AL FAMILIAR (MÉXICO)
+      const familyMessage = `🎉 ¡Bienvenido a SaludCompartida!
+
+Tu código de acceso: ${familyCode}
+
+Ingresa a: www.saludcompartida.app
+Haz clic en "¿Tienes tu Código?" e ingresa tu código.
+
+Tu familiar en USA te ha incluido en el plan familiar 💙
+
+Beneficios disponibles:
+- Telemedicina 24/7
+- Descuentos hasta 75% en farmacias
+- Terapia psicológica
+- Y mucho más
+
+¿Necesitas ayuda? Escríbenos a este número.`;
+
+      await fetch('/api/send-whatsapp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: userData.familyMember.phoneId,
+          message: familyMessage,
+          type: 'access-code'
+        })
+      }).catch(err => console.error('Error enviando WhatsApp familiar:', err));
+
+      // 3. ENVIAR EMAIL AL MIGRANTE
+      const migrantEmailMessage = `
+        <h2>¡Bienvenido a SaludCompartida, ${userData.firstName}! 🎉</h2>
+        
+        <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; margin: 20px 0;">
+          <h3 style="color: #0891b2;">Tu Código de Acceso Personal:</h3>
+          <p style="font-size: 32px; font-weight: bold; color: #0891b2; letter-spacing: 2px; text-align: center;">
+            ${migrantCode}
+          </p>
+        </div>
+
+        <h3>Cómo Activar tu Cuenta:</h3>
+        <ol>
+          <li>Ve a <strong>www.saludcompartida.app</strong></li>
+          <li>Haz clic en <strong>"¿Tienes tu Código?"</strong></li>
+          <li>Ingresa tu código: <strong>${migrantCode}</strong></li>
+          <li>Confirma tus datos y listo!</li>
+        </ol>
+
+        <h3>Tus Beneficios Incluyen:</h3>
+        <ul>
+          <li>✅ Telemedicina 24/7 por WhatsApp</li>
+          <li>✅ Descuentos hasta 75% en farmacias</li>
+          <li>✅ Terapia psicológica para toda la familia</li>
+          <li>✅ Acceso para tu familiar en México</li>
+        </ul>
+
+        <p><strong>Código de tu familiar en México:</strong> ${familyCode}</p>
+        <p>Tu familiar también recibirá su código por WhatsApp.</p>
+      `;
+
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: userData.email,
+          subject: '🎉 Tu Código de Acceso a SaludCompartida',
+          message: migrantEmailMessage,
+          type: 'direct'
+        })
+      }).catch(err => console.error('Error enviando email:', err));
+
+      console.log('✅ Códigos enviados exitosamente');
+    } catch (error) {
+      console.error('❌ Error enviando códigos:', error);
+    }
   };
 
   const handleCardNumberChange = (e) => {
