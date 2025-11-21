@@ -176,7 +176,7 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
         <div className="fixed inset-x-0 top-24 md:top-32 z-40 px-4 text-center pointer-events-none">
           {showQuestion1 && (
             <div className="animate-fadeIn">
-              <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
                 ¿Te sientes culpable de no estar allá?
               </h1>
             </div>
@@ -184,7 +184,7 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
           
           {showQuestion2 && (
             <div className="animate-fadeIn">
-              <h2 className="text-5xl md:text-7xl lg:text-9xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
                 ¿Trabajas dos turnos y el dinero que envías a casa no es suficiente?
               </h2>
             </div>
@@ -195,7 +195,7 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
       {/* UNA SOLA PREGUNTA FINAL */}
       {showOnlyOneQuestion && (
         <div className="fixed inset-x-0 top-20 md:top-24 z-40 px-4 text-center pointer-events-none animate-fadeIn">
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
             ¿Te pasa a ti también?
           </h1>
         </div>

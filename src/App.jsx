@@ -689,25 +689,34 @@ Equipo SaludCompartida`,
                 </h3>
                 
                 <div className="space-y-6">
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-2">
-                      Tranquilidad
-                    </h4>
-                    <p className="text-gray-300">Duermes sabiendo que están protegidos 24/7</p>
+                  <div className="flex items-start gap-3">
+                    <span className="text-white text-2xl mt-1">•</span>
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2">
+                        Tranquilidad
+                      </h4>
+                      <p className="text-gray-300">Duermes sabiendo que están protegidos 24/7</p>
+                    </div>
                   </div>
                   
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-2">
-                      Gastos Inesperados
-                    </h4>
-                    <p className="text-gray-300">Con SaludCompartida reduces los gastos inesperados dándoles el beneficio a cuatro miembros de tu familia para acceder a doctores y especialistas por videollamada y WhatsApp, descuentos en medicamentos y en todos los productos de la farmacia.</p>
+                  <div className="flex items-start gap-3">
+                    <span className="text-white text-2xl mt-1">•</span>
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2">
+                        Gastos Inesperados
+                      </h4>
+                      <p className="text-gray-300">Con SaludCompartida reduces los gastos inesperados dándoles el beneficio a cuatro miembros de tu familia para acceder a doctores y especialistas por videollamada y WhatsApp, descuentos en medicamentos y en todos los productos de la farmacia.</p>
+                    </div>
                   </div>
                   
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-2">
-                      Ahorros comprobados
-                    </h4>
-                    <p className="text-gray-300">Tus $12/mes generan ahorros de $200+ al mes para ellos</p>
+                  <div className="flex items-start gap-3">
+                    <span className="text-white text-2xl mt-1">•</span>
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2">
+                        Ahorros comprobados
+                      </h4>
+                      <p className="text-gray-300">Tus $12/mes generan ahorros de $200+ al mes para ellos</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -719,32 +728,44 @@ Equipo SaludCompartida`,
                 </h3>
                 
                 <div className="space-y-6">
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-2">
-                      Consultas Médicas 24/7
-                    </h4>
-                    <p className="text-gray-300">Doctor disponible por WhatsApp cualquier día, cualquier hora</p>
+                  <div className="flex items-start gap-3">
+                    <span className="text-white text-2xl mt-1">•</span>
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2">
+                        Consultas Médicas 24/7
+                      </h4>
+                      <p className="text-gray-300">Doctor disponible por WhatsApp cualquier día, cualquier hora</p>
+                    </div>
                   </div>
                   
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-2">
-                      75% de Descuento en Medicinas
-                    </h4>
-                    <p className="text-gray-300">En más de 5,000 farmacias en todo México</p>
+                  <div className="flex items-start gap-3">
+                    <span className="text-white text-2xl mt-1">•</span>
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2">
+                        75% de Descuento en Medicinas
+                      </h4>
+                      <p className="text-gray-300">En más de 5,000 farmacias en todo México</p>
+                    </div>
                   </div>
                   
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-2">
-                      Terapia Psicológica Semanal
-                    </h4>
-                    <p className="text-gray-300">Sesiones profesionales incluidas sin costo adicional</p>
+                  <div className="flex items-start gap-3">
+                    <span className="text-white text-2xl mt-1">•</span>
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2">
+                        Terapia Psicológica Semanal
+                      </h4>
+                      <p className="text-gray-300">Sesiones profesionales incluidas sin costo adicional</p>
+                    </div>
                   </div>
                   
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-2">
-                      Hasta 4 Personas
-                    </h4>
-                    <p className="text-gray-300">Toda tu familia cubierta con un solo plan</p>
+                  <div className="flex items-start gap-3">
+                    <span className="text-white text-2xl mt-1">•</span>
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2">
+                        Hasta 4 Personas
+                      </h4>
+                      <p className="text-gray-300">Toda tu familia cubierta con un solo plan</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -772,7 +793,7 @@ Equipo SaludCompartida`,
                     <span className="text-4xl font-black text-white">2</span>
                   </div>
                   <h4 className="text-xl font-black text-white mb-3">Reciben códigos</h4>
-                  <p className="text-gray-300">Cada familiar recibe su código de acceso personal por WhatsApp</p>
+                  <p className="text-gray-300">Tú y tu Familiar en México reciben códigos en 30 segundos</p>
                 </div>
 
                 {/* Paso 3 */}
@@ -781,7 +802,7 @@ Equipo SaludCompartida`,
                     <span className="text-4xl font-black text-white">3</span>
                   </div>
                   <h4 className="text-xl font-black text-white mb-3">Usan los servicios</h4>
-                  <p className="text-gray-300">Doctor, descuentos y terapia AHORA</p>
+                  <p className="text-gray-300">Doctor, Descuentos y Terapia AHORA</p>
                 </div>
               </div>
             </div>
@@ -819,13 +840,13 @@ Equipo SaludCompartida`,
                   <span>Doctor 24/7 por WhatsApp</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span>40-75% descuento en medicinas</span>
+                  <span>Descuentos hasta 75% en Farmacias en medicamentos y en todos los productos! 1,500 farmacias</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span>Terapia psicológica semanal</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span>Hasta 4 personas cubiertas</span>
+                  <span>Hasta cuatro familiares tienen acceso a SaludCompartida</span>
                 </div>
               </div>
             </div>
