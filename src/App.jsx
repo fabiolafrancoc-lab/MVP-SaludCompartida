@@ -660,6 +660,7 @@ Equipo SaludCompartida`,
     }
 
     // ETAPA 2 y 3: Customer Journey Completo - Dark Background
+    console.log('Renderizando Secciones 2 y 3 del Customer Journey');
     return (
       <div className="min-h-screen bg-black">
         
@@ -676,6 +677,11 @@ Equipo SaludCompartida`,
         {/* SECCIÓN 2: LA SOLUCIÓN */}
         <section id="solucion" className="relative pt-28 pb-20 md:py-32 px-6">
           <div className="max-w-7xl mx-auto">
+            
+            {/* DEBUG: Indicador temporal */}
+            <div className="bg-red-500 text-white p-4 text-center text-2xl font-bold mb-8">
+              ✅ SECCIÓN 2 CARGADA - Si ves esto, la página 2 SÍ está apareciendo
+            </div>
             
             {/* Título Principal */}
             <div className="text-center mb-16">
