@@ -690,22 +690,22 @@ Equipo SaludCompartida`,
                 
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                      <span>💤</span> Tranquilidad
+                    <h4 className="text-xl font-bold text-white mb-2">
+                      Tranquilidad
                     </h4>
                     <p className="text-gray-300">Duermes sabiendo que están protegidos 24/7</p>
                   </div>
                   
                   <div>
-                    <h4 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                      <span>🚨</span> Gastos Inesperados
+                    <h4 className="text-xl font-bold text-white mb-2">
+                      Gastos Inesperados
                     </h4>
                     <p className="text-gray-300">Con SaludCompartida reduces los gastos inesperados dándoles el beneficio a cuatro miembros de tu familia para acceder a doctores y especialistas por videollamada y WhatsApp, descuentos en medicamentos y en todos los productos de la farmacia.</p>
                   </div>
                   
                   <div>
-                    <h4 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                      <span>💰</span> Ahorros comprobados
+                    <h4 className="text-xl font-bold text-white mb-2">
+                      Ahorros comprobados
                     </h4>
                     <p className="text-gray-300">Tus $12/mes generan ahorros de $200+ al mes para ellos</p>
                   </div>
@@ -720,29 +720,29 @@ Equipo SaludCompartida`,
                 
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                      <span>🏥</span> Consultas Médicas 24/7
+                    <h4 className="text-xl font-bold text-white mb-2">
+                      Consultas Médicas 24/7
                     </h4>
                     <p className="text-gray-300">Doctor disponible por WhatsApp cualquier día, cualquier hora</p>
                   </div>
                   
                   <div>
-                    <h4 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                      <span>💊</span> 75% de Descuento en Medicinas
+                    <h4 className="text-xl font-bold text-white mb-2">
+                      75% de Descuento en Medicinas
                     </h4>
                     <p className="text-gray-300">En más de 5,000 farmacias en todo México</p>
                   </div>
                   
                   <div>
-                    <h4 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                      <span>🧠</span> Terapia Psicológica Semanal
+                    <h4 className="text-xl font-bold text-white mb-2">
+                      Terapia Psicológica Semanal
                     </h4>
                     <p className="text-gray-300">Sesiones profesionales incluidas sin costo adicional</p>
                   </div>
                   
                   <div>
-                    <h4 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                      <span>👨‍👩‍👧‍👦</span> Hasta 4 Personas
+                    <h4 className="text-xl font-bold text-white mb-2">
+                      Hasta 4 Personas
                     </h4>
                     <p className="text-gray-300">Toda tu familia cubierta con un solo plan</p>
                   </div>
@@ -762,8 +762,8 @@ Equipo SaludCompartida`,
                   <div className="w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                     <span className="text-4xl font-black text-white">1</span>
                   </div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-3">Te suscribes</h4>
-                  <p className="text-gray-600">Pagas $12/mes y registras a hasta 4 familiares en México</p>
+                  <h4 className="text-xl font-black text-white mb-3">Te suscribes</h4>
+                  <p className="text-gray-300">Pagas $12/mes y registras a hasta 4 familiares en México</p>
                 </div>
 
                 {/* Paso 2 */}
@@ -771,8 +771,8 @@ Equipo SaludCompartida`,
                   <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                     <span className="text-4xl font-black text-white">2</span>
                   </div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-3">Reciben códigos</h4>
-                  <p className="text-gray-600">Cada familiar recibe su código de acceso personal por WhatsApp</p>
+                  <h4 className="text-xl font-black text-white mb-3">Reciben códigos</h4>
+                  <p className="text-gray-300">Cada familiar recibe su código de acceso personal por WhatsApp</p>
                 </div>
 
                 {/* Paso 3 */}
@@ -780,7 +780,7 @@ Equipo SaludCompartida`,
                   <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                     <span className="text-4xl font-black text-white">3</span>
                   </div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-3">Usan los servicios</h4>
+                  <h4 className="text-xl font-black text-white mb-3">Usan los servicios</h4>
                   <p className="text-gray-300">Doctor, descuentos y terapia AHORA</p>
                 </div>
               </div>
@@ -789,7 +789,7 @@ Equipo SaludCompartida`,
         </section>
 
         {/* SECCIÓN 3: CALL TO ACTION */}
-        <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black py-20 md:py-32 px-6">
+        <section className="relative bg-black py-20 md:py-32 px-6">
           <div className="max-w-5xl mx-auto text-center">
             
             {/* Headline Principal */}
@@ -816,27 +816,15 @@ Equipo SaludCompartida`,
               {/* Beneficios lista */}
               <div className="grid md:grid-cols-2 gap-4 mt-10 text-white/90 text-left max-w-2xl mx-auto">
                 <div className="flex items-center gap-3">
-                  <svg className="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
                   <span>Doctor 24/7 por WhatsApp</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <svg className="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
                   <span>40-75% descuento en medicinas</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <svg className="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
                   <span>Terapia psicológica semanal</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <svg className="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
                   <span>Hasta 4 personas cubiertas</span>
                 </div>
               </div>
@@ -884,19 +872,16 @@ Equipo SaludCompartida`,
               
               <div className="grid md:grid-cols-3 gap-8 mb-6">
                 <div className="text-center">
-                  <div className="text-5xl mb-4">📄</div>
                   <h4 className="text-xl font-bold text-white mb-2">Sin Contratos</h4>
                   <p className="text-gray-300">No firmas nada. Pagas mes a mes.</p>
                 </div>
 
                 <div className="text-center">
-                  <div className="text-5xl mb-4">✋</div>
                   <h4 className="text-xl font-bold text-white mb-2">Cancela Fácil</h4>
                   <p className="text-gray-300">Un clic y ya. Sin llamadas, sin excusas.</p>
                 </div>
 
                 <div className="text-center">
-                  <div className="text-5xl mb-4">🛡️</div>
                   <h4 className="text-xl font-bold text-white mb-2">Cero Riesgo</h4>
                   <p className="text-gray-300">Si no te gusta, te vas. Así de simple.</p>
                 </div>
@@ -910,11 +895,8 @@ Equipo SaludCompartida`,
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                   setTimeout(() => setShowProblemStage(true), 500);
                 }}
-                className="text-cyan-300 hover:text-cyan-200 underline text-lg flex items-center gap-2 mx-auto"
+                className="text-cyan-300 hover:text-cyan-200 underline text-lg mx-auto block"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                </svg>
                 Volver al inicio
               </button>
             </div>
