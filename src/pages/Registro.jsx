@@ -90,7 +90,7 @@ export default function Registro() {
     window.scrollTo(0, 0);
     
     setTimeout(() => {
-      navigate('/confirmacion');
+      navigate('/pago');
     }, 3000);
   };
 
