@@ -109,16 +109,16 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
     // PREGUNTA 1 aparece (0.5s)
     setTimeout(() => setShowQuestion1(true), 500);
     
-    // PREGUNTA 1 desaparece (4s)
-    setTimeout(() => setShowQuestion1(false), 4000);
+    // PREGUNTA 1 desaparece (3.5s)
+    setTimeout(() => setShowQuestion1(false), 3500);
     
-    // PREGUNTA 2 aparece (4.5s) - después de que la 1 desaparece
+    // PREGUNTA 2 aparece (4.5s) - después de que la 1 desaparece completamente
     setTimeout(() => setShowQuestion2(true), 4500);
     
-    // PREGUNTA 2 desaparece (8.5s)
-    setTimeout(() => setShowQuestion2(false), 8500);
+    // PREGUNTA 2 desaparece (8s)
+    setTimeout(() => setShowQuestion2(false), 8000);
     
-    // PREGUNTA 3 aparece (9s) - después de que la 2 desaparece
+    // PREGUNTA 3 aparece (9s) - después de que la 2 desaparece completamente
     setTimeout(() => setShowOnlyOneQuestion(true), 9000);
     
     // Después de 15 segundos, pasar a la siguiente etapa
@@ -261,8 +261,8 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
         
         @keyframes fadeInOut {
           0% { opacity: 0; transform: translateY(20px); }
-          10% { opacity: 1; transform: translateY(0); }
-          85% { opacity: 1; transform: translateY(0); }
+          15% { opacity: 1; transform: translateY(0); }
+          80% { opacity: 1; transform: translateY(0); }
           100% { opacity: 0; transform: translateY(-10px); }
         }
         
@@ -288,7 +288,7 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
         }
         
         .animate-fadeInOut {
-          animation: fadeInOut 3.5s ease-in-out;
+          animation: fadeInOut 3s ease-in-out;
         }
         
         .animate-bubble-fast {
