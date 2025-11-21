@@ -114,22 +114,29 @@ export default function Page3() {
       if (accessCodes[upperCode]) {
         const userData = accessCodes[upperCode];
         
-        setFirstName(userData.firstName);
-        setLastName(userData.lastName);
+        setFirstName(userData.firstName || '');
+        setLastName(userData.lastName || '');
         setMotherLastName(userData.motherLastName || '');
         setEmail(userData.email || '');
         
-        const formattedPhone = userData.phone 
-          ? userData.phone.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3')
-          : userData.whatsapp.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3');
+        // Manejar tanto 'phone' (migrante) como 'whatsapp' (familiar)
+        const phoneNumber = userData.phone || userData.whatsapp || '';
+        const formattedPhone = phoneNumber.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3');
         
         setWhatsappNumber(formattedPhone);
-        setCountryCode(userData.countryCode);
+        setCountryCode(userData.countryCode || '+52');
         setCodeVerified(true);
         setErrors({});
+        setUserDataLoaded(true);
         
         console.log('✅ Código de acceso verificado:', upperCode);
         console.log('Tipo:', userData.type);
+        console.log('Datos cargados:', {
+          nombre: userData.firstName,
+          apellido: userData.lastName,
+          telefono: phoneNumber,
+          email: userData.email
+        });
         return;
       }
       

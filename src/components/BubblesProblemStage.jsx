@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const testimonials = [
   "Son las 3 AM, mi mamá tiene dolor de pecho y no sé qué hacer desde aquí. —María González, Phoenix AZ",
@@ -49,6 +50,7 @@ const testimonials = [
 ];
 
 const SaludCompartidaProblemStage = ({ onComplete }) => {
+  const navigate = useNavigate();
   const [showQuestion1, setShowQuestion1] = useState(false);
   const [showQuestion2, setShowQuestion2] = useState(false);
   const [showOnlyOneQuestion, setShowOnlyOneQuestion] = useState(false);
@@ -191,6 +193,17 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
           )}
         </div>
       )}
+
+      {/* Botón de Código de Acceso - Lado Derecho */}
+      <div className="fixed top-32 right-6 z-50 pointer-events-auto">
+        <button
+          onClick={() => navigate('/page3')}
+          className="bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl shadow-2xl hover:shadow-pink-500/50 hover:scale-105 transition-all border-2 border-white/30 p-4 text-center"
+        >
+          <div className="text-sm font-bold mb-1">¿Tienes tu Código?</div>
+          <div className="text-xs bg-white/20 px-3 py-1 rounded-lg">Ingresa Aquí</div>
+        </button>
+      </div>
 
       {/* UNA SOLA PREGUNTA FINAL */}
       {showOnlyOneQuestion && (

@@ -196,19 +196,29 @@ const DashboardBox = ({ icon, title, message, color, onClick }) => {
 
 const Page4 = () => {
   const navigate = useNavigate();
-  // Read family name from context for personalization
-  const { familyFirstName, familyLastName } = useContext(UserContext);
+  // Read user data from context for personalization
+  const { currentUser } = useContext(UserContext);
   
   // Geolocation hook
   const { country, countryCode, loading: geoLoading } = useGeolocation();
   const [showLocationBanner, setShowLocationBanner] = useState(false);
   
-  // Get user data from localStorage
+  // Get user data from localStorage or context
   const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userPhone, setUserPhone] = useState('');
   
   useEffect(() => {
     try {
-      // Primero intentar con currentUser (nuevo sistema)
+      // Primero usar currentUser del contexto
+      if (currentUser && currentUser.firstName) {
+        setUserName(currentUser.firstName);
+        setUserEmail(currentUser.email || '');
+        setUserPhone(currentUser.phone || currentUser.whatsapp || '');
+        return;
+      }
+      
+      // Fallback: intentar con localStorage directamente
       let userData = null;
       const currentUserData = localStorage.getItem('currentUser');
       if (currentUserData) {
@@ -223,11 +233,13 @@ const Page4 = () => {
       
       if (userData && userData.firstName) {
         setUserName(userData.firstName);
+        setUserEmail(userData.email || '');
+        setUserPhone(userData.phone || userData.whatsapp || '');
       }
     } catch (error) {
       console.error('Error reading user data:', error);
     }
-  }, []);
+  }, [currentUser]);
 
   // Show location banner when geolocation is detected (only for Mexico)
   useEffect(() => {
