@@ -106,20 +106,20 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
       }
     }, 150);
     
-    // PREGUNTA 1 aparece
+    // PREGUNTA 1 aparece (0.5s)
     setTimeout(() => setShowQuestion1(true), 500);
     
-    // PREGUNTA 2 aparece, ELIMINA la 1
-    setTimeout(() => {
-      setShowQuestion1(false);
-      setShowQuestion2(true);
-    }, 5000);
+    // PREGUNTA 1 desaparece (4s)
+    setTimeout(() => setShowQuestion1(false), 4000);
     
-    // PREGUNTA 3 aparece, ELIMINA la 2
-    setTimeout(() => {
-      setShowQuestion2(false);
-      setShowOnlyOneQuestion(true);
-    }, 10000);
+    // PREGUNTA 2 aparece (4.5s) - después de que la 1 desaparece
+    setTimeout(() => setShowQuestion2(true), 4500);
+    
+    // PREGUNTA 2 desaparece (8.5s)
+    setTimeout(() => setShowQuestion2(false), 8500);
+    
+    // PREGUNTA 3 aparece (9s) - después de que la 2 desaparece
+    setTimeout(() => setShowOnlyOneQuestion(true), 9000);
     
     // Después de 15 segundos, pasar a la siguiente etapa
     setTimeout(() => {
@@ -177,7 +177,7 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
       {!showOnlyOneQuestion && (
         <div className="fixed inset-x-0 top-24 md:top-32 z-40 px-4 text-center pointer-events-none">
           {showQuestion1 && (
-            <div className="animate-fadeIn">
+            <div className="animate-fadeInOut">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
                 ¿Te sientes culpable de no estar allá?
               </h1>
@@ -185,7 +185,7 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
           )}
           
           {showQuestion2 && (
-            <div className="animate-fadeIn">
+            <div className="animate-fadeInOut">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
                 ¿Trabajas dos turnos y el dinero que envías a casa no es suficiente?
               </h2>
@@ -259,6 +259,13 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
           to { opacity: 1; transform: translateY(0); }
         }
         
+        @keyframes fadeInOut {
+          0% { opacity: 0; transform: translateY(20px); }
+          10% { opacity: 1; transform: translateY(0); }
+          85% { opacity: 1; transform: translateY(0); }
+          100% { opacity: 0; transform: translateY(-10px); }
+        }
+        
         @keyframes bubble-fast {
           0% {
             transform: translateY(0) rotate(0deg);
@@ -278,6 +285,10 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
         
         .animate-fadeIn {
           animation: fadeIn 1s ease-out;
+        }
+        
+        .animate-fadeInOut {
+          animation: fadeInOut 3.5s ease-in-out;
         }
         
         .animate-bubble-fast {
