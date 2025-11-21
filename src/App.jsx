@@ -671,10 +671,16 @@ Equipo SaludCompartida`,
             
             {/* Título Principal */}
             <div className="text-center mb-16">
-              <p className="text-2xl md:text-3xl text-cyan-300 font-medium mb-2">
-                La solución que te acompaña donde está tu corazón
+              <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-black mb-4 leading-tight">
+                SaludCompartida
+              </h2>
+              <p className="text-3xl md:text-4xl lg:text-5xl text-cyan-300 font-bold mb-4">
+                La SOLUCIÓN que te Acompaña
               </p>
-              <p className="text-lg md:text-xl text-gray-400 mt-4">
+              <p className="text-3xl md:text-4xl lg:text-5xl text-cyan-300 font-bold mb-6">
+                Donde está TU CORAZÓN
+              </p>
+              <p className="text-lg md:text-xl text-gray-400 mt-6">
                 Suscripción de servicios de salud • No es un seguro
               </p>
             </div>
