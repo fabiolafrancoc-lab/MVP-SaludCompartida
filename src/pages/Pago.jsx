@@ -108,6 +108,14 @@ export default function Pago() {
       setIsProcessing(false);
       setShowSuccess(true);
 
+      // Generar códigos únicos para migrante y familiar
+      const generateCode = (prefix) => {
+        return `SC-${prefix}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+      };
+
+      const migrantCode = generateCode('USA');
+      const familyCode = generateCode('MX');
+
       // Guardar información de la suscripción
       const subscriptionData = {
         ...userData,
@@ -116,10 +124,44 @@ export default function Pago() {
         plan: 'Plan Familiar',
         amount: 12.00,
         cardLast4: cardNumber.replace(/\s/g, '').slice(-4),
-        status: 'active'
+        status: 'active',
+        // Códigos de acceso
+        migrantAccessCode: migrantCode,
+        familyAccessCode: familyCode
       };
 
       localStorage.setItem('subscriptionData', JSON.stringify(subscriptionData));
+
+      // Guardar códigos con mapping a datos de usuario
+      const accessCodes = JSON.parse(localStorage.getItem('accessCodes') || '{}');
+      
+      // Código del migrante
+      accessCodes[migrantCode] = {
+        type: 'migrant',
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        motherLastName: userData.motherLastName,
+        email: userData.email,
+        phone: userData.phone,
+        countryCode: userData.countryCode,
+        phoneId: userData.phoneId,
+        confirmationNumber: subscriptionData.confirmationNumber,
+        activatedAt: null
+      };
+
+      // Código del familiar en México
+      accessCodes[familyCode] = {
+        type: 'family',
+        firstName: userData.familyMember.firstName,
+        lastName: userData.familyMember.lastName,
+        whatsapp: userData.familyMember.whatsapp,
+        countryCode: userData.familyMember.countryCode,
+        phoneId: userData.familyMember.phoneId,
+        confirmationNumber: subscriptionData.confirmationNumber,
+        activatedAt: null
+      };
+
+      localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
 
       // Redirigir a confirmación después de 3 segundos
       setTimeout(() => {

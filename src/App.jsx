@@ -834,6 +834,14 @@ Equipo SaludCompartida`,
                 Quiero suscribirme AHORA
               </button>
               
+              {/* Botón para usuarios con código */}
+              <button
+                onClick={() => navigate('/page3')}
+                className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-3 rounded-lg text-sm font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all border-2 border-white/30"
+              >
+                ¿Tienes Código de Acceso? Ingresa aquí
+              </button>
+              
               {/* Beneficios lista */}
               <div className="grid md:grid-cols-2 gap-4 mt-10 text-white/90 text-left max-w-2xl mx-auto">
                 <div className="flex items-center gap-3">

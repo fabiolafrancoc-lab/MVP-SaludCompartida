@@ -109,7 +109,31 @@ export default function Page3() {
 
       const upperCode = specialCode.trim().toUpperCase();
       
-      // Verificar si es código demo/especial
+      // 1. Verificar códigos de acceso generados en el pago (localStorage)
+      const accessCodes = JSON.parse(localStorage.getItem('accessCodes') || '{}');
+      if (accessCodes[upperCode]) {
+        const userData = accessCodes[upperCode];
+        
+        setFirstName(userData.firstName);
+        setLastName(userData.lastName);
+        setMotherLastName(userData.motherLastName || '');
+        setEmail(userData.email || '');
+        
+        const formattedPhone = userData.phone 
+          ? userData.phone.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3')
+          : userData.whatsapp.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3');
+        
+        setWhatsappNumber(formattedPhone);
+        setCountryCode(userData.countryCode);
+        setCodeVerified(true);
+        setErrors({});
+        
+        console.log('✅ Código de acceso verificado:', upperCode);
+        console.log('Tipo:', userData.type);
+        return;
+      }
+      
+      // 2. Verificar si es código demo/especial
       if (SPECIAL_ACCESS_CODES[upperCode]) {
         const codeData = SPECIAL_ACCESS_CODES[upperCode];
         const demoUser = codeData.demoUser;
@@ -124,7 +148,7 @@ export default function Page3() {
         return;
       }
       
-      // Buscar en Supabase
+      // 3. Buscar en Supabase
       try {
         const result = await getUserByAccessCode(upperCode);
         
@@ -193,7 +217,43 @@ export default function Page3() {
     
     const upperCode = specialCode.trim().toUpperCase();
     
-    // Primero revisar si es un código demo/especial
+    // 1. Revisar códigos de acceso generados en el pago (localStorage)
+    const accessCodes = JSON.parse(localStorage.getItem('accessCodes') || '{}');
+    if (accessCodes[upperCode]) {
+      const codeData = accessCodes[upperCode];
+      
+      // Marcar código como activado
+      codeData.activatedAt = new Date().toISOString();
+      accessCodes[upperCode] = codeData;
+      localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
+      
+      // Usar datos del código para crear usuario
+      const userData = {
+        firstName: codeData.firstName,
+        lastName: codeData.lastName,
+        motherLastName: codeData.motherLastName || '',
+        email: codeData.email || '',
+        phone: codeData.phone || codeData.whatsapp,
+        countryCode: codeData.countryCode,
+        phoneId: codeData.phoneId,
+        accessCode: upperCode,
+        accessType: codeData.type,
+        confirmationNumber: codeData.confirmationNumber
+      };
+      
+      localStorage.setItem('currentUser', JSON.stringify(userData));
+      setCurrentUser(userData);
+      
+      // Scroll al top antes de navegar
+      window.scrollTo(0, 0);
+      setErrors({});
+      
+      // Navegar a page4 (dashboard)
+      navigate('/page4');
+      return;
+    }
+    
+    // 2. Revisar si es un código demo/especial
     if (SPECIAL_ACCESS_CODES[upperCode]) {
       const codeData = SPECIAL_ACCESS_CODES[upperCode];
       

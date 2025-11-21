@@ -128,6 +128,40 @@ export default function Confirmacion() {
                   </p>
                 </div>
               </div>
+
+              {/* Códigos de Acceso */}
+              {(data.migrantAccessCode || data.familyAccessCode) && (
+                <div className="pt-4 border-t border-gray-200">
+                  <p className="text-sm font-semibold text-gray-700 mb-3">Códigos de Acceso</p>
+                  <div className="space-y-3">
+                    {data.migrantAccessCode && (
+                      <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-4">
+                        <p className="text-xs text-gray-600 mb-1">Código para Migrante (USA)</p>
+                        <p className="text-2xl font-bold text-cyan-700 tracking-wider font-mono">
+                          {data.migrantAccessCode}
+                        </p>
+                        <p className="text-xs text-gray-600 mt-2">
+                          📱 Será enviado a: {data.countryCode} {data.whatsappNumber}
+                        </p>
+                      </div>
+                    )}
+                    {data.familyAccessCode && (
+                      <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-4">
+                        <p className="text-xs text-gray-600 mb-1">Código para Familiar (México)</p>
+                        <p className="text-2xl font-bold text-pink-700 tracking-wider font-mono">
+                          {data.familyAccessCode}
+                        </p>
+                        <p className="text-xs text-gray-600 mt-2">
+                          📱 Será enviado a: +52 {data.familyMember?.whatsapp}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-xs text-gray-500 mt-3 text-center">
+                    Ambos códigos llegarán por WhatsApp en menos de 30 segundos
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
