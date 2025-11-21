@@ -648,12 +648,15 @@ Equipo SaludCompartida`,
   if (currentPage === 'landing') {
     // ETAPA 1: BubblesProblemStage (15 segundos)
     if (showProblemStage) {
-      return <SaludCompartidaProblemStage onComplete={() => setShowProblemStage(false)} />;
+      return <SaludCompartidaProblemStage onComplete={() => {
+        console.log('BubblesProblemStage completado, mostrando Secciones 2 y 3');
+        setShowProblemStage(false);
+      }} />;
     }
 
     // ETAPA 2 y 3: Customer Journey Completo - Dark Background
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+      <div className="min-h-screen bg-black">
         
         {/* Logo Header Fixed - Siempre a la izquierda */}
         <div className="fixed top-6 left-6 z-50">

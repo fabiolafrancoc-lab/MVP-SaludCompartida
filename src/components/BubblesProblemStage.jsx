@@ -107,11 +107,17 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
     // PREGUNTA 1 aparece
     setTimeout(() => setShowQuestion1(true), 500);
     
-    // PREGUNTA 2 aparece
-    setTimeout(() => setShowQuestion2(true), 4000);
+    // PREGUNTA 2 aparece, ELIMINA la 1
+    setTimeout(() => {
+      setShowQuestion1(false);
+      setShowQuestion2(true);
+    }, 5000);
     
-    // A los 7 segundos: mostrar solo UNA pregunta
-    setTimeout(() => setShowOnlyOneQuestion(true), 7000);
+    // PREGUNTA 3 aparece, ELIMINA la 2
+    setTimeout(() => {
+      setShowQuestion2(false);
+      setShowOnlyOneQuestion(true);
+    }, 10000);
     
     // Después de 15 segundos, pasar a la siguiente etapa
     setTimeout(() => {
@@ -125,7 +131,7 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
   }, [onComplete]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
+    <div className="min-h-screen bg-black relative overflow-hidden">
       
       {/* Logo - Siempre a la izquierda */}
       <div className="absolute top-6 left-6 z-50">
@@ -165,16 +171,12 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
         </div>
       ))}
 
-      {/* PREGUNTAS */}
+      {/* PREGUNTAS - Solo una a la vez */}
       {!showOnlyOneQuestion && (
         <div className="fixed inset-x-0 top-24 md:top-32 z-40 px-4 text-center pointer-events-none">
           {showQuestion1 && (
-            <div className={`mb-4 transition-all duration-700 ${
-              showQuestion2 ? 'scale-50 opacity-40' : ''
-            }`}>
-              <h1 className={`font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)] ${
-                showQuestion2 ? 'text-3xl md:text-5xl' : 'text-5xl md:text-7xl lg:text-9xl'
-              }`}>
+            <div className="animate-fadeIn">
+              <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
                 ¿Te sientes culpable de no estar allá?
               </h1>
             </div>
@@ -193,7 +195,7 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
       {/* UNA SOLA PREGUNTA FINAL */}
       {showOnlyOneQuestion && (
         <div className="fixed inset-x-0 top-20 md:top-24 z-40 px-4 text-center pointer-events-none animate-fadeIn">
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-tight drop-shadow-[0_0_40px_rgba(255,255,255,0.4)]">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
             ¿Te pasa a ti también?
           </h1>
         </div>
