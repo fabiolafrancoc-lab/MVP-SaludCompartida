@@ -158,7 +158,7 @@ const Demo = () => {
         </div>
 
         {/* Nota adicional */}
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center space-y-3">
           <p className="text-gray-600">
             ¿Listo para suscribirte?{' '}
             <button
@@ -166,6 +166,14 @@ const Demo = () => {
               className="text-cyan-600 hover:text-cyan-700 font-bold underline"
             >
               Regístrate aquí
+            </button>
+          </p>
+          <p className="text-gray-600">
+            <button
+              onClick={() => navigate('/')}
+              className="text-gray-500 hover:text-gray-700 underline"
+            >
+              Volver al inicio
             </button>
           </p>
         </div>
