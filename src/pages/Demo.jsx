@@ -6,19 +6,18 @@ import { DemoTourController } from '../lib/demoTour';
 const Demo = () => {
   const navigate = useNavigate();
   const { setCurrentUser } = useContext(UserContext);
-  const [showSubscriptionSim, setShowSubscriptionSim] = useState(false);
   const [showWhatsAppSim, setShowWhatsAppSim] = useState(false);
   const [tourStarted, setTourStarted] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     
-    // Iniciar el tour automáticamente después de 1 segundo
+    // Iniciar el tour automáticamente después de 800ms
     const autoStartTimer = setTimeout(() => {
       if (!tourStarted) {
         startDemoTour();
       }
-    }, 1000);
+    }, 800);
 
     return () => clearTimeout(autoStartTimer);
   }, []);
@@ -26,28 +25,22 @@ const Demo = () => {
   const startDemoTour = () => {
     setTourStarted(true);
     
-    // Paso 1: Mostrar simulación de suscripción (4 segundos)
-    setShowSubscriptionSim(true);
+    // Paso 1: Mostrar simulación de WhatsApp (3 segundos)
+    setShowWhatsAppSim(true);
     
     setTimeout(() => {
-      setShowSubscriptionSim(false);
-      // Paso 2: Mostrar simulación de WhatsApp (4 segundos)
-      setShowWhatsAppSim(true);
-      
-      setTimeout(() => {
-        setShowWhatsAppSim(false);
-        // Paso 3: Iniciar el tour automático
-        const tourController = new DemoTourController(navigate, setCurrentUser);
-        tourController.start();
-      }, 4000);
-    }, 4000);
+      setShowWhatsAppSim(false);
+      // Paso 2: Iniciar el tour automático
+      const tourController = new DemoTourController(navigate, setCurrentUser);
+      tourController.start();
+    }, 3000);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-pink-50 to-purple-50 flex items-center justify-center p-6">
       
       {/* Ocultar contenido cuando el tour está activo */}
-      {!showSubscriptionSim && !showWhatsAppSim && (
+      {!showWhatsAppSim && !tourStarted && (
         <div className="max-w-4xl w-full">
         {/* Card Principal */}
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
@@ -228,41 +221,8 @@ const Demo = () => {
       </div>
       )}
 
-      {/* Simulación de Suscripción */}
-        {showSubscriptionSim && (
-          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-6">
-            <div className="bg-white rounded-3xl p-10 max-w-lg w-full shadow-2xl">
-              <div className="text-center mb-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-black text-gray-900 mb-2">¡Suscripción Exitosa!</h3>
-                <p className="text-gray-600 text-lg">Has pagado $12/mes</p>
-              </div>
-              
-              <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-6 mb-4">
-                <p className="text-gray-800 font-bold mb-3">📋 Datos registrados:</p>
-                <div className="space-y-2 text-sm">
-                  <p className="text-gray-700"><span className="font-semibold">Migrante (USA):</span> Pedro González</p>
-                  <p className="text-gray-700"><span className="font-semibold">Teléfono:</span> +1 (786) 234-1234</p>
-                  <p className="text-gray-700"><span className="font-semibold">Familiar (México):</span> Ana Rojas</p>
-                  <p className="text-gray-700"><span className="font-semibold">Teléfono:</span> +52 55 1234 5678</p>
-                </div>
-              </div>
-
-              <div className="text-center">
-                <div className="animate-pulse text-cyan-600 font-bold text-lg">
-                  Enviando códigos de acceso...
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Simulación de WhatsApp - Doble: Migrante y Familiar */}
-        {showWhatsAppSim && (
+      {/* Simulación de WhatsApp - Doble: Migrante y Familiar */}
+      {showWhatsAppSim && (
           <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-6 overflow-y-auto">
             <div className="max-w-4xl w-full py-10">
               <h2 className="text-3xl font-black text-white text-center mb-8">

@@ -32,72 +32,82 @@ export const DEMO_FAMILY_MEXICO = {
 // Tour steps - Customer journey
 export const TOUR_STEPS = [
   {
-    id: 'payment',
-    title: 'Paso 1: Suscripción',
-    description: 'Pagas $12/mes y registras a tu familiar en México',
-    duration: 4000
+    id: 'landing-page',
+    title: 'Paso 1: Contratas el Servicio',
+    description: 'Desde www.saludcompartida.app por $12/mes',
+    route: '/',
+    perspective: 'migrant',
+    duration: 3000
   },
   {
     id: 'whatsapp-codes',
     title: 'Paso 2: Códigos de Acceso',
     description: 'Ambos reciben sus códigos por WhatsApp en 30 segundos',
-    duration: 4000
+    duration: 3000
   },
   {
     id: 'family-benefits-telemedicine',
-    title: 'Beneficio 1: Telemedicina 24/7',
-    description: 'Ana en México tiene acceso a doctores por WhatsApp',
+    title: 'Paso 3: Telemedicina para Ana',
+    description: 'Tu ser querido en México tiene doctores 24/7',
     route: '/telemedicine',
     perspective: 'family',
-    duration: 5000
+    duration: 3000
   },
   {
     id: 'family-benefits-pharmacy',
-    title: 'Beneficio 2: Descuentos en Farmacias',
-    description: 'Ana ahorra hasta 75% en medicamentos',
+    title: 'Paso 3: Farmacias para Ana',
+    description: 'Descuentos hasta 75% en medicamentos',
     route: '/pharmacy',
     perspective: 'family',
-    duration: 5000
+    duration: 3000
   },
   {
     id: 'family-benefits-therapy',
-    title: 'Beneficio 3: Terapia Psicológica',
-    description: 'Ana tiene sesiones de terapia semanales incluidas',
+    title: 'Paso 3: Terapia para Ana',
+    description: 'Sesiones de terapia psicológica incluidas',
     route: '/therapy',
     perspective: 'family',
-    duration: 5000
+    duration: 3000
+  },
+  {
+    id: 'family-dashboard',
+    title: 'Paso 4: Dashboard de Ana en México',
+    description: 'Así navega tu familiar en México',
+    route: '/page4',
+    perspective: 'family',
+    duration: 3000
   },
   {
     id: 'migrant-dashboard',
-    title: 'Tu Dashboard (Migrante)',
+    title: 'Paso 5: Tu Dashboard en USA',
     description: 'Desde aquí controlas todo',
     route: '/page4',
     perspective: 'migrant',
-    duration: 5000
+    duration: 3000
   },
   {
     id: 'migrant-savings',
-    title: 'Tus Ahorros',
+    title: 'Paso 5: Monitoreas los Ahorros',
     description: 'Ve cuánto está ahorrando tu familia',
     route: '/savings',
     perspective: 'migrant',
-    duration: 5000
+    duration: 3000
   },
   {
     id: 'migrant-account',
-    title: 'Tu Cuenta',
-    description: 'Gestiona tu suscripción y cancela cuando quieras',
+    title: 'Paso 5: Gestionas la Cuenta',
+    description: 'Cancela cuando quieras, sin compromiso',
     route: '/account',
     perspective: 'migrant',
-    duration: 5000
+    duration: 3000
   },
   {
     id: 'finish',
     title: '¡Tour Completado!',
-    description: 'Listo para cuidar a tu familia',
+    description: 'Listo para cuidar a tu familia desde USA',
     route: '/page4',
     perspective: 'migrant',
-    duration: 3000
+    duration: 2000
   }
 ];
 
