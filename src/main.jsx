@@ -28,6 +28,7 @@ import MicroLanding from './pages/MicroLanding.jsx'
 import QuienesSomos from './pages/QuienesSomos.jsx'
 import BeneficiosDetallados from './pages/BeneficiosDetallados.jsx'
 import Contacto from './pages/Contacto.jsx'
+import CancelSubscription from './pages/CancelSubscription.jsx'
 import { UserProvider } from './contexts/UserContext'
 
 createRoot(document.getElementById('root')).render(
@@ -60,8 +61,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tiktok" element={<LandingBubblesTikTok />} /> {/* 👈 Landing TikTok (8-10s) */}
           <Route path="/como-funciona" element={<MicroLanding />} /> {/* 👈 Micro-landing demo */}
           <Route path="/quienes-somos" element={<QuienesSomos />} /> {/* 👈 Quiénes Somos */}
+          <Route path="/about" element={<QuienesSomos />} /> {/* 👈 About Us (alias) */}
           <Route path="/beneficios" element={<BeneficiosDetallados />} /> {/* 👈 Beneficios Detallados */}
           <Route path="/contacto" element={<Contacto />} /> {/* 👈 Contacto (nueva versión) */}
+          <Route path="/cancel-subscription" element={<CancelSubscription />} /> {/* 👈 Cancelar Suscripción */}
         </Routes>
       </BrowserRouter>
     </UserProvider>

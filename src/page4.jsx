@@ -258,100 +258,121 @@ const Page4 = () => {
     }
   }, [geoLoading, country, countryCode]);
   
-  const services = [
+  // Organized menu sections
+  const menuSections = [
     {
-      icon: DoctorIcon,
-      title: "Habla con un Doctor",
-      message: "A cualquier hora del día, los 7 días de la semana. Estamos aquí cuando nos necesites",
-      color: "#52D293",
-      onClick: () => {
-        window.scrollTo(0, 0);
-        navigate('/telemedicine');
-      }
+      title: "Nuestros Servicios",
+      items: [
+        {
+          icon: AccountIcon,
+          title: "Quiénes Somos",
+          message: "Conoce nuestra misión y cómo ayudamos a familias como la tuya",
+          color: "#0071FF",
+          onClick: () => {
+            window.scrollTo(0, 0);
+            navigate('/about');
+          }
+        },
+        {
+          icon: DoctorIcon,
+          title: "Telemedicina",
+          message: "A cualquier hora del día, los 7 días de la semana. Estamos aquí cuando nos necesites",
+          color: "#52D293",
+          onClick: () => {
+            window.scrollTo(0, 0);
+            navigate('/telemedicine');
+          }
+        },
+        {
+          icon: PharmacyIcon,
+          title: "Descuento en Farmacias",
+          message: "Hasta 75% de descuento en toda la farmacia. Ahorra en lo que tu familia necesita",
+          color: "#FF2B8A",
+          onClick: () => {
+            window.scrollTo(0, 0);
+            navigate('/pharmacy');
+          }
+        },
+        {
+          icon: TherapyIcon,
+          title: "Terapia Psicológica",
+          message: "Agenda tu sesión semanal. Porque tu salud mental también importa",
+          color: "#9B00FF",
+          onClick: () => {
+            window.scrollTo(0, 0);
+            navigate('/therapy');
+          }
+        }
+      ]
     },
     {
-      icon: PharmacyIcon,
-      title: "Descuentos en Farmacias",
-      message: "Hasta 75% de descuento en toda la farmacia. Ahorra en lo que tu familia necesita",
-      color: "#FF2B8A",
-      onClick: () => {
-        window.scrollTo(0, 0);
-        navigate('/pharmacy');
-      }
-    },
-    {
-      icon: TherapyIcon,
-      title: "Tu Sesión de Terapia",
-      message: "Agenda tu sesión semanal. Porque tu salud mental también importa",
-      color: "#9B00FF",
-      onClick: () => {
-        window.scrollTo(0, 0);
-        navigate('/therapy');
-      }
-    },
-    {
-      icon: SavingsIcon,
-      title: "Mis Ahorros",
-      message: "Mira cuánto has ahorrado este mes. Tu esfuerzo se refleja aquí",
-      color: "#FF9500",
-      onClick: () => {
-        window.scrollTo(0, 0);
-        navigate('/savings', { state: { name: userName } });
-      }
-    },
-    {
-      icon: BlogIcon,
-      title: "Blog de Salud",
-      message: "Consejos y guías para cuidar mejor a tu familia",
-      color: "#FF6F61",
-      onClick: () => {
-        window.scrollTo(0, 0);
-        navigate('/blog');
-      }
-    },
-    {
-      icon: AccountIcon,
       title: "Mi Cuenta",
-      message: "Actualiza tu información y la de tu familia",
-      color: "#0071FF",
-      onClick: () => {
-        window.scrollTo(0, 0);
-        navigate('/account');
-      }
+      items: [
+        {
+          icon: SavingsIcon,
+          title: "Mis Ahorros",
+          message: "Mira cuánto has ahorrado este mes. Tu esfuerzo se refleja aquí",
+          color: "#FF9500",
+          onClick: () => {
+            window.scrollTo(0, 0);
+            navigate('/savings', { state: { name: userName } });
+          }
+        },
+        {
+          icon: AccountIcon,
+          title: "Mi Perfil",
+          message: "Actualiza tu información y la de tu familia",
+          color: "#0071FF",
+          onClick: () => {
+            window.scrollTo(0, 0);
+            navigate('/account');
+          }
+        }
+      ]
     },
     {
-      icon: ContactIcon,
-      title: "Contáctanos",
-      message: "¿Necesitas ayuda? Escríbenos, respondemos rápido",
-      color: "#7CB342",
-      onClick: () => {
-        window.scrollTo(0, 0);
-        navigate('/contact');
-      }
+      title: "Contenido",
+      items: [
+        {
+          icon: BlogIcon,
+          title: "Blog",
+          message: "Consejos y guías para cuidar mejor a tu familia",
+          color: "#FF6F61",
+          onClick: () => {
+            window.scrollTo(0, 0);
+            navigate('/blog');
+          }
+        }
+      ]
     },
     {
-      icon: RatingIcon,
-      title: "Califícanos",
-      message: "Tu opinión nos ayuda a ser mejores cada día",
-      color: "#00B7EB",
-      onClick: () => {
-        window.scrollTo(0, 0);
-        navigate('/rating');
-      }
-    },
-    {
-      icon: PrivacyIcon,
-      title: "Privacidad",
-      message: "Tu información está segura y protegida siempre",
-      color: "#616161",
-      onClick: () => navigate('/privacy', { state: { from: '/page4' } })
-    },
-    {
-      icon: TermsIcon,
-      title: "Términos",
-      message: "Todo lo que necesitas saber sobre tu membresía",
-      color: "#BDBDBD",
-      onClick: () => navigate('/terms', { state: { from: '/page4' } })
+      title: "Soporte y Legal",
+      items: [
+        {
+          icon: ContactIcon,
+          title: "Contacto",
+          message: "¿Necesitas ayuda? Escríbenos, respondemos rápido",
+          color: "#7CB342",
+          onClick: () => {
+            window.scrollTo(0, 0);
+            navigate('/contact');
+          }
+        },
+        {
+          icon: PrivacyIcon,
+          title: "Política de Privacidad",
+          message: "Tu información está segura y protegida siempre",
+          color: "#616161",
+          onClick: () => navigate('/privacy', { state: { from: '/page4' } })
+        },
+        {
+          icon: TermsIcon,
+          title: "Términos y Condiciones",
+          message: "Todo lo que necesitas saber sobre tu membresía",
+          color: "#BDBDBD",
+          onClick: () => navigate('/terms', { state: { from: '/page4' } })
+        }
+      ]
     }
   ];
 
@@ -419,18 +440,42 @@ const Page4 = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {services.map((service) => (
-            <DashboardBox
-              key={service.title}
-              icon={service.icon}
-              title={service.title}
-              message={service.message}
-              color={service.color}
-              onClick={service.onClick}
-            />
-          ))}
+        {/* Cancellation Button - Prominent */}
+        <div className="mb-12 flex justify-center">
+          <button
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate('/cancel-subscription');
+            }}
+            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            Cancelar Mi Suscripción
+          </button>
         </div>
+
+        {/* Menu Sections */}
+        {menuSections.map((section, sectionIndex) => (
+          <div key={section.title} className="mb-12">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">
+              {section.title}
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              {section.items.map((item) => (
+                <DashboardBox
+                  key={item.title}
+                  icon={item.icon}
+                  title={item.title}
+                  message={item.message}
+                  color={item.color}
+                  onClick={item.onClick}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
 
         {/* Consultas Button */}
         <div className="mt-12 flex justify-center">
