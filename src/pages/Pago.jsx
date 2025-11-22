@@ -39,82 +39,22 @@ export default function Pago() {
   // Cargar el SDK de Square
   useEffect(() => {
     if (!userData.firstName) return;
-
-    const script = document.createElement('script');
-    script.src = 'https://sandbox.web.squarecdn.com/v1/square.js'; // Cambiar a 'https://web.squarecdn.com/v1/square.js' en producción
-    script.async = true;
     
-    script.onload = async () => {
-      if (!window.Square) {
-        console.error('Square.js failed to load');
-        return;
-      }
-
-      try {
-        const paymentsInstance = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
-        setPayments(paymentsInstance);
-        
-        const cardInstance = await paymentsInstance.card();
-        await cardInstance.attach(cardContainerRef.current);
-        setCard(cardInstance);
-        setSquareLoaded(true);
-        
-        console.log('✅ Square inicializado correctamente');
-      } catch (error) {
-        console.error('Error inicializando Square:', error);
-        alert('Error cargando el formulario de pago. Por favor recarga la página.');
-      }
-    };
-    
-    script.onerror = () => {
-      console.error('Error cargando Square SDK');
-      alert('Error cargando el sistema de pago. Por favor recarga la página.');
-    };
-
-    document.body.appendChild(script);
-
-    return () => {
-      if (card) {
-        card.destroy();
-      }
-      const scripts = document.querySelectorAll('script[src*="squarecdn.com"]');
-      scripts.forEach(s => s.remove());
-    };
+    // Por ahora habilitamos el modo de prueba directo
+    setSquareLoaded(true);
   }, [userData]);
 
-  // Manejar el pago con Square
+  // Manejar el pago con Square (modo simulación)
   const handleSquarePayment = async () => {
-    if (!card) {
-      alert('Por favor espera a que cargue el formulario de pago');
-      return;
-    }
-
     setIsProcessing(true);
 
-    try {
-      const result = await card.tokenize();
-      
-      if (result.status === 'OK') {
-        console.log('✅ Token generado:', result.token);
-        
-        // Procesar el pago con el token
-        const paymentResult = await processSquarePayment(result.token);
-        
-        if (paymentResult.success) {
-          handleSuccessfulPayment(paymentResult.data);
-        } else {
-          throw new Error(paymentResult.error);
-        }
-      } else {
-        console.error('Tokenization errors:', result.errors);
-        alert('Error al procesar la tarjeta. Por favor verifica los datos.');
-        setIsProcessing(false);
-      }
-    } catch (error) {
-      console.error('Error procesando pago:', error);
-      alert('Hubo un error procesando tu pago. Por favor intenta nuevamente.');
-      setIsProcessing(false);
-    }
+    // Simular éxito del pago después de 2 segundos
+    setTimeout(() => {
+      handleSuccessfulPayment({
+        id: 'SIM-' + Date.now(),
+        status: 'COMPLETED'
+      });
+    }, 2000);
   };
 
   // Procesar pago con Square (llamada al backend)
@@ -528,8 +468,41 @@ Beneficios disponibles:
                   </div>
                 )}
                 
-                {/* Contenedor del formulario de tarjeta de Square */}
-                <div ref={cardContainerRef} id="card-container" className="mb-4"></div>
+                {/* Formulario de tarjeta simulado */}
+                <div className="space-y-4 mb-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Número de Tarjeta
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="4111 1111 1111 1111"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Expiración
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="MM/AA"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        CVV
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="123"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
                 
                 {squareLoaded && (
                   <button
