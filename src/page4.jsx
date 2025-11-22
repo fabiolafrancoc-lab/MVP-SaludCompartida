@@ -208,6 +208,9 @@ const Page4 = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userPhone, setUserPhone] = useState('');
   
+  // State for mobile menu dropdowns
+  const [openMenu, setOpenMenu] = useState(null);
+  
   // Scroll al tope cuando se monta el componente
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -257,128 +260,103 @@ const Page4 = () => {
       return () => clearTimeout(timer);
     }
   }, [geoLoading, country, countryCode]);
-  
-  // Organized menu sections
-  const menuSections = [
+
+  // Navigation menu structure
+  const menuStructure = [
     {
-      title: "Nuestros Servicios",
+      title: 'Quiénes Somos',
       items: [
-        {
-          icon: AccountIcon,
-          title: "Quiénes Somos",
-          message: "Conoce nuestra misión y cómo ayudamos a familias como la tuya",
-          color: "#0071FF",
-          onClick: () => {
-            window.scrollTo(0, 0);
-            navigate('/about');
-          }
-        },
-        {
-          icon: DoctorIcon,
-          title: "Telemedicina",
-          message: "A cualquier hora del día, los 7 días de la semana. Estamos aquí cuando nos necesites",
-          color: "#52D293",
-          onClick: () => {
-            window.scrollTo(0, 0);
-            navigate('/telemedicine');
-          }
-        },
-        {
-          icon: PharmacyIcon,
-          title: "Descuento en Farmacias",
-          message: "Hasta 75% de descuento en toda la farmacia. Ahorra en lo que tu familia necesita",
-          color: "#FF2B8A",
-          onClick: () => {
-            window.scrollTo(0, 0);
-            navigate('/pharmacy');
-          }
-        },
-        {
-          icon: TherapyIcon,
-          title: "Terapia Psicológica",
-          message: "Agenda tu sesión semanal. Porque tu salud mental también importa",
-          color: "#9B00FF",
-          onClick: () => {
-            window.scrollTo(0, 0);
-            navigate('/therapy');
-          }
-        }
+        { name: 'Quiénes Somos', route: '/quienes-somos' },
+        { name: 'Nuestros Valores', route: '/quienes-somos#valores' },
+        { name: 'Blog', route: '/blog' }
       ]
     },
     {
-      title: "Mi Cuenta",
+      title: 'Nuestros Servicios',
       items: [
-        {
-          icon: SavingsIcon,
-          title: "Mis Ahorros",
-          message: "Mira cuánto has ahorrado este mes. Tu esfuerzo se refleja aquí",
-          color: "#FF9500",
-          onClick: () => {
-            window.scrollTo(0, 0);
-            navigate('/savings', { state: { name: userName } });
-          }
-        },
-        {
-          icon: AccountIcon,
-          title: "Mi Perfil",
-          message: "Actualiza tu información y la de tu familia",
-          color: "#0071FF",
-          onClick: () => {
-            window.scrollTo(0, 0);
-            navigate('/account');
-          }
-        }
+        { name: 'Telemedicina', route: '/telemedicine' },
+        { name: 'Descuento en Farmacias', route: '/pharmacy' }
       ]
     },
     {
-      title: "Contenido",
+      title: 'Mi Cuenta',
       items: [
-        {
-          icon: BlogIcon,
-          title: "Blog",
-          message: "Consejos y guías para cuidar mejor a tu familia",
-          color: "#FF6F61",
-          onClick: () => {
-            window.scrollTo(0, 0);
-            navigate('/blog');
-          }
-        }
+        { name: 'Mis Ahorros', route: '/savings' },
+        { name: 'Mi Cuenta', route: '/account' }
       ]
     },
     {
-      title: "Soporte y Legal",
+      title: 'Contáctanos',
       items: [
-        {
-          icon: ContactIcon,
-          title: "Contacto",
-          message: "¿Necesitas ayuda? Escríbenos, respondemos rápido",
-          color: "#7CB342",
-          onClick: () => {
-            window.scrollTo(0, 0);
-            navigate('/contact');
-          }
-        },
-        {
-          icon: PrivacyIcon,
-          title: "Política de Privacidad",
-          message: "Tu información está segura y protegida siempre",
-          color: "#616161",
-          onClick: () => navigate('/privacy', { state: { from: '/page4' } })
-        },
-        {
-          icon: TermsIcon,
-          title: "Términos y Condiciones",
-          message: "Todo lo que necesitas saber sobre tu membresía",
-          color: "#BDBDBD",
-          onClick: () => navigate('/terms', { state: { from: '/page4' } })
-        }
+        { name: 'Contáctanos', route: '/contact' },
+        { name: 'Política de Privacidad', route: '/privacy' },
+        { name: 'Términos y Condiciones', route: '/terms' },
+        { name: 'Cancelar Suscripción', route: '/cancel-subscription', danger: true }
       ]
     }
   ];
 
+  // Main service blocks (5 cards below menu)
+  const serviceBlocks = [
+    {
+      icon: DoctorIcon,
+      title: "Videollamada a Doctor",
+      message: "24 horas al día 7 días a la semana",
+      color: "#52D293",
+      onClick: () => {
+        window.scrollTo(0, 0);
+        navigate('/telemedicine');
+      }
+    },
+    {
+      icon: PharmacyIcon,
+      title: "Descuento en Farmacias",
+      message: "Hasta 75% de descuento en toda la farmacia",
+      color: "#FF2B8A",
+      onClick: () => {
+        window.scrollTo(0, 0);
+        navigate('/pharmacy');
+      }
+    },
+    {
+      icon: SavingsIcon,
+      title: "Mis Ahorros",
+      message: "Mira cuánto has ahorrado este mes",
+      color: "#FF9500",
+      onClick: () => {
+        window.scrollTo(0, 0);
+        navigate('/savings', { state: { name: userName } });
+      }
+    },
+    {
+      icon: BlogIcon,
+      title: "Blog",
+      message: "Consejos y guías para cuidar mejor a tu familia",
+      color: "#FF6F61",
+      onClick: () => {
+        window.scrollTo(0, 0);
+        navigate('/blog');
+      }
+    },
+    {
+      icon: AccountIcon,
+      title: "Mi Cuenta",
+      message: "Actualiza tu información y la de tu familia",
+      color: "#0071FF",
+      onClick: () => {
+        window.scrollTo(0, 0);
+        navigate('/account');
+      }
+    }
+  ];
+  
+  const toggleMenu = (menuTitle) => {
+    setOpenMenu(openMenu === menuTitle ? null : menuTitle);
+  };
+
   return (
   <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-pink-50 to-gray-50">
-      {/* Header with Volver button */}
+      {/* Header with Logo */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <img 
@@ -397,6 +375,86 @@ const Page4 = () => {
           </button>
         </div>
       </header>
+
+      {/* Navigation Menu - Mobile First */}
+      <nav className="bg-white border-b border-gray-200 shadow-sm sticky top-20 z-40">
+        <div className="max-w-7xl mx-auto px-4 py-3">
+          {/* Mobile: Accordion Menu */}
+          <div className="md:hidden space-y-2">
+            {menuStructure.map((menu) => (
+              <div key={menu.title} className="border border-gray-200 rounded-lg">
+                <button
+                  onClick={() => toggleMenu(menu.title)}
+                  className="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-gray-800 hover:bg-gray-50"
+                >
+                  <span>{menu.title}</span>
+                  <svg
+                    className={`w-5 h-5 transition-transform ${openMenu === menu.title ? 'rotate-180' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openMenu === menu.title && (
+                  <div className="px-4 pb-3 space-y-2">
+                    {menu.items.map((item) => (
+                      <button
+                        key={item.name}
+                        onClick={() => {
+                          window.scrollTo(0, 0);
+                          navigate(item.route);
+                          setOpenMenu(null);
+                        }}
+                        className={`block w-full text-left px-3 py-2 rounded-lg text-sm ${
+                          item.danger 
+                            ? 'text-red-600 hover:bg-red-50 font-semibold' 
+                            : 'text-gray-700 hover:bg-gray-100'
+                        }`}
+                      >
+                        {item.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: Horizontal Dropdown Menu */}
+          <div className="hidden md:flex md:items-center md:justify-center md:space-x-6">
+            {menuStructure.map((menu) => (
+              <div key={menu.title} className="relative group">
+                <button className="px-4 py-2 text-sm font-semibold text-gray-800 hover:text-cyan-600 transition-colors">
+                  {menu.title}
+                </button>
+                {/* Dropdown */}
+                <div className="absolute left-0 mt-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div className="py-2">
+                    {menu.items.map((item) => (
+                      <button
+                        key={item.name}
+                        onClick={() => {
+                          window.scrollTo(0, 0);
+                          navigate(item.route);
+                        }}
+                        className={`block w-full text-left px-4 py-2 text-sm ${
+                          item.danger
+                            ? 'text-red-600 hover:bg-red-50 font-semibold'
+                            : 'text-gray-700 hover:bg-gray-100'
+                        }`}
+                      >
+                        {item.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </nav>
 
       {/* Location Detection Banner */}
       {showLocationBanner && country && (
@@ -440,42 +498,19 @@ const Page4 = () => {
           </p>
         </div>
 
-        {/* Cancellation Button - Prominent */}
-        <div className="mb-12 flex justify-center">
-          <button
-            onClick={() => {
-              window.scrollTo(0, 0);
-              navigate('/cancel-subscription');
-            }}
-            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            Cancelar Mi Suscripción
-          </button>
+        {/* Service Blocks - 5 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {serviceBlocks.map((service) => (
+            <DashboardBox
+              key={service.title}
+              icon={service.icon}
+              title={service.title}
+              message={service.message}
+              color={service.color}
+              onClick={service.onClick}
+            />
+          ))}
         </div>
-
-        {/* Menu Sections */}
-        {menuSections.map((section, sectionIndex) => (
-          <div key={section.title} className="mb-12">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">
-              {section.title}
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {section.items.map((item) => (
-                <DashboardBox
-                  key={item.title}
-                  icon={item.icon}
-                  title={item.title}
-                  message={item.message}
-                  color={item.color}
-                  onClick={item.onClick}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
 
         {/* Consultas Button */}
         <div className="mt-12 flex justify-center">
