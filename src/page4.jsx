@@ -289,6 +289,7 @@ const Page4 = () => {
       title: 'Contáctanos',
       items: [
         { name: 'Contáctanos', route: '/contact' },
+        { name: 'Evalúanos', route: '/rating' },
         { name: 'Política de Privacidad', route: '/privacy' },
         { name: 'Términos y Condiciones', route: '/terms' },
         { name: 'Cancelar Suscripción', route: '/cancel-subscription', danger: true }
