@@ -33,7 +33,7 @@ const Savings = () => {
 
   // Datos simulados de ahorro
   const savingsData = {
-    totalSaved: isDemo && !isMigrant ? 0 : 2825.00, // Demo family users start at $0, migrant sees aggregated
+    totalSaved: 2825.00, // Siempre mostrar ahorros (en MXN para familia, se convierte para migrante)
     totalSavedUSD: 141.25, // Para vista de migrante (2825 / 20)
     monthsActive: 3,
     services: [

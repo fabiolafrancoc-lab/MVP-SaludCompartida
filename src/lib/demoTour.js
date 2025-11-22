@@ -44,16 +44,8 @@ export const TOUR_STEPS = [
     duration: 3000
   },
   {
-    id: 'ana-login',
-    title: 'Ana ingresa a SaludCompartida',
-    description: 'Ana coloca sus credenciales en SaludCompartida.app',
-    route: '/page4',
-    perspective: 'family',
-    duration: 2500
-  },
-  {
     id: 'ana-telemedicine',
-    title: 'Pantalla: Telemedicina',
+    title: 'Ana: Telemedicina',
     description: 'Ana accede a doctores 24/7 por WhatsApp',
     route: '/telemedicine',
     perspective: 'family',
@@ -61,7 +53,7 @@ export const TOUR_STEPS = [
   },
   {
     id: 'ana-pharmacy',
-    title: 'Pantalla: Tarjeta Descuento Farmacia',
+    title: 'Ana: Tarjeta Descuento Farmacia',
     description: 'Ana usa su tarjeta digital con hasta 75% descuento',
     route: '/pharmacy',
     perspective: 'family',
@@ -69,7 +61,7 @@ export const TOUR_STEPS = [
   },
   {
     id: 'ana-therapy',
-    title: 'Pantalla: Terapia Semanal',
+    title: 'Ana: Terapia Semanal',
     description: 'Ana agenda hora y recibe confirmación',
     route: '/therapy',
     perspective: 'family',
@@ -77,7 +69,7 @@ export const TOUR_STEPS = [
   },
   {
     id: 'ana-savings',
-    title: 'Pantalla: Mis Ahorros (Ana)',
+    title: 'Ana: Mis Ahorros',
     description: 'Los ahorros de Ana en pesos mexicanos',
     route: '/savings',
     perspective: 'family',
@@ -85,7 +77,7 @@ export const TOUR_STEPS = [
   },
   {
     id: 'pedro-savings',
-    title: 'Ahorros que ve Pedro',
+    title: 'Pedro: Ahorros Totales',
     description: 'Pedro ve ahorros TOTALES agregados en dólares (no desglosados)',
     route: '/savings',
     perspective: 'migrant',
