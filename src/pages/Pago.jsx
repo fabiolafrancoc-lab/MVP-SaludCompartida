@@ -531,9 +531,31 @@ Beneficios disponibles:
 
               {/* Info sobre seguridad */}
               <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-4">
-                <p className="text-sm text-green-900 font-semibold mb-2">� Pago 100% Seguro</p>
+                <p className="text-sm text-green-900 font-semibold mb-2">🔒 Pago 100% Seguro</p>
                 <p className="text-xs text-green-700">
                   Procesado por Square. Tus datos están encriptados y protegidos.
+                </p>
+              </div>
+
+              {/* Disclaimer Legal de Square */}
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-4">
+                <p className="text-xs text-gray-600 mb-2">
+                  <strong>Aviso Importante:</strong> SaludCompartida no tiene acceso ni almacena información de tu tarjeta de crédito o débito. 
+                  Todos los pagos son procesados de forma segura por Square, Inc., un procesador de pagos certificado PCI DSS Nivel 1.
+                </p>
+                <p className="text-xs text-gray-600 mb-2">
+                  Tu información financiera está protegida por encriptación de nivel bancario y cumple con todos los estándares de seguridad internacionales.
+                </p>
+                <p className="text-xs text-gray-500">
+                  Al procesar tu pago, aceptas los{' '}
+                  <a href="https://squareup.com/us/en/legal/general/ua" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline">
+                    Términos de Servicio de Square
+                  </a>
+                  {' '}y su{' '}
+                  <a href="https://squareup.com/us/en/legal/general/privacy" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline">
+                    Política de Privacidad
+                  </a>
+                  .
                 </p>
               </div>
 
