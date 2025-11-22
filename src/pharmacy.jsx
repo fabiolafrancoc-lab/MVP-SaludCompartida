@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PharmacyMap from './components/PharmacyMap';
+import DemoTourOverlay from './components/DemoTourOverlay';
 
 export default function Pharmacy() {
   const navigate = useNavigate();
@@ -246,6 +247,7 @@ export default function Pharmacy() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <DemoTourOverlay />
       {/* HEADER */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">

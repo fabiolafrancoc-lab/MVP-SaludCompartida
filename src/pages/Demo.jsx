@@ -1,21 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../contexts/UserContext';
+import { DemoTourController } from '../lib/demoTour';
 
 const Demo = () => {
   const navigate = useNavigate();
+  const { setCurrentUser } = useContext(UserContext);
+  const [showSubscriptionSim, setShowSubscriptionSim] = useState(false);
+  const [showWhatsAppSim, setShowWhatsAppSim] = useState(false);
+  const [tourStarted, setTourStarted] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Iniciar el tour automáticamente después de 1 segundo
+    const autoStartTimer = setTimeout(() => {
+      if (!tourStarted) {
+        startDemoTour();
+      }
+    }, 1000);
+
+    return () => clearTimeout(autoStartTimer);
   }, []);
 
-  const goToDemo = () => {
-    // Navigate to page3 with demo code pre-filled
-    navigate('/page3', { state: { demoCode: 'DEMO-2025' } });
+  const startDemoTour = () => {
+    setTourStarted(true);
+    
+    // Paso 1: Mostrar simulación de suscripción (4 segundos)
+    setShowSubscriptionSim(true);
+    
+    setTimeout(() => {
+      setShowSubscriptionSim(false);
+      // Paso 2: Mostrar simulación de WhatsApp (4 segundos)
+      setShowWhatsAppSim(true);
+      
+      setTimeout(() => {
+        setShowWhatsAppSim(false);
+        // Paso 3: Iniciar el tour automático
+        const tourController = new DemoTourController(navigate, setCurrentUser);
+        tourController.start();
+      }, 4000);
+    }, 4000);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-pink-50 to-purple-50 flex items-center justify-center p-6">
-      <div className="max-w-4xl w-full">
+      
+      {/* Ocultar contenido cuando el tour está activo */}
+      {!showSubscriptionSim && !showWhatsAppSim && (
+        <div className="max-w-4xl w-full">
         {/* Card Principal */}
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
           {/* Header con gradiente */}
@@ -130,14 +163,29 @@ const Demo = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-lg mb-2">
-                    📱 Pasos para Explorar
+                    🎬 Tour Automático
                   </h3>
-                  <ol className="text-gray-700 space-y-2 list-decimal list-inside">
-                    <li className="font-semibold">Presiona el botón "Explorar Plataforma" abajo</li>
-                    <li className="font-semibold">Ingresa el código: <span className="text-cyan-600 font-mono text-xl">DEMO-2025</span></li>
-                    <li className="font-semibold">Navega por todas las secciones del menú</li>
-                    <li className="font-semibold">Descubre cómo funciona cada servicio</li>
-                  </ol>
+                  <ul className="text-gray-700 space-y-2">
+                    <li className="flex items-start gap-2">
+                      <span className="text-cyan-600 font-bold">1.</span>
+                      <span>Verás cómo <strong>Pedro</strong> (migrante en USA) se suscribe por <strong>$12/mes</strong></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-pink-600 font-bold">2.</span>
+                      <span>Ambos reciben códigos de acceso por <strong>WhatsApp</strong></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-600 font-bold">3.</span>
+                      <span>Conocerás los beneficios de <strong>Ana</strong> (familiar en México)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 font-bold">4.</span>
+                      <span>Verás cómo Pedro gestiona la suscripción</span>
+                    </li>
+                  </ul>
+                  <p className="text-cyan-600 font-bold mt-4 text-center">
+                    ¡Todo automático! Solo presiona el botón 👇
+                  </p>
                 </div>
               </div>
             </div>
@@ -145,13 +193,13 @@ const Demo = () => {
             {/* Botón CTA */}
             <div className="text-center">
               <button
-                onClick={goToDemo}
+                onClick={startDemoTour}
                 className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-5 px-12 rounded-xl text-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all"
               >
-                🚀 Explorar Plataforma
+                🚀 Ver Cómo Funciona (Tour Automático)
               </button>
               <p className="text-sm text-gray-500 mt-4">
-                No se requiere tarjeta de crédito ni información personal
+                Te llevaremos por todas las secciones automáticamente
               </p>
             </div>
           </div>
@@ -177,6 +225,114 @@ const Demo = () => {
             </button>
           </p>
         </div>
+      </div>
+      )}
+
+      {/* Simulación de Suscripción */}
+        {showSubscriptionSim && (
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-6">
+            <div className="bg-white rounded-3xl p-10 max-w-lg w-full shadow-2xl">
+              <div className="text-center mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-black text-gray-900 mb-2">¡Suscripción Exitosa!</h3>
+                <p className="text-gray-600 text-lg">Has pagado $12/mes</p>
+              </div>
+              
+              <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-6 mb-4">
+                <p className="text-gray-800 font-bold mb-3">📋 Datos registrados:</p>
+                <div className="space-y-2 text-sm">
+                  <p className="text-gray-700"><span className="font-semibold">Migrante (USA):</span> Pedro González</p>
+                  <p className="text-gray-700"><span className="font-semibold">Teléfono:</span> +1 (786) 234-1234</p>
+                  <p className="text-gray-700"><span className="font-semibold">Familiar (México):</span> Ana Rojas</p>
+                  <p className="text-gray-700"><span className="font-semibold">Teléfono:</span> +52 55 1234 5678</p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <div className="animate-pulse text-cyan-600 font-bold text-lg">
+                  Enviando códigos de acceso...
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Simulación de WhatsApp - Doble: Migrante y Familiar */}
+        {showWhatsAppSim && (
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-6 overflow-y-auto">
+            <div className="max-w-4xl w-full py-10">
+              <h2 className="text-3xl font-black text-white text-center mb-8">
+                📱 Ambos reciben sus códigos por WhatsApp
+              </h2>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* WhatsApp Migrante (USA) */}
+                <div className="bg-white rounded-3xl p-6 shadow-2xl animate-bounce">
+                  <div className="flex items-center gap-3 mb-4 pb-4 border-b-2 border-gray-100">
+                    <div className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-black text-gray-900">WhatsApp</p>
+                      <p className="text-sm text-gray-600">🇺🇸 Pedro (USA)</p>
+                    </div>
+                  </div>
+                  <div className="bg-green-50 rounded-2xl p-4 mb-3">
+                    <p className="text-gray-800 mb-2">
+                      ¡Hola Pedro! 👋
+                    </p>
+                    <p className="text-gray-700 mb-2 text-sm">
+                      Tu código de acceso es:
+                    </p>
+                    <p className="font-black text-cyan-600 text-xl mb-3">SC-USA-DEMO</p>
+                    <p className="text-gray-600 text-sm">
+                      Ingresa para gestionar la suscripción de tu familia 👨‍👩‍👧
+                    </p>
+                  </div>
+                </div>
+
+                {/* WhatsApp Familiar (México) */}
+                <div className="bg-white rounded-3xl p-6 shadow-2xl animate-bounce" style={{ animationDelay: '0.2s' }}>
+                  <div className="flex items-center gap-3 mb-4 pb-4 border-b-2 border-gray-100">
+                    <div className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-black text-gray-900">WhatsApp</p>
+                      <p className="text-sm text-gray-600">🇲🇽 Ana (México)</p>
+                    </div>
+                  </div>
+                  <div className="bg-pink-50 rounded-2xl p-4 mb-3">
+                    <p className="text-gray-800 mb-2">
+                      ¡Hola Ana! 👋
+                    </p>
+                    <p className="text-gray-700 mb-2 text-sm">
+                      Tu código de acceso es:
+                    </p>
+                    <p className="font-black text-pink-600 text-xl mb-3">SC-MX-DEMO</p>
+                    <p className="text-gray-600 text-sm">
+                      Ingresa para usar doctor, farmacias y terapia 🏥💊
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-center mt-8">
+                <div className="animate-pulse text-white font-bold text-xl">
+                  Iniciando tour automático...
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

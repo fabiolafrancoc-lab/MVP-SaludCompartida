@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import UserContext from './contexts/UserContext';
 import { useGeolocation, isUSAUser, isMexicoUser } from './hooks/useGeolocation';
+import DemoTourOverlay from './components/DemoTourOverlay';
 
 // Premium Professional SVG Icons - Estilo Corporativo Sofisticado
 const DoctorIcon = () => (
@@ -358,6 +359,9 @@ const Page4 = () => {
 
   return (
   <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-pink-50 to-gray-50">
+      {/* Demo Tour Overlay */}
+      <DemoTourOverlay />
+      
       {/* Header with Logo */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
