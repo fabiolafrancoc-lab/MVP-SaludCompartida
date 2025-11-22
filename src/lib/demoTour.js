@@ -32,80 +32,70 @@ export const DEMO_FAMILY_MEXICO = {
 // Tour steps - Customer journey
 export const TOUR_STEPS = [
   {
-    id: 'landing-page',
-    title: 'Paso 1: Contratas el Servicio',
-    description: 'Desde www.saludcompartida.app por $12/mes',
-    route: '/',
-    perspective: 'migrant',
+    id: 'intro',
+    title: 'Pedro en USA se suscribe',
+    description: 'Pedro González en USA paga $12/mes. La usuaria en México es Ana Rojas.',
     duration: 3000
   },
   {
     id: 'whatsapp-codes',
-    title: 'Paso 2: Códigos de Acceso',
-    description: 'Ambos reciben sus códigos por WhatsApp en 30 segundos',
+    title: 'Códigos por WhatsApp',
+    description: 'Ana y Pedro reciben sus credenciales por WhatsApp en 30 segundos',
     duration: 3000
   },
   {
-    id: 'family-benefits-telemedicine',
-    title: 'Paso 3: Telemedicina para Ana',
-    description: 'Tu ser querido en México tiene doctores 24/7',
+    id: 'ana-login',
+    title: 'Ana ingresa a SaludCompartida',
+    description: 'Ana coloca sus credenciales en SaludCompartida.app',
+    route: '/page4',
+    perspective: 'family',
+    duration: 2500
+  },
+  {
+    id: 'ana-telemedicine',
+    title: 'Pantalla: Telemedicina',
+    description: 'Ana accede a doctores 24/7 por WhatsApp',
     route: '/telemedicine',
     perspective: 'family',
     duration: 3000
   },
   {
-    id: 'family-benefits-pharmacy',
-    title: 'Paso 3: Farmacias para Ana',
-    description: 'Descuentos hasta 75% en medicamentos',
+    id: 'ana-pharmacy',
+    title: 'Pantalla: Tarjeta Descuento Farmacia',
+    description: 'Ana usa su tarjeta digital con hasta 75% descuento',
     route: '/pharmacy',
     perspective: 'family',
     duration: 3000
   },
   {
-    id: 'family-benefits-therapy',
-    title: 'Paso 3: Terapia para Ana',
-    description: 'Sesiones de terapia psicológica incluidas',
+    id: 'ana-therapy',
+    title: 'Pantalla: Terapia Semanal',
+    description: 'Ana agenda hora y recibe confirmación',
     route: '/therapy',
     perspective: 'family',
     duration: 3000
   },
   {
-    id: 'family-dashboard',
-    title: 'Paso 4: Dashboard de Ana en México',
-    description: 'Así navega tu familiar en México',
-    route: '/page4',
+    id: 'ana-savings',
+    title: 'Pantalla: Mis Ahorros (Ana)',
+    description: 'Los ahorros de Ana en pesos mexicanos',
+    route: '/savings',
     perspective: 'family',
-    duration: 3000
+    duration: 2500
   },
   {
-    id: 'migrant-dashboard',
-    title: 'Paso 5: Tu Dashboard en USA',
-    description: 'Desde aquí controlas todo',
-    route: '/page4',
-    perspective: 'migrant',
-    duration: 3000
-  },
-  {
-    id: 'migrant-savings',
-    title: 'Paso 5: Monitoreas los Ahorros',
-    description: 'Ve cuánto está ahorrando tu familia',
+    id: 'pedro-savings',
+    title: 'Ahorros que ve Pedro',
+    description: 'Pedro ve ahorros TOTALES agregados en dólares (no desglosados)',
     route: '/savings',
     perspective: 'migrant',
     duration: 3000
   },
   {
-    id: 'migrant-account',
-    title: 'Paso 5: Gestionas la Cuenta',
-    description: 'Cancela cuando quieras, sin compromiso',
-    route: '/account',
-    perspective: 'migrant',
-    duration: 3000
-  },
-  {
     id: 'finish',
-    title: '¡Tour Completado!',
-    description: 'Listo para cuidar a tu familia desde USA',
-    route: '/page4',
+    title: '¡Listo para cuidar a tu familia!',
+    description: 'Contrata ahora y cuida a tus seres queridos desde USA',
+    route: '/registro',
     perspective: 'migrant',
     duration: 2000
   }

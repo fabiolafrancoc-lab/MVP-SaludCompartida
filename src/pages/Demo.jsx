@@ -7,6 +7,7 @@ const Demo = () => {
   const navigate = useNavigate();
   const { setCurrentUser } = useContext(UserContext);
   const [showWhatsAppSim, setShowWhatsAppSim] = useState(false);
+  const [showIntro, setShowIntro] = useState(false);
   const [tourStarted, setTourStarted] = useState(false);
 
   useEffect(() => {
@@ -25,14 +26,20 @@ const Demo = () => {
   const startDemoTour = () => {
     setTourStarted(true);
     
-    // Paso 1: Mostrar simulación de WhatsApp (3 segundos)
-    setShowWhatsAppSim(true);
+    // Paso 1: Mostrar introducción (3 segundos)
+    setShowIntro(true);
     
     setTimeout(() => {
-      setShowWhatsAppSim(false);
-      // Paso 2: Iniciar el tour automático
-      const tourController = new DemoTourController(navigate, setCurrentUser);
-      tourController.start();
+      setShowIntro(false);
+      // Paso 2: Mostrar simulación de WhatsApp (3 segundos)
+      setShowWhatsAppSim(true);
+      
+      setTimeout(() => {
+        setShowWhatsAppSim(false);
+        // Paso 3: Iniciar el tour automático
+        const tourController = new DemoTourController(navigate, setCurrentUser);
+        tourController.start();
+      }, 3000);
     }, 3000);
   };
 
@@ -40,7 +47,7 @@ const Demo = () => {
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-pink-50 to-purple-50 flex items-center justify-center p-6">
       
       {/* Ocultar contenido cuando el tour está activo */}
-      {!showWhatsAppSim && !tourStarted && (
+      {!showIntro && !showWhatsAppSim && !tourStarted && (
         <div className="max-w-4xl w-full">
         {/* Card Principal */}
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
@@ -219,6 +226,41 @@ const Demo = () => {
           </p>
         </div>
       </div>
+      )}
+
+      {/* Pantalla de Introducción */}
+      {showIntro && (
+        <div className="fixed inset-0 bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center z-50 p-6">
+          <div className="max-w-3xl w-full text-center text-white">
+            <div className="mb-8 animate-bounce">
+              <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+            </div>
+            
+            <h1 className="text-5xl font-black mb-6">
+              Pedro en USA se suscribe
+            </h1>
+            
+            <div className="bg-white/10 backdrop-blur rounded-3xl p-8 mb-6">
+              <p className="text-2xl font-bold mb-4">
+                🇺🇸 Pedro González en Estados Unidos
+              </p>
+              <p className="text-xl mb-4">
+                Paga <span className="text-4xl font-black">$12/mes</span>
+              </p>
+              <p className="text-2xl font-bold mt-6">
+                🇲🇽 La usuaria en México es Ana Rojas
+              </p>
+            </div>
+
+            <div className="animate-pulse text-white font-bold text-xl">
+              Enviando credenciales...
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Simulación de WhatsApp - Doble: Migrante y Familiar */}
