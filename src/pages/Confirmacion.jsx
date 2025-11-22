@@ -130,7 +130,7 @@ export default function Confirmacion() {
                     <span className="text-gray-600">Email:</span> {data.email}
                   </p>
                   <p className="text-gray-900">
-                    <span className="text-gray-600">WhatsApp:</span> {data.countryCode} {data.whatsappNumber}
+                    <span className="text-gray-600">WhatsApp:</span> {data.countryCode} {data.phone}
                   </p>
                 </div>
               </div>
@@ -190,10 +190,10 @@ export default function Confirmacion() {
           {/* Botón de acción */}
           <div className="text-center">
             <button
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate('/page3')}
               className="bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold py-4 px-8 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all"
             >
-              Ir a Mi Panel de Control
+              Ingresar Mi Código
             </button>
           </div>
         </div>
