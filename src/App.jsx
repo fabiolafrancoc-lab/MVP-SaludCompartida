@@ -834,8 +834,15 @@ Equipo SaludCompartida`,
               </p>
               
               <button
+                onClick={() => navigate('/demo')}
+                className="bg-white/20 border-2 border-white text-white px-12 py-4 rounded-xl text-xl font-bold shadow-lg hover:bg-white/30 hover:scale-105 transition-all mb-4 w-full"
+              >
+                Cómo Funciona SaludCompartida
+              </button>
+              
+              <button
                 onClick={() => navigate('/registro')}
-                className="bg-white text-cyan-600 px-12 py-5 rounded-xl text-2xl font-black shadow-xl hover:bg-gray-100 hover:scale-105 transition-all mb-8"
+                className="bg-white text-cyan-600 px-12 py-5 rounded-xl text-2xl font-black shadow-xl hover:bg-gray-100 hover:scale-105 transition-all mb-8 w-full"
               >
                 Quiero suscribirme AHORA
               </button>
