@@ -147,7 +147,7 @@ export default function Confirmacion() {
                           {data.migrantAccessCode}
                         </p>
                         <p className="text-xs text-gray-600 mt-2">
-                          📱 Será enviado a: {data.countryCode} {data.whatsappNumber}
+                          📱 Será enviado a: {data.countryCode} {data.phone}
                         </p>
                       </div>
                     )}
@@ -158,7 +158,7 @@ export default function Confirmacion() {
                           {data.familyAccessCode}
                         </p>
                         <p className="text-xs text-gray-600 mt-2">
-                          📱 Será enviado a: +52 {data.familyMember?.whatsapp}
+                          📱 Será enviado a: {data.familyMember?.countryCode} {data.familyMember?.whatsapp}
                         </p>
                       </div>
                     )}
