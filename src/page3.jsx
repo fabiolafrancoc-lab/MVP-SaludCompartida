@@ -6,6 +6,20 @@ import { getUserByAccessCode } from './lib/supabase';
 
 // Códigos especiales de acceso para inversores y demos
 const SPECIAL_ACCESS_CODES = {
+  'DEMO-2025': {
+    type: 'demo-new-user',
+    route: '/page4',
+    demoUser: {
+      firstName: 'Ana',
+      lastName: 'García',
+      motherLastName: 'Hernández',
+      phone: '3051234567',
+      email: 'demo@saludcompartida.com',
+      countryCode: '+1',
+      isDemo: true,
+      demoSavings: 0 // Usuario nuevo, sin ahorros
+    }
+  },
   'INVESTOR2025': {
     type: 'investor',
     route: '/page4',
@@ -15,7 +29,8 @@ const SPECIAL_ACCESS_CODES = {
       motherLastName: 'Rodríguez',
       phone: '5512345678',
       email: 'demo@saludcompartida.com',
-      countryCode: '+52'
+      countryCode: '+52',
+      isDemo: true
     }
   },
   'DEMO-MX': {
@@ -27,7 +42,8 @@ const SPECIAL_ACCESS_CODES = {
       motherLastName: 'López',
       phone: '5587654321',
       email: 'demo-mx@saludcompartida.com',
-      countryCode: '+52'
+      countryCode: '+52',
+      isDemo: true
     }
   },
   'DEMO-US': {
@@ -39,7 +55,8 @@ const SPECIAL_ACCESS_CODES = {
       motherLastName: '',
       phone: '3105551234',
       email: 'demo-us@saludcompartida.com',
-      countryCode: '+1'
+      countryCode: '+1',
+      isDemo: true
     }
   }
 };
