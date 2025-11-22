@@ -200,7 +200,7 @@ const BeneficiosDetallados = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50">
-      <TopNav onBack={() => navigate('/')} hideUser={true} />
+      <TopNav onBack={() => navigate('/page4')} hideUser={true} />
 
       <div className="max-w-6xl mx-auto px-6 py-16">
         {/* Header */}
