@@ -26,10 +26,10 @@ const Demo = () => {
               </svg>
             </div>
             <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-              ¡Bienvenido a la DEMO!
+              Cómo Funciona SaludCompartida
             </h1>
             <p className="text-xl md:text-2xl">
-              Explora SaludCompartida sin compromiso
+              Explora nuestra plataforma sin compromiso
             </p>
           </div>
 
@@ -37,10 +37,10 @@ const Demo = () => {
           <div className="p-8 md:p-12">
             <div className="mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">
-                ¿Qué puedes hacer en esta DEMO?
+                ¿Qué puedes explorar?
               </h2>
               <p className="text-lg text-gray-700 text-center mb-6">
-                Navega por toda la plataforma como si fueras un usuario real
+                Navega por toda la plataforma para conocer nuestros servicios
               </p>
             </div>
 
@@ -130,13 +130,13 @@ const Demo = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-lg mb-2">
-                    📱 Instrucciones Simples
+                    📱 Pasos para Explorar
                   </h3>
                   <ol className="text-gray-700 space-y-2 list-decimal list-inside">
-                    <li className="font-semibold">Presiona el botón "Comenzar Demo" abajo</li>
-                    <li className="font-semibold">Usa el código: <span className="text-cyan-600 font-mono text-xl">DEMO-2025</span></li>
-                    <li className="font-semibold">Explora todas las secciones del menú</li>
-                    <li className="font-semibold">Navega sin restricciones por toda la plataforma</li>
+                    <li className="font-semibold">Presiona el botón "Explorar Plataforma" abajo</li>
+                    <li className="font-semibold">Ingresa el código: <span className="text-cyan-600 font-mono text-xl">DEMO-2025</span></li>
+                    <li className="font-semibold">Navega por todas las secciones del menú</li>
+                    <li className="font-semibold">Descubre cómo funciona cada servicio</li>
                   </ol>
                 </div>
               </div>
@@ -148,7 +148,7 @@ const Demo = () => {
                 onClick={goToDemo}
                 className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-5 px-12 rounded-xl text-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all"
               >
-                🚀 Comenzar Demo Ahora
+                🚀 Explorar Plataforma
               </button>
               <p className="text-sm text-gray-500 mt-4">
                 No se requiere tarjeta de crédito ni información personal
