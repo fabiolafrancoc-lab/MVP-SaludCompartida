@@ -399,24 +399,28 @@ Beneficios disponibles:
               <h3 className="font-bold text-lg text-gray-900 mb-4">Plan Seleccionado</h3>
               <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
                 <div>
-                  <p className="font-semibold text-gray-900">Plan Familiar</p>
-                  <p className="text-sm text-gray-600">Hasta 5 personas</p>
+                  <p className="font-semibold text-gray-900">Plan Familiar US-MEX</p>
+                  <p className="text-sm text-gray-600">Hasta 4 familiares en México</p>
                 </div>
                 <p className="text-2xl font-bold text-cyan-600">$12.00</p>
               </div>
               
+              <p className="text-sm text-gray-700 mb-4 font-medium">
+                Servicio Mensual para tus familiares en México:
+              </p>
+              
               <div className="space-y-3">
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-gray-700">Telemedicina ilimitada 24/7</p>
+                  <p className="text-sm text-gray-700">Telemedicina ilimitada 24/7. Receta Electrónica de ser necesaria.</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-gray-700">Descuentos hasta 75% en farmacias</p>
+                  <p className="text-sm text-gray-700">Descuentos en Farmacias</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-gray-700">Terapia psicológica familiar</p>
+                  <p className="text-sm text-gray-700">Terapia Psicológica Semanal</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
