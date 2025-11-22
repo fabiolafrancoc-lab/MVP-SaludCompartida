@@ -2,19 +2,18 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, Lock, ArrowLeft, CheckCircle } from 'lucide-react';
 
-// Client ID de PayPal LIVE (producción)
-// Para producción, usar variables de entorno
-const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID || 'AY2YkJ5iEaZeAnoqi4ImgwYFX4jwGs6Rs5YgHOatbprOpihB_Oot1WmnQpxIMIRKCUAvSEaY-zrs1O7V';
-
-// Plan ID de la suscripción mensual ($12/mes) - LIVE
-const PAYPAL_PLAN_ID = import.meta.env.VITE_PAYPAL_PLAN_ID || 'P-0PE96387B4032200FNEQOVKI';
+// Square Application ID y Location ID
+const SQUARE_APP_ID = import.meta.env.VITE_SQUARE_APP_ID || 'sandbox-sq0idb-NKXeieWPwl3DnnkJ3asYcw';
+const SQUARE_LOCATION_ID = import.meta.env.VITE_SQUARE_LOCATION_ID || 'LT92PZMMZ3CQ2';
 
 export default function Pago() {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [paypalLoaded, setPaypalLoaded] = useState(false);
-  const paypalButtonRef = useRef(null);
+  const [squareLoaded, setSquareLoaded] = useState(false);
+  const cardContainerRef = useRef(null);
+  const [card, setCard] = useState(null);
+  const [payments, setPayments] = useState(null);
 
   // Datos del usuario del registro
   const [userData, setUserData] = useState({});
@@ -37,88 +36,115 @@ export default function Pago() {
     setUserData(JSON.parse(registrationData));
   }, [navigate]);
 
-  // Cargar el SDK de PayPal con soporte para suscripciones
+  // Cargar el SDK de Square
   useEffect(() => {
     if (!userData.firstName) return;
 
     const script = document.createElement('script');
-    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&vault=true&intent=subscription&currency=USD`;
+    script.src = 'https://sandbox.web.squarecdn.com/v1/square.js'; // Cambiar a 'https://web.squarecdn.com/v1/square.js' en producción
     script.async = true;
     
-    script.onload = () => {
-      setPaypalLoaded(true);
-      initializePayPalButtons();
+    script.onload = async () => {
+      if (!window.Square) {
+        console.error('Square.js failed to load');
+        return;
+      }
+
+      try {
+        const paymentsInstance = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
+        setPayments(paymentsInstance);
+        
+        const cardInstance = await paymentsInstance.card();
+        await cardInstance.attach(cardContainerRef.current);
+        setCard(cardInstance);
+        setSquareLoaded(true);
+        
+        console.log('✅ Square inicializado correctamente');
+      } catch (error) {
+        console.error('Error inicializando Square:', error);
+        alert('Error cargando el formulario de pago. Por favor recarga la página.');
+      }
     };
     
     script.onerror = () => {
-      console.error('Error cargando PayPal SDK');
+      console.error('Error cargando Square SDK');
       alert('Error cargando el sistema de pago. Por favor recarga la página.');
     };
 
     document.body.appendChild(script);
 
     return () => {
-      // Limpiar al desmontar
-      const scripts = document.querySelectorAll('script[src*="paypal.com/sdk"]');
+      if (card) {
+        card.destroy();
+      }
+      const scripts = document.querySelectorAll('script[src*="squarecdn.com"]');
       scripts.forEach(s => s.remove());
     };
   }, [userData]);
 
-  // Inicializar botones de PayPal con suscripción
-  const initializePayPalButtons = () => {
-    if (!window.paypal || !paypalButtonRef.current) return;
+  // Manejar el pago con Square
+  const handleSquarePayment = async () => {
+    if (!card) {
+      alert('Por favor espera a que cargue el formulario de pago');
+      return;
+    }
 
-    // Limpiar botones existentes
-    paypalButtonRef.current.innerHTML = '';
-
-    window.paypal.Buttons({
-      style: {
-        layout: 'vertical',
-        color: 'gold',
-        shape: 'rect',
-        label: 'subscribe',
-        height: 55
-      },
-      
-      createSubscription: (data, actions) => {
-        return actions.subscription.create({
-          plan_id: PAYPAL_PLAN_ID,
-          application_context: {
-            shipping_preference: 'NO_SHIPPING'
-          }
-        });
-      },
-      
-      onApprove: async (data, actions) => {
-        try {
-          console.log('✅ Suscripción creada:', data);
-          console.log('Subscription ID:', data.subscriptionID);
-          handleSuccessfulPayment(data);
-        } catch (error) {
-          console.error('Error procesando suscripción:', error);
-          alert('Hubo un error procesando tu suscripción. Por favor contacta a soporte.');
-        }
-      },
-      
-      onError: (err) => {
-        console.error('❌ Error de PayPal completo:', err);
-        console.error('Error details:', JSON.stringify(err, null, 2));
-        alert('Hubo un error con PayPal. Por favor intenta nuevamente.');
-      },
-      
-      onCancel: () => {
-        console.log('Usuario canceló la suscripción');
-      }
-      
-    }).render(paypalButtonRef.current);
-  };
-
-  // Procesar suscripción exitosa
-  const handleSuccessfulPayment = async (paypalData) => {
     setIsProcessing(true);
 
-    console.log('💳 Procesando suscripción exitosa de PayPal...');
-    console.log('Subscription ID:', paypalData.subscriptionID);
+    try {
+      const result = await card.tokenize();
+      
+      if (result.status === 'OK') {
+        console.log('✅ Token generado:', result.token);
+        
+        // Procesar el pago con el token
+        const paymentResult = await processSquarePayment(result.token);
+        
+        if (paymentResult.success) {
+          handleSuccessfulPayment(paymentResult.data);
+        } else {
+          throw new Error(paymentResult.error);
+        }
+      } else {
+        console.error('Tokenization errors:', result.errors);
+        alert('Error al procesar la tarjeta. Por favor verifica los datos.');
+        setIsProcessing(false);
+      }
+    } catch (error) {
+      console.error('Error procesando pago:', error);
+      alert('Hubo un error procesando tu pago. Por favor intenta nuevamente.');
+      setIsProcessing(false);
+    }
+  };
+
+  // Procesar pago con Square (llamada al backend)
+  const processSquarePayment = async (token) => {
+    try {
+      const response = await fetch('/api/square-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sourceId: token,
+          amount: 1200, // $12.00 en centavos
+          currency: 'USD',
+          description: 'SaludCompartida - Plan Familiar Mensual'
+        })
+      });
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error en API:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
+  // Procesar pago exitoso
+  const handleSuccessfulPayment = async (paymentData) => {
+    setIsProcessing(true);
+
+    console.log('💳 Procesando pago exitoso de Square...');
+    console.log('Payment ID:', paymentData.id);
     
     // Generar códigos únicos para migrante y familiar
     const generateCode = (prefix) => {
@@ -128,16 +154,15 @@ export default function Pago() {
     const migrantCode = generateCode('USA');
     const familyCode = generateCode('MX');
 
-    // Guardar información de la suscripción
+    // Guardar información del pago
     const subscriptionData = {
       ...userData,
       subscriptionDate: new Date().toISOString(),
       confirmationNumber: 'SC' + Math.random().toString(36).substring(2, 10).toUpperCase(),
       plan: 'Plan Familiar',
       amount: 12.00,
-      paymentMethod: 'PayPal',
-      paypalSubscriptionId: paypalData.subscriptionID,
-      paypalOrderId: paypalData.orderID,
+      paymentMethod: 'Square',
+      squarePaymentId: paymentData.id,
       status: 'active',
       migrantAccessCode: migrantCode,
       familyAccessCode: familyCode
@@ -489,27 +514,49 @@ Beneficios disponibles:
                 <p className="text-sm text-gray-600">{userData.email}</p>
               </div>
 
-              {/* Botones de PayPal */}
+              {/* Formulario de tarjeta Square */}
               <div className="mb-6">
-                {!paypalLoaded && (
+                {!squareLoaded && (
                   <div className="text-center py-8">
                     <div className="inline-flex items-center gap-2 text-gray-600">
                       <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      <span>Cargando métodos de pago...</span>
+                      <span>Cargando formulario de pago...</span>
                     </div>
                   </div>
                 )}
-                <div ref={paypalButtonRef} id="paypal-button-container"></div>
+                
+                {/* Contenedor del formulario de tarjeta de Square */}
+                <div ref={cardContainerRef} id="card-container" className="mb-4"></div>
+                
+                {squareLoaded && (
+                  <button
+                    onClick={handleSquarePayment}
+                    disabled={isProcessing}
+                    className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isProcessing ? (
+                      <span className="inline-flex items-center justify-center gap-2">
+                        <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Procesando...
+                      </span>
+                    ) : (
+                      'Pagar $12.00 USD'
+                    )}
+                  </button>
+                )}
               </div>
 
-              {/* Info sobre PayPal */}
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
-                <p className="text-sm text-blue-900 font-semibold mb-2">💳 Paga con tarjeta sin cuenta PayPal</p>
-                <p className="text-xs text-blue-700">
-                  PayPal acepta todas las tarjetas. No necesitas tener cuenta PayPal para pagar.
+              {/* Info sobre seguridad */}
+              <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-4">
+                <p className="text-sm text-green-900 font-semibold mb-2">� Pago 100% Seguro</p>
+                <p className="text-xs text-green-700">
+                  Procesado por Square. Tus datos están encriptados y protegidos.
                 </p>
               </div>
 
