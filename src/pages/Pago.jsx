@@ -1,20 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, Lock, ArrowLeft, CheckCircle } from 'lucide-react';
+
+// Client ID de PayPal LIVE (producción)
+// Para producción, usar variables de entorno
+const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID || 'AY2YkJ5iEaZeAnoqi4ImgwYFX4jwGs6Rs5YgHOatbprOpihB_Oot1WmnQpxIMIRKCUAvSEaY-zrs1O7V';
+
+// Plan ID de la suscripción mensual ($12/mes) - LIVE
+const PAYPAL_PLAN_ID = import.meta.env.VITE_PAYPAL_PLAN_ID || 'P-0PE96387B4032200FNEQOVKI';
 
 export default function Pago() {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [paypalLoaded, setPaypalLoaded] = useState(false);
+  const paypalButtonRef = useRef(null);
 
   // Datos del usuario del registro
   const [userData, setUserData] = useState({});
-
-  // Datos de la tarjeta
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardName, setCardName] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvv, setCvv] = useState('');
 
   // Errores
   const [errors, setErrors] = useState({});
@@ -28,153 +31,160 @@ export default function Pago() {
   useEffect(() => {
     const registrationData = localStorage.getItem('registrationUser');
     if (!registrationData) {
-      // Si no hay datos de registro, redirigir a registro
       navigate('/registro');
       return;
     }
     setUserData(JSON.parse(registrationData));
   }, [navigate]);
 
-  // Formatear número de tarjeta (XXXX XXXX XXXX XXXX)
-  const formatCardNumber = (value) => {
-    const numbers = value.replace(/\D/g, '');
-    const formatted = numbers.match(/.{1,4}/g);
-    return formatted ? formatted.join(' ') : numbers;
-  };
+  // Cargar el SDK de PayPal con soporte para suscripciones
+  useEffect(() => {
+    if (!userData.firstName) return;
 
-  // Formatear fecha de expiración (MM/YY)
-  const formatExpiryDate = (value) => {
-    const numbers = value.replace(/\D/g, '');
-    if (numbers.length >= 2) {
-      return numbers.slice(0, 2) + '/' + numbers.slice(2, 4);
-    }
-    return numbers;
-  };
+    const script = document.createElement('script');
+    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&vault=true&intent=subscription&currency=USD`;
+    script.async = true;
+    
+    script.onload = () => {
+      setPaypalLoaded(true);
+      initializePayPalButtons();
+    };
+    
+    script.onerror = () => {
+      console.error('Error cargando PayPal SDK');
+      alert('Error cargando el sistema de pago. Por favor recarga la página.');
+    };
 
-  // Validar tarjeta
-  const validateCard = () => {
-    const newErrors = {};
+    document.body.appendChild(script);
 
-    // Número de tarjeta (16 dígitos)
-    const cardNumbers = cardNumber.replace(/\s/g, '');
-    if (!cardNumbers) {
-      newErrors.cardNumber = 'El número de tarjeta es requerido';
-    } else if (cardNumbers.length !== 16) {
-      newErrors.cardNumber = 'Debe ser un número de 16 dígitos';
-    }
+    return () => {
+      // Limpiar al desmontar
+      const scripts = document.querySelectorAll('script[src*="paypal.com/sdk"]');
+      scripts.forEach(s => s.remove());
+    };
+  }, [userData]);
 
-    // Nombre en tarjeta
-    if (!cardName.trim()) {
-      newErrors.cardName = 'El nombre en la tarjeta es requerido';
-    }
+  // Inicializar botones de PayPal con suscripción
+  const initializePayPalButtons = () => {
+    if (!window.paypal || !paypalButtonRef.current) return;
 
-    // Fecha de expiración
-    if (!expiryDate) {
-      newErrors.expiryDate = 'La fecha de expiración es requerida';
-    } else {
-      const [month, year] = expiryDate.split('/');
-      const currentYear = new Date().getFullYear() % 100;
-      const currentMonth = new Date().getMonth() + 1;
+    // Limpiar botones existentes
+    paypalButtonRef.current.innerHTML = '';
+
+    window.paypal.Buttons({
+      style: {
+        layout: 'vertical',
+        color: 'gold',
+        shape: 'rect',
+        label: 'subscribe',
+        height: 55
+      },
       
-      if (!month || !year) {
-        newErrors.expiryDate = 'Formato inválido (MM/YY)';
-      } else if (parseInt(month) < 1 || parseInt(month) > 12) {
-        newErrors.expiryDate = 'Mes inválido';
-      } else if (parseInt(year) < currentYear || 
-                (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
-        newErrors.expiryDate = 'Tarjeta expirada';
+      createSubscription: (data, actions) => {
+        return actions.subscription.create({
+          plan_id: PAYPAL_PLAN_ID,
+          application_context: {
+            shipping_preference: 'NO_SHIPPING'
+          }
+        });
+      },
+      
+      onApprove: async (data, actions) => {
+        try {
+          console.log('✅ Suscripción creada:', data);
+          console.log('Subscription ID:', data.subscriptionID);
+          handleSuccessfulPayment(data);
+        } catch (error) {
+          console.error('Error procesando suscripción:', error);
+          alert('Hubo un error procesando tu suscripción. Por favor contacta a soporte.');
+        }
+      },
+      
+      onError: (err) => {
+        console.error('❌ Error de PayPal completo:', err);
+        console.error('Error details:', JSON.stringify(err, null, 2));
+        alert('Hubo un error con PayPal. Por favor intenta nuevamente.');
+      },
+      
+      onCancel: () => {
+        console.log('Usuario canceló la suscripción');
       }
-    }
-
-    // CVV (3 o 4 dígitos)
-    if (!cvv) {
-      newErrors.cvv = 'El CVV es requerido';
-    } else if (cvv.length < 3 || cvv.length > 4) {
-      newErrors.cvv = 'CVV inválido';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+      
+    }).render(paypalButtonRef.current);
   };
 
-  // Procesar pago
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!validateCard()) {
-      return;
-    }
-
+  // Procesar suscripción exitosa
+  const handleSuccessfulPayment = async (paypalData) => {
     setIsProcessing(true);
 
-    // Simular procesamiento de pago (2 segundos)
-    // En producción, aquí iría la llamada a Stripe
+    console.log('💳 Procesando suscripción exitosa de PayPal...');
+    console.log('Subscription ID:', paypalData.subscriptionID);
+    
+    // Generar códigos únicos para migrante y familiar
+    const generateCode = (prefix) => {
+      return `SC-${prefix}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+    };
+
+    const migrantCode = generateCode('USA');
+    const familyCode = generateCode('MX');
+
+    // Guardar información de la suscripción
+    const subscriptionData = {
+      ...userData,
+      subscriptionDate: new Date().toISOString(),
+      confirmationNumber: 'SC' + Math.random().toString(36).substring(2, 10).toUpperCase(),
+      plan: 'Plan Familiar',
+      amount: 12.00,
+      paymentMethod: 'PayPal',
+      paypalSubscriptionId: paypalData.subscriptionID,
+      paypalOrderId: paypalData.orderID,
+      status: 'active',
+      migrantAccessCode: migrantCode,
+      familyAccessCode: familyCode
+    };
+
+    localStorage.setItem('subscriptionData', JSON.stringify(subscriptionData));
+
+    // Guardar códigos con mapping a datos de usuario
+    const accessCodes = JSON.parse(localStorage.getItem('accessCodes') || '{}');
+    
+    // Código del migrante
+    accessCodes[migrantCode] = {
+      type: 'migrant',
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      motherLastName: userData.motherLastName,
+      email: userData.email,
+      phone: userData.phone,
+      countryCode: userData.countryCode,
+      phoneId: userData.phoneId,
+      confirmationNumber: subscriptionData.confirmationNumber,
+      activatedAt: null
+    };
+
+    // Código del familiar en México
+    accessCodes[familyCode] = {
+      type: 'family',
+      firstName: userData.familyMember.firstName,
+      lastName: userData.familyMember.lastName,
+      whatsapp: userData.familyMember.whatsapp,
+      countryCode: userData.familyMember.countryCode,
+      phoneId: userData.familyMember.phoneId,
+      confirmationNumber: subscriptionData.confirmationNumber,
+      activatedAt: null
+    };
+
+    localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
+
+    // ENVIAR CÓDIGOS POR WHATSAPP Y EMAIL
+    await sendAccessCodes(migrantCode, familyCode, userData);
+
+    setIsProcessing(false);
+    setShowSuccess(true);
+
+    // Redirigir a confirmación después de 2 segundos
     setTimeout(() => {
-      setIsProcessing(false);
-      setShowSuccess(true);
-
-      // Generar códigos únicos para migrante y familiar
-      const generateCode = (prefix) => {
-        return `SC-${prefix}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
-      };
-
-      const migrantCode = generateCode('USA');
-      const familyCode = generateCode('MX');
-
-      // Guardar información de la suscripción
-      const subscriptionData = {
-        ...userData,
-        subscriptionDate: new Date().toISOString(),
-        confirmationNumber: 'SC' + Math.random().toString(36).substring(2, 10).toUpperCase(),
-        plan: 'Plan Familiar',
-        amount: 12.00,
-        cardLast4: cardNumber.replace(/\s/g, '').slice(-4),
-        status: 'active',
-        // Códigos de acceso
-        migrantAccessCode: migrantCode,
-        familyAccessCode: familyCode
-      };
-
-      localStorage.setItem('subscriptionData', JSON.stringify(subscriptionData));
-
-      // Guardar códigos con mapping a datos de usuario
-      const accessCodes = JSON.parse(localStorage.getItem('accessCodes') || '{}');
-      
-      // Código del migrante
-      accessCodes[migrantCode] = {
-        type: 'migrant',
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        motherLastName: userData.motherLastName,
-        email: userData.email,
-        phone: userData.phone,
-        countryCode: userData.countryCode,
-        phoneId: userData.phoneId,
-        confirmationNumber: subscriptionData.confirmationNumber,
-        activatedAt: null
-      };
-
-      // Código del familiar en México
-      accessCodes[familyCode] = {
-        type: 'family',
-        firstName: userData.familyMember.firstName,
-        lastName: userData.familyMember.lastName,
-        whatsapp: userData.familyMember.whatsapp,
-        countryCode: userData.familyMember.countryCode,
-        phoneId: userData.familyMember.phoneId,
-        confirmationNumber: subscriptionData.confirmationNumber,
-        activatedAt: null
-      };
-
-      localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
-
-      // ENVIAR CÓDIGOS POR WHATSAPP Y EMAIL
-      sendAccessCodes(migrantCode, familyCode, userData);
-
-      // Redirigir a confirmación después de 3 segundos
-      setTimeout(() => {
-        navigate('/confirmacion', { state: subscriptionData });
-      }, 3000);
+      navigate('/confirmacion', { state: subscriptionData });
     }, 2000);
   };
 
@@ -462,7 +472,7 @@ Beneficios disponibles:
             </div>
           </div>
 
-          {/* Columna derecha - Formulario de pago */}
+          {/* Columna derecha - PayPal */}
           <div>
             <div className="bg-white rounded-2xl shadow-2xl p-8">
               <div className="flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-pink-500 rounded-xl p-4 mb-6">
@@ -470,108 +480,59 @@ Beneficios disponibles:
                 <h2 className="text-xl font-bold text-white">Información de Pago</h2>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Número de tarjeta */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Número de Tarjeta
-                  </label>
-                  <input
-                    type="text"
-                    value={cardNumber}
-                    onChange={handleCardNumberChange}
-                    placeholder="1234 5678 9012 3456"
-                    className={`w-full px-4 py-3 text-lg border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all ${
-                      errors.cardNumber ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                  />
-                  {errors.cardNumber && (
-                    <p className="text-red-600 text-sm mt-1">{errors.cardNumber}</p>
-                  )}
-                </div>
+              {/* Información de suscripción */}
+              <div className="mb-6 p-4 bg-gray-50 rounded-xl">
+                <p className="text-sm text-gray-600 mb-1">Suscripción para:</p>
+                <p className="font-semibold text-gray-900">
+                  {userData.firstName} {userData.lastName}
+                </p>
+                <p className="text-sm text-gray-600">{userData.email}</p>
+              </div>
 
-                {/* Nombre en tarjeta */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Nombre en la Tarjeta
-                  </label>
-                  <input
-                    type="text"
-                    value={cardName}
-                    onChange={(e) => setCardName(e.target.value.toUpperCase())}
-                    placeholder="NOMBRE APELLIDO"
-                    className={`w-full px-4 py-3 text-lg border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all ${
-                      errors.cardName ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                  />
-                  {errors.cardName && (
-                    <p className="text-red-600 text-sm mt-1">{errors.cardName}</p>
-                  )}
-                </div>
-
-                {/* Fecha de expiración y CVV */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Fecha de Expiración
-                    </label>
-                    <input
-                      type="text"
-                      value={expiryDate}
-                      onChange={handleExpiryChange}
-                      placeholder="MM/YY"
-                      className={`w-full px-4 py-3 text-lg border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all ${
-                        errors.expiryDate ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                      }`}
-                    />
-                    {errors.expiryDate && (
-                      <p className="text-red-600 text-sm mt-1">{errors.expiryDate}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      CVV
-                    </label>
-                    <input
-                      type="text"
-                      value={cvv}
-                      onChange={handleCvvChange}
-                      placeholder="123"
-                      className={`w-full px-4 py-3 text-lg border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all ${
-                        errors.cvv ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                      }`}
-                    />
-                    {errors.cvv && (
-                      <p className="text-red-600 text-sm mt-1">{errors.cvv}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Botón de pago */}
-                <button
-                  type="submit"
-                  disabled={isProcessing}
-                  className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold py-4 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                >
-                  {isProcessing ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              {/* Botones de PayPal */}
+              <div className="mb-6">
+                {!paypalLoaded && (
+                  <div className="text-center py-8">
+                    <div className="inline-flex items-center gap-2 text-gray-600">
+                      <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Procesando...
-                    </span>
-                  ) : (
-                    `Pagar $12.00 USD`
-                  )}
-                </button>
+                      <span>Cargando métodos de pago...</span>
+                    </div>
+                  </div>
+                )}
+                <div ref={paypalButtonRef} id="paypal-button-container"></div>
+              </div>
 
-                <p className="text-xs text-center text-gray-500 mt-4">
-                  Al hacer clic en "Pagar", aceptas nuestros{' '}
+              {/* Info sobre PayPal */}
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+                <p className="text-sm text-blue-900 font-semibold mb-2">💳 Paga con tarjeta sin cuenta PayPal</p>
+                <p className="text-xs text-blue-700">
+                  PayPal acepta todas las tarjetas. No necesitas tener cuenta PayPal para pagar.
+                </p>
+              </div>
+
+              {/* Mensaje de procesamiento */}
+              {isProcessing && (
+                <div className="text-center py-4 bg-green-50 border border-green-200 rounded-xl">
+                  <div className="inline-flex items-center justify-center gap-2">
+                    <svg className="animate-spin h-5 w-5 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span className="text-green-700 font-medium">Procesando pago y enviando códigos...</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Términos */}
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <p className="text-xs text-center text-gray-500">
+                  Al completar el pago, aceptas nuestros{' '}
                   <a href="/terms" className="text-cyan-600 hover:underline">Términos y Condiciones</a>
                 </p>
-              </form>
+              </div>
             </div>
           </div>
         </div>
