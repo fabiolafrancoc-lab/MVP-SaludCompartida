@@ -8,9 +8,28 @@ const DemoTourOverlay = () => {
   const { isActive, currentStep, stepIndex, totalSteps, progress } = useDemoTourInfo(location);
 
   const handleSkip = () => {
+    // Obtener de dónde viene el usuario
+    const returnTo = localStorage.getItem('demoReturnTo') || 'pricing';
+    
+    // Restaurar el usuario original
+    const originalUser = localStorage.getItem('demoOriginalUser');
+    if (originalUser) {
+      localStorage.setItem('currentUser', JSON.parse(originalUser));
+    }
+    
+    // Limpiar estado del tour
     localStorage.removeItem('isDemoTourActive');
     localStorage.removeItem('demoCurrentStep');
-    navigate('/page4');
+    localStorage.removeItem('demoReturnTo');
+    localStorage.removeItem('demoOriginalUser');
+    
+    // Navegar según el origen
+    if (returnTo === 'dashboard') {
+      navigate('/page4'); // Usuario México → Dashboard
+    } else {
+      // Usuario ANTES de compra → Recuadro CIAN de pricing en App.jsx
+      navigate('/', { state: { scrollTo: 'pricing' } });
+    }
   };
 
   if (!isActive) return null;
