@@ -875,7 +875,7 @@ Equipo SaludCompartida`,
               {/* Botón Demo debajo de beneficios */}
               <div className="mt-8">
                 <button
-                  onClick={() => navigate('/demo', { state: { returnTo: 'pricing' } })}
+                  onClick={() => navigate('/demo')}
                   className="bg-white/20 border-2 border-white text-white px-12 py-4 rounded-xl text-xl font-bold shadow-lg hover:bg-white/30 hover:scale-105 transition-all w-full"
                 >
                   Cómo Funciona SaludCompartida
