@@ -104,7 +104,9 @@ function App() {
       setTimeout(() => {
         const pricingCard = document.getElementById('pricing-card');
         if (pricingCard) {
-          pricingCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          pricingCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Ajustar scroll adicional para compensar navbar si existe
+          window.scrollBy(0, -100);
         }
       }, 300);
       // Limpiar el state para que no vuelva a hacer scroll si refresca
