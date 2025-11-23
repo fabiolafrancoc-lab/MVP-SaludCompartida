@@ -303,8 +303,9 @@ const Page4 = () => {
     }
   ];
 
-  // Main service blocks (5 cards below menu)
+  // Main service blocks - Reorganizado: Fila 1 (Servicios de salud) | Fila 2 (Cuenta y recursos)
   const serviceBlocks = [
+    // FILA 1: Servicios de salud
     {
       icon: DoctorIcon,
       title: "Videollamada a Doctor",
@@ -326,6 +327,27 @@ const Page4 = () => {
       }
     },
     {
+      icon: TherapyIcon,
+      title: "Sesiones con Psicólogos",
+      message: "Terapia profesional para cuidar tu salud mental",
+      color: "#9B59B6",
+      onClick: () => {
+        window.scrollTo(0, 0);
+        navigate('/therapy');
+      }
+    },
+    // FILA 2: Cuenta y recursos
+    {
+      icon: AccountIcon,
+      title: "Mi Cuenta",
+      message: "Actualiza tu información y la de tu familia",
+      color: "#0071FF",
+      onClick: () => {
+        window.scrollTo(0, 0);
+        navigate('/account');
+      }
+    },
+    {
       icon: SavingsIcon,
       title: "Mis Ahorros",
       message: "Mira cuánto has ahorrado este mes",
@@ -343,16 +365,6 @@ const Page4 = () => {
       onClick: () => {
         window.scrollTo(0, 0);
         navigate('/blog');
-      }
-    },
-    {
-      icon: AccountIcon,
-      title: "Mi Cuenta",
-      message: "Actualiza tu información y la de tu familia",
-      color: "#0071FF",
-      onClick: () => {
-        window.scrollTo(0, 0);
-        navigate('/account');
       }
     }
   ];
