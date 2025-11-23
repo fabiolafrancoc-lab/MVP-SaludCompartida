@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import DashboardNav from './components/DashboardNav';
 
 export default function Terms() {
   const navigate = useNavigate();
@@ -37,26 +38,7 @@ export default function Terms() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-cyan-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <img
-            src="/saludcompartida logo WT.png"
-            alt="SaludCompartida"
-            className="h-16 cursor-pointer"
-            onClick={() => navigate('/')}
-          />
-          <button
-            onClick={() => {
-              window.scrollTo(0, 0);
-              navigate(fromPage);
-            }}
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg"
-          >
-            Volver
-          </button>
-        </div>
-      </header>
+      <DashboardNav />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}

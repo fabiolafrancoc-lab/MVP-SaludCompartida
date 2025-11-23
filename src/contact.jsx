@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { WhatsAppButtonMagenta } from './components/WhatsAppIcons';
+import DashboardNav from './components/DashboardNav';
 
 export default function Contact() {
   const navigate = useNavigate();
@@ -328,24 +329,7 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
-      <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <img
-            src="/saludcompartida logo WT.png"
-            alt="SaludCompartida"
-            className="h-16 object-contain"
-          />
-          <button
-            onClick={() => {
-              const fromPage = location.state?.from || '/page4';
-              navigate(fromPage);
-            }}
-            className="text-gray-600 hover:text-gray-900 font-medium"
-          >
-            Volver
-          </button>
-        </div>
-      </header>
+      <DashboardNav />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Grid limpio sin capas - formulario izquierda, imagen derecha */}
