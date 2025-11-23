@@ -272,7 +272,6 @@ const Page4 = () => {
       items: [
         { name: 'Quiénes Somos', route: '/quienes-somos' },
         { name: 'Nuestros Valores', route: '/quienes-somos#valores' },
-        { name: 'Cómo Funciona SaludCompartida', route: '/demo', state: { returnTo: 'dashboard' } },
         { name: 'Blog', route: '/blog' }
       ]
     },

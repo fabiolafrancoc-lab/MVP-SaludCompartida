@@ -94,10 +94,9 @@ export const TOUR_STEPS = [
 ];
 
 export class DemoTourController {
-  constructor(navigate, setCurrentUser, returnTo = 'pricing') {
+  constructor(navigate, setCurrentUser) {
     this.navigate = navigate;
     this.setCurrentUser = setCurrentUser;
-    this.returnTo = returnTo; // 'pricing' (antes de compra) o 'dashboard' (usuario México)
     this.currentStepIndex = 0;
     this.isActive = false;
     this.timers = [];
@@ -109,9 +108,6 @@ export class DemoTourController {
     if (currentUserData) {
       localStorage.setItem('demoOriginalUser', currentUserData);
     }
-    
-    // Guardar de dónde viene el usuario para saber a dónde regresar
-    localStorage.setItem('demoReturnTo', this.returnTo);
     
     // Iniciar como migrante (quien paga)
     localStorage.setItem('currentUser', JSON.stringify(DEMO_MIGRANT));
@@ -168,9 +164,6 @@ export class DemoTourController {
 
   skip() {
     this.finish();
-    // Obtener de dónde viene el usuario
-    const returnTo = localStorage.getItem('demoReturnTo') || 'pricing';
-    
     // Restaurar el usuario original
     const originalUser = localStorage.getItem('demoOriginalUser');
     if (originalUser) {
@@ -182,13 +175,8 @@ export class DemoTourController {
       this.setCurrentUser(DEMO_MIGRANT);
     }
     
-    // Navegar según el origen
-    if (returnTo === 'dashboard') {
-      this.navigate('/page4'); // Usuario México → Dashboard
-    } else {
-      // Usuario ANTES de compra → Recuadro CIAN de pricing en App.jsx
-      this.navigate('/', { state: { scrollTo: 'pricing' } });
-    }
+    // Siempre volver al recuadro CIAN de pricing en App.jsx
+    this.navigate('/', { state: { scrollTo: 'pricing' } });
   }
 
   finish() {
@@ -198,9 +186,6 @@ export class DemoTourController {
     localStorage.removeItem('isDemoTourActive');
     localStorage.removeItem('demoCurrentStep');
     
-    // Obtener de dónde viene el usuario
-    const returnTo = localStorage.getItem('demoReturnTo') || 'pricing';
-    
     // Restaurar el usuario original después del tour
     const originalUser = localStorage.getItem('demoOriginalUser');
     if (originalUser) {
@@ -209,21 +194,13 @@ export class DemoTourController {
       // Limpiar el usuario original guardado
       localStorage.removeItem('demoOriginalUser');
     } else {
-      // Fallback: si no hay usuario original, mantener al migrante (comportamiento anterior)
+      // Fallback: si no hay usuario original, mantener al migrante
       localStorage.setItem('currentUser', JSON.stringify(DEMO_MIGRANT));
       this.setCurrentUser(DEMO_MIGRANT);
     }
     
-    // Limpiar returnTo
-    localStorage.removeItem('demoReturnTo');
-    
-    // Navegar según el origen
-    if (returnTo === 'dashboard') {
-      this.navigate('/page4'); // Usuario México → Dashboard
-    } else {
-      // Usuario ANTES de compra → Recuadro CIAN de pricing en App.jsx
-      this.navigate('/', { state: { scrollTo: 'pricing' } });
-    }
+    // Siempre volver al recuadro CIAN de pricing en App.jsx
+    this.navigate('/', { state: { scrollTo: 'pricing' } });
   }
 
   cleanup() {
