@@ -94,15 +94,25 @@ export const TOUR_STEPS = [
 ];
 
 export class DemoTourController {
-  constructor(navigate, setCurrentUser) {
+  constructor(navigate, setCurrentUser, returnTo = 'pricing') {
     this.navigate = navigate;
     this.setCurrentUser = setCurrentUser;
+    this.returnTo = returnTo; // 'pricing' (antes de compra) o 'dashboard' (usuario México)
     this.currentStepIndex = 0;
     this.isActive = false;
     this.timers = [];
   }
 
   start() {
+    // Guardar el usuario ORIGINAL antes de empezar el tour (para restaurarlo al final)
+    const currentUserData = localStorage.getItem('currentUser');
+    if (currentUserData) {
+      localStorage.setItem('demoOriginalUser', currentUserData);
+    }
+    
+    // Guardar de dónde viene el usuario para saber a dónde regresar
+    localStorage.setItem('demoReturnTo', this.returnTo);
+    
     // Iniciar como migrante (quien paga)
     localStorage.setItem('currentUser', JSON.stringify(DEMO_MIGRANT));
     localStorage.setItem('demoFamilyUser', JSON.stringify(DEMO_FAMILY_MEXICO));
@@ -158,10 +168,27 @@ export class DemoTourController {
 
   skip() {
     this.finish();
-    // Volver a migrante y al dashboard
-    localStorage.setItem('currentUser', JSON.stringify(DEMO_MIGRANT));
-    this.setCurrentUser(DEMO_MIGRANT);
-    this.navigate('/page4');
+    // Obtener de dónde viene el usuario
+    const returnTo = localStorage.getItem('demoReturnTo') || 'pricing';
+    
+    // Restaurar el usuario original
+    const originalUser = localStorage.getItem('demoOriginalUser');
+    if (originalUser) {
+      localStorage.setItem('currentUser', originalUser);
+      this.setCurrentUser(JSON.parse(originalUser));
+    } else {
+      // Fallback: volver a migrante si no hay usuario original
+      localStorage.setItem('currentUser', JSON.stringify(DEMO_MIGRANT));
+      this.setCurrentUser(DEMO_MIGRANT);
+    }
+    
+    // Navegar según el origen
+    if (returnTo === 'dashboard') {
+      this.navigate('/page4'); // Usuario México → Dashboard
+    } else {
+      // Usuario ANTES de compra → Recuadro CIAN de pricing en App.jsx
+      this.navigate('/', { state: { scrollTo: 'pricing' } });
+    }
   }
 
   finish() {
@@ -170,9 +197,33 @@ export class DemoTourController {
     this.timers = [];
     localStorage.removeItem('isDemoTourActive');
     localStorage.removeItem('demoCurrentStep');
-    // Mantener al usuario como migrante después del tour
-    localStorage.setItem('currentUser', JSON.stringify(DEMO_MIGRANT));
-    this.setCurrentUser(DEMO_MIGRANT);
+    
+    // Obtener de dónde viene el usuario
+    const returnTo = localStorage.getItem('demoReturnTo') || 'pricing';
+    
+    // Restaurar el usuario original después del tour
+    const originalUser = localStorage.getItem('demoOriginalUser');
+    if (originalUser) {
+      localStorage.setItem('currentUser', originalUser);
+      this.setCurrentUser(JSON.parse(originalUser));
+      // Limpiar el usuario original guardado
+      localStorage.removeItem('demoOriginalUser');
+    } else {
+      // Fallback: si no hay usuario original, mantener al migrante (comportamiento anterior)
+      localStorage.setItem('currentUser', JSON.stringify(DEMO_MIGRANT));
+      this.setCurrentUser(DEMO_MIGRANT);
+    }
+    
+    // Limpiar returnTo
+    localStorage.removeItem('demoReturnTo');
+    
+    // Navegar según el origen
+    if (returnTo === 'dashboard') {
+      this.navigate('/page4'); // Usuario México → Dashboard
+    } else {
+      // Usuario ANTES de compra → Recuadro CIAN de pricing en App.jsx
+      this.navigate('/', { state: { scrollTo: 'pricing' } });
+    }
   }
 
   cleanup() {
