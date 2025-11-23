@@ -208,6 +208,7 @@ const Page4 = () => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPhone, setUserPhone] = useState('');
+  const [isMigrant, setIsMigrant] = useState(false);
   
   // State for mobile menu dropdowns
   const [openMenu, setOpenMenu] = useState(null);
@@ -224,6 +225,7 @@ const Page4 = () => {
         setUserName(currentUser.firstName);
         setUserEmail(currentUser.email || '');
         setUserPhone(currentUser.phone || currentUser.whatsapp || '');
+        setIsMigrant(currentUser.isMigrant === true);
         return;
       }
       
@@ -244,6 +246,7 @@ const Page4 = () => {
         setUserName(userData.firstName);
         setUserEmail(userData.email || '');
         setUserPhone(userData.phone || userData.whatsapp || '');
+        setIsMigrant(userData.isMigrant === true);
       }
     } catch (error) {
       console.error('Error reading user data:', error);
@@ -294,7 +297,8 @@ const Page4 = () => {
         { name: 'Evalúanos', route: '/rating' },
         { name: 'Política de Privacidad', route: '/privacy' },
         { name: 'Términos y Condiciones', route: '/terms' },
-        { name: 'Cancelar Suscripción', route: '/cancel-subscription', danger: true }
+        // Solo mostrar "Cancelar Suscripción" si el usuario es MIGRANTE
+        ...(isMigrant ? [{ name: 'Cancelar Suscripción', route: '/cancel-subscription', danger: true }] : [])
       ]
     }
   ];

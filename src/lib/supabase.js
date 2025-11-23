@@ -7,11 +7,14 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // Crear cliente de Supabase
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Función para generar código de acceso único
+// Función para generar código de acceso único (6 caracteres alfanuméricos)
 function generateAccessCode() {
-  const prefix = 'SC';
-  const numbers = Math.floor(10000 + Math.random() * 90000); // 5 dígitos
-  return `${prefix}-${numbers}`;
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Sin O, 0, I, 1 para evitar confusión
+  let code = 'SC';
+  for (let i = 0; i < 4; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code; // Ejemplo: SC2A4B, SCH7K9, etc.
 }
 
 // Insertar registro completo (migrante + familiar en una sola fila)
