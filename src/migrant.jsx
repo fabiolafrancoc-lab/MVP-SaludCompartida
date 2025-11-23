@@ -215,6 +215,20 @@ const Migrant = () => {
               ¿Tienes preguntas? Estamos aquí para ayudarte
             </p>
           </div>
+
+          {/* Cancel Subscription */}
+          <div 
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate('/cancel-subscription');
+            }}
+            className="bg-white rounded-2xl shadow-xl p-8 cursor-pointer hover:shadow-2xl transition-shadow border-2 border-transparent hover:border-red-500"
+          >
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Cancelar Suscripción</h3>
+            <p className="text-gray-600">
+              ¿Necesitas cancelar? Estamos aquí para ayudarte con el proceso
+            </p>
+          </div>
         </div>
 
         {/* Info Banner */}
