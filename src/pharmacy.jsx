@@ -376,8 +376,131 @@ export default function Pharmacy() {
 
             {/* INSTRUCCIONES USO */}
             <div className="mt-4 bg-cyan-50 border-l-4 border-cyan-500 p-4 rounded-r-lg">
-              <p className="text-sm text-gray-700">
+              <p className="text-sm text-gray-600 text-center mt-4">
                 <span className="font-bold text-cyan-700">💡 Cómo usar:</span> Muestra esta tarjeta o código QR en farmacia para aplicar tu descuento
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* CÓDIGOS QR DIARIOS POR WHATSAPP */}
+        <div className="mb-12">
+          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 shadow-xl border-2 border-green-200">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <svg className="w-12 h-12 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              <h2 className="text-3xl font-bold text-gray-800">Códigos QR Diarios</h2>
+            </div>
+            
+            <div className="bg-white rounded-xl p-6 mb-6">
+              <p className="text-lg text-gray-700 text-center mb-4">
+                <span className="font-bold text-green-600">Recibe cuatro (4) códigos QR cada día</span> por WhatsApp con descuentos adicionales en la farmacia más cercana
+              </p>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                {/* QR Code 1 */}
+                <div className="bg-gray-50 rounded-lg p-4 text-center border-2 border-gray-200">
+                  <div className="w-24 h-24 mx-auto mb-2 bg-white p-2 rounded-lg">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <rect x="0" y="0" width="15" height="15" fill="black"/>
+                      <rect x="25" y="0" width="15" height="15" fill="black"/>
+                      <rect x="50" y="0" width="15" height="15" fill="black"/>
+                      <rect x="75" y="0" width="15" height="15" fill="black"/>
+                      <rect x="0" y="25" width="15" height="15" fill="black"/>
+                      <rect x="50" y="25" width="15" height="15" fill="black"/>
+                      <rect x="0" y="50" width="15" height="15" fill="black"/>
+                      <rect x="25" y="50" width="15" height="15" fill="black"/>
+                      <rect x="75" y="50" width="15" height="15" fill="black"/>
+                      <rect x="0" y="75" width="15" height="15" fill="black"/>
+                      <rect x="50" y="75" width="15" height="15" fill="black"/>
+                      <rect x="75" y="75" width="15" height="15" fill="black"/>
+                    </svg>
+                  </div>
+                  <p className="text-xs font-semibold text-gray-600">Código #1</p>
+                  <p className="text-xs text-gray-500">Mañana</p>
+                </div>
+
+                {/* QR Code 2 */}
+                <div className="bg-gray-50 rounded-lg p-4 text-center border-2 border-gray-200">
+                  <div className="w-24 h-24 mx-auto mb-2 bg-white p-2 rounded-lg">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <rect x="10" y="10" width="15" height="15" fill="black"/>
+                      <rect x="40" y="10" width="15" height="15" fill="black"/>
+                      <rect x="70" y="10" width="15" height="15" fill="black"/>
+                      <rect x="10" y="40" width="15" height="15" fill="black"/>
+                      <rect x="70" y="40" width="15" height="15" fill="black"/>
+                      <rect x="10" y="70" width="15" height="15" fill="black"/>
+                      <rect x="40" y="70" width="15" height="15" fill="black"/>
+                      <rect x="70" y="70" width="15" height="15" fill="black"/>
+                    </svg>
+                  </div>
+                  <p className="text-xs font-semibold text-gray-600">Código #2</p>
+                  <p className="text-xs text-gray-500">Mediodía</p>
+                </div>
+
+                {/* QR Code 3 */}
+                <div className="bg-gray-50 rounded-lg p-4 text-center border-2 border-gray-200">
+                  <div className="w-24 h-24 mx-auto mb-2 bg-white p-2 rounded-lg">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <rect x="5" y="5" width="20" height="20" fill="black"/>
+                      <rect x="35" y="5" width="20" height="20" fill="black"/>
+                      <rect x="65" y="5" width="20" height="20" fill="black"/>
+                      <rect x="5" y="35" width="20" height="20" fill="black"/>
+                      <rect x="65" y="35" width="20" height="20" fill="black"/>
+                      <rect x="5" y="65" width="20" height="20" fill="black"/>
+                      <rect x="35" y="65" width="20" height="20" fill="black"/>
+                      <rect x="65" y="65" width="20" height="20" fill="black"/>
+                    </svg>
+                  </div>
+                  <p className="text-xs font-semibold text-gray-600">Código #3</p>
+                  <p className="text-xs text-gray-500">Tarde</p>
+                </div>
+
+                {/* QR Code 4 */}
+                <div className="bg-gray-50 rounded-lg p-4 text-center border-2 border-gray-200">
+                  <div className="w-24 h-24 mx-auto mb-2 bg-white p-2 rounded-lg">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <rect x="0" y="10" width="18" height="18" fill="black"/>
+                      <rect x="30" y="10" width="18" height="18" fill="black"/>
+                      <rect x="60" y="10" width="18" height="18" fill="black"/>
+                      <rect x="15" y="40" width="18" height="18" fill="black"/>
+                      <rect x="45" y="40" width="18" height="18" fill="black"/>
+                      <rect x="75" y="40" width="18" height="18" fill="black"/>
+                      <rect x="0" y="70" width="18" height="18" fill="black"/>
+                      <rect x="30" y="70" width="18" height="18" fill="black"/>
+                      <rect x="60" y="70" width="18" height="18" fill="black"/>
+                    </svg>
+                  </div>
+                  <p className="text-xs font-semibold text-gray-600">Código #4</p>
+                  <p className="text-xs text-gray-500">Noche</p>
+                </div>
+              </div>
+
+              <div className="bg-green-50 rounded-lg p-4 border-2 border-green-200">
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div>
+                    <p className="font-bold text-green-800 mb-2">¿Cómo funcionan?</p>
+                    <ul className="text-sm text-green-700 space-y-1">
+                      <li>• Cada código QR te da un descuento adicional del 5-15%</li>
+                      <li>• Puedes usar un código diferente en cada compra del día</li>
+                      <li>• Los códigos se renuevan automáticamente cada 24 horas</li>
+                      <li>• Recíbelos directamente en tu WhatsApp sin costo</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <p className="text-gray-600 mb-3">
+                <span className="font-bold">📱 Los códigos QR se envían automáticamente</span>
+              </p>
+              <p className="text-sm text-gray-500">
+                Revisa tu WhatsApp cada mañana para recibir tus 4 códigos del día
               </p>
             </div>
           </div>

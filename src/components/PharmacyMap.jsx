@@ -44,9 +44,31 @@ const pharmacies = [
 ];
 
 const PharmacyMap = ({ selectedMedicine, address }) => {
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  
+  // Si no hay API key, mostrar mensaje informativo
+  if (!apiKey || apiKey === '') {
+    return (
+      <div className="w-full h-[600px] bg-gradient-to-br from-cyan-50 to-blue-50 rounded-lg flex items-center justify-center border-2 border-cyan-200">
+        <div className="text-center p-8 max-w-md">
+          <svg className="w-20 h-20 mx-auto mb-4 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+          </svg>
+          <p className="text-cyan-700 font-bold text-xl mb-2">Mapa de Farmacias</p>
+          <p className="text-gray-600 mb-4">El mapa interactivo estará disponible próximamente</p>
+          <div className="bg-white rounded-lg p-4 border-2 border-cyan-100">
+            <p className="text-sm text-gray-700">
+              Mientras tanto, puedes buscar farmacias cercanas en tu aplicación de mapas favorita usando tu ubicación actual
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ''
+    googleMapsApiKey: apiKey
   });
 
   const [map, setMap] = React.useState(null);
@@ -71,11 +93,22 @@ const PharmacyMap = ({ selectedMedicine, address }) => {
   }, []);
 
   if (loadError) {
+    console.error('Google Maps error:', loadError);
     return (
-      <div className="w-full h-[600px] bg-red-50 rounded-lg flex items-center justify-center">
-        <div className="text-center p-6">
+      <div className="w-full h-[600px] bg-red-50 rounded-lg flex items-center justify-center border-2 border-red-200">
+        <div className="text-center p-6 max-w-md">
+          <svg className="w-16 h-16 mx-auto mb-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
           <p className="text-red-600 font-bold mb-2">Error al cargar Google Maps</p>
-          <p className="text-sm text-gray-600">Por favor, verifica tu API key</p>
+          <p className="text-sm text-gray-600 mb-4">
+            {loadError.message || 'Por favor, verifica la configuración de la API key'}
+          </p>
+          <div className="bg-white rounded-lg p-3 border border-red-200">
+            <p className="text-xs text-gray-600">
+              Puedes usar tu aplicación de mapas para buscar farmacias cercanas
+            </p>
+          </div>
         </div>
       </div>
     );
