@@ -187,6 +187,12 @@ export default function Page3() {
       localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
       
       // Usar datos del código para crear usuario
+      const isMigrantUser = Boolean(
+        codeData.type === 'migrant' ||
+        codeData.countryCode === '+1' ||
+        (upperCode && upperCode.toUpperCase().includes('US'))
+      );
+
       const userData = {
         firstName: codeData.firstName,
         lastName: codeData.lastName,
@@ -197,7 +203,8 @@ export default function Page3() {
         phoneId: codeData.phoneId,
         accessCode: upperCode,
         accessType: codeData.type,
-        confirmationNumber: codeData.confirmationNumber
+        confirmationNumber: codeData.confirmationNumber,
+        isMigrant: isMigrantUser
       };
       
       localStorage.setItem('currentUser', JSON.stringify(userData));
@@ -207,8 +214,12 @@ export default function Page3() {
       window.scrollTo(0, 0);
       setErrors({});
       
-      // Navegar a page4 (dashboard)
-      navigate('/page4');
+      // Navegar según el tipo de usuario
+      if (isMigrantUser) {
+        navigate('/migrant');
+      } else {
+        navigate('/page4');
+      }
       return;
     }
     
