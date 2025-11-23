@@ -279,7 +279,8 @@ const Page4 = () => {
       title: 'Nuestros Servicios',
       items: [
         { name: 'Telemedicina', route: '/telemedicine' },
-        { name: 'Descuento en Farmacias', route: '/pharmacy' }
+        { name: 'Descuento en Farmacias', route: '/pharmacy' },
+        { name: 'Terapia con Psicólogos', route: '/therapy' }
       ]
     },
     {
