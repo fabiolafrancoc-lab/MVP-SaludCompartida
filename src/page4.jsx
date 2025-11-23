@@ -272,7 +272,7 @@ const Page4 = () => {
       items: [
         { name: 'Quiénes Somos', route: '/quienes-somos' },
         { name: 'Nuestros Valores', route: '/quienes-somos#valores' },
-        { name: 'Cómo Funciona SaludCompartida', route: '/demo' },
+        { name: 'Cómo Funciona SaludCompartida', route: '/demo', state: { returnTo: 'dashboard' } },
         { name: 'Blog', route: '/blog' }
       ]
     },
@@ -459,7 +459,11 @@ const Page4 = () => {
                         key={item.name}
                         onClick={() => {
                           window.scrollTo(0, 0);
-                          navigate(item.route);
+                          if (item.state) {
+                            navigate(item.route, { state: item.state });
+                          } else {
+                            navigate(item.route);
+                          }
                         }}
                         className={`block w-full text-left px-4 py-2 text-sm ${
                           item.danger

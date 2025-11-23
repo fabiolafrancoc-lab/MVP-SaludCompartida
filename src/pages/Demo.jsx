@@ -1,14 +1,18 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { DemoTourController } from '../lib/demoTour';
 
 const Demo = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { setCurrentUser } = useContext(UserContext);
   const [showWhatsAppSim, setShowWhatsAppSim] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
   const [tourStarted, setTourStarted] = useState(false);
+  
+  // Detectar de dónde viene el usuario: 'pricing' (antes de compra) o 'dashboard' (usuario México)
+  const returnTo = location.state?.returnTo || 'pricing';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,7 +41,7 @@ const Demo = () => {
       setTimeout(() => {
         setShowWhatsAppSim(false);
         // Paso 3: Iniciar el tour automático INMEDIATAMENTE (sin pantalla en blanco)
-        const tourController = new DemoTourController(navigate, setCurrentUser);
+        const tourController = new DemoTourController(navigate, setCurrentUser, returnTo);
         tourController.start();
       }, 3000);
     }, 3000);

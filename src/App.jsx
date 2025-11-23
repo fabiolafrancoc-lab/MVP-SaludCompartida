@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import TopNav from './components/TopNav';
 import SaludCompartidaProblemStage from './components/BubblesProblemStage';
 import { insertRegistration, insertPreCheckoutCustomer } from './lib/supabase';
@@ -8,6 +8,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [currentPage, setCurrentPage] = useState('landing');
   const [showProblemStage, setShowProblemStage] = useState(true);
   const [spotsLeft, setSpotsLeft] = useState(100);
@@ -95,6 +96,21 @@ function App() {
       }
     }
   }, []);
+
+  // Scroll al recuadro CIAN de pricing cuando se regresa del DEMO
+  useEffect(() => {
+    if (location.state?.scrollTo === 'pricing') {
+      // Esperar un poco para que la página se renderice
+      setTimeout(() => {
+        const pricingCard = document.getElementById('pricing-card');
+        if (pricingCard) {
+          pricingCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 300);
+      // Limpiar el state para que no vuelva a hacer scroll si refresca
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   useEffect(() => {
     if (spotsLeft > 73) {
@@ -816,7 +832,7 @@ Equipo SaludCompartida`,
         </section>
 
         {/* SECCIÓN 3: CALL TO ACTION */}
-        <section className="relative bg-black py-20 md:py-32 px-6">
+        <section id="pricing-section" className="relative bg-black py-20 md:py-32 px-6">
           <div className="max-w-5xl mx-auto text-center">
             
             {/* Headline Principal */}
@@ -825,7 +841,7 @@ Equipo SaludCompartida`,
             </h2>
             
             {/* Pricing Card */}
-            <div className="bg-gradient-to-br from-cyan-500 to-blue-600 rounded-3xl p-10 md:p-16 mb-16 shadow-2xl">
+            <div id="pricing-card" className="bg-gradient-to-br from-cyan-500 to-blue-600 rounded-3xl p-10 md:p-16 mb-16 shadow-2xl">
               <p className="text-3xl md:text-4xl font-black text-white mb-4">
                 $12/mes por toda tu familia
               </p>
@@ -859,7 +875,7 @@ Equipo SaludCompartida`,
               {/* Botón Demo debajo de beneficios */}
               <div className="mt-8">
                 <button
-                  onClick={() => navigate('/demo')}
+                  onClick={() => navigate('/demo', { state: { returnTo: 'pricing' } })}
                   className="bg-white/20 border-2 border-white text-white px-12 py-4 rounded-xl text-xl font-bold shadow-lg hover:bg-white/30 hover:scale-105 transition-all w-full"
                 >
                   Cómo Funciona SaludCompartida
