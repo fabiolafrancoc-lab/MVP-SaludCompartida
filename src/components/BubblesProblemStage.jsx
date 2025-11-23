@@ -109,10 +109,10 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
     // PREGUNTAS ELIMINADAS TEMPORALMENTE
     // Las preguntas se volverán a implementar después
     
-    // Pasar a la siguiente etapa después de 3 segundos (solo mostrar burbujas)
+    // Pasar a la siguiente etapa después de 8 segundos (solo mostrar burbujas)
     setTimeout(() => {
       if (onComplete) onComplete();
-    }, 3000);
+    }, 8000);
     
     return () => {
       clearInterval(mainInterval);
