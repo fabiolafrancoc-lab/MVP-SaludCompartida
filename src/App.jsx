@@ -834,13 +834,6 @@ Equipo SaludCompartida`,
               </p>
               
               <button
-                onClick={() => navigate('/demo')}
-                className="bg-white/20 border-2 border-white text-white px-12 py-4 rounded-xl text-xl font-bold shadow-lg hover:bg-white/30 hover:scale-105 transition-all mb-4 w-full"
-              >
-                Cómo Funciona SaludCompartida
-              </button>
-              
-              <button
                 onClick={() => navigate('/registro')}
                 className="bg-white text-cyan-600 px-12 py-5 rounded-xl text-2xl font-black shadow-xl hover:bg-gray-100 hover:scale-105 transition-all mb-8 w-full"
               >
@@ -850,17 +843,27 @@ Equipo SaludCompartida`,
               {/* Beneficios lista */}
               <div className="grid md:grid-cols-2 gap-4 mt-10 text-white/90 text-left max-w-2xl mx-auto">
                 <div className="flex items-center gap-3">
-                  <span>Doctor 24/7 por WhatsApp</span>
+                  <span className="font-bold">Doctor 24/7 por WhatsApp</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span>Descuentos hasta 75% en Farmacias en medicamentos y en todos los productos! 1,500 farmacias</span>
+                  <span className="font-bold">Descuentos hasta 75% en Farmacias en medicamentos y en todos los productos! 1,500 farmacias</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span>Terapia psicológica semanal</span>
+                  <span className="font-bold">Terapia psicológica semanal</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span>Hasta cuatro familiares tienen acceso a SaludCompartida</span>
+                  <span className="font-bold">Hasta cuatro familiares tienen acceso a SaludCompartida</span>
                 </div>
+              </div>
+
+              {/* Botón Demo debajo de beneficios */}
+              <div className="mt-8">
+                <button
+                  onClick={() => navigate('/demo')}
+                  className="bg-white/20 border-2 border-white text-white px-12 py-4 rounded-xl text-xl font-bold shadow-lg hover:bg-white/30 hover:scale-105 transition-all w-full"
+                >
+                  Cómo Funciona SaludCompartida
+                </button>
               </div>
             </div>
 

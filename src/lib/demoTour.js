@@ -87,7 +87,7 @@ export const TOUR_STEPS = [
     id: 'finish',
     title: '¡Listo para cuidar a tu familia!',
     description: 'Contrata ahora y cuida a tus seres queridos desde USA',
-    route: '/registro',
+    route: '/',
     perspective: 'migrant',
     duration: 2000
   }
