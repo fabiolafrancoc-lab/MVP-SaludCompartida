@@ -106,21 +106,13 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
       }
     }, 150);
     
-    // PREGUNTA 1: "¿Te sientes culpable?" (0.5s - 3.5s)
-    setTimeout(() => setShowQuestion1(true), 500);
-    setTimeout(() => setShowQuestion1(false), 3500);
+    // PREGUNTAS ELIMINADAS TEMPORALMENTE
+    // Las preguntas se volverán a implementar después
     
-    // PREGUNTA 2: "¿Trabajas dos turnos..." (3.5s - 6.5s)
-    setTimeout(() => setShowQuestion2(true), 3500);
-    setTimeout(() => setShowQuestion2(false), 6500);
-    
-    // PREGUNTA 3: "¿Te pasa a ti también?" (6.5s - 9.5s)
-    setTimeout(() => setShowOnlyOneQuestion(true), 6500);
-    
-    // Después de 9.5 segundos, pasar a la siguiente etapa
+    // Pasar a la siguiente etapa después de 3 segundos (solo mostrar burbujas)
     setTimeout(() => {
       if (onComplete) onComplete();
-    }, 9500);
+    }, 3000);
     
     return () => {
       clearInterval(mainInterval);
@@ -169,22 +161,7 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
         </div>
       ))}
 
-      {/* PREGUNTAS - Solo una a la vez, sin animaciones */}
-      {!showOnlyOneQuestion && (
-        <div className="fixed inset-x-0 top-24 md:top-32 z-40 px-4 text-center pointer-events-none">
-          {showQuestion1 && (
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
-              ¿Te sientes culpable de no estar allá?
-            </h1>
-          )}
-          
-          {showQuestion2 && (
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
-              ¿Trabajas dos turnos y el dinero que envías a casa no es suficiente?
-            </h2>
-          )}
-        </div>
-      )}
+      {/* PREGUNTAS ELIMINADAS TEMPORALMENTE - se volverán a agregar */}
 
       {/* Botón de Código de Acceso - Lado Derecho */}
       <div className="fixed top-32 right-6 z-50 pointer-events-auto">
@@ -200,14 +177,7 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
         </button>
       </div>
 
-      {/* UNA SOLA PREGUNTA FINAL - Sin animaciones */}
-      {showOnlyOneQuestion && (
-        <div className="fixed inset-x-0 top-20 md:top-24 z-40 px-4 text-center pointer-events-none">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
-            ¿Te pasa a ti también?
-          </h1>
-        </div>
-      )}
+      {/* PREGUNTA FINAL ELIMINADA TEMPORALMENTE */}
 
       {/* BURBUJAS PRINCIPALES - legibles que se vuelven blur z-30-45 */}
       {allBubbles.map((bubble) => (

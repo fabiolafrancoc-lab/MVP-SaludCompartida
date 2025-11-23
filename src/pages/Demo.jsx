@@ -31,15 +31,15 @@ const Demo = () => {
     
     setTimeout(() => {
       setShowIntro(false);
-      // Paso 2: Mostrar simulación de WhatsApp (2 segundos)
+      // Paso 2: Mostrar simulación de WhatsApp (solo 0.5 segundos para ver)
       setShowWhatsAppSim(true);
       
       setTimeout(() => {
         setShowWhatsAppSim(false);
-        // Paso 3: Iniciar el tour automático
+        // Paso 3: Iniciar el tour automático INMEDIATAMENTE
         const tourController = new DemoTourController(navigate, setCurrentUser);
         tourController.start();
-      }, 2000);
+      }, 500);
     }, 3000);
   };
 
