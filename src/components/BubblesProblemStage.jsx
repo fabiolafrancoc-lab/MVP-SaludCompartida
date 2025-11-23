@@ -109,22 +109,22 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
     // PREGUNTA 1 aparece (0.5s)
     setTimeout(() => setShowQuestion1(true), 500);
     
-    // PREGUNTA 1 desaparece (3.5s)
-    setTimeout(() => setShowQuestion1(false), 3500);
+    // PREGUNTA 1 desaparece (5s) - más tiempo para leer
+    setTimeout(() => setShowQuestion1(false), 5000);
     
-    // PREGUNTA 2 aparece (4.5s) - después de que la 1 desaparece completamente
-    setTimeout(() => setShowQuestion2(true), 4500);
+    // PREGUNTA 2 aparece (6s) - después de que la 1 desaparece completamente
+    setTimeout(() => setShowQuestion2(true), 6000);
     
-    // PREGUNTA 2 desaparece (8s)
-    setTimeout(() => setShowQuestion2(false), 8000);
+    // PREGUNTA 2 desaparece (11s) - más tiempo para leer
+    setTimeout(() => setShowQuestion2(false), 11000);
     
-    // PREGUNTA 3 aparece (9s) - después de que la 2 desaparece completamente
-    setTimeout(() => setShowOnlyOneQuestion(true), 9000);
+    // PREGUNTA 3 aparece (12s) - después de que la 2 desaparece completamente
+    setTimeout(() => setShowOnlyOneQuestion(true), 12000);
     
-    // Después de 15 segundos, pasar a la siguiente etapa
+    // Después de 17 segundos, pasar a la siguiente etapa
     setTimeout(() => {
       if (onComplete) onComplete();
-    }, 15000);
+    }, 17000);
     
     return () => {
       clearInterval(mainInterval);
