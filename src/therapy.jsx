@@ -107,21 +107,7 @@ const AnxietyTips = ({ onBack }) => {
 const RelationshipTips = ({ onBack }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50">
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <img 
-            src="/saludcompartida logo WT.png" 
-            alt="SaludCompartida" 
-            className="h-16"
-          />
-          <button
-            onClick={onBack}
-            className="text-gray-600 hover:text-gray-900 font-medium"
-          >
-            Volver
-          </button>
-        </div>
-      </header>
+      <DashboardNav />
 
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
@@ -220,21 +206,7 @@ const RelationshipTips = ({ onBack }) => {
 const StressTips = ({ onBack }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50">
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <img 
-            src="/saludcompartida logo WT.png" 
-            alt="SaludCompartida" 
-            className="h-16"
-          />
-          <button
-            onClick={onBack}
-            className="text-gray-600 hover:text-gray-900 font-medium"
-          >
-            Volver
-          </button>
-        </div>
-      </header>
+      <DashboardNav />
 
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
@@ -1350,26 +1322,7 @@ SaludCompartida`,
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50">
       <DemoTourOverlay />
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <img 
-            src="/saludcompartida logo WT.png" 
-            alt="SaludCompartida" 
-            className="h-16 cursor-pointer"
-            onClick={() => navigate('/page4')}
-          />
-          <button
-            onClick={() => {
-              window.scrollTo(0, 0);
-              navigate('/page4');
-            }}
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg"
-          >
-            Volver
-          </button>
-
-        </div>
-      </header>
+      <DashboardNav />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section - SIN ICONO DE CORAZÓN */}
