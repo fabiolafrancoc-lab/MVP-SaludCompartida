@@ -29,7 +29,6 @@ import QuienesSomos from './pages/QuienesSomos.jsx'
 import BeneficiosDetallados from './pages/BeneficiosDetallados.jsx'
 import Contacto from './pages/Contacto.jsx'
 import CancelSubscription from './pages/CancelSubscription.jsx'
-import Demo from './pages/Demo.jsx'
 import { UserProvider } from './contexts/UserContext'
 
 createRoot(document.getElementById('root')).render(
@@ -66,7 +65,6 @@ createRoot(document.getElementById('root')).render(
           <Route path="/beneficios" element={<BeneficiosDetallados />} /> {/* 👈 Beneficios Detallados */}
           <Route path="/contacto" element={<Contacto />} /> {/* 👈 Contacto (nueva versión) */}
           <Route path="/cancel-subscription" element={<CancelSubscription />} /> {/* 👈 Cancelar Suscripción */}
-          <Route path="/demo" element={<Demo />} /> {/* 👈 Página Demo Interactiva */}
         </Routes>
       </BrowserRouter>
     </UserProvider>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import DemoTourOverlay from './components/DemoTourOverlay';
 import DashboardNav from './components/DashboardNav';
 
 export default function Account() {
@@ -156,7 +155,6 @@ export default function Account() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
       {/* Demo Tour Overlay */}
-      <DemoTourOverlay />
       <DashboardNav />
 
       <main className="max-w-4xl mx-auto px-4 py-12">

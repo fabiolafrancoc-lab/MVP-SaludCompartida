@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock } from 'lucide-react';
 import { WhatsAppButtonCyan, WhatsAppIconCyan } from './components/WhatsAppIcons';
-import DemoTourOverlay from './components/DemoTourOverlay';
 import DashboardNav from './components/DashboardNav';
 
 export default function Telemedicine() {
@@ -74,7 +73,6 @@ export default function Telemedicine() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-blue-50">
-      <DemoTourOverlay />
       <DashboardNav />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import DemoTourOverlay from './components/DemoTourOverlay';
 
 const Savings = () => {
   const navigate = useNavigate();
@@ -170,7 +169,6 @@ const Savings = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
       {/* Demo Tour Overlay */}
-      <DemoTourOverlay />
       
       {/* Header with Volver button */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
