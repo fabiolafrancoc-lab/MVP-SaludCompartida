@@ -90,6 +90,8 @@ export default async function handler(req, res) {
               
               <p>¡Excelentes noticias! Has sido seleccionado para participar en el programa piloto de SaludCompartida. 🎉</p>
               
+              <p><strong>Tu familiar ${user.family_first_name} ${user.family_last_name} en México</strong> ahora tiene acceso a servicios de salud de alta calidad.</p>
+              
               <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h3 style="margin-top: 0;">Tu código de acceso es:</h3>
                 <p style="font-size: 24px; font-weight: bold; color: #0066cc; text-align: center;">${user.migrant_access_code}</p>
@@ -98,25 +100,25 @@ export default async function handler(req, res) {
               <h3>🔗 Activa tu cuenta ahora:</h3>
               <p><a href="https://prototype.saludcompartida.com" style="color: #0066cc;">👉 https://prototype.saludcompartida.com</a></p>
               
-              <h3>Ingresa con tu código para empezar a disfrutar de:</h3>
+              <h3>Servicios disponibles para tu familiar en México:</h3>
               <ul>
-                <li>✅ Telemedicina 24/7 para tu familiar en México</li>
+                <li>✅ Telemedicina 24/7 - Doctor disponible cuando lo necesite</li>
                 <li>✅ Descuentos de 40-75% en medicamentos</li>
                 <li>✅ Sesiones de terapia psicológica semanales</li>
                 <li>✅ 30 días completamente GRATIS</li>
               </ul>
               
               <p><strong>📱 Guarda este código:</strong> ${user.migrant_access_code}<br>
-              Lo necesitarás para acceder a todos tus servicios de salud.</p>
+              Con tu código puedes gestionar la suscripción y monitorear los beneficios que tu familiar está usando.</p>
               
               <p><strong>⏰ ¡Activa tu cuenta hoy!</strong><br>
-              Los 30 días gratis comienzan desde tu primer acceso.</p>
+              Los 30 días gratis comienzan desde el primer acceso.</p>
               
               <hr style="margin: 30px 0;">
               
               <p style="color: #666;">¿Dudas? Escríbenos a contact@saludcompartida.com</p>
               
-              <p>¡Bienvenido oficialmente a la familia SaludCompartida! 💙<br>
+              <p>¡Gracias por cuidar a tu familia! 💙<br>
               <strong>Equipo SaludCompartida</strong></p>
             </div>
           `
@@ -133,7 +135,7 @@ export default async function handler(req, res) {
               
               <p>¡Excelentes noticias! Has sido seleccionado para participar en el programa piloto de SaludCompartida. 🎉</p>
               
-              <p>${user.migrant_first_name} ${user.migrant_last_name} (Migrante en USA) te registró para que puedas utilizar los beneficios de SaludCompartida sin costo durante 30 días.</p>
+              <p><strong>${user.migrant_first_name} ${user.migrant_last_name}</strong> (migrante en Estados Unidos) te compró la suscripción para que puedas utilizar los beneficios de SaludCompartida sin costo durante 30 días.</p>
               
               <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h3 style="margin-top: 0;">Tu código de acceso es:</h3>
@@ -143,21 +145,21 @@ export default async function handler(req, res) {
               <h3>🔗 Activa tu cuenta ahora:</h3>
               <p><a href="https://prototype.saludcompartida.com" style="color: #0066cc;">👉 https://prototype.saludcompartida.com</a></p>
               
-              <p>Para acceder debes ingresar el código en el link indicado arriba. Te registras y una vez registrado podrás empezar a utilizar los servicios inmediatamente. ¡Empieza a ahorrar! Empieza a utilizar SaludCompartida.</p>
+              <p>Para acceder debes ingresar el código en el link indicado arriba. Te registras y una vez registrado podrás empezar a utilizar los servicios inmediatamente.</p>
               
               <p><strong>📱 Guarda este código:</strong> ${user.family_access_code}<br>
               Lo necesitarás para acceder a todos tus servicios de salud.</p>
               
               <h3>🏥 Tus beneficios incluyen:</h3>
               <ul>
-                <li>✅ Telemedicina 24/7 - Consulta médicos cuando lo necesites</li>
-                <li>✅ Descuentos de 40-75% en medicamentos</li>
-                <li>✅ Terapia psicológica semanal</li>
-                <li>✅ 30 días completamente GRATIS</li>
+                <li><strong>✅ Telemedicina 24/7</strong> - Consulta médicos cuando lo necesites, desde tu celular</li>
+                <li><strong>✅ Descuentos de 40-75% en medicamentos</strong> - Ahorra en todas tus medicinas</li>
+                <li><strong>✅ Terapia psicológica semanal</strong> - Cuida tu salud mental con profesionales</li>
+                <li><strong>✅ 30 días completamente GRATIS</strong> - Sin pagos, sin compromisos</li>
               </ul>
               
               <p><strong>⏰ ¡Activa tu cuenta hoy!</strong><br>
-              Los 30 días gratis comienzan desde tu primer acceso.</p>
+              Los 30 días gratis comienzan desde tu primer acceso. ¡Empieza a ahorrar y a cuidar tu salud!</p>
               
               <hr style="margin: 30px 0;">
               
