@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PharmacyMap from './components/PharmacyMap';
-import DemoTourOverlay from './components/DemoTourOverlay';
 import DashboardNav from './components/DashboardNav';
 
 export default function Pharmacy() {
@@ -248,7 +247,6 @@ export default function Pharmacy() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      <DemoTourOverlay />
       <DashboardNav />
 
       <main className="max-w-6xl mx-auto px-4 py-8">

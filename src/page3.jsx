@@ -4,62 +4,7 @@ import { useGeolocation } from './hooks/useGeolocation';
 import { UserContext } from './contexts/UserContext';
 import { getUserByAccessCode } from './lib/supabase';
 
-// Códigos especiales de acceso para inversores y demos
-const SPECIAL_ACCESS_CODES = {
-  'DEMO-2025': {
-    type: 'demo-new-user',
-    route: '/page4',
-    demoUser: {
-      firstName: 'Ana',
-      lastName: 'García',
-      motherLastName: 'Hernández',
-      phone: '3051234567',
-      email: 'demo@saludcompartida.com',
-      countryCode: '+1',
-      isDemo: true,
-      demoSavings: 0 // Usuario nuevo, sin ahorros
-    }
-  },
-  'INVESTOR2025': {
-    type: 'investor',
-    route: '/page4',
-    demoUser: {
-      firstName: 'María',
-      lastName: 'González',
-      motherLastName: 'Rodríguez',
-      phone: '5512345678',
-      email: 'demo@saludcompartida.com',
-      countryCode: '+52',
-      isDemo: true
-    }
-  },
-  'DEMO-MX': {
-    type: 'demo-family',
-    route: '/page4',
-    demoUser: {
-      firstName: 'Carlos',
-      lastName: 'Martínez',
-      motherLastName: 'López',
-      phone: '5587654321',
-      email: 'demo-mx@saludcompartida.com',
-      countryCode: '+52',
-      isDemo: true
-    }
-  },
-  'DEMO-US': {
-    type: 'demo-migrant',
-    route: '/migrant',
-    demoUser: {
-      firstName: 'John',
-      lastName: 'Smith',
-      motherLastName: '',
-      phone: '3105551234',
-      email: 'demo-us@saludcompartida.com',
-      countryCode: '+1',
-      isDemo: true
-    }
-  }
-};
+// Códigos especiales eliminados - sistema DEMO removido
 
 export default function Page3() {
   const navigate = useNavigate();
@@ -162,22 +107,7 @@ export default function Page3() {
         return;
       }
       
-      // 2. Verificar si es código demo/especial
-      if (SPECIAL_ACCESS_CODES[upperCode]) {
-        const codeData = SPECIAL_ACCESS_CODES[upperCode];
-        const demoUser = codeData.demoUser;
-        
-        setFirstName(demoUser.firstName);
-        setLastName(demoUser.lastName);
-        setMotherLastName(demoUser.motherLastName);
-        setEmail(demoUser.email);
-        setWhatsappNumber(demoUser.phone.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3'));
-        setCountryCode(demoUser.countryCode);
-        setCodeVerified(true);
-        return;
-      }
-      
-      // 3. Buscar en Supabase
+      // 2. Buscar en Supabase
       try {
         const result = await getUserByAccessCode(upperCode);
         
@@ -282,45 +212,7 @@ export default function Page3() {
       return;
     }
     
-    // 2. Revisar si es un código demo/especial
-    if (SPECIAL_ACCESS_CODES[upperCode]) {
-      const codeData = SPECIAL_ACCESS_CODES[upperCode];
-      
-      // Usar datos del formulario en lugar de datos hardcodeados
-      const userData = {
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-        motherLastName: motherLastName.trim(),
-        email: email.trim(),
-        phone: whatsappNumber.replace(/\s/g, ''),
-        countryCode: countryCode,
-        phoneId: `${countryCode}${whatsappNumber.replace(/\s/g, '')}`,
-        accessCode: upperCode,
-        accessType: codeData.type,
-        isDemo: true
-      };
-      
-      localStorage.setItem('currentUser', JSON.stringify(userData));
-      
-      // Registrar el código usado (para analytics)
-      const usedCodes = JSON.parse(localStorage.getItem('usedSpecialCodes') || '[]');
-      usedCodes.push({
-        code: upperCode,
-        type: codeData.type,
-        usedAt: new Date().toISOString()
-      });
-      localStorage.setItem('usedSpecialCodes', JSON.stringify(usedCodes));
-      
-      // Scroll al top antes de navegar
-      window.scrollTo(0, 0);
-      
-      // Navegar a la ruta correspondiente
-      setErrors({});
-      navigate(codeData.route);
-      return;
-    }
-    
-    // Si no es código demo, buscar en Supabase
+    // 2. Buscar en Supabase
     try {
       const result = await getUserByAccessCode(upperCode);
       
@@ -329,6 +221,12 @@ export default function Page3() {
         
         // Usar SIEMPRE los datos de la base de datos (no los del formulario)
         // Esto mantiene la consistencia y evita modificaciones no autorizadas
+        const isMigrantUser = Boolean(
+          (dbUser.user_type && dbUser.user_type.toLowerCase().includes('migr')) ||
+          dbUser.country_code === '+1' ||
+          (dbUser.access_code && dbUser.access_code.toUpperCase().includes('US'))
+        );
+
         const userData = {
           firstName: dbUser.first_name,
           lastName: dbUser.last_name,
@@ -339,7 +237,8 @@ export default function Page3() {
           phoneId: `${dbUser.country_code}${dbUser.phone}`,
           accessCode: dbUser.access_code,
           type: dbUser.user_type,
-          registeredAt: dbUser.created_at
+          registeredAt: dbUser.created_at,
+          isMigrant: isMigrantUser
         };
         
         // Si los datos del formulario son diferentes a los de la BD, actualizar los campos
@@ -366,7 +265,7 @@ export default function Page3() {
         window.scrollTo(0, 0);
         
         // Navegar según el tipo de usuario
-        if (dbUser.user_type === 'migrant' || dbUser.country_code === '+1') {
+        if (isMigrantUser) {
           navigate('/migrant');
         } else {
           navigate('/page4');
@@ -379,7 +278,8 @@ export default function Page3() {
     
     // Si llegamos aquí, el código no es válido
     // Construir el ID único con código de país + número
-    const uniquePhoneId = `+52${whatsappNumber.replace(/\s/g, '')}`;
+  const effectiveCountryCode = countryCode || '+52';
+  const uniquePhoneId = `${effectiveCountryCode}${whatsappNumber.replace(/\s/g, '')}`;
     
     // Verificar si el teléfono está registrado en localStorage (compatibilidad)
     const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
@@ -388,6 +288,12 @@ export default function Page3() {
       // Usuario encontrado por teléfono - usar los datos del registro original
       const originalData = registeredUsers[uniquePhoneId];
       
+      const isMigrantUser = Boolean(
+        (originalData.type && originalData.type.toLowerCase().includes('migr')) ||
+        (originalData.countryCode || effectiveCountryCode) === '+1' ||
+        (originalData.accessCode && originalData.accessCode.toUpperCase().includes('US'))
+      );
+
       const userData = {
         firstName: originalData.firstName,
         lastName: originalData.lastName,
@@ -397,7 +303,8 @@ export default function Page3() {
         countryCode: originalData.countryCode || countryCode,
         phoneId: uniquePhoneId,
         type: originalData.type || 'user',
-        registeredAt: originalData.registeredAt
+        registeredAt: originalData.registeredAt,
+        isMigrant: isMigrantUser
       };
       
       localStorage.setItem('currentUser', JSON.stringify(userData));
@@ -408,7 +315,7 @@ export default function Page3() {
       // Scroll al top antes de navegar
       window.scrollTo(0, 0);
       
-      if (originalData.type === 'migrant') {
+      if (isMigrantUser) {
         navigate('/migrant');
       } else {
         navigate('/page4');
