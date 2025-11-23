@@ -8,16 +8,25 @@ const CancelSubscription = () => {
   const [isCanceling, setIsCanceling] = useState(false);
   const [canceled, setCanceled] = useState(false);
   const [userName, setUserName] = useState('');
+  const [isMigrant, setIsMigrant] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    // Get user name from localStorage
+    // Get user name from localStorage and detect if migrant
     try {
       const currentUserData = localStorage.getItem('currentUser');
       if (currentUserData) {
         const userData = JSON.parse(currentUserData);
         setUserName(userData.firstName || '');
+        // Detect if user is migrant
+        const userIsMigrant = Boolean(
+          userData.isMigrant ||
+          userData.accessType === 'migrant' ||
+          userData.type === 'migrant' ||
+          userData.countryCode === '+1'
+        );
+        setIsMigrant(userIsMigrant);
       }
     } catch (error) {
       console.error('Error reading user data:', error);
@@ -56,6 +65,11 @@ const CancelSubscription = () => {
     }, 2000);
   };
 
+  // Navigate to correct dashboard based on user type
+  const navigateToDashboard = () => {
+    navigate(isMigrant ? '/migrant' : '/page4');
+  };
+
   if (canceled) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-pink-50 to-gray-50 flex items-center justify-center p-6">
@@ -82,7 +96,7 @@ const CancelSubscription = () => {
             </div>
 
             <button
-              onClick={() => navigate('/page4')}
+              onClick={() => navigateToDashboard()}
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
             >
               Volver al Inicio
@@ -104,7 +118,7 @@ const CancelSubscription = () => {
             className="h-16"
           />
           <button
-            onClick={() => navigate('/page4')}
+            onClick={() => navigateToDashboard()}
             className="text-gray-600 hover:text-gray-900 font-medium text-lg"
           >
             Volver
@@ -192,7 +206,7 @@ const CancelSubscription = () => {
           {/* Actions */}
           <div className="flex flex-col md:flex-row gap-4 justify-center">
             <button
-              onClick={() => navigate('/page4')}
+              onClick={() => navigateToDashboard()}
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
             >
               Mantener Mi Suscripción
