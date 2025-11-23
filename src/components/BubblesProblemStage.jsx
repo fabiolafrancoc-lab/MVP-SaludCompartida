@@ -106,25 +106,21 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
       }
     }, 150);
     
-    // PREGUNTA 1 aparece (0.5s)
+    // PREGUNTA 1: "¿Te sientes culpable?" (0.5s - 3.5s)
     setTimeout(() => setShowQuestion1(true), 500);
+    setTimeout(() => setShowQuestion1(false), 3500);
     
-    // PREGUNTA 1 desaparece (5s) - más tiempo para leer
-    setTimeout(() => setShowQuestion1(false), 5000);
+    // PREGUNTA 2: "¿Trabajas dos turnos..." (3.5s - 6.5s)
+    setTimeout(() => setShowQuestion2(true), 3500);
+    setTimeout(() => setShowQuestion2(false), 6500);
     
-    // PREGUNTA 2 aparece (6s) - después de que la 1 desaparece completamente
-    setTimeout(() => setShowQuestion2(true), 6000);
+    // PREGUNTA 3: "¿Te pasa a ti también?" (6.5s - 9.5s)
+    setTimeout(() => setShowOnlyOneQuestion(true), 6500);
     
-    // PREGUNTA 2 desaparece (11s) - más tiempo para leer
-    setTimeout(() => setShowQuestion2(false), 11000);
-    
-    // PREGUNTA 3 aparece (12s) - después de que la 2 desaparece completamente
-    setTimeout(() => setShowOnlyOneQuestion(true), 12000);
-    
-    // Después de 17 segundos, pasar a la siguiente etapa
+    // Después de 9.5 segundos, pasar a la siguiente etapa
     setTimeout(() => {
       if (onComplete) onComplete();
-    }, 17000);
+    }, 9500);
     
     return () => {
       clearInterval(mainInterval);
@@ -173,23 +169,19 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
         </div>
       ))}
 
-      {/* PREGUNTAS - Solo una a la vez */}
+      {/* PREGUNTAS - Solo una a la vez, sin animaciones */}
       {!showOnlyOneQuestion && (
         <div className="fixed inset-x-0 top-24 md:top-32 z-40 px-4 text-center pointer-events-none">
           {showQuestion1 && (
-            <div className="animate-fadeInOut">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
-                ¿Te sientes culpable de no estar allá?
-              </h1>
-            </div>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
+              ¿Te sientes culpable de no estar allá?
+            </h1>
           )}
           
           {showQuestion2 && (
-            <div className="animate-fadeInOut">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
-                ¿Trabajas dos turnos y el dinero que envías a casa no es suficiente?
-              </h2>
-            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
+              ¿Trabajas dos turnos y el dinero que envías a casa no es suficiente?
+            </h2>
           )}
         </div>
       )}
@@ -208,9 +200,9 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
         </button>
       </div>
 
-      {/* UNA SOLA PREGUNTA FINAL */}
+      {/* UNA SOLA PREGUNTA FINAL - Sin animaciones */}
       {showOnlyOneQuestion && (
-        <div className="fixed inset-x-0 top-20 md:top-24 z-40 px-4 text-center pointer-events-none animate-fadeIn">
+        <div className="fixed inset-x-0 top-20 md:top-24 z-40 px-4 text-center pointer-events-none">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-cyan-300 leading-tight drop-shadow-[0_0_30px_rgba(103,232,249,0.6)]">
             ¿Te pasa a ti también?
           </h1>
