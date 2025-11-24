@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from '../components/TopNav';
-import { HeartIcon, ShieldIcon, FamilyIcon } from '../components/icons/CustomIcons';
 
 const QuienesSomos = () => {
   const navigate = useNavigate();
@@ -23,10 +22,7 @@ const QuienesSomos = () => {
 
         {/* Nuestra Historia */}
         <section className="bg-white rounded-3xl shadow-xl p-10 mb-12">
-          <div className="flex items-center gap-4 mb-8">
-            <HeartIcon className="w-16 h-16" />
-            <h2 className="text-3xl font-black text-gray-900">¿Quiénes Somos?</h2>
-          </div>
+          <h2 className="text-3xl font-black text-gray-900 mb-8">¿Quiénes Somos?</h2>
 
           <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
             <p>
@@ -105,10 +101,7 @@ const QuienesSomos = () => {
 
         {/* Nuestra Misión */}
         <section className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl shadow-xl p-10 mb-12 border-2 border-cyan-200">
-          <div className="flex items-center gap-4 mb-8">
-            <ShieldIcon className="w-16 h-16" />
-            <h2 className="text-3xl font-black text-gray-900">Misión</h2>
-          </div>
+          <h2 className="text-3xl font-black text-gray-900 mb-8">Misión</h2>
 
           <div className="space-y-6">
             <p className="text-lg text-gray-700 leading-relaxed">
@@ -151,13 +144,13 @@ const QuienesSomos = () => {
         </section>
 
         {/* Nuestros Valores */}
-        <section className="bg-white rounded-3xl shadow-xl p-10 mb-12">
+        <section className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl shadow-xl p-10 mb-12 border-2 border-purple-200">
           <h2 className="text-3xl font-black text-gray-900 mb-8 text-center">
             Nuestros Valores
           </h2>
 
           <div className="space-y-8">
-            <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-8 border-2 border-cyan-200">
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Dignidad Inclusiva</h3>
               <p className="text-lg text-gray-700 leading-relaxed">
                 Creemos que <strong>la salud no debe depender de tu estatus migratorio, tu historial laboral o tu código postal.</strong> 
@@ -167,52 +160,35 @@ const QuienesSomos = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border-2 border-purple-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">🌉 Conexión Transfronteriza</h3>
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Conexión Transfronteriza</h3>
                 <p className="text-gray-700">
                   La distancia física no debe significar abandono emocional. Transformamos las remesas en puentes de cuidado.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">⚡ Acceso Inmediato</h3>
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Acceso Inmediato</h3>
                 <p className="text-gray-700">
                   Cuando tu mamá tiene dolor de pecho a las 3 AM, esperar 30 días no es una opción. Activación en 30 segundos.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-6 border-2 border-orange-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">💰 Transparencia Total</h3>
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Transparencia Total</h3>
                 <p className="text-gray-700">
                   $12/mes. Sin letra chica. Sin cargos ocultos. Sin "solo por hoy". Lo que ves es lo que pagas.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-pink-50 to-red-50 rounded-xl p-6 border-2 border-pink-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">🤝 Empatía Genuina</h3>
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Empatía Genuina</h3>
                 <p className="text-gray-700">
                   Entendemos la culpa, el miedo, el sacrificio. Porque nosotros también hemos vivido la migración.
                 </p>
               </div>
             </div>
           </div>
-        </section>
-
-        {/* CTA Final */}
-        <section className="bg-gradient-to-r from-cyan-500 to-pink-500 rounded-3xl shadow-2xl p-10 text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-black mb-6">
-            Únete a Nuestra Familia
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Miles de migrantes ya duermen tranquilos sabiendo que sus familias están protegidas. 
-            Tú también puedes.
-          </p>
-          <button
-            onClick={() => navigate('/')}
-            className="bg-white text-cyan-600 px-10 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-          >
-            Conoce Nuestros Planes →
-          </button>
         </section>
       </div>
     </div>
