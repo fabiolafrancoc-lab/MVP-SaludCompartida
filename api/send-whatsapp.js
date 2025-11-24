@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { to, message, type = 'notification' } = req.body;
+    const { to, message, type = 'notification', countryCode } = req.body;
 
     // Validar datos
     if (!to || !message) {
@@ -29,7 +29,18 @@ export default async function handler(req, res) {
     }
 
     // Formatear número de destino
-    const formattedTo = to.startsWith('whatsapp:') ? to : `whatsapp:+52${to.replace(/\D/g, '')}`;
+    // Si el número ya tiene formato completo (empieza con +), usarlo
+    // Si no, construir con countryCode o default +52
+    let formattedTo;
+    if (to.startsWith('whatsapp:')) {
+      formattedTo = to;
+    } else if (to.startsWith('+')) {
+      formattedTo = `whatsapp:${to}`;
+    } else {
+      const prefix = countryCode || '+52';
+      const cleanNumber = to.replace(/\D/g, '');
+      formattedTo = `whatsapp:${prefix}${cleanNumber}`;
+    }
 
     // Inicializar cliente de Twilio
     const client = twilio(accountSid, authToken);
