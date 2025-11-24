@@ -17,7 +17,7 @@ const QuienesSomos = () => {
             Quiénes Somos
           </h1>
           <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Somos migrantes como tú, que entendemos el sacrificio de estar lejos de casa
+            La primera plataforma de salud que transforma remesas en cuidado médico real
           </p>
         </div>
 
@@ -25,24 +25,80 @@ const QuienesSomos = () => {
         <section className="bg-white rounded-3xl shadow-xl p-10 mb-12">
           <div className="flex items-center gap-4 mb-8">
             <HeartIcon className="w-16 h-16" />
-            <h2 className="text-3xl font-black text-gray-900">Nuestra Historia</h2>
+            <h2 className="text-3xl font-black text-gray-900">¿Quiénes Somos?</h2>
           </div>
 
           <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
             <p>
-              <strong>SaludCompartida nació de una necesidad real.</strong> Como migrantes latinos en Estados Unidos, 
-              conocemos la angustia de estar a miles de kilómetros cuando tu mamá te llama a las 3 AM porque le duele 
-              el pecho, o cuando tu papá necesita sus medicamentos pero son demasiado caros.
+              <strong>SaludCompartida es la primera plataforma de salud transfronteriza</strong> que convierte los $64.7 mil millones 
+              en remesas anuales en acceso real a atención médica para millones de familias en México, Centroamérica, Latinoamérica e India.
+            </p>
+
+            <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Un puente de salud entre dos mundos</h3>
+            
+            <p>
+              Entendemos la realidad del migrante: tu cuerpo está aquí, pero tu corazón nunca dejó casa. Trabajas dos turnos, 
+              envías dinero cada mes, pero cuando tu mamá se enferma a las 3 AM o tu hijo tiene fiebre de 40 grados, el dinero 
+              no es suficiente. <strong>La distancia duele. La impotencia pesa más que cualquier jornada laboral.</strong>
             </p>
 
             <p>
-              Trabajamos dos turnos, mandamos dinero cada mes, pero siempre sentimos que no es suficiente. 
-              <strong> La culpa de estar lejos nunca se va.</strong>
+              Por eso creamos SaludCompartida: <strong>para que cada dólar que envías se convierta en protección real para quienes más amas.</strong>
             </p>
+          </div>
+        </section>
 
-            <p>
-              Por eso creamos SaludCompartida: para que <strong>tu sacrificio aquí se convierta en protección allá.</strong> 
-              No somos una corporación fría. Somos una familia de migrantes que cuida de otras familias migrantes.
+        {/* Qué Ofrecemos */}
+        <section className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl shadow-xl p-10 mb-12 border-2 border-cyan-200">
+          <h2 className="text-3xl font-black text-gray-900 mb-8">Qué ofrecemos</h2>
+
+          <p className="text-lg text-gray-700 leading-relaxed mb-6">
+            Con una suscripción mensual de solo <strong className="text-cyan-600 text-2xl">$12</strong> le das a tu familia 
+            (hasta 4 personas) acceso inmediato a:
+          </p>
+
+          <div className="space-y-4">
+            <div className="bg-white rounded-xl p-6 shadow-lg">
+              <h3 className="font-bold text-gray-900 mb-3 text-xl flex items-center gap-3">
+                <span className="text-2xl">📱</span> Telemedicina ilimitada 24/7
+              </h3>
+              <p className="text-gray-700">
+                Consultas médicas desde cualquier lugar, cualquier hora por Videollamada (WhatsApp) y recetas médicas en caso de ser necesario.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 shadow-lg">
+              <h3 className="font-bold text-gray-900 mb-3 text-xl flex items-center gap-3">
+                <span className="text-2xl">💊</span> Descuentos en Farmacias de Medicamentos y todos los otros productos
+              </h3>
+              <p className="text-gray-700">
+                En más de 1,700 farmacias.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 shadow-lg">
+              <h3 className="font-bold text-gray-900 mb-3 text-xl flex items-center gap-3">
+                <span className="text-2xl">⚡</span> Activación instantánea en 30 segundos
+              </h3>
+              <p className="text-gray-700">
+                Vía WhatsApp, sin complicaciones, sin esperas
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Servimos a quienes otros ignoran */}
+        <section className="bg-white rounded-3xl shadow-xl p-10 mb-12">
+          <h2 className="text-3xl font-black text-gray-900 mb-6 text-center">
+            Servimos a quienes otros ignoran
+          </h2>
+
+          <div className="text-center space-y-6">
+            <p className="text-2xl font-bold text-gray-900">
+              54 millones de mexicanos no tienen acceso a servicios de salud.
+            </p>
+            <p className="text-xl text-gray-700">
+              Nosotros no competimos con ellos. <strong className="text-cyan-600">Servimos a quienes ellos se niegan a ver.</strong>
             </p>
           </div>
         </section>
@@ -51,134 +107,91 @@ const QuienesSomos = () => {
         <section className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl shadow-xl p-10 mb-12 border-2 border-cyan-200">
           <div className="flex items-center gap-4 mb-8">
             <ShieldIcon className="w-16 h-16" />
-            <h2 className="text-3xl font-black text-gray-900">Nuestra Misión</h2>
+            <h2 className="text-3xl font-black text-gray-900">Misión</h2>
           </div>
 
           <div className="space-y-6">
             <p className="text-lg text-gray-700 leading-relaxed">
-              <strong className="text-cyan-900">Conectar tu esfuerzo en Estados Unidos con el bienestar de tu familia en México.</strong>
+              Nuestra misión es <strong className="text-cyan-900">democratizar el acceso a servicios de salud de calidad</strong> mediante 
+              una plataforma tecnológica transfronteriza que permite a los migrantes en Estados Unidos proveer protección médica inmediata, 
+              accesible y digna a sus familias en México, Centroamérica, Latinoamérica e India.
             </p>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Lo que esto significa:</h3>
+
+            <div className="space-y-6">
               <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="font-bold text-gray-900 mb-3 text-xl">🎯 Nuestro Propósito</h3>
-                <p className="text-gray-700">
-                  Que ningún migrante tenga que elegir entre su vida aquí y el bienestar de su familia allá.
-                </p>
+                <h4 className="font-bold text-gray-900 mb-3 text-xl">Para el migrante que envía:</h4>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Transformar su sacrificio en protección tangible</li>
+                  <li>Convertir la distancia en cuidado efectivo</li>
+                  <li>Ofrecer paz mental sabiendo que hay respaldo 24/7</li>
+                </ul>
               </div>
 
               <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="font-bold text-gray-900 mb-3 text-xl">💡 Nuestra Visión</h3>
-                <p className="text-gray-700">
-                  Un futuro donde cada familia latina tenga acceso a salud de calidad, sin importar las fronteras.
-                </p>
+                <h4 className="font-bold text-gray-900 mb-3 text-xl">Para la familia que recibe:</h4>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Acceso inmediato a telemedicina sin esperas de meses</li>
+                  <li>Medicamentos hasta 75% más baratos</li>
+                  <li>Atención médica digna sin verificación de empleo</li>
+                  <li>Activación en 30 segundos vía WhatsApp</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h4 className="font-bold text-gray-900 mb-3 text-xl">Para la sociedad:</h4>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Servir a los 54 millones que el sistema tradicional ignora</li>
+                  <li>Hacer de la salud un derecho, no un privilegio</li>
+                </ul>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Por Qué Somos Diferentes */}
+        {/* Nuestros Valores */}
         <section className="bg-white rounded-3xl shadow-xl p-10 mb-12">
           <h2 className="text-3xl font-black text-gray-900 mb-8 text-center">
-            Por Qué Somos Diferentes
+            Nuestros Valores
           </h2>
 
-          <div className="space-y-6">
-            <div className="flex items-start gap-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-6 border-l-4 border-cyan-500">
-              <div className="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl">🤝</span>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-900 mb-2 text-xl">Te Entendemos</h3>
-                <p className="text-gray-700">
-                  No somos una empresa cualquiera. Somos migrantes que han pasado por lo mismo que tú. 
-                  Conocemos la culpa, el miedo, el sacrificio.
-                </p>
-              </div>
+          <div className="space-y-8">
+            <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-8 border-2 border-cyan-200">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Dignidad Inclusiva</h3>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Creemos que <strong>la salud no debe depender de tu estatus migratorio, tu historial laboral o tu código postal.</strong> 
+                El 40% de los mexicanos que otros sistemas ignoran son nuestra prioridad. No competimos con hospitales o aseguradoras 
+                tradicionales; servimos a quienes ellos rechazan sistemáticamente.
+              </p>
             </div>
 
-            <div className="flex items-start gap-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-6 border-l-4 border-pink-500">
-              <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-900 mb-2 text-xl">Acceso Inmediato</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border-2 border-purple-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">🌉 Conexión Transfronteriza</h3>
                 <p className="text-gray-700">
-                  Sin esperas de 30 días. Sin papeleo interminable. Te suscribes hoy, tu familia recibe 
-                  atención hoy. Así de simple.
+                  La distancia física no debe significar abandono emocional. Transformamos las remesas en puentes de cuidado.
                 </p>
               </div>
-            </div>
 
-            <div className="flex items-start gap-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border-l-4 border-green-500">
-              <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl">💰</span>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-900 mb-2 text-xl">Precio Justo</h3>
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">⚡ Acceso Inmediato</h3>
                 <p className="text-gray-700">
-                  $12 al mes. No $50, no $100. Un precio que respeta tu esfuerzo y que realmente puedes pagar 
-                  sin sacrificar otras cosas.
+                  Cuando tu mamá tiene dolor de pecho a las 3 AM, esperar 30 días no es una opción. Activación en 30 segundos.
                 </p>
               </div>
-            </div>
 
-            <div className="flex items-start gap-4 bg-gradient-to-r from-orange-50 to-amber-50 rounded-xl p-6 border-l-4 border-orange-500">
-              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl">🔒</span>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-900 mb-2 text-xl">Sin Trampas</h3>
+              <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-6 border-2 border-orange-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">💰 Transparencia Total</h3>
                 <p className="text-gray-700">
-                  Sin letra chica. Sin cargos ocultos. Sin "solo por hoy". Lo que ves es lo que pagas. 
-                  Cancelas cuando quieras.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Nuestro Equipo */}
-        <section className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl shadow-xl p-10 mb-12 border-2 border-purple-200">
-          <div className="flex items-center gap-4 mb-8">
-            <FamilyIcon className="w-16 h-16" />
-            <h2 className="text-3xl font-black text-gray-900">Nuestro Equipo</h2>
-          </div>
-
-          <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-            <p>
-              Somos un equipo multicultural de profesionales de la salud, tecnología y atención al cliente, 
-              <strong> todos unidos por una misma experiencia: la migración.</strong>
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-6 mt-8">
-              <div className="bg-white rounded-xl p-6 shadow-lg text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-black">
-                  MD
-                </div>
-                <h3 className="font-bold text-gray-900 mb-2">Médicos Certificados</h3>
-                <p className="text-sm text-gray-600">
-                  Profesionales de la salud disponibles 24/7 para atender a tu familia
+                  $12/mes. Sin letra chica. Sin cargos ocultos. Sin "solo por hoy". Lo que ves es lo que pagas.
                 </p>
               </div>
 
-              <div className="bg-white rounded-xl p-6 shadow-lg text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-black">
-                  PSI
-                </div>
-                <h3 className="font-bold text-gray-900 mb-2">Psicólogos Expertos</h3>
-                <p className="text-sm text-gray-600">
-                  Terapeutas que entienden el impacto emocional de la migración
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-lg text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-black">
-                  CS
-                </div>
-                <h3 className="font-bold text-gray-900 mb-2">Atención al Cliente</h3>
-                <p className="text-sm text-gray-600">
-                  Equipo bilingüe que te ayuda en español, cuando lo necesites
+              <div className="bg-gradient-to-br from-pink-50 to-red-50 rounded-xl p-6 border-2 border-pink-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">🤝 Empatía Genuina</h3>
+                <p className="text-gray-700">
+                  Entendemos la culpa, el miedo, el sacrificio. Porque nosotros también hemos vivido la migración.
                 </p>
               </div>
             </div>
