@@ -189,7 +189,8 @@ Haz clic en "¿Tienes tu Código?" e ingresa tu código.
         body: JSON.stringify({
           to: userData.phoneId,
           message: migrantMessage,
-          type: 'access-code'
+          type: 'access-code',
+          countryCode: userData.countryCode
         })
       });
       const whatsappMigrantData = await whatsappMigrantResponse.json();
@@ -220,7 +221,8 @@ Beneficios disponibles:
         body: JSON.stringify({
           to: userData.familyMember.phoneId,
           message: familyMessage,
-          type: 'access-code'
+          type: 'access-code',
+          countryCode: userData.familyMember.countryCode
         })
       });
       const whatsappFamilyData = await whatsappFamilyResponse.json();
