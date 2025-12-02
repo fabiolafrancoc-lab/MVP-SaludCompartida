@@ -153,42 +153,84 @@ const DashboardBox = ({ icon, title, message, color, onClick }) => {
     }
   };
 
-  const iconColor = 'rgba(255,255,255,0.7)';
-  const overlayBg = 'rgba(255,255,255,0.18)';
-  const displayedColor = isHovered ? shadeHex(color || '#000000', -8) : color;
-
   return (
     <div
-      className={`relative overflow-hidden rounded-3xl p-8 cursor-pointer transition-all duration-500 transform shadow-xl ${
-        isHovered ? 'scale-105 -translate-y-3 shadow-2xl' : ''
+      className={`group relative overflow-hidden rounded-3xl cursor-pointer transition-all duration-500 transform ${
+        isHovered ? 'scale-105 -translate-y-2' : ''
       }`}
-      style={{ backgroundColor: displayedColor }}
+      style={{
+        background: `linear-gradient(135deg, ${color} 0%, ${shadeHex(color, -15)} 100%)`
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
-      <div className="relative z-10 flex flex-col items-center text-center">
-        <div 
-          className={`w-24 h-24 mb-6 transition-all duration-500 ${
-            isHovered ? 'scale-110 rotate-12' : ''
-          }`}
-          style={{ color: iconColor }}
-        >
-          {IconComponent && <IconComponent />}
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
+      {/* Animated Circle Background */}
+      <div 
+        className={`absolute -top-20 -right-20 w-48 h-48 rounded-full bg-white/10 transition-all duration-700 ${
+          isHovered ? 'scale-150 opacity-100' : 'scale-100 opacity-0'
+        }`}
+      />
+      
+      {/* Content */}
+      <div className="relative z-10 p-8 flex flex-col items-center text-center">
+        {/* Icon Container with Glow Effect */}
+        <div className="relative mb-6">
+          <div 
+            className={`absolute inset-0 blur-2xl transition-all duration-500 ${
+              isHovered ? 'opacity-60 scale-110' : 'opacity-0 scale-95'
+            }`}
+            style={{ backgroundColor: 'rgba(255,255,255,0.4)' }}
+          />
+          <div 
+            className={`relative w-24 h-24 transition-all duration-500 ${
+              isHovered ? 'scale-110 rotate-6' : ''
+            }`}
+          >
+            {IconComponent && <IconComponent />}
+          </div>
         </div>
-        <h3 className="text-2xl font-bold mb-3 text-white">
+        
+        {/* Title */}
+        <h3 className="text-2xl font-black mb-3 text-white drop-shadow-lg">
           {title}
         </h3>
-        <p className="text-lg leading-relaxed text-white font-bold opacity-95">
+        
+        {/* Message */}
+        <p className="text-base leading-relaxed text-white/95 font-semibold drop-shadow-md">
           {message}
         </p>
+        
+        {/* Hover Arrow */}
+        <div 
+          className={`mt-4 transition-all duration-300 ${
+            isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+          }`}
+        >
+          <svg 
+            className="w-6 h-6 text-white animate-bounce" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={3} 
+              d="M13 7l5 5m0 0l-5 5m5-5H6" 
+            />
+          </svg>
+        </div>
       </div>
       
+      {/* Bottom Shine Effect */}
       <div 
-        className={`absolute inset-0 rounded-full transition-all duration-700 ${
-          isHovered ? 'scale-150 opacity-100' : 'scale-0 opacity-0'
+        className={`absolute bottom-0 left-0 right-0 h-1 bg-white transition-all duration-500 ${
+          isHovered ? 'opacity-80' : 'opacity-0'
         }`}
-        style={{ transformOrigin: 'center', backgroundColor: overlayBg }}
       />
     </div>
   );
@@ -507,22 +549,34 @@ const Page4 = () => {
       )}
 
       <main className="max-w-6xl mx-auto px-6 py-12">
-        <div className="text-center mb-12">
+        {/* Hero Section */}
+        <div className="text-center mb-16">
           {userName && (
-            <h1 className="text-6xl md:text-7xl font-extrabold mb-6 leading-tight">
-              ¡Hola <span className="text-cyan-500">{userName}</span>!
+            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+              ¡Hola <span className="bg-gradient-to-r from-cyan-500 to-pink-500 bg-clip-text text-transparent">
+                {userName}
+              </span>!
             </h1>
           )}
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
             Todo lo que tu familia necesita
           </h2>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto font-medium">
             Porque cuidarlos no tiene que ser difícil ni caro
           </p>
+          
+          {/* Decorative Line */}
+          <div className="flex items-center justify-center gap-3 mt-8">
+            <div className="h-1 w-16 bg-gradient-to-r from-transparent to-cyan-500 rounded-full"></div>
+            <div className="h-2 w-2 bg-pink-500 rounded-full"></div>
+            <div className="h-1 w-32 bg-gradient-to-r from-cyan-500 via-pink-500 to-cyan-500 rounded-full"></div>
+            <div className="h-2 w-2 bg-cyan-500 rounded-full"></div>
+            <div className="h-1 w-16 bg-gradient-to-l from-transparent to-pink-500 rounded-full"></div>
+          </div>
         </div>
 
-        {/* Service Blocks - 5 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Service Blocks - 6 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
           {serviceBlocks.map((service) => (
             <DashboardBox
               key={service.title}
@@ -536,18 +590,28 @@ const Page4 = () => {
         </div>
 
         {/* Consultas Button */}
-        <div className="mt-12 flex justify-center">
+        <div className="mt-16 flex justify-center">
           <button
             onClick={() => {
               window.scrollTo(0, 0);
               navigate('/contact');
             }}
-            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+            className="group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-pink-500 text-white rounded-2xl font-black text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            ¿Tienes Consultas?
+            {/* Shine Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            
+            <div className="relative flex items-center gap-4">
+              <svg className="w-7 h-7 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="drop-shadow-md">¿Tienes Consultas?</span>
+              <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </div>
+          </button>
+        </div>
           </button>
         </div>
       </main>
