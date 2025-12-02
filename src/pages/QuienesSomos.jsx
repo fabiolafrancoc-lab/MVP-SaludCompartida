@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from '../components/TopNav';
+import Footer from '../components/Footer';
 
 const QuienesSomos = () => {
   const navigate = useNavigate();
@@ -191,6 +192,8 @@ const QuienesSomos = () => {
           </div>
         </section>
       </div>
+
+      <Footer />
     </div>
   );
 };
