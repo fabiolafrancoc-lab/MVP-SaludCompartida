@@ -16,6 +16,7 @@ const TopNav = ({
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [nosotrosOpen, setNosotrosOpen] = useState(false);
 
   const handleScrollToTop = () => {
     if (typeof window !== 'undefined' && window.scrollTo) {
@@ -85,12 +86,41 @@ const TopNav = ({
             >
               La Solución
             </button>
-            <button
-              onClick={() => navigate('/quienes-somos')}
-              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
-            >
-              Quiénes Somos
-            </button>
+            
+            {/* Dropdown Nosotros */}
+            <div className="relative group">
+              <button
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1"
+              >
+                Nosotros
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {/* Dropdown Menu */}
+              <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <button
+                  onClick={() => navigate('/quienes-somos')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
+                >
+                  Quiénes Somos
+                </button>
+                <button
+                  onClick={() => navigate('/mision-y-valores')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
+                >
+                  Misión y Valores
+                </button>
+                <button
+                  onClick={() => navigate('/nuestros-pilares')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors last:rounded-b-lg"
+                >
+                  Nuestros Pilares
+                </button>
+              </div>
+            </div>
+            
             <button
               onClick={() => navigate('/beneficios')}
               className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
@@ -184,12 +214,48 @@ const TopNav = ({
             >
               La Solución
             </button>
-            <button
-              onClick={() => { navigate('/quienes-somos'); setMenuOpen(false); }}
-              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
-            >
-              Quiénes Somos
-            </button>
+            
+            {/* Dropdown Nosotros - Mobile */}
+            <div className="border-l-2 border-cyan-200 pl-4">
+              <button
+                onClick={() => setNosotrosOpen(!nosotrosOpen)}
+                className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full flex items-center justify-between"
+              >
+                Nosotros
+                <svg 
+                  className={`w-5 h-5 transition-transform ${nosotrosOpen ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {nosotrosOpen && (
+                <div className="ml-4 mt-2 space-y-2">
+                  <button
+                    onClick={() => { navigate('/quienes-somos'); setMenuOpen(false); setNosotrosOpen(false); }}
+                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                  >
+                    → Quiénes Somos
+                  </button>
+                  <button
+                    onClick={() => { navigate('/mision-y-valores'); setMenuOpen(false); setNosotrosOpen(false); }}
+                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                  >
+                    → Misión y Valores
+                  </button>
+                  <button
+                    onClick={() => { navigate('/nuestros-pilares'); setMenuOpen(false); setNosotrosOpen(false); }}
+                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                  >
+                    → Nuestros Pilares
+                  </button>
+                </div>
+              )}
+            </div>
+            
             <button
               onClick={() => { navigate('/beneficios'); setMenuOpen(false); }}
               className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
