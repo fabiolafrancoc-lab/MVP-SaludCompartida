@@ -612,8 +612,6 @@ const Page4 = () => {
             </div>
           </button>
         </div>
-          </button>
-        </div>
       </main>
 
       {/* Footer actualizado con links a Terms y Privacy */}
