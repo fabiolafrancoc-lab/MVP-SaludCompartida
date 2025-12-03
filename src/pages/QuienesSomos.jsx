@@ -1,6 +1,7 @@
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer'
 
+// Página Quienes Somos - Información corporativa
 export default function QuienesSomos() {
   return (
     <main className="min-h-screen bg-background">

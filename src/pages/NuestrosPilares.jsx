@@ -1,6 +1,7 @@
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer'
 
+// Página Nuestros Pilares - Información corporativa
 export default function NuestrosPilares() {
   return (
     <main className="min-h-screen bg-background">

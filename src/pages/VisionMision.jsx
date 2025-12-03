@@ -1,6 +1,7 @@
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer'
 
+// Página Visión y Misión - Información corporativa
 export default function VisionMision() {
   return (
     <main className="min-h-screen bg-background">
