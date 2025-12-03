@@ -133,19 +133,64 @@ export default function Registro() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <img 
-            src="/saludcompartida logo WT.png" 
-            alt="SaludCompartida" 
-            className="h-16 object-contain"
-          />
-          <button
-            onClick={() => navigate('/')}
-            className="text-gray-600 hover:text-gray-900 text-lg font-medium transition-colors"
-          >
-            Volver
-          </button>
+      {/* Header con navegación completa */}
+      <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-3">
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo */}
+            <div className="flex items-center gap-2 md:gap-4 cursor-pointer group" onClick={() => navigate('/')}>
+              <img 
+                src="/saludcompartida logo WT.png" 
+                alt="SaludCompartida" 
+                className="h-10 md:h-12 object-contain group-hover:opacity-80 transition-opacity"
+              />
+            </div>
+            
+            {/* Navegación Desktop */}
+            <nav className="hidden lg:flex items-center gap-6">
+              <button
+                onClick={() => navigate('/quienes-somos')}
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+              >
+                Quiénes Somos
+              </button>
+              <button
+                onClick={() => navigate('/beneficios')}
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+              >
+                Nuestros Servicios
+              </button>
+              <button
+                onClick={() => navigate('/savings')}
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+              >
+                Mis Ahorros
+              </button>
+              <button
+                onClick={() => navigate('/account')}
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+              >
+                Mi Cuenta
+              </button>
+              <button
+                onClick={() => navigate('/blog')}
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+              >
+                Blog
+              </button>
+            </nav>
+            
+            {/* Botón Volver */}
+            <button
+              onClick={() => navigate('/')}
+              className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-lg transition-colors flex items-center gap-1"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Volver
+            </button>
+          </div>
         </div>
       </header>
 
@@ -495,6 +540,154 @@ export default function Registro() {
           </div>
         )}
       </main>
+
+      {/* Footer completo */}
+      <footer className="bg-white border-t border-gray-200 py-12 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            {/* Logo y tagline */}
+            <div className="col-span-1 md:col-span-1">
+              <img 
+                src="/saludcompartida logo WT.png" 
+                alt="SaludCompartida" 
+                className="h-12 mb-4"
+              />
+              <p className="text-sm text-gray-600 italic">
+                Donde está tu corazón, está SaludCompartida
+              </p>
+            </div>
+
+            {/* Columna: Servicios */}
+            <div>
+              <h3 className="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wider">Servicios</h3>
+              <ul className="space-y-2">
+                <li>
+                  <button
+                    onClick={() => navigate('/telemedicine')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Telemedicina
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/pharmacy')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Descuentos en Farmacias
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/therapy')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Terapia Psicológica
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/savings')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Mis Ahorros
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Columna: Nosotros */}
+            <div>
+              <h3 className="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wider">Nosotros</h3>
+              <ul className="space-y-2">
+                <li>
+                  <button
+                    onClick={() => navigate('/quienes-somos')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Quiénes Somos
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/mision-y-valores')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Misión y Valores
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/nuestros-pilares')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Nuestros Pilares
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/blog')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Blog
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Columna: Soporte */}
+            <div>
+              <h3 className="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wider">Soporte</h3>
+              <ul className="space-y-2">
+                <li>
+                  <button
+                    onClick={() => navigate('/contacto')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Contacto
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/account')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Mi Cuenta
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/privacy')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Política de Privacidad
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/terms')}
+                    className="text-sm text-gray-600 hover:text-cyan-600 transition-colors text-left"
+                  >
+                    Términos y Condiciones
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Línea divisora */}
+          <div className="border-t border-gray-200 pt-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <p className="text-sm text-gray-500">
+                © 2025 SaludCompartida. Todos los derechos reservados.
+              </p>
+              <p className="text-sm text-gray-600 font-medium">
+                SaludCompartida · Cuidando lo que más importa
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

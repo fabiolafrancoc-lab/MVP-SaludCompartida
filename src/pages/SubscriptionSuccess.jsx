@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import TopNav from '../components/TopNav';
 import Footer from '../components/Footer';
 
 export default function SubscriptionSuccess() {
@@ -68,7 +67,66 @@ export default function SubscriptionSuccess() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-50">
-      <TopNav />
+      {/* Header con navegación completa */}
+      <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-3">
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo */}
+            <div className="flex items-center gap-2 md:gap-4 cursor-pointer group" onClick={() => navigate('/')}>
+              <img 
+                src="/saludcompartida logo WT.png" 
+                alt="SaludCompartida" 
+                className="h-10 md:h-12 object-contain group-hover:opacity-80 transition-opacity"
+              />
+            </div>
+            
+            {/* Navegación Desktop */}
+            <nav className="hidden lg:flex items-center gap-6">
+              <button
+                onClick={() => navigate('/quienes-somos')}
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+              >
+                Quiénes Somos
+              </button>
+              <button
+                onClick={() => navigate('/beneficios')}
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+              >
+                Nuestros Servicios
+              </button>
+              <button
+                onClick={() => navigate('/savings')}
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+              >
+                Mis Ahorros
+              </button>
+              <button
+                onClick={() => navigate('/account')}
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+              >
+                Mi Cuenta
+              </button>
+              <button
+                onClick={() => navigate('/blog')}
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
+              >
+                Blog
+              </button>
+            </nav>
+            
+            {/* Botón Volver */}
+            <button
+              onClick={() => navigate('/')}
+              className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-lg transition-colors flex items-center gap-1"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Volver
+            </button>
+          </div>
+        </div>
+      </header>
       
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8 md:p-12 text-center">
