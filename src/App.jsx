@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import TopNav from './components/TopNav';
+import Footer from './components/Footer';
 import SaludCompartidaProblemStage from './components/BubblesProblemStage';
 import { insertRegistration, insertPreCheckoutCustomer } from './lib/supabase';
 import { sendAccessCode } from './lib/notifications';
@@ -666,23 +667,22 @@ Equipo SaludCompartida`,
   if (currentPage === 'landing') {
     // ETAPA 1: BubblesProblemStage (15 segundos)
     if (showProblemStage) {
-      return <SaludCompartidaProblemStage onComplete={() => setShowProblemStage(false)} />;
+      return (
+        <>
+          <TopNav showMenu={true} logoSrc="/saludcompartida-dark-no-tagline.png" />
+          <SaludCompartidaProblemStage onComplete={() => setShowProblemStage(false)} />
+          <Footer />
+        </>
+      );
     }
 
     // ETAPA 2 y 3: Customer Journey Completo - Dark Background
     return (
       <div className="min-h-screen bg-black">
         
-        {/* Logo Header Fixed - Siempre a la izquierda */}
-        <div className="fixed top-6 left-6 z-50">
-          <img 
-            src="/saludcompartida-transp dark-bg-no-tagline copy 2.jpg" 
-            alt="SaludCompartida"
-            className="h-10 md:h-12 cursor-pointer hover:opacity-80 transition"
-            onClick={() => setShowProblemStage(true)}
-          />
-        </div>
-
+        {/* TopNav con menú */}
+        <TopNav showMenu={true} logoSrc="/saludcompartida-dark-no-tagline.png" />
+        
         {/* SECCIÓN 2: LA SOLUCIÓN */}
         <section id="solucion" className="relative pt-28 pb-20 md:py-32 px-6">
           <div className="max-w-7xl mx-auto">
@@ -947,6 +947,9 @@ Equipo SaludCompartida`,
             </div>
           </div>
         </section>
+        
+        {/* Footer */}
+        <Footer />
       </div>
     );
   }
