@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Logo y tagline */}
           <div className="col-span-1 md:col-span-1">
             <img 
-              src="/saludcompartida logo WT.png" 
+              src="/saludcompartida-dark-no-tagline.png" 
               alt="SaludCompartida" 
               className="h-12 mb-6"
             />
