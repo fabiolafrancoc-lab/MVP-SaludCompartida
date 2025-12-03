@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
 
-export default function HomePre suscripcion() {
+export default function HomePresuscripcion() {
   const navigate = useNavigate();
   const [counter, setCounter] = useState(0);
   const [savings, setSavings] = useState(0);
