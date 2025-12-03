@@ -6,7 +6,7 @@ export default function VisionMision() {
     <main className="min-h-screen bg-background">
       <TopNav showMenu={true} />
       
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">{
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
