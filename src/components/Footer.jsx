@@ -5,13 +5,13 @@ export default function Footer() {
   const navigate = useNavigate();
 
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-black text-white py-16 mt-20">
+    <footer className="bg-black border-t border-gray-800 text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Logo y tagline */}
           <div className="col-span-1 md:col-span-1">
             <img 
-              src="/saludcompartida-dark-no-tagline.png" 
+              src="/saludcompartida-transp dark-bg-no-tagline copy 2.jpg" 
               alt="SaludCompartida" 
               className="h-12 mb-6"
             />
