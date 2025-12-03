@@ -26,7 +26,7 @@ import LandingBubblesSimple from './pages/LandingBubblesSimple.jsx'
 import LandingBubblesTikTok from './pages/LandingBubblesTikTok.jsx'
 import MicroLanding from './pages/MicroLanding.jsx'
 import QuienesSomos from './pages/QuienesSomos.jsx'
-import MisionYValores from './pages/MisionYValores.jsx'
+import VisionMision from './pages/VisionMision.jsx'
 import NuestrosPilares from './pages/NuestrosPilares.jsx'
 import BeneficiosDetallados from './pages/BeneficiosDetallados.jsx'
 import Contacto from './pages/Contacto.jsx'
@@ -64,8 +64,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/como-funciona" element={<MicroLanding />} /> {/* 👈 Micro-landing demo */}
           <Route path="/quienes-somos" element={<QuienesSomos />} /> {/* 👈 Quiénes Somos */}
           <Route path="/about" element={<QuienesSomos />} /> {/* 👈 About Us (alias) */}
-          <Route path="/mision-y-valores" element={<MisionYValores />} /> {/* 👈 Misión y Valores */}
-          <Route path="/vision" element={<MisionYValores />} /> {/* 👈 Visión (alias) */}
+          <Route path="/vision-mision" element={<VisionMision />} /> {/* 👈 Visión y Misión */}
+          <Route path="/mision-y-valores" element={<VisionMision />} /> {/* 👈 Misión y Valores (alias) */}
+          <Route path="/vision" element={<VisionMision />} /> {/* 👈 Visión (alias) */}
           <Route path="/nuestros-pilares" element={<NuestrosPilares />} /> {/* 👈 Nuestros Pilares */}
           <Route path="/pilares" element={<NuestrosPilares />} /> {/* 👈 Pilares (alias) */}
           <Route path="/beneficios" element={<BeneficiosDetallados />} /> {/* 👈 Beneficios Detallados */}

@@ -1,201 +1,95 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import TopNav from '../components/TopNav';
-import Footer from '../components/Footer';
+import Section from '@/components/Section'
+import TopNav from '../components/TopNav'
+import Footer from '../components/Footer'
 
-const QuienesSomos = () => {
-  const navigate = useNavigate();
-
+export default function QuienesSomos() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-pink-50 to-cyan-50">
-      <TopNav onBack={() => navigate('/como-funciona')} hideUser={true} />
-
-      <div className="max-w-5xl mx-auto px-6 py-16">
+    <main className="min-h-screen bg-background">
+      <TopNav showMenu={true} />
+      
+      <Section className="pt-32 pb-20">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
-            Quiénes Somos
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+            QUIÉNES SOMOS
           </h1>
-          <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            La primera plataforma de salud que transforma remesas en cuidado médico real
-          </p>
         </div>
 
-        {/* Nuestra Historia */}
-        <section className="bg-white rounded-3xl shadow-xl p-10 mb-12">
-          <h2 className="text-3xl font-black text-gray-900 mb-8">¿Quiénes Somos?</h2>
-
-          <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-            <p>
-              <strong>SaludCompartida es la primera plataforma de salud transfronteriza</strong> que convierte los $64.7 mil millones 
-              en remesas anuales en acceso real a atención médica para millones de familias en México, Centroamérica, Latinoamérica e India.
+        {/* Por qué existimos */}
+        <div className="max-w-5xl mx-auto mb-16">
+          <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 rounded-3xl p-10 md:p-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-cyan-400 mb-6">
+              Por qué existimos
+            </h2>
+            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed">
+              Creemos que la salud no debería depender de dónde naciste ni de cuánto ganas. Creemos que las familias que reciben remesas merecen la misma calidad de atención que cualquier otra. Creemos que cuidar a los tuyos desde lejos no debería ser un acto de heroísmo—debería ser posible.
             </p>
-
-            <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Un puente de salud entre dos mundos</h3>
-            
-            <p>
-              Entendemos la realidad del migrante: tu cuerpo está aquí, pero tu corazón nunca dejó casa. Trabajas dos turnos, 
-              envías dinero cada mes, pero cuando tu mamá se enferma a las 3 AM o tu hijo tiene fiebre de 40 grados, el dinero 
-              no es suficiente. <strong>La distancia duele. La impotencia pesa más que cualquier jornada laboral.</strong>
-            </p>
-
-            <p>
-              Por eso creamos SaludCompartida: <strong>para que cada dólar que envías se convierta en protección real para quienes más amas.</strong>
+            <p className="text-xl md:text-2xl text-white font-semibold mt-6">
+              Por eso creamos SaludCompartida.
             </p>
           </div>
-        </section>
+        </div>
 
-        {/* Qué Ofrecemos */}
-        <section className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl shadow-xl p-10 mb-12 border-2 border-cyan-200">
-          <h2 className="text-3xl font-black text-gray-900 mb-8">Qué ofrecemos</h2>
-
-          <p className="text-lg text-gray-700 leading-relaxed mb-6">
-            Con una suscripción mensual de solo <strong className="text-cyan-600 text-2xl">$12</strong> le das a tu familia 
-            (hasta 4 personas) acceso inmediato a:
-          </p>
-
-          <div className="space-y-4">
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="font-bold text-gray-900 mb-3 text-xl flex items-center gap-3">
-                <span className="text-2xl">📱</span> Telemedicina ilimitada 24/7
-              </h3>
-              <p className="text-gray-700">
-                Consultas médicas desde cualquier lugar, cualquier hora por Videollamada (WhatsApp) y recetas médicas en caso de ser necesario.
+        {/* El peso que cargas */}
+        <div className="max-w-5xl mx-auto mb-16">
+          <div className="bg-gradient-to-br from-pink-500/10 to-red-500/10 border-l-4 border-pink-500 rounded-r-3xl p-10 md:p-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-pink-400 mb-6">
+              El peso que cargas
+            </h2>
+            <div className="space-y-4 text-lg md:text-xl text-gray-200 leading-relaxed">
+              <p>
+                Sabemos lo que sientes. No es solo el dinero—es la culpa de no estar ahí.
               </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="font-bold text-gray-900 mb-3 text-xl flex items-center gap-3">
-                <span className="text-2xl">💊</span> Descuentos en Farmacias de Medicamentos y todos los otros productos
-              </h3>
-              <p className="text-gray-700">
-                En más de 1,700 farmacias.
+              <p>
+                Es la llamada a las 3 de la mañana preguntándote si tu mamá está bien. Es trabajar doble turno mientras te preguntas si tu papá pudo ver al doctor. Es mandar todo lo que puedes y aún así sentir que no alcanza. Es construir una vida aquí con el corazón partido allá.
               </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="font-bold text-gray-900 mb-3 text-xl flex items-center gap-3">
-                <span className="text-2xl">⚡</span> Activación instantánea en 30 segundos
-              </h3>
-              <p className="text-gray-700">
-                Vía WhatsApp, sin complicaciones, sin esperas
+              <p className="text-xl md:text-2xl text-pink-300 font-semibold italic">
+                "¿Y si se enferma y yo no estoy?" Esa pregunta te quita el sueño, la concentración, la paz.
               </p>
             </div>
           </div>
-        </section>
+        </div>
 
-        {/* Servimos a quienes otros ignoran */}
-        <section className="bg-white rounded-3xl shadow-xl p-10 mb-12">
-          <h2 className="text-3xl font-black text-gray-900 mb-6 text-center">
-            Servimos a quienes otros ignoran
-          </h2>
-
-          <div className="text-center space-y-6">
-            <p className="text-2xl font-bold text-gray-900">
-              54 millones de mexicanos no tienen acceso a servicios de salud.
-            </p>
-            <p className="text-xl text-gray-700">
-              Nosotros no competimos con ellos. <strong className="text-cyan-600">Servimos a quienes ellos se niegan a ver.</strong>
-            </p>
-          </div>
-        </section>
-
-        {/* Nuestra Misión */}
-        <section className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl shadow-xl p-10 mb-12 border-2 border-cyan-200">
-          <h2 className="text-3xl font-black text-gray-900 mb-8">Misión</h2>
-
-          <div className="space-y-6">
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Nuestra misión es <strong className="text-cyan-900">democratizar el acceso a servicios de salud de calidad</strong> mediante 
-              una plataforma tecnológica transfronteriza que permite a los migrantes en Estados Unidos proveer protección médica inmediata, 
-              accesible y digna a sus familias en México, Centroamérica, Latinoamérica e India.
-            </p>
-
-            <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Lo que esto significa:</h3>
-
-            <div className="space-y-6">
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h4 className="font-bold text-gray-900 mb-3 text-xl">Para el migrante que envía:</h4>
-                <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Transformar su sacrificio en protección tangible</li>
-                  <li>Convertir la distancia en cuidado efectivo</li>
-                  <li>Ofrecer paz mental sabiendo que hay respaldo 24/7</li>
-                </ul>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h4 className="font-bold text-gray-900 mb-3 text-xl">Para la familia que recibe:</h4>
-                <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Acceso inmediato a telemedicina sin esperas de meses</li>
-                  <li>Medicamentos hasta 75% más baratos</li>
-                  <li>Atención médica digna sin verificación de empleo</li>
-                  <li>Activación en 30 segundos vía WhatsApp</li>
-                </ul>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h4 className="font-bold text-gray-900 mb-3 text-xl">Para la sociedad:</h4>
-                <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Servir a los 54 millones que el sistema tradicional ignora</li>
-                  <li>Hacer de la salud un derecho, no un privilegio</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Nuestros Valores */}
-        <section className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl shadow-xl p-10 mb-12 border-2 border-purple-200">
-          <h2 className="text-3xl font-black text-gray-900 mb-8 text-center">
-            Nuestros Valores
-          </h2>
-
-          <div className="space-y-8">
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Dignidad Inclusiva</h3>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Creemos que <strong>la salud no debe depender de tu estatus migratorio, tu historial laboral o tu código postal.</strong> 
-                El 40% de los mexicanos que otros sistemas ignoran son nuestra prioridad. No competimos con hospitales o aseguradoras 
-                tradicionales; servimos a quienes ellos rechazan sistemáticamente.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Conexión Transfronteriza</h3>
-                <p className="text-gray-700">
-                  La distancia física no debe significar abandono emocional. Transformamos las remesas en puentes de cuidado.
+        {/* Lo que hacemos */}
+        <div className="max-w-5xl mx-auto mb-16">
+          <div className="bg-gradient-to-br from-green-900/40 to-emerald-800/40 border border-green-700/50 rounded-2xl p-10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl"></div>
+            <div className="relative">
+              <h2 className="text-3xl md:text-4xl font-bold text-green-400 mb-6">
+                Lo que hacemos
+              </h2>
+              <div className="space-y-4 text-lg md:text-xl text-gray-200 leading-relaxed">
+                <p>
+                  Desarrollamos la tecnología que conecta a tu familia con los mejores proveedores de salud—aquellos que cumplen con los más altos estándares de calidad. Hoy ofrecemos telemedicina 24/7, descuentos en farmacias y acceso a terapeutas y psicólogos certificados.
                 </p>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Acceso Inmediato</h3>
-                <p className="text-gray-700">
-                  Cuando tu mamá tiene dolor de pecho a las 3 AM, esperar 30 días no es una opción. Activación en 30 segundos.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Transparencia Total</h3>
-                <p className="text-gray-700">
-                  $12/mes. Sin letra chica. Sin cargos ocultos. Sin "solo por hoy". Lo que ves es lo que pagas.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Empatía Genuina</h3>
-                <p className="text-gray-700">
-                  Entendemos la culpa, el miedo, el sacrificio. Porque nosotros también hemos vivido la migración.
+                <p>
+                  Pronto incorporaremos descuentos en consultas con doctores generales, especialistas y exámenes médicos ambulatorios, siempre a través de alianzas con proveedores destacados en cada país donde operamos.
                 </p>
               </div>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+
+        {/* Nuestro compromiso */}
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 border border-purple-700/50 rounded-3xl p-10 md:p-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Nuestro compromiso
+            </h2>
+            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-6">
+              No vendemos promesas. Construimos acceso real a salud de calidad para millones de personas que el sistema ha olvidado.
+            </p>
+            <p className="text-2xl md:text-3xl text-white font-bold leading-relaxed">
+              No podemos acortar la distancia, pero sí podemos darte la tranquilidad de saber que están cuidados.
+            </p>
+            <p className="text-2xl md:text-3xl font-bold mt-6 bg-gradient-to-r from-cyan-400 to-pink-500 bg-clip-text text-transparent">
+              Donde está SaludCompartida está tu Corazón.
+            </p>
+          </div>
+        </div>
+      </Section>
 
       <Footer />
-    </div>
-  );
-};
-
-export default QuienesSomos;
+    </main>
+  )
+}

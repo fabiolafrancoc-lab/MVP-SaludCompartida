@@ -11,12 +11,14 @@ const TopNav = ({
   hideUser = false,
   onRestartBubbles = null,
   showLoginButton = false,
-  showMenu = false
+  showMenu = true
 }) => {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [nosotrosOpen, setNosotrosOpen] = useState(false);
+  const [quienesSomosOpen, setQuienesSomosOpen] = useState(false);
+  const [serviciosOpen, setServiciosOpen] = useState(false);
+  const [legalOpen, setLegalOpen] = useState(false);
 
   const handleScrollToTop = () => {
     if (typeof window !== 'undefined' && window.scrollTo) {
@@ -34,14 +36,7 @@ const TopNav = ({
 
   const handleBackButton = () => {
     handleScrollToTop();
-    // If a caller provided an onBack callback (for example to change App state), call it.
-    if (typeof onBack === 'function') {
-      try {
-        onBack();
-      } catch (err) {
-        console.error('TopNav onBack callback error:', err);
-      }
-    }
+    navigate('/'); // Volver siempre a inicio
   };
 
   const handleRestartBubbles = () => {
@@ -68,49 +63,30 @@ const TopNav = ({
         {/* Menú de navegación - Desktop */}
         {showMenu && (
           <nav className="hidden lg:flex items-center gap-6">
-            <button
-              onClick={handleRestartBubbles}
-              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
-            >
-              Inicio
-            </button>
-            <button
-              onClick={() => handleScrollToSection('problema')}
-              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
-            >
-              El Problema
-            </button>
-            <button
-              onClick={() => handleScrollToSection('solucion')}
-              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
-            >
-              La Solución
-            </button>
-            
-            {/* Dropdown Nosotros */}
+            {/* Dropdown Quienes Somos */}
             <div className="relative group">
               <button
                 className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1"
               >
-                Nosotros
+                Quienes Somos
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               
               {/* Dropdown Menu */}
-              <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <button
                   onClick={() => navigate('/quienes-somos')}
                   className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
                 >
-                  Quiénes Somos
+                  Quienes Somos
                 </button>
                 <button
-                  onClick={() => navigate('/mision-y-valores')}
+                  onClick={() => navigate('/vision-mision')}
                   className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
                 >
-                  Misión y Valores
+                  Visión y Misión
                 </button>
                 <button
                   onClick={() => navigate('/nuestros-pilares')}
@@ -120,19 +96,68 @@ const TopNav = ({
                 </button>
               </div>
             </div>
-            
-            <button
-              onClick={() => navigate('/beneficios')}
-              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
-            >
-              Beneficios
-            </button>
-            <button
-              onClick={() => navigate('/contacto')}
-              className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
-            >
-              Contacto
-            </button>
+
+            {/* Dropdown Nuestros Servicios */}
+            <div className="relative group">
+              <button
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1"
+              >
+                Nuestros Servicios
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {/* Dropdown Menu */}
+              <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <button
+                  onClick={() => navigate('/telemedicine')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
+                >
+                  Videollamada con Doctores 24/7
+                </button>
+                <button
+                  onClick={() => navigate('/pharmacy')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
+                >
+                  Descuento en Farmacias
+                </button>
+                <button
+                  onClick={() => navigate('/therapy')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors last:rounded-b-lg"
+                >
+                  Sesiones con Terapeuta
+                </button>
+              </div>
+            </div>
+
+            {/* Dropdown Legal */}
+            <div className="relative group">
+              <button
+                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1"
+              >
+                Legal
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {/* Dropdown Menu */}
+              <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <button
+                  onClick={() => navigate('/terms')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
+                >
+                  Términos y Condiciones
+                </button>
+                <button
+                  onClick={() => navigate('/privacy')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors last:rounded-b-lg"
+                >
+                  Política de Privacidad
+                </button>
+              </div>
+            </div>
           </nav>
         )}
         
@@ -196,34 +221,15 @@ const TopNav = ({
       {showMenu && menuOpen && (
         <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
           <nav className="flex flex-col py-4 px-6 space-y-4">
-            <button
-              onClick={handleRestartBubbles}
-              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
-            >
-              Inicio
-            </button>
-            <button
-              onClick={() => handleScrollToSection('problema')}
-              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
-            >
-              El Problema
-            </button>
-            <button
-              onClick={() => handleScrollToSection('solucion')}
-              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
-            >
-              La Solución
-            </button>
-            
-            {/* Dropdown Nosotros - Mobile */}
+            {/* Dropdown Quienes Somos - Mobile */}
             <div className="border-l-2 border-cyan-200 pl-4">
               <button
-                onClick={() => setNosotrosOpen(!nosotrosOpen)}
+                onClick={() => setQuienesSomosOpen(!quienesSomosOpen)}
                 className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full flex items-center justify-between"
               >
-                Nosotros
+                Quienes Somos
                 <svg 
-                  className={`w-5 h-5 transition-transform ${nosotrosOpen ? 'rotate-180' : ''}`} 
+                  className={`w-5 h-5 transition-transform ${quienesSomosOpen ? 'rotate-180' : ''}`} 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -232,22 +238,22 @@ const TopNav = ({
                 </svg>
               </button>
               
-              {nosotrosOpen && (
+              {quienesSomosOpen && (
                 <div className="ml-4 mt-2 space-y-2">
                   <button
-                    onClick={() => { navigate('/quienes-somos'); setMenuOpen(false); setNosotrosOpen(false); }}
+                    onClick={() => { navigate('/quienes-somos'); setMenuOpen(false); setQuienesSomosOpen(false); }}
                     className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
                   >
-                    → Quiénes Somos
+                    → Quienes Somos
                   </button>
                   <button
-                    onClick={() => { navigate('/mision-y-valores'); setMenuOpen(false); setNosotrosOpen(false); }}
+                    onClick={() => { navigate('/vision-mision'); setMenuOpen(false); setQuienesSomosOpen(false); }}
                     className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
                   >
-                    → Misión y Valores
+                    → Visión y Misión
                   </button>
                   <button
-                    onClick={() => { navigate('/nuestros-pilares'); setMenuOpen(false); setNosotrosOpen(false); }}
+                    onClick={() => { navigate('/nuestros-pilares'); setMenuOpen(false); setQuienesSomosOpen(false); }}
                     className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
                   >
                     → Nuestros Pilares
@@ -255,19 +261,82 @@ const TopNav = ({
                 </div>
               )}
             </div>
-            
-            <button
-              onClick={() => { navigate('/beneficios'); setMenuOpen(false); }}
-              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
-            >
-              Beneficios
-            </button>
-            <button
-              onClick={() => { navigate('/contacto'); setMenuOpen(false); }}
-              className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2"
-            >
-              Contacto
-            </button>
+
+            {/* Dropdown Nuestros Servicios - Mobile */}
+            <div className="border-l-2 border-cyan-200 pl-4">
+              <button
+                onClick={() => setServiciosOpen(!serviciosOpen)}
+                className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full flex items-center justify-between"
+              >
+                Nuestros Servicios
+                <svg 
+                  className={`w-5 h-5 transition-transform ${serviciosOpen ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {serviciosOpen && (
+                <div className="ml-4 mt-2 space-y-2">
+                  <button
+                    onClick={() => { navigate('/telemedicine'); setMenuOpen(false); setServiciosOpen(false); }}
+                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                  >
+                    → Videollamada con Doctores 24/7
+                  </button>
+                  <button
+                    onClick={() => { navigate('/pharmacy'); setMenuOpen(false); setServiciosOpen(false); }}
+                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                  >
+                    → Descuento en Farmacias
+                  </button>
+                  <button
+                    onClick={() => { navigate('/therapy'); setMenuOpen(false); setServiciosOpen(false); }}
+                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                  >
+                    → Sesiones con Terapeuta
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Dropdown Legal - Mobile */}
+            <div className="border-l-2 border-cyan-200 pl-4">
+              <button
+                onClick={() => setLegalOpen(!legalOpen)}
+                className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full flex items-center justify-between"
+              >
+                Legal
+                <svg 
+                  className={`w-5 h-5 transition-transform ${legalOpen ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {legalOpen && (
+                <div className="ml-4 mt-2 space-y-2">
+                  <button
+                    onClick={() => { navigate('/terms'); setMenuOpen(false); setLegalOpen(false); }}
+                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                  >
+                    → Términos y Condiciones
+                  </button>
+                  <button
+                    onClick={() => { navigate('/privacy'); setMenuOpen(false); setLegalOpen(false); }}
+                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                  >
+                    → Política de Privacidad
+                  </button>
+                </div>
+              )}
+            </div>
           </nav>
         </div>
       )}
