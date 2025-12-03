@@ -88,8 +88,14 @@ const TopNav = ({
               {/* Dropdown Menu */}
               <div className="absolute left-0 mt-2 w-56 bg-gray-900 rounded-lg shadow-lg border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <button
-                  onClick={() => navigate('/quienes-somos')}
+                  onClick={() => navigate('/')}
                   className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
+                >
+                  Home
+                </button>
+                <button
+                  onClick={() => navigate('/quienes-somos')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
                 >
                   Quienes Somos
                 </button>
@@ -173,7 +179,7 @@ const TopNav = ({
         )}
         
         {/* Navegación derecha */}
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-2 md:gap-3">
           {/* Menú hamburguesa - Mobile */}
           {showMenu && (
             <button
@@ -191,15 +197,36 @@ const TopNav = ({
             </button>
           )}
 
-          {/* Botón "Ya estoy suscrito" */}
-          {showLoginButton && (
-            <button
-              onClick={() => navigate('/page3')}
-              className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white px-3 py-1.5 md:px-5 md:py-2.5 rounded-full font-semibold text-xs md:text-sm hover:from-cyan-700 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              Ya estoy suscrito →
-            </button>
-          )}
+          {/* Botón "Contratar SaludCompartida" - CYAN */}
+          <button
+            onClick={() => navigate('/page3')}
+            className="hidden md:block bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+          >
+            Contratar SaludCompartida
+          </button>
+
+          {/* Botón "Ya tengo mi Código/Login" - MAGENTA */}
+          <button
+            onClick={() => navigate('/page3')}
+            className="hidden md:block bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-fuchsia-600 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+          >
+            Ya tengo mi Código/Login
+          </button>
+
+          {/* Versión mobile de los botones */}
+          <button
+            onClick={() => navigate('/page3')}
+            className="md:hidden bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-cyan-600 hover:to-cyan-700 transition-all"
+          >
+            Contratar
+          </button>
+          
+          <button
+            onClick={() => navigate('/page3')}
+            className="md:hidden bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-fuchsia-600 hover:to-pink-700 transition-all"
+          >
+            Login
+          </button>
 
           {/* Usuario logueado */}
           {!hideUser && currentUser && (
@@ -251,6 +278,12 @@ const TopNav = ({
               
               {quienesSomosOpen && (
                 <div className="ml-4 mt-2 space-y-2">
+                  <button
+                    onClick={() => { navigate('/'); setMenuOpen(false); setQuienesSomosOpen(false); }}
+                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                  >
+                    → Home
+                  </button>
                   <button
                     onClick={() => { navigate('/quienes-somos'); setMenuOpen(false); setQuienesSomosOpen(false); }}
                     className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"

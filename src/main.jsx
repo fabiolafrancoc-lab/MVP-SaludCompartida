@@ -31,7 +31,7 @@ import NuestrosPilares from './pages/NuestrosPilares.jsx'
 import BeneficiosDetallados from './pages/BeneficiosDetallados.jsx'
 import Contacto from './pages/Contacto.jsx'
 import CancelSubscription from './pages/CancelSubscription.jsx'
-import HomePresuscripcion from './homepresuscripcion.jsx'
+import Home from './home.jsx'
 import { UserProvider } from './contexts/UserContext'
 
 createRoot(document.getElementById('root')).render(
@@ -40,7 +40,7 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/home" element={<HomePresuscripcion />} /> {/* 👈 Home PRESUSCRIPCIÓN */}
+          <Route path="/home" element={<Home />} /> {/* 👈 Home PRESUSCRIPCIÓN */}
           <Route path="/page3" element={<Page3 />} /> {/* 👈 Page3 (código entrada) */}
           <Route path="/page4" element={<Page4 />} /> {/* 👈 Dashboard */}
           <Route path="/migrant" element={<Migrant />} /> {/* 👈 Dashboard para Migrantes (USA2025) */}

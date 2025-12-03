@@ -665,46 +665,20 @@ Equipo SaludCompartida`,
 
   // Landing Page de Ventas
   if (currentPage === 'landing') {
-    // ETAPA 1: BubblesProblemStage (15 segundos)
-    if (showProblemStage) {
-      return (
-        <>
-          <TopNav showMenu={true} hideUser={true} />
-          <SaludCompartidaProblemStage onComplete={() => setShowProblemStage(false)} />
-          <Footer />
-        </>
-      );
-    }
-
-    // ETAPA 2 y 3: Customer Journey Completo - Dark Background
+    // Solo mostrar BubblesProblemStage y luego redirigir a /home
     return (
-      <div className="min-h-screen bg-black">
-        
-        {/* TopNav con menú */}
+      <>
         <TopNav showMenu={true} hideUser={true} />
-        
-        {/* SECCIÓN 2: LA SOLUCIÓN */}
-        <section id="solucion" className="relative pt-28 pb-20 md:py-32 px-6">
-          <div className="max-w-7xl mx-auto">
-            
-            {/* Título Principal */}
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-black mb-4 leading-tight">
-                SaludCompartida
-              </h2>
-              <p className="text-3xl md:text-4xl lg:text-5xl text-cyan-300 font-bold mb-4">
-                La SOLUCIÓN que te Acompaña
-              </p>
-              <p className="text-3xl md:text-4xl lg:text-5xl text-cyan-300 font-bold mb-6">
-                Donde está TU CORAZÓN
-              </p>
-              <p className="text-lg md:text-xl text-gray-400 mt-6">
-                Suscripción de servicios de salud • No es un seguro
-              </p>
-            </div>
+        <SaludCompartidaProblemStage onComplete={() => navigate('/home')} />
+        <Footer />
+      </>
+    );
+  }
 
-            {/* Grid de Beneficios: Para Ti + Para Familia */}
-            <div className="grid md:grid-cols-2 gap-12 mb-20">
+  if (currentPage === 'confirmation') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50 relative">
+  <TopNav onBack={() => setCurrentPage('landing')} hideUser={true} />
               
               {/* Para Ti en Estados Unidos */}
               <div className="bg-gradient-to-br from-cyan-900/40 to-blue-900/40 backdrop-blur-sm rounded-3xl p-8 md:p-10 border border-cyan-500/30 hover:border-cyan-400 transition">
