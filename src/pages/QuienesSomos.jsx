@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 export default function QuienesSomos() {
   return (
     <main className="min-h-screen">
-      <TopNav showMenu={true} />
+      <TopNav showMenu={true} hideUser={true} />
       
       <section className="relative bg-gradient-to-br from-gray-900 via-background to-gray-900 py-32 md:py-40 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

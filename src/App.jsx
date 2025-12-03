@@ -669,7 +669,7 @@ Equipo SaludCompartida`,
     if (showProblemStage) {
       return (
         <>
-          <TopNav showMenu={true} />
+          <TopNav showMenu={true} hideUser={true} />
           <SaludCompartidaProblemStage onComplete={() => setShowProblemStage(false)} />
           <Footer />
         </>
@@ -681,7 +681,7 @@ Equipo SaludCompartida`,
       <div className="min-h-screen bg-black">
         
         {/* TopNav con menú */}
-        <TopNav showMenu={true} />
+        <TopNav showMenu={true} hideUser={true} />
         
         {/* SECCIÓN 2: LA SOLUCIÓN */}
         <section id="solucion" className="relative pt-28 pb-20 md:py-32 px-6">
