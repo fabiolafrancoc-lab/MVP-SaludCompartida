@@ -4,10 +4,11 @@ import Footer from '../components/Footer'
 // Página Quienes Somos - Información corporativa
 export default function QuienesSomos() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen">
       <TopNav showMenu={true} />
       
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="relative bg-gradient-to-br from-gray-900 via-background to-gray-900 py-32 md:py-40 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
@@ -86,6 +87,7 @@ export default function QuienesSomos() {
               Donde está SaludCompartida está tu Corazón.
             </p>
           </div>
+        </div>
         </div>
       </section>
 
