@@ -121,17 +121,8 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
   }, [onComplete]);
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen bg-black relative overflow-hidden pt-20">
       
-      {/* Logo - Siempre a la izquierda */}
-      <div className="absolute top-6 left-6 z-50">
-        <img 
-          src="/saludcompartida-transp dark-bg-no-tagline copy 2.jpg" 
-          alt="SaludCompartida"
-          className="h-10 md:h-12"
-        />
-      </div>
-
       {/* BURBUJAS de fondo que suben (blur) z-10 */}
       {backgroundBubbles.map((bubble) => (
         <div
