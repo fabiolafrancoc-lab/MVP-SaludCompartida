@@ -74,6 +74,14 @@ const TopNav = ({
         {/* Menú de navegación - Desktop */}
         {showMenu && (
           <nav className="hidden lg:flex items-center gap-6">
+            {/* Botón HOME directo */}
+            <button
+              onClick={() => navigate('/home')}
+              className="text-sm font-medium text-white hover:text-cyan-400 transition-colors"
+            >
+              HOME
+            </button>
+
             {/* Dropdown Quienes Somos */}
             <div className="relative group">
               <button
@@ -88,14 +96,8 @@ const TopNav = ({
               {/* Dropdown Menu */}
               <div className="absolute left-0 mt-2 w-56 bg-gray-900 rounded-lg shadow-lg border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <button
-                  onClick={() => navigate('/')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
-                >
-                  Home
-                </button>
-                <button
                   onClick={() => navigate('/quienes-somos')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
                 >
                   Quienes Somos
                 </button>
@@ -259,6 +261,14 @@ const TopNav = ({
       {showMenu && menuOpen && (
         <div className="lg:hidden bg-black border-t border-gray-800 shadow-lg">
           <nav className="flex flex-col py-4 px-6 space-y-4">
+            {/* HOME directo - Mobile */}
+            <button
+              onClick={() => { navigate('/home'); setMenuOpen(false); }}
+              className="text-left text-base font-bold text-white hover:text-cyan-400 transition-colors py-2 border-l-2 border-cyan-500 pl-4"
+            >
+              HOME
+            </button>
+
             {/* Dropdown Quienes Somos - Mobile */}
             <div className="border-l-2 border-cyan-500 pl-4">
               <button
@@ -278,12 +288,6 @@ const TopNav = ({
               
               {quienesSomosOpen && (
                 <div className="ml-4 mt-2 space-y-2">
-                  <button
-                    onClick={() => { navigate('/'); setMenuOpen(false); setQuienesSomosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
-                  >
-                    → Home
-                  </button>
                   <button
                     onClick={() => { navigate('/quienes-somos'); setMenuOpen(false); setQuienesSomosOpen(false); }}
                     className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
