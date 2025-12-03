@@ -1,4 +1,3 @@
-import Section from '@/components/Section'
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer'
 
@@ -7,7 +6,7 @@ export default function QuienesSomos() {
     <main className="min-h-screen bg-background">
       <TopNav showMenu={true} />
       
-      <Section className="pt-32 pb-20">
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">{
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
@@ -87,7 +86,7 @@ export default function QuienesSomos() {
             </p>
           </div>
         </div>
-      </Section>
+      </section>
 
       <Footer />
     </main>
