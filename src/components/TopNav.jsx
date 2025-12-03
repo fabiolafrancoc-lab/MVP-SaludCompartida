@@ -11,7 +11,8 @@ const TopNav = ({
   hideUser = false,
   onRestartBubbles = null,
   showLoginButton = false,
-  showMenu = true
+  showMenu = true,
+  homeIcon = false
 }) => {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
@@ -58,6 +59,16 @@ const TopNav = ({
           onClick={onRestartBubbles ? handleRestartBubbles : handleScrollToTop}
         >
           <img src={logoSrc} alt={logoAlt} className="h-10 md:h-12 object-contain group-hover:opacity-80 transition-opacity" />
+          
+          {/* Home Icon - aparece cuando homeIcon es true */}
+          {homeIcon && (
+            <div className="flex items-center gap-2 bg-cyan-500/20 border border-cyan-500/40 rounded-lg px-3 py-1.5">
+              <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span className="text-sm font-semibold text-cyan-400">Home</span>
+            </div>
+          )}
         </div>
         
         {/* Menú de navegación - Desktop */}
