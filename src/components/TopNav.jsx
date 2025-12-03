@@ -5,7 +5,7 @@ import { UserContext } from '../contexts/UserContext';
 
 // TopNav now supports: logo, back button, user info, login button, restart bubbles, and section navigation
 const TopNav = ({ 
-  logoSrc = '/saludcompartida logo WT.png', 
+  logoSrc = '/saludcompartida-transp dark-bg-no-tagline copy 2.jpg', 
   logoAlt = 'SaludCompartida', 
   onBack, 
   hideUser = false,
@@ -50,7 +50,7 @@ const TopNav = ({
   };
 
   return (
-    <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+    <header className="bg-black border-b border-gray-800 sticky top-0 z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
         {/* Logo - clickeable para volver al inicio */}
         <div 
@@ -66,7 +66,7 @@ const TopNav = ({
             {/* Dropdown Quienes Somos */}
             <div className="relative group">
               <button
-                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1"
+                className="text-sm font-medium text-white hover:text-cyan-400 transition-colors flex items-center gap-1"
               >
                 Quienes Somos
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,22 +75,22 @@ const TopNav = ({
               </button>
               
               {/* Dropdown Menu */}
-              <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute left-0 mt-2 w-56 bg-gray-900 rounded-lg shadow-lg border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <button
                   onClick={() => navigate('/quienes-somos')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
                 >
                   Quienes Somos
                 </button>
                 <button
                   onClick={() => navigate('/vision-mision')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
                 >
                   Visión y Misión
                 </button>
                 <button
                   onClick={() => navigate('/nuestros-pilares')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors last:rounded-b-lg"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors last:rounded-b-lg"
                 >
                   Nuestros Pilares
                 </button>
@@ -100,7 +100,7 @@ const TopNav = ({
             {/* Dropdown Nuestros Servicios */}
             <div className="relative group">
               <button
-                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1"
+                className="text-sm font-medium text-white hover:text-cyan-400 transition-colors flex items-center gap-1"
               >
                 Nuestros Servicios
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,22 +109,22 @@ const TopNav = ({
               </button>
               
               {/* Dropdown Menu */}
-              <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute left-0 mt-2 w-64 bg-gray-900 rounded-lg shadow-lg border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <button
                   onClick={() => navigate('/telemedicine')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
                 >
                   Videollamada con Doctores 24/7
                 </button>
                 <button
                   onClick={() => navigate('/pharmacy')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
                 >
                   Descuento en Farmacias
                 </button>
                 <button
                   onClick={() => navigate('/therapy')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors last:rounded-b-lg"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors last:rounded-b-lg"
                 >
                   Sesiones con Terapeuta
                 </button>
@@ -134,7 +134,7 @@ const TopNav = ({
             {/* Dropdown Legal */}
             <div className="relative group">
               <button
-                className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1"
+                className="text-sm font-medium text-white hover:text-cyan-400 transition-colors flex items-center gap-1"
               >
                 Legal
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,16 +143,16 @@ const TopNav = ({
               </button>
               
               {/* Dropdown Menu */}
-              <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute left-0 mt-2 w-56 bg-gray-900 rounded-lg shadow-lg border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <button
                   onClick={() => navigate('/terms')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
                 >
                   Términos y Condiciones
                 </button>
                 <button
                   onClick={() => navigate('/privacy')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors last:rounded-b-lg"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors last:rounded-b-lg"
                 >
                   Política de Privacidad
                 </button>
@@ -167,7 +167,7 @@ const TopNav = ({
           {showMenu && (
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden text-gray-600 hover:text-cyan-600 transition-colors"
+              className="lg:hidden text-gray-300 hover:text-cyan-400 transition-colors"
               aria-label="Menú"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -219,13 +219,13 @@ const TopNav = ({
 
       {/* Menú móvil desplegable */}
       {showMenu && menuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
+        <div className="lg:hidden bg-black border-t border-gray-800 shadow-lg">
           <nav className="flex flex-col py-4 px-6 space-y-4">
             {/* Dropdown Quienes Somos - Mobile */}
-            <div className="border-l-2 border-cyan-200 pl-4">
+            <div className="border-l-2 border-cyan-500 pl-4">
               <button
                 onClick={() => setQuienesSomosOpen(!quienesSomosOpen)}
-                className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full flex items-center justify-between"
+                className="text-left text-base font-medium text-white hover:text-cyan-400 transition-colors py-2 w-full flex items-center justify-between"
               >
                 Quienes Somos
                 <svg 
@@ -242,19 +242,19 @@ const TopNav = ({
                 <div className="ml-4 mt-2 space-y-2">
                   <button
                     onClick={() => { navigate('/quienes-somos'); setMenuOpen(false); setQuienesSomosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
                   >
                     → Quienes Somos
                   </button>
                   <button
                     onClick={() => { navigate('/vision-mision'); setMenuOpen(false); setQuienesSomosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
                   >
                     → Visión y Misión
                   </button>
                   <button
                     onClick={() => { navigate('/nuestros-pilares'); setMenuOpen(false); setQuienesSomosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
                   >
                     → Nuestros Pilares
                   </button>
@@ -263,10 +263,10 @@ const TopNav = ({
             </div>
 
             {/* Dropdown Nuestros Servicios - Mobile */}
-            <div className="border-l-2 border-cyan-200 pl-4">
+            <div className="border-l-2 border-cyan-500 pl-4">
               <button
                 onClick={() => setServiciosOpen(!serviciosOpen)}
-                className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full flex items-center justify-between"
+                className="text-left text-base font-medium text-white hover:text-cyan-400 transition-colors py-2 w-full flex items-center justify-between"
               >
                 Nuestros Servicios
                 <svg 
@@ -283,19 +283,19 @@ const TopNav = ({
                 <div className="ml-4 mt-2 space-y-2">
                   <button
                     onClick={() => { navigate('/telemedicine'); setMenuOpen(false); setServiciosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
                   >
                     → Videollamada con Doctores 24/7
                   </button>
                   <button
                     onClick={() => { navigate('/pharmacy'); setMenuOpen(false); setServiciosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
                   >
                     → Descuento en Farmacias
                   </button>
                   <button
                     onClick={() => { navigate('/therapy'); setMenuOpen(false); setServiciosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
                   >
                     → Sesiones con Terapeuta
                   </button>
@@ -304,10 +304,10 @@ const TopNav = ({
             </div>
 
             {/* Dropdown Legal - Mobile */}
-            <div className="border-l-2 border-cyan-200 pl-4">
+            <div className="border-l-2 border-cyan-500 pl-4">
               <button
                 onClick={() => setLegalOpen(!legalOpen)}
-                className="text-left text-base font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full flex items-center justify-between"
+                className="text-left text-base font-medium text-white hover:text-cyan-400 transition-colors py-2 w-full flex items-center justify-between"
               >
                 Legal
                 <svg 
@@ -324,13 +324,13 @@ const TopNav = ({
                 <div className="ml-4 mt-2 space-y-2">
                   <button
                     onClick={() => { navigate('/terms'); setMenuOpen(false); setLegalOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
                   >
                     → Términos y Condiciones
                   </button>
                   <button
                     onClick={() => { navigate('/privacy'); setMenuOpen(false); setLegalOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-600 hover:text-cyan-600 transition-colors py-2 block w-full"
+                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
                   >
                     → Política de Privacidad
                   </button>
