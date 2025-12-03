@@ -28,6 +28,14 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <button
+                  onClick={() => navigate('/')}
+                  className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
+                >
+                  Home
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => navigate('/quienes-somos')}
                   className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
                 >

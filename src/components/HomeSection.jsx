@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TopNav from './components/TopNav';
-import Footer from './components/Footer';
 
-export default function HomePresuscripcion() {
+export default function HomeSection() {
   const navigate = useNavigate();
   const [counter, setCounter] = useState(0);
   const [savings, setSavings] = useState(0);
@@ -31,18 +29,9 @@ export default function HomePresuscripcion() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
-      
-      {/* TopNav with Home icon */}
-      <TopNav 
-        hideUser={true}
-        showMenu={true}
-        logoSrc="/saludcompartida-transp dark-bg-no-tagline copy 2.jpg"
-        homeIcon={true}
-      />
-
+    <>
       {/* Urgency Banner */}
-      <div className="bg-gradient-to-r from-orange-600 to-red-600 py-2 px-4 mt-16">
+      <div className="bg-gradient-to-r from-orange-600 to-red-600 py-2 px-4">
         <div className="flex items-center justify-center gap-2 text-sm">
           <svg className="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -284,9 +273,6 @@ export default function HomePresuscripcion() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
-    </div>
+    </>
   );
 }
