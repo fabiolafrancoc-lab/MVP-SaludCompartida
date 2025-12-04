@@ -141,16 +141,18 @@ export default function Pago() {
 
     localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
 
-    // ENVIAR CÓDIGOS POR WHATSAPP Y EMAIL
-    await sendAccessCodes(migrantCode, familyCode, userData);
-
     setIsProcessing(false);
     setShowSuccess(true);
 
-    // Redirigir a confirmación después de 2 segundos
+    // ENVIAR CÓDIGOS POR WHATSAPP Y EMAIL (en background)
+    sendAccessCodes(migrantCode, familyCode, userData).catch(error => {
+      console.error('❌ Error enviando códigos (continuando flujo):', error);
+    });
+
+    // Redirigir a confirmación después de 1.5 segundos
     setTimeout(() => {
       navigate('/confirmacion', { state: subscriptionData });
-    }, 2000);
+    }, 1500);
   };
 
   // Función para enviar códigos de acceso por WhatsApp y Email
