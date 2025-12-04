@@ -143,9 +143,15 @@ const TopNav = ({
                 </button>
                 <button
                   onClick={() => navigate('/therapy')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors last:rounded-b-lg"
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
                 >
                   Sesiones con Terapeuta
+                </button>
+                <button
+                  onClick={() => navigate('/savings')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors last:rounded-b-lg"
+                >
+                  Mis Ahorros
                 </button>
               </div>
             </div>
@@ -346,6 +352,12 @@ const TopNav = ({
                     className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
                   >
                     → Sesiones con Terapeuta
+                  </button>
+                  <button
+                    onClick={() => { navigate('/savings'); setMenuOpen(false); setServiciosOpen(false); }}
+                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                  >
+                    → Mis Ahorros
                   </button>
                 </div>
               )}
