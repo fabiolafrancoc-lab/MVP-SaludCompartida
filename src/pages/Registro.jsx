@@ -646,10 +646,6 @@ Equipo SaludCompartida`,
                       </p>
                     </div>
                   </div>
-                  
-                  <p className="text-white/80 text-sm font-medium">
-                    ⚡ El registro no garantiza que seas seleccionado
-                  </p>
                 </div>
                 
                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
@@ -954,119 +950,6 @@ Equipo SaludCompartida`,
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (currentPage === 'confirmation') {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50 relative">
-  <TopNav onBack={() => setCurrentPage('register')} hideUser={true} />
-        
-        {showConfetti && (
-          <div className="fixed inset-0 pointer-events-none z-50">
-            {[...Array(50)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute animate-bounce"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `-${Math.random() * 20}%`,
-                  animationDelay: `${Math.random() * 2}s`,
-                  animationDuration: `${2 + Math.random() * 3}s`,
-                  fontSize: '24px'
-                }}
-              >
-                ✨
-              </div>
-            ))}
-          </div>
-        )}
-
-        <div className="max-w-5xl mx-auto px-6 py-16">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            
-            <div className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-2xl">
-                <img 
-                  src="/grandparent.jpeg"
-                  alt="Familia conectada"
-                  className="w-full h-[500px] object-cover"
-                />
-              </div>
-              
-              <div className="mt-6 bg-gradient-to-r from-cyan-50 to-pink-50 rounded-2xl p-6 shadow-lg">
-                <div className="flex items-start gap-3">
-                  <svg className="w-8 h-8 text-cyan-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                  </svg>
-                  <p className="text-gray-700 italic text-lg leading-relaxed transition-opacity duration-500">
-                    "{testimonials[currentTestimonial]}"
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-2xl p-10">
-              
-              <div className="text-center mb-8">
-                <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl animate-pulse">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                
-                <h2 className="text-3xl font-bold text-gray-900 mb-3">
-                  ¡Registro Recibido!
-                </h2>
-                <p className="text-orange-600 font-bold text-lg mb-2">
-                  ⏰ Ahora cuenta cada minuto
-                </p>
-                <p className="text-gray-600">
-                  Tu solicitud está en proceso de revisión
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-r from-orange-100 to-pink-100 border-2 border-orange-300 rounded-2xl p-6 mb-6">
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-orange-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                  </svg>
-                  <div className="flex-1">
-                    <p className="font-bold text-gray-900 mb-1">¡Solo quedan {spotsLeft} cupos disponibles!</p>
-                    <p className="text-sm text-gray-700">
-                      Cada hora se llenan más espacios. Los códigos de acceso se enviarán por orden de llegada a los seleccionados.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-cyan-50 border border-cyan-200 rounded-2xl p-6">
-                <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <svg className="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Si Eres Seleccionado
-                </h3>
-                <ol className="space-y-3 text-sm text-gray-700">
-                  <li className="flex gap-3">
-                    <span className="font-bold text-cyan-600 min-w-[24px]">1.</span>
-                    <span>Recibirás WhatsApp en <strong>+1 {migrantPhone}</strong> con tu código de acceso exclusivo</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-cyan-600 min-w-[24px]">2.</span>
-                    <span>Tu familiar recibirá su código en <strong>+52 {familyPhone}</strong></span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-cyan-600 min-w-[24px]">3.</span>
-                    <span>Usa el enlace en el mensaje para ingresar y activar los servicios</span>
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </div>
-          
         </div>
       </div>
     );
