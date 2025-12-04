@@ -205,12 +205,184 @@ export default function Terms() {
                 </div>
               </section>
 
-              {/* Nota final */}
-              <div className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-6">
-                <p className="text-gray-300 text-sm text-center">
-                  Para ver los términos completos, contacta a nuestro equipo de soporte.
+              {/* Sección 4: Suscripción y pagos */}
+              <section id="subscription" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  4. Suscripción y pagos
+                </h2>
+                <div className="space-y-4 text-gray-300">
+                  <div>
+                    <h3 className="font-bold text-white mb-2">Plan mensual:</h3>
+                    <p className="text-sm">$12 USD/mes por cobertura para hasta 4 personas.</p>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white mb-2">Renovación automática:</h3>
+                    <p className="text-sm">Tu suscripción se renueva automáticamente cada mes hasta que la canceles.</p>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white mb-2">Métodos de pago:</h3>
+                    <p className="text-sm">Aceptamos tarjetas de crédito/débito procesadas a través de proveedores seguros como Stripe.</p>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white mb-2">Cancelación:</h3>
+                    <p className="text-sm">Puedes cancelar en cualquier momento. El servicio permanecerá activo hasta el final del período pagado.</p>
+                  </div>
+                  <div className="bg-orange-900/20 border border-orange-700/30 rounded-xl p-4 mt-4">
+                    <p className="text-sm text-orange-300">
+                      <strong>Importante:</strong> No ofrecemos reembolsos por períodos parciales. Si cancelas, el servicio estará disponible hasta el final del mes pagado.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Sección 5: Uso de la plataforma */}
+              <section id="usage" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  5. Uso aceptable de la plataforma
+                </h2>
+                <div className="space-y-4">
+                  <p className="text-gray-300">Te comprometes a:</p>
+                  <ul className="space-y-2 text-gray-300 text-sm ml-4">
+                    <li>• Proporcionar información precisa y actualizada</li>
+                    <li>• Usar el servicio solo para fines legales y personales</li>
+                    <li>• No compartir tu cuenta con terceros no autorizados</li>
+                    <li>• Seguir las indicaciones médicas proporcionadas</li>
+                    <li>• Respetar al personal médico y de soporte</li>
+                  </ul>
+                  <div className="bg-red-900/20 border border-red-700/30 rounded-xl p-4 mt-4">
+                    <h3 className="font-bold text-red-400 mb-2">Usos prohibidos:</h3>
+                    <ul className="space-y-1 text-gray-300 text-sm">
+                      <li>• Uso fraudulento de códigos de descuento</li>
+                      <li>• Consultas para obtener prescripciones indebidas</li>
+                      <li>• Abuso del servicio de telemedicina</li>
+                      <li>• Intentos de vulnerar la seguridad de la plataforma</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+              {/* Sección 6: Privacidad y datos */}
+              <section id="privacy" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  6. Privacidad y protección de datos
+                </h2>
+                <p className="text-gray-300 mb-4">
+                  El uso de nuestros servicios está sujeto a nuestra <a href="/privacy" className="text-cyan-400 hover:underline font-semibold">Política de Privacidad</a>, que forma parte integral de estos términos.
                 </p>
+                <div className="space-y-3 text-gray-300 text-sm">
+                  <p>• Cumplimos con la Ley Federal de Protección de Datos Personales (LFPDPPP)</p>
+                  <p>• Tus datos médicos están encriptados y protegidos</p>
+                  <p>• Solo personal autorizado accede a tu información</p>
+                  <p>• Puedes ejercer tus derechos ARCO en cualquier momento</p>
+                </div>
+              </section>
+
+              {/* Sección 7: Limitaciones del servicio */}
+              <section id="limitations" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  7. Limitaciones del servicio
+                </h2>
+                <div className="bg-red-900/20 border border-red-700/30 rounded-xl p-6 mb-4">
+                  <h3 className="font-bold text-red-400 mb-3">Servicios NO cubiertos:</h3>
+                  <ul className="space-y-2 text-gray-300 text-sm">
+                    <li>• Emergencias médicas que requieran atención inmediata presencial</li>
+                    <li>• Cirugías y procedimientos invasivos</li>
+                    <li>• Prescripción de medicamentos controlados</li>
+                    <li>• Tratamientos experimentales o no aprobados</li>
+                    <li>• Atención médica fuera de México</li>
+                  </ul>
+                </div>
+                <p className="text-gray-300 text-sm">
+                  <strong className="text-white">Importante:</strong> SaludCompartida no reemplaza la atención médica de emergencia. En caso de emergencia, llama al 911 o acude al hospital más cercano.
+                </p>
+              </section>
+
+              {/* Sección 8: Responsabilidades */}
+              <section id="responsibilities" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  8. Responsabilidades y limitación de responsabilidad
+                </h2>
+                <div className="space-y-4 text-gray-300 text-sm">
+                  <div>
+                    <h3 className="font-bold text-white mb-2">Responsabilidad del usuario:</h3>
+                    <p>Eres responsable de proporcionar información médica precisa y seguir las indicaciones médicas recibidas.</p>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white mb-2">Responsabilidad de SaludCompartida:</h3>
+                    <p>Nos esforzamos por proporcionar servicios de calidad, pero no garantizamos resultados médicos específicos.</p>
+                  </div>
+                  <div className="bg-gray-700/30 rounded-xl p-4">
+                    <p>
+                      <strong className="text-white">Limitación de responsabilidad:</strong> SaludCompartida no será responsable por daños indirectos, incidentales o consecuentes derivados del uso del servicio, excepto donde la ley lo prohíba.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Sección 9: Modificaciones */}
+              <section id="modifications" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  9. Modificaciones al servicio y términos
+                </h2>
+                <div className="space-y-4 text-gray-300">
+                  <p>Nos reservamos el derecho de:</p>
+                  <ul className="space-y-2 text-sm ml-4">
+                    <li>• Modificar o discontinuar servicios con previo aviso</li>
+                    <li>• Actualizar estos términos y condiciones</li>
+                    <li>• Cambiar los precios de suscripción (notificando con 30 días de anticipación)</li>
+                  </ul>
+                  <div className="bg-cyan-900/20 border border-cyan-700/30 rounded-xl p-4">
+                    <p className="text-sm">
+                      <strong className="text-cyan-400">Notificación de cambios:</strong> Te notificaremos por correo electrónico sobre cambios importantes. El uso continuado del servicio después de los cambios constituye aceptación de los nuevos términos.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Sección 10: Ley aplicable */}
+              <section id="jurisdiction" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  10. Ley aplicable y jurisdicción
+                </h2>
+                <div className="space-y-4 text-gray-300 text-sm">
+                  <p>
+                    Estos términos se rigen por las leyes de los Estados Unidos Mexicanos.
+                  </p>
+                  <p>
+                    Cualquier disputa relacionada con estos términos será resuelta en los tribunales competentes de México.
+                  </p>
+                  <div className="bg-purple-900/20 border border-purple-700/30 rounded-xl p-4">
+                    <h3 className="font-bold text-purple-400 mb-2">Resolución de disputas:</h3>
+                    <p>
+                      Antes de iniciar cualquier procedimiento legal, te comprometemos a intentar resolver cualquier disputa mediante negociación directa con nuestro equipo de soporte.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Sección de contacto final */}
+              <div className="bg-gradient-to-r from-cyan-900/40 to-purple-900/40 backdrop-blur-md rounded-xl border border-cyan-700/30 p-8 text-center">
+                <h3 className="text-2xl font-bold text-white mb-4">¿Preguntas sobre estos términos?</h3>
+                <p className="text-gray-300 mb-6">
+                  Si tienes dudas o necesitas aclaraciones, nuestro equipo está aquí para ayudarte.
+                </p>
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+                  <a 
+                    href="mailto:legal@saludcompartida.com"
+                    className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg"
+                  >
+                    📧 legal@saludcompartida.com
+                  </a>
+                  <a 
+                    href="mailto:contacto@saludcompartida.com"
+                    className="bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg"
+                  >
+                    💬 contacto@saludcompartida.com
+                  </a>
+                </div>
               </div>
+
+              {/* Nota final eliminada - documento completo */}
 
             </div>
           </div>
