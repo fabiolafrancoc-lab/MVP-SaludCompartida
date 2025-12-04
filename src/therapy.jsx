@@ -93,7 +93,7 @@ export default function Therapy() {
 
         <div className="text-center">
           <button
-            onClick={() => navigate('/page3')}
+            onClick={() => navigate('/registro')}
             className="bg-gradient-to-r from-cyan-600 to-cyan-500 text-white px-8 py-4 rounded-2xl text-xl font-bold shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:scale-105 inline-block"
           >
             Contratar Ahora

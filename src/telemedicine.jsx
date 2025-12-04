@@ -67,7 +67,7 @@ export default function Telemedicine() {
             </p>
 
             <button
-              onClick={() => navigate('/page3')}
+              onClick={() => navigate('/registro')}
               className="group bg-green-500 hover:bg-green-600 text-white px-10 py-6 rounded-2xl text-2xl font-bold shadow-2xl hover:shadow-green-500/50 transition-all transform hover:scale-105 flex items-center gap-4"
             >
               <svg className="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
@@ -140,7 +140,7 @@ export default function Telemedicine() {
 
         <div className="text-center">
           <button
-            onClick={() => navigate('/page3')}
+            onClick={() => navigate('/registro')}
             className="bg-gradient-to-r from-cyan-600 to-cyan-500 text-white px-8 py-4 rounded-2xl text-xl font-bold shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:scale-105 inline-block"
           >
             Contratar Ahora
