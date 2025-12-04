@@ -279,7 +279,7 @@ export default function Home() {
             </p>
             
             <button 
-              onClick={() => navigate('/page3')}
+              onClick={() => navigate('/registro')}
               className="bg-fuchsia-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-fuchsia-600 transition-all transform hover:scale-105 shadow-lg"
             >
               Cuida a tu FAMILIA ahora
