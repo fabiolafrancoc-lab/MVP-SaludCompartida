@@ -34,7 +34,7 @@ export default function Savings() {
           {/* Contador de ahorros */}
           <div className="bg-gradient-to-br from-cyan-900/40 to-purple-900/40 backdrop-blur-md rounded-3xl p-12 border border-cyan-500/30 shadow-2xl flex flex-col justify-center">
             <h2 className="text-2xl font-bold text-white mb-4">Has Ahorrado en 3 Meses:</h2>
-            <div className="text-7xl md:text-8xl font-black bg-gradient-to-r from-cyan-400 to-pink-500 bg-clip-text text-transparent mb-4">
+            <div className="text-5xl md:text-6xl font-black bg-gradient-to-r from-cyan-400 to-pink-500 bg-clip-text text-transparent mb-4">
               MX${displaySavings.toLocaleString()}
             </div>
             <p className="text-3xl font-bold text-gray-300">USD ${totalSavingsUSD}</p>

@@ -565,30 +565,10 @@ Equipo SaludCompartida`,
           
           <div className="mb-10 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 leading-tight">
-              ¡Regístrate hoy y ten la posibilidad<br />
-              de ser seleccionado para <span className="text-cyan-500">SaludCompartida</span>!
+              Suscríbete hoy por $12 mensuales y en 30 segundos tu familia empieza a utilizar todos los beneficios de <span className="text-cyan-500">SaludCompartida</span>. Estamos donde está tu corazón.
             </h2>
-            <p className="text-xl text-orange-600 font-bold">
-              ⚡ ¡Apúrate, quedan pocos cupos!
-            </p>
           </div>
 
-          <div className="mb-10 flex justify-center">
-            <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 border-2 border-cyan-300 rounded-2xl p-6 shadow-lg max-w-2xl">
-              <button
-                onClick={() => navigate('/page3')}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                </svg>
-                <div className="text-left">
-                  <div className="text-sm font-normal text-cyan-100">¿Ya tienes tu código?</div>
-                  <div className="text-lg font-bold">Ingresa el código que recibiste vía WhatsApp</div>
-                </div>
-              </button>
-            </div>
-          </div>
           
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             
@@ -648,7 +628,7 @@ Equipo SaludCompartida`,
                 <div className="relative z-10">
                   <div className="mb-6">
                     <p className="text-white/90 text-sm font-medium uppercase tracking-wider mb-2">
-                      Cupos Disponibles - Programa Piloto
+                      Cupos Disponibles - Segunda Fase
                     </p>
                     <div className="flex items-baseline gap-3 mb-4">
                       <p className="text-white text-5xl font-bold animate-bounce">
@@ -939,7 +919,7 @@ Equipo SaludCompartida`,
                       onClick={handleRegister}
                       className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white py-4 px-6 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-3"
                     >
-                      <span>Registrarme Ahora</span>
+                      <span>Suscribirme Ahora</span>
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                       </svg>

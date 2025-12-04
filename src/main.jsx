@@ -39,6 +39,7 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} /> {/* 👈 INICIO - Burbujas Presuscripción */}
+          <Route path="/home" element={<Home />} /> {/* 👈 INICIO duplicado - Burbujas Presuscripción */}
           <Route path="/page3" element={<LoginCodigo />} /> {/* 👈 Login con Código de Acceso */}
           <Route path="/page4" element={<Page4 />} /> {/* 👈 Dashboard */}
           <Route path="/migrant" element={<Migrant />} /> {/* 👈 Dashboard para Migrantes (USA2025) */}
