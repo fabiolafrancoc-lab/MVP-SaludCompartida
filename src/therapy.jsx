@@ -1436,35 +1436,6 @@ SaludCompartida`,
           </div>
         </div>
 
-        {/* Videos de Salud Mental */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="rounded-2xl overflow-hidden shadow-xl">
-            <video 
-              src="https://p0iccshbkx3s8qpk.public.blob.vercel-storage.com/womansreaming.mov"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            >
-              Tu navegador no soporta el video.
-            </video>
-          </div>
-
-          <div className="rounded-2xl overflow-hidden shadow-xl">
-            <video 
-              src="https://p0iccshbkx3s8qpk.public.blob.vercel-storage.com/mentalhealthhappy.mov"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            >
-              Tu navegador no soporta el video.
-            </video>
-          </div>
-        </div>
-
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-2 text-center">
             Conoce a nuestros psicólogos
@@ -2054,33 +2025,19 @@ SaludCompartida`,
           )}
         </div>
 
-        <div className="mt-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8">
-          <div className="flex items-start">
-            <svg className="w-6 h-6 text-purple-600 mr-4 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-            </svg>
-            <div>
-              <h3 className="font-bold text-gray-900 mb-2">Tu privacidad es sagrada</h3>
-              <p className="text-sm text-gray-700">
-                Todo lo que compartas con tu terapeuta es 100% confidencial. Tus sesiones están protegidas por las leyes de privacidad médica. Nadie más tendrá acceso a lo que platiques, ni siquiera nosotros.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Consultas Button */}
+        {/* Contratar Button */}
         <div className="mt-12 flex justify-center">
           <button
             onClick={() => {
               window.scrollTo(0, 0);
-              navigate('/contact');
+              navigate('/page3');
             }}
-            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-600 hover:to-pink-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-            ¿Tienes Consultas?
+            Contratar SaludCompartida
           </button>
         </div>
       </div>
