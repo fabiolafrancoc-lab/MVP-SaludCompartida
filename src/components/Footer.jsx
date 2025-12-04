@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 export default function Footer() {
   const navigate = useNavigate();
 
+  const handleNavigate = (path) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate(path);
+  };
+
   return (
     <footer className="bg-black border-t border-gray-800 text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,7 +33,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <button
-                  onClick={() => navigate('/')}
+                  onClick={() => handleNavigate('/')}
                   className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
                 >
                   Home
@@ -36,7 +41,7 @@ export default function Footer() {
               </li>
               <li>
                 <button
-                  onClick={() => navigate('/quienes-somos')}
+                  onClick={() => handleNavigate('/quienes-somos')}
                   className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
                 >
                   Quienes Somos
@@ -44,7 +49,7 @@ export default function Footer() {
               </li>
               <li>
                 <button
-                  onClick={() => navigate('/vision-mision')}
+                  onClick={() => handleNavigate('/vision-mision')}
                   className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
                 >
                   Visión y Misión
@@ -52,7 +57,7 @@ export default function Footer() {
               </li>
               <li>
                 <button
-                  onClick={() => navigate('/nuestros-pilares')}
+                  onClick={() => handleNavigate('/nuestros-pilares')}
                   className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
                 >
                   Nuestros Pilares
@@ -69,7 +74,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <button
-                  onClick={() => navigate('/telemedicine')}
+                  onClick={() => handleNavigate('/telemedicine')}
                   className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
                 >
                   Videollamada con Doctores 24/7
@@ -77,7 +82,7 @@ export default function Footer() {
               </li>
               <li>
                 <button
-                  onClick={() => navigate('/pharmacy')}
+                  onClick={() => handleNavigate('/pharmacy')}
                   className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
                 >
                   Descuento en Farmacias
@@ -85,7 +90,7 @@ export default function Footer() {
               </li>
               <li>
                 <button
-                  onClick={() => navigate('/therapy')}
+                  onClick={() => handleNavigate('/therapy')}
                   className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
                 >
                   Sesiones con Terapeuta
@@ -102,7 +107,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <button
-                  onClick={() => navigate('/terms')}
+                  onClick={() => handleNavigate('/terms')}
                   className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
                 >
                   Términos y Condiciones
@@ -110,7 +115,7 @@ export default function Footer() {
               </li>
               <li>
                 <button
-                  onClick={() => navigate('/privacy')}
+                  onClick={() => handleNavigate('/privacy')}
                   className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
                 >
                   Política de Privacidad
@@ -128,7 +133,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-6">
               <button
-                onClick={() => navigate('/contacto')}
+                onClick={() => handleNavigate('/contacto')}
                 className="text-sm text-gray-300 hover:text-cyan-400 transition-colors"
               >
                 Contacto

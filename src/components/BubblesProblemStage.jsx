@@ -154,20 +154,6 @@ const SaludCompartidaProblemStage = ({ onComplete }) => {
 
       {/* PREGUNTAS ELIMINADAS TEMPORALMENTE - se volverán a agregar */}
 
-      {/* Botón de Código de Acceso - Lado Derecho */}
-      <div className="fixed top-32 right-6 z-50 pointer-events-auto">
-        <button
-          onClick={() => {
-            window.scrollTo(0, 0);
-            navigate('/page3');
-          }}
-          className="bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl shadow-2xl hover:shadow-pink-500/50 hover:scale-105 transition-all border-2 border-white/30 p-4 text-center"
-        >
-          <div className="text-sm font-bold mb-1">¿Tienes tu Código?</div>
-          <div className="text-xs bg-white/20 px-3 py-1 rounded-lg">Ingresa Aquí</div>
-        </button>
-      </div>
-
       {/* PREGUNTA FINAL ELIMINADA TEMPORALMENTE */}
 
       {/* BURBUJAS PRINCIPALES - legibles que se vuelven blur z-30-45 */}

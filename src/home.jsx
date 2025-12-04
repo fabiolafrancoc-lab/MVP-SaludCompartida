@@ -40,15 +40,23 @@ export default function Home() {
         logoSrc="/saludcompartida-transp dark-bg-no-tagline copy 2.jpg"
       />
 
-      {/* Urgency Banner */}
-      <div className="bg-gradient-to-r from-orange-600 to-red-600 py-2 px-4 mt-16">
-        <div className="flex items-center justify-center gap-2 text-sm">
-          <svg className="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      {/* Urgency Banner - DESTACADO EN ROJO */}
+      <div className="bg-gradient-to-r from-red-700 via-red-600 to-red-700 py-6 px-4 mt-16 border-y-4 border-red-400 shadow-2xl shadow-red-900/50">
+        <div className="flex items-center justify-center gap-3 text-center">
+          <svg className="w-8 h-8 animate-pulse text-yellow-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
-          <span className="font-semibold">
-            Ahora mismo, <span className="text-yellow-300 font-black">{1847 + counter}</span> familias enfrentan una emergencia médica sin recursos
-          </span>
+          <p className="font-black text-white">
+            <span className="text-xl md:text-3xl block md:inline">
+              AHORA MISMO, <span className="text-yellow-300 animate-pulse">{1847 + counter}</span> FAMILIAS
+            </span>
+            <span className="text-lg md:text-2xl block md:inline md:ml-2 mt-1 md:mt-0">
+              ENFRENTAN UNA EMERGENCIA MÉDICA SIN RECURSOS
+            </span>
+          </p>
+          <svg className="w-8 h-8 animate-pulse text-yellow-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
         </div>
       </div>
 
