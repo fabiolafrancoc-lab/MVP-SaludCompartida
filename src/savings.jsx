@@ -196,16 +196,10 @@ export default function Savings() {
         </div>
 
         {/* CTA Final */}
-        <div className="bg-gradient-to-r from-cyan-600 to-cyan-500 rounded-3xl p-16 text-center shadow-2xl">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-            Contratar SaludCompartida
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Todo por solo <span className="font-black text-3xl">USD $500</span> al año
-          </p>
+        <div className="text-center">
           <button
             onClick={() => navigate('/page3')}
-            className="bg-white text-cyan-600 px-12 py-5 rounded-2xl text-2xl font-bold shadow-2xl hover:shadow-white/50 transition-all transform hover:scale-105"
+            className="bg-gradient-to-r from-cyan-600 to-cyan-500 text-white px-8 py-4 rounded-2xl text-xl font-bold shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:scale-105 inline-block"
           >
             Contratar Ahora
           </button>
