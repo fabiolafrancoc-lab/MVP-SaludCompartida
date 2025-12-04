@@ -183,6 +183,75 @@ export default function Privacy() {
                 </div>
               </section>
 
+              {/* Sección 5: Fundamento legal */}
+              <section id="legal-basis" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  5. Fundamento legal
+                </h2>
+                <p className="text-gray-300 mb-4 leading-relaxed">
+                  El tratamiento de tus datos personales se fundamenta en:
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <p className="text-gray-300 text-sm">Tu consentimiento expreso al registrarte en nuestros servicios</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <p className="text-gray-300 text-sm">La ejecución del contrato de servicios que celebras con nosotros</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <p className="text-gray-300 text-sm">El cumplimiento de obligaciones legales aplicables</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <p className="text-gray-300 text-sm">Nuestro interés legítimo en mejorar y personalizar nuestros servicios</p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Sección 6: Transferencia de datos */}
+              <section id="data-transfer" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  6. Transferencia de datos
+                </h2>
+                <p className="text-gray-300 mb-4 leading-relaxed">
+                  Podemos transferir tus datos personales a terceros en los siguientes casos:
+                </p>
+                <div className="space-y-4">
+                  <div className="bg-gray-700/30 rounded-xl p-4">
+                    <h3 className="font-bold text-white mb-2">Proveedores de servicios médicos</h3>
+                    <p className="text-gray-300 text-sm">Doctores, especialistas y personal médico autorizado que proporcionan atención.</p>
+                  </div>
+                  <div className="bg-gray-700/30 rounded-xl p-4">
+                    <h3 className="font-bold text-white mb-2">Farmacias asociadas</h3>
+                    <p className="text-gray-300 text-sm">Para procesar descuentos y surtir recetas médicas.</p>
+                  </div>
+                  <div className="bg-gray-700/30 rounded-xl p-4">
+                    <h3 className="font-bold text-white mb-2">Procesadores de pago</h3>
+                    <p className="text-gray-300 text-sm">Servicios como Stripe para procesar transacciones de manera segura.</p>
+                  </div>
+                  <div className="bg-gray-700/30 rounded-xl p-4">
+                    <h3 className="font-bold text-white mb-2">Proveedores tecnológicos</h3>
+                    <p className="text-gray-300 text-sm">Servicios de almacenamiento en la nube y comunicaciones (AWS, Twilio, etc.).</p>
+                  </div>
+                </div>
+                <div className="mt-4 bg-orange-900/20 border border-orange-700/30 rounded-xl p-4">
+                  <p className="text-gray-300 text-sm">
+                    <strong className="text-orange-400">Importante:</strong> Todos los terceros están obligados contractualmente a proteger tus datos y solo pueden usarlos para los fines autorizados.
+                  </p>
+                </div>
+              </section>
+
               {/* Sección 7: Derechos ARCO */}
               <section id="arco-rights" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
                 <h2 className="text-3xl font-bold text-white mb-6">
@@ -233,12 +302,114 @@ export default function Privacy() {
                 </ul>
               </section>
 
-              {/* Nota final */}
-              <div className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-6">
-                <p className="text-gray-300 text-sm text-center">
-                  Para ver la política completa de privacidad, contacta a nuestro equipo en <a href="mailto:privacidad@saludcompartida.com" className="text-cyan-400 hover:underline">privacidad@saludcompartida.com</a>
+              {/* Sección 9: Cookies y tecnologías */}
+              <section id="cookies" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  9. Cookies y tecnologías de rastreo
+                </h2>
+                <p className="text-gray-300 mb-4 leading-relaxed">
+                  Utilizamos cookies y tecnologías similares para:
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <p className="text-gray-300 text-sm">Mantener tu sesión activa mientras usas la plataforma</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <p className="text-gray-300 text-sm">Recordar tus preferencias y configuraciones</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <p className="text-gray-300 text-sm">Analizar el uso de la plataforma para mejorar la experiencia</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <p className="text-gray-300 text-sm">Personalizar el contenido y las recomendaciones</p>
+                  </div>
+                </div>
+                <div className="mt-4 bg-purple-900/20 border border-purple-700/30 rounded-xl p-4">
+                  <p className="text-gray-300 text-sm">
+                    Puedes configurar tu navegador para rechazar cookies, aunque esto puede limitar algunas funcionalidades de la plataforma.
+                  </p>
+                </div>
+              </section>
+
+              {/* Sección 10: Menores de edad */}
+              <section id="minors" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  10. Protección de menores de edad
+                </h2>
+                <p className="text-gray-300 mb-4 leading-relaxed">
+                  Los servicios de SaludCompartida pueden ser utilizados por menores de edad bajo la supervisión y consentimiento de un padre o tutor legal.
+                </p>
+                <div className="bg-red-900/20 border border-red-700/30 rounded-xl p-4">
+                  <p className="text-gray-300 text-sm">
+                    <strong className="text-red-400">Importante:</strong> Si un menor de edad requiere atención médica, el padre o tutor debe proporcionar el consentimiento informado y supervisar el uso del servicio.
+                  </p>
+                </div>
+                <p className="text-gray-300 mt-4 text-sm leading-relaxed">
+                  Los datos de salud de menores son tratados con especial cuidado y solo son accesibles por personal médico autorizado y el padre/tutor designado.
+                </p>
+              </section>
+
+              {/* Sección 11: Cambios al aviso */}
+              <section id="changes" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
+                <h2 className="text-3xl font-bold text-white mb-6">
+                  11. Cambios a este aviso de privacidad
+                </h2>
+                <p className="text-gray-300 mb-4 leading-relaxed">
+                  Nos reservamos el derecho de actualizar este Aviso de Privacidad para reflejar cambios en nuestras prácticas o requisitos legales.
+                </p>
+                <div className="bg-cyan-900/20 border border-cyan-700/30 rounded-xl p-4 mb-4">
+                  <p className="text-gray-300 text-sm">
+                    <strong className="text-cyan-400">Te notificaremos de cambios importantes mediante:</strong>
+                  </p>
+                  <ul className="text-gray-300 text-sm space-y-1 ml-4 mt-2">
+                    <li>• Correo electrónico a tu dirección registrada</li>
+                    <li>• Aviso destacado en nuestra plataforma</li>
+                    <li>• Actualización de la fecha al inicio de este documento</li>
+                  </ul>
+                </div>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Te recomendamos revisar periódicamente este aviso para mantenerte informado sobre cómo protegemos tu información.
+                </p>
+              </section>
+
+              {/* Nota de contacto final */}
+              <div className="bg-gradient-to-r from-cyan-900/40 to-purple-900/40 backdrop-blur-md rounded-xl border border-cyan-700/30 p-8 text-center">
+                <h3 className="text-2xl font-bold text-white mb-4">¿Tienes preguntas?</h3>
+                <p className="text-gray-300 mb-6 leading-relaxed">
+                  Si tienes dudas sobre este Aviso de Privacidad o deseas ejercer tus derechos ARCO, contáctanos:
+                </p>
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+                  <a 
+                    href="mailto:privacidad@saludcompartida.com"
+                    className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg"
+                  >
+                    📧 privacidad@saludcompartida.com
+                  </a>
+                  <a 
+                    href="mailto:contacto@saludcompartida.com"
+                    className="bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg"
+                  >
+                    💬 contacto@saludcompartida.com
+                  </a>
+                </div>
+                <p className="text-gray-400 text-sm mt-6">
+                  Responderemos a tu solicitud en un plazo máximo de 20 días hábiles, de acuerdo con la LFPDPPP.
                 </p>
               </div>
+
+              {/* Nota final eliminada - ya no es necesaria */}
 
             </div>
           </div>
