@@ -1,5 +1,6 @@
 // API para procesar pagos con Square
-import { Client, Environment } from 'square';
+import pkg from 'square';
+const { Client, Environment } = pkg;
 
 // Configuración de Square
 const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN || 'EAAAlwfQWzG7D77hEzn9EMZ82cEM_J86txrAAZYuKycqipeq6xkGremv_XAgEFXk';
