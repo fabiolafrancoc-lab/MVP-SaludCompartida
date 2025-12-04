@@ -39,22 +39,80 @@ export default function Pago() {
   // Cargar el SDK de Square
   useEffect(() => {
     if (!userData.firstName) return;
-    
-    // Por ahora habilitamos el modo de prueba directo
-    setSquareLoaded(true);
+
+    const loadSquareSDK = async () => {
+      try {
+        // Cargar el script de Square
+        if (!window.Square) {
+          const script = document.createElement('script');
+          script.src = 'https://sandbox.web.squarecdn.com/v1/square.js';
+          script.async = true;
+          script.onload = () => initializeSquare();
+          document.body.appendChild(script);
+        } else {
+          initializeSquare();
+        }
+      } catch (error) {
+        console.error('Error cargando Square SDK:', error);
+      }
+    };
+
+    const initializeSquare = async () => {
+      try {
+        const payments = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
+        const card = await payments.card();
+        await card.attach('#card-container');
+        
+        setPayments(payments);
+        setCard(card);
+        setSquareLoaded(true);
+        
+        console.log('✅ Square SDK cargado correctamente');
+      } catch (error) {
+        console.error('❌ Error inicializando Square:', error);
+      }
+    };
+
+    loadSquareSDK();
   }, [userData]);
 
-  // Manejar el pago con Square (modo simulación)
+  // Manejar el pago con Square (REAL - SANDBOX)
   const handleSquarePayment = async () => {
+    if (!card) {
+      alert('Square no está cargado correctamente');
+      return;
+    }
+
     setIsProcessing(true);
 
-    // Simular éxito del pago después de 2 segundos
-    setTimeout(() => {
-      handleSuccessfulPayment({
-        id: 'SIM-' + Date.now(),
-        status: 'COMPLETED'
-      });
-    }, 2000);
+    try {
+      // Tokenizar la tarjeta
+      const result = await card.tokenize();
+      
+      if (result.status === 'OK') {
+        console.log('✅ Token generado:', result.token);
+        
+        // Procesar el pago con el backend
+        const paymentResult = await processSquarePayment(result.token);
+        
+        if (paymentResult.success) {
+          console.log('✅ Pago procesado exitosamente:', paymentResult.data);
+          handleSuccessfulPayment(paymentResult.data);
+        } else {
+          console.error('❌ Error en pago:', paymentResult.error);
+          alert('Error procesando el pago: ' + paymentResult.error);
+          setIsProcessing(false);
+        }
+      } else {
+        console.error('❌ Error tokenizando:', result.errors);
+        alert('Error con los datos de la tarjeta');
+        setIsProcessing(false);
+      }
+    } catch (error) {
+      console.error('❌ Error general:', error);
+      alert('Error procesando el pago');
+      setIsProcessing(false);
+    }
   };
 
   // Procesar pago con Square (llamada al backend)
@@ -476,46 +534,26 @@ Beneficios disponibles:
                   </div>
                 )}
                 
-                {/* Formulario de tarjeta simulado */}
-                <div className="space-y-4 mb-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Número de Tarjeta
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="4111 1111 1111 1111"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Expiración
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="MM/AA"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        CVV
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="123"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-                </div>
-                
+                {/* Container para Square Card */}
+                <div 
+                  id="card-container" 
+                  ref={cardContainerRef}
+                  className={`${squareLoaded ? 'block' : 'hidden'}`}
+                  style={{ minHeight: '100px' }}
+                ></div>
+
                 {squareLoaded && (
-                  <button
-                    onClick={handleSquarePayment}
-                    disabled={isProcessing}
+                  <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <p className="text-xs text-yellow-800">
+                      <strong>Modo Prueba:</strong> Usa tarjeta 4111 1111 1111 1111, CVV: 111
+                    </p>
+                  </div>
+                )}
+              </div>
+                
+              <button
+                onClick={handleSquarePayment}
+                disabled={isProcessing || !squareLoaded}
                     className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isProcessing ? (
