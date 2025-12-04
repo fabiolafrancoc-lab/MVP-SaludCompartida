@@ -336,7 +336,9 @@ Cupos restantes después de este registro: ${spotsLeft - 1}
         // Continuar con el flujo de UI
         setSpotsLeft(prev => Math.max(0, prev - 1));
         setShowConfetti(true);
-        setCurrentPage('confirmation');
+        
+        // Redirigir a página de pago
+        navigate('/pago');
         
         // Enviar códigos de acceso por WhatsApp/SMS y Email
         try {
