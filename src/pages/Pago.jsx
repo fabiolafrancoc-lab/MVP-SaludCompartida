@@ -132,7 +132,7 @@ export default function Pago() {
   // Procesar pago con Square (llamada al backend)
   const processSquarePayment = async (token) => {
     try {
-      const response = await fetch('/api/square-payment.cjs', {
+      const response = await fetch('/api/square-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
