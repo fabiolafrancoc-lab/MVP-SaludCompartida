@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
-import Page3 from './page3.jsx'
+import LoginCodigo from './LoginCodigo.jsx'
 import Page4 from './page4.jsx'
 import Telemedicine from './telemedicine.jsx'
 import Pharmacy from './pharmacy.jsx'
@@ -39,7 +39,7 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} /> {/* 👈 INICIO - Burbujas Presuscripción */}
-          <Route path="/page3" element={<Page3 />} /> {/* 👈 Page3 (código entrada) */}
+          <Route path="/page3" element={<LoginCodigo />} /> {/* 👈 Login con Código de Acceso */}
           <Route path="/page4" element={<Page4 />} /> {/* 👈 Dashboard */}
           <Route path="/migrant" element={<Migrant />} /> {/* 👈 Dashboard para Migrantes (USA2025) */}
           <Route path="/migrantcontact" element={<MigrantContact />} /> {/* 👈 Contacto para Migrantes */}

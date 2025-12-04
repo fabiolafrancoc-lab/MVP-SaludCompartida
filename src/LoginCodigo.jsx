@@ -4,7 +4,7 @@ import { useGeolocation } from './hooks/useGeolocation';
 import { UserContext } from './contexts/UserContext';
 import { getUserByAccessCode } from './lib/supabase';
 
-export default function Page3() {
+export default function LoginCodigo() {
   const navigate = useNavigate();
   const { countryCode: detectedCountry, loading: geoLoading } = useGeolocation();
   const { setCurrentUser } = useContext(UserContext);
