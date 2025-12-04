@@ -96,6 +96,14 @@ export default function Footer() {
                   Sesiones con Terapeuta
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => handleNavigate('/savings')}
+                  className="text-sm text-gray-300 hover:text-cyan-400 transition-colors text-left"
+                >
+                  Mis Ahorros
+                </button>
+              </li>
             </ul>
           </div>
 
