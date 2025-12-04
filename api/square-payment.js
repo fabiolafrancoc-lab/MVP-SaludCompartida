@@ -1,15 +1,41 @@
-// API para procesar pagos con Square (CommonJS para Vercel)
-const square = require('square');
-const { Client } = square;
+// API para procesar pagos con Square (CommonJS para Vercel) - v2.0
+let squareModule;
+let Client;
+
+try {
+  squareModule = require('square');
+  console.log('✅ Square module loaded:', typeof squareModule);
+  console.log('✅ Square exports:', Object.keys(squareModule));
+  
+  // Intentar diferentes formas de importar Client
+  if (squareModule.Client) {
+    Client = squareModule.Client;
+  } else if (squareModule.default && squareModule.default.Client) {
+    Client = squareModule.default.Client;
+  } else {
+    throw new Error('Client not found in square module');
+  }
+  
+  console.log('✅ Client constructor found:', typeof Client);
+} catch (error) {
+  console.error('❌ Error loading Square SDK:', error);
+  throw error;
+}
 
 // Configuración de Square
 const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN || 'EAAAlwfQWzG7D77hEzn9EMZ82cEM_J86txrAAZYuKycqipeq6xkGremv_XAgEFXk';
 const SQUARE_ENVIRONMENT = process.env.NODE_ENV === 'production' ? 'production' : 'sandbox';
 
-const client = new Client({
-  accessToken: SQUARE_ACCESS_TOKEN,
-  environment: SQUARE_ENVIRONMENT,
-});
+let client;
+try {
+  client = new Client({
+    accessToken: SQUARE_ACCESS_TOKEN,
+    environment: SQUARE_ENVIRONMENT,
+  });
+  console.log('✅ Square client initialized');
+} catch (error) {
+  console.error('❌ Error initializing Square client:', error);
+}
 
 module.exports = async function handler(req, res) {
   // Solo permitir POST
