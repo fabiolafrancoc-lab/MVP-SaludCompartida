@@ -34,9 +34,12 @@ export default function Pharmacy() {
 
         {/* Sección de Código QR */}
         <div className="bg-gradient-to-br from-cyan-900/40 to-purple-900/40 backdrop-blur-md rounded-2xl p-8 mb-16 border border-cyan-500/30 shadow-xl">
-          <h2 className="text-3xl font-black text-white mb-8 text-center">
+          <h2 className="text-3xl font-black text-white mb-4 text-center">
             Obtén tu Código QR de Descuentos
           </h2>
+          <p className="text-cyan-300 text-center mb-8 text-lg font-semibold">
+            📱 Te enviaremos un código QR diariamente a través de WhatsApp
+          </p>
           
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="text-center">
@@ -58,8 +61,8 @@ export default function Pharmacy() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2">Recíbelo por WhatsApp</h3>
-                  <p className="text-gray-300">Te enviaremos tu código QR personalizado directamente a tu WhatsApp</p>
+                  <h3 className="text-xl font-bold text-white mb-2">Recíbelo Diariamente por WhatsApp</h3>
+                  <p className="text-gray-300">Te enviaremos tu código QR personalizado cada día directamente a tu WhatsApp</p>
                 </div>
               </div>
 
@@ -154,16 +157,10 @@ export default function Pharmacy() {
         </div>
 
         {/* CTA para obtener descuentos */}
-        <div className="bg-gradient-to-r from-cyan-600 to-pink-600 rounded-3xl p-12 text-center shadow-2xl mb-16">
-          <h2 className="text-4xl font-black text-white mb-6">
-            ¿Listo para Contratar SaludCompartida?
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Obtén acceso inmediato a todos tus descuentos y beneficios
-          </p>
+        <div className="text-center">
           <button
             onClick={() => navigate('/page3')}
-            className="bg-white text-cyan-600 px-8 py-4 rounded-2xl text-xl font-bold shadow-2xl hover:shadow-white/50 transition-all transform hover:scale-105 inline-block"
+            className="bg-gradient-to-r from-cyan-600 to-cyan-500 text-white px-8 py-4 rounded-2xl text-xl font-bold shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:scale-105 inline-block"
           >
             Contratar Ahora
           </button>

@@ -70,39 +70,31 @@ export default function Therapy() {
                 </div>
               </div>
             </div>
-
-            <button onClick={() => navigate('/page3')} className="w-full md:w-auto bg-white text-purple-600 px-12 py-5 rounded-2xl font-bold text-xl hover:bg-gray-100 transition-all shadow-2xl hover:shadow-purple-500/50 transform hover:scale-105">
-              Contratar SaludCompartida
-            </button>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-purple-500/30">
             <div className="bg-purple-500 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-white font-black text-xl">1</div>
             <h3 className="text-xl font-bold text-white mb-3">Contrata SaludCompartida</h3>
             <p className="text-gray-300">Obtén acceso inmediato a psicólogos certificados</p>
           </div>
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-pink-500/30">
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-pink-500/30">
             <div className="bg-pink-500 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-white font-black text-xl">2</div>
             <h3 className="text-xl font-bold text-white mb-3">Agenda tu Sesión</h3>
             <p className="text-gray-300">Contacta al terapeuta y agenda una cita</p>
           </div>
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-cyan-500/30">
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-cyan-500/30">
             <div className="bg-cyan-500 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-white font-black text-xl">3</div>
             <h3 className="text-xl font-bold text-white mb-3">Recibe Apoyo</h3>
             <p className="text-gray-300">Conéctate por videollamada y comienza tu proceso</p>
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-cyan-600 to-cyan-500 rounded-3xl p-16 text-center shadow-2xl">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">¿Listo para Contratar?</h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Invierte en tu salud mental y accede a terapia profesional incluida en tu membresía
-          </p>
+        <div className="text-center">
           <button
             onClick={() => navigate('/page3')}
-            className="bg-white text-cyan-600 px-12 py-5 rounded-2xl text-2xl font-bold shadow-2xl hover:shadow-white/50 transition-all transform hover:scale-105"
+            className="bg-gradient-to-r from-cyan-600 to-cyan-500 text-white px-8 py-4 rounded-2xl text-xl font-bold shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:scale-105 inline-block"
           >
             Contratar Ahora
           </button>
