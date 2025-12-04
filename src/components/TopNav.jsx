@@ -207,7 +207,7 @@ const TopNav = ({
 
           {/* Botón "Contratar SaludCompartida" - CYAN */}
           <button
-            onClick={() => navigate('/page3')}
+            onClick={() => navigate('/registro')}
             className="hidden md:block bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             Contratar SaludCompartida
@@ -223,7 +223,7 @@ const TopNav = ({
 
           {/* Versión mobile de los botones */}
           <button
-            onClick={() => navigate('/page3')}
+            onClick={() => navigate('/registro')}
             className="md:hidden bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-cyan-600 hover:to-cyan-700 transition-all"
           >
             Contratar
