@@ -46,8 +46,15 @@ export default function Pago() {
         if (!window.Square) {
           const script = document.createElement('script');
           script.src = 'https://sandbox.web.squarecdn.com/v1/square.js';
-          script.async = true;
-          script.onload = () => initializeSquare();
+          script.async = false; // Cambiar a false para carga sincrónica
+          script.onload = () => {
+            console.log('✅ Script de Square cargado');
+            // Esperar 500ms antes de inicializar
+            setTimeout(() => initializeSquare(), 500);
+          };
+          script.onerror = () => {
+            console.error('❌ Error cargando script de Square');
+          };
           document.body.appendChild(script);
         } else {
           initializeSquare();
@@ -59,6 +66,12 @@ export default function Pago() {
 
     const initializeSquare = async () => {
       try {
+        if (!window.Square) {
+          console.error('❌ window.Square no está disponible');
+          return;
+        }
+
+        console.log('🔄 Inicializando Square Payments...');
         const payments = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
         const card = await payments.card();
         await card.attach('#card-container');
@@ -70,6 +83,7 @@ export default function Pago() {
         console.log('✅ Square SDK cargado correctamente');
       } catch (error) {
         console.error('❌ Error inicializando Square:', error);
+        setSquareLoaded(false);
       }
     };
 
