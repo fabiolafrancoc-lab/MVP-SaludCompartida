@@ -337,6 +337,26 @@ Cupos restantes después de este registro: ${spotsLeft - 1}
         setSpotsLeft(prev => Math.max(0, prev - 1));
         setShowConfetti(true);
         
+        // Guardar datos del usuario para la página de pago
+        const registrationUser = {
+          firstName: migrantFirstName,
+          lastName: migrantLastName,
+          motherLastName: migrantMotherLastName,
+          email: migrantEmail,
+          phone: cleanMigrantPhone,
+          countryCode: '+1',
+          familyFirstName: familyFirstName,
+          familyLastName: familyLastName,
+          familyMotherLastName: familyMotherLastName,
+          familyEmail: familyEmail,
+          familyPhone: cleanFamilyPhone,
+          familyCountryCode: '+52',
+          familyCountry: familyCountry,
+          migrantAccessCode: result.migrantAccessCode,
+          familyAccessCode: result.familyAccessCode
+        };
+        localStorage.setItem('registrationUser', JSON.stringify(registrationUser));
+        
         // Redirigir a página de pago
         navigate('/pago');
         
