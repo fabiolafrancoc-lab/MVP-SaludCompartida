@@ -1,6 +1,5 @@
-// API para procesar pagos con Square
-import squarePackage from 'square';
-const { Client } = squarePackage;
+// API para procesar pagos con Square (CommonJS para Vercel)
+const { Client } = require('square');
 
 // Configuración de Square
 const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN || 'EAAAlwfQWzG7D77hEzn9EMZ82cEM_J86txrAAZYuKycqipeq6xkGremv_XAgEFXk';
@@ -11,7 +10,7 @@ const client = new Client({
   environment: SQUARE_ENVIRONMENT,
 });
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Solo permitir POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
