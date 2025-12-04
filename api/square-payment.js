@@ -28,7 +28,9 @@ export default async function handler(req, res) {
 
   try {
     console.log('💳 Procesando pago con Square...');
+    console.log('Source ID:', sourceId);
     console.log('Amount:', amount, 'Currency:', currency);
+    console.log('Environment:', SQUARE_ENVIRONMENT);
 
     // Crear el pago
     const { result } = await client.paymentsApi.createPayment({
@@ -56,6 +58,7 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('❌ Error procesando pago:', error);
+    console.error('Error details:', error.errors);
     
     return res.status(500).json({
       success: false,
