@@ -1,5 +1,6 @@
 // API para procesar pagos con Square (CommonJS para Vercel)
-const { Client } = require('square');
+const square = require('square');
+const { Client } = square;
 
 // Configuración de Square
 const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN || 'EAAAlwfQWzG7D77hEzn9EMZ82cEM_J86txrAAZYuKycqipeq6xkGremv_XAgEFXk';
