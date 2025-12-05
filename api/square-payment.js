@@ -1,6 +1,6 @@
 // API para procesar pagos con Square - Siguiendo la sugerencia de Vercel
 import pkg from 'square';
-const { Client, Environment } = pkg;
+const { Client } = pkg;
 
 // Configuración de Square
 const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN || 'EAAAlwfQWzG7D77hEzn9EMZ82cEM_J86txrAAZYuKycqipeq6xkGremv_XAgEFXk';
@@ -9,7 +9,7 @@ const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID || 'LT92PZMMZ3CQ2';
 // Inicializar cliente de Square
 const client = new Client({
   accessToken: SQUARE_ACCESS_TOKEN,
-  environment: Environment.Sandbox,
+  environment: 'sandbox', // 'sandbox' o 'production'
 });
 
 export default async function handler(req, res) {
