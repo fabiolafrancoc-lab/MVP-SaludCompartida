@@ -1,17 +1,17 @@
-// API para procesar pagos con Square (CommonJS para Vercel)
-const square = require('square');
+// API para procesar pagos con Square - ES6 modules para Vercel
+import { Client, Environment } from 'square';
 
 // Configuración de Square
 const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN || 'EAAAlwfQWzG7D77hEzn9EMZ82cEM_J86txrAAZYuKycqipeq6xkGremv_XAgEFXk';
 const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID || 'LT92PZMMZ3CQ2';
 
-// Inicializar cliente de Square - usar string 'sandbox' directamente
-const client = new square.Client({
+// Inicializar cliente de Square
+const client = new Client({
   accessToken: SQUARE_ACCESS_TOKEN,
-  environment: 'sandbox', // 'sandbox' o 'production'
+  environment: Environment.Sandbox,
 });
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   console.log('🔍 Square Payment API called');
   console.log('📝 Method:', req.method);
   
