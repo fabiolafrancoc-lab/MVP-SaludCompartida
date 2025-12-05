@@ -312,7 +312,7 @@ País: ${familyCountry}
 
 --- INFORMACIÓN ADICIONAL ---
 Fecha de registro: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-Cupos restantes después de este registro: ${spotsLeft - 1}
+Suscripciones restantes después de este registro: ${spotsLeft - 1}
 
 --- SIGUIENTE PASO ---
 ⚠️ IMPORTANTE: Los usuarios deben usar su código de acceso para ingresar.
@@ -403,7 +403,7 @@ Recibirás notificación antes del 18 de noviembre de 2025.
 👨‍👩‍👧 Datos registrados:
 • Migrante (USA): ${migrantFirstName} ${migrantLastName}
 • Familiar (México): ${familyFirstName} ${familyLastName}
-• Cupos restantes: ${spotsLeft} de 1,000
+• Suscripciones restantes: ${spotsLeft} de 1,000
 
 💡 Importante:
 Mantén tu email activo. Te contactaremos a: ${migrantEmail}
@@ -497,7 +497,7 @@ Recibirás notificación antes del 18 de noviembre de 2025.
 👨‍👩‍👧 Datos registrados:
 • Familiar (México): ${familyFirstName} ${familyLastName}
 • Migrante (USA): ${migrantFirstName} ${migrantLastName}
-• Cupos restantes: ${spotsLeft} de 1,000
+• Suscripciones restantes: ${spotsLeft} de 1,000
 
 🏥 Servicios incluidos si eres seleccionado:
 • Telemedicina 24/7
@@ -650,21 +650,20 @@ Equipo SaludCompartida`,
                 <div className="relative z-10">
                   <div className="mb-6">
                     <p className="text-white/90 text-sm font-medium uppercase tracking-wider mb-2">
-                      Cupos Disponibles - Segunda Fase
+                      Suscripciones Disponibles - Segunda Fase
                     </p>
                     <div className="flex items-baseline gap-3 mb-4">
                       <p className="text-white text-5xl font-bold animate-bounce">
                         {spotsLeft}
                       </p>
                       <p className="text-white/80 text-lg">
-                        de {totalSpots} cupos
+                        de {totalSpots} suscripciones
                       </p>
                     </div>
                     
                     <div className="bg-white/20 rounded-xl p-4 mb-4">
                       <p className="text-white text-sm leading-relaxed">
-                        <strong>Hemos recibido 4,500 solicitudes</strong> y solo podemos aceptar 1,000 participantes. 
-                        <span className="block mt-2 text-yellow-200 font-semibold">⏰ Quedan 3 días para seleccionar los 1,000 participantes.</span>
+                        <span className="block text-yellow-200 font-semibold">Ya están suscritos {totalSpots - spotsLeft} familias</span>
                       </p>
                     </div>
                   </div>
@@ -682,7 +681,7 @@ Equipo SaludCompartida`,
                       Comienza Tu Registro
                     </h3>
                     <p className="text-gray-600 text-lg leading-relaxed">
-                      Completa tu información para tener la oportunidad de ser seleccionado en nuestro programa piloto
+                      Regístrate ahora y sé parte de las 1,000 familias que acceden a SaludCompartida. Estamos donde está tu corazón.
                     </p>
                   </div>
 
@@ -703,7 +702,7 @@ Equipo SaludCompartida`,
 
                       <div className="grid md:grid-cols-3 gap-4 items-start">
                         <div>
-                          <label className="block text-xs font-semibold text-gray-700 mb-2 min-h-[24px]">Nombre</label>
+                          <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Nombre</label>
                           <input
                             type="text"
                             value={migrantFirstName}
@@ -718,7 +717,7 @@ Equipo SaludCompartida`,
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-gray-700 mb-2 min-h-[24px]">Apellido Paterno</label>
+                          <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Apellido Paterno</label>
                           <input
                             type="text"
                             value={migrantLastName}
@@ -733,7 +732,7 @@ Equipo SaludCompartida`,
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-gray-700 mb-2 min-h-[24px]">Apellido Materno <span className="text-gray-500 font-normal text-[10px]">(opcional)</span></label>
+                          <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Apellido Materno <span className="text-gray-500 font-normal text-[10px]">(opcional)</span></label>
                           <input
                             type="text"
                             value={migrantMotherLastName}
@@ -748,7 +747,7 @@ Equipo SaludCompartida`,
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-2">Correo Electrónico</label>
+                        <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Correo Electrónico</label>
                         <input
                           type="email"
                           value={migrantEmail}
@@ -764,14 +763,14 @@ Equipo SaludCompartida`,
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                        <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center gap-2 text-left">
                           <span>Proporciónanos tu WhatsApp (Estados Unidos)</span>
                           <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                           </svg>
                         </label>
                         <div className="relative">
-                          <div className="absolute left-4 top-3.5 text-gray-500 font-semibold pointer-events-none z-10">+1</div>
+                          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold pointer-events-none z-10">+1</div>
                           <input
                             type="tel"
                             value={migrantPhone}
@@ -779,7 +778,7 @@ Equipo SaludCompartida`,
                               setMigrantPhone(formatUSPhone(e.target.value));
                               clearError();
                             }}
-                            placeholder="(305) 123-4567"
+                            placeholder="305 123 4567"
                             maxLength="14"
                             className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all text-gray-900 placeholder-gray-400 bg-white ${
                               missingFields.includes('migrantPhone') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cyan-500'
@@ -830,7 +829,7 @@ Equipo SaludCompartida`,
 
                       <div className="grid md:grid-cols-3 gap-4 items-start">
                         <div>
-                          <label className="block text-xs font-semibold text-gray-700 mb-2 min-h-[24px]">Nombre</label>
+                          <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Nombre</label>
                           <input
                             type="text"
                             value={familyFirstName}
@@ -845,7 +844,7 @@ Equipo SaludCompartida`,
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-gray-700 mb-2 min-h-[24px]">Apellido Paterno</label>
+                          <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Apellido Paterno</label>
                           <input
                             type="text"
                             value={familyLastName}
@@ -860,7 +859,7 @@ Equipo SaludCompartida`,
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-gray-700 mb-2 min-h-[24px]">Apellido Materno <span className="text-gray-500 font-normal text-[10px]">(opcional)</span></label>
+                          <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Apellido Materno <span className="text-gray-500 font-normal text-[10px]">(opcional)</span></label>
                           <input
                             type="text"
                             value={familyMotherLastName}
@@ -875,7 +874,7 @@ Equipo SaludCompartida`,
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-2">Correo Electrónico <span className="text-gray-500 font-normal text-[10px]">(opcional)</span></label>
+                        <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Correo Electrónico <span className="text-gray-500 font-normal text-[10px]">(opcional)</span></label>
                         <input
                           type="email"
                           value={familyEmail}
@@ -892,14 +891,14 @@ Equipo SaludCompartida`,
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                        <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center gap-2 text-left">
                           <span>Proporciónanos su WhatsApp (México)</span>
                           <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                           </svg>
                         </label>
                         <div className="relative">
-                          <div className="absolute left-4 top-3.5 text-gray-500 font-semibold pointer-events-none z-10">+52</div>
+                          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold pointer-events-none z-10">+52</div>
                           <input
                             type="tel"
                             value={familyPhone}
@@ -907,7 +906,7 @@ Equipo SaludCompartida`,
                               setFamilyPhone(formatMXPhone(e.target.value));
                               clearError();
                             }}
-                            placeholder="(55) 1234-5678"
+                            placeholder="55 1234 5678"
                             maxLength="14"
                             className={`w-full pl-14 pr-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-pink-500 transition-all text-gray-900 placeholder-gray-400 bg-white ${
                               missingFields.includes('familyPhone') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-pink-500'
