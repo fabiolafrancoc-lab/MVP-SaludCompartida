@@ -129,12 +129,20 @@ const Migrant = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            ¡Hola, {userName}!
+          <h1 className="text-5xl font-bold text-gray-900 mb-2">
+            ¡Hola, <span className="text-cyan-500">{userName}</span>!
           </h1>
-          <p className="text-xl text-gray-600">
-            Mira los ahorros de tu familia en México
+          <p className="text-2xl text-gray-600 mb-4">
+            Migrante
           </p>
+          <div className="bg-gradient-to-r from-orange-50 to-pink-50 border-l-4 border-orange-500 rounded-lg p-6 mt-6">
+            <p className="text-lg text-gray-800 leading-relaxed">
+              <span className="font-bold text-orange-600">¡Bienvenido a tu comunidad!</span> Acabas de dar el paso más importante: 
+              proteger la salud de tu familia. <span className="font-semibold text-cyan-600">Miles de familias ya están ahorrando</span> y 
+              tú acabas de unirte. <span className="font-bold text-pink-600">No esperes más para que tu familia comience a usar los servicios.</span> Cada 
+              día cuenta, y los beneficios están activos desde ahora. 💙
+            </p>
+          </div>
         </div>
 
         {/* Total Savings Hero Card */}
@@ -143,46 +151,17 @@ const Migrant = () => {
             <div>
               <p className="text-cyan-100 text-lg mb-2">Ahorro Total Acumulado</p>
               <h2 className="text-6xl font-bold mb-4">
-                ${displayedTotal.toFixed(2)} dólares
+                MX$ 0.00
               </h2>
               <p className="text-cyan-100 text-lg">
-                En {savingsData.monthsActive} meses • Proyección anual: ${annualProjection} dólares
+                Recién estás comenzando • A medida que uses los servicios, verás tus ahorros crecer aquí
               </p>
             </div>
             <div className="bg-white/20 backdrop-blur-lg rounded-2xl p-6 text-center">
-              <p className="text-cyan-100 text-sm mb-2">Ahorro Último Mes</p>
-              <p className="text-4xl font-bold">${savingsData.lastMonthSavings} dólares</p>
-              <p className="text-cyan-100 text-sm mt-2">Mes 3</p>
+              <p className="text-cyan-100 text-sm mb-2">Ahorro Este Mes</p>
+              <p className="text-4xl font-bold">MX$ 0.00</p>
+              <p className="text-cyan-100 text-sm mt-2">Mes 1</p>
             </div>
-          </div>
-        </div>
-
-        {/* Monthly Breakdown Chart */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">Ahorro Mensual en Dólares</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={savingsData.monthlyBreakdown}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis domain={[0, 200]} />
-              <Tooltip formatter={(value) => `$${value.toFixed(2)} USD`} />
-              <Legend />
-              <Bar dataKey="saved" fill="#06b6d4" name="Ahorro (USD)" />
-            </BarChart>
-          </ResponsiveContainer>
-          
-          {/* Congratulations message */}
-          <div className="mt-8 bg-gradient-to-r from-green-50 to-cyan-50 rounded-xl p-6 border-2 border-green-200">
-            <h4 className="text-xl font-bold text-gray-900 mb-3">
-              ¡Felicidades por tu decisión!
-            </h4>
-            <p className="text-gray-700 leading-relaxed">
-              Tomaste la mejor decisión al registrarte en SaludCompartida. Tu familia ya está ahorrando 
-              y construyendo un futuro más tranquilo. <span className="font-semibold text-green-600">Ahora puedes 
-              descansar sabiendo que los imprevistos de salud ya no serán una carga.</span> Cada dólar que envías 
-              se multiplica en valor y bienestar. <span className="font-semibold text-cyan-600">Estás protegiendo 
-              lo que más amas, y eso te hace extraordinario.</span>
-            </p>
           </div>
         </div>
 
@@ -232,17 +211,17 @@ const Migrant = () => {
         </div>
 
         {/* Info Banner */}
-        <div className="bg-cyan-50 border-l-4 border-cyan-500 rounded-lg p-6">
+        <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border-l-4 border-cyan-500 rounded-lg p-6">
           <div className="flex items-start">
             <svg className="w-6 h-6 text-cyan-600 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
             </svg>
             <div>
               <p className="text-sm text-cyan-900 font-semibold mb-1">
-                Tu familia está ahorrando gracias a SaludCompartida
+                ¡Tu familia ya tiene acceso a todos los servicios! 🎉
               </p>
               <p className="text-sm text-cyan-800">
-                Estos ahorros representan el dinero que tu familia en México está ahorrando en servicios de salud, terapia y medicinas. Gracias a tu apoyo, tienen acceso a atención médica de calidad a precios accesibles.
+                Los ahorros comenzarán a mostrarse aquí cuando tu familia en México use los servicios de telemedicina, terapia o descuentos en farmacias. Recuerda: cada consulta, cada receta, cada descuento se traducirá en ahorros reales que verás reflejados en este tablero.
               </p>
             </div>
           </div>
