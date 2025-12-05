@@ -143,7 +143,20 @@ export default function Pago() {
         })
       });
 
+      // Verificar si la respuesta es JSON antes de parsear
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('❌ Respuesta no es JSON:', text.substring(0, 200));
+        throw new Error('El servidor retornó un error. Por favor intenta de nuevo.');
+      }
+
       const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Error procesando el pago');
+      }
+      
       return data;
     } catch (error) {
       console.error('Error en API:', error);
