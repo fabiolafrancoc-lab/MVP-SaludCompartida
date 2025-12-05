@@ -5,10 +5,10 @@ const square = require('square');
 const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN || 'EAAAlwfQWzG7D77hEzn9EMZ82cEM_J86txrAAZYuKycqipeq6xkGremv_XAgEFXk';
 const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID || 'LT92PZMMZ3CQ2';
 
-// Inicializar cliente de Square usando la estructura correcta
+// Inicializar cliente de Square - usar string 'sandbox' directamente
 const client = new square.Client({
   accessToken: SQUARE_ACCESS_TOKEN,
-  environment: square.Environment.Sandbox,
+  environment: 'sandbox', // 'sandbox' o 'production'
 });
 
 module.exports = async function handler(req, res) {
