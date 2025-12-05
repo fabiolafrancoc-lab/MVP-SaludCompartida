@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGeolocation } from './hooks/useGeolocation';
 import { UserContext } from './contexts/UserContext';
 import { getUserByAccessCode } from './lib/supabase';
+import TopNav from './components/TopNav';
 
 export default function LoginCodigo() {
   const navigate = useNavigate();
@@ -204,9 +205,124 @@ export default function LoginCodigo() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Header con TopNav estilo blanco */}
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
+          {/* Logo grande */}
+          <div className="flex items-center cursor-pointer" onClick={() => navigate('/')}>
+            <img 
+              src="/saludcompartida logo WT.png" 
+              alt="SaludCompartida" 
+              className="h-16 md:h-20 object-contain hover:opacity-80 transition-opacity" 
+            />
+          </div>
+          
+          {/* Menú de navegación - Desktop */}
+          <nav className="hidden lg:flex items-center gap-6">
+            <button
+              onClick={() => navigate('/home')}
+              className="text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors"
+            >
+              HOME
+            </button>
+
+            <div className="relative group">
+              <button className="text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1">
+                Quienes Somos
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <button
+                  onClick={() => navigate('/quienes-somos')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
+                >
+                  Quienes Somos
+                </button>
+                <button
+                  onClick={() => navigate('/vision-mision')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors"
+                >
+                  Visión y Misión
+                </button>
+                <button
+                  onClick={() => navigate('/nuestros-pilares')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors last:rounded-b-lg"
+                >
+                  Nuestros Pilares
+                </button>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <button className="text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1">
+                Servicios
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <button
+                  onClick={() => navigate('/telemedicine')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
+                >
+                  Videollamada con Doctores 24/7
+                </button>
+                <button
+                  onClick={() => navigate('/pharmacy')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors"
+                >
+                  Descuento en Farmacias
+                </button>
+                <button
+                  onClick={() => navigate('/therapy')}
+                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors last:rounded-b-lg"
+                >
+                  Sesiones con Terapeuta
+                </button>
+              </div>
+            </div>
+
+            <button
+              onClick={() => navigate('/contacto')}
+              className="text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors"
+            >
+              Contacto
+            </button>
+
+            <button
+              onClick={() => navigate('/registro')}
+              className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-6 py-2 rounded-lg font-bold hover:from-cyan-600 hover:to-cyan-700 transition-all shadow-md hover:shadow-lg"
+            >
+              Contratar
+            </button>
+          </nav>
+
+          {/* Menú Mobile */}
+          <button 
+            className="lg:hidden p-2 text-gray-700 hover:text-cyan-600"
+            onClick={() => {
+              // Toggle mobile menu logic here
+            }}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
       {/* Hero con imágenes */}
       <div className="relative bg-gradient-to-br from-cyan-50 to-pink-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          {/* Título grande antes de las fotos */}
+          <h2 className="text-6xl md:text-7xl font-black text-cyan-500 text-center mb-12">
+            SaludCompartida
+          </h2>
+          
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Columna izquierda - Imágenes */}
             <div className="space-y-6">
@@ -220,12 +336,17 @@ export default function LoginCodigo() {
                 alt="Familia feliz" 
                 className="w-full h-64 object-cover rounded-3xl shadow-2xl"
               />
+              
+              {/* Texto grande después de la segunda foto */}
+              <h3 className="text-5xl md:text-6xl font-black text-cyan-500 text-center pt-6">
+                Donde está tu CORAZÓN
+              </h3>
             </div>
 
             {/* Columna derecha - Formulario */}
             <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-200">
               <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-                ¡Bienvenido de Regreso!
+                ¡Bienvenido!
               </h1>
               <p className="text-xl text-gray-600 mb-8">
                 Ingresa tu código de acceso para continuar
@@ -234,7 +355,7 @@ export default function LoginCodigo() {
               <div className="space-y-6">
                 {/* Código de Acceso */}
                 <div>
-                  <label className="block text-gray-800 font-bold mb-2">
+                  <label className="block text-gray-800 font-bold mb-2 text-left">
                     Código de Acceso <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -256,7 +377,7 @@ export default function LoginCodigo() {
 
                 {/* Nombre */}
                 <div>
-                  <label className="block text-gray-800 font-bold mb-2">
+                  <label className="block text-gray-800 font-bold mb-2 text-left">
                     Nombre <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -279,7 +400,7 @@ export default function LoginCodigo() {
 
                 {/* Apellido Paterno */}
                 <div>
-                  <label className="block text-gray-800 font-bold mb-2">
+                  <label className="block text-gray-800 font-bold mb-2 text-left">
                     Apellido Paterno <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -302,7 +423,7 @@ export default function LoginCodigo() {
 
                 {/* WhatsApp */}
                 <div>
-                  <label className="block text-gray-800 font-bold mb-2">
+                  <label className="block text-gray-800 font-bold mb-2 text-left">
                     WhatsApp <span className="text-red-500">*</span>
                   </label>
                   <div className="flex gap-2">
