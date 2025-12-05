@@ -39,8 +39,14 @@ export default function Confirmacion() {
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50 flex flex-col">
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-center">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <img src="/saludcompartida logo WT.png" alt="SaludCompartida" className="h-10" />
+          <a 
+            href="/page3" 
+            className="bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold px-4 py-2 rounded-lg hover:shadow-lg transition-all text-sm"
+          >
+            Ya tengo mi Código - Login
+          </a>
         </div>
       </div>
 

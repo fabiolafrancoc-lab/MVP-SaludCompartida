@@ -509,7 +509,7 @@ Beneficios disponibles:
               <h3 className="font-bold text-lg text-gray-900 mb-4">SaludCompartida</h3>
               <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
                 <div>
-                  <p className="font-semibold text-gray-900">Plan Familiar US-MEX</p>
+                  <p className="font-semibold text-gray-900 text-left">Plan Familiar US-MEX</p>
                   <p className="text-sm text-gray-600">Hasta 4 familiares en México</p>
                 </div>
                 <p className="text-2xl font-bold text-cyan-600">$12.00</p>
@@ -522,7 +522,7 @@ Beneficios disponibles:
               <div className="space-y-3">
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-gray-700">Videollamada con Doctores 24/7. Receta electrónica de ser necesario.</p>
+                  <p className="text-sm text-gray-700 text-left">Videollamada con Doctores 24/7. Receta electrónica de ser necesario.</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -543,8 +543,8 @@ Beneficios disponibles:
             <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
               <Lock className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-blue-900 text-sm">Aviso legal sobre pagos con tarjeta</p>
-                <p className="text-sm text-blue-700">
+                <p className="font-semibold text-blue-900 text-sm text-left">Aviso legal sobre pagos con tarjeta</p>
+                <p className="text-sm text-blue-700 text-justify">
                   Procesamos los pagos con tarjeta a través de SQUARE, empresa certificada bajo la norma PCI DSS, que cifra y protege tus datos bancarios siguiendo los más altos estándares internacionales de seguridad.
                 </p>
               </div>
