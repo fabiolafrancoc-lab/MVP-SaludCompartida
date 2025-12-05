@@ -170,6 +170,15 @@ export default function Pago() {
 
     console.log('💳 Procesando pago exitoso de Square...');
     console.log('Payment ID:', paymentData.id);
+    console.log('UserData disponible:', userData);
+    
+    // Validar que userData existe
+    if (!userData || !userData.firstName) {
+      console.error('❌ Error: userData no está disponible');
+      alert('Error: Datos de usuario no encontrados. Por favor recarga la página e intenta de nuevo.');
+      setIsProcessing(false);
+      return;
+    }
     
     // Generar códigos únicos para migrante y familiar
     const generateCode = (prefix) => {
