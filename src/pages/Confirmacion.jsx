@@ -40,7 +40,7 @@ export default function Confirmacion() {
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <img src="/saludcompartida logo WT.png" alt="SaludCompartida" className="h-10" />
+          <img src="/saludcompartida logo WT.png" alt="SaludCompartida" className="h-20" />
           <a 
             href="/page3" 
             className="bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold px-4 py-2 rounded-lg hover:shadow-lg transition-all text-sm"
@@ -182,12 +182,12 @@ export default function Confirmacion() {
             <div className="flex items-start gap-3">
               <Mail className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-bold text-blue-900 mb-2">¿Qué sigue?</h3>
-                <ul className="space-y-2 text-sm text-blue-800">
+                <h3 className="font-bold text-blue-900 mb-2 text-left">¿Qué sigue?</h3>
+                <ul className="space-y-2 text-sm text-blue-800 text-left">
                   <li>✓ Recibirás un correo de bienvenida en los próximos minutos</li>
                   <li>✓ Tus códigos de acceso llegarán por WhatsApp y email en menos de 30 segundos</li>
                   <li>✓ Puedes agregar hasta 4 familiares desde tu panel de control</li>
-                  <li>✓ El acceso a telemedicina está activo inmediatamente</li>
+                  <li>✓ Videollamada con Doctores inmediatamente</li>
                 </ul>
               </div>
             </div>
@@ -197,15 +197,15 @@ export default function Confirmacion() {
           <div className="text-center">
             <button
               onClick={() => navigate('/page3')}
-              className="bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold py-4 px-8 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all"
+              className="bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold py-4 px-8 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all"
             >
-              Ingresar Mi Código
+              Ya tengo mi Código Login
             </button>
           </div>
         </div>
       </div>
 
-      <Footer />
+      <Footer variant="light" />
     </div>
   );
 }
