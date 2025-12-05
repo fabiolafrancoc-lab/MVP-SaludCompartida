@@ -662,8 +662,8 @@ Equipo SaludCompartida`,
                     </div>
                     
                     <div className="bg-white/20 rounded-xl p-4 mb-4">
-                      <p className="text-white text-sm leading-relaxed">
-                        <span className="block text-yellow-200 font-semibold">Ya están suscritos {totalSpots - spotsLeft} familias</span>
+                      <p className="text-white text-lg leading-relaxed">
+                        <span className="block text-yellow-200 font-bold text-xl">Ya están suscritos {totalSpots - spotsLeft} familias</span>
                       </p>
                     </div>
                   </div>
@@ -695,8 +695,8 @@ Equipo SaludCompartida`,
                           </svg>
                         </div>
                         <div>
-                          <h4 className="text-xl font-bold text-gray-900">Tus Datos</h4>
-                          <p className="text-sm text-gray-500">Información del migrante en EE.UU.</p>
+                          <h4 className="text-xl font-bold text-gray-900 text-left">Tus Datos</h4>
+                          <p className="text-sm text-gray-500 text-left">Información del migrante en EE.UU.</p>
                         </div>
                       </div>
 
@@ -732,7 +732,7 @@ Equipo SaludCompartida`,
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Apellido Materno <span className="text-gray-500 font-normal text-[10px]">(opcional)</span></label>
+                          <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Apellido Materno <span className="text-orange-500 font-bold">*</span></label>
                           <input
                             type="text"
                             value={migrantMotherLastName}
@@ -791,14 +791,16 @@ Equipo SaludCompartida`,
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">Haga clic en el lugar donde vive su familiar</label>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2 text-left">Haga clic en el lugar donde vive su familiar</label>
                         <select
                           value={familyCountry}
                           onChange={(e) => {
                             setFamilyCountry(e.target.value);
                             clearError();
                           }}
-                          className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all text-gray-900 bg-white"
+                          className={`w-full px-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all text-gray-900 bg-white ${
+                            missingFields.includes('familyCountry') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cyan-500'
+                          }`}
                         >
                           <option value="">Selecciona un país</option>
                           <option value="MX">🇲🇽 México</option>
@@ -822,8 +824,8 @@ Equipo SaludCompartida`,
                           </svg>
                         </div>
                         <div>
-                          <h4 className="text-xl font-bold text-gray-900">Tu Conexión en Casa</h4>
-                          <p className="text-sm text-gray-500">Familiar en México</p>
+                          <h4 className="text-xl font-bold text-gray-900 text-left">Tu Conexión en Casa</h4>
+                          <p className="text-sm text-gray-500 text-left">Familiar en México</p>
                         </div>
                       </div>
 
@@ -859,7 +861,7 @@ Equipo SaludCompartida`,
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Apellido Materno <span className="text-gray-500 font-normal text-[10px]">(opcional)</span></label>
+                          <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Apellido Materno <span className="text-orange-500 font-bold">*</span></label>
                           <input
                             type="text"
                             value={familyMotherLastName}
@@ -887,6 +889,9 @@ Equipo SaludCompartida`,
                         />
                         <p className="mt-2 text-xs text-gray-500">
                           Si tu familiar tiene email, lo usaremos para enviarle su código de acceso
+                        </p>
+                        <p className="mt-3 text-xs text-orange-500 font-semibold">
+                          * Información Voluntaria
                         </p>
                       </div>
 
