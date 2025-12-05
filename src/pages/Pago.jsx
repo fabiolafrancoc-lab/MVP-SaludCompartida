@@ -229,7 +229,6 @@ export default function Pago() {
       email: currentUserData.email,
       phone: currentUserData.phone,
       countryCode: currentUserData.countryCode,
-      phoneId: currentUserData.phoneId,
       confirmationNumber: subscriptionData.confirmationNumber,
       activatedAt: null
     };
@@ -237,11 +236,11 @@ export default function Pago() {
     // Código del familiar en México
     accessCodes[familyCode] = {
       type: 'family',
-      firstName: currentUserData.familyMember.firstName,
-      lastName: currentUserData.familyMember.lastName,
-      whatsapp: currentUserData.familyMember.whatsapp,
-      countryCode: currentUserData.familyMember.countryCode,
-      phoneId: currentUserData.familyMember.phoneId,
+      firstName: currentUserData.familyFirstName,
+      lastName: currentUserData.familyLastName,
+      whatsapp: currentUserData.familyPhone,
+      countryCode: currentUserData.familyCountryCode,
+      phoneId: null, // Se llenará cuando active el código
       confirmationNumber: subscriptionData.confirmationNumber,
       activatedAt: null
     };
@@ -267,8 +266,8 @@ export default function Pago() {
     console.log('🚀 Iniciando envío de códigos...');
     console.log('📋 Datos del usuario:', {
       migrantEmail: userData.email,
-      migrantPhone: userData.phoneId,
-      familyPhone: userData.familyMember.phoneId,
+      migrantPhone: userData.phone,
+      familyPhone: userData.familyPhone,
       migrantCode,
       familyCode
     });
@@ -291,12 +290,12 @@ Haz clic en "¿Tienes tu Código?" e ingresa tu código.
 
 ¿Necesitas ayuda? Escríbenos a este número.`;
 
-      console.log('📱 Enviando WhatsApp a migrante:', userData.phoneId);
+      console.log('📱 Enviando WhatsApp a migrante:', userData.phone);
       const whatsappMigrantResponse = await fetch('/api/send-whatsapp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          to: userData.phoneId,
+          to: userData.phone,
           message: migrantMessage,
           type: 'access-code',
           countryCode: userData.countryCode
@@ -323,15 +322,15 @@ Beneficios disponibles:
 
 ¿Necesitas ayuda? Escríbenos a este número.`;
 
-      console.log('📱 Enviando WhatsApp a familiar:', userData.familyMember.phoneId);
+      console.log('📱 Enviando WhatsApp a familiar:', userData.familyPhone);
       const whatsappFamilyResponse = await fetch('/api/send-whatsapp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          to: userData.familyMember.phoneId,
+          to: userData.familyPhone,
           message: familyMessage,
           type: 'access-code',
-          countryCode: userData.familyMember.countryCode
+          countryCode: userData.familyCountryCode
         })
       });
       const whatsappFamilyData = await whatsappFamilyResponse.json();
@@ -390,14 +389,14 @@ Beneficios disponibles:
         <ul>
           <li><strong>Nombre:</strong> ${userData.firstName} ${userData.lastName}</li>
           <li><strong>Email:</strong> ${userData.email}</li>
-          <li><strong>Teléfono:</strong> ${userData.phoneId}</li>
+          <li><strong>Teléfono:</strong> ${userData.phone}</li>
           <li><strong>Código:</strong> ${migrantCode}</li>
         </ul>
 
         <h3>Datos del Familiar (México):</h3>
         <ul>
-          <li><strong>Nombre:</strong> ${userData.familyMember.firstName} ${userData.familyMember.lastName}</li>
-          <li><strong>WhatsApp:</strong> ${userData.familyMember.phoneId}</li>
+          <li><strong>Nombre:</strong> ${userData.familyFirstName} ${userData.familyLastName}</li>
+          <li><strong>WhatsApp:</strong> ${userData.familyPhone}</li>
           <li><strong>Código:</strong> ${familyCode}</li>
         </ul>
 
