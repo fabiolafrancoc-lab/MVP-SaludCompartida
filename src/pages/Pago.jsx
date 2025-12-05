@@ -170,29 +170,28 @@ export default function Pago() {
 
     console.log('💳 Procesando pago exitoso de Square...');
     console.log('Payment ID:', paymentData.id);
-    console.log('UserData disponible:', userData);
+    console.log('UserData desde estado:', userData);
     
-    // Validar que userData existe y tiene datos
-    if (!userData || Object.keys(userData).length === 0 || !userData.firstName) {
-      console.error('❌ Error: userData no está disponible o está vacío');
-      console.error('userData:', userData);
+    // Intentar obtener datos del usuario (del estado o localStorage)
+    let currentUserData = userData;
+    
+    if (!currentUserData || Object.keys(currentUserData).length === 0 || !currentUserData.firstName) {
+      console.log('⚠️ userData está vacío, intentando recuperar de localStorage...');
       
-      // Intentar recargar desde localStorage
       const registrationData = localStorage.getItem('registrationUser');
       if (registrationData) {
-        const parsedData = JSON.parse(registrationData);
-        console.log('✅ Datos recuperados de localStorage:', parsedData);
-        setUserData(parsedData);
-        
-        // Procesar el pago con los datos recuperados
-        await handleSuccessfulPayment(paymentData);
+        currentUserData = JSON.parse(registrationData);
+        console.log('✅ Datos recuperados de localStorage:', currentUserData);
+        setUserData(currentUserData); // Actualizar estado para futuro uso
+      } else {
+        console.error('❌ No se encontraron datos en localStorage');
+        alert('Error: Datos de usuario no encontrados. Por favor recarga la página e intenta de nuevo.');
+        setIsProcessing(false);
         return;
       }
-      
-      alert('Error: Datos de usuario no encontrados. Por favor recarga la página e intenta de nuevo.');
-      setIsProcessing(false);
-      return;
     }
+    
+    console.log('✅ Usando datos de usuario:', currentUserData);
     
     // Generar códigos únicos para migrante y familiar
     const generateCode = (prefix) => {
@@ -204,7 +203,7 @@ export default function Pago() {
 
     // Guardar información del pago
     const subscriptionData = {
-      ...userData,
+      ...currentUserData,
       subscriptionDate: new Date().toISOString(),
       confirmationNumber: 'SC' + Math.random().toString(36).substring(2, 10).toUpperCase(),
       plan: 'Plan Familiar',
@@ -224,13 +223,13 @@ export default function Pago() {
     // Código del migrante
     accessCodes[migrantCode] = {
       type: 'migrant',
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      motherLastName: userData.motherLastName,
-      email: userData.email,
-      phone: userData.phone,
-      countryCode: userData.countryCode,
-      phoneId: userData.phoneId,
+      firstName: currentUserData.firstName,
+      lastName: currentUserData.lastName,
+      motherLastName: currentUserData.motherLastName,
+      email: currentUserData.email,
+      phone: currentUserData.phone,
+      countryCode: currentUserData.countryCode,
+      phoneId: currentUserData.phoneId,
       confirmationNumber: subscriptionData.confirmationNumber,
       activatedAt: null
     };
@@ -238,11 +237,11 @@ export default function Pago() {
     // Código del familiar en México
     accessCodes[familyCode] = {
       type: 'family',
-      firstName: userData.familyMember.firstName,
-      lastName: userData.familyMember.lastName,
-      whatsapp: userData.familyMember.whatsapp,
-      countryCode: userData.familyMember.countryCode,
-      phoneId: userData.familyMember.phoneId,
+      firstName: currentUserData.familyMember.firstName,
+      lastName: currentUserData.familyMember.lastName,
+      whatsapp: currentUserData.familyMember.whatsapp,
+      countryCode: currentUserData.familyMember.countryCode,
+      phoneId: currentUserData.familyMember.phoneId,
       confirmationNumber: subscriptionData.confirmationNumber,
       activatedAt: null
     };
@@ -253,7 +252,7 @@ export default function Pago() {
     setShowSuccess(true);
 
     // ENVIAR CÓDIGOS POR WHATSAPP Y EMAIL (en background)
-    sendAccessCodes(migrantCode, familyCode, userData).catch(error => {
+    sendAccessCodes(migrantCode, familyCode, currentUserData).catch(error => {
       console.error('❌ Error enviando códigos (continuando flujo):', error);
     });
 
