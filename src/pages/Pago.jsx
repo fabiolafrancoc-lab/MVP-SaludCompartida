@@ -469,6 +469,7 @@ Beneficios disponibles:
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+          <img src="/saludcompartida logo WT.png" alt="SaludCompartida" className="h-16" />
           <button
             onClick={() => navigate('/registro')}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
@@ -476,7 +477,6 @@ Beneficios disponibles:
             <ArrowLeft className="w-5 h-5" />
             <span className="font-medium">Volver</span>
           </button>
-          <img src="/saludcompartida logo WT.png" alt="SaludCompartida" className="h-10" />
         </div>
       </div>
 
@@ -506,7 +506,7 @@ Beneficios disponibles:
 
             {/* Plan */}
             <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
-              <h3 className="font-bold text-lg text-gray-900 mb-4">Plan Seleccionado</h3>
+              <h3 className="font-bold text-lg text-gray-900 mb-4">SaludCompartida</h3>
               <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
                 <div>
                   <p className="font-semibold text-gray-900">Plan Familiar US-MEX</p>
@@ -522,7 +522,7 @@ Beneficios disponibles:
               <div className="space-y-3">
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-gray-700">Telemedicina ilimitada 24/7. Receta Electrónica de ser necesaria.</p>
+                  <p className="text-sm text-gray-700">Videollamada con Doctores 24/7. Receta electrónica de ser necesario.</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -543,9 +543,9 @@ Beneficios disponibles:
             <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
               <Lock className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-blue-900 text-sm">Pago 100% Seguro</p>
+                <p className="font-semibold text-blue-900 text-sm">Aviso legal sobre pagos con tarjeta</p>
                 <p className="text-sm text-blue-700">
-                  Tu información está protegida con encriptación de nivel bancario
+                  Procesamos los pagos con tarjeta a través de SQUARE, empresa certificada bajo la norma PCI DSS, que cifra y protege tus datos bancarios siguiendo los más altos estándares internacionales de seguridad.
                 </p>
               </div>
             </div>
@@ -553,7 +553,7 @@ Beneficios disponibles:
 
           {/* Columna derecha - PayPal */}
           <div>
-            <div className="bg-white rounded-2xl shadow-2xl p-8">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 border-4 border-cyan-500">
               <div className="flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-pink-500 rounded-xl p-4 mb-6">
                 <CreditCard className="w-6 h-6 text-white" />
                 <h2 className="text-xl font-bold text-white">Información de Pago</h2>
@@ -569,7 +569,7 @@ Beneficios disponibles:
               </div>
 
               {/* Formulario de tarjeta Square */}
-              <div className="mb-6">
+              <div className="mb-6 border-3 border-cyan-500 rounded-xl p-4">
                 {!squareLoaded && (
                   <div className="text-center py-8">
                     <div className="inline-flex items-center gap-2 text-gray-600">
@@ -619,9 +619,9 @@ Beneficios disponibles:
 
               {/* Info sobre seguridad */}
               <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-4">
-                <p className="text-sm text-green-900 font-semibold mb-2">🔒 Pago 100% Seguro</p>
+                <p className="text-sm text-green-900 font-semibold mb-2">🔒 Aviso legal sobre pagos con tarjeta</p>
                 <p className="text-xs text-green-700">
-                  Procesado por Square. Tus datos están encriptados y protegidos.
+                  Procesamos los pagos con tarjeta a través de SQUARE, empresa certificada bajo la norma PCI DSS, que cifra y protege tus datos bancarios siguiendo los más altos estándares internacionales de seguridad.
                 </p>
               </div>
 
