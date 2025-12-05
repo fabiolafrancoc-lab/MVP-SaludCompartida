@@ -172,9 +172,23 @@ export default function Pago() {
     console.log('Payment ID:', paymentData.id);
     console.log('UserData disponible:', userData);
     
-    // Validar que userData existe
-    if (!userData || !userData.firstName) {
-      console.error('❌ Error: userData no está disponible');
+    // Validar que userData existe y tiene datos
+    if (!userData || Object.keys(userData).length === 0 || !userData.firstName) {
+      console.error('❌ Error: userData no está disponible o está vacío');
+      console.error('userData:', userData);
+      
+      // Intentar recargar desde localStorage
+      const registrationData = localStorage.getItem('registrationUser');
+      if (registrationData) {
+        const parsedData = JSON.parse(registrationData);
+        console.log('✅ Datos recuperados de localStorage:', parsedData);
+        setUserData(parsedData);
+        
+        // Procesar el pago con los datos recuperados
+        await handleSuccessfulPayment(paymentData);
+        return;
+      }
+      
       alert('Error: Datos de usuario no encontrados. Por favor recarga la página e intenta de nuevo.');
       setIsProcessing(false);
       return;
