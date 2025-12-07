@@ -32,6 +32,8 @@ export default async function handler(req, res) {
     // Si el número ya tiene formato completo (empieza con +), usarlo
     // Si no, construir con countryCode o default +52
     let formattedTo;
+    console.log('📞 Formateando número - to:', to, 'countryCode:', countryCode);
+    
     if (to.startsWith('whatsapp:')) {
       formattedTo = to;
     } else if (to.startsWith('+')) {
@@ -40,6 +42,7 @@ export default async function handler(req, res) {
       const prefix = countryCode || '+52';
       const cleanNumber = to.replace(/\D/g, '');
       formattedTo = `whatsapp:${prefix}${cleanNumber}`;
+      console.log('📱 Número formateado:', formattedTo);
     }
 
     // Inicializar cliente de Twilio
