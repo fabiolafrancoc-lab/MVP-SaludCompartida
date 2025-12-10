@@ -8,7 +8,7 @@ export default function Pharmacy() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-      <TopNav showMenu={true} hideUser={true} />
+      <TopNav showMenu={true} hideUser={true} internalPage={true} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         {/* Hero Section */}

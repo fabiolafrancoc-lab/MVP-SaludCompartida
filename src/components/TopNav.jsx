@@ -12,7 +12,8 @@ const TopNav = ({
   onRestartBubbles = null,
   showLoginButton = false,
   showMenu = true,
-  homeIcon = false
+  homeIcon = false,
+  internalPage = false // Nueva prop para páginas internas (después de login)
 }) => {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
@@ -206,35 +207,56 @@ const TopNav = ({
           )}
 
           {/* Botón "Contratar SaludCompartida" - CYAN */}
-          <button
-            onClick={() => navigate('/registro')}
-            className="hidden md:block bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-          >
-            Contratar SaludCompartida
-          </button>
+          {!internalPage && (
+            <button
+              onClick={() => navigate('/registro')}
+              className="hidden md:block bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Contratar SaludCompartida
+            </button>
+          )}
 
           {/* Botón "Ya tengo mi Código/Login" - MAGENTA */}
-          <button
-            onClick={() => navigate('/page3')}
-            className="hidden md:block bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-fuchsia-600 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-          >
-            Ya tengo mi Código/Login
-          </button>
+          {!internalPage && (
+            <button
+              onClick={() => navigate('/page3')}
+              className="hidden md:block bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-fuchsia-600 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Ya tengo mi Código/Login
+            </button>
+          )}
 
           {/* Versión mobile de los botones */}
-          <button
-            onClick={() => navigate('/registro')}
-            className="md:hidden bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-cyan-600 hover:to-cyan-700 transition-all"
-          >
-            Contratar
-          </button>
-          
-          <button
-            onClick={() => navigate('/page3')}
-            className="md:hidden bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-fuchsia-600 hover:to-pink-700 transition-all"
-          >
-            Login
-          </button>
+          {!internalPage && (
+            <>
+              <button
+                onClick={() => navigate('/registro')}
+                className="md:hidden bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-cyan-600 hover:to-cyan-700 transition-all"
+              >
+                Contratar
+              </button>
+              
+              <button
+                onClick={() => navigate('/page3')}
+                className="md:hidden bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-fuchsia-600 hover:to-pink-700 transition-all"
+              >
+                Login
+              </button>
+            </>
+          )}
+
+          {/* Botón "Volver" para páginas internas */}
+          {internalPage && (
+            <button
+              onClick={() => navigate('/page4')}
+              className="bg-gradient-to-r from-gray-700 to-gray-800 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-gray-800 hover:to-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Volver
+            </button>
+          )}
 
           {/* Usuario logueado */}
           {!hideUser && currentUser && (

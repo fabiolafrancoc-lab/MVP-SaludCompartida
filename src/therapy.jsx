@@ -23,7 +23,7 @@ export default function Therapy() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-      <TopNav showMenu={true} hideUser={true} />
+      <TopNav showMenu={true} hideUser={true} internalPage={true} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="relative bg-gradient-to-r from-purple-600 to-pink-500 rounded-3xl overflow-hidden shadow-2xl mb-12 border border-purple-500/30">
