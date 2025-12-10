@@ -41,7 +41,7 @@ export default function Telemedicine() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-      <TopNav showMenu={true} hideUser={true} />
+      <TopNav showMenu={true} hideUser={true} internalPage={true} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="relative bg-gradient-to-r from-cyan-600 to-teal-500 rounded-3xl overflow-hidden shadow-2xl mb-12 border border-cyan-500/30">
@@ -136,15 +136,6 @@ export default function Telemedicine() {
               </p>
             </div>
           </div>
-        </div>
-
-        <div className="text-center">
-          <button
-            onClick={() => navigate('/registro')}
-            className="bg-gradient-to-r from-cyan-600 to-cyan-500 text-white px-8 py-4 rounded-2xl text-xl font-bold shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:scale-105 inline-block"
-          >
-            Contratar Ahora
-          </button>
         </div>
       </main>
 
