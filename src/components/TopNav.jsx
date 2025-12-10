@@ -21,6 +21,7 @@ const TopNav = ({
   const [quienesSomosOpen, setQuienesSomosOpen] = useState(false);
   const [serviciosOpen, setServiciosOpen] = useState(false);
   const [legalOpen, setLegalOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const handleScrollToTop = () => {
     if (typeof window !== 'undefined' && window.scrollTo) {
@@ -184,6 +185,63 @@ const TopNav = ({
                 </button>
               </div>
             </div>
+
+            {/* Dropdown HOME Usuario - Solo en páginas internas */}
+            {internalPage && currentUser && (
+              <div className="relative group">
+                <button
+                  className="text-sm font-medium text-white hover:text-cyan-400 transition-colors flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 rounded-lg px-3 py-2"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                  HOME {currentUser.firstName || 'Usuario'}
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {/* Dropdown Menu Usuario */}
+                <div className="absolute left-0 mt-2 w-64 bg-gray-900 rounded-lg shadow-lg border border-cyan-500/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <button
+                    onClick={() => navigate('/telemedicine')}
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
+                  >
+                    🩺 Telemedicina
+                  </button>
+                  <button
+                    onClick={() => navigate('/pharmacy')}
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                  >
+                    💊 Descuento en Farmacias
+                  </button>
+                  <button
+                    onClick={() => navigate('/therapy')}
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                  >
+                    🧠 Sesiones Psicológicas
+                  </button>
+                  <button
+                    onClick={() => navigate('/savings')}
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                  >
+                    💰 Mis Ahorros
+                  </button>
+                  <button
+                    onClick={() => navigate('/account')}
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                  >
+                    👤 Mi Cuenta
+                  </button>
+                  <button
+                    onClick={() => navigate('/contact')}
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors last:rounded-b-lg"
+                  >
+                    📞 Contacto
+                  </button>
+                </div>
+              </div>
+            )}
           </nav>
         )}
         
@@ -419,6 +477,72 @@ const TopNav = ({
                 </div>
               )}
             </div>
+
+            {/* Dropdown HOME Usuario - Mobile - Solo en páginas internas */}
+            {internalPage && currentUser && (
+              <div className="border-l-2 border-cyan-500 pl-4 bg-cyan-500/5 rounded-lg py-2">
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="text-left text-base font-bold text-cyan-400 hover:text-cyan-300 transition-colors py-2 w-full flex items-center justify-between"
+                >
+                  <span className="flex items-center gap-2">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    HOME {currentUser.firstName || 'Usuario'}
+                  </span>
+                  <svg 
+                    className={`w-5 h-5 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {userMenuOpen && (
+                  <div className="ml-4 mt-2 space-y-2">
+                    <button
+                      onClick={() => { navigate('/telemedicine'); setMenuOpen(false); setUserMenuOpen(false); }}
+                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    >
+                      → 🩺 Telemedicina
+                    </button>
+                    <button
+                      onClick={() => { navigate('/pharmacy'); setMenuOpen(false); setUserMenuOpen(false); }}
+                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    >
+                      → 💊 Descuento en Farmacias
+                    </button>
+                    <button
+                      onClick={() => { navigate('/therapy'); setMenuOpen(false); setUserMenuOpen(false); }}
+                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    >
+                      → 🧠 Sesiones Psicológicas
+                    </button>
+                    <button
+                      onClick={() => { navigate('/savings'); setMenuOpen(false); setUserMenuOpen(false); }}
+                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    >
+                      → 💰 Mis Ahorros
+                    </button>
+                    <button
+                      onClick={() => { navigate('/account'); setMenuOpen(false); setUserMenuOpen(false); }}
+                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    >
+                      → 👤 Mi Cuenta
+                    </button>
+                    <button
+                      onClick={() => { navigate('/contact'); setMenuOpen(false); setUserMenuOpen(false); }}
+                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    >
+                      → 📞 Contacto
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </nav>
         </div>
       )}
