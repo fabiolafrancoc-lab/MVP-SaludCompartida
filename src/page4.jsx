@@ -118,9 +118,29 @@ const TermsIcon = () => (
   </svg>
 );
 
-const DashboardBox = ({ icon, title, message, color, onClick }) => {
+const DashboardBox = ({ icon, title, message, color, onClick, badge, size = 'normal' }) => {
   const [isHovered, setIsHovered] = useState(false);
   const IconComponent = icon;
+  
+  // Size variants
+  const sizeClasses = {
+    large: 'p-10',
+    normal: 'p-8',
+    small: 'p-6'
+  };
+
+  const iconSizes = {
+    large: 'w-32 h-32',
+    normal: 'w-24 h-24',
+    small: 'w-16 h-16'
+  };
+
+  const titleSizes = {
+    large: 'text-3xl',
+    normal: 'text-2xl',
+    small: 'text-xl'
+  };
+  
   // helper: decide readable text color (black or white) based on background
   const getContrastColor = (hex) => {
     try {
@@ -165,6 +185,15 @@ const DashboardBox = ({ icon, title, message, color, onClick }) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
+      {/* Badge */}
+      {badge && (
+        <div className="absolute top-4 right-4 z-10">
+          <span className="bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+            {badge}
+          </span>
+        </div>
+      )}
+
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
@@ -176,7 +205,7 @@ const DashboardBox = ({ icon, title, message, color, onClick }) => {
       />
       
       {/* Content */}
-      <div className="relative z-10 p-8 flex flex-col items-center text-center">
+      <div className={`relative z-10 ${sizeClasses[size]} flex flex-col items-center text-center`}>
         {/* Icon Container with Glow Effect */}
         <div className="relative mb-6">
           <div 
@@ -186,7 +215,7 @@ const DashboardBox = ({ icon, title, message, color, onClick }) => {
             style={{ backgroundColor: 'rgba(255,255,255,0.4)' }}
           />
           <div 
-            className={`relative w-24 h-24 transition-all duration-500 ${
+            className={`relative ${iconSizes[size]} transition-all duration-500 ${
               isHovered ? 'scale-110 rotate-6' : ''
             }`}
           >
@@ -195,12 +224,12 @@ const DashboardBox = ({ icon, title, message, color, onClick }) => {
         </div>
         
         {/* Title */}
-        <h3 className="text-2xl font-black mb-3 text-white drop-shadow-lg">
+        <h3 className={`${titleSizes[size]} font-black mb-3 text-white drop-shadow-lg`}>
           {title}
         </h3>
         
         {/* Message */}
-        <p className="text-base leading-relaxed text-white/95 font-semibold drop-shadow-md">
+        <p className={`${size === 'small' ? 'text-sm' : 'text-base'} leading-relaxed text-white/95 font-semibold drop-shadow-md`}>
           {message}
         </p>
         
@@ -238,12 +267,12 @@ const DashboardBox = ({ icon, title, message, color, onClick }) => {
 
 const Page4 = () => {
   const navigate = useNavigate();
-  // Read user data from context for personalization
   const { currentUser } = useContext(UserContext);
   
   // Geolocation hook
   const { country, countryCode, loading: geoLoading } = useGeolocation();
   const [showLocationBanner, setShowLocationBanner] = useState(false);
+  const [showWelcomeBanner, setShowWelcomeBanner] = useState(false);
   
   // Get user data from localStorage or context
   const [userName, setUserName] = useState('');
@@ -288,6 +317,13 @@ const Page4 = () => {
         setUserEmail(userData.email || '');
         setUserPhone(userData.phone || userData.whatsapp || '');
         setIsMigrant(userData.isMigrant === true);
+      }
+
+      // Check if this is first visit (show welcome banner)
+      const hasVisited = localStorage.getItem('page4_visited');
+      if (!hasVisited) {
+        setShowWelcomeBanner(true);
+        localStorage.setItem('page4_visited', 'true');
       }
     } catch (error) {
       console.error('Error reading user data:', error);
@@ -344,14 +380,15 @@ const Page4 = () => {
     }
   ];
 
-  // Main service blocks - Reorganizado: Fila 1 (Servicios de salud) | Fila 2 (Cuenta y recursos)
-  const serviceBlocks = [
-    // FILA 1: Servicios de salud
+  // Main service blocks - Reorganizado con jerarquía visual
+  // PRINCIPALES (grandes): Servicios de salud core
+  const primaryServices = [
     {
       icon: DoctorIcon,
       title: "Videollamada a Doctor",
-      message: "24 horas al día 7 días a la semana",
+      message: "Consulta médica 24/7 desde cualquier lugar",
       color: "#52D293",
+      badge: "🔥 Más Usado",
       onClick: () => {
         window.scrollTo(0, 0);
         navigate('/telemedicine');
@@ -360,8 +397,9 @@ const Page4 = () => {
     {
       icon: PharmacyIcon,
       title: "Descuento en Farmacias",
-      message: "Hasta 75% de descuento en toda la farmacia",
+      message: "Hasta 75% OFF en medicamentos y productos",
       color: "#FF2B8A",
+      badge: "💰 Ahorra Más",
       onClick: () => {
         window.scrollTo(0, 0);
         navigate('/pharmacy');
@@ -370,28 +408,21 @@ const Page4 = () => {
     {
       icon: TherapyIcon,
       title: "Sesiones con Psicólogos",
-      message: "Terapia profesional para cuidar tu salud mental",
+      message: "Terapia profesional para ti y tu familia",
       color: "#9B59B6",
       onClick: () => {
         window.scrollTo(0, 0);
         navigate('/therapy');
       }
-    },
-    // FILA 2: Cuenta y recursos
-    {
-      icon: AccountIcon,
-      title: "Mi Cuenta",
-      message: "Actualiza tu información y la de tu familia",
-      color: "#0071FF",
-      onClick: () => {
-        window.scrollTo(0, 0);
-        navigate('/account');
-      }
-    },
+    }
+  ];
+
+  // SECUNDARIOS (pequeños): Cuenta y recursos
+  const secondaryServices = [
     {
       icon: SavingsIcon,
       title: "Mis Ahorros",
-      message: "Mira cuánto has ahorrado este mes",
+      message: "Mira cuánto has ahorrado",
       color: "#FF9500",
       onClick: () => {
         window.scrollTo(0, 0);
@@ -399,10 +430,21 @@ const Page4 = () => {
       }
     },
     {
+      icon: AccountIcon,
+      title: "Mi Cuenta",
+      message: "Actualiza tu información",
+      color: "#0071FF",
+      onClick: () => {
+        window.scrollTo(0, 0);
+        navigate('/account');
+      }
+    },
+    {
       icon: BlogIcon,
-      title: "Blog",
-      message: "Consejos y guías para cuidar mejor a tu familia",
+      title: "Blog de Salud",
+      message: "Consejos y guías de salud",
       color: "#FF6F61",
+      badge: "📚 Nuevo",
       onClick: () => {
         window.scrollTo(0, 0);
         navigate('/blog');
@@ -548,6 +590,45 @@ const Page4 = () => {
         </div>
       )}
 
+      {/* Welcome Banner - First Visit Only */}
+      {showWelcomeBanner && (
+        <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 text-white py-6 px-4 shadow-lg relative">
+          <button
+            onClick={() => setShowWelcomeBanner(false)}
+            className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors z-10"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <div className="max-w-7xl mx-auto pr-12">
+            <div className="flex items-center gap-4 mb-3">
+              <svg className="w-10 h-10 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <h2 className="text-2xl md:text-3xl font-bold">¡Bienvenido a SaludCompartida!</h2>
+            </div>
+            <p className="text-base md:text-lg leading-relaxed max-w-5xl mb-4">
+              🎉 <span className="font-bold">¡Tu familia ya está protegida!</span> Ahora tienes acceso completo a:
+            </p>
+            <div className="grid md:grid-cols-3 gap-4 max-w-5xl">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                <p className="font-bold text-lg mb-1">🏥 Telemedicina 24/7</p>
+                <p className="text-sm">Habla con doctores certificados cuando lo necesites</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                <p className="font-bold text-lg mb-1">💊 Descuento en Farmacias</p>
+                <p className="text-sm">Hasta 75% OFF en medicamentos</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                <p className="font-bold text-lg mb-1">🧠 Terapia con Psicólogos</p>
+                <p className="text-sm">Cuida tu salud mental con profesionales</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <main className="max-w-6xl mx-auto px-6 py-12">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -575,18 +656,53 @@ const Page4 = () => {
           </div>
         </div>
 
-        {/* Service Blocks - 6 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
-          {serviceBlocks.map((service) => (
-            <DashboardBox
-              key={service.title}
-              icon={service.icon}
-              title={service.title}
-              message={service.message}
-              color={service.color}
-              onClick={service.onClick}
-            />
-          ))}
+        {/* Service Blocks - Nueva Jerarquía Visual */}
+        
+        {/* Sección 1: SERVICIOS PRINCIPALES (3 grandes) */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900">
+              🏥 Servicios de Salud
+            </h2>
+            <span className="text-sm text-gray-500 font-medium">Acceso ilimitado</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {primaryServices.map((service) => (
+              <DashboardBox
+                key={service.title}
+                icon={service.icon}
+                title={service.title}
+                message={service.message}
+                color={service.color}
+                onClick={service.onClick}
+                badge={service.badge}
+                size="large"
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Sección 2: SERVICIOS SECUNDARIOS (3 pequeños) */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900">
+              📊 Tu Cuenta y Recursos
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {secondaryServices.map((service) => (
+              <DashboardBox
+                key={service.title}
+                icon={service.icon}
+                title={service.title}
+                message={service.message}
+                color={service.color}
+                onClick={service.onClick}
+                badge={service.badge}
+                size="small"
+              />
+            ))}
+          </div>
         </div>
 
         {/* Consultas Button */}
