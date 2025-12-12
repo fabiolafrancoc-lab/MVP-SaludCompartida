@@ -3,6 +3,48 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import UserContext from './contexts/UserContext';
 import { useGeolocation, isUSAUser, isMexicoUser } from './hooks/useGeolocation';
 
+// Custom Navigation Icons - Diseñados profesionalmente
+const ChevronDownIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
+    <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square"/>
+  </svg>
+);
+
+const LocationPinIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+    <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2Z" fill="currentColor"/>
+    <circle cx="12" cy="9" r="2.5" fill="white"/>
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+    <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square"/>
+  </svg>
+);
+
+const ShieldCheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
+    <path d="M12 2L4 6V11C4 16.55 7.84 21.74 13 23C18.16 21.74 22 16.55 22 11V6L14 2H12Z" fill="currentColor" fillOpacity="0.2"/>
+    <path d="M12 2L4 6V11C4 16.55 7.84 21.74 13 23C18.16 21.74 22 16.55 22 11V6L14 2H12Z" stroke="currentColor" strokeWidth="2"/>
+    <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square"/>
+  </svg>
+);
+
+const QuestionCircleIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
+    <circle cx="12" cy="12" r="10" fill="currentColor" fillOpacity="0.2"/>
+    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+    <path d="M12 16V16.01M12 13C12 12.5 12.2 12 12.6 11.6C13 11.2 13.5 11 14 11C15.1 11 16 10.1 16 9C16 7.9 15.1 7 14 7C13.5 7 13 7.2 12.6 7.6" stroke="currentColor" strokeWidth="2" strokeLinecap="square"/>
+  </svg>
+);
+
+const ArrowRightIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square"/>
+  </svg>
+);
+
 // Premium Professional SVG Icons - Estilo Corporativo Sofisticado
 const DoctorIcon = () => (
   <svg viewBox="0 0 80 80" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -239,18 +281,8 @@ const DashboardBox = ({ icon, title, message, color, onClick, badge, size = 'nor
             isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
           }`}
         >
-          <svg 
-            className="w-6 h-6 text-white animate-bounce" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={3} 
-              d="M13 7l5 5m0 0l-5 5m5-5H6" 
-            />
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white animate-bounce">
+            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="3" strokeLinecap="square"/>
           </svg>
         </div>
       </div>
@@ -491,14 +523,9 @@ const Page4 = () => {
                   className="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-gray-800 hover:bg-gray-50"
                 >
                   <span>{menu.title}</span>
-                  <svg
-                    className={`w-5 h-5 transition-transform ${openMenu === menu.title ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <div className={`transition-transform duration-300 ${openMenu === menu.title ? 'rotate-180' : ''}`}>
+                    <ChevronDownIcon />
+                  </div>
                 </button>
                 {openMenu === menu.title && (
                   <div className="px-4 pb-3 space-y-2">
@@ -568,10 +595,7 @@ const Page4 = () => {
         <div className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-3 px-4 shadow-lg animate-slide-down">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
+              <LocationPinIcon />
               <p className="text-sm md:text-base font-medium">
                 📍 Ubicación detectada: <span className="font-bold">{country}</span>
                 {isUSAUser(countryCode) && ' - Mostrando información para usuarios en USA'}
@@ -582,9 +606,7 @@ const Page4 = () => {
               onClick={() => setShowLocationBanner(false)}
               className="text-white hover:text-gray-200 transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <CloseIcon />
             </button>
           </div>
         </div>
@@ -597,15 +619,11 @@ const Page4 = () => {
             onClick={() => setShowWelcomeBanner(false)}
             className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors z-10"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <CloseIcon />
           </button>
           <div className="max-w-7xl mx-auto pr-12">
             <div className="flex items-center gap-4 mb-3">
-              <svg className="w-10 h-10 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
+              <ShieldCheckIcon />
               <h2 className="text-2xl md:text-3xl font-bold">¡Bienvenido a SaludCompartida!</h2>
             </div>
             <p className="text-base md:text-lg leading-relaxed max-w-5xl mb-4">
@@ -718,13 +736,13 @@ const Page4 = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             
             <div className="relative flex items-center gap-4">
-              <svg className="w-7 h-7 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+              <div className="group-hover:rotate-12 transition-transform duration-300">
+                <QuestionCircleIcon />
+              </div>
               <span className="drop-shadow-md">¿Tienes Consultas?</span>
-              <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
+              <div className="group-hover:translate-x-2 transition-transform duration-300">
+                <ArrowRightIcon />
+              </div>
             </div>
           </button>
         </div>
