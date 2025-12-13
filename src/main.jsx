@@ -27,6 +27,9 @@ import MicroLanding from './pages/MicroLanding.jsx'
 import QuienesSomos from './pages/QuienesSomos.jsx'
 import VisionMision from './pages/VisionMision.jsx'
 import NuestrosPilares from './pages/NuestrosPilares.jsx'
+import QuienesSomosInternal from './pages/QuienesSomosInternal.jsx'
+import VisionMisionInternal from './pages/VisionMisionInternal.jsx'
+import NuestrosPilaresInternal from './pages/NuestrosPilaresInternal.jsx'
 import BeneficiosDetallados from './pages/BeneficiosDetallados.jsx'
 import Contacto from './pages/Contacto.jsx'
 import CancelSubscription from './pages/CancelSubscription.jsx'
@@ -65,11 +68,14 @@ createRoot(document.getElementById('root')).render(
           <Route path="/como-funciona" element={<MicroLanding />} /> {/* 👈 Micro-landing demo */}
           <Route path="/quienes-somos" element={<QuienesSomos />} /> {/* 👈 Quiénes Somos */}
           <Route path="/about" element={<QuienesSomos />} /> {/* 👈 About Us (alias) */}
+          <Route path="/quienes-somos-internal" element={<QuienesSomosInternal />} /> {/* 👈 Quiénes Somos (POST-SUSCRIPCIÓN) */}
           <Route path="/vision-mision" element={<VisionMision />} /> {/* 👈 Visión y Misión */}
           <Route path="/mision-y-valores" element={<VisionMision />} /> {/* 👈 Misión y Valores (alias) */}
           <Route path="/vision" element={<VisionMision />} /> {/* 👈 Visión (alias) */}
+          <Route path="/vision-mision-internal" element={<VisionMisionInternal />} /> {/* 👈 Visión y Misión (POST-SUSCRIPCIÓN) */}
           <Route path="/nuestros-pilares" element={<NuestrosPilares />} /> {/* 👈 Nuestros Pilares */}
           <Route path="/pilares" element={<NuestrosPilares />} /> {/* 👈 Pilares (alias) */}
+          <Route path="/nuestros-pilares-internal" element={<NuestrosPilaresInternal />} /> {/* 👈 Nuestros Pilares (POST-SUSCRIPCIÓN) */}
           <Route path="/beneficios" element={<BeneficiosDetallados />} /> {/* 👈 Beneficios Detallados */}
           <Route path="/contacto" element={<Contacto />} /> {/* 👈 Contacto (nueva versión) */}
           <Route path="/cancel-subscription" element={<CancelSubscription />} /> {/* 👈 Cancelar Suscripción */}
