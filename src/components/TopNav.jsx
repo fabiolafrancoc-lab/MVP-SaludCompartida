@@ -76,13 +76,15 @@ const TopNav = ({
         {/* Menú de navegación - Desktop */}
         {showMenu && (
           <nav className="hidden lg:flex items-center gap-6">
-            {/* Botón HOME directo */}
-            <button
-              onClick={() => navigate(internalPage ? '/page4' : '/home')}
-              className={`text-sm font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors`}
-            >
-              HOME
-            </button>
+            {/* Botón HOME directo - Solo en páginas pre-suscripción */}
+            {!internalPage && (
+              <button
+                onClick={() => navigate('/home')}
+                className="text-sm font-medium text-white hover:text-cyan-400 transition-colors"
+              >
+                HOME
+              </button>
+            )}
 
             {/* Dropdown Quienes Somos */}
             <div className="relative group">
@@ -204,8 +206,14 @@ const TopNav = ({
                 {/* Dropdown Menu Usuario */}
                 <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <button
+                    onClick={() => navigate('/page4')}
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors first:rounded-t-lg font-semibold border-b border-gray-200"
+                  >
+                    🏠 Dashboard Principal
+                  </button>
+                  <button
                     onClick={() => navigate('/telemedicine')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors first:rounded-t-lg"
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
                   >
                     🩺 Telemedicina
                   </button>
