@@ -53,7 +53,7 @@ const TopNav = ({
   };
 
   return (
-    <header className="bg-black border-b border-gray-800 sticky top-0 z-50 shadow-lg">
+    <header className={`${internalPage ? 'bg-white border-b border-gray-200' : 'bg-black border-b border-gray-800'} sticky top-0 z-50 shadow-lg`}>
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
         {/* Logo - clickeable para volver al inicio */}
         <div 
@@ -79,7 +79,7 @@ const TopNav = ({
             {/* Botón HOME directo */}
             <button
               onClick={() => navigate(internalPage ? '/page4' : '/home')}
-              className="text-sm font-medium text-white hover:text-cyan-400 transition-colors"
+              className={`text-sm font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors`}
             >
               HOME
             </button>
@@ -87,7 +87,7 @@ const TopNav = ({
             {/* Dropdown Quienes Somos */}
             <div className="relative group">
               <button
-                className="text-sm font-medium text-white hover:text-cyan-400 transition-colors flex items-center gap-1"
+                className={`text-sm font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors flex items-center gap-1`}
               >
                 Quienes Somos
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,22 +96,22 @@ const TopNav = ({
               </button>
               
               {/* Dropdown Menu */}
-              <div className="absolute left-0 mt-2 w-56 bg-gray-900 rounded-lg shadow-lg border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className={`absolute left-0 mt-2 w-56 ${internalPage ? 'bg-white border-gray-300' : 'bg-gray-900 border-gray-700'} rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50`}>
                 <button
                   onClick={() => navigate(internalPage ? '/quienes-somos-internal' : '/quienes-somos')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors first:rounded-t-lg`}
                 >
                   Quienes Somos
                 </button>
                 <button
                   onClick={() => navigate(internalPage ? '/vision-mision-internal' : '/vision-mision')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Visión y Misión
                 </button>
                 <button
                   onClick={() => navigate(internalPage ? '/nuestros-pilares-internal' : '/nuestros-pilares')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors last:rounded-b-lg"
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
                 >
                   Nuestros Pilares
                 </button>
@@ -121,7 +121,7 @@ const TopNav = ({
             {/* Dropdown Nuestros Servicios */}
             <div className="relative group">
               <button
-                className="text-sm font-medium text-white hover:text-cyan-400 transition-colors flex items-center gap-1"
+                className={`text-sm font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors flex items-center gap-1`}
               >
                 Nuestros Servicios
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,28 +130,28 @@ const TopNav = ({
               </button>
               
               {/* Dropdown Menu */}
-              <div className="absolute left-0 mt-2 w-64 bg-gray-900 rounded-lg shadow-lg border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className={`absolute left-0 mt-2 w-64 ${internalPage ? 'bg-white border-gray-300' : 'bg-gray-900 border-gray-700'} rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50`}>
                 <button
                   onClick={() => navigate('/telemedicine')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors first:rounded-t-lg`}
                 >
                   Videollamada con Doctores 24/7
                 </button>
                 <button
                   onClick={() => navigate('/pharmacy')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Descuento en Farmacias
                 </button>
                 <button
                   onClick={() => navigate('/therapy')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Sesiones con Terapeuta
                 </button>
                 <button
                   onClick={() => navigate('/savings')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors last:rounded-b-lg"
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
                 >
                   Mis Ahorros
                 </button>
@@ -161,7 +161,7 @@ const TopNav = ({
             {/* Dropdown Legal */}
             <div className="relative group">
               <button
-                className="text-sm font-medium text-white hover:text-cyan-400 transition-colors flex items-center gap-1"
+                className={`text-sm font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors flex items-center gap-1`}
               >
                 Legal
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,16 +170,16 @@ const TopNav = ({
               </button>
               
               {/* Dropdown Menu */}
-              <div className="absolute left-0 mt-2 w-56 bg-gray-900 rounded-lg shadow-lg border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className={`absolute left-0 mt-2 w-56 ${internalPage ? 'bg-white border-gray-300' : 'bg-gray-900 border-gray-700'} rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50`}>
                 <button
                   onClick={() => navigate('/terms')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors first:rounded-t-lg`}
                 >
                   Términos y Condiciones
                 </button>
                 <button
                   onClick={() => navigate('/privacy')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors last:rounded-b-lg"
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
                 >
                   Política de Privacidad
                 </button>
@@ -190,7 +190,7 @@ const TopNav = ({
             {internalPage && currentUser && (
               <div className="relative group">
                 <button
-                  className="text-sm font-medium text-white hover:text-cyan-400 transition-colors flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 rounded-lg px-3 py-2"
+                  className="text-sm font-medium text-gray-900 hover:text-cyan-600 transition-colors flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 rounded-lg px-3 py-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -202,40 +202,40 @@ const TopNav = ({
                 </button>
                 
                 {/* Dropdown Menu Usuario */}
-                <div className="absolute left-0 mt-2 w-64 bg-gray-900 rounded-lg shadow-lg border border-cyan-500/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <button
                     onClick={() => navigate('/telemedicine')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors first:rounded-t-lg"
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors first:rounded-t-lg"
                   >
                     🩺 Telemedicina
                   </button>
                   <button
                     onClick={() => navigate('/pharmacy')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
                   >
                     💊 Descuento en Farmacias
                   </button>
                   <button
                     onClick={() => navigate('/therapy')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
                   >
                     🧠 Sesiones Psicológicas
                   </button>
                   <button
                     onClick={() => navigate('/savings')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
                   >
                     💰 Mis Ahorros
                   </button>
                   <button
                     onClick={() => navigate('/account')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors"
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
                   >
                     👤 Mi Cuenta
                   </button>
                   <button
                     onClick={() => navigate('/contact')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-cyan-400 transition-colors last:rounded-b-lg"
+                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors last:rounded-b-lg"
                   >
                     📞 Contacto
                   </button>
@@ -251,7 +251,7 @@ const TopNav = ({
           {showMenu && (
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden text-gray-300 hover:text-cyan-400 transition-colors"
+              className={`lg:hidden ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors`}
               aria-label="Menú"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -345,12 +345,12 @@ const TopNav = ({
 
       {/* Menú móvil desplegable */}
       {showMenu && menuOpen && (
-        <div className="lg:hidden bg-black border-t border-gray-800 shadow-lg">
+        <div className={`lg:hidden ${internalPage ? 'bg-white border-t border-gray-200' : 'bg-black border-t border-gray-800'} shadow-lg`}>
           <nav className="flex flex-col py-4 px-6 space-y-4">
             {/* HOME directo - Mobile */}
             <button
               onClick={() => { navigate(internalPage ? '/page4' : '/home'); setMenuOpen(false); }}
-              className="text-left text-base font-bold text-white hover:text-cyan-400 transition-colors py-2 border-l-2 border-cyan-500 pl-4"
+              className={`text-left text-base font-bold ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 border-l-2 border-cyan-500 pl-4`}
             >
               HOME
             </button>
@@ -359,7 +359,7 @@ const TopNav = ({
             <div className="border-l-2 border-cyan-500 pl-4">
               <button
                 onClick={() => setQuienesSomosOpen(!quienesSomosOpen)}
-                className="text-left text-base font-medium text-white hover:text-cyan-400 transition-colors py-2 w-full flex items-center justify-between"
+                className={`text-left text-base font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
               >
                 Quienes Somos
                 <svg 
@@ -376,19 +376,19 @@ const TopNav = ({
                 <div className="ml-4 mt-2 space-y-2">
                   <button
                     onClick={() => { navigate(internalPage ? '/quienes-somos-internal' : '/quienes-somos'); setMenuOpen(false); setQuienesSomosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Quienes Somos
                   </button>
                   <button
                     onClick={() => { navigate(internalPage ? '/vision-mision-internal' : '/vision-mision'); setMenuOpen(false); setQuienesSomosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Visión y Misión
                   </button>
                   <button
                     onClick={() => { navigate(internalPage ? '/nuestros-pilares-internal' : '/nuestros-pilares'); setMenuOpen(false); setQuienesSomosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Nuestros Pilares
                   </button>
@@ -400,7 +400,7 @@ const TopNav = ({
             <div className="border-l-2 border-cyan-500 pl-4">
               <button
                 onClick={() => setServiciosOpen(!serviciosOpen)}
-                className="text-left text-base font-medium text-white hover:text-cyan-400 transition-colors py-2 w-full flex items-center justify-between"
+                className={`text-left text-base font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
               >
                 Nuestros Servicios
                 <svg 
@@ -417,25 +417,25 @@ const TopNav = ({
                 <div className="ml-4 mt-2 space-y-2">
                   <button
                     onClick={() => { navigate('/telemedicine'); setMenuOpen(false); setServiciosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Videollamada con Doctores 24/7
                   </button>
                   <button
                     onClick={() => { navigate('/pharmacy'); setMenuOpen(false); setServiciosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Descuento en Farmacias
                   </button>
                   <button
                     onClick={() => { navigate('/therapy'); setMenuOpen(false); setServiciosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Sesiones con Terapeuta
                   </button>
                   <button
                     onClick={() => { navigate('/savings'); setMenuOpen(false); setServiciosOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Mis Ahorros
                   </button>
@@ -447,7 +447,7 @@ const TopNav = ({
             <div className="border-l-2 border-cyan-500 pl-4">
               <button
                 onClick={() => setLegalOpen(!legalOpen)}
-                className="text-left text-base font-medium text-white hover:text-cyan-400 transition-colors py-2 w-full flex items-center justify-between"
+                className={`text-left text-base font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
               >
                 Legal
                 <svg 
@@ -464,13 +464,13 @@ const TopNav = ({
                 <div className="ml-4 mt-2 space-y-2">
                   <button
                     onClick={() => { navigate('/terms'); setMenuOpen(false); setLegalOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Términos y Condiciones
                   </button>
                   <button
                     onClick={() => { navigate('/privacy'); setMenuOpen(false); setLegalOpen(false); }}
-                    className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Política de Privacidad
                   </button>
@@ -483,7 +483,7 @@ const TopNav = ({
               <div className="border-l-2 border-cyan-500 pl-4 bg-cyan-500/5 rounded-lg py-2">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="text-left text-base font-bold text-cyan-400 hover:text-cyan-300 transition-colors py-2 w-full flex items-center justify-between"
+                  className="text-left text-base font-bold text-cyan-600 hover:text-cyan-700 transition-colors py-2 w-full flex items-center justify-between"
                 >
                   <span className="flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -505,37 +505,37 @@ const TopNav = ({
                   <div className="ml-4 mt-2 space-y-2">
                     <button
                       onClick={() => { navigate('/telemedicine'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
                     >
                       → 🩺 Telemedicina
                     </button>
                     <button
                       onClick={() => { navigate('/pharmacy'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
                     >
                       → 💊 Descuento en Farmacias
                     </button>
                     <button
                       onClick={() => { navigate('/therapy'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
                     >
                       → 🧠 Sesiones Psicológicas
                     </button>
                     <button
                       onClick={() => { navigate('/savings'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
                     >
                       → 💰 Mis Ahorros
                     </button>
                     <button
                       onClick={() => { navigate('/account'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
                     >
                       → 👤 Mi Cuenta
                     </button>
                     <button
                       onClick={() => { navigate('/contact'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors py-2 block w-full"
+                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
                     >
                       → 📞 Contacto
                     </button>
