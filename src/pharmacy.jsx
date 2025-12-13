@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PharmacyMap from './components/PharmacyMap';
+import TopNav from './components/TopNav';
 
 export default function Pharmacy() {
   const navigate = useNavigate();
@@ -246,22 +247,8 @@ export default function Pharmacy() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* HEADER */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <img 
-            src="/saludcompartida logo WT.png" 
-            alt="SaludCompartida" 
-            className="h-16 object-contain"
-          />
-          <button
-            onClick={handleVolver}
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"
-          >
-            Volver
-          </button>
-        </div>
-      </header>
+      {/* Header with Navigation Menu */}
+      <TopNav internalPage={true} />
 
       <main className="max-w-6xl mx-auto px-4 py-8">
         

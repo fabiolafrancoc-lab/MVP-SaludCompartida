@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import TopNav from './components/TopNav';
 
 const Savings = () => {
   const navigate = useNavigate();
@@ -163,22 +164,8 @@ const Savings = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
-      {/* Header with Volver button */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <img 
-            src="/saludcompartida logo WT.png" 
-            alt="SaludCompartida" 
-            className="h-16"
-          />
-          <button
-            onClick={handleVolver}
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg"
-          >
-            Volver
-          </button>
-        </div>
-      </header>
+      {/* Header with Navigation Menu */}
+      <TopNav internalPage={true} />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12">

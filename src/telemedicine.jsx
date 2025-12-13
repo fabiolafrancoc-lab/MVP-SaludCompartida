@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock } from 'lucide-react';
 import { WhatsAppButtonCyan, WhatsAppIconCyan } from './components/WhatsAppIcons';
+import TopNav from './components/TopNav';
 
 export default function Telemedicine() {
   const navigate = useNavigate();
@@ -72,25 +73,8 @@ export default function Telemedicine() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-blue-50">
-      {/* Header with Volver button */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <img 
-            src="/saludcompartida logo WT.png" 
-            alt="SaludCompartida" 
-            className="h-16"
-          />
-          <button
-            onClick={() => {
-              window.scrollTo(0, 0);
-              navigate('/page4');
-            }}
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg"
-          >
-            Volver
-          </button>
-        </div>
-      </header>
+      {/* Header with Navigation Menu */}
+      <TopNav internalPage={true} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section con Video Background */}
