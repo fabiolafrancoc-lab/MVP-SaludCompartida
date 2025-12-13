@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Footer({ variant = 'dark' }) {
+export default function Footer({ variant = 'dark', internalPage = false }) {
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
@@ -42,28 +42,28 @@ export default function Footer({ variant = 'dark' }) {
             <ul className="space-y-3">
               <li>
                 <button
-                  onClick={() => handleNavigate('/')}
+                  onClick={() => handleNavigate(internalPage ? '/page4' : '/')}
                   className={`text-sm ${textSecondary} ${hoverColor} transition-colors text-left`}>
                   Home
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNavigate('/quienes-somos')}
+                  onClick={() => handleNavigate(internalPage ? '/quienes-somos-internal' : '/quienes-somos')}
                   className={`text-sm ${textSecondary} ${hoverColor} transition-colors text-left`}>
                   Quienes Somos
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNavigate('/vision-mision')}
+                  onClick={() => handleNavigate(internalPage ? '/vision-mision-internal' : '/vision-mision')}
                   className={`text-sm ${textSecondary} ${hoverColor} transition-colors text-left`}>
                   Visión y Misión
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNavigate('/nuestros-pilares')}
+                  onClick={() => handleNavigate(internalPage ? '/nuestros-pilares-internal' : '/nuestros-pilares')}
                   className={`text-sm ${textSecondary} ${hoverColor} transition-colors text-left`}>
                   Nuestros Pilares
                 </button>

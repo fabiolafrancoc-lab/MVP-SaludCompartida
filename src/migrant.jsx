@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { UserContext } from './contexts/UserContext';
+import { LightbulbIcon } from './components/CustomIcons';
 
 // Custom Navigation Icons - Diseñados profesionalmente
 const CloseIcon = () => (
@@ -347,9 +348,10 @@ const Migrant = () => {
                 agendar <span className="font-semibold text-purple-600">sesiones de terapia con psicólogos certificados</span>, 
                 y obtener <span className="font-semibold text-pink-600">descuentos de hasta 75% en farmacias</span>.
               </p>
-              <p className="text-xs md:text-sm text-gray-600 italic">
-                💡 <strong>Tip:</strong> Cada consulta médica ahorra $80-$100 USD • Cada sesión de terapia ahorra $120-$150 USD • 
-                Los descuentos en farmacia varían según medicamentos.
+              <p className="text-xs md:text-sm text-gray-600 italic flex items-start gap-2">
+                <LightbulbIcon className="w-4 h-4 text-cyan-600 flex-shrink-0 mt-0.5" />
+                <span><strong>Tip:</strong> Cada consulta médica ahorra $80-$100 USD • Cada sesión de terapia ahorra $120-$150 USD • 
+                Los descuentos en farmacia varían según medicamentos.</span>
               </p>
             </div>
           </div>

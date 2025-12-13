@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import TopNav from './components/TopNav';
+import { LightbulbIcon } from './components/CustomIcons';
 
 const Savings = () => {
   const navigate = useNavigate();
@@ -362,8 +363,9 @@ const Savings = () => {
 
         {/* Tips de Ahorro Adicional */}
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">
-            💡 Maximiza tus Ahorros
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8 flex items-center justify-center gap-3">
+            <LightbulbIcon className="w-8 h-8 text-cyan-600" />
+            Maximiza tus Ahorros
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white rounded-2xl p-6 border border-gray-200">

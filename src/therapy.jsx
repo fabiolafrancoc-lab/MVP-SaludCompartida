@@ -1140,7 +1140,7 @@ SaludCompartida`,
                       <svg className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
-                      <span><strong>Por WhatsApp:</strong> Envía un mensaje al <a href={`https://wa.me/5529984922702?text=${encodeURIComponent('Hola, tengo una pregunta sobre mi sesión de terapia del ' + selectedDate.toLocaleDateString('es-MX'))}`} className="text-cyan-600 hover:underline font-semibold">55 2998 4922 702</a></span>
+                      <span><strong>Por WhatsApp:</strong> Envía un mensaje al <a href={`https://wa.me/5529984922702?text=${encodeURIComponent('Hola, tengo una pregunta sobre mi sesión de terapia del ' + selectedDate.toLocaleDateString('es-MX'))}`} className="text-[#25D366] hover:underline font-semibold">55 2998 4922 702</a></span>
                     </div>
                     
                     <div className="flex items-start gap-2">

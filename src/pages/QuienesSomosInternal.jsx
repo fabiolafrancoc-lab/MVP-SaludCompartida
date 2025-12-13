@@ -91,7 +91,7 @@ export default function QuienesSomosInternal() {
         </div>
       </section>
 
-      <Footer />
+      <Footer internalPage={true} />
     </main>
   )
 }

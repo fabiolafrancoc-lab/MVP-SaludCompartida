@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FireIcon } from './CustomIcons';
 
 const BubblesSolucion = () => {
   const [visibleBubbles, setVisibleBubbles] = useState([]);
@@ -77,8 +78,9 @@ const BubblesSolucion = () => {
 
         {showAll && (
           <div className="mt-8 md:mt-12 text-center">
-            <p className="text-white/60 text-xs md:text-sm animate-pulse">
-              🔥 Más de 100 familias se unieron esta semana
+            <p className="text-white/60 text-xs md:text-sm animate-pulse flex items-center justify-center gap-2">
+              <FireIcon className="w-4 h-4" />
+              Más de 100 familias se unieron esta semana
             </p>
           </div>
         )}

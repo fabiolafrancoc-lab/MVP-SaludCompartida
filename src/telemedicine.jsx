@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock } from 'lucide-react';
-import { WhatsAppButtonCyan, WhatsAppIconCyan } from './components/WhatsAppIcons';
+import { WhatsAppButtonGreen, WhatsAppIconGreen } from './components/WhatsAppIcons';
 import TopNav from './components/TopNav';
 
 export default function Telemedicine() {
@@ -231,9 +231,9 @@ export default function Telemedicine() {
           </p>
           <button
             onClick={handleWhatsAppCall}
-            className="group bg-white text-cyan-600 px-12 py-6 rounded-2xl text-2xl font-bold shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:scale-105 inline-flex items-center gap-4"
+            className="group bg-white text-[#25D366] px-12 py-6 rounded-2xl text-2xl font-bold shadow-2xl hover:shadow-green-500/50 transition-all transform hover:scale-105 inline-flex items-center gap-4"
           >
-            <WhatsAppIconCyan className="w-10 h-10" />
+            <WhatsAppIconGreen className="w-10 h-10" />
             <span>Llama Ahora por WhatsApp</span>
           </button>
 

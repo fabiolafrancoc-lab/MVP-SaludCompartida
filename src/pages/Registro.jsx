@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import TopNav from '../components/TopNav';
 import { insertRegistration } from '../lib/supabase';
 import { sendAccessCode } from '../lib/notifications';
+import { LightbulbIcon } from '../components/CustomIcons';
 import '../Registro.css';
 
 function Registro() {
@@ -405,7 +406,7 @@ Recibirás notificación antes del 18 de noviembre de 2025.
 • Familiar (México): ${familyFirstName} ${familyLastName}
 • Suscripciones restantes: ${spotsLeft} de 1,000
 
-💡 Importante:
+⚠️ Importante:
 Mantén tu email activo. Te contactaremos a: ${migrantEmail}
 
 ¿Dudas? Escríbenos a contact@saludcompartida.com
@@ -505,7 +506,7 @@ Recibirás notificación antes del 18 de noviembre de 2025.
 • Sesiones de terapia semanales
 • 30 días completamente GRATIS
 
-💡 Importante:
+⚠️ Importante:
 Mantén tu email activo. Te contactaremos a: ${familyEmail}
 
 ¿Dudas? Escríbenos a contact@saludcompartida.com
