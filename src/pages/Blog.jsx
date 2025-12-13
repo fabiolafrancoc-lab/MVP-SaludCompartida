@@ -6,6 +6,7 @@ import { articles } from '../data.js/articles.js/index.js';
 import ArticleCard from '../components/blog/ArticleCard';
 import ArticleModal from '../components/blog/ArticleModal';
 import VotingSection from '../components/blog/VotingSection';
+import TopNav from '../components/TopNav';
 
 export default function Blog() {
   const navigate = useNavigate();
@@ -56,25 +57,8 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <img 
-            src="/saludcompartida logo WT.png" 
-            alt="SaludCompartida" 
-            className="h-16"
-          />
-          <button
-            onClick={() => {
-              window.scrollTo(0, 0);
-              navigate(returnPath);
-            }}
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"
-          >
-            Volver
-          </button>
-        </div>
-      </header>
+      {/* TopNav Navigation */}
+      <TopNav internalPage={true} showMenu={true} />
 
       {/* Contenido Principal */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

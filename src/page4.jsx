@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import UserContext from './contexts/UserContext';
 import { useGeolocation, isUSAUser, isMexicoUser } from './hooks/useGeolocation';
 import { FireIcon } from './components/CustomIcons';
+import TopNav from './components/TopNav';
 
 // Custom Navigation Icons - Diseñados profesionalmente
 const ChevronDownIcon = () => (
@@ -61,23 +62,27 @@ const DoctorIcon = () => (
 const PharmacyIcon = () => (
   <svg viewBox="0 0 80 80" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="25" y="30" width="30" height="35" rx="4" fill="white" stroke="white" strokeWidth="2.5"/>
-    <rect x="36" y="40" width="8" height="18" rx="2" fill="#FF2B8A"/>
-    <rect x="32" y="48" width="16" height="8" rx="2" fill="#FF2B8A"/>
-    <circle cx="32" cy="20" r="6" fill="white" stroke="white" strokeWidth="2"/>
-    <circle cx="48" cy="20" r="6" fill="white" stroke="white" strokeWidth="2"/>
-    <path d="M30 18L34 22M32 16L32 20" stroke="#FF2B8A" strokeWidth="2.5" strokeLinecap="round"/>
-    <path d="M46 18L50 22M48 16L48 20" stroke="#FF2B8A" strokeWidth="2.5" strokeLinecap="round"/>
+    {/* Cruz principal centrada */}
+    <rect x="36" y="38" width="8" height="20" rx="2" fill="#FF2B8A"/>
+    <rect x="30" y="44" width="20" height="8" rx="2" fill="#FF2B8A"/>
+    {/* Pastillas decorativas */}
+    <circle cx="32" cy="20" r="5" fill="white" stroke="white" strokeWidth="2"/>
+    <circle cx="48" cy="20" r="5" fill="white" stroke="white" strokeWidth="2"/>
+    <rect x="30" y="18" width="4" height="4" rx="1" fill="#FF2B8A"/>
+    <rect x="46" y="18" width="4" height="4" rx="1" fill="#FF2B8A"/>
   </svg>
 );
 
 const TherapyIcon = () => (
   <svg viewBox="0 0 80 80" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M40 22C40 22 30 27 30 38C30 49 35 55 40 66C45 55 50 49 50 38C50 27 40 22 40 22Z" 
+    {/* Corazón */}
+    <path d="M40 60C40 60 20 48 20 35C20 28 24 24 29 24C33 24 37 27 40 31C43 27 47 24 51 24C56 24 60 28 60 35C60 48 40 60 40 60Z" 
           fill="white" stroke="white" strokeWidth="2.5"/>
-    <circle cx="40" cy="38" r="8" fill="#9B00FF"/>
-    <path d="M35 43C35 43 37 46 40 46C43 46 45 43 45 43" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-    <circle cx="37" cy="37" r="2" fill="white"/>
-    <circle cx="43" cy="37" r="2" fill="white"/>
+    <path d="M40 55C40 55 25 45 25 35C25 30 27.5 27 31 27C34 27 37 29 40 33C43 29 46 27 49 27C52.5 27 55 30 55 35C55 45 40 55 40 55Z" 
+          fill="#9B00FF"/>
+    {/* Línea de pulso dentro del corazón */}
+    <path d="M32 38L35 38L37 32L39 44L41 38L44 38" 
+          stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -421,12 +426,7 @@ const Page4 = () => {
       title: "Videollamada a Doctor",
       message: "Consulta médica 24/7 desde cualquier lugar",
       color: "#52D293",
-      badge: (
-        <span className="flex items-center gap-1">
-          <FireIcon className="w-3.5 h-3.5" />
-          Más Usado
-        </span>
-      ),
+      badge: "Destacado",
       onClick: () => {
         window.scrollTo(0, 0);
         navigate('/telemedicine');
@@ -437,7 +437,6 @@ const Page4 = () => {
       title: "Descuento en Farmacias",
       message: "Hasta 75% OFF en medicamentos y productos",
       color: "#FF2B8A",
-      badge: "💰 Ahorra Más",
       onClick: () => {
         window.scrollTo(0, 0);
         navigate('/pharmacy');
@@ -482,7 +481,7 @@ const Page4 = () => {
       title: "Blog de Salud",
       message: "Consejos y guías de salud",
       color: "#FF6F61",
-      badge: "📚 Nuevo",
+      badge: "Nuevo",
       onClick: () => {
         window.scrollTo(0, 0);
         navigate('/blog');
@@ -497,104 +496,8 @@ const Page4 = () => {
   return (
   <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-pink-50 to-gray-50">
       
-      {/* Header with Logo */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <img 
-            src="/saludcompartida logo WT.png" 
-            alt="SaludCompartida" 
-            className="h-16"
-          />
-          <button
-            onClick={() => {
-              window.scrollTo(0, 0);
-              navigate('/page3');
-            }}
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg"
-          >
-            Volver
-          </button>
-        </div>
-      </header>
-
-      {/* Navigation Menu - Mobile First */}
-      <nav className="bg-white border-b border-gray-200 shadow-sm sticky top-20 z-40">
-        <div className="max-w-7xl mx-auto px-4 py-3">
-          {/* Mobile: Accordion Menu */}
-          <div className="md:hidden space-y-2">
-            {menuStructure.map((menu) => (
-              <div key={menu.title} className="border border-gray-200 rounded-lg">
-                <button
-                  onClick={() => toggleMenu(menu.title)}
-                  className="w-full flex items-center justify-between px-4 py-3 text-left font-semibold text-gray-800 hover:bg-gray-50"
-                >
-                  <span>{menu.title}</span>
-                  <div className={`transition-transform duration-300 ${openMenu === menu.title ? 'rotate-180' : ''}`}>
-                    <ChevronDownIcon />
-                  </div>
-                </button>
-                {openMenu === menu.title && (
-                  <div className="px-4 pb-3 space-y-2">
-                    {menu.items.map((item) => (
-                      <button
-                        key={item.name}
-                        onClick={() => {
-                          window.scrollTo(0, 0);
-                          navigate(item.route);
-                          setOpenMenu(null);
-                        }}
-                        className={`block w-full text-left px-3 py-2 rounded-lg text-sm ${
-                          item.danger 
-                            ? 'text-red-600 hover:bg-red-50 font-semibold' 
-                            : 'text-gray-700 hover:bg-gray-100'
-                        }`}
-                      >
-                        {item.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Desktop: Horizontal Dropdown Menu */}
-          <div className="hidden md:flex md:items-center md:justify-center md:space-x-6">
-            {menuStructure.map((menu) => (
-              <div key={menu.title} className="relative group">
-                <button className="px-4 py-2 text-sm font-semibold text-gray-800 hover:text-cyan-600 transition-colors">
-                  {menu.title}
-                </button>
-                {/* Dropdown */}
-                <div className="absolute left-0 mt-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <div className="py-2">
-                    {menu.items.map((item) => (
-                      <button
-                        key={item.name}
-                        onClick={() => {
-                          window.scrollTo(0, 0);
-                          if (item.state) {
-                            navigate(item.route, { state: item.state });
-                          } else {
-                            navigate(item.route);
-                          }
-                        }}
-                        className={`block w-full text-left px-4 py-2 text-sm ${
-                          item.danger
-                            ? 'text-red-600 hover:bg-red-50 font-semibold'
-                            : 'text-gray-700 hover:bg-gray-100'
-                        }`}
-                      >
-                        {item.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </nav>
+      {/* TopNav Navigation */}
+      <TopNav internalPage={true} showMenu={true} />
 
       {/* Location Detection Banner */}
       {showLocationBanner && country && (
@@ -684,12 +587,6 @@ const Page4 = () => {
         
         {/* Sección 1: SERVICIOS PRINCIPALES (3 grandes) */}
         <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">
-              🏥 Servicios de Salud
-            </h2>
-            <span className="text-sm text-gray-500 font-medium">Acceso ilimitado</span>
-          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {primaryServices.map((service) => (
               <DashboardBox
@@ -708,11 +605,6 @@ const Page4 = () => {
 
         {/* Sección 2: SERVICIOS SECUNDARIOS (3 pequeños) */}
         <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl md:text-3xl font-black text-gray-900">
-              📊 Tu Cuenta y Recursos
-            </h2>
-          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {secondaryServices.map((service) => (
               <DashboardBox
