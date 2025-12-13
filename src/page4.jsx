@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import UserContext from './contexts/UserContext';
 import { useGeolocation, isUSAUser, isMexicoUser } from './hooks/useGeolocation';
+import { FireIcon } from './components/CustomIcons';
 
 // Custom Navigation Icons - Diseñados profesionalmente
 const ChevronDownIcon = () => (
@@ -420,7 +421,12 @@ const Page4 = () => {
       title: "Videollamada a Doctor",
       message: "Consulta médica 24/7 desde cualquier lugar",
       color: "#52D293",
-      badge: "🔥 Más Usado",
+      badge: (
+        <span className="flex items-center gap-1">
+          <FireIcon className="w-3.5 h-3.5" />
+          Más Usado
+        </span>
+      ),
       onClick: () => {
         window.scrollTo(0, 0);
         navigate('/telemedicine');

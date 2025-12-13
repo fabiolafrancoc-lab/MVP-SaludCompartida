@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from '../components/TopNav';
+import { LightbulbIcon } from '../components/CustomIcons';
 
 const Contacto = () => {
   const navigate = useNavigate();
@@ -314,8 +315,9 @@ ${new Date().toLocaleDateString('es-MX', {
               </div>
 
               <div className="mt-6 bg-cyan-50 border border-cyan-200 rounded-xl p-4">
-                <p className="text-sm text-cyan-900">
-                  <strong>💡 Tip:</strong> Para respuesta más rápida, usa WhatsApp. Revisamos mensajes constantemente.
+                <p className="text-sm text-cyan-900 flex items-center gap-2">
+                  <LightbulbIcon className="w-5 h-5 text-cyan-700 flex-shrink-0" />
+                  <span><strong>Tip:</strong> Para respuesta más rápida, usa WhatsApp. Revisamos mensajes constantemente.</span>
                 </p>
               </div>
             </div>

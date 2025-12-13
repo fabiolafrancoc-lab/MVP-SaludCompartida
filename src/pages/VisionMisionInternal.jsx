@@ -78,7 +78,7 @@ export default function VisionMisionInternal() {
         </div>
       </section>
 
-      <Footer />
+      <Footer internalPage={true} />
     </main>
   )
 }

@@ -4,6 +4,7 @@ import { useGeolocation } from './hooks/useGeolocation';
 import { UserContext } from './contexts/UserContext';
 import { getUserByAccessCode } from './lib/supabase';
 import TopNav from './components/TopNav';
+import { LightbulbIcon } from './components/CustomIcons';
 
 export default function LoginCodigo() {
   const navigate = useNavigate();
@@ -510,9 +511,12 @@ export default function LoginCodigo() {
 
                 {/* Ayuda */}
                 <div className="mt-6 p-4 bg-cyan-50 rounded-xl border border-cyan-200">
-                  <p className="text-sm text-gray-600 text-center">
-                    <span className="font-semibold text-cyan-700">💡 ¿Necesitas ayuda?</span><br />
-                    Si no tienes tu código, contáctanos por WhatsApp
+                  <p className="text-sm text-gray-600 text-center flex items-center justify-center gap-2">
+                    <LightbulbIcon className="w-5 h-5 text-cyan-700 flex-shrink-0" />
+                    <span>
+                      <span className="font-semibold text-cyan-700">¿Necesitas ayuda?</span><br />
+                      Si no tienes tu código, contáctanos por WhatsApp
+                    </span>
                   </p>
                 </div>
               </div>

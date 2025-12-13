@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PharmacyMap from './components/PharmacyMap';
 import TopNav from './components/TopNav';
+import { LightbulbIcon } from './components/CustomIcons';
 
 export default function Pharmacy() {
   const navigate = useNavigate();
@@ -361,8 +362,9 @@ export default function Pharmacy() {
 
             {/* INSTRUCCIONES USO */}
             <div className="mt-4 bg-cyan-50 border-l-4 border-cyan-500 p-4 rounded-r-lg">
-              <p className="text-sm text-gray-700">
-                <span className="font-bold text-cyan-700">💡 Cómo usar:</span> Muestra esta tarjeta o código QR en farmacia para aplicar tu descuento
+              <p className="text-sm text-gray-700 flex items-center gap-2">
+                <LightbulbIcon className="w-5 h-5 text-cyan-700 flex-shrink-0" />
+                <span><span className="font-bold text-cyan-700">Cómo usar:</span> Muestra esta tarjeta o código QR en farmacia para aplicar tu descuento</span>
               </p>
             </div>
           </div>

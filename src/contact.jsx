@@ -1,8 +1,8 @@
 // src/contact.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { WhatsAppButtonMagenta } from './components/WhatsAppIcons';
-import DashboardNav from './components/DashboardNav';
+import { WhatsAppButtonGreen } from './components/WhatsAppIcons';
+import TopNav from './components/TopNav';
 
 export default function Contact() {
   const navigate = useNavigate();
@@ -329,7 +329,7 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
-      <DashboardNav />
+      <TopNav internalPage={true} />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Grid limpio sin capas - formulario izquierda, imagen derecha */}
@@ -593,11 +593,11 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
               </div>
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">WhatsApp</h3>
-                <WhatsAppButtonMagenta
+                <WhatsAppButtonGreen
                   href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
                 >
                   Chatea con Nosotros
-                </WhatsAppButtonMagenta>
+                </WhatsAppButtonGreen>
               </div>
             </div>
 
