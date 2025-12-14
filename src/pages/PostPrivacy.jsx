@@ -1,392 +1,781 @@
-import { useNavigate } from 'react-router-dom';import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';import { useNavigate } from 'react-router-dom';import { useNavigate } from 'react-router-dom';
 
-import { useState } from 'react';import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-import Footer from '../components/Footer';import TopNav from '../components/TopNav';
-
-
-
-export default function PostPrivacy() {export default function PostPrivacy() {
-
-  const navigate = useNavigate();  const navigate = useNavigate();
-
-  const [activeSection, setActiveSection] = useState('');  const [activeSection, setActiveSection] = useState('');
+import Footer from '../components/Footer';import { useState } from 'react';import { useState, useEffect } from 'react';
 
 
 
-  const scrollToSection = (sectionId) => {  // Scroll to top when component mounts
+export default function PostPrivacy() {import Footer from '../components/Footer';import TopNav from '../components/TopNav';
 
-    const element = document.getElementById(sectionId);  useEffect(() => {
+  const navigate = useNavigate();
 
-    if (element) {    window.scrollTo(0, 0);
+  const [activeSection, setActiveSection] = useState('');
 
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });  }, []);
 
-      setActiveSection(sectionId);
 
-    }  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId) => {export default function PostPrivacy() {export default function PostPrivacy() {
 
-  };    const element = document.getElementById(sectionId);
+    const element = document.getElementById(sectionId);
 
-    if (element) {
+    if (element) {  const navigate = useNavigate();  const navigate = useNavigate();
 
-  const sections = [      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    { id: 'intro', title: '1. Introducción' },      setActiveSection(sectionId);
+      setActiveSection(sectionId);  const [activeSection, setActiveSection] = useState('');  const [activeSection, setActiveSection] = useState('');
 
-    { id: 'responsible', title: '2. Responsable del tratamiento' },    }
+    }
 
-    { id: 'data-collection', title: '3. Datos que recopilamos' },  };
+  };
 
-    { id: 'purposes', title: '4. Finalidades del tratamiento' },
 
-    { id: 'legal-basis', title: '5. Fundamento legal' },  const sections = [
 
-    { id: 'transfers', title: '6. Transferencia de datos' },    { id: 'intro', title: '1. Introducción' },
+  const sections = [  const scrollToSection = (sectionId) => {  // Scroll to top when component mounts
 
-    { id: 'arco-rights', title: '7. Derechos ARCO' },    { id: 'responsible', title: '2. Responsable del tratamiento' },
+    { id: 'intro', title: '1. Introducción' },
 
-    { id: 'security', title: '8. Seguridad de datos' },    { id: 'data-collection', title: '3. Datos que recopilamos' },
+    { id: 'responsible', title: '2. Responsable del tratamiento' },    const element = document.getElementById(sectionId);  useEffect(() => {
 
-    { id: 'cookies', title: '9. Cookies y tecnologías' },    { id: 'purpose', title: '4. Finalidades del tratamiento' },
+    { id: 'data-collection', title: '3. Datos que recopilamos' },
 
-    { id: 'minors', title: '10. Menores de edad' },    { id: 'legal-basis', title: '5. Fundamento legal' },
+    { id: 'purposes', title: '4. Finalidades del tratamiento' },    if (element) {    window.scrollTo(0, 0);
 
-    { id: 'changes', title: '11. Cambios al aviso' }    { id: 'data-transfer', title: '6. Transferencia de datos' },
+    { id: 'legal-basis', title: '5. Fundamento legal' },
 
-  ];    { id: 'arco-rights', title: '7. Derechos ARCO' },
+    { id: 'transfers', title: '6. Transferencia de datos' },      element.scrollIntoView({ behavior: 'smooth', block: 'start' });  }, []);
 
-    { id: 'security', title: '8. Seguridad de datos' },
+    { id: 'arco-rights', title: '7. Derechos ARCO' },
 
-  return (    { id: 'cookies', title: '9. Cookies y tecnologías' },
+    { id: 'security', title: '8. Seguridad de datos' },      setActiveSection(sectionId);
 
-    <div className="min-h-screen bg-white">    { id: 'minors', title: '10. Menores de edad' },
+    { id: 'cookies', title: '9. Cookies y tecnologías' },
 
-      {/* Header - Solo Volver */}    { id: 'changes', title: '11. Cambios al aviso' }
+    { id: 'minors', title: '10. Menores de edad' },    }  const scrollToSection = (sectionId) => {
 
-      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">  ];
+    { id: 'changes', title: '11. Cambios al aviso' }
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+  ];  };    const element = document.getElementById(sectionId);
 
-          <img  return (
 
-            src="/saludcompartida logo WT.png"    <div className="min-h-screen bg-white">
 
-            alt="SaludCompartida"      <TopNav internalPage={true} showMenu={true} />
+  return (    if (element) {
 
-            className="h-16 cursor-pointer"
+    <div className="min-h-screen bg-white">
 
-            onClick={() => navigate('/page4')}      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Header - Solo Volver */}  const sections = [      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-          />        {/* Botón Volver */}
+      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
 
-          <button        <div className="mb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">    { id: 'intro', title: '1. Introducción' },      setActiveSection(sectionId);
 
-            onClick={() => navigate('/page4')}          <button
+          <img
 
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"            onClick={() => navigate('/page4')}
+            src="/saludcompartida logo WT.png"    { id: 'responsible', title: '2. Responsable del tratamiento' },    }
 
-          >            className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold transition-colors"
+            alt="SaludCompartida"
 
-            Volver          >
+            className="h-16 cursor-pointer"    { id: 'data-collection', title: '3. Datos que recopilamos' },  };
 
-          </button>            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            onClick={() => navigate('/page4')}
 
-        </div>              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          />    { id: 'purposes', title: '4. Finalidades del tratamiento' },
 
-      </header>            </svg>
+          <button
+
+            onClick={() => navigate('/page4')}    { id: 'legal-basis', title: '5. Fundamento legal' },  const sections = [
+
+            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"
+
+          >    { id: 'transfers', title: '6. Transferencia de datos' },    { id: 'intro', title: '1. Introducción' },
 
             Volver
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">          </button>
+          </button>    { id: 'arco-rights', title: '7. Derechos ARCO' },    { id: 'responsible', title: '2. Responsable del tratamiento' },
 
-        {/* Hero Section */}        </div>
+        </div>
 
-        <div className="text-center mb-12">
+      </header>    { id: 'security', title: '8. Seguridad de datos' },    { id: 'data-collection', title: '3. Datos que recopilamos' },
 
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">        {/* Hero Section */}
 
-            Política de Privacidad        <div className="text-center mb-12">
 
-          </h1>          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mb-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">    { id: 'cookies', title: '9. Cookies y tecnologías' },    { id: 'purpose', title: '4. Finalidades del tratamiento' },
 
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        {/* Hero Section */}
 
-            Tu privacidad es fundamental para nosotros. Este aviso describe cómo recopilamos, usamos y protegemos tu información personal.              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        <div className="text-center mb-12">    { id: 'minors', title: '10. Menores de edad' },    { id: 'legal-basis', title: '5. Fundamento legal' },
 
-          </p>            </svg>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
 
-          <p className="text-sm text-gray-500 mt-4">          </div>
+            Política de Privacidad    { id: 'changes', title: '11. Cambios al aviso' }    { id: 'data-transfer', title: '6. Transferencia de datos' },
 
-            Última actualización: 7 de noviembre de 2025          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          </h1>
 
-          </p>            Aviso de Privacidad
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">  ];    { id: 'arco-rights', title: '7. Derechos ARCO' },
 
-        </div>          </h1>
+            Tu privacidad es fundamental para nosotros. Este aviso describe cómo recopilamos, usamos y protegemos tu información personal.
 
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          </p>    { id: 'security', title: '8. Seguridad de datos' },
 
-        <div className="grid lg:grid-cols-4 gap-8">            Tu privacidad es fundamental para nosotros. Conoce cómo protegemos y utilizamos tus datos personales.
+          <p className="text-sm text-gray-500 mt-4">
 
-          {/* Sidebar - Índice navegable */}          </p>
+            Última actualización: 7 de noviembre de 2025  return (    { id: 'cookies', title: '9. Cookies y tecnologías' },
 
-          <div className="lg:col-span-1">          <p className="text-sm text-gray-500 mt-4">
+          </p>
 
-            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">            Última actualización: 7 de noviembre de 2025
+        </div>    <div className="min-h-screen bg-white">    { id: 'minors', title: '10. Menores de edad' },
 
-              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>          </p>
 
-              <nav className="space-y-2">        </div>
 
-                {sections.map((section) => (
+        <div className="grid lg:grid-cols-4 gap-8">      {/* Header - Solo Volver */}    { id: 'changes', title: '11. Cambios al aviso' }
 
-                  <button        <div className="grid lg:grid-cols-4 gap-8">
+          {/* Sidebar - Índice navegable */}
 
-                    key={section.id}          {/* Sidebar - Índice navegable */}
+          <div className="lg:col-span-1">      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">  ];
 
-                    onClick={() => scrollToSection(section.id)}          <div className="lg:col-span-1">
+            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
 
-                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
+              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
 
-                      activeSection === section.id              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
+              <nav className="space-y-2">
 
-                        ? 'bg-purple-100 text-purple-900 font-semibold'              <nav className="space-y-2">
+                {sections.map((section) => (          <img  return (
 
-                        : 'text-gray-600 hover:bg-gray-100'                {sections.map((section) => (
+                  <button
 
-                    }`}                  <button
+                    key={section.id}            src="/saludcompartida logo WT.png"    <div className="min-h-screen bg-white">
 
-                  >                    key={section.id}
+                    onClick={() => scrollToSection(section.id)}
 
-                    {section.title}                    onClick={() => scrollToSection(section.id)}
+                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${            alt="SaludCompartida"      <TopNav internalPage={true} showMenu={true} />
 
-                  </button>                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+                      activeSection === section.id
 
-                ))}                      activeSection === section.id
+                        ? 'bg-purple-100 text-purple-900 font-semibold'            className="h-16 cursor-pointer"
 
-              </nav>                        ? 'bg-purple-100 text-purple-900 font-semibold'
+                        : 'text-gray-600 hover:bg-gray-100'
 
-            </div>                        : 'text-gray-600 hover:bg-gray-100'
-
-          </div>                    }`}
+                    }`}            onClick={() => navigate('/page4')}      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
                   >
 
-          {/* Contenido principal */}                    {section.title}
+                    {section.title}          />        {/* Botón Volver */}
 
-          <div className="lg:col-span-3 space-y-12">                  </button>
+                  </button>
 
-                            ))}
+                ))}          <button        <div className="mb-8">
 
-            {/* Sección 1: Introducción */}              </nav>
+              </nav>
 
-            <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">            </div>
+            </div>            onClick={() => navigate('/page4')}          <button
 
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">          </div>
+          </div>
+
+            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"            onClick={() => navigate('/page4')}
+
+          {/* Contenido principal */}
+
+          <div className="lg:col-span-3 space-y-12">          >            className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold transition-colors"
+
+            
+
+            {/* Sección 1: Introducción */}            Volver          >
+
+            <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">          </button>            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
                 1. Introducción
 
-              </h2>          {/* Contenido principal */}
-
-              <p className="text-gray-700 mb-4 leading-relaxed">          <div className="lg:col-span-3 space-y-12">
-
-                SaludCompartida respeta tu privacidad y se compromete a proteger tus datos personales. Este Aviso de Privacidad cumple con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) de México.            
-
-              </p>            {/* Sección 1: Introducción */}
-
-              <p className="text-gray-700 leading-relaxed">            <section id="intro" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
-
-                Al usar nuestros servicios, aceptas las prácticas descritas en este aviso.              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-
-              </p>                1. Introducción
-
-            </section>              </h2>
+              </h2>        </div>              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
 
               <p className="text-gray-700 mb-4 leading-relaxed">
 
-            {/* Sección 2: Responsable del tratamiento */}                En SaludCompartida, tu privacidad y la protección de tus datos personales son nuestra máxima prioridad. Este aviso de privacidad describe cómo recopilamos, usamos, compartimos y protegemos tu información personal.
+                SaludCompartida respeta tu privacidad y se compromete a proteger tus datos personales. Este Aviso de Privacidad cumple con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) de México.      </header>            </svg>
 
-            <section id="responsible" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">              </p>
+              </p>
 
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 mb-4">
+              <p className="text-gray-700 leading-relaxed">            Volver
 
-                2. Responsable del tratamiento                <h3 className="font-bold text-gray-900 mb-3">Nuestro compromiso</h3>
+                Al usar nuestros servicios, aceptas las prácticas descritas en este aviso.
 
-              </h2>                <p className="text-gray-700 text-sm leading-relaxed">
-
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">                  Nos comprometemos a proteger tu información personal y tratarla con la máxima confidencialidad, cumpliendo con todas las leyes aplicables de protección de datos en México y Estados Unidos.
-
-                <div className="space-y-3 text-gray-700">                </p>
-
-                  <p><strong className="text-gray-900">Razón social:</strong> SaludCompartida</p>              </div>
-
-                  <p><strong className="text-gray-900">Domicilio:</strong> Phoenix, Arizona, Estados Unidos</p>              <p className="text-gray-700 text-sm leading-relaxed">
-
-                  <p><strong className="text-gray-900">Contacto:</strong> <a href="mailto:privacidad@saludcompartida.com" className="text-purple-600 hover:text-purple-700">privacidad@saludcompartida.com</a></p>                <strong>Alcance:</strong> Este aviso aplica a todos los usuarios de SaludCompartida, incluyendo tanto a migrantes que contratan el servicio en Estados Unidos como a usuarios que reciben los servicios en México, Centroamérica, Latinoamérica e India.
-
-                </div>              </p>
-
-              </div>            </section>
+              </p>      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">          </button>
 
             </section>
 
+        {/* Hero Section */}        </div>
+
             {/* Sección 2: Responsable del tratamiento */}
 
-            {/* Sección 3: Datos que recopilamos */}            <section id="responsible" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="responsible" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">        <div className="text-center mb-12">
 
-            <section id="data-collection" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
 
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">                2. Responsable del tratamiento
+                2. Responsable del tratamiento          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">        {/* Hero Section */}
 
-                3. Datos que recopilamos              </h2>
+              </h2>
 
-              </h2>              <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl p-6">
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">            Política de Privacidad        <div className="text-center mb-12">
 
-                <h3 className="font-bold text-gray-900 mb-4 text-lg">SaludCompartida S.A.P.I. de C.V.</h3>
+                <div className="space-y-3 text-gray-700">
 
-              <div className="space-y-6">                <div className="grid md:grid-cols-2 gap-6">
+                  <p><strong className="text-gray-900">Razón social:</strong> SaludCompartida</p>          </h1>          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mb-4">
 
-                {/* Datos de identificación */}                  <div>
+                  <p><strong className="text-gray-900">Domicilio:</strong> Phoenix, Arizona, Estados Unidos</p>
 
-                <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6 border border-cyan-200">                    <p className="text-sm text-gray-600 mb-1">CEO y Representante Legal</p>
+                  <p><strong className="text-gray-900">Contacto:</strong> <a href="mailto:privacidad@saludcompartida.com" className="text-purple-600 hover:text-purple-700">privacidad@saludcompartida.com</a></p>          <p className="text-lg text-gray-600 max-w-3xl mx-auto">            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de identificación:</h3>                    <p className="font-semibold text-gray-900">Fabiola Franco</p>
+                </div>
 
-                  <ul className="text-gray-700 text-sm space-y-1">                  </div>
+              </div>            Tu privacidad es fundamental para nosotros. Este aviso describe cómo recopilamos, usamos y protegemos tu información personal.              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
 
-                    <li>• Nombre completo</li>                  <div>
+            </section>
 
-                    <li>• Fecha de nacimiento</li>                    <p className="text-sm text-gray-600 mb-1">Correo electrónico</p>
+          </p>            </svg>
 
-                    <li>• Número de teléfono</li>                    <p className="font-semibold text-gray-900">ffranco@saludcompartida.com</p>
+            {/* Sección 3: Datos que recopilamos */}
 
-                    <li>• Correo electrónico</li>                  </div>
+            <section id="data-collection" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">          <p className="text-sm text-gray-500 mt-4">          </div>
 
-                    <li>• Dirección física</li>                  <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
 
-                  </ul>                    <p className="text-sm text-gray-600 mb-1">Teléfono de contacto</p>
+                3. Datos que recopilamos            Última actualización: 7 de noviembre de 2025          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
 
-                </div>                    <p className="font-semibold text-gray-900">+1 305 522 7150</p>
+              </h2>
 
-                  </div>
+          </p>            Aviso de Privacidad
 
-                {/* Datos de salud */}                  <div>
+              <div className="space-y-6">
 
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">                    <p className="text-sm text-gray-600 mb-1">Sitio web</p>
+                {/* Datos de identificación */}        </div>          </h1>
 
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de salud:</h3>                    <p className="font-semibold text-gray-900">saludcompartida.com</p>
+                <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6 border border-cyan-200">
 
-                  <ul className="text-gray-700 text-sm space-y-1">                  </div>
+                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de identificación:</h3>          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
 
-                    <li>• Historial médico</li>                </div>
+                  <ul className="text-gray-700 text-sm space-y-1">
 
-                    <li>• Síntomas reportados</li>              </div>
+                    <li>• Nombre completo</li>        <div className="grid lg:grid-cols-4 gap-8">            Tu privacidad es fundamental para nosotros. Conoce cómo protegemos y utilizamos tus datos personales.
 
-                    <li>• Diagnósticos y tratamientos</li>              <p className="text-gray-700 text-sm mt-6 leading-relaxed">
+                    <li>• Fecha de nacimiento</li>
 
-                    <li>• Recetas médicas</li>                SaludCompartida es responsable del tratamiento de tus datos personales y se compromete a proteger tu privacidad de acuerdo con la Ley Federal de Protección de Datos Personales en Posesión de Particulares (México) y regulaciones aplicables en Estados Unidos.
+                    <li>• Número de teléfono</li>          {/* Sidebar - Índice navegable */}          </p>
 
-                  </ul>              </p>
+                    <li>• Correo electrónico</li>
 
-                </div>            </section>
+                    <li>• Dirección física</li>          <div className="lg:col-span-1">          <p className="text-sm text-gray-500 mt-4">
+
+                  </ul>
+
+                </div>            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">            Última actualización: 7 de noviembre de 2025
 
 
 
-                {/* Datos de pago */}            {/* Sección 3: Datos que recopilamos */}
+                {/* Datos de salud */}              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>          </p>
 
-                <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-6 border border-pink-200">            <section id="data-collection" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
 
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de pago:</h3>              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de salud:</h3>              <nav className="space-y-2">        </div>
 
-                  <ul className="text-gray-700 text-sm space-y-1">                3. Datos personales que recopilamos
+                  <ul className="text-gray-700 text-sm space-y-1">
 
-                    <li>• Información de tarjeta (procesada por terceros seguros)</li>              </h2>
+                    <li>• Historial médico</li>                {sections.map((section) => (
 
-                    <li>• Historial de transacciones</li>              <p className="text-gray-700 mb-6 leading-relaxed">
+                    <li>• Síntomas reportados</li>
 
-                  </ul>                Recopilamos diferentes tipos de información para proporcionar y mejorar nuestros servicios:
+                    <li>• Diagnósticos y tratamientos</li>                  <button        <div className="grid lg:grid-cols-4 gap-8">
 
-                </div>              </p>
+                    <li>• Recetas médicas</li>
+
+                  </ul>                    key={section.id}          {/* Sidebar - Índice navegable */}
+
+                </div>
+
+                    onClick={() => scrollToSection(section.id)}          <div className="lg:col-span-1">
+
+                {/* Datos de pago */}
+
+                <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-6 border border-pink-200">                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
+
+                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de pago:</h3>
+
+                  <ul className="text-gray-700 text-sm space-y-1">                      activeSection === section.id              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
+
+                    <li>• Información de tarjeta (procesada por terceros seguros)</li>
+
+                    <li>• Historial de transacciones</li>                        ? 'bg-purple-100 text-purple-900 font-semibold'              <nav className="space-y-2">
+
+                  </ul>
+
+                </div>                        : 'text-gray-600 hover:bg-gray-100'                {sections.map((section) => (
 
               </div>
 
-            </section>              <div className="space-y-6">
+            </section>                    }`}                  <button
 
-                {/* Datos de identificación */}
 
-            {/* Sección 4: Finalidades del tratamiento */}                <div className="border-l-4 border-cyan-500 pl-6">
 
-            <section id="purposes" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de identificación</h3>
+            {/* Sección 4: Finalidades del tratamiento */}                  >                    key={section.id}
 
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">                  <ul className="text-gray-700 text-sm space-y-2">
+            <section id="purposes" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">                    {section.title}                    onClick={() => scrollToSection(section.id)}
+
+                4. Finalidades del tratamiento
+
+              </h2>                  </button>                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+
+              <ul className="space-y-3 text-gray-700 text-sm">
+
+                <li className="flex items-start">                ))}                      activeSection === section.id
+
+                  <span className="text-purple-600 mr-2">✓</span>
+
+                  <span>Proporcionar servicios de telemedicina y consultas médicas</span>              </nav>                        ? 'bg-purple-100 text-purple-900 font-semibold'
+
+                </li>
+
+                <li className="flex items-start">            </div>                        : 'text-gray-600 hover:bg-gray-100'
+
+                  <span className="text-purple-600 mr-2">✓</span>
+
+                  <span>Procesar pagos y gestionar suscripciones</span>          </div>                    }`}
+
+                </li>
+
+                <li className="flex items-start">                  >
+
+                  <span className="text-purple-600 mr-2">✓</span>
+
+                  <span>Emitir recetas electrónicas y coordinar con farmacias</span>          {/* Contenido principal */}                    {section.title}
+
+                </li>
+
+                <li className="flex items-start">          <div className="lg:col-span-3 space-y-12">                  </button>
+
+                  <span className="text-purple-600 mr-2">✓</span>
+
+                  <span>Comunicarte información relevante sobre tu salud y suscripción</span>                            ))}
+
+                </li>
+
+                <li className="flex items-start">            {/* Sección 1: Introducción */}              </nav>
+
+                  <span className="text-purple-600 mr-2">✓</span>
+
+                  <span>Mejorar nuestros servicios mediante análisis estadísticos</span>            <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">            </div>
+
+                </li>
+
+              </ul>              <h2 className="text-3xl font-bold text-gray-900 mb-6">          </div>
+
+            </section>
+
+                1. Introducción
+
+            {/* Sección 5: Fundamento legal */}
+
+            <section id="legal-basis" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">              </h2>          {/* Contenido principal */}
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                5. Fundamento legal              <p className="text-gray-700 mb-4 leading-relaxed">          <div className="lg:col-span-3 space-y-12">
+
+              </h2>
+
+              <p className="text-gray-700 mb-4 leading-relaxed">                SaludCompartida respeta tu privacidad y se compromete a proteger tus datos personales. Este Aviso de Privacidad cumple con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) de México.            
+
+                El tratamiento de tus datos personales se fundamenta en:
+
+              </p>              </p>            {/* Sección 1: Introducción */}
+
+              <ul className="space-y-3 text-gray-700 text-sm">
+
+                <li className="border-l-4 border-purple-500 pl-4">              <p className="text-gray-700 leading-relaxed">            <section id="intro" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+
+                  Tu consentimiento expreso al registrarte en nuestros servicios
+
+                </li>                Al usar nuestros servicios, aceptas las prácticas descritas en este aviso.              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                <li className="border-l-4 border-purple-500 pl-4">
+
+                  La ejecución del contrato de servicios que celebras con nosotros              </p>                1. Introducción
+
+                </li>
+
+                <li className="border-l-4 border-purple-500 pl-4">            </section>              </h2>
+
+                  El cumplimiento de obligaciones legales aplicables
+
+                </li>              <p className="text-gray-700 mb-4 leading-relaxed">
+
+                <li className="border-l-4 border-purple-500 pl-4">
+
+                  Nuestro interés legítimo en mejorar y personalizar nuestros servicios            {/* Sección 2: Responsable del tratamiento */}                En SaludCompartida, tu privacidad y la protección de tus datos personales son nuestra máxima prioridad. Este aviso de privacidad describe cómo recopilamos, usamos, compartimos y protegemos tu información personal.
+
+                </li>
+
+              </ul>            <section id="responsible" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">              </p>
+
+            </section>
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 mb-4">
+
+            {/* Sección 6: Transferencia de datos */}
+
+            <section id="transfers" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                2. Responsable del tratamiento                <h3 className="font-bold text-gray-900 mb-3">Nuestro compromiso</h3>
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                6. Transferencia de datos              </h2>                <p className="text-gray-700 text-sm leading-relaxed">
+
+              </h2>
+
+              <p className="text-gray-700 mb-6 leading-relaxed">              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">                  Nos comprometemos a proteger tu información personal y tratarla con la máxima confidencialidad, cumpliendo con todas las leyes aplicables de protección de datos en México y Estados Unidos.
+
+                Podemos transferir tus datos personales a terceros en los siguientes casos:
+
+              </p>                <div className="space-y-3 text-gray-700">                </p>
+
+
+
+              <div className="space-y-4">                  <p><strong className="text-gray-900">Razón social:</strong> SaludCompartida</p>              </div>
+
+                <div className="bg-cyan-50 rounded-lg p-4 border border-cyan-200">
+
+                  <h3 className="font-bold text-gray-900 mb-2">Proveedores de servicios médicos</h3>                  <p><strong className="text-gray-900">Domicilio:</strong> Phoenix, Arizona, Estados Unidos</p>              <p className="text-gray-700 text-sm leading-relaxed">
+
+                  <p className="text-gray-600 text-sm">Doctores, especialistas y personal médico autorizado que proporcionan atención.</p>
+
+                </div>                  <p><strong className="text-gray-900">Contacto:</strong> <a href="mailto:privacidad@saludcompartida.com" className="text-purple-600 hover:text-purple-700">privacidad@saludcompartida.com</a></p>                <strong>Alcance:</strong> Este aviso aplica a todos los usuarios de SaludCompartida, incluyendo tanto a migrantes que contratan el servicio en Estados Unidos como a usuarios que reciben los servicios en México, Centroamérica, Latinoamérica e India.
+
+
+
+                <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">                </div>              </p>
+
+                  <h3 className="font-bold text-gray-900 mb-2">Farmacias asociadas</h3>
+
+                  <p className="text-gray-600 text-sm">Para procesar descuentos y surtir recetas médicas.</p>              </div>            </section>
+
+                </div>
+
+            </section>
+
+                <div className="bg-pink-50 rounded-lg p-4 border border-pink-200">
+
+                  <h3 className="font-bold text-gray-900 mb-2">Procesadores de pago</h3>            {/* Sección 2: Responsable del tratamiento */}
+
+                  <p className="text-gray-600 text-sm">Servicios como Stripe para procesar transacciones de manera segura.</p>
+
+                </div>            {/* Sección 3: Datos que recopilamos */}            <section id="responsible" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+
+
+
+                <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">            <section id="data-collection" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                  <h3 className="font-bold text-gray-900 mb-2">Proveedores tecnológicos</h3>
+
+                  <p className="text-gray-600 text-sm">Servicios de almacenamiento en la nube y comunicaciones (AWS, Twilio, etc.).</p>              <h2 className="text-3xl font-bold text-gray-900 mb-6">                2. Responsable del tratamiento
+
+                </div>
+
+              </div>                3. Datos que recopilamos              </h2>
+
+
+
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 my-6 rounded-r-lg">              </h2>              <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl p-6">
+
+                <p className="text-yellow-900 font-semibold">
+
+                  Importante: Todos los terceros están obligados contractualmente a proteger tus datos y solo pueden usarlos para los fines autorizados.                <h3 className="font-bold text-gray-900 mb-4 text-lg">SaludCompartida S.A.P.I. de C.V.</h3>
+
+                </p>
+
+              </div>              <div className="space-y-6">                <div className="grid md:grid-cols-2 gap-6">
+
+            </section>
+
+                {/* Datos de identificación */}                  <div>
+
+            {/* Sección 7: Derechos ARCO */}
+
+            <section id="arco-rights" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6 border border-cyan-200">                    <p className="text-sm text-gray-600 mb-1">CEO y Representante Legal</p>
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                7. Derechos ARCO                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de identificación:</h3>                    <p className="font-semibold text-gray-900">Fabiola Franco</p>
+
+              </h2>
+
+              <p className="text-gray-700 mb-6 leading-relaxed">                  <ul className="text-gray-700 text-sm space-y-1">                  </div>
+
+                Tienes derecho a:
+
+              </p>                    <li>• Nombre completo</li>                  <div>
+
+
+
+              <div className="grid md:grid-cols-2 gap-4 mb-6">                    <li>• Fecha de nacimiento</li>                    <p className="text-sm text-gray-600 mb-1">Correo electrónico</p>
+
+                <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-4 border border-cyan-200">
+
+                  <h3 className="font-bold text-gray-900 mb-2">Acceso</h3>                    <li>• Número de teléfono</li>                    <p className="font-semibold text-gray-900">ffranco@saludcompartida.com</p>
+
+                  <p className="text-gray-600 text-sm">Conocer qué datos personales tenemos sobre ti</p>
+
+                </div>                    <li>• Correo electrónico</li>                  </div>
+
+
+
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200">                    <li>• Dirección física</li>                  <div>
+
+                  <h3 className="font-bold text-gray-900 mb-2">Rectificación</h3>
+
+                  <p className="text-gray-600 text-sm">Corregir tus datos si son inexactos</p>                  </ul>                    <p className="text-sm text-gray-600 mb-1">Teléfono de contacto</p>
+
+                </div>
+
+                </div>                    <p className="font-semibold text-gray-900">+1 305 522 7150</p>
+
+                <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-4 border border-pink-200">
+
+                  <h3 className="font-bold text-gray-900 mb-2">Cancelación</h3>                  </div>
+
+                  <p className="text-gray-600 text-sm">Solicitar que eliminemos tus datos</p>
+
+                </div>                {/* Datos de salud */}                  <div>
+
+
+
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">                    <p className="text-sm text-gray-600 mb-1">Sitio web</p>
+
+                  <h3 className="font-bold text-gray-900 mb-2">Oposición</h3>
+
+                  <p className="text-gray-600 text-sm">Oponerte al tratamiento de tus datos</p>                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de salud:</h3>                    <p className="font-semibold text-gray-900">saludcompartida.com</p>
+
+                </div>
+
+              </div>                  <ul className="text-gray-700 text-sm space-y-1">                  </div>
+
+
+
+              <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">                    <li>• Historial médico</li>                </div>
+
+                <p className="text-purple-900 font-semibold">
+
+                  Para ejercer tus derechos: Envía un correo a <a href="mailto:privacidad@saludcompartida.com" className="underline">privacidad@saludcompartida.com</a>                    <li>• Síntomas reportados</li>              </div>
+
+                </p>
+
+              </div>                    <li>• Diagnósticos y tratamientos</li>              <p className="text-gray-700 text-sm mt-6 leading-relaxed">
+
+            </section>
+
+                    <li>• Recetas médicas</li>                SaludCompartida es responsable del tratamiento de tus datos personales y se compromete a proteger tu privacidad de acuerdo con la Ley Federal de Protección de Datos Personales en Posesión de Particulares (México) y regulaciones aplicables en Estados Unidos.
+
+            {/* Sección 8: Seguridad de datos */}
+
+            <section id="security" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                  </ul>              </p>
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                8. Seguridad de datos                </div>            </section>
+
+              </h2>
+
+              <p className="text-gray-700 mb-4 leading-relaxed">
+
+                Implementamos medidas de seguridad administrativas, técnicas y físicas para proteger tus datos personales:
+
+              </p>                {/* Datos de pago */}            {/* Sección 3: Datos que recopilamos */}
+
+              <ul className="space-y-2 text-gray-700 text-sm">
+
+                <li>• Encriptación de datos sensibles</li>                <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-6 border border-pink-200">            <section id="data-collection" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+
+                <li>• Acceso restringido solo a personal autorizado</li>
+
+                <li>• Auditorías de seguridad periódicas</li>                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de pago:</h3>              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                <li>• Servidores seguros con certificados SSL</li>
+
+                <li>• Cumplimiento con estándares internacionales de protección de datos</li>                  <ul className="text-gray-700 text-sm space-y-1">                3. Datos personales que recopilamos
+
+              </ul>
+
+            </section>                    <li>• Información de tarjeta (procesada por terceros seguros)</li>              </h2>
+
+
+
+            {/* Sección 9: Cookies y tecnologías */}                    <li>• Historial de transacciones</li>              <p className="text-gray-700 mb-6 leading-relaxed">
+
+            <section id="cookies" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">                  </ul>                Recopilamos diferentes tipos de información para proporcionar y mejorar nuestros servicios:
+
+                9. Cookies y tecnologías de rastreo
+
+              </h2>                </div>              </p>
+
+              <p className="text-gray-700 mb-4 leading-relaxed">
+
+                Utilizamos cookies y tecnologías similares para:              </div>
+
+              </p>
+
+              <ul className="space-y-2 text-gray-700 text-sm mb-4">            </section>              <div className="space-y-6">
+
+                <li>• Mantener tu sesión activa mientras usas la plataforma</li>
+
+                <li>• Recordar tus preferencias y configuraciones</li>                {/* Datos de identificación */}
+
+                <li>• Analizar el uso de la plataforma para mejorar la experiencia</li>
+
+                <li>• Personalizar el contenido y las recomendaciones</li>            {/* Sección 4: Finalidades del tratamiento */}                <div className="border-l-4 border-cyan-500 pl-6">
+
+              </ul>
+
+              <p className="text-gray-600 text-sm leading-relaxed">            <section id="purposes" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de identificación</h3>
+
+                Puedes configurar tu navegador para rechazar cookies, aunque esto puede limitar algunas funcionalidades de la plataforma.
+
+              </p>              <h2 className="text-3xl font-bold text-gray-900 mb-6">                  <ul className="text-gray-700 text-sm space-y-2">
+
+            </section>
 
                 4. Finalidades del tratamiento                    <li className="flex items-start gap-2">
 
-              </h2>                      <svg className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            {/* Sección 10: Menores de edad */}
 
-              <ul className="space-y-3 text-gray-700 text-sm">                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+            <section id="minors" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">              </h2>                      <svg className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
 
-                <li className="flex items-start">                      </svg>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
 
-                  <span className="text-purple-600 mr-2">✓</span>                      <span><strong>Nombre completo:</strong> Nombre y apellidos del usuario</span>
+                10. Protección de menores de edad              <ul className="space-y-3 text-gray-700 text-sm">                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
 
-                  <span>Proporcionar servicios de telemedicina y consultas médicas</span>                    </li>
+              </h2>
 
-                </li>                    <li className="flex items-start gap-2">
+              <p className="text-gray-700 mb-4 leading-relaxed">                <li className="flex items-start">                      </svg>
 
-                <li className="flex items-start">                      <svg className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                Los servicios de SaludCompartida pueden ser utilizados por menores de edad bajo la supervisión y consentimiento de un padre o tutor legal.
 
-                  <span className="text-purple-600 mr-2">✓</span>                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+              </p>                  <span className="text-purple-600 mr-2">✓</span>                      <span><strong>Nombre completo:</strong> Nombre y apellidos del usuario</span>
 
-                  <span>Procesar pagos y gestionar suscripciones</span>                      </svg>
 
-                </li>                      <span><strong>Número de teléfono:</strong> Para contacto y activación del servicio</span>
 
-                <li className="flex items-start">                    </li>
+              <div className="bg-blue-50 border-l-4 border-blue-400 p-6 my-6 rounded-r-lg">                  <span>Proporcionar servicios de telemedicina y consultas médicas</span>                    </li>
 
-                  <span className="text-purple-600 mr-2">✓</span>                    <li className="flex items-start gap-2">
+                <p className="text-blue-900 font-semibold mb-3">
 
-                  <span>Emitir recetas electrónicas y coordinar con farmacias</span>                      <svg className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  Importante: Si un menor de edad requiere atención médica, el padre o tutor debe proporcionar el consentimiento informado y supervisar el uso del servicio.                </li>                    <li className="flex items-start gap-2">
 
-                </li>                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                </p>
 
-                <li className="flex items-start">                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                <p className="text-blue-800 text-sm">                <li className="flex items-start">                      <svg className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
 
-                  <span className="text-purple-600 mr-2">✓</span>                      </svg>
+                  Los datos de salud de menores son tratados con especial cuidado y solo son accesibles por personal médico autorizado y el padre/tutor designado.
 
-                  <span>Comunicarte información relevante sobre tu salud y suscripción</span>                      <span><strong>Correo electrónico:</strong> Para comunicaciones y acceso a la plataforma</span>
+                </p>                  <span className="text-purple-600 mr-2">✓</span>                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
 
-                </li>                    </li>
+              </div>
 
-                <li className="flex items-start">                  </ul>
+            </section>                  <span>Procesar pagos y gestionar suscripciones</span>                      </svg>
+
+
+
+            {/* Sección 11: Cambios al aviso */}                </li>                      <span><strong>Número de teléfono:</strong> Para contacto y activación del servicio</span>
+
+            <section id="changes" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">                <li className="flex items-start">                    </li>
+
+                11. Cambios a este aviso de privacidad
+
+              </h2>                  <span className="text-purple-600 mr-2">✓</span>                    <li className="flex items-start gap-2">
+
+              <p className="text-gray-700 mb-4 leading-relaxed">
+
+                Nos reservamos el derecho de actualizar este Aviso de Privacidad para reflejar cambios en nuestras prácticas o requisitos legales.                  <span>Emitir recetas electrónicas y coordinar con farmacias</span>                      <svg className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+
+              </p>
+
+              <p className="text-gray-700 mb-4 leading-relaxed">                </li>                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+
+                Te notificaremos de cambios importantes mediante:
+
+              </p>                <li className="flex items-start">                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+
+              <ul className="space-y-2 text-gray-700 text-sm mb-4">
+
+                <li>• Correo electrónico a tu dirección registrada</li>                  <span className="text-purple-600 mr-2">✓</span>                      </svg>
+
+                <li>• Aviso destacado en nuestra plataforma</li>
+
+                <li>• Actualización de la fecha al inicio de este documento</li>                  <span>Comunicarte información relevante sobre tu salud y suscripción</span>                      <span><strong>Correo electrónico:</strong> Para comunicaciones y acceso a la plataforma</span>
+
+              </ul>
+
+              <p className="text-gray-600 text-sm leading-relaxed">                </li>                    </li>
+
+                Te recomendamos revisar periódicamente este aviso para mantenerte informado sobre cómo protegemos tu información.
+
+              </p>                <li className="flex items-start">                  </ul>
+
+            </section>
 
                   <span className="text-purple-600 mr-2">✓</span>                </div>
 
-                  <span>Mejorar nuestros servicios mediante análisis estadísticos</span>
+          </div>
 
-                </li>                {/* Datos de salud */}
+        </div>                  <span>Mejorar nuestros servicios mediante análisis estadísticos</span>
 
-              </ul>                <div className="bg-red-50 border-l-4 border-red-400 pl-6 py-4 rounded-r-lg">
 
-            </section>                  <h3 className="font-bold text-red-900 mb-3 text-lg flex items-center gap-2">
 
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+        {/* Contacto */}                </li>                {/* Datos de salud */}
 
-            {/* Sección 5: Fundamento legal */}                      <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+        <div className="mt-12 text-center bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-200">
 
-            <section id="legal-basis" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                    </svg>
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">              </ul>                <div className="bg-red-50 border-l-4 border-red-400 pl-6 py-4 rounded-r-lg">
 
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">                    Datos sensibles relacionados con la salud
+            ¿Tienes preguntas?
 
-                5. Fundamento legal                  </h3>
+          </h3>            </section>                  <h3 className="font-bold text-red-900 mb-3 text-lg flex items-center gap-2">
 
-              </h2>                  <p className="text-red-800 text-sm mb-3 leading-relaxed">
+          <p className="text-gray-700 mb-6">
+
+            Si tienes dudas sobre este Aviso de Privacidad o deseas ejercer tus derechos ARCO, contáctanos:                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+
+          </p>
+
+          <div className="text-center">            {/* Sección 5: Fundamento legal */}                      <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+
+            <a href="mailto:contact@saludcompartida.com" className="text-purple-600 hover:text-purple-700 font-semibold text-lg">
+
+              💬 contact@saludcompartida.com            <section id="legal-basis" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                    </svg>
+
+            </a>
+
+          </div>              <h2 className="text-3xl font-bold text-gray-900 mb-6">                    Datos sensibles relacionados con la salud
+
+          <p className="text-gray-600 text-sm mt-4">
+
+            Responderemos a tu solicitud en un plazo máximo de 20 días hábiles, de acuerdo con la LFPDPPP.                5. Fundamento legal                  </h3>
+
+          </p>
+
+        </div>              </h2>                  <p className="text-red-800 text-sm mb-3 leading-relaxed">
+
+      </div>
 
               <p className="text-gray-700 mb-4 leading-relaxed">                    Los siguientes datos de salud son estrictamente confidenciales entre el profesional que brinda la atención y el usuario:
 
-                El tratamiento de tus datos personales se fundamenta en:                  </p>
+      <Footer />
 
-              </p>                  <ul className="text-red-800 text-sm space-y-1">
+    </div>                El tratamiento de tus datos personales se fundamenta en:                  </p>
+
+  );
+
+}              </p>                  <ul className="text-red-800 text-sm space-y-1">
+
 
               <ul className="space-y-3 text-gray-700 text-sm">                    <li>• Síntomas y motivos de consulta</li>
 
