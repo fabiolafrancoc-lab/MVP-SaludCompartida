@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import TopNav from '../components/TopNav';
-import { DoctorIcon, PharmacyIcon, TherapyIcon, FamilyIcon } from '../components/icons/CustomIcons';
 
 const BeneficiosDetallados = () => {
   const navigate = useNavigate();
@@ -31,7 +30,6 @@ const BeneficiosDetallados = () => {
 
   const benefits = {
     telemedicina: {
-      icon: <DoctorIcon className="w-20 h-20" />,
       title: 'Telemedicina 24/7',
       subtitle: 'Doctor disponible cuando lo necesites',
       features: [
@@ -76,7 +74,6 @@ const BeneficiosDetallados = () => {
       ]
     },
     farmacias: {
-      icon: <PharmacyIcon className="w-20 h-20" />,
       title: 'Descuentos en Farmacias',
       subtitle: '40-75% de ahorro en medicamentos',
       features: [
@@ -127,7 +124,6 @@ const BeneficiosDetallados = () => {
       ]
     },
     terapia: {
-      icon: <TherapyIcon className="w-20 h-20" />,
       title: 'Terapia Psicológica',
       subtitle: 'Apoyo emocional profesional',
       features: [
@@ -172,7 +168,6 @@ const BeneficiosDetallados = () => {
       ]
     },
     cobertura: {
-      icon: <FamilyIcon className="w-20 h-20" />,
       title: 'Cobertura Familiar',
       subtitle: 'Hasta 4 personas protegidas',
       features: [
@@ -221,17 +216,17 @@ const BeneficiosDetallados = () => {
   const currentBenefit = benefits[activeTab];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       <TopNav onBack={() => navigate('/home')} hideUser={true} showMenu={true} />
 
       <div className="max-w-6xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-6">
             Beneficios Detallados
           </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Conoce todo lo que incluye tu membresía de <strong>$12/mes</strong>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Conoce todo lo que incluye tu membresía de <strong className="text-cyan-400">$12/mes</strong>
           </p>
         </div>
 
@@ -242,7 +237,7 @@ const BeneficiosDetallados = () => {
             className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
               activeTab === 'telemedicina'
                 ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg scale-105'
-                : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+                : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700 shadow border border-gray-700'
             }`}
           >
             🏥 Telemedicina
@@ -252,7 +247,7 @@ const BeneficiosDetallados = () => {
             className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
               activeTab === 'farmacias'
                 ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg scale-105'
-                : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+                : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700 shadow border border-gray-700'
             }`}
           >
             💊 Farmacias
@@ -262,7 +257,7 @@ const BeneficiosDetallados = () => {
             className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
               activeTab === 'terapia'
                 ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg scale-105'
-                : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+                : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700 shadow border border-gray-700'
             }`}
           >
             🧠 Terapia
@@ -272,7 +267,7 @@ const BeneficiosDetallados = () => {
             className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
               activeTab === 'cobertura'
                 ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105'
-                : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
+                : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700 shadow border border-gray-700'
             }`}
           >
             👨‍👩‍👧‍👦 Cobertura
@@ -280,25 +275,22 @@ const BeneficiosDetallados = () => {
         </div>
 
         {/* Content */}
-        <div className="bg-white rounded-3xl shadow-2xl p-10 mb-12">
+        <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl shadow-2xl p-10 mb-12 border border-gray-700">
           {/* Header del beneficio */}
-          <div className="flex items-center gap-6 mb-8 pb-8 border-b border-gray-200">
-            {currentBenefit.icon}
-            <div>
-              <h2 className="text-3xl font-black text-gray-900 mb-2">{currentBenefit.title}</h2>
-              <p className="text-xl text-gray-600">{currentBenefit.subtitle}</p>
-            </div>
+          <div className="mb-8 pb-8 border-b border-gray-700">
+            <h2 className="text-3xl font-black text-white mb-2">{currentBenefit.title}</h2>
+            <p className="text-xl text-gray-300">{currentBenefit.subtitle}</p>
           </div>
 
           {/* Features Grid */}
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             {currentBenefit.features.map((feature, index) => (
-              <div key={index} className="bg-gradient-to-br from-gray-50 to-cyan-50 rounded-xl p-6 border border-cyan-100">
+              <div key={index} className="bg-gray-900/50 rounded-xl p-6 border border-gray-600">
                 <div className="flex items-start gap-4">
                   <div className="text-4xl">{feature.icon}</div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2 text-lg">{feature.title}</h3>
-                    <p className="text-gray-700">{feature.description}</p>
+                    <h3 className="font-bold text-white mb-2 text-lg">{feature.title}</h3>
+                    <p className="text-gray-300">{feature.description}</p>
                   </div>
                 </div>
               </div>
@@ -306,17 +298,17 @@ const BeneficiosDetallados = () => {
           </div>
 
           {/* Use Cases */}
-          <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-8 border-2 border-cyan-200 mb-8">
-            <h3 className="font-bold text-gray-900 mb-6 text-2xl">¿Cuándo usar este beneficio?</h3>
+          <div className="bg-cyan-900/30 rounded-2xl p-8 border-2 border-cyan-700 mb-8">
+            <h3 className="font-bold text-white mb-6 text-2xl">¿Cuándo usar este beneficio?</h3>
             <div className="grid md:grid-cols-2 gap-4">
               {currentBenefit.useCases.map((useCase, index) => (
-                <div key={index} className="flex items-center gap-3 bg-white rounded-lg p-4 shadow">
+                <div key={index} className="flex items-center gap-3 bg-gray-800/50 rounded-lg p-4 shadow border border-gray-700">
                   <div className="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span className="text-gray-700 font-medium">{useCase}</span>
+                  <span className="text-gray-200 font-medium">{useCase}</span>
                 </div>
               ))}
             </div>
@@ -324,23 +316,23 @@ const BeneficiosDetallados = () => {
 
           {/* Ejemplos de precios (solo para farmacias) */}
           {activeTab === 'farmacias' && currentBenefit.examples && (
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border-2 border-green-200">
-              <h3 className="font-bold text-gray-900 mb-6 text-2xl">Ejemplos de Ahorros Reales</h3>
+            <div className="bg-green-900/30 rounded-2xl p-8 border-2 border-green-700">
+              <h3 className="font-bold text-white mb-6 text-2xl">Ejemplos de Ahorros Reales</h3>
               <div className="space-y-4">
                 {currentBenefit.examples.map((example, index) => (
-                  <div key={index} className="bg-white rounded-xl p-6 shadow-lg">
+                  <div key={index} className="bg-gray-800/50 rounded-xl p-6 shadow-lg border border-gray-700">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="flex-1 min-w-[200px]">
-                        <p className="font-bold text-gray-900 text-lg">{example.medicine}</p>
+                        <p className="font-bold text-white text-lg">{example.medicine}</p>
                       </div>
                       <div className="flex items-center gap-6">
                         <div className="text-center">
-                          <p className="text-sm text-gray-500">Precio Normal</p>
-                          <p className="text-xl text-gray-400 line-through font-bold">{example.normal}</p>
+                          <p className="text-sm text-gray-400">Precio Normal</p>
+                          <p className="text-xl text-gray-500 line-through font-bold">{example.normal}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-sm text-green-700 font-semibold">Con Descuento</p>
-                          <p className="text-2xl text-green-600 font-black">{example.discount}</p>
+                          <p className="text-sm text-green-400 font-semibold">Con Descuento</p>
+                          <p className="text-2xl text-green-400 font-black">{example.discount}</p>
                         </div>
                         <div className="bg-green-500 text-white px-4 py-2 rounded-full font-black">
                           {example.savings}
@@ -350,7 +342,7 @@ const BeneficiosDetallados = () => {
                   </div>
                 ))}
               </div>
-              <p className="text-center text-gray-600 mt-6 font-semibold">
+              <p className="text-center text-gray-300 mt-6 font-semibold">
                 ✨ Con solo usar el descuento 1 vez al mes, tu membresía se paga sola
               </p>
             </div>
