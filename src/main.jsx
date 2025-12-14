@@ -10,6 +10,8 @@ import Therapy from './therapy.jsx'
 import Savings from './savings.jsx'
 import Terms from './pages/Terms.jsx'
 import Privacy from './pages/Privacy.jsx'
+import TermsInternal from './pages/TermsInternal.jsx'
+import PrivacyInternal from './pages/PrivacyInternal.jsx'
 import Contact from './contact.jsx'
 import Rating from './rating.jsx'
 import Account from './account.jsx'
@@ -54,6 +56,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/blog" element={<Blog />} /> {/* 👈 Blog de Salud */}
           <Route path="/terms" element={<Terms />} /> {/* 👈 Términos y Condiciones */}
           <Route path="/privacy" element={<Privacy />} /> {/* 👈 Aviso de Privacidad */}
+          <Route path="/terms-internal" element={<TermsInternal />} /> {/* 👈 Términos y Condiciones (REGISTRO) */}
+          <Route path="/privacy-internal" element={<PrivacyInternal />} /> {/* 👈 Aviso de Privacidad (REGISTRO) */}
           <Route path="/contact" element={<Contact />} /> {/* 👈 Contáctanos */}
           <Route path="/rating" element={<Rating />} /> {/* 👈 Calificación */}
           <Route path="/account" element={<Account />} /> {/* 👈 Mi Cuenta */}

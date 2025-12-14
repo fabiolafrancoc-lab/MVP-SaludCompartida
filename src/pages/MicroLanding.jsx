@@ -204,10 +204,10 @@ export default function MicroLanding() {
             <div>
               <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Servicios</h3>
               <ul className="space-y-2">
-                <li><button onClick={() => navigate('/telemedicine')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Telemedicina</button></li>
-                <li><button onClick={() => navigate('/pharmacy')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Descuentos en Farmacias</button></li>
-                <li><button onClick={() => navigate('/therapy')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Terapia Psicológica</button></li>
-                <li><button onClick={() => navigate('/savings')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Mis Ahorros</button></li>
+                <li><button onClick={() => navigate('/beneficios#telemedicina')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Telemedicina</button></li>
+                <li><button onClick={() => navigate('/beneficios#farmacias')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Descuentos en Farmacias</button></li>
+                <li><button onClick={() => navigate('/beneficios#terapia')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Terapia Psicológica</button></li>
+                <li><button onClick={() => navigate('/beneficios#ahorros')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Mis Ahorros</button></li>
               </ul>
             </div>
 
@@ -217,7 +217,6 @@ export default function MicroLanding() {
                 <li><button onClick={() => navigate('/quienes-somos')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Quiénes Somos</button></li>
                 <li><button onClick={() => navigate('/mision-y-valores')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Misión y Valores</button></li>
                 <li><button onClick={() => navigate('/nuestros-pilares')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Nuestros Pilares</button></li>
-                <li><button onClick={() => navigate('/blog')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Blog</button></li>
               </ul>
             </div>
 
@@ -225,7 +224,6 @@ export default function MicroLanding() {
               <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Soporte</h3>
               <ul className="space-y-2">
                 <li><button onClick={() => navigate('/contacto')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Contacto</button></li>
-                <li><button onClick={() => navigate('/account')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Mi Cuenta</button></li>
                 <li><button onClick={() => navigate('/privacy')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Política de Privacidad</button></li>
                 <li><button onClick={() => navigate('/terms')} className="text-sm text-white/70 hover:text-cyan-400 transition-colors text-left">Términos y Condiciones</button></li>
               </ul>

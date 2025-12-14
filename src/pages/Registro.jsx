@@ -966,10 +966,17 @@ Equipo SaludCompartida`,
                     <p className="text-center text-sm text-gray-500 leading-relaxed">
                       Al registrarte, aceptas nuestros{' '}
                       <button 
-                        onClick={() => navigate('/terms', { state: { from: '/' } })}
+                        onClick={() => navigate('/terms-internal')}
                         className="text-cyan-600 hover:text-cyan-700 font-medium underline"
                       >
                         términos y condiciones
+                      </button>
+                      {' '}y nuestra{' '}
+                      <button 
+                        onClick={() => navigate('/privacy-internal')}
+                        className="text-cyan-600 hover:text-cyan-700 font-medium underline"
+                      >
+                        política de privacidad
                       </button>
                     </p>
                   </div>

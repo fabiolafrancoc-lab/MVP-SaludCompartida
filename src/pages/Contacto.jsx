@@ -94,24 +94,24 @@ ${new Date().toLocaleDateString('es-MX', {
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50">
-      <TopNav onBack={() => navigate('/page4')} hideUser={true} />
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+      <TopNav onBack={() => navigate('/home')} hideUser={true} showMenu={true} />
 
       <div className="max-w-6xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-6">
             Contáctanos
           </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Estamos aquí para ayudarte. Escríbenos y te responderemos lo antes posible.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Formulario */}
-          <div className="bg-white rounded-3xl shadow-2xl p-10">
-            <h2 className="text-2xl font-black text-gray-900 mb-6">Envíanos un Mensaje</h2>
+          <div className="bg-gray-800/50 backdrop-blur-md border border-gray-700 rounded-3xl shadow-2xl p-10">
+            <h2 className="text-2xl font-black text-white mb-6">Envíanos un Mensaje</h2>
 
             {submitSuccess && (
               <div className="bg-green-50 border-2 border-green-300 rounded-xl p-4 mb-6 flex items-start gap-3">
@@ -136,7 +136,7 @@ ${new Date().toLocaleDateString('es-MX', {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
                   Tu Nombre *
                 </label>
                 <input
@@ -146,12 +146,12 @@ ${new Date().toLocaleDateString('es-MX', {
                   onChange={handleChange}
                   required
                   placeholder="María García"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all"
+                  className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
                   Tu Email *
                 </label>
                 <input
@@ -161,12 +161,12 @@ ${new Date().toLocaleDateString('es-MX', {
                   onChange={handleChange}
                   required
                   placeholder="maria@email.com"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all"
+                  className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
                   Tu Teléfono (opcional)
                 </label>
                 <input
@@ -175,12 +175,12 @@ ${new Date().toLocaleDateString('es-MX', {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="+1 555 123 4567"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all"
+                  className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
                   Asunto *
                 </label>
                 <select
@@ -188,7 +188,7 @@ ${new Date().toLocaleDateString('es-MX', {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all"
+                  className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all"
                 >
                   <option value="consulta-general">Consulta General</option>
                   <option value="informacion-planes">Información sobre Planes</option>
@@ -200,7 +200,7 @@ ${new Date().toLocaleDateString('es-MX', {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
                   Tu Mensaje *
                 </label>
                 <textarea
@@ -210,7 +210,7 @@ ${new Date().toLocaleDateString('es-MX', {
                   required
                   rows="5"
                   placeholder="Cuéntanos cómo podemos ayudarte..."
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all resize-none"
+                  className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all resize-none"
                 />
               </div>
 
@@ -250,12 +250,12 @@ ${new Date().toLocaleDateString('es-MX', {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black text-gray-900">WhatsApp</h3>
+                  <h3 className="text-2xl font-black text-white">WhatsApp</h3>
                   <p className="text-green-700 font-semibold">Respuesta inmediata</p>
                 </div>
               </div>
 
-              <p className="text-gray-700 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed">
                 La forma más rápida de contactarnos. Te respondemos en minutos.
               </p>
 
@@ -278,12 +278,12 @@ ${new Date().toLocaleDateString('es-MX', {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black text-gray-900">Email</h3>
+                  <h3 className="text-2xl font-black text-white">Email</h3>
                   <p className="text-cyan-700 font-semibold">24-48 horas</p>
                 </div>
               </div>
 
-              <p className="text-gray-700 mb-4 leading-relaxed">
+              <p className="text-gray-300 mb-4 leading-relaxed">
                 Envíanos un correo y te responderemos en menos de 24 horas.
               </p>
 
@@ -296,21 +296,21 @@ ${new Date().toLocaleDateString('es-MX', {
             </div>
 
             {/* Horarios */}
-            <div className="bg-white rounded-3xl shadow-xl p-8">
-              <h3 className="text-2xl font-black text-gray-900 mb-6">Horarios de Atención</h3>
+            <div className="bg-gray-800/50 backdrop-blur-md border border-gray-700 rounded-3xl shadow-xl p-8">
+              <h3 className="text-2xl font-black text-white mb-6">Horarios de Atención</h3>
               
               <div className="space-y-4">
-                <div className="flex items-center justify-between py-3 border-b border-gray-200">
-                  <span className="font-semibold text-gray-700">WhatsApp</span>
-                  <span className="text-gray-900 font-bold">24/7</span>
+                <div className="flex items-center justify-between py-3 border-b border-gray-700">
+                  <span className="font-semibold text-gray-300">WhatsApp</span>
+                  <span className="text-white font-bold">24/7</span>
                 </div>
-                <div className="flex items-center justify-between py-3 border-b border-gray-200">
-                  <span className="font-semibold text-gray-700">Email</span>
-                  <span className="text-gray-900 font-bold">24/7</span>
+                <div className="flex items-center justify-between py-3 border-b border-gray-700">
+                  <span className="font-semibold text-gray-300">Email</span>
+                  <span className="text-white font-bold">24/7</span>
                 </div>
                 <div className="flex items-center justify-between py-3">
-                  <span className="font-semibold text-gray-700">Respuesta</span>
-                  <span className="text-gray-900 font-bold">{"<"} 24h</span>
+                  <span className="font-semibold text-gray-300">Respuesta</span>
+                  <span className="text-white font-bold">{"<"} 24h</span>
                 </div>
               </div>
 
@@ -324,20 +324,20 @@ ${new Date().toLocaleDateString('es-MX', {
 
             {/* Preguntas Frecuentes */}
             <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl shadow-xl p-8 border-2 border-purple-200">
-              <h3 className="text-2xl font-black text-gray-900 mb-4">¿Tienes Dudas?</h3>
-              <p className="text-gray-700 mb-6">
+              <h3 className="text-2xl font-black text-white mb-4">¿Tienes Dudas?</h3>
+              <p className="text-gray-300 mb-6">
                 Muchas de tus preguntas probablemente ya están respondidas en nuestras páginas.
               </p>
               <div className="space-y-3">
                 <button
                   onClick={() => navigate('/beneficios')}
-                  className="w-full bg-white text-left px-4 py-3 rounded-xl font-semibold text-gray-700 hover:bg-purple-100 transition-all shadow"
+                  className="w-full bg-gray-800/50 backdrop-blur-md border border-gray-700 text-left px-4 py-3 rounded-xl font-semibold text-gray-300 hover:bg-purple-100 transition-all shadow"
                 >
                   📋 Ver Beneficios Detallados →
                 </button>
                 <button
                   onClick={() => navigate('/quienes-somos')}
-                  className="w-full bg-white text-left px-4 py-3 rounded-xl font-semibold text-gray-700 hover:bg-purple-100 transition-all shadow"
+                  className="w-full bg-gray-800/50 backdrop-blur-md border border-gray-700 text-left px-4 py-3 rounded-xl font-semibold text-gray-300 hover:bg-purple-100 transition-all shadow"
                 >
                   👥 Conocer Quiénes Somos →
                 </button>
