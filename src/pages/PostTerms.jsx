@@ -1,10 +1,9 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import TopNav from './components/TopNav';
+import TopNav from '../components/TopNav';
 
-export default function Terms() {
+export default function PostTerms() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [activeSection, setActiveSection] = useState('');
 
   // Scroll to top when component mounts
