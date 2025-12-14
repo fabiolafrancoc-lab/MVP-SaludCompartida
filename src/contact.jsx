@@ -329,7 +329,7 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
-      <TopNav internalPage={true} />
+      <TopNav internalPage={true} showMenu={true} />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Grid limpio sin capas - formulario izquierda, imagen derecha */}
