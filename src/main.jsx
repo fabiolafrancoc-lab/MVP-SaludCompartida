@@ -33,6 +33,10 @@ import QuienesSomosInternal from './pages/QuienesSomosInternal.jsx'
 import VisionMisionInternal from './pages/VisionMisionInternal.jsx'
 import NuestrosPilaresInternal from './pages/NuestrosPilaresInternal.jsx'
 import BeneficiosDetallados from './pages/BeneficiosDetallados.jsx'
+import TelemedicinaPre from './pages/TelemedicinaPre.jsx'
+import FarmaciasPre from './pages/FarmaciasPre.jsx'
+import TerapiaPre from './pages/TerapiaPre.jsx'
+import MisAhorrosPre from './pages/MisAhorrosPre.jsx'
 import Contacto from './pages/Contacto.jsx'
 import CancelSubscription from './pages/CancelSubscription.jsx'
 import Home from './home.jsx'
@@ -81,6 +85,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/pilares" element={<NuestrosPilares />} /> {/* 👈 Pilares (alias) */}
           <Route path="/nuestros-pilares-internal" element={<NuestrosPilaresInternal />} /> {/* 👈 Nuestros Pilares (POST-SUSCRIPCIÓN) */}
           <Route path="/beneficios" element={<BeneficiosDetallados />} /> {/* 👈 Beneficios Detallados */}
+          <Route path="/telemedicina-info" element={<TelemedicinaPre />} /> {/* 👈 Telemedicina PRE */}
+          <Route path="/farmacias-info" element={<FarmaciasPre />} /> {/* 👈 Farmacias PRE */}
+          <Route path="/terapia-info" element={<TerapiaPre />} /> {/* 👈 Terapia PRE */}
+          <Route path="/mis-ahorros-info" element={<MisAhorrosPre />} /> {/* 👈 Mis Ahorros PRE */}
           <Route path="/contacto" element={<Contacto />} /> {/* 👈 Contacto (nueva versión) */}
           <Route path="/cancel-subscription" element={<CancelSubscription />} /> {/* 👈 Cancelar Suscripción */}
         </Routes>

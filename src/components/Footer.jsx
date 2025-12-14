@@ -79,28 +79,28 @@ export default function Footer({ variant = 'dark', internalPage = false }) {
             <ul className="space-y-3">
               <li>
                 <button
-                  onClick={() => handleNavigate(internalPage ? '/telemedicine' : '/beneficios#telemedicina')}
+                  onClick={() => handleNavigate(internalPage ? '/telemedicine' : '/telemedicina-info')}
                   className={`text-sm ${textSecondary} ${hoverColor} transition-colors text-left`}>
                   Videollamada con Doctores 24/7
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNavigate(internalPage ? '/pharmacy' : '/beneficios#farmacias')}
+                  onClick={() => handleNavigate(internalPage ? '/pharmacy' : '/farmacias-info')}
                   className={`text-sm ${textSecondary} ${hoverColor} transition-colors text-left`}>
                   Descuento en Farmacias
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNavigate(internalPage ? '/therapy' : '/beneficios#terapia')}
+                  onClick={() => handleNavigate(internalPage ? '/therapy' : '/terapia-info')}
                   className={`text-sm ${textSecondary} ${hoverColor} transition-colors text-left`}>
                   Sesiones con Terapeuta
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNavigate(internalPage ? '/savings' : '/beneficios#ahorros')}
+                  onClick={() => handleNavigate(internalPage ? '/savings' : '/mis-ahorros-info')}
                   className={`text-sm ${textSecondary} ${hoverColor} transition-colors text-left`}>
                   Mis Ahorros
                 </button>
