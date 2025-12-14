@@ -277,21 +277,21 @@ const TopNav = ({
             </button>
           )}
 
-          {/* Botón "Contratar SaludCompartida" - CYAN */}
+          {/* Botón "Contratar SaludCompartida" - MAGENTA */}
           {!internalPage && (
             <button
               onClick={() => navigate('/registro')}
-              className="hidden md:block bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="hidden md:block bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-fuchsia-600 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Contratar SaludCompartida
             </button>
           )}
 
-          {/* Botón "Ya tengo mi Código/Login" - MAGENTA */}
+          {/* Botón "Ya tengo mi Código/Login" - CYAN */}
           {!internalPage && (
             <button
               onClick={() => navigate('/page3')}
-              className="hidden md:block bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-fuchsia-600 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="hidden md:block bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Ya tengo mi Código/Login
             </button>
@@ -302,14 +302,14 @@ const TopNav = ({
             <>
               <button
                 onClick={() => navigate('/registro')}
-                className="md:hidden bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-cyan-600 hover:to-cyan-700 transition-all"
+                className="md:hidden bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-fuchsia-600 hover:to-pink-700 transition-all"
               >
                 Contratar
               </button>
               
               <button
                 onClick={() => navigate('/page3')}
-                className="md:hidden bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-fuchsia-600 hover:to-pink-700 transition-all"
+                className="md:hidden bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs hover:from-cyan-600 hover:to-cyan-700 transition-all"
               >
                 Login
               </button>
