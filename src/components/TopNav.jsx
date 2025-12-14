@@ -134,25 +134,25 @@ const TopNav = ({
               {/* Dropdown Menu */}
               <div className={`absolute left-0 mt-2 w-64 ${internalPage ? 'bg-white border-gray-300' : 'bg-gray-900 border-gray-700'} rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50`}>
                 <button
-                  onClick={() => navigate('/telemedicine')}
+                  onClick={() => navigate(internalPage ? '/telemedicine' : '/beneficios#telemedicina')}
                   className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors first:rounded-t-lg`}
                 >
                   Videollamada con Doctores 24/7
                 </button>
                 <button
-                  onClick={() => navigate('/pharmacy')}
+                  onClick={() => navigate(internalPage ? '/pharmacy' : '/beneficios#farmacias')}
                   className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Descuento en Farmacias
                 </button>
                 <button
-                  onClick={() => navigate('/therapy')}
+                  onClick={() => navigate(internalPage ? '/therapy' : '/beneficios#terapia')}
                   className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Sesiones con Terapeuta
                 </button>
                 <button
-                  onClick={() => navigate('/savings')}
+                  onClick={() => navigate(internalPage ? '/savings' : '/beneficios#ahorros')}
                   className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
                 >
                   Mis Ahorros
@@ -412,25 +412,25 @@ const TopNav = ({
               {serviciosOpen && (
                 <div className="ml-4 mt-2 space-y-2">
                   <button
-                    onClick={() => { navigate('/telemedicine'); setMenuOpen(false); setServiciosOpen(false); }}
+                    onClick={() => { navigate(internalPage ? '/telemedicine' : '/beneficios#telemedicina'); setMenuOpen(false); setServiciosOpen(false); }}
                     className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Videollamada con Doctores 24/7
                   </button>
                   <button
-                    onClick={() => { navigate('/pharmacy'); setMenuOpen(false); setServiciosOpen(false); }}
+                    onClick={() => { navigate(internalPage ? '/pharmacy' : '/beneficios#farmacias'); setMenuOpen(false); setServiciosOpen(false); }}
                     className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Descuento en Farmacias
                   </button>
                   <button
-                    onClick={() => { navigate('/therapy'); setMenuOpen(false); setServiciosOpen(false); }}
+                    onClick={() => { navigate(internalPage ? '/therapy' : '/beneficios#terapia'); setMenuOpen(false); setServiciosOpen(false); }}
                     className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Sesiones con Terapeuta
                   </button>
                   <button
-                    onClick={() => { navigate('/savings'); setMenuOpen(false); setServiciosOpen(false); }}
+                    onClick={() => { navigate(internalPage ? '/savings' : '/beneficios#ahorros'); setMenuOpen(false); setServiciosOpen(false); }}
                     className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Mis Ahorros

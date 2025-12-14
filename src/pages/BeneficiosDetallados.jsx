@@ -1,11 +1,33 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import TopNav from '../components/TopNav';
 import { DoctorIcon, PharmacyIcon, TherapyIcon, FamilyIcon } from '../components/icons/CustomIcons';
 
 const BeneficiosDetallados = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('telemedicina');
+
+  // Detectar hash en la URL y cambiar tab activo
+  useEffect(() => {
+    const hash = location.hash.replace('#', '');
+    // Mapear "ahorros" a "farmacias" ya que los ahorros son parte del descuento en farmacias
+    const tabMapping = {
+      'ahorros': 'farmacias',
+      'telemedicina': 'telemedicina',
+      'farmacias': 'farmacias',
+      'terapia': 'terapia',
+      'cobertura': 'cobertura'
+    };
+    
+    if (hash && tabMapping[hash]) {
+      setActiveTab(tabMapping[hash]);
+      // Scroll suave al contenido
+      setTimeout(() => {
+        window.scrollTo({ top: 400, behavior: 'smooth' });
+      }, 100);
+    }
+  }, [location]);
 
   const benefits = {
     telemedicina: {
@@ -200,7 +222,7 @@ const BeneficiosDetallados = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50">
-      <TopNav onBack={() => navigate('/page4')} hideUser={true} />
+      <TopNav onBack={() => navigate('/home')} hideUser={true} showMenu={true} />
 
       <div className="max-w-6xl mx-auto px-6 py-16">
         {/* Header */}
