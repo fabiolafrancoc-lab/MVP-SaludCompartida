@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import DashboardNav from './components/DashboardNav';
+import TopNav from './components/TopNav';
 
 export default function Account() {
   const navigate = useNavigate();
@@ -154,8 +154,8 @@ export default function Account() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
-      {/* Demo Tour Overlay */}
-      <DashboardNav />
+      {/* TopNav Navigation */}
+      <TopNav internalPage={true} showMenu={true} />
 
       <main className="max-w-4xl mx-auto px-4 py-12">
         {/* Welcome Message */}
