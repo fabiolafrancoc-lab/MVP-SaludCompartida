@@ -1,15 +1,19 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import TopNav from '../components/TopNav';
+import TopNav from './components/TopNav';
 
-export default function PostTerms() {
+export default function Terms() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeSection, setActiveSection] = useState('');
 
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Determinar desde dónde vino el usuario
+  const fromPage = location.state?.from || '/page4';
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -33,23 +37,10 @@ export default function PostTerms() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-cyan-50">
       <TopNav internalPage={true} showMenu={true} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Botón Volver */}
-        <div className="mb-8">
-          <button
-            onClick={() => navigate('/page4')}
-            className="flex items-center gap-2 text-cyan-600 hover:text-cyan-700 font-semibold transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Volver
-          </button>
-        </div>
-
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -66,7 +57,7 @@ export default function PostTerms() {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Sidebar - Índice navegable (sticky en desktop) */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
+            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24">
               <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
               <nav className="space-y-2">
                 {sections.map((section) => (
@@ -90,7 +81,7 @@ export default function PostTerms() {
           <div className="lg:col-span-3 space-y-12">
             
             {/* Sección 1: Introducción */}
-            <section id="intro" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="intro" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 1. ¿Qué es SaludCompartida?
               </h2>
@@ -124,7 +115,7 @@ export default function PostTerms() {
             </section>
 
             {/* Sección 2: Definiciones */}
-            <section id="definitions" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="definitions" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 2. Definiciones clave
               </h2>
@@ -157,7 +148,7 @@ export default function PostTerms() {
             </section>
 
             {/* Sección 3: Descripción de servicios */}
-            <section id="services" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="services" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 3. Descripción de servicios
               </h2>
@@ -270,7 +261,7 @@ export default function PostTerms() {
             </section>
 
             {/* Sección 4: Suscripción y pagos */}
-            <section id="subscription" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="subscription" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 4. Suscripción y pagos
               </h2>
@@ -344,7 +335,7 @@ export default function PostTerms() {
             </section>
 
             {/* Sección 5: Uso de la plataforma */}
-            <section id="usage" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="usage" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 5. Uso de la plataforma
               </h2>
@@ -415,18 +406,18 @@ export default function PostTerms() {
             </section>
 
             {/* Sección 6: Privacidad y datos */}
-            <section id="privacy" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="privacy" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 6. Privacidad y datos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
                 La protección de tus datos personales y de salud es una prioridad para SaludCompartida. Cumplimos con todas las regulaciones aplicables de protección de datos.
               </p>
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 mb-6 border border-purple-200">
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 mb-6">
                 <p className="text-gray-700 leading-relaxed">
                   Para información detallada sobre cómo recopilamos, usamos y protegemos tus datos personales, consulta nuestro{' '}
                   <button
-                    onClick={() => navigate('/post-privacy')}
+                    onClick={() => navigate('/privacy', { state: { from: '/terms', originalFrom: fromPage } })}
                     className="text-purple-700 font-semibold hover:text-purple-900 underline"
                   >
                     Aviso de Privacidad
@@ -448,7 +439,7 @@ export default function PostTerms() {
             </section>
 
             {/* Sección 7: Limitaciones del servicio */}
-            <section id="limitations" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="limitations" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 7. Limitaciones del servicio
               </h2>
@@ -529,7 +520,7 @@ export default function PostTerms() {
             </section>
 
             {/* Sección 8: Responsabilidades y exenciones */}
-            <section id="responsibilities" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="responsibilities" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 8. Responsabilidades y exenciones
               </h2>
@@ -598,7 +589,7 @@ export default function PostTerms() {
             </section>
 
             {/* Sección 9: Modificaciones de términos */}
-            <section id="modifications" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="modifications" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 9. Modificaciones de términos
               </h2>
@@ -623,7 +614,7 @@ export default function PostTerms() {
             </section>
 
             {/* Sección 10: Ley aplicable y jurisdicción */}
-            <section id="jurisdiction" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="jurisdiction" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 10. Ley aplicable y jurisdicción
               </h2>
@@ -686,7 +677,7 @@ export default function PostTerms() {
             ¿Tienes preguntas sobre privacidad y protección de datos?
           </p>
           <button
-            onClick={() => navigate('/post-privacy')}
+            onClick={() => navigate('/privacy', { state: { from: '/terms', originalFrom: fromPage } })}
             className="text-cyan-600 hover:text-cyan-700 font-semibold underline"
           >
             Lee nuestro Aviso de Privacidad →
