@@ -1,398 +1,794 @@
-import { useNavigate } from 'react-router-dom';import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';import { useNavigate } from 'react-router-dom';import { useNavigate } from 'react-router-dom';
 
-import { useState } from 'react';import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-import Footer from '../components/Footer';import TopNav from '../components/TopNav';
-
-
-
-export default function PostTerms() {export default function PostTerms() {
-
-  const navigate = useNavigate();  const navigate = useNavigate();
-
-  const [activeSection, setActiveSection] = useState('');  const [activeSection, setActiveSection] = useState('');
+import Footer from '../components/Footer';import { useState } from 'react';import { useState, useEffect } from 'react';
 
 
 
-  const scrollToSection = (sectionId) => {  // Scroll to top when component mounts
+export default function PostTerms() {import Footer from '../components/Footer';import TopNav from '../components/TopNav';
 
-    const element = document.getElementById(sectionId);  useEffect(() => {
+  const navigate = useNavigate();
 
-    if (element) {    window.scrollTo(0, 0);
+  const [activeSection, setActiveSection] = useState('');
 
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });  }, []);
 
-      setActiveSection(sectionId);
 
-    }  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId) => {export default function PostTerms() {export default function PostTerms() {
 
-  };    const element = document.getElementById(sectionId);
+    const element = document.getElementById(sectionId);
 
-    if (element) {
+    if (element) {  const navigate = useNavigate();  const navigate = useNavigate();
 
-  const sections = [      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    { id: 'intro', title: '1. ¿Qué es SaludCompartida?' },      setActiveSection(sectionId);
+      setActiveSection(sectionId);  const [activeSection, setActiveSection] = useState('');  const [activeSection, setActiveSection] = useState('');
 
-    { id: 'definitions', title: '2. Definiciones clave' },    }
+    }
 
-    { id: 'services', title: '3. Descripción de servicios' },  };
+  };
 
-    { id: 'subscription', title: '4. Suscripción y pagos' },
 
-    { id: 'usage', title: '5. Uso de la plataforma' },  const sections = [
 
-    { id: 'privacy', title: '6. Privacidad y datos' },    { id: 'intro', title: '1. ¿Qué es SaludCompartida?' },
+  const sections = [  const scrollToSection = (sectionId) => {  // Scroll to top when component mounts
 
-    { id: 'limitations', title: '7. Limitaciones del servicio' },    { id: 'definitions', title: '2. Definiciones clave' },
+    { id: 'intro', title: '1. ¿Qué es SaludCompartida?' },
 
-    { id: 'responsibilities', title: '8. Responsabilidades' },    { id: 'services', title: '3. Descripción de servicios' },
+    { id: 'definitions', title: '2. Definiciones clave' },    const element = document.getElementById(sectionId);  useEffect(() => {
 
-    { id: 'modifications', title: '9. Modificaciones' },    { id: 'subscription', title: '4. Suscripción y pagos' },
+    { id: 'services', title: '3. Descripción de servicios' },
 
-    { id: 'jurisdiction', title: '10. Ley aplicable' }    { id: 'usage', title: '5. Uso de la plataforma' },
+    { id: 'subscription', title: '4. Suscripción y pagos' },    if (element) {    window.scrollTo(0, 0);
 
-  ];    { id: 'privacy', title: '6. Privacidad y datos' },
+    { id: 'usage', title: '5. Uso de la plataforma' },
+
+    { id: 'privacy', title: '6. Privacidad y datos' },      element.scrollIntoView({ behavior: 'smooth', block: 'start' });  }, []);
 
     { id: 'limitations', title: '7. Limitaciones del servicio' },
 
-  return (    { id: 'responsibilities', title: '8. Responsabilidades' },
+    { id: 'responsibilities', title: '8. Responsabilidades' },      setActiveSection(sectionId);
 
-    <div className="min-h-screen bg-white">    { id: 'modifications', title: '9. Modificaciones' },
+    { id: 'modifications', title: '9. Modificaciones' },
 
-      {/* Header - Solo Volver */}    { id: 'jurisdiction', title: '10. Ley aplicable' }
+    { id: 'jurisdiction', title: '10. Ley aplicable' }    }  const scrollToSection = (sectionId) => {
 
-      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">  ];
+  ];
+
+  };    const element = document.getElementById(sectionId);
+
+  return (
+
+    <div className="min-h-screen bg-white">    if (element) {
+
+      {/* Header - Solo Volver */}
+
+      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">  const sections = [      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
 
-          <img  return (
+          <img    { id: 'intro', title: '1. ¿Qué es SaludCompartida?' },      setActiveSection(sectionId);
 
-            src="/saludcompartida logo WT.png"    <div className="min-h-screen bg-white">
+            src="/saludcompartida logo WT.png"
 
-            alt="SaludCompartida"      <TopNav internalPage={true} showMenu={true} />
+            alt="SaludCompartida"    { id: 'definitions', title: '2. Definiciones clave' },    }
 
             className="h-16 cursor-pointer"
 
-            onClick={() => navigate('/page4')}      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            onClick={() => navigate('/page4')}    { id: 'services', title: '3. Descripción de servicios' },  };
 
-          />        {/* Botón Volver */}
+          />
 
-          <button        <div className="mb-8">
+          <button    { id: 'subscription', title: '4. Suscripción y pagos' },
 
-            onClick={() => navigate('/page4')}          <button
+            onClick={() => navigate('/page4')}
 
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"            onClick={() => navigate('/page4')}
+            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"    { id: 'usage', title: '5. Uso de la plataforma' },  const sections = [
 
-          >            className="flex items-center gap-2 text-cyan-600 hover:text-cyan-700 font-semibold transition-colors"
+          >
 
-            Volver          >
+            Volver    { id: 'privacy', title: '6. Privacidad y datos' },    { id: 'intro', title: '1. ¿Qué es SaludCompartida?' },
 
-          </button>            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          </button>
 
-        </div>              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </div>    { id: 'limitations', title: '7. Limitaciones del servicio' },    { id: 'definitions', title: '2. Definiciones clave' },
 
-      </header>            </svg>
+      </header>
 
-            Volver
+    { id: 'responsibilities', title: '8. Responsabilidades' },    { id: 'services', title: '3. Descripción de servicios' },
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">          </button>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-        {/* Hero Section */}        </div>
+        {/* Hero Section */}    { id: 'modifications', title: '9. Modificaciones' },    { id: 'subscription', title: '4. Suscripción y pagos' },
 
         <div className="text-center mb-12">
 
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">        {/* Hero Section */}
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">    { id: 'jurisdiction', title: '10. Ley aplicable' }    { id: 'usage', title: '5. Uso de la plataforma' },
 
-            Términos y Condiciones        <div className="text-center mb-12">
+            Términos y Condiciones
 
-          </h1>          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          </h1>  ];    { id: 'privacy', title: '6. Privacidad y datos' },
 
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">            Términos y Condiciones
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
 
-            Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.          </h1>
-
-          </p>          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-
-          <p className="text-sm text-gray-500 mt-4">            Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.
-
-            Última actualización: 7 de noviembre de 2025          </p>
-
-          </p>          <p className="text-sm text-gray-500 mt-4">
-
-        </div>            Última actualización: 7 de noviembre de 2025
+            Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.    { id: 'limitations', title: '7. Limitaciones del servicio' },
 
           </p>
 
-        <div className="grid lg:grid-cols-4 gap-8">        </div>
+          <p className="text-sm text-gray-500 mt-4">  return (    { id: 'responsibilities', title: '8. Responsabilidades' },
 
-          {/* Sidebar - Índice navegable */}
+            Última actualización: 7 de noviembre de 2025
 
-          <div className="lg:col-span-1">        <div className="grid lg:grid-cols-4 gap-8">
+          </p>    <div className="min-h-screen bg-white">    { id: 'modifications', title: '9. Modificaciones' },
 
-            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">          {/* Sidebar - Índice navegable (sticky en desktop) */}
+        </div>
 
-              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>          <div className="lg:col-span-1">
+      {/* Header - Solo Volver */}    { id: 'jurisdiction', title: '10. Ley aplicable' }
 
-              <nav className="space-y-2">            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
+        <div className="grid lg:grid-cols-4 gap-8">
 
-                {sections.map((section) => (              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
+          {/* Sidebar - Índice navegable */}      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">  ];
 
-                  <button              <nav className="space-y-2">
+          <div className="lg:col-span-1">
 
-                    key={section.id}                {sections.map((section) => (
+            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
 
-                    onClick={() => scrollToSection(section.id)}                  <button
+              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
 
-                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${                    key={section.id}
+              <nav className="space-y-2">          <img  return (
 
-                      activeSection === section.id                    onClick={() => scrollToSection(section.id)}
+                {sections.map((section) => (
 
-                        ? 'bg-cyan-100 text-cyan-900 font-semibold'                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+                  <button            src="/saludcompartida logo WT.png"    <div className="min-h-screen bg-white">
 
-                        : 'text-gray-600 hover:bg-gray-100'                      activeSection === section.id
+                    key={section.id}
 
-                    }`}                        ? 'bg-cyan-100 text-cyan-900 font-semibold'
+                    onClick={() => scrollToSection(section.id)}            alt="SaludCompartida"      <TopNav internalPage={true} showMenu={true} />
 
-                  >                        : 'text-gray-600 hover:bg-gray-100'
+                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
 
-                    {section.title}                    }`}
+                      activeSection === section.id            className="h-16 cursor-pointer"
 
-                  </button>                  >
+                        ? 'bg-cyan-100 text-cyan-900 font-semibold'
 
-                ))}                    {section.title}
+                        : 'text-gray-600 hover:bg-gray-100'            onClick={() => navigate('/page4')}      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-              </nav>                  </button>
+                    }`}
 
-            </div>                ))}
+                  >          />        {/* Botón Volver */}
 
-          </div>              </nav>
+                    {section.title}
+
+                  </button>          <button        <div className="mb-8">
+
+                ))}
+
+              </nav>            onClick={() => navigate('/page4')}          <button
 
             </div>
 
-          {/* Contenido principal */}          </div>
+          </div>            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"            onClick={() => navigate('/page4')}
+
+
+
+          {/* Contenido principal */}          >            className="flex items-center gap-2 text-cyan-600 hover:text-cyan-700 font-semibold transition-colors"
 
           <div className="lg:col-span-3 space-y-12">
 
-                      {/* Contenido principal */}
+                        Volver          >
 
-            {/* Sección 1: ¿Qué es SaludCompartida? */}          <div className="lg:col-span-3 space-y-12">
+            {/* Sección 1: ¿Qué es SaludCompartida? */}
 
-            <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">            
+            <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">          </button>            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">            {/* Sección 1: Introducción */}
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
 
-                1. ¿Qué es SaludCompartida?            <section id="intro" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+                1. ¿Qué es SaludCompartida?        </div>              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
 
-              </h2>              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              </h2>
 
-              <p className="text-gray-700 mb-4 leading-relaxed">                1. ¿Qué es SaludCompartida?
+              <p className="text-gray-700 mb-4 leading-relaxed">      </header>            </svg>
 
-                SaludCompartida es una plataforma digital que ofrece a migrantes y sus familias en México, Centroamérica, Latinoamérica e India acceso a servicios de salud mediante suscripción mensual.              </h2>
+                SaludCompartida es una plataforma digital que ofrece a migrantes y sus familias en México, Centroamérica, Latinoamérica e India acceso a servicios de salud mediante suscripción mensual.
 
-              </p>              <p className="text-gray-700 mb-4 leading-relaxed">
+              </p>            Volver
 
-              <p className="text-gray-700 mb-6 leading-relaxed">                SaludCompartida es una plataforma digital que ofrece a migrantes y sus familias en México, Centroamérica, Latinoamérica e India acceso a servicios de salud mediante suscripción mensual. 
+              <p className="text-gray-700 mb-6 leading-relaxed">
 
-                Nuestro servicio incluye consultas de telemedicina, consultas psicológicas y descuentos en farmacias afiliadas.              </p>
+                Nuestro servicio incluye consultas de telemedicina, consultas psicológicas y descuentos en farmacias afiliadas.      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">          </button>
 
-              </p>              <p className="text-gray-700 mb-6 leading-relaxed">
+              </p>
 
-                Nuestro servicio incluye consultas de telemedicina, consultas psicológicas y descuentos en farmacias afiliadas. Proporcionamos orientación médica profesional, posibilidad de prescripción electrónica según normativa vigente, e incentivos económicos para la adquisición de medicamentos.
+        {/* Hero Section */}        </div>
 
-              {/* Disclaimer importante */}              </p>
+              {/* Disclaimer importante */}
 
-              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 my-6 rounded-r-lg">
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 my-6 rounded-r-lg">        <div className="text-center mb-12">
 
-                <div className="flex items-start">              {/* Disclaimer importante */}
+                <div className="flex items-start">
 
-                  <svg className="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 my-6 rounded-r-lg">
+                  <svg className="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">        {/* Hero Section */}
 
-                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />                <div className="flex items-start">
+                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
 
-                  </svg>                  <svg className="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  </svg>            Términos y Condiciones        <div className="text-center mb-12">
 
-                  <div>                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  <div>
 
-                    <p className="font-semibold text-yellow-900 mb-2">                  </svg>
+                    <p className="font-semibold text-yellow-900 mb-2">          </h1>          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
 
-                      Importante: NO somos un seguro médico                  <div>
+                      Importante: NO somos un seguro médico
 
-                    </p>                    <p className="font-semibold text-yellow-900 mb-2">
+                    </p>          <p className="text-lg text-gray-600 max-w-3xl mx-auto">            Términos y Condiciones
 
-                    <p className="text-yellow-800 text-sm leading-relaxed">                      Importante: NO somos un seguro médico
+                    <p className="text-yellow-800 text-sm leading-relaxed">
 
-                      SaludCompartida NO es una póliza de seguro. Proporcionamos servicios de salud preventivos y ambulatorios mediante suscripción mensual. NO cubrimos hospitalización ni emergencias médicas graves.                    </p>
+                      SaludCompartida NO es una póliza de seguro. Proporcionamos servicios de salud preventivos y ambulatorios mediante suscripción mensual. NO cubrimos hospitalización ni emergencias médicas graves.            Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.          </h1>
 
-                    </p>                    <p className="text-yellow-800 text-sm leading-relaxed">
+                    </p>
 
-                  </div>                      SaludCompartida NO es una póliza de seguro. Proporcionamos servicios de salud preventivos y ambulatorios mediante suscripción mensual. NO cubrimos hospitalización ni emergencias médicas graves.
+                  </div>          </p>          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
 
-                </div>                    </p>
+                </div>
 
-              </div>                  </div>
+              </div>          <p className="text-sm text-gray-500 mt-4">            Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.
 
-            </section>                </div>
+            </section>
 
-              </div>
+            Última actualización: 7 de noviembre de 2025          </p>
 
             {/* Sección 2: Definiciones clave */}
 
-            <section id="definitions" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">              <p className="text-gray-700 leading-relaxed">
+            <section id="definitions" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">          </p>          <p className="text-sm text-gray-500 mt-4">
 
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">                Al usar SaludCompartida, aceptas estos términos y condiciones en su totalidad. Si no estás de acuerdo con alguna parte de estos términos, no debes usar nuestro servicio.
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
 
-                2. Definiciones clave              </p>
+                2. Definiciones clave        </div>            Última actualización: 7 de noviembre de 2025
 
-              </h2>            </section>
+              </h2>
 
-              <div className="space-y-4">
+              <div className="space-y-4">          </p>
 
-                <div className="border-l-4 border-cyan-500 pl-4">            {/* Sección 2: Definiciones */}
+                <div className="border-l-4 border-cyan-500 pl-4">
 
-                  <h3 className="font-bold text-gray-900 mb-1">Usuario</h3>            <section id="definitions" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
-
-                  <p className="text-gray-700 text-sm">              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-
-                    La persona que contrata la suscripción (migrante) y las personas designadas como usuarios del servicio en el país de destino (hasta 4 personas).                2. Definiciones clave
-
-                  </p>              </h2>
-
-                </div>              <div className="space-y-4">
-
-                <div className="border-l-4 border-cyan-500 pl-4">                <div className="border-l-4 border-cyan-500 pl-4">
-
-                  <h3 className="font-bold text-gray-900 mb-1">Suscripción</h3>                  <h3 className="font-bold text-gray-900 mb-1">Usuario</h3>
-
-                  <p className="text-gray-700 text-sm">                  <p className="text-gray-700 text-sm">
-
-                    El pago mensual recurrente que da acceso a todos los servicios de SaludCompartida.                    La persona que contrata la suscripción (migrante) y las personas designadas como usuarios del servicio en el país de destino (hasta 4 personas).
-
-                  </p>                  </p>
-
-                </div>                </div>
-
-                <div className="border-l-4 border-cyan-500 pl-4">                <div className="border-l-4 border-cyan-500 pl-4">
-
-                  <h3 className="font-bold text-gray-900 mb-1">Servicios</h3>                  <h3 className="font-bold text-gray-900 mb-1">Suscripción</h3>
-
-                  <p className="text-gray-700 text-sm">                  <p className="text-gray-700 text-sm">
-
-                    El conjunto de beneficios de salud que proporciona SaludCompartida, incluyendo telemedicina, descuentos en farmacias y acceso con descuento a atención médica presencial.                    El pago mensual recurrente que da acceso a todos los servicios de SaludCompartida.
-
-                  </p>                  </p>
-
-                </div>                </div>
-
-                <div className="border-l-4 border-cyan-500 pl-4">                <div className="border-l-4 border-cyan-500 pl-4">
-
-                  <h3 className="font-bold text-gray-900 mb-1">Plataforma</h3>                  <h3 className="font-bold text-gray-900 mb-1">Servicios</h3>
-
-                  <p className="text-gray-700 text-sm">                  <p className="text-gray-700 text-sm">
-
-                    El sitio web, aplicación móvil y sistema WhatsApp a través del cual se accede a los servicios de SaludCompartida.                    El conjunto de beneficios de salud que proporciona SaludCompartida, incluyendo telemedicina, descuentos en farmacias y acceso con descuento a atención médica presencial.
-
-                  </p>                  </p>
-
-                </div>                </div>
-
-              </div>                <div className="border-l-4 border-cyan-500 pl-4">
-
-            </section>                  <h3 className="font-bold text-gray-900 mb-1">Plataforma</h3>
+                  <h3 className="font-bold text-gray-900 mb-1">Usuario</h3>        <div className="grid lg:grid-cols-4 gap-8">        </div>
 
                   <p className="text-gray-700 text-sm">
 
-            {/* Sección 3: Descripción de servicios */}                    El sitio web, aplicación móvil y sistema WhatsApp a través del cual se accede a los servicios de SaludCompartida.
+                    La persona que contrata la suscripción (migrante) y las personas designadas como usuarios del servicio en el país de destino (hasta 4 personas).          {/* Sidebar - Índice navegable */}
 
-            <section id="services" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                  </p>
+                  </p>
 
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">                </div>
+                </div>          <div className="lg:col-span-1">        <div className="grid lg:grid-cols-4 gap-8">
 
-                3. Descripción de servicios              </div>
+                <div className="border-l-4 border-cyan-500 pl-4">
 
-              </h2>            </section>
+                  <h3 className="font-bold text-gray-900 mb-1">Suscripción</h3>            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">          {/* Sidebar - Índice navegable (sticky en desktop) */}
+
+                  <p className="text-gray-700 text-sm">
+
+                    El pago mensual recurrente que da acceso a todos los servicios de SaludCompartida.              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>          <div className="lg:col-span-1">
+
+                  </p>
+
+                </div>              <nav className="space-y-2">            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
+
+                <div className="border-l-4 border-cyan-500 pl-4">
+
+                  <h3 className="font-bold text-gray-900 mb-1">Servicios</h3>                {sections.map((section) => (              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
+
+                  <p className="text-gray-700 text-sm">
+
+                    El conjunto de beneficios de salud que proporciona SaludCompartida, incluyendo telemedicina, descuentos en farmacias y acceso con descuento a atención médica presencial.                  <button              <nav className="space-y-2">
+
+                  </p>
+
+                </div>                    key={section.id}                {sections.map((section) => (
+
+                <div className="border-l-4 border-cyan-500 pl-4">
+
+                  <h3 className="font-bold text-gray-900 mb-1">Plataforma</h3>                    onClick={() => scrollToSection(section.id)}                  <button
+
+                  <p className="text-gray-700 text-sm">
+
+                    El sitio web, aplicación móvil y sistema WhatsApp a través del cual se accede a los servicios de SaludCompartida.                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${                    key={section.id}
+
+                  </p>
+
+                </div>                      activeSection === section.id                    onClick={() => scrollToSection(section.id)}
+
+              </div>
+
+            </section>                        ? 'bg-cyan-100 text-cyan-900 font-semibold'                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+
+
+
+            {/* Sección 3: Descripción de servicios */}                        : 'text-gray-600 hover:bg-gray-100'                      activeSection === section.id
+
+            <section id="services" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">                    }`}                        ? 'bg-cyan-100 text-cyan-900 font-semibold'
+
+                3. Descripción de servicios
+
+              </h2>                  >                        : 'text-gray-600 hover:bg-gray-100'
 
               
 
+              <div className="space-y-6">                    {section.title}                    }`}
+
+                {/* Telemedicina */}
+
+                <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6 border border-cyan-200">                  </button>                  >
+
+                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Telemedicina 24/7</h3>
+
+                  <p className="text-gray-700 text-sm mb-3 leading-relaxed">                ))}                    {section.title}
+
+                    Consultas médicas ilimitadas por videollamada, teléfono o WhatsApp con profesionales certificados en México.
+
+                  </p>              </nav>                  </button>
+
+                  <ul className="text-gray-600 text-sm space-y-1">
+
+                    <li>• Atención médica general</li>            </div>                ))}
+
+                    <li>• Prescripción electrónica cuando sea permitido</li>
+
+                    <li>• Orientación sobre síntomas y tratamientos</li>          </div>              </nav>
+
+                    <li>• Recomendación de atención presencial cuando sea necesario</li>
+
+                  </ul>            </div>
+
+                </div>
+
+          {/* Contenido principal */}          </div>
+
+                {/* Descuentos en Farmacias */}
+
+                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-pink-200">          <div className="lg:col-span-3 space-y-12">
+
+                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Descuentos en Farmacias</h3>
+
+                  <p className="text-gray-700 text-sm mb-3 leading-relaxed">                      {/* Contenido principal */}
+
+                    Acceso a descuentos de 40-75% en más de 1,700 farmacias afiliadas.
+
+                  </p>            {/* Sección 1: ¿Qué es SaludCompartida? */}          <div className="lg:col-span-3 space-y-12">
+
+                  <ul className="text-gray-600 text-sm space-y-1">
+
+                    <li>• Red de más de 1,700 ubicaciones</li>            <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">            
+
+                    <li>• Descuentos aplicables con receta electrónica</li>
+
+                    <li>• Medicamentos autorizados (excluyendo controlados)</li>              <h2 className="text-3xl font-bold text-gray-900 mb-6">            {/* Sección 1: Introducción */}
+
+                  </ul>
+
+                </div>                1. ¿Qué es SaludCompartida?            <section id="intro" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+
+
+
+                {/* Terapia Psicológica */}              </h2>              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
+
+                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Terapia Psicológica</h3>              <p className="text-gray-700 mb-4 leading-relaxed">                1. ¿Qué es SaludCompartida?
+
+                  <p className="text-gray-700 text-sm mb-3 leading-relaxed">
+
+                    Acceso a sesiones de terapia psicológica con profesionales certificados.                SaludCompartida es una plataforma digital que ofrece a migrantes y sus familias en México, Centroamérica, Latinoamérica e India acceso a servicios de salud mediante suscripción mensual.              </h2>
+
+                  </p>
+
+                  <ul className="text-gray-600 text-sm space-y-1">              </p>              <p className="text-gray-700 mb-4 leading-relaxed">
+
+                    <li>• Sesiones individuales por videollamada</li>
+
+                    <li>• Profesionales con cédula certificada</li>              <p className="text-gray-700 mb-6 leading-relaxed">                SaludCompartida es una plataforma digital que ofrece a migrantes y sus familias en México, Centroamérica, Latinoamérica e India acceso a servicios de salud mediante suscripción mensual. 
+
+                    <li>• Tratamiento de ansiedad, depresión, estrés</li>
+
+                  </ul>                Nuestro servicio incluye consultas de telemedicina, consultas psicológicas y descuentos en farmacias afiliadas.              </p>
+
+                </div>
+
+              </div>              </p>              <p className="text-gray-700 mb-6 leading-relaxed">
+
+            </section>
+
+                Nuestro servicio incluye consultas de telemedicina, consultas psicológicas y descuentos en farmacias afiliadas. Proporcionamos orientación médica profesional, posibilidad de prescripción electrónica según normativa vigente, e incentivos económicos para la adquisición de medicamentos.
+
+            {/* Sección 4: Suscripción y pagos */}
+
+            <section id="subscription" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">              {/* Disclaimer importante */}              </p>
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                4. Suscripción y pagos              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 my-6 rounded-r-lg">
+
+              </h2>
+
+                <div className="flex items-start">              {/* Disclaimer importante */}
+
+              <div className="space-y-6">
+
+                <div className="bg-gradient-to-r from-cyan-50 to-purple-50 rounded-xl p-6 border border-cyan-200">                  <svg className="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 my-6 rounded-r-lg">
+
+                  <p className="text-gray-700 mb-4 leading-relaxed">
+
+                    <strong className="text-gray-900">Plan mensual:</strong> $12 USD/mes por cobertura para hasta 4 personas.                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />                <div className="flex items-start">
+
+                  </p>
+
+                  <p className="text-gray-700 mb-4 leading-relaxed">                  </svg>                  <svg className="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+
+                    <strong className="text-gray-900">Renovación automática:</strong> Tu suscripción se renueva automáticamente cada mes hasta que la canceles.
+
+                  </p>                  <div>                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+
+                  <p className="text-gray-700 mb-4 leading-relaxed">
+
+                    <strong className="text-gray-900">Métodos de pago:</strong> Aceptamos tarjetas de crédito/débito procesadas a través de proveedores seguros como Stripe.                    <p className="font-semibold text-yellow-900 mb-2">                  </svg>
+
+                  </p>
+
+                  <p className="text-gray-700 leading-relaxed">                      Importante: NO somos un seguro médico                  <div>
+
+                    <strong className="text-gray-900">Cancelación:</strong> Puedes cancelar en cualquier momento. El servicio permanecerá activo hasta el final del período pagado.
+
+                  </p>                    </p>                    <p className="font-semibold text-yellow-900 mb-2">
+
+                </div>
+
+                    <p className="text-yellow-800 text-sm leading-relaxed">                      Importante: NO somos un seguro médico
+
+                <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
+
+                  <p className="text-yellow-900 font-semibold">                      SaludCompartida NO es una póliza de seguro. Proporcionamos servicios de salud preventivos y ambulatorios mediante suscripción mensual. NO cubrimos hospitalización ni emergencias médicas graves.                    </p>
+
+                    Importante: No ofrecemos reembolsos por períodos parciales. Si cancelas, el servicio estará disponible hasta el final del mes pagado.
+
+                  </p>                    </p>                    <p className="text-yellow-800 text-sm leading-relaxed">
+
+                </div>
+
+              </div>                  </div>                      SaludCompartida NO es una póliza de seguro. Proporcionamos servicios de salud preventivos y ambulatorios mediante suscripción mensual. NO cubrimos hospitalización ni emergencias médicas graves.
+
+            </section>
+
+                </div>                    </p>
+
+            {/* Sección 5: Uso de la plataforma */}
+
+            <section id="usage" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">              </div>                  </div>
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                5. Uso aceptable de la plataforma            </section>                </div>
+
+              </h2>
+
+              </div>
+
+              <div className="space-y-6">
+
+                <div>            {/* Sección 2: Definiciones clave */}
+
+                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Te comprometes a:</h3>
+
+                  <ul className="space-y-2 text-gray-700 text-sm">            <section id="definitions" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">              <p className="text-gray-700 leading-relaxed">
+
+                    <li>• Proporcionar información precisa y actualizada</li>
+
+                    <li>• Usar el servicio solo para fines legales y personales</li>              <h2 className="text-3xl font-bold text-gray-900 mb-6">                Al usar SaludCompartida, aceptas estos términos y condiciones en su totalidad. Si no estás de acuerdo con alguna parte de estos términos, no debes usar nuestro servicio.
+
+                    <li>• No compartir tu cuenta con terceros no autorizados</li>
+
+                    <li>• Seguir las indicaciones médicas proporcionadas</li>                2. Definiciones clave              </p>
+
+                    <li>• Respetar al personal médico y de soporte</li>
+
+                  </ul>              </h2>            </section>
+
+                </div>
+
+              <div className="space-y-4">
+
+                <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+
+                  <h3 className="font-bold text-red-900 mb-3">Usos prohibidos:</h3>                <div className="border-l-4 border-cyan-500 pl-4">            {/* Sección 2: Definiciones */}
+
+                  <ul className="space-y-1 text-red-800 text-sm">
+
+                    <li>• Uso fraudulento de códigos de descuento</li>                  <h3 className="font-bold text-gray-900 mb-1">Usuario</h3>            <section id="definitions" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+
+                    <li>• Consultas para obtener prescripciones indebidas</li>
+
+                    <li>• Abuso del servicio de telemedicina</li>                  <p className="text-gray-700 text-sm">              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                    <li>• Intentos de vulnerar la seguridad de la plataforma</li>
+
+                  </ul>                    La persona que contrata la suscripción (migrante) y las personas designadas como usuarios del servicio en el país de destino (hasta 4 personas).                2. Definiciones clave
+
+                </div>
+
+              </div>                  </p>              </h2>
+
+            </section>
+
+                </div>              <div className="space-y-4">
+
+            {/* Sección 6: Privacidad y datos */}
+
+            <section id="privacy" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                <div className="border-l-4 border-cyan-500 pl-4">                <div className="border-l-4 border-cyan-500 pl-4">
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                6. Privacidad y protección de datos                  <h3 className="font-bold text-gray-900 mb-1">Suscripción</h3>                  <h3 className="font-bold text-gray-900 mb-1">Usuario</h3>
+
+              </h2>
+
+              <p className="text-gray-700 mb-4 leading-relaxed">                  <p className="text-gray-700 text-sm">                  <p className="text-gray-700 text-sm">
+
+                El uso de nuestros servicios está sujeto a nuestra Política de Privacidad, que forma parte integral de estos términos.
+
+              </p>                    El pago mensual recurrente que da acceso a todos los servicios de SaludCompartida.                    La persona que contrata la suscripción (migrante) y las personas designadas como usuarios del servicio en el país de destino (hasta 4 personas).
+
+              <ul className="space-y-2 text-gray-700 text-sm">
+
+                <li>• Cumplimos con la Ley Federal de Protección de Datos Personales (LFPDPPP)</li>                  </p>                  </p>
+
+                <li>• Tus datos médicos están encriptados y protegidos</li>
+
+                <li>• Solo personal autorizado accede a tu información</li>                </div>                </div>
+
+                <li>• Puedes ejercer tus derechos ARCO en cualquier momento</li>
+
+              </ul>                <div className="border-l-4 border-cyan-500 pl-4">                <div className="border-l-4 border-cyan-500 pl-4">
+
+            </section>
+
+                  <h3 className="font-bold text-gray-900 mb-1">Servicios</h3>                  <h3 className="font-bold text-gray-900 mb-1">Suscripción</h3>
+
+            {/* Sección 7: Limitaciones del servicio */}
+
+            <section id="limitations" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                  <p className="text-gray-700 text-sm">                  <p className="text-gray-700 text-sm">
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                7. Limitaciones del servicio                    El conjunto de beneficios de salud que proporciona SaludCompartida, incluyendo telemedicina, descuentos en farmacias y acceso con descuento a atención médica presencial.                    El pago mensual recurrente que da acceso a todos los servicios de SaludCompartida.
+
+              </h2>
+
+                  </p>                  </p>
+
+              <div className="space-y-6">
+
+                <div>                </div>                </div>
+
+                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Servicios NO cubiertos:</h3>
+
+                  <ul className="space-y-2 text-gray-700 text-sm">                <div className="border-l-4 border-cyan-500 pl-4">                <div className="border-l-4 border-cyan-500 pl-4">
+
+                    <li>• Emergencias médicas que requieran atención inmediata presencial</li>
+
+                    <li>• Cirugías y procedimientos invasivos</li>                  <h3 className="font-bold text-gray-900 mb-1">Plataforma</h3>                  <h3 className="font-bold text-gray-900 mb-1">Servicios</h3>
+
+                    <li>• Prescripción de medicamentos controlados</li>
+
+                    <li>• Tratamientos experimentales o no aprobados</li>                  <p className="text-gray-700 text-sm">                  <p className="text-gray-700 text-sm">
+
+                    <li>• Atención médica fuera de México</li>
+
+                  </ul>                    El sitio web, aplicación móvil y sistema WhatsApp a través del cual se accede a los servicios de SaludCompartida.                    El conjunto de beneficios de salud que proporciona SaludCompartida, incluyendo telemedicina, descuentos en farmacias y acceso con descuento a atención médica presencial.
+
+                </div>
+
+                  </p>                  </p>
+
+                <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+
+                  <p className="text-red-900 font-semibold">                </div>                </div>
+
+                    Importante: SaludCompartida no reemplaza la atención médica de emergencia. En caso de emergencia, llama al 911 o acude al hospital más cercano.
+
+                  </p>              </div>                <div className="border-l-4 border-cyan-500 pl-4">
+
+                </div>
+
+              </div>            </section>                  <h3 className="font-bold text-gray-900 mb-1">Plataforma</h3>
+
+            </section>
+
+                  <p className="text-gray-700 text-sm">
+
+            {/* Sección 8: Responsabilidades */}
+
+            <section id="responsibilities" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">            {/* Sección 3: Descripción de servicios */}                    El sitio web, aplicación móvil y sistema WhatsApp a través del cual se accede a los servicios de SaludCompartida.
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+
+                8. Responsabilidades y limitación de responsabilidad            <section id="services" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">                  </p>
+
+              </h2>
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">                </div>
+
+              <div className="space-y-6">
+
+                <div>                3. Descripción de servicios              </div>
+
+                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Responsabilidad del usuario:</h3>
+
+                  <p className="text-gray-700 text-sm leading-relaxed">              </h2>            </section>
+
+                    Eres responsable de proporcionar información médica precisa y seguir las indicaciones médicas recibidas.
+
+                  </p>              
+
+                </div>
+
               <div className="space-y-6">            {/* Sección 3: Descripción de servicios */}
 
-                {/* Telemedicina */}            <section id="services" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+                <div>
 
-                <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6 border border-cyan-200">              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Responsabilidad de SaludCompartida:</h3>                {/* Telemedicina */}            <section id="services" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
 
-                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Telemedicina 24/7</h3>                3. Descripción de servicios
+                  <p className="text-gray-700 text-sm leading-relaxed">
 
-                  <p className="text-gray-700 text-sm mb-3 leading-relaxed">              </h2>
+                    Nos esforzamos por proporcionar servicios de calidad, pero no garantizamos resultados médicos específicos.                <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6 border border-cyan-200">              <h2 className="text-3xl font-bold text-gray-900 mb-6">
 
-                    Consultas médicas ilimitadas por videollamada, teléfono o WhatsApp con profesionales certificados en México.              
+                  </p>
 
-                  </p>              <div className="space-y-6">
+                </div>                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Telemedicina 24/7</h3>                3. Descripción de servicios
 
-                  <ul className="text-gray-600 text-sm space-y-1">                {/* Telemedicina */}
 
-                    <li>• Atención médica general</li>                <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6">
 
-                    <li>• Prescripción electrónica cuando sea permitido</li>                  <div className="flex items-start gap-4">
+                <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">                  <p className="text-gray-700 text-sm mb-3 leading-relaxed">              </h2>
 
-                    <li>• Orientación sobre síntomas y tratamientos</li>                    <svg className="w-8 h-8 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <p className="text-blue-900 text-sm leading-relaxed">
 
-                    <li>• Recomendación de atención presencial cuando sea necesario</li>                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <strong>Limitación de responsabilidad:</strong> SaludCompartida no será responsable por daños indirectos, incidentales o consecuentes derivados del uso del servicio, excepto donde la ley lo prohíba.                    Consultas médicas ilimitadas por videollamada, teléfono o WhatsApp con profesionales certificados en México.              
 
-                  </ul>                    </svg>
+                  </p>
 
-                </div>                    <div>
+                </div>                  </p>              <div className="space-y-6">
 
-                      <h3 className="font-bold text-gray-900 mb-2 text-lg">Telemedicina 24/7</h3>
+              </div>
 
-                {/* Descuentos en Farmacias */}                      <p className="text-gray-700 text-sm mb-3 leading-relaxed">
+            </section>                  <ul className="text-gray-600 text-sm space-y-1">                {/* Telemedicina */}
 
-                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-pink-200">                        Consultas médicas ilimitadas por videollamada, teléfono o WhatsApp con profesionales certificados en México. Las consultas están disponibles en días y horarios establecidos por SaludCompartida.
 
-                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Descuentos en Farmacias</h3>                      </p>
 
-                  <p className="text-gray-700 text-sm mb-3 leading-relaxed">                      <ul className="text-gray-600 text-sm space-y-1">
+            {/* Sección 9: Modificaciones */}                    <li>• Atención médica general</li>                <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6">
 
-                    Acceso a descuentos de 40-75% en más de 1,700 farmacias afiliadas.                        <li>• Atención médica general</li>
+            <section id="modifications" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
 
-                  </p>                        <li>• Prescripción electrónica cuando sea permitido</li>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">                    <li>• Prescripción electrónica cuando sea permitido</li>                  <div className="flex items-start gap-4">
 
-                  <ul className="text-gray-600 text-sm space-y-1">                        <li>• Orientación sobre síntomas y tratamientos</li>
+                9. Modificaciones al servicio y términos
 
-                    <li>• Red de más de 1,700 ubicaciones</li>                        <li>• Recomendación de atención presencial cuando sea necesario</li>
+              </h2>                    <li>• Orientación sobre síntomas y tratamientos</li>                    <svg className="w-8 h-8 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-                    <li>• Descuentos aplicables con receta electrónica</li>                      </ul>
+              <p className="text-gray-700 mb-4 leading-relaxed">
 
-                    <li>• Medicamentos autorizados (excluyendo controlados)</li>                    </div>
+                Nos reservamos el derecho de:                    <li>• Recomendación de atención presencial cuando sea necesario</li>                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
 
-                  </ul>                  </div>
+              </p>
+
+              <ul className="space-y-2 text-gray-700 text-sm mb-6">                  </ul>                    </svg>
+
+                <li>• Modificar o discontinuar servicios con previo aviso</li>
+
+                <li>• Actualizar estos términos y condiciones</li>                </div>                    <div>
+
+                <li>• Cambiar los precios de suscripción (notificando con 30 días de anticipación)</li>
+
+              </ul>                      <h3 className="font-bold text-gray-900 mb-2 text-lg">Telemedicina 24/7</h3>
+
+              <p className="text-gray-700 text-sm leading-relaxed">
+
+                <strong>Notificación de cambios:</strong> Te notificaremos por correo electrónico sobre cambios importantes. El uso continuado del servicio después de los cambios constituye aceptación de los nuevos términos.                {/* Descuentos en Farmacias */}                      <p className="text-gray-700 text-sm mb-3 leading-relaxed">
+
+              </p>
+
+            </section>                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-pink-200">                        Consultas médicas ilimitadas por videollamada, teléfono o WhatsApp con profesionales certificados en México. Las consultas están disponibles en días y horarios establecidos por SaludCompartida.
+
+
+
+            {/* Sección 10: Ley aplicable */}                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Descuentos en Farmacias</h3>                      </p>
+
+            <section id="jurisdiction" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">                  <p className="text-gray-700 text-sm mb-3 leading-relaxed">                      <ul className="text-gray-600 text-sm space-y-1">
+
+                10. Ley aplicable y jurisdicción
+
+              </h2>                    Acceso a descuentos de 40-75% en más de 1,700 farmacias afiliadas.                        <li>• Atención médica general</li>
+
+              <p className="text-gray-700 mb-4 leading-relaxed">
+
+                Estos términos se rigen por las leyes de los Estados Unidos Mexicanos.                  </p>                        <li>• Prescripción electrónica cuando sea permitido</li>
+
+              </p>
+
+              <p className="text-gray-700 mb-4 leading-relaxed">                  <ul className="text-gray-600 text-sm space-y-1">                        <li>• Orientación sobre síntomas y tratamientos</li>
+
+                Cualquier disputa relacionada con estos términos será resuelta en los tribunales competentes de México.
+
+              </p>                    <li>• Red de más de 1,700 ubicaciones</li>                        <li>• Recomendación de atención presencial cuando sea necesario</li>
+
+              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+
+                <h3 className="font-bold text-gray-900 mb-2 text-lg">Resolución de disputas:</h3>                    <li>• Descuentos aplicables con receta electrónica</li>                      </ul>
+
+                <p className="text-gray-700 text-sm leading-relaxed">
+
+                  Antes de iniciar cualquier procedimiento legal, te comprometemos a intentar resolver cualquier disputa mediante negociación directa con nuestro equipo de soporte.                    <li>• Medicamentos autorizados (excluyendo controlados)</li>                    </div>
+
+                </p>
+
+              </div>                  </ul>                  </div>
+
+            </section>
 
                 </div>                </div>
 
+          </div>
+
+        </div>
 
 
-                {/* Terapia Psicológica */}                {/* Descuentos en Farmacias */}
 
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6">
+        {/* Contacto */}                {/* Terapia Psicológica */}                {/* Descuentos en Farmacias */}
 
-                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Terapia Psicológica</h3>                  <div className="flex items-start gap-4">
+        <div className="mt-12 text-center bg-gradient-to-r from-cyan-50 to-purple-50 rounded-2xl p-8 border border-cyan-200">
 
-                  <p className="text-gray-700 text-sm mb-3 leading-relaxed">                    <svg className="w-8 h-8 text-pink-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6">
 
-                    Acceso a sesiones de terapia psicológica con profesionales certificados.                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            ¿Preguntas sobre estos términos?
 
-                  </p>                    </svg>
+          </h3>                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Terapia Psicológica</h3>                  <div className="flex items-start gap-4">
 
-                  <ul className="text-gray-600 text-sm space-y-1">                    <div>
+          <p className="text-gray-700 mb-6">
 
-                    <li>• Sesiones individuales por videollamada</li>                      <h3 className="font-bold text-gray-900 mb-2 text-lg">Descuentos en Farmacias</h3>
+            Si tienes dudas o necesitas aclaraciones, nuestro equipo está aquí para ayudarte.                  <p className="text-gray-700 text-sm mb-3 leading-relaxed">                    <svg className="w-8 h-8 text-pink-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-                    <li>• Profesionales con cédula certificada</li>                      <p className="text-gray-700 text-sm mb-3 leading-relaxed">
+          </p>
 
-                    <li>• Tratamiento de ansiedad, depresión, estrés</li>                        Acceso a descuentos de 40-75% en más de 1,700 farmacias afiliadas, cubriendo el 95% del territorio mexicano.
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm">                    Acceso a sesiones de terapia psicológica con profesionales certificados.                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
 
-                  </ul>                      </p>
+            <a href="mailto:legal@saludcompartida.com" className="text-cyan-600 hover:text-cyan-700 font-semibold">
 
-                </div>                      <ul className="text-gray-600 text-sm space-y-1">
+              📧 legal@saludcompartida.com                  </p>                    </svg>
+
+            </a>
+
+            <span className="hidden md:inline text-gray-400">|</span>                  <ul className="text-gray-600 text-sm space-y-1">                    <div>
+
+            <a href="mailto:contacto@saludcompartida.com" className="text-cyan-600 hover:text-cyan-700 font-semibold">
+
+              💬 contacto@saludcompartida.com                    <li>• Sesiones individuales por videollamada</li>                      <h3 className="font-bold text-gray-900 mb-2 text-lg">Descuentos en Farmacias</h3>
+
+            </a>
+
+          </div>                    <li>• Profesionales con cédula certificada</li>                      <p className="text-gray-700 text-sm mb-3 leading-relaxed">
+
+        </div>
+
+      </div>                    <li>• Tratamiento de ansiedad, depresión, estrés</li>                        Acceso a descuentos de 40-75% en más de 1,700 farmacias afiliadas, cubriendo el 95% del territorio mexicano.
+
+
+
+      <Footer />                  </ul>                      </p>
+
+    </div>
+
+  );                </div>                      <ul className="text-gray-600 text-sm space-y-1">
+
+}
 
               </div>                        <li>• Red de más de 1,700 ubicaciones</li>
 
