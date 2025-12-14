@@ -5,7 +5,7 @@ import { UserContext } from '../contexts/UserContext';
 
 // TopNav now supports: logo, back button, user info, login button, restart bubbles, and section navigation
 const TopNav = ({ 
-  logoSrc = '/saludcompartida logo WT.png', 
+  logoSrc, 
   logoAlt = 'SaludCompartida', 
   onBack, 
   hideUser = false,
@@ -18,6 +18,11 @@ const TopNav = ({
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  
+  // Determinar el logo según el contexto PRE/POST contratación
+  const finalLogoSrc = logoSrc || (internalPage 
+    ? '/saludcompartida logo WT.png' 
+    : '/saludcompartida-transp dark-bg-no-tagline copy 2.jpg');
   const [quienesSomosOpen, setQuienesSomosOpen] = useState(false);
   const [serviciosOpen, setServiciosOpen] = useState(false);
   const [legalOpen, setLegalOpen] = useState(false);
@@ -60,7 +65,7 @@ const TopNav = ({
           className="flex items-center gap-2 md:gap-4 cursor-pointer group"
           onClick={onRestartBubbles ? handleRestartBubbles : handleScrollToTop}
         >
-          <img src={logoSrc} alt={logoAlt} className="h-10 md:h-12 object-contain group-hover:opacity-80 transition-opacity" />
+          <img src={finalLogoSrc} alt={logoAlt} className="h-10 md:h-12 object-contain group-hover:opacity-80 transition-opacity" />
           
           {/* Home Icon - aparece cuando homeIcon es true */}
           {homeIcon && (
