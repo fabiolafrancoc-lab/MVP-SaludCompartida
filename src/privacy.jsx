@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import DashboardNav from './components/DashboardNav';
+import TopNav from './components/TopNav';
 
 export default function Privacy() {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ export default function Privacy() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-purple-50">
-      <DashboardNav />
+      <TopNav internalPage={true} showMenu={true} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
