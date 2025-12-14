@@ -1,15 +1,21 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import TopNav from '../components/TopNav';
+import TopNav from './components/TopNav';
 
-export default function PostPrivacy() {
+export default function Privacy() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeSection, setActiveSection] = useState('');
 
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Determinar desde dónde vino el usuario - si viene desde /terms, mantener el origen original
+  const fromPage = location.state?.from === '/terms' && location.state?.originalFrom 
+    ? location.state.originalFrom 
+    : (location.state?.from || '/page4');
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -34,23 +40,10 @@ export default function PostPrivacy() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-purple-50">
       <TopNav internalPage={true} showMenu={true} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Botón Volver */}
-        <div className="mb-8">
-          <button
-            onClick={() => navigate('/page4')}
-            className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Volver
-          </button>
-        </div>
-
         {/* Hero Section */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mb-4">
@@ -72,7 +65,7 @@ export default function PostPrivacy() {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Sidebar - Índice navegable */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
+            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24">
               <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
               <nav className="space-y-2">
                 {sections.map((section) => (
@@ -96,7 +89,7 @@ export default function PostPrivacy() {
           <div className="lg:col-span-3 space-y-12">
             
             {/* Sección 1: Introducción */}
-            <section id="intro" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="intro" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 1. Introducción
               </h2>
@@ -115,7 +108,7 @@ export default function PostPrivacy() {
             </section>
 
             {/* Sección 2: Responsable del tratamiento */}
-            <section id="responsible" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="responsible" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 2. Responsable del tratamiento
               </h2>
@@ -146,7 +139,7 @@ export default function PostPrivacy() {
             </section>
 
             {/* Sección 3: Datos que recopilamos */}
-            <section id="data-collection" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="data-collection" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 3. Datos personales que recopilamos
               </h2>
@@ -247,7 +240,7 @@ export default function PostPrivacy() {
             </section>
 
             {/* Sección 4: Finalidades del tratamiento */}
-            <section id="purpose" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="purpose" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 4. Finalidades del tratamiento
               </h2>
@@ -346,7 +339,7 @@ export default function PostPrivacy() {
             </section>
 
             {/* Sección 5: Fundamento legal */}
-            <section id="legal-basis" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="legal-basis" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 5. Fundamento legal
               </h2>
@@ -400,7 +393,7 @@ export default function PostPrivacy() {
             </section>
 
             {/* Sección 6: Transferencia de datos */}
-            <section id="data-transfer" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="data-transfer" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 6. Transferencia de datos
               </h2>
@@ -571,7 +564,7 @@ export default function PostPrivacy() {
             </section>
 
             {/* Sección 8: Seguridad de datos */}
-            <section id="security" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="security" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 8. Seguridad de datos
               </h2>
@@ -664,7 +657,7 @@ export default function PostPrivacy() {
             </section>
 
             {/* Sección 9: Cookies y tecnologías */}
-            <section id="cookies" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="cookies" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 9. Cookies y tecnologías de rastreo
               </h2>
@@ -761,7 +754,7 @@ export default function PostPrivacy() {
             </section>
 
             {/* Sección 10: Menores de edad */}
-            <section id="minors" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="minors" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 10. Menores de edad
               </h2>
@@ -847,7 +840,7 @@ export default function PostPrivacy() {
             </section>
 
             {/* Sección 11: Cambios al aviso */}
-            <section id="changes" className="bg-gray-50 rounded-xl shadow-lg p-8 border border-gray-200">
+            <section id="changes" className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 11. Cambios al aviso de privacidad
               </h2>
