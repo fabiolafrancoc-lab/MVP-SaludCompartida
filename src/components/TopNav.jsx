@@ -179,13 +179,13 @@ const TopNav = ({
               {/* Dropdown Menu */}
               <div className={`absolute left-0 mt-2 w-56 ${internalPage ? 'bg-white border-gray-300' : 'bg-gray-900 border-gray-700'} rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50`}>
                 <button
-                  onClick={() => navigate('/terms')}
+                  onClick={() => navigate(internalPage ? '/post-terms' : '/terms')}
                   className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors first:rounded-t-lg`}
                 >
                   Términos y Condiciones
                 </button>
                 <button
-                  onClick={() => navigate('/privacy')}
+                  onClick={() => navigate(internalPage ? '/post-privacy' : '/privacy')}
                   className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
                 >
                   Política de Privacidad
@@ -464,13 +464,13 @@ const TopNav = ({
               {legalOpen && (
                 <div className="ml-4 mt-2 space-y-2">
                   <button
-                    onClick={() => { navigate('/terms'); setMenuOpen(false); setLegalOpen(false); }}
+                    onClick={() => { navigate(internalPage ? '/post-terms' : '/terms'); setMenuOpen(false); setLegalOpen(false); }}
                     className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Términos y Condiciones
                   </button>
                   <button
-                    onClick={() => { navigate('/privacy'); setMenuOpen(false); setLegalOpen(false); }}
+                    onClick={() => { navigate(internalPage ? '/post-privacy' : '/privacy'); setMenuOpen(false); setLegalOpen(false); }}
                     className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
                   >
                     → Política de Privacidad
