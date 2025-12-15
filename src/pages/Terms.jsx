@@ -1,9 +1,11 @@
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // Página de Términos y Condiciones para PRESUSCRIPCIÓN
 export default function Terms() {
+  const navigate = useNavigate()
   const [activeSection, setActiveSection] = useState('')
 
   const scrollToSection = (sectionId) => {
@@ -32,6 +34,18 @@ export default function Terms() {
       <TopNav showMenu={true} hideUser={true} />
       
       <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
+        {/* Botón Volver */}
+        <div className="max-w-7xl mx-auto mb-8">
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors group"
+          >
+            <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="font-medium">Volver</span>
+          </button>
+        </div>
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
