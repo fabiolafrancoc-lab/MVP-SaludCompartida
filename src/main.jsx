@@ -16,6 +16,10 @@ import PostTerms from './pages/PostTerms.jsx'
 import PostPrivacy from './pages/PostPrivacy.jsx'
 import ConfirmacionTerms from './pages/ConfirmacionTerms.jsx'
 import ConfirmacionPrivacy from './pages/ConfirmacionPrivacy.jsx'
+import PagoTerms from './pages/PagoTerms.jsx'
+import PagoPrivacy from './pages/PagoPrivacy.jsx'
+import Page3Terms from './pages/Page3Terms.jsx'
+import Page3Privacy from './pages/Page3Privacy.jsx'
 import Contact from './contact.jsx'
 import Rating from './rating.jsx'
 import Account from './account.jsx'
@@ -68,6 +72,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/privacy-internal" element={<PrivacyInternal />} /> {/* 👈 Aviso de Privacidad (REGISTRO) */}
           <Route path="/confirmacion-terms" element={<ConfirmacionTerms />} /> {/* 👈 Términos y Condiciones (CONFIRMACIÓN) */}
           <Route path="/confirmacion-privacy" element={<ConfirmacionPrivacy />} /> {/* 👈 Aviso de Privacidad (CONFIRMACIÓN) */}
+          <Route path="/pago-terms" element={<PagoTerms />} /> {/* 👈 Términos y Condiciones (PAGO) */}
+          <Route path="/pago-privacy" element={<PagoPrivacy />} /> {/* 👈 Aviso de Privacidad (PAGO) */}
+          <Route path="/page3-terms" element={<Page3Terms />} /> {/* 👈 Términos y Condiciones (PAGE3) */}
+          <Route path="/page3-privacy" element={<Page3Privacy />} /> {/* 👈 Aviso de Privacidad (PAGE3) */}
           <Route path="/post-terms" element={<PostTerms />} /> {/* 👈 Términos y Condiciones (POST-CONTRATACIÓN) */}
           <Route path="/post-privacy" element={<PostPrivacy />} /> {/* 👈 Aviso de Privacidad (POST-CONTRATACIÓN) */}
           <Route path="/contact" element={<Contact />} /> {/* 👈 Contáctanos */}
