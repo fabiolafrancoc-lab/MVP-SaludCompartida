@@ -664,7 +664,12 @@ Beneficios disponibles:
               <div className="mt-6 pt-6 border-t border-gray-200">
                 <p className="text-xs text-center text-gray-500">
                   Al completar el pago, aceptas nuestros{' '}
-                  <a href="/terms" className="text-cyan-600 hover:underline">Términos y Condiciones</a>
+                  <button
+                    onClick={() => navigate('/pago-terms')}
+                    className="text-cyan-600 hover:underline"
+                  >
+                    Términos y Condiciones
+                  </button>
                 </p>
               </div>
             </div>
