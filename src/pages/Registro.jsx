@@ -367,11 +367,14 @@ Suscripciones restantes después de este registro: ${spotsLeft - 1}
           const migrantNotification = await sendAccessCode(
             cleanMigrantPhone,
             result.migrantAccessCode,
-            migrantFirstName
+            migrantFirstName,
+            '+1' // Código de país USA
           );
           
           if (migrantNotification.success) {
             console.log(`✅ Código enviado al migrante por ${migrantNotification.method}`);
+          } else {
+            console.warn(`⚠️ No se pudo enviar WhatsApp al migrante: ${migrantNotification.error || 'Error desconocido'}`);
           }
 
           // Enviar Email de CONFIRMACIÓN DE REGISTRO al migrante (SIN código aún)
@@ -460,11 +463,14 @@ Equipo SaludCompartida`,
           const familyNotification = await sendAccessCode(
             cleanFamilyPhone,
             result.familyAccessCode,
-            familyFirstName
+            familyFirstName,
+            '+52' // Código de país México
           );
           
           if (familyNotification.success) {
             console.log(`✅ Código enviado al familiar por ${familyNotification.method}`);
+          } else {
+            console.warn(`⚠️ No se pudo enviar WhatsApp al familiar: ${familyNotification.error || 'Error desconocido'}`);
           }
 
           // Enviar Email de CONFIRMACIÓN DE REGISTRO al familiar (SIN código aún)
