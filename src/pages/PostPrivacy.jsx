@@ -364,7 +364,7 @@ export default function PostPrivacy() {
         </div>
       </div>
 
-      <Footer />
+      <Footer variant="light" internalPage={true} />
     </div>
   );
 }

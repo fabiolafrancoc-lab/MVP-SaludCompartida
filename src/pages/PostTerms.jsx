@@ -370,7 +370,7 @@ export default function PostTerms() {
         </div>
       </div>
 
-      <Footer />
+      <Footer variant="light" internalPage={true} />
     </div>
   );
 }
