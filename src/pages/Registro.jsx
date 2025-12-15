@@ -582,7 +582,7 @@ Equipo SaludCompartida`,
   if (currentPage === 'register') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50">
-  <TopNav hideUser={true} />
+  <TopNav hideUser={true} showMenu={false} />
 
         <div className="max-w-7xl mx-auto px-6 py-8">
           
