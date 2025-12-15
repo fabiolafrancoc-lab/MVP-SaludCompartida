@@ -364,7 +364,7 @@ export default function ConfirmacionPrivacy() {
         </div>
       </div>
 
-      <Footer variant="light" />
+      <Footer variant="light" confirmacionPage={true} />
     </div>
   );
 }
