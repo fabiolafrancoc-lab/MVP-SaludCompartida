@@ -148,7 +148,11 @@ export default function Footer({ variant = 'dark', internalPage = false, confirm
             </p>
             <div className="flex items-center gap-6">
               <button
-                onClick={() => handleNavigate('/contacto')}
+                onClick={() => handleNavigate(
+                  confirmacionPage ? '/contact' :
+                  internalPage ? '/contact' : 
+                  '/contacto'
+                )}
                 className={`text-sm ${textSecondary} ${hoverColor} transition-colors`}>
                 Contacto
               </button>
