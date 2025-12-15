@@ -69,11 +69,11 @@ export default function PostPrivacy() {
                   <button
                     key={section.id}
                     onClick={() => scrollToSection(section.id)}
-                    className={\`w-full text-left px-3 py-2 rounded-lg text-sm transition-all \${
+                    className={'w-full text-left px-3 py-2 rounded-lg text-sm transition-all ' + (
                       activeSection === section.id
                         ? 'bg-purple-100 text-purple-900 font-semibold'
                         : 'text-gray-600 hover:bg-gray-100'
-                    }\`}
+                    )}
                   >
                     {section.title}
                   </button>
