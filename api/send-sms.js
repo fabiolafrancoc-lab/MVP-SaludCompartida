@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { to, message } = req.body;
+    const { to, message, countryCode } = req.body;
 
     // Validar datos
     if (!to || !message) {
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     // Twilio credentials desde variables de entorno
     const accountSid = process.env.TWILIO_ACCOUNT_SID;
     const authToken = process.env.TWILIO_AUTH_TOKEN;
-    const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER; // Ej: +14155238886
+    const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER; // Ej: +15557218375
 
     if (!accountSid || !authToken || !twilioPhoneNumber) {
       console.error('Faltan credenciales de Twilio en variables de entorno');
@@ -28,8 +28,18 @@ export default async function handler(req, res) {
       });
     }
 
-    // Formatear número de destino (agregar +52 si es México)
-    const formattedTo = to.startsWith('+') ? to : `+52${to.replace(/\D/g, '')}`;
+    // Formatear número de destino
+    let formattedTo;
+    console.log('📞 Formateando número SMS - to:', to, 'countryCode:', countryCode);
+    
+    if (to.startsWith('+')) {
+      formattedTo = to;
+    } else {
+      const prefix = countryCode || '+52';
+      const cleanNumber = to.replace(/\D/g, '');
+      formattedTo = `${prefix}${cleanNumber}`;
+      console.log('📱 Número SMS formateado:', formattedTo);
+    }
 
     // Inicializar cliente de Twilio
     const client = twilio(accountSid, authToken);

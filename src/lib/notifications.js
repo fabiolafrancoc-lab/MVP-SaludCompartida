@@ -136,35 +136,20 @@ Gracias por confiar en SaludCompartida 💙
 }
 
 /**
- * Envía código de acceso al usuario
+ * Envía código de acceso al usuario por SMS
  * @param {string} phone - Teléfono del usuario (10 dígitos sin código de país)
  * @param {string} accessCode - Código de acceso generado
  * @param {string} firstName - Nombre del usuario
  * @param {string} countryCode - Código de país (+1 o +52)
  */
 export async function sendAccessCode(phone, accessCode, firstName, countryCode = '+52') {
-  const message = `
-¡Bienvenido a SaludCompartida, ${firstName}! 🎉
-
-Tu código de acceso es:
-
-🔑 ${accessCode}
-
-Ingresa con tu código en:
-👉 saludcompartida.com/prototype
-
-Guarda este código en un lugar seguro. Lo necesitarás para acceder a todos tus servicios de salud.
-
-¿Dudas? Escríbenos a contact@saludcompartida.com
-
-¡Estamos para cuidarte! 💙
-  `.trim();
+  const message = `Hola ${firstName}! Tu codigo de acceso a SaludCompartida es: ${accessCode}. Ingresa en saludcompartida.app/page3`;
 
   try {
-    // Intentar enviar WhatsApp
-    console.log(`📱 Enviando WhatsApp a ${countryCode}${phone} con código ${accessCode}`);
+    // Enviar por SMS (más confiable que WhatsApp sin templates)
+    console.log(`📱 Enviando SMS a ${countryCode}${phone} con código ${accessCode}`);
     
-    const response = await fetch('/api/send-whatsapp', {
+    const response = await fetch('/api/send-sms', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -172,64 +157,33 @@ Guarda este código en un lugar seguro. Lo necesitarás para acceder a todos tus
       body: JSON.stringify({
         to: phone,
         message: message,
-        countryCode: countryCode,
-        type: 'access-code'
+        countryCode: countryCode
       })
     });
 
     const data = await response.json();
     
     if (!response.ok) {
-      console.error('❌ Error al enviar WhatsApp:', data.error);
-      throw new Error(data.error || 'Error al enviar WhatsApp');
+      console.error('❌ Error al enviar SMS:', data.error);
+      throw new Error(data.error || 'Error al enviar SMS');
     }
 
-    console.log('✅ WhatsApp enviado exitosamente:', data.messageSid);
+    console.log('✅ SMS enviado exitosamente:', data.messageSid);
     return {
       success: true,
-      method: 'whatsapp',
+      method: 'sms',
       messageSid: data.messageSid
     };
     
   } catch (error) {
     console.error('❌ Error en sendAccessCode:', error);
     
-    // Si WhatsApp falla, intentar SMS como fallback
-    try {
-      console.log('📩 Intentando SMS como fallback...');
-      const smsResponse = await fetch('/api/send-sms', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: phone,
-          message: message,
-          countryCode: countryCode
-        })
-      });
-
-      const smsData = await smsResponse.json();
-      
-      if (smsResponse.ok) {
-        console.log('✅ SMS enviado como fallback');
-        return {
-          success: true,
-          method: 'sms',
-          messageSid: smsData.messageSid,
-          fallback: true
-        };
-      }
-    } catch (smsError) {
-      console.error('❌ SMS fallback también falló:', smsError);
-    }
-    
-    // Si ambos fallan, retornar error pero no bloquear el flujo
+    // Si SMS falla, no bloquear el flujo
     return {
       success: false,
       method: 'none',
       error: error.message,
-      message: 'No se pudo enviar código por WhatsApp/SMS. Código disponible en email.'
+      message: 'No se pudo enviar código por SMS. Código disponible en email.'
     };
   }
 }
