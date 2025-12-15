@@ -480,7 +480,7 @@ export default function LoginCodigo() {
                       Acepto los{' '}
                       <button
                         type="button"
-                        onClick={() => navigate('/terms')}
+                        onClick={() => navigate('/post-terms')}
                         className="text-cyan-600 font-semibold hover:underline"
                       >
                         Términos y Condiciones
@@ -488,7 +488,7 @@ export default function LoginCodigo() {
                       {' '}y la{' '}
                       <button
                         type="button"
-                        onClick={() => navigate('/privacy')}
+                        onClick={() => navigate('/post-privacy')}
                         className="text-cyan-600 font-semibold hover:underline"
                       >
                         Política de Privacidad

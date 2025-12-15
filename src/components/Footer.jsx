@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Footer({ variant = 'dark', internalPage = false }) {
+export default function Footer({ variant = 'dark', internalPage = false, confirmacionPage = false }) {
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
@@ -116,14 +116,22 @@ export default function Footer({ variant = 'dark', internalPage = false }) {
             <ul className="space-y-3">
               <li>
                 <button
-                  onClick={() => handleNavigate('/terms')}
+                  onClick={() => handleNavigate(
+                    confirmacionPage ? '/confirmacion-terms' :
+                    internalPage ? '/post-terms' : 
+                    '/terms'
+                  )}
                   className={`text-sm ${textSecondary} ${hoverColor} transition-colors text-left`}>
                   Términos y Condiciones
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleNavigate('/privacy')}
+                  onClick={() => handleNavigate(
+                    confirmacionPage ? '/confirmacion-privacy' :
+                    internalPage ? '/post-privacy' : 
+                    '/privacy'
+                  )}
                   className={`text-sm ${textSecondary} ${hoverColor} transition-colors text-left`}>
                   Política de Privacidad
                 </button>

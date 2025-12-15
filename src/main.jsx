@@ -14,6 +14,8 @@ import TermsInternal from './pages/TermsInternal.jsx'
 import PrivacyInternal from './pages/PrivacyInternal.jsx'
 import PostTerms from './pages/PostTerms.jsx'
 import PostPrivacy from './pages/PostPrivacy.jsx'
+import ConfirmacionTerms from './pages/ConfirmacionTerms.jsx'
+import ConfirmacionPrivacy from './pages/ConfirmacionPrivacy.jsx'
 import Contact from './contact.jsx'
 import Rating from './rating.jsx'
 import Account from './account.jsx'
@@ -64,6 +66,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/privacy" element={<Privacy />} /> {/* 👈 Aviso de Privacidad */}
           <Route path="/terms-internal" element={<TermsInternal />} /> {/* 👈 Términos y Condiciones (REGISTRO) */}
           <Route path="/privacy-internal" element={<PrivacyInternal />} /> {/* 👈 Aviso de Privacidad (REGISTRO) */}
+          <Route path="/confirmacion-terms" element={<ConfirmacionTerms />} /> {/* 👈 Términos y Condiciones (CONFIRMACIÓN) */}
+          <Route path="/confirmacion-privacy" element={<ConfirmacionPrivacy />} /> {/* 👈 Aviso de Privacidad (CONFIRMACIÓN) */}
           <Route path="/post-terms" element={<PostTerms />} /> {/* 👈 Términos y Condiciones (POST-CONTRATACIÓN) */}
           <Route path="/post-privacy" element={<PostPrivacy />} /> {/* 👈 Aviso de Privacidad (POST-CONTRATACIÓN) */}
           <Route path="/contact" element={<Contact />} /> {/* 👈 Contáctanos */}
