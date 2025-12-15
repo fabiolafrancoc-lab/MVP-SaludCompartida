@@ -62,12 +62,12 @@ export default function Home() {
 
       {/* Header */}
       <section className="px-6 pt-12 pb-8">
-        <div className="text-center max-w-4xl mx-auto">
+        <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
           <p className="text-white font-bold tracking-widest uppercase mb-4">La Solución</p>
-          <h1 className="text-6xl md:text-9xl font-black mb-4 text-center">
+          <h1 className="text-5xl md:text-7xl lg:text-9xl font-black mb-4 text-center w-full">
             <span className="text-cyan-400">SaludCompartida</span>
           </h1>
-          <h2 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent text-center">
+          <h2 className="text-lg md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent text-center">
             Una App. Tu Familia Cuidada. $12/Mes
           </h2>
         </div>
