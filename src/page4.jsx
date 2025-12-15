@@ -656,14 +656,14 @@ const Page4 = () => {
             
             <div className="flex items-center gap-6">
               <button
-                onClick={() => navigate('/terms', { state: { from: '/page4' } })}
+                onClick={() => navigate('/post-terms')}
                 className="text-gray-600 hover:text-cyan-600 text-sm font-medium transition-colors underline"
               >
                 Términos y Condiciones
               </button>
               <span className="text-gray-300">|</span>
               <button
-                onClick={() => navigate('/privacy', { state: { from: '/page4' } })}
+                onClick={() => navigate('/post-privacy')}
                 className="text-gray-600 hover:text-pink-600 text-sm font-medium transition-colors underline"
               >
                 Aviso de Privacidad
