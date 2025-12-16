@@ -345,18 +345,18 @@ export default function LoginCodigo() {
             </div>
 
             {/* Columna derecha - Formulario */}
-            <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-200">
-              <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+            <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 md:p-12 border border-gray-200">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-4">
                 ¡Bienvenido!
               </h1>
-              <p className="text-xl text-gray-600 mb-8">
+              <p className="text-lg sm:text-xl text-gray-600 mb-8">
                 Ingresa tu código de acceso para continuar
               </p>
 
               <div className="space-y-6">
                 {/* Código de Acceso */}
                 <div>
-                  <label className="block text-gray-800 font-bold mb-2 text-left">
+                  <label className="block text-gray-800 font-bold mb-2 text-left text-sm sm:text-base">
                     Código de Acceso <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -367,7 +367,7 @@ export default function LoginCodigo() {
                       setErrors({ ...errors, specialCode: '' });
                     }}
                     placeholder="Ej: ABCD1234"
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-lg font-mono ${
+                    className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-base sm:text-lg font-mono ${
                       errors.specialCode ? 'border-red-500 bg-red-50' : 'border-gray-300'
                     }`}
                   />
@@ -378,7 +378,7 @@ export default function LoginCodigo() {
 
                 {/* Nombre */}
                 <div>
-                  <label className="block text-gray-800 font-bold mb-2 text-left">
+                  <label className="block text-gray-800 font-bold mb-2 text-left text-sm sm:text-base">
                     Nombre <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -389,7 +389,7 @@ export default function LoginCodigo() {
                       setErrors({ ...errors, firstName: '' });
                     }}
                     disabled={codeVerified}
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-lg ${
+                    className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-base sm:text-lg ${
                       errors.firstName ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100' : 'border-gray-300'
                     }`}
                     placeholder="Tu nombre"
@@ -401,7 +401,7 @@ export default function LoginCodigo() {
 
                 {/* Apellido Paterno */}
                 <div>
-                  <label className="block text-gray-800 font-bold mb-2 text-left">
+                  <label className="block text-gray-800 font-bold mb-2 text-left text-sm sm:text-base">
                     Apellido Paterno <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -412,7 +412,7 @@ export default function LoginCodigo() {
                       setErrors({ ...errors, lastName: '' });
                     }}
                     disabled={codeVerified}
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-lg ${
+                    className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-base sm:text-lg ${
                       errors.lastName ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100' : 'border-gray-300'
                     }`}
                     placeholder="Tu apellido paterno"
@@ -504,7 +504,7 @@ export default function LoginCodigo() {
                 {/* Botón */}
                 <button
                   onClick={handleAccessCode}
-                  className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 text-white py-4 rounded-xl font-bold text-xl hover:from-cyan-700 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl"
+                  className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 text-white py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-xl hover:from-cyan-700 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl touch-manipulation"
                 >
                   Ingresar a SaludCompartida
                 </button>
