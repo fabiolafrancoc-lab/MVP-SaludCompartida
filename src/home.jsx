@@ -61,39 +61,35 @@ export default function Home() {
       </div>
 
       {/* Header */}
-      <section className="px-6 pt-12 pb-8">
-        <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto text-left">
-            <p className="text-white font-bold tracking-widest uppercase mb-4">La Solución</p>
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-black mb-4 w-full">
-              <span className="text-cyan-400 block">SaludCompartida</span>
-            </h1>
-            <h2 className="text-lg md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent w-full">
-              Una App. Tu Familia Cuidada. $12/Mes
-            </h2>
-          </div>
+      <section className="w-full px-4 sm:px-6 pt-8 sm:pt-12 pb-6 sm:pb-8">
+        <div className="w-full max-w-4xl mx-auto text-left">
+          <p className="text-white font-bold tracking-widest uppercase mb-4 text-xs sm:text-sm">La Solución</p>
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-4 w-full">
+            <span className="text-cyan-400 block">SaludCompartida</span>
+          </h1>
+          <h2 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent w-full">
+            Una App. Tu Familia Cuidada. $12/Mes
+          </h2>
         </div>
       </section>
 
       {/* Problem Context - Compacto */}
-      <section className="px-6 pb-8">
-        <div className="container mx-auto">
-          <div className="max-w-5xl mx-auto">
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="bg-red-500/20 border border-red-500/40 rounded-xl px-4 py-2">
-                    <span className="text-3xl font-black text-red-400">$576</span>
-                    <span className="text-gray-400 text-sm ml-1">USD/año</span>
-                  </div>
-                  <p className="text-gray-300 text-sm max-w-md">
-                    Gasto promedio en consultas y medicamentos—adicional al IMSS, sin contar hospitalizaciones.
-                  </p>
+      <section className="w-full px-4 sm:px-6 pb-6 sm:pb-8">
+        <div className="w-full max-w-5xl mx-auto">
+          <div className="w-full bg-gray-800/50 border border-gray-700 rounded-xl sm:rounded-2xl p-4 sm:p-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+                <div className="bg-red-500/20 border border-red-500/40 rounded-xl px-4 py-2 flex-shrink-0">
+                  <span className="text-2xl sm:text-3xl font-black text-red-400">$576</span>
+                  <span className="text-gray-400 text-xs sm:text-sm ml-1">USD/año</span>
                 </div>
-                <div className="bg-green-500/20 border border-green-500/40 rounded-xl px-4 py-2 text-center">
-                  <p className="text-gray-400 text-xs">Tu ahorro anual</p>
-                  <span className="text-2xl font-black text-green-400">${savings}</span>
-                </div>
+                <p className="text-gray-300 text-xs sm:text-sm w-full max-w-md text-center sm:text-left leading-relaxed">
+                  Gasto promedio en consultas y medicamentos—adicional al IMSS, sin contar hospitalizaciones.
+                </p>
+              </div>
+              <div className="bg-green-500/20 border border-green-500/40 rounded-xl px-4 py-2 text-center flex-shrink-0">
+                <p className="text-gray-400 text-xs">Tu ahorro anual</p>
+                <span className="text-xl sm:text-2xl font-black text-green-400">${savings}</span>
               </div>
             </div>
           </div>
@@ -101,18 +97,17 @@ export default function Home() {
       </section>
 
       {/* 30 Segundos - Línea Horizontal Compacta */}
-      <section className="px-6 py-8 bg-gray-800/30">
-        <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-center mb-6 text-white">
-              <span className="text-cyan-400">30 Segundos</span> para Cuidar a tu Familia
-            </h3>
+      <section className="w-full px-4 sm:px-6 py-6 sm:py-8 bg-gray-800/30">
+        <div className="w-full max-w-4xl mx-auto">
+          <h3 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 text-white">
+            <span className="text-cyan-400">30 Segundos</span> para Cuidar a tu Familia
+          </h3>
+          
+          {/* Timeline en una sola línea */}
+          <div className="relative flex items-center justify-between w-full">
             
-            {/* Timeline en una sola línea */}
-            <div className="relative flex items-center justify-between">
-              
-              {/* Línea de fondo */}
-              <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-700 -translate-y-1/2 mx-16">
+            {/* Línea de fondo */}
+            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-700 -translate-y-1/2 mx-8 sm:mx-16">
                 <div 
                   className="h-full bg-gradient-to-r from-green-500 via-cyan-500 to-pink-500 transition-all duration-500"
                   style={{ width: `${(activeStep / 3) * 100}%` }}
@@ -159,23 +154,22 @@ export default function Home() {
               </div>
             </div>
             
-            <p className="text-center text-white font-bold text-lg mt-4">Así de simple. Así de rápido.</p>
+            <p className="text-center text-white font-bold text-base sm:text-lg mt-4">Así de simple. Así de rápido.</p>
           </div>
         </div>
       </section>
 
       {/* ¿Qué obtienes? - Dos bloques lado a lado */}
-      <section className="px-6 py-10">
-        <div className="container mx-auto">
-          <div className="max-w-5xl mx-auto">
-            <h3 className="text-xl md:text-2xl font-bold text-center mb-2 text-white">
-              ¿Qué obtienes con
-            </h3>
-            <h3 className="text-3xl md:text-5xl font-black text-center mb-8 text-cyan-400">
-              SaludCompartida?
-            </h3>
-            
-            <div className="grid md:grid-cols-2 gap-4">
+      <section className="w-full px-4 sm:px-6 py-8 sm:py-10">
+        <div className="w-full max-w-5xl mx-auto">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-2 text-white">
+            ¿Qué obtienes con
+          </h3>
+          <h3 className="text-2xl sm:text-3xl md:text-5xl font-black text-center mb-6 sm:mb-8 text-cyan-400">
+            SaludCompartida?
+          </h3>
+          
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
               
               {/* Izquierda: Para Ti - Migrante */}
               <div className="bg-gradient-to-br from-cyan-900/30 to-blue-900/30 border border-cyan-500/40 rounded-xl p-5">
@@ -270,31 +264,30 @@ export default function Home() {
       </section>
 
       {/* CTA Compacto */}
-      <section className="px-6 py-10">
-        <div className="container mx-auto">
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-gradient-to-r from-cyan-600 to-cyan-500 rounded-2xl p-6 md:p-8 text-center text-white">
-              <h2 className="text-xl md:text-2xl font-bold mb-2">
+      <section className="w-full px-4 sm:px-6 py-8 sm:py-10">
+        <div className="w-full max-w-3xl mx-auto">
+          <div className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 rounded-xl sm:rounded-2xl p-6 md:p-8 text-center text-white">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
                 Tú trabajas duro <span className="text-yellow-400 font-black">"aquí"</span>. Nosotros los cuidamos <span className="text-yellow-400 font-black">"allá"</span>.
               </h2>
               
-              <div className="my-4 inline-flex items-center gap-3 bg-white/10 rounded-xl px-4 py-2">
-                <span className="text-cyan-200/60 line-through font-bold">$576/año</span>
-                <span className="text-2xl font-black">$12/mes</span>
+              <div className="my-4 inline-flex items-center gap-2 sm:gap-3 bg-white/10 rounded-xl px-3 sm:px-4 py-2">
+                <span className="text-cyan-200/60 line-through font-bold text-sm sm:text-base">$576/año</span>
+                <span className="text-xl sm:text-2xl font-black">$12/mes</span>
               </div>
               
-              <p className="text-sm mb-4 text-white font-bold italic">
+              <p className="text-xs sm:text-sm mb-4 text-white font-bold italic leading-relaxed">
                 Donde está tu corazón, está SaludCompartida.
               </p>
               
               <button 
                 onClick={() => navigate('/registro')}
-                className="bg-fuchsia-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-fuchsia-600 transition-all transform hover:scale-105 shadow-lg"
+                className="w-full sm:w-auto bg-fuchsia-500 text-white font-bold py-3 px-6 sm:px-8 rounded-xl hover:bg-fuchsia-600 transition-all transform hover:scale-105 shadow-lg text-sm sm:text-base"
               >
                 Cuida a tu FAMILIA ahora
               </button>
               
-              <p className="text-xs text-white/80 font-semibold mt-4 max-w-lg mx-auto">
+              <p className="text-xs text-white/80 font-semibold mt-4 w-full max-w-lg mx-auto leading-relaxed">
                 SaludCompartida es un servicio que provee acceso a médicos autorizados, psicólogos y descuento en medicamentos en México; NO ES UN SEGURO.
               </p>
             </div>

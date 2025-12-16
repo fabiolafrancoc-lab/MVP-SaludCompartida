@@ -204,8 +204,8 @@ const Migrant = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <header className="w-full bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <img 
             src="/saludcompartida logo WT.png" 
             alt="SaludCompartida" 
@@ -235,19 +235,19 @@ const Migrant = () => {
 
       {/* Welcome Banner - First visit only */}
       {showWelcomeBanner && (
-        <div className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 text-white py-6 px-4 shadow-lg relative">
+        <div className="w-full bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 text-white py-6 px-4 sm:px-6 lg:px-8 shadow-lg relative">
           <button
             onClick={() => setShowWelcomeBanner(false)}
             className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors"
           >
             <CloseIcon />
           </button>
-          <div className="max-w-7xl mx-auto">
+          <div className="w-full max-w-7xl mx-auto">
             <div className="flex items-center gap-4 mb-3">
               <CheckCircleIcon />
               <h2 className="text-2xl md:text-3xl font-bold">¡Bienvenido a SaludCompartida!</h2>
             </div>
-            <p className="text-base md:text-lg leading-relaxed max-w-5xl">
+            <p className="text-base md:text-lg leading-relaxed w-full max-w-5xl">
               🎉 <span className="font-bold">¡Felicidades!</span> Acabas de proteger la salud de tu familia en México. 
               Tus familiares ya tienen acceso a <span className="font-bold">telemedicina 24/7, terapia con psicólogos certificados, 
               y descuentos de hasta 75% en farmacias</span>. Cada vez que usen estos servicios, verás los ahorros reflejados aquí. 
@@ -257,27 +257,27 @@ const Migrant = () => {
         </div>
       )}
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Hero Section */}
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4">
+        <div className="w-full mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-gray-900 mb-4">
             ¡Hola, <span className="bg-gradient-to-r from-cyan-500 to-pink-500 bg-clip-text text-transparent">
               {userName}
             </span>!
           </h1>
           <div className="flex items-center gap-3 mb-6">
             <span className="text-3xl">🇺🇸</span>
-            <p className="text-xl md:text-2xl text-gray-600 font-semibold">Dashboard del Migrante</p>
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-semibold">Dashboard del Migrante</p>
           </div>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 w-full max-w-3xl leading-relaxed">
             Desde aquí puedes monitorear los ahorros de tu familia en México, acceder al blog de salud y contactarnos si necesitas ayuda.
           </p>
         </div>
 
         {/* Stats Section - Hero Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {/* Total Savings - Large Card */}
-          <div className="md:col-span-2 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-3xl shadow-2xl p-8 text-white relative overflow-hidden">
+          <div className="md:col-span-2 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-32 translate-x-32"></div>
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-4">
@@ -286,10 +286,10 @@ const Migrant = () => {
                 </div>
                 <p className="text-cyan-100 text-lg font-semibold">Ahorro Total de tu Familia</p>
               </div>
-              <h2 className="text-5xl md:text-7xl font-black mb-4">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black mb-4">
                 ${displayedTotal.toFixed(2)}
               </h2>
-              <p className="text-cyan-100 text-base md:text-lg mb-6">
+              <p className="text-cyan-100 text-sm sm:text-base md:text-lg mb-6">
                 MXN • {savingsData.monthsActive === 1 ? 'Primer mes activo' : `${savingsData.monthsActive} meses activos`}
               </p>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
@@ -313,10 +313,10 @@ const Migrant = () => {
           </div>
 
           {/* Monthly Stats Card */}
-          <div className="bg-white rounded-3xl shadow-xl p-6 border-2 border-gray-100">
+          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 border-2 border-gray-100">
             <div className="text-center">
-              <p className="text-gray-600 font-semibold mb-3">Estadísticas del Mes</p>
-              <p className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+              <p className="text-gray-600 font-semibold mb-3 text-sm sm:text-base">Estadísticas del Mes</p>
+              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-6">
                 ${savingsData.lastMonthSavings.toFixed(2)}
               </p>
               <div className="space-y-3">
@@ -358,9 +358,9 @@ const Migrant = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Acceso Rápido</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+        <div className="w-full mb-8 sm:mb-12">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Acceso Rápido</h2>
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             <ServiceCard
               icon={BlogIcon}
               title="Blog de Salud"
@@ -399,15 +399,15 @@ const Migrant = () => {
 
         {/* Example Savings - Only shown when no data */}
         {savingsData.totalSaved === 0 && (
-          <div className="bg-white rounded-3xl shadow-xl p-6 md:p-8 border-2 border-dashed border-gray-300">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 text-center">
+          <div className="w-full bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 md:p-8 border-2 border-dashed border-gray-300">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 text-center">
               📊 Ejemplo de Ahorros Futuros
             </h3>
-            <p className="text-center text-gray-600 mb-8 text-sm md:text-base">
+            <p className="text-center text-gray-600 mb-6 sm:mb-8 text-sm md:text-base leading-relaxed">
               Así se verá tu dashboard cuando tu familia empiece a usar los servicios:
             </p>
             
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* Sample Chart */}
               <div>
                 <h4 className="font-semibold text-gray-700 mb-4">Distribución de Ahorros</h4>

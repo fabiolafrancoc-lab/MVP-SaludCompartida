@@ -263,19 +263,19 @@ export default function Account() {
       {/* TopNav Navigation */}
       <TopNav internalPage={true} showMenu={true} />
 
-      <main className="max-w-4xl mx-auto px-4 py-12">
+      <main className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Welcome Message */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+        <div className="w-full text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             Bienvenida a tu Cuenta <span className="text-cyan-600">{userData.firstName || 'Usuario'}</span>
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-base sm:text-lg text-gray-600">
             Gestiona tu información personal y la de tu familia
           </p>
         </div>
 
         {/* User Information Section */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-8">
+        <div className="w-full bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-6 sm:mb-8">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-cyan-100">
             <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center">
               <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -283,14 +283,14 @@ export default function Account() {
               </svg>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Tus Datos</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Tus Datos</h2>
               <p className="text-sm text-gray-600">Usuario en México</p>
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="w-full space-y-6">
             {/* Name Fields */}
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Nombre <span className="text-red-500">*</span>
@@ -440,7 +440,7 @@ export default function Account() {
         </div>
 
         {/* Family Members Section */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-8">
+        <div className="w-full bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-6 sm:mb-8">
           <div className="flex items-start gap-3 mb-6 pb-4 border-b-2 border-pink-100">
             <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-xl flex items-center justify-center flex-shrink-0">
               <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -448,27 +448,27 @@ export default function Account() {
               </svg>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Miembros de tu Familia</h2>
-              <p className="text-gray-600">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Miembros de tu Familia</h2>
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                 Incluye hasta tres miembros de tu familia que accederán a SaludCompartida{' '}
                 <span className="text-gray-500 italic">(Registro Opcional)</span>
               </p>
             </div>
           </div>
 
-          <div className="space-y-8">
+          <div className="w-full space-y-6 sm:space-y-8">
             {familyMembers.map((member, index) => (
-              <div key={index} className="bg-gradient-to-r from-gray-50 to-white rounded-xl p-6 border-2 border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <div key={index} className="w-full bg-gradient-to-r from-gray-50 to-white rounded-xl p-4 sm:p-6 border-2 border-gray-100">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                   <span className="flex items-center justify-center w-8 h-8 bg-pink-500 text-white rounded-full text-sm font-bold">
                     {index + 1}
                   </span>
                   Familiar {index + 1}
                 </h3>
 
-                <div className="space-y-4">
+                <div className="w-full space-y-4">
                   {/* Name Fields */}
-                  <div className="grid md:grid-cols-3 gap-4">
+                  <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
                         Nombre
@@ -562,7 +562,7 @@ export default function Account() {
 
         {/* Success Message */}
         {showSuccess && (
-          <div className="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-4 mx-auto max-w-md">
+          <div className="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-4 w-full max-w-md mx-auto">
             <div className="flex items-center">
               <svg className="w-6 h-6 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
