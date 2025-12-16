@@ -32,16 +32,16 @@ export default function Account() {
     firstName: storedUserData?.firstName || '',
     lastName: storedUserData?.lastName || '',
     motherLastName: storedUserData?.motherLastName || '',
-    birthDate: storedUserData?.birthDate || '',
+    date_of_birth: storedUserData?.date_of_birth || '',
     phone: storedUserData?.phone || '',
     email: storedUserData?.email || ''
   });
 
   const [familyMembers, setFamilyMembers] = useState(
     storedUserData?.familyMembers || [
-      { firstName: '', lastName: '', motherLastName: '', relationship: '', birthDate: '' },
-      { firstName: '', lastName: '', motherLastName: '', relationship: '', birthDate: '' },
-      { firstName: '', lastName: '', motherLastName: '', relationship: '', birthDate: '' }
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '' },
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '' },
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '' }
     ]
   );
 
@@ -67,7 +67,7 @@ export default function Account() {
               lastName: dep.last_name || '',
               motherLastName: dep.mother_last_name || '',
               relationship: dep.relationship || '',
-              birthDate: dep.date_of_birth || ''
+              date_of_birth: dep.date_of_birth || ''
             }));
             
             // Completar con dependientes vacíos hasta tener 3
@@ -77,7 +77,7 @@ export default function Account() {
                 lastName: '', 
                 motherLastName: '', 
                 relationship: '',
-                birthDate: ''
+                date_of_birth: ''
               });
             }
             
@@ -99,8 +99,8 @@ export default function Account() {
     if (field === 'phone') {
       const cleaned = value.replace(/\D/g, '').slice(0, 10);
       setUserData(prev => ({ ...prev, phone: cleaned }));
-    } else if (field === 'birthDate') {
-      setUserData(prev => ({ ...prev, birthDate: value }));
+    } else if (field === 'date_of_birth') {
+      setUserData(prev => ({ ...prev, date_of_birth: value }));
     } else {
       setUserData(prev => ({ ...prev, [field]: value }));
     }
@@ -131,8 +131,8 @@ export default function Account() {
       newErrors.lastName = true;
     }
 
-    if (!userData.birthDate) {
-      newErrors.birthDate = true;
+    if (!userData.date_of_birth) {
+      newErrors.date_of_birth = true;
     }
 
     if (!userData.phone || userData.phone.length !== 10) {
@@ -162,7 +162,7 @@ export default function Account() {
       lastName: userData.lastName,
       motherLastName: userData.motherLastName,
       phone: userData.phone,
-      birthDate: userData.birthDate,
+      date_of_birth: userData.date_of_birth,
       email: userData.email,
       countryCode: countryCode,
       familyMembers: familyMembers,
@@ -338,19 +338,19 @@ export default function Account() {
               </label>
               <input
                 type="date"
-                name="birthDate"
-                value={userData.birthDate}
-                onChange={(e) => handleUserChange('birthDate', e.target.value)}
+                name="date_of_birth"
+                value={userData.date_of_birth}
+                onChange={(e) => handleUserChange('date_of_birth', e.target.value)}
                 className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all ${
-                  errors.birthDate 
+                  errors.date_of_birth 
                     ? 'border-red-500 focus:border-red-600 bg-red-50' 
-                    : userData.birthDate 
+                    : userData.date_of_birth 
                       ? 'border-gray-200 focus:border-cyan-500' 
                       : 'border-gray-200 bg-gray-50 text-gray-500 focus:border-cyan-500'
                 }`}
                 placeholder="mm/dd/yyyy"
               />
-              {errors.birthDate && (
+              {errors.date_of_birth && (
                 <div className="flex items-center gap-2 mt-2">
                   <svg className="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -499,8 +499,8 @@ export default function Account() {
                     </label>
                     <input
                       type="date"
-                      value={member.birthDate}
-                      onChange={(e) => handleFamilyChange(index, 'birthDate', e.target.value)}
+                      value={member.date_of_birth}
+                      onChange={(e) => handleFamilyChange(index, 'date_of_birth', e.target.value)}
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
                       placeholder="mm/dd/yyyy"
                     />
