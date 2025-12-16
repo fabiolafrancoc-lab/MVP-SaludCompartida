@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import TopNav from './components/TopNav';
+import { updateUserByAccessCode, saveDependents, getDependentsByAccessCode } from './lib/supabase';
 
 export default function Account() {
   const navigate = useNavigate();
@@ -52,6 +53,43 @@ export default function Account() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
+  // Cargar dependientes desde Supabase cuando se monta el componente
+  useEffect(() => {
+    const loadDependents = async () => {
+      const accessCode = storedUserData?.accessCode;
+      if (accessCode) {
+        try {
+          const result = await getDependentsByAccessCode(accessCode);
+          if (result.success && result.data.length > 0) {
+            // Mapear los datos de Supabase al formato del componente
+            const loadedDependents = result.data.map(dep => ({
+              firstName: dep.first_name || '',
+              lastName: dep.last_name || '',
+              motherLastName: dep.mother_last_name || '',
+              relationship: dep.relationship || ''
+            }));
+            
+            // Completar con dependientes vacíos hasta tener 3
+            while (loadedDependents.length < 3) {
+              loadedDependents.push({ 
+                firstName: '', 
+                lastName: '', 
+                motherLastName: '', 
+                relationship: '' 
+              });
+            }
+            
+            setFamilyMembers(loadedDependents.slice(0, 3));
+          }
+        } catch (error) {
+          console.error('Error cargando dependientes:', error);
+        }
+      }
+    };
+    
+    loadDependents();
+  }, []);
+
   const handleUserChange = (field, value) => {
     // Limpiar error cuando el usuario empieza a escribir
     setErrors(prev => ({ ...prev, [field]: false }));
@@ -80,7 +118,7 @@ export default function Account() {
     return `${cleaned.slice(0, 3)} ${cleaned.slice(3, 6)} ${cleaned.slice(6)}`;
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const newErrors = {};
 
     if (!userData.firstName || !userData.firstName.trim()) {
@@ -113,6 +151,9 @@ export default function Account() {
 
     setIsSaving(true);
     
+    // Obtener código de acceso del usuario actual
+    const accessCode = storedUserData?.accessCode;
+    
     // Save to localStorage to share across all forms
     const userDataToSave = {
       firstName: userData.firstName,
@@ -122,22 +163,51 @@ export default function Account() {
       birthDate: userData.birthDate,
       email: userData.email,
       countryCode: countryCode,
-      familyMembers: familyMembers
+      familyMembers: familyMembers,
+      accessCode: accessCode
     };
     
     localStorage.setItem('accessUser', JSON.stringify(userDataToSave));
     localStorage.setItem('currentUser', JSON.stringify(userDataToSave));
     
-    // Simulate save
+    // Guardar en Supabase si tenemos código de acceso
+    if (accessCode) {
+      try {
+        const result = await updateUserByAccessCode(accessCode, {
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          motherLastName: userData.motherLastName,
+          email: userData.email,
+          phone: userData.phone.replace(/\s/g, ''), // Remover espacios
+          countryCode: countryCode
+        });
+        
+        if (result.success) {
+          console.log('✅ Información actualizada en Supabase');
+        } else {
+          console.error('❌ Error actualizando en Supabase:', result.error);
+        }
+        
+        // Guardar dependientes en Supabase
+        const dependentsResult = await saveDependents(accessCode, familyMembers);
+        
+        if (dependentsResult.success) {
+          console.log('✅ Dependientes guardados en Supabase:', dependentsResult.message);
+        } else {
+          console.error('❌ Error guardando dependientes:', dependentsResult.error);
+        }
+        
+      } catch (error) {
+        console.error('❌ Error guardando en Supabase:', error);
+      }
+    }
+    
+    setIsSaving(false);
+    setShowSuccess(true);
+    
     setTimeout(() => {
-      console.log('Guardando datos:', { userData, familyMembers });
-      setIsSaving(false);
-      setShowSuccess(true);
-      
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 3000);
-    }, 500);
+      setShowSuccess(false);
+    }, 3000);
   };
 
   const relationshipOptions = [
