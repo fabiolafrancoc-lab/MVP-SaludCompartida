@@ -249,9 +249,170 @@ export async function insertPreCheckoutCustomer(customerData) {
   }
 }
 
+// Actualizar información del usuario por código de acceso
+export async function updateUserByAccessCode(accessCode, updates) {
+  try {
+    // Determinar si es código de migrante o familiar
+    let { data: migrantCheck } = await supabase
+      .from('registrations')
+      .select('id, migrant_access_code')
+      .eq('migrant_access_code', accessCode)
+      .single();
+    
+    if (migrantCheck) {
+      // Es un migrante - actualizar campos del migrante
+      const migrantUpdates = {
+        migrant_first_name: updates.firstName,
+        migrant_last_name: updates.lastName,
+        migrant_mother_last_name: updates.motherLastName || null,
+        migrant_email: updates.email || null,
+        migrant_phone: updates.phone,
+        migrant_country_code: updates.countryCode || '+1',
+        updated_at: new Date().toISOString()
+      };
+      
+      const { data, error } = await supabase
+        .from('registrations')
+        .update(migrantUpdates)
+        .eq('migrant_access_code', accessCode)
+        .select();
+      
+      if (error) throw error;
+      
+      return { 
+        success: true, 
+        data: data[0],
+        message: 'Información actualizada exitosamente' 
+      };
+    }
+    
+    // Si no es migrante, buscar en familiares
+    let { data: familyCheck } = await supabase
+      .from('registrations')
+      .select('id, family_access_code')
+      .eq('family_access_code', accessCode)
+      .single();
+    
+    if (familyCheck) {
+      // Es un familiar - actualizar campos del familiar
+      const familyUpdates = {
+        family_first_name: updates.firstName,
+        family_last_name: updates.lastName,
+        family_mother_last_name: updates.motherLastName || null,
+        family_email: updates.email || null,
+        family_phone: updates.phone,
+        family_country_code: updates.countryCode || '+52',
+        updated_at: new Date().toISOString()
+      };
+      
+      const { data, error } = await supabase
+        .from('registrations')
+        .update(familyUpdates)
+        .eq('family_access_code', accessCode)
+        .select();
+      
+      if (error) throw error;
+      
+      return { 
+        success: true, 
+        data: data[0],
+        message: 'Información actualizada exitosamente' 
+      };
+    }
+    
+    return { success: false, error: 'Código de acceso no encontrado' };
+    
+  } catch (error) {
+    console.error('Error actualizando usuario:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// Obtener dependientes de un usuario por código de acceso
+export async function getDependentsByAccessCode(accessCode) {
+  try {
+    const { data, error } = await supabase
+      .from('dependents')
+      .select('*')
+      .eq('user_access_code', accessCode)
+      .eq('is_active', true)
+      .order('created_at', { ascending: true });
+    
+    if (error) throw error;
+    
+    return { 
+      success: true, 
+      data: data || [],
+      count: data?.length || 0
+    };
+  } catch (error) {
+    console.error('Error obteniendo dependientes:', error);
+    return { success: false, error: error.message, data: [] };
+  }
+}
+
+// Guardar/actualizar dependientes de un usuario
+export async function saveDependents(accessCode, dependents) {
+  try {
+    // 1. Obtener dependientes existentes
+    const existing = await getDependentsByAccessCode(accessCode);
+    
+    // 2. Desactivar todos los dependientes existentes (soft delete)
+    if (existing.success && existing.data.length > 0) {
+      const { error: deleteError } = await supabase
+        .from('dependents')
+        .update({ is_active: false })
+        .eq('user_access_code', accessCode);
+      
+      if (deleteError) throw deleteError;
+    }
+    
+    // 3. Insertar nuevos dependientes (solo los que tienen nombre)
+    const validDependents = dependents.filter(dep => 
+      dep.firstName && dep.firstName.trim() && 
+      dep.lastName && dep.lastName.trim()
+    );
+    
+    if (validDependents.length === 0) {
+      return { success: true, message: 'No hay dependientes para guardar' };
+    }
+    
+    const newDependents = validDependents.map(dep => ({
+      user_access_code: accessCode,
+      first_name: dep.firstName,
+      last_name: dep.lastName,
+      mother_last_name: dep.motherLastName || null,
+      relationship: dep.relationship || null,
+      phone: dep.phone || null,
+      email: dep.email || null,
+      is_active: true
+    }));
+    
+    const { data, error } = await supabase
+      .from('dependents')
+      .insert(newDependents)
+      .select();
+    
+    if (error) throw error;
+    
+    return { 
+      success: true, 
+      data: data,
+      message: `${data.length} dependiente(s) guardado(s) exitosamente`
+    };
+    
+  } catch (error) {
+    console.error('Error guardando dependientes:', error);
+    return { success: false, error: error.message };
+  }
+}
+
 export default {
   insertRegistration,
   getUserByAccessCode,
   getUserByPhone,
-  insertPreCheckoutCustomer
+  insertPreCheckoutCustomer,
+  updateUserByAccessCode,
+  getDependentsByAccessCode,
+  saveDependents
 };
