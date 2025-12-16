@@ -39,9 +39,9 @@ export default function Account() {
 
   const [familyMembers, setFamilyMembers] = useState(
     storedUserData?.familyMembers || [
-      { firstName: '', lastName: '', motherLastName: '', relationship: '' },
-      { firstName: '', lastName: '', motherLastName: '', relationship: '' },
-      { firstName: '', lastName: '', motherLastName: '', relationship: '' }
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', birthDate: '' },
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', birthDate: '' },
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', birthDate: '' }
     ]
   );
 
@@ -66,7 +66,8 @@ export default function Account() {
               firstName: dep.first_name || '',
               lastName: dep.last_name || '',
               motherLastName: dep.mother_last_name || '',
-              relationship: dep.relationship || ''
+              relationship: dep.relationship || '',
+              birthDate: dep.date_of_birth || ''
             }));
             
             // Completar con dependientes vacíos hasta tener 3
@@ -75,7 +76,8 @@ export default function Account() {
                 firstName: '', 
                 lastName: '', 
                 motherLastName: '', 
-                relationship: '' 
+                relationship: '',
+                birthDate: ''
               });
             }
             
