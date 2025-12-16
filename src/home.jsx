@@ -156,10 +156,9 @@ export default function Home() {
             
             <p className="text-center text-white font-bold text-base sm:text-lg mt-4">Así de simple. Así de rápido.</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ¿Qué obtienes? - Dos bloques lado a lado */}
+        {/* ¿Qué obtienes? - Dos bloques lado a lado */}
       <section className="w-full px-4 sm:px-6 py-8 sm:py-10">
         <div className="w-full max-w-5xl mx-auto">
           <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-2 text-white">
