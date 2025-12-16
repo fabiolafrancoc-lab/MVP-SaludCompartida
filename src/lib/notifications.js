@@ -136,56 +136,24 @@ Gracias por confiar en SaludCompartida 💙
 }
 
 /**
- * Envía código de acceso al usuario por SMS
- * @param {string} phone - Teléfono del usuario (10 dígitos sin código de país)
+ * Envía código de acceso al usuario por EMAIL
+ * SMS/WhatsApp deshabilitados hasta configurar Twilio A2P 10DLC
+ * @param {string} phone - Teléfono del usuario (para logs, no se usa)
  * @param {string} accessCode - Código de acceso generado
  * @param {string} firstName - Nombre del usuario
- * @param {string} countryCode - Código de país (+1 o +52)
+ * @param {string} countryCode - Código de país (para logs, no se usa)
  */
 export async function sendAccessCode(phone, accessCode, firstName, countryCode = '+52') {
-  const message = `Hola ${firstName}! Tu codigo de acceso a SaludCompartida es: ${accessCode}. Ingresa en saludcompartida.app/page3`;
-
-  try {
-    // Enviar por SMS (más confiable que WhatsApp sin templates)
-    console.log(`📱 Enviando SMS a ${countryCode}${phone} con código ${accessCode}`);
-    
-    const response = await fetch('/api/send-sms', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        to: phone,
-        message: message,
-        countryCode: countryCode
-      })
-    });
-
-    const data = await response.json();
-    
-    if (!response.ok) {
-      console.error('❌ Error al enviar SMS:', data.error);
-      throw new Error(data.error || 'Error al enviar SMS');
-    }
-
-    console.log('✅ SMS enviado exitosamente:', data.messageSid);
-    return {
-      success: true,
-      method: 'sms',
-      messageSid: data.messageSid
-    };
-    
-  } catch (error) {
-    console.error('❌ Error en sendAccessCode:', error);
-    
-    // Si SMS falla, no bloquear el flujo
-    return {
-      success: false,
-      method: 'none',
-      error: error.message,
-      message: 'No se pudo enviar código por SMS. Código disponible en email.'
-    };
-  }
+  // SMS/WhatsApp DESHABILITADOS - Los códigos se envían solo por EMAIL
+  console.log(`� Código de acceso: ${accessCode} (enviado por email)`);
+  console.log(`ℹ️ SMS/WhatsApp deshabilitados - Usuario recibirá código en email`);
+  
+  // Retornar success - el código se envía en el email de confirmación
+  return {
+    success: true,
+    method: 'email',
+    message: 'Código enviado por email. SMS/WhatsApp deshabilitados hasta configurar Twilio.'
+  };
 }
 
 /**
