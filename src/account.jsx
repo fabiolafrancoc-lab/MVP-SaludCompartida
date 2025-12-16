@@ -348,7 +348,7 @@ export default function Account() {
                       ? 'border-gray-200 focus:border-cyan-500' 
                       : 'border-gray-200 bg-gray-50 text-gray-500 focus:border-cyan-500'
                 }`}
-                placeholder="dd/mm/aaaa"
+                placeholder="mm/dd/yyyy"
               />
               {errors.birthDate && (
                 <div className="flex items-center gap-2 mt-2">
@@ -490,6 +490,20 @@ export default function Account() {
                         <option key={i} value={option}>{option}</option>
                       ))}
                     </select>
+                  </div>
+
+                  {/* Birth Date */}
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Fecha de Nacimiento <span className="text-gray-400 text-xs">(Opcional)</span>
+                    </label>
+                    <input
+                      type="date"
+                      value={member.birthDate}
+                      onChange={(e) => handleFamilyChange(index, 'birthDate', e.target.value)}
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
+                      placeholder="mm/dd/yyyy"
+                    />
                   </div>
                 </div>
               </div>
