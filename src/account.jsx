@@ -92,6 +92,39 @@ export default function Account() {
     loadDependents();
   }, []);
 
+  // Cargar datos del usuario desde Supabase cuando se monta el componente
+  useEffect(() => {
+    const loadUserData = async () => {
+      const accessCode = storedUserData?.accessCode;
+      if (accessCode) {
+        try {
+          const result = await getUserByAccessCode(accessCode);
+          if (result.success && result.data) {
+            const dbUser = result.data;
+            // Actualizar userData con los datos de Supabase
+            setUserData({
+              firstName: dbUser.first_name || '',
+              lastName: dbUser.last_name || '',
+              motherLastName: dbUser.mother_last_name || '',
+              date_of_birth: dbUser.date_of_birth || '',
+              phone: dbUser.phone || '',
+              email: dbUser.email || ''
+            });
+            
+            // Actualizar countryCode si existe
+            if (dbUser.country_code) {
+              setCountryCode(dbUser.country_code);
+            }
+          }
+        } catch (error) {
+          console.error('Error cargando datos del usuario:', error);
+        }
+      }
+    };
+    
+    loadUserData();
+  }, []);
+
   const handleUserChange = (field, value) => {
     // Limpiar error cuando el usuario empieza a escribir
     setErrors(prev => ({ ...prev, [field]: false }));
@@ -181,7 +214,8 @@ export default function Account() {
           motherLastName: userData.motherLastName,
           email: userData.email,
           phone: userData.phone.replace(/\s/g, ''), // Remover espacios
-          countryCode: countryCode
+          countryCode: countryCode,
+          date_of_birth: userData.date_of_birth
         });
         
         if (result.success) {

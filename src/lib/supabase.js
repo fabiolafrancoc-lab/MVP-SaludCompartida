@@ -100,6 +100,7 @@ export async function getUserByAccessCode(accessCode) {
           email: user.migrant_email,
           phone: user.migrant_phone,
           country_code: user.migrant_country_code,
+          date_of_birth: user.migrant_date_of_birth,
           access_code: user.migrant_access_code,
           user_type: 'migrant',
           created_at: user.created_at
@@ -126,6 +127,7 @@ export async function getUserByAccessCode(accessCode) {
           email: user.family_email,
           phone: user.family_phone,
           country_code: user.family_country_code,
+          date_of_birth: user.family_date_of_birth,
           access_code: user.family_access_code,
           user_type: 'family',
           created_at: user.created_at
@@ -268,6 +270,7 @@ export async function updateUserByAccessCode(accessCode, updates) {
         migrant_email: updates.email || null,
         migrant_phone: updates.phone,
         migrant_country_code: updates.countryCode || '+1',
+        migrant_date_of_birth: updates.date_of_birth || null,
         updated_at: new Date().toISOString()
       };
       
@@ -302,6 +305,7 @@ export async function updateUserByAccessCode(accessCode, updates) {
         family_email: updates.email || null,
         family_phone: updates.phone,
         family_country_code: updates.countryCode || '+52',
+        family_date_of_birth: updates.date_of_birth || null,
         updated_at: new Date().toISOString()
       };
       
