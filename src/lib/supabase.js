@@ -383,6 +383,7 @@ export async function saveDependents(accessCode, dependents) {
       last_name: dep.lastName,
       mother_last_name: dep.motherLastName || null,
       relationship: dep.relationship || null,
+      date_of_birth: dep.birthDate || null,
       phone: dep.phone || null,
       email: dep.email || null,
       is_active: true
