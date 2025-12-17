@@ -303,68 +303,270 @@ export default function Pharmacy() {
           </div>
         </div>
 
-        {/* TARJETA PREMIUM BLACK/PLATINUM */}
+        {/* SECCIÓN QR DIARIO POR WHATSAPP */}
         <div className="mb-12">
           <h2 className="text-lg font-bold text-gray-800 mb-6 text-center">
-            Tu Tarjeta de Descuento Premium
+            ¡Todos los días te enviaremos QR's vía WhatsApp para que los uses diariamente!
           </h2>
           
           <div className="max-w-md mx-auto">
-            <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-2xl p-8 shadow-2xl border border-gray-700 overflow-hidden">
-              
-              {/* EFECTOS DE BRILLO */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-amber-500/20 to-transparent rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-slate-400/20 to-transparent rounded-full blur-3xl"></div>
-              
-              <div className="relative z-10">
-                {/* HEADER TARJETA */}
-                <div className="flex justify-between items-start mb-8">
-                  <div>
-                    <div className="text-amber-400 font-bold text-sm tracking-wider mb-1">PLATINUM MEMBER</div>
-                    <div className="text-white text-lg font-bold">SaludCompartida</div>
-                  </div>
-                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center p-2">
-                    {/* QR CODE PLACEHOLDER */}
-                    <svg viewBox="0 0 100 100" className="w-full h-full">
-                      <rect x="0" y="0" width="20" height="20" fill="black"/>
-                      <rect x="30" y="0" width="20" height="20" fill="black"/>
-                      <rect x="60" y="0" width="20" height="20" fill="black"/>
-                      <rect x="0" y="30" width="20" height="20" fill="black"/>
-                      <rect x="60" y="30" width="20" height="20" fill="black"/>
-                      <rect x="0" y="60" width="20" height="20" fill="black"/>
-                      <rect x="30" y="60" width="20" height="20" fill="black"/>
-                      <rect x="60" y="60" width="20" height="20" fill="black"/>
+            {/* QR CODE REALISTA */}
+            <div className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-cyan-500">
+              <div className="flex flex-col items-center">
+                <div className="mb-4">
+                  <p className="text-center text-gray-700 font-semibold text-base mb-2">
+                    Recibe tu QR del día por WhatsApp
+                  </p>
+                  <p className="text-center text-gray-500 text-sm">
+                    Cada mañana recibirás un código único
+                  </p>
+                </div>
+                
+                {/* QR CODE SVG REALISTA */}
+                <div className="bg-white p-4 rounded-xl border-4 border-gray-800">
+                  <svg viewBox="0 0 200 200" className="w-48 h-48">
+                    {/* Esquinas de posicionamiento (3 grandes) */}
+                    {/* Superior izquierda */}
+                    <rect x="0" y="0" width="60" height="60" fill="none" stroke="black" strokeWidth="8"/>
+                    <rect x="16" y="16" width="28" height="28" fill="black"/>
+                    
+                    {/* Superior derecha */}
+                    <rect x="140" y="0" width="60" height="60" fill="none" stroke="black" strokeWidth="8"/>
+                    <rect x="156" y="16" width="28" height="28" fill="black"/>
+                    
+                    {/* Inferior izquierda */}
+                    <rect x="0" y="140" width="60" height="60" fill="none" stroke="black" strokeWidth="8"/>
+                    <rect x="16" y="156" width="28" height="28" fill="black"/>
+                    
+                    {/* Patrón de datos realista - Fila 1 */}
+                    <rect x="70" y="0" width="8" height="8" fill="black"/>
+                    <rect x="86" y="0" width="8" height="8" fill="black"/>
+                    <rect x="94" y="0" width="8" height="8" fill="black"/>
+                    <rect x="110" y="0" width="8" height="8" fill="black"/>
+                    <rect x="126" y="0" width="8" height="8" fill="black"/>
+                    
+                    {/* Fila 2 */}
+                    <rect x="70" y="8" width="8" height="8" fill="black"/>
+                    <rect x="86" y="8" width="8" height="8" fill="black"/>
+                    <rect x="102" y="8" width="8" height="8" fill="black"/>
+                    <rect x="118" y="8" width="8" height="8" fill="black"/>
+                    
+                    {/* Fila 3 */}
+                    <rect x="70" y="16" width="8" height="8" fill="black"/>
+                    <rect x="78" y="16" width="8" height="8" fill="black"/>
+                    <rect x="94" y="16" width="8" height="8" fill="black"/>
+                    <rect x="110" y="16" width="8" height="8" fill="black"/>
+                    <rect x="126" y="16" width="8" height="8" fill="black"/>
+                    
+                    {/* Fila 4 */}
+                    <rect x="70" y="24" width="8" height="8" fill="black"/>
+                    <rect x="86" y="24" width="8" height="8" fill="black"/>
+                    <rect x="102" y="24" width="8" height="8" fill="black"/>
+                    <rect x="118" y="24" width="8" height="8" fill="black"/>
+                    <rect x="126" y="24" width="8" height="8" fill="black"/>
+                    
+                    {/* Fila 5 */}
+                    <rect x="70" y="32" width="8" height="8" fill="black"/>
+                    <rect x="78" y="32" width="8" height="8" fill="black"/>
+                    <rect x="94" y="32" width="8" height="8" fill="black"/>
+                    <rect x="102" y="32" width="8" height="8" fill="black"/>
+                    <rect x="126" y="32" width="8" height="8" fill="black"/>
+                    
+                    {/* Patrón lateral derecho */}
+                    <rect x="70" y="70" width="8" height="8" fill="black"/>
+                    <rect x="78" y="70" width="8" height="8" fill="black"/>
+                    <rect x="94" y="70" width="8" height="8" fill="black"/>
+                    <rect x="110" y="70" width="8" height="8" fill="black"/>
+                    <rect x="126" y="70" width="8" height="8" fill="black"/>
+                    
+                    <rect x="70" y="78" width="8" height="8" fill="black"/>
+                    <rect x="86" y="78" width="8" height="8" fill="black"/>
+                    <rect x="102" y="78" width="8" height="8" fill="black"/>
+                    <rect x="118" y="78" width="8" height="8" fill="black"/>
+                    
+                    <rect x="70" y="86" width="8" height="8" fill="black"/>
+                    <rect x="78" y="86" width="8" height="8" fill="black"/>
+                    <rect x="94" y="86" width="8" height="8" fill="black"/>
+                    <rect x="110" y="86" width="8" height="8" fill="black"/>
+                    <rect x="126" y="86" width="8" height="8" fill="black"/>
+                    
+                    <rect x="70" y="94" width="8" height="8" fill="black"/>
+                    <rect x="86" y="94" width="8" height="8" fill="black"/>
+                    <rect x="94" y="94" width="8" height="8" fill="black"/>
+                    <rect x="110" y="94" width="8" height="8" fill="black"/>
+                    <rect x="118" y="94" width="8" height="8" fill="black"/>
+                    
+                    <rect x="70" y="102" width="8" height="8" fill="black"/>
+                    <rect x="78" y="102" width="8" height="8" fill="black"/>
+                    <rect x="94" y="102" width="8" height="8" fill="black"/>
+                    <rect x="102" y="102" width="8" height="8" fill="black"/>
+                    <rect x="126" y="102" width="8" height="8" fill="black"/>
+                    
+                    {/* Patrón central complejo */}
+                    <rect x="70" y="110" width="8" height="8" fill="black"/>
+                    <rect x="86" y="110" width="8" height="8" fill="black"/>
+                    <rect x="102" y="110" width="8" height="8" fill="black"/>
+                    <rect x="118" y="110" width="8" height="8" fill="black"/>
+                    
+                    <rect x="70" y="118" width="8" height="8" fill="black"/>
+                    <rect x="78" y="118" width="8" height="8" fill="black"/>
+                    <rect x="94" y="118" width="8" height="8" fill="black"/>
+                    <rect x="110" y="118" width="8" height="8" fill="black"/>
+                    <rect x="126" y="118" width="8" height="8" fill="black"/>
+                    
+                    <rect x="70" y="126" width="8" height="8" fill="black"/>
+                    <rect x="86" y="126" width="8" height="8" fill="black"/>
+                    <rect x="102" y="126" width="8" height="8" fill="black"/>
+                    <rect x="118" y="126" width="8" height="8" fill="black"/>
+                    <rect x="126" y="126" width="8" height="8" fill="black"/>
+                    
+                    {/* Patrón inferior */}
+                    <rect x="70" y="140" width="8" height="8" fill="black"/>
+                    <rect x="78" y="140" width="8" height="8" fill="black"/>
+                    <rect x="94" y="140" width="8" height="8" fill="black"/>
+                    <rect x="110" y="140" width="8" height="8" fill="black"/>
+                    
+                    <rect x="70" y="148" width="8" height="8" fill="black"/>
+                    <rect x="86" y="148" width="8" height="8" fill="black"/>
+                    <rect x="102" y="148" width="8" height="8" fill="black"/>
+                    <rect x="118" y="148" width="8" height="8" fill="black"/>
+                    <rect x="126" y="148" width="8" height="8" fill="black"/>
+                    
+                    <rect x="70" y="156" width="8" height="8" fill="black"/>
+                    <rect x="78" y="156" width="8" height="8" fill="black"/>
+                    <rect x="94" y="156" width="8" height="8" fill="black"/>
+                    <rect x="102" y="156" width="8" height="8" fill="black"/>
+                    
+                    <rect x="70" y="164" width="8" height="8" fill="black"/>
+                    <rect x="86" y="164" width="8" height="8" fill="black"/>
+                    <rect x="94" y="164" width="8" height="8" fill="black"/>
+                    <rect x="110" y="164" width="8" height="8" fill="black"/>
+                    <rect x="126" y="164" width="8" height="8" fill="black"/>
+                    
+                    <rect x="70" y="172" width="8" height="8" fill="black"/>
+                    <rect x="78" y="172" width="8" height="8" fill="black"/>
+                    <rect x="94" y="172" width="8" height="8" fill="black"/>
+                    <rect x="118" y="172" width="8" height="8" fill="black"/>
+                    
+                    {/* Más patrones en esquina inferior derecha */}
+                    <rect x="140" y="70" width="8" height="8" fill="black"/>
+                    <rect x="156" y="70" width="8" height="8" fill="black"/>
+                    <rect x="172" y="70" width="8" height="8" fill="black"/>
+                    <rect x="188" y="70" width="8" height="8" fill="black"/>
+                    
+                    <rect x="140" y="78" width="8" height="8" fill="black"/>
+                    <rect x="148" y="78" width="8" height="8" fill="black"/>
+                    <rect x="164" y="78" width="8" height="8" fill="black"/>
+                    <rect x="180" y="78" width="8" height="8" fill="black"/>
+                    
+                    <rect x="140" y="86" width="8" height="8" fill="black"/>
+                    <rect x="156" y="86" width="8" height="8" fill="black"/>
+                    <rect x="172" y="86" width="8" height="8" fill="black"/>
+                    <rect x="188" y="86" width="8" height="8" fill="black"/>
+                    
+                    <rect x="140" y="94" width="8" height="8" fill="black"/>
+                    <rect x="148" y="94" width="8" height="8" fill="black"/>
+                    <rect x="164" y="94" width="8" height="8" fill="black"/>
+                    <rect x="172" y="94" width="8" height="8" fill="black"/>
+                    
+                    <rect x="140" y="102" width="8" height="8" fill="black"/>
+                    <rect x="156" y="102" width="8" height="8" fill="black"/>
+                    <rect x="164" y="102" width="8" height="8" fill="black"/>
+                    <rect x="188" y="102" width="8" height="8" fill="black"/>
+                    
+                    <rect x="140" y="110" width="8" height="8" fill="black"/>
+                    <rect x="148" y="110" width="8" height="8" fill="black"/>
+                    <rect x="172" y="110" width="8" height="8" fill="black"/>
+                    <rect x="180" y="110" width="8" height="8" fill="black"/>
+                    
+                    <rect x="140" y="118" width="8" height="8" fill="black"/>
+                    <rect x="156" y="118" width="8" height="8" fill="black"/>
+                    <rect x="164" y="118" width="8" height="8" fill="black"/>
+                    <rect x="188" y="118" width="8" height="8" fill="black"/>
+                    
+                    <rect x="140" y="126" width="8" height="8" fill="black"/>
+                    <rect x="148" y="126" width="8" height="8" fill="black"/>
+                    <rect x="172" y="126" width="8" height="8" fill="black"/>
+                    <rect x="180" y="126" width="8" height="8" fill="black"/>
+                    
+                    {/* Patrón lateral izquierdo inferior */}
+                    <rect x="0" y="70" width="8" height="8" fill="black"/>
+                    <rect x="16" y="70" width="8" height="8" fill="black"/>
+                    <rect x="32" y="70" width="8" height="8" fill="black"/>
+                    <rect x="48" y="70" width="8" height="8" fill="black"/>
+                    
+                    <rect x="0" y="78" width="8" height="8" fill="black"/>
+                    <rect x="8" y="78" width="8" height="8" fill="black"/>
+                    <rect x="24" y="78" width="8" height="8" fill="black"/>
+                    <rect x="40" y="78" width="8" height="8" fill="black"/>
+                    
+                    <rect x="0" y="86" width="8" height="8" fill="black"/>
+                    <rect x="16" y="86" width="8" height="8" fill="black"/>
+                    <rect x="32" y="86" width="8" height="8" fill="black"/>
+                    <rect x="48" y="86" width="8" height="8" fill="black"/>
+                    
+                    <rect x="0" y="94" width="8" height="8" fill="black"/>
+                    <rect x="8" y="94" width="8" height="8" fill="black"/>
+                    <rect x="24" y="94" width="8" height="8" fill="black"/>
+                    <rect x="32" y="94" width="8" height="8" fill="black"/>
+                    
+                    <rect x="0" y="102" width="8" height="8" fill="black"/>
+                    <rect x="16" y="102" width="8" height="8" fill="black"/>
+                    <rect x="24" y="102" width="8" height="8" fill="black"/>
+                    <rect x="48" y="102" width="8" height="8" fill="black"/>
+                    
+                    <rect x="0" y="110" width="8" height="8" fill="black"/>
+                    <rect x="8" y="110" width="8" height="8" fill="black"/>
+                    <rect x="32" y="110" width="8" height="8" fill="black"/>
+                    <rect x="40" y="110" width="8" height="8" fill="black"/>
+                    
+                    <rect x="0" y="118" width="8" height="8" fill="black"/>
+                    <rect x="16" y="118" width="8" height="8" fill="black"/>
+                    <rect x="24" y="118" width="8" height="8" fill="black"/>
+                    <rect x="48" y="118" width="8" height="8" fill="black"/>
+                    
+                    <rect x="0" y="126" width="8" height="8" fill="black"/>
+                    <rect x="8" y="126" width="8" height="8" fill="black"/>
+                    <rect x="32" y="126" width="8" height="8" fill="black"/>
+                    <rect x="40" y="126" width="8" height="8" fill="black"/>
+                    
+                    {/* Más detalles en esquinas inferiores */}
+                    <rect x="140" y="140" width="8" height="8" fill="black"/>
+                    <rect x="156" y="140" width="8" height="8" fill="black"/>
+                    <rect x="172" y="140" width="8" height="8" fill="black"/>
+                    <rect x="188" y="140" width="8" height="8" fill="black"/>
+                    
+                    <rect x="140" y="172" width="8" height="8" fill="black"/>
+                    <rect x="148" y="172" width="8" height="8" fill="black"/>
+                    <rect x="164" y="172" width="8" height="8" fill="black"/>
+                    <rect x="180" y="172" width="8" height="8" fill="black"/>
+                    
+                    <rect x="140" y="188" width="8" height="8" fill="black"/>
+                    <rect x="156" y="188" width="8" height="8" fill="black"/>
+                    <rect x="172" y="188" width="8" height="8" fill="black"/>
+                    <rect x="188" y="188" width="8" height="8" fill="black"/>
+                  </svg>
+                </div>
+                
+                <div className="mt-4 text-center">
+                  <div className="flex items-center justify-center gap-2 text-green-600 mb-2">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
+                    <span className="font-semibold">WhatsApp</span>
                   </div>
-                </div>
-
-                {/* NOMBRE USUARIO */}
-                <div className="mb-6">
-                  <div className="text-gray-400 text-xs uppercase tracking-wider mb-1">Titular</div>
-                  <div className="text-white text-base font-semibold tracking-wide">
-                    {nombreUsuario} {apellidoPaterno}
-                  </div>
-                </div>
-
-                {/* CONVENIO */}
-                <div className="flex justify-between items-end">
-                  <div>
-                    <div className="text-gray-400 text-xs uppercase tracking-wider mb-1">Convenio</div>
-                    <div className="text-amber-400 text-lg font-mono font-bold">{convenioNumber}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-gray-400 text-xs mb-1">Red de farmacias</div>
-                    <div className="text-white font-bold text-lg">+1,700</div>
-                  </div>
+                  <p className="text-sm text-gray-600">
+                    Código actualizado diariamente
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* INSTRUCCIONES USO */}
+            {/* INSTRUCCIONES USO ACTUALIZADO */}
             <div className="mt-4 bg-cyan-50 border-l-4 border-cyan-500 p-4 rounded-r-lg">
               <p className="text-sm text-gray-700 flex items-center gap-2">
                 <LightbulbIcon className="w-5 h-5 text-cyan-700 flex-shrink-0" />
-                <span><span className="font-bold text-cyan-700">Cómo usar:</span> Muestra esta tarjeta o código QR en farmacia para aplicar tu descuento</span>
+                <span><span className="font-bold text-cyan-700">Cómo usar:</span> Muestra el QR que recibes diariamente por WhatsApp en cualquier farmacia para aplicar tu descuento</span>
               </p>
             </div>
           </div>
