@@ -259,10 +259,9 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Compacto */}
+        {/* CTA Compacto */}
       <section className="w-full px-4 sm:px-6 py-8 sm:py-10">
         <div className="w-full max-w-3xl mx-auto">
           <div className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 rounded-xl sm:rounded-2xl p-6 md:p-8 text-center text-white">
@@ -291,11 +290,10 @@ export default function Home() {
               </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <Footer />
-    </div>
-  );
-}
+        {/* Footer */}
+        <Footer />
+      </div>
+    );
+  }
