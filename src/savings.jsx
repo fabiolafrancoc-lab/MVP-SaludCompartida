@@ -169,7 +169,7 @@ const Savings = () => {
       <TopNav internalPage={true} />
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-safe py-safe">
         {/* Hero Section - Mensaje Personalizado */}
         <div className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -442,7 +442,7 @@ const Savings = () => {
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 mt-16 py-8">
-        <div className="container mx-auto px-4 text-center text-gray-600">
+        <div className="container mx-auto px-safe text-center text-gray-600">
           <p>SaludCompartida © 2025 - Cuidando familias, construyendo futuro</p>
         </div>
       </footer>

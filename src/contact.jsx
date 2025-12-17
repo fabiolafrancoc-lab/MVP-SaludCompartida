@@ -331,7 +331,7 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
       <TopNav internalPage={true} showMenu={true} />
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-7xl mx-auto px-safe py-safe">
         {/* Grid limpio sin capas - formulario izquierda, imagen derecha */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-0 rounded-2xl overflow-hidden shadow-2xl mb-8 bg-white">
           

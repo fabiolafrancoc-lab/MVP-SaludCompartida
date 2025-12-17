@@ -302,7 +302,7 @@ const Rating = () => {
       <DashboardNav />
 
       {/* Progress Bar */}
-      <div className="max-w-3xl mx-auto px-4 pt-8">
+      <div className="max-w-3xl mx-auto px-safe pt-8">
         <div className="flex items-center justify-between mb-8">
           {[1, 2, 3, ...(rating <= 3 ? [4] : [])].map((s, index) => (
             <React.Fragment key={s}>

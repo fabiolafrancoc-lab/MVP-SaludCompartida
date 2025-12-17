@@ -263,7 +263,7 @@ export default function Account() {
       {/* TopNav Navigation */}
       <TopNav internalPage={true} showMenu={true} />
 
-      <main className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      <main className="w-full max-w-4xl mx-auto px-safe py-safe">
         {/* Welcome Message */}
         <div className="w-full text-center mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">

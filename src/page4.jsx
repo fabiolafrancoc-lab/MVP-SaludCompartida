@@ -501,7 +501,7 @@ const Page4 = () => {
 
       {/* Location Detection Banner */}
       {showLocationBanner && country && (
-        <div className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-3 px-4 shadow-lg animate-slide-down">
+        <div className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-3 px-safe shadow-lg animate-slide-down">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
               <LocationPinIcon />
@@ -523,7 +523,7 @@ const Page4 = () => {
 
       {/* Welcome Banner - First Visit Only */}
       {showWelcomeBanner && (
-        <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 text-white py-6 px-4 shadow-lg relative">
+        <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 text-white py-6 px-safe shadow-lg relative">
           <button
             onClick={() => setShowWelcomeBanner(false)}
             className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors z-10"
@@ -556,7 +556,7 @@ const Page4 = () => {
         </div>
       )}
 
-      <main className="max-w-6xl mx-auto px-6 py-12">
+      <main className="container mx-auto px-safe py-safe">
         {/* Hero Section */}
         <div className="text-center mb-16">
           {userName && (
@@ -648,7 +648,7 @@ const Page4 = () => {
 
       {/* Footer actualizado con links a Terms y Privacy */}
       <footer className="bg-white mt-16 py-8 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-safe">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className="text-gray-700 text-lg font-medium">
               SaludCompartida · Cuidando lo que más importa

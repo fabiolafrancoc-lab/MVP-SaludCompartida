@@ -495,7 +495,7 @@ Beneficios disponibles:
         </div>
       )}
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+      <div className="max-w-4xl mx-auto px-safe py-safe">
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Columna izquierda - Resumen */}
           <div>

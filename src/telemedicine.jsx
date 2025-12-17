@@ -76,7 +76,7 @@ export default function Telemedicine() {
       {/* Header with Navigation Menu */}
       <TopNav internalPage={true} />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-safe py-safe">
         {/* Hero Section con Video Background */}
         <div className="relative bg-gradient-to-r from-teal-600 to-teal-500 rounded-3xl overflow-hidden shadow-2xl mb-8">
           <div className="absolute inset-0 bg-black/20"></div>
