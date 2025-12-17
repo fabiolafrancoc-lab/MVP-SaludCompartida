@@ -598,7 +598,7 @@ Equipo SaludCompartida`,
         <div className="container mx-auto px-safe py-safe">
           
           <div className="mb-8 sm:mb-10 text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 leading-tight px-2">
+            <h2 className="text-lg sm:text-base md:text-base font-bold text-gray-900 mb-3 leading-tight px-2">
               Suscríbete hoy por $12 mensuales y en 30 segundos tu familia empieza a utilizar todos los beneficios de <span className="text-cyan-500">SaludCompartida</span>. Estamos donde está tu corazón.
             </h2>
           </div>
@@ -664,7 +664,7 @@ Equipo SaludCompartida`,
                       Suscripciones Disponibles - Segunda Fase
                     </p>
                     <div className="flex items-baseline gap-3 mb-4">
-                      <p className="text-white text-5xl font-bold animate-bounce">
+                      <p className="text-white text-lg font-bold animate-bounce">
                         {spotsLeft}
                       </p>
                       <p className="text-white/80 text-lg">
@@ -674,7 +674,7 @@ Equipo SaludCompartida`,
                     
                     <div className="bg-white/20 rounded-xl p-4 mb-4">
                       <p className="text-white text-lg leading-relaxed">
-                        <span className="block text-yellow-200 font-bold text-xl">Ya están suscritos {totalSpots - spotsLeft} familias</span>
+                        <span className="block text-yellow-200 font-bold text-base">Ya están suscritos {totalSpots - spotsLeft} familias</span>
                       </p>
                     </div>
                   </div>
@@ -688,7 +688,7 @@ Equipo SaludCompartida`,
                 <div className="p-10">
                   
                   <div className="mb-10">
-                    <h3 className="text-3xl font-bold text-gray-900 mb-3">
+                    <h3 className="text-base font-bold text-gray-900 mb-3">
                       Comienza Tu Registro
                     </h3>
                     <p className="text-gray-600 text-lg leading-relaxed">
@@ -706,7 +706,7 @@ Equipo SaludCompartida`,
                           </svg>
                         </div>
                         <div>
-                          <h4 className="text-xl font-bold text-gray-900 text-left">Tus Datos</h4>
+                          <h4 className="text-base font-bold text-gray-900 text-left">Tus Datos</h4>
                           <p className="text-sm text-gray-500 text-left">Información del migrante en EE.UU.</p>
                         </div>
                       </div>
@@ -835,7 +835,7 @@ Equipo SaludCompartida`,
                           </svg>
                         </div>
                         <div>
-                          <h4 className="text-xl font-bold text-gray-900 text-left">Tu Conexión en Casa</h4>
+                          <h4 className="text-base font-bold text-gray-900 text-left">Tu Conexión en Casa</h4>
                           <p className="text-sm text-gray-500 text-left">Familiar en México</p>
                         </div>
                       </div>

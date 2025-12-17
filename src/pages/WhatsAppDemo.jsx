@@ -36,10 +36,10 @@ export default function WhatsAppDemo() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-base font-bold text-gray-900 mb-4">
             Íconos de WhatsApp Personalizados
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-base text-gray-600">
             Diseños exclusivos de SaludCompartida en Magenta y Cyan
           </p>
         </div>
@@ -49,7 +49,7 @@ export default function WhatsAppDemo() {
           {/* Diseño Magenta */}
           <div className="bg-white rounded-2xl shadow-xl p-8">
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-pink-600 mb-2">
+              <h2 className="text-lg font-bold text-pink-600 mb-2">
                 Diseño Magenta
               </h2>
               <p className="text-gray-600">
@@ -94,7 +94,7 @@ export default function WhatsAppDemo() {
           {/* Diseño Cyan */}
           <div className="bg-white rounded-2xl shadow-xl p-8">
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-cyan-600 mb-2">
+              <h2 className="text-lg font-bold text-cyan-600 mb-2">
                 Diseño Cyan
               </h2>
               <p className="text-gray-600">
@@ -139,7 +139,7 @@ export default function WhatsAppDemo() {
 
         {/* Sección de Comparación */}
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+          <h2 className="text-lg font-bold text-gray-900 mb-6 text-center">
             Comparación de Estilos
           </h2>
           
@@ -192,7 +192,7 @@ export default function WhatsAppDemo() {
 
         {/* Sección de Casos de Uso */}
         <div className="bg-gradient-to-r from-pink-50 via-white to-cyan-50 rounded-2xl shadow-xl p-8 mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+          <h2 className="text-lg font-bold text-gray-900 mb-6 text-center">
             Implementación en el Proyecto
           </h2>
           
@@ -231,7 +231,7 @@ export default function WhatsAppDemo() {
 
         {/* Código de Ejemplo */}
         <div className="bg-gray-900 rounded-2xl shadow-xl p-8 text-white">
-          <h2 className="text-2xl font-bold mb-4">Cómo Usar</h2>
+          <h2 className="text-lg font-bold mb-4">Cómo Usar</h2>
           <div className="bg-gray-800 rounded-lg p-6 overflow-x-auto">
             <pre className="text-sm">
               <code>{`// Importar componentes

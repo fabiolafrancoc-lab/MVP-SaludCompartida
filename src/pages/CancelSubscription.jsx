@@ -81,7 +81,7 @@ const CancelSubscription = () => {
               </div>
             </div>
             
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            <h1 className="text-base md:text-base font-bold text-gray-800 mb-4">
               Suscripción Cancelada
             </h1>
             
@@ -135,12 +135,12 @@ const CancelSubscription = () => {
               </div>
             </div>
             
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            <h1 className="text-base md:text-base font-bold text-gray-800 mb-4">
               Cancelar Suscripción
             </h1>
             
             {userName && (
-              <p className="text-xl text-gray-600 mb-6">
+              <p className="text-base text-gray-600 mb-6">
                 {userName}, lamentamos verte partir
               </p>
             )}
@@ -198,7 +198,7 @@ const CancelSubscription = () => {
           {/* Cost Reminder */}
           <div className="bg-cyan-50 border border-cyan-200 rounded-xl p-6 mb-8">
             <p className="text-center text-gray-700">
-              Por solo <span className="font-bold text-cyan-600 text-2xl">$12.00 USD</span> al mes, 
+              Por solo <span className="font-bold text-cyan-600 text-lg">$12.00 USD</span> al mes, 
               tu familia en México tiene acceso completo a servicios de salud de calidad.
             </p>
           </div>
@@ -241,7 +241,7 @@ const CancelSubscription = () => {
           <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-lg w-full">
             <div className="text-center mb-6">
               <AlertTriangle className="w-16 h-16 text-red-600 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+              <h2 className="text-lg font-bold text-gray-800 mb-2">
                 Confirmación Final
               </h2>
               <p className="text-gray-600">

@@ -106,7 +106,7 @@ const ServiceCard = ({ icon: Icon, title, description, color, onClick, badge }) 
             <Icon />
           </div>
           <div className="flex-1">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
+            <h3 className="text-base font-bold text-gray-900 mb-2">{title}</h3>
             <p className="text-gray-600 text-sm">{description}</p>
           </div>
         </div>
@@ -214,7 +214,7 @@ const Migrant = () => {
           <div className="flex items-center gap-4">
             <div className="hidden md:block text-right">
               <p className="text-sm text-gray-600 flex items-center gap-2">
-                <span className="text-2xl">🇺🇸</span>
+                <span className="text-lg">🇺🇸</span>
                 Migrante en USA
               </p>
               <p className="text-sm font-semibold text-cyan-600">{userEmail}</p>
@@ -245,7 +245,7 @@ const Migrant = () => {
           <div className="w-full max-w-7xl mx-auto">
             <div className="flex items-center gap-4 mb-3">
               <CheckCircleIcon />
-              <h2 className="text-2xl md:text-3xl font-bold">¡Bienvenido a SaludCompartida!</h2>
+              <h2 className="text-lg md:text-base font-bold">¡Bienvenido a SaludCompartida!</h2>
             </div>
             <p className="text-base md:text-lg leading-relaxed w-full max-w-5xl">
               🎉 <span className="font-bold">¡Felicidades!</span> Acabas de proteger la salud de tu familia en México. 
@@ -260,16 +260,16 @@ const Migrant = () => {
       <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Hero Section */}
         <div className="w-full mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-gray-900 mb-4">
+          <h1 className="text-base sm:text-base md:text-base font-black text-gray-900 mb-4">
             ¡Hola, <span className="bg-gradient-to-r from-cyan-500 to-pink-500 bg-clip-text text-transparent">
               {userName}
             </span>!
           </h1>
           <div className="flex items-center gap-3 mb-6">
-            <span className="text-3xl">🇺🇸</span>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-semibold">Dashboard del Migrante</p>
+            <span className="text-base">🇺🇸</span>
+            <p className="text-lg sm:text-base md:text-lg text-gray-600 font-semibold">Dashboard del Migrante</p>
           </div>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 w-full max-w-3xl leading-relaxed">
+          <p className="text-base sm:text-lg md:text-base text-gray-600 w-full max-w-3xl leading-relaxed">
             Desde aquí puedes monitorear los ahorros de tu familia en México, acceder al blog de salud y contactarnos si necesitas ayuda.
           </p>
         </div>
@@ -286,7 +286,7 @@ const Migrant = () => {
                 </div>
                 <p className="text-cyan-100 text-lg font-semibold">Ahorro Total de tu Familia</p>
               </div>
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black mb-4">
+              <h2 className="text-base sm:text-lg md:text-base font-black mb-4">
                 ${displayedTotal.toFixed(2)}
               </h2>
               <p className="text-cyan-100 text-sm sm:text-base md:text-lg mb-6">
@@ -316,17 +316,17 @@ const Migrant = () => {
           <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 border-2 border-gray-100">
             <div className="text-center">
               <p className="text-gray-600 font-semibold mb-3 text-sm sm:text-base">Estadísticas del Mes</p>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-6">
+              <p className="text-base sm:text-base md:text-lg font-black text-gray-900 mb-6">
                 ${savingsData.lastMonthSavings.toFixed(2)}
               </p>
               <div className="space-y-3">
                 <div className="bg-cyan-50 rounded-lg p-4">
                   <p className="text-sm text-gray-600 mb-1">Servicios Usados</p>
-                  <p className="text-3xl font-bold text-cyan-600">{savingsData.servicesUsed}</p>
+                  <p className="text-base font-bold text-cyan-600">{savingsData.servicesUsed}</p>
                 </div>
                 <div className="bg-pink-50 rounded-lg p-4">
                   <p className="text-sm text-gray-600 mb-1">Familiares Activos</p>
-                  <p className="text-3xl font-bold text-pink-600">{savingsData.familyMembers}</p>
+                  <p className="text-base font-bold text-pink-600">{savingsData.familyMembers}</p>
                 </div>
               </div>
             </div>
@@ -340,7 +340,7 @@ const Migrant = () => {
               <FamilyIcon />
             </div>
             <div className="flex-1">
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">
+              <h3 className="text-lg md:text-base font-bold text-gray-900 mb-2">
                 ✨ ¡Tu familia ya tiene acceso completo!
               </h3>
               <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-3">
@@ -359,7 +359,7 @@ const Migrant = () => {
 
         {/* Services Grid */}
         <div className="w-full mb-8 sm:mb-12">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Acceso Rápido</h2>
+          <h2 className="text-base sm:text-lg md:text-base font-bold text-gray-900 mb-4 sm:mb-6">Acceso Rápido</h2>
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             <ServiceCard
               icon={BlogIcon}
@@ -400,7 +400,7 @@ const Migrant = () => {
         {/* Example Savings - Only shown when no data */}
         {savingsData.totalSaved === 0 && (
           <div className="w-full bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 md:p-8 border-2 border-dashed border-gray-300">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 text-center">
+            <h3 className="text-lg sm:text-base md:text-lg font-bold text-gray-900 mb-4 text-center">
               📊 Ejemplo de Ahorros Futuros
             </h3>
             <p className="text-center text-gray-600 mb-6 sm:mb-8 text-sm md:text-base leading-relaxed">
@@ -453,7 +453,7 @@ const Migrant = () => {
                 <div className="pt-4 border-t-2 border-gray-200">
                   <div className="flex items-center justify-between p-4 bg-gradient-to-r from-emerald-50 to-cyan-50 rounded-xl">
                     <span className="font-bold text-gray-900">Total Ejemplo</span>
-                    <span className="text-xl md:text-2xl font-black text-emerald-600">
+                    <span className="text-base md:text-lg font-black text-emerald-600">
                       $1,137 MXN
                     </span>
                   </div>

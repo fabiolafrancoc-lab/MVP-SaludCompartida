@@ -53,7 +53,7 @@ export default function MicroLanding() {
 
       {/* Step Animation Section */}
       <div className="min-h-screen flex flex-col items-center justify-center px-4 py-20 pt-24">
-        <h1 className="text-3xl md:text-4xl font-black text-white mb-3 text-center">
+        <h1 className="text-base md:text-base font-black text-white mb-3 text-center">
           Así de simple es <span className="text-cyan-400">cuidar</span>
           <br className="hidden md:block" /> a los que están lejos
         </h1>
@@ -73,7 +73,7 @@ export default function MicroLanding() {
               }`}
             >
               <div className="flex items-center gap-4">
-                <div className={`flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center text-2xl md:text-3xl font-black text-white shadow-xl ${
+                <div className={`flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center text-lg md:text-base font-black text-white shadow-xl ${
                   currentStep === index + 1 ? 'animate-pulse scale-105' : ''
                 }`}>
                   {index + 1}
@@ -83,7 +83,7 @@ export default function MicroLanding() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-cyan-400 text-base md:text-lg font-black">PASO {index + 1}</span>
                   </div>
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-1">
+                  <h3 className="text-lg md:text-base font-bold text-white mb-1">
                     {step.title}
                   </h3>
                   <p className="text-sm md:text-base text-white/70">
@@ -105,7 +105,7 @@ export default function MicroLanding() {
       {/* Services Circle Section */}
       {showServices && (
         <div className="min-h-screen bg-black flex flex-col items-center justify-center px-4 py-12 animate-fadeIn">
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4 text-center">
+          <h2 className="text-base md:text-base font-black text-white mb-4 text-center">
             Todo Incluido en Tu Plan
           </h2>
           <p className="text-base md:text-lg text-cyan-400 italic mb-10 text-center max-w-2xl">
@@ -115,7 +115,7 @@ export default function MicroLanding() {
           <div className="relative max-w-3xl w-full">
             <div className="grid md:grid-cols-2 gap-4 md:gap-6">
               <div className="bg-white/8 backdrop-blur-lg rounded-2xl p-5 border-2 border-cyan-400/30 hover:bg-white/12 hover:scale-105 transition-all duration-300 shadow-xl">
-                <h3 className="text-xl md:text-2xl font-black text-white mb-2">
+                <h3 className="text-base md:text-lg font-black text-white mb-2">
                   1. Videollamada por WhatsApp 24/7
                 </h3>
                 <p className="text-sm md:text-base text-white/80">
@@ -124,7 +124,7 @@ export default function MicroLanding() {
               </div>
 
               <div className="bg-white/8 backdrop-blur-lg rounded-2xl p-5 border-2 border-pink-400/30 hover:bg-white/12 hover:scale-105 transition-all duration-300 shadow-xl">
-                <h3 className="text-xl md:text-2xl font-black text-white mb-2">
+                <h3 className="text-base md:text-lg font-black text-white mb-2">
                   2. Receta Digital
                 </h3>
                 <p className="text-sm md:text-base text-white/80">
@@ -133,7 +133,7 @@ export default function MicroLanding() {
               </div>
 
               <div className="bg-white/8 backdrop-blur-lg rounded-2xl p-5 border-2 border-purple-400/30 hover:bg-white/12 hover:scale-105 transition-all duration-300 shadow-xl">
-                <h3 className="text-xl md:text-2xl font-black text-white mb-2">
+                <h3 className="text-base md:text-lg font-black text-white mb-2">
                   3. Descuento en Farmacias
                 </h3>
                 <p className="text-sm md:text-base text-white/80">
@@ -142,7 +142,7 @@ export default function MicroLanding() {
               </div>
 
               <div className="bg-white/8 backdrop-blur-lg rounded-2xl p-5 border-2 border-yellow-400/30 hover:bg-white/12 hover:scale-105 transition-all duration-300 shadow-xl">
-                <h3 className="text-xl md:text-2xl font-black text-white mb-2">
+                <h3 className="text-base md:text-lg font-black text-white mb-2">
                   4. Terapia Psicológica
                 </h3>
                 <p className="text-sm md:text-base text-white/80">
@@ -170,7 +170,7 @@ export default function MicroLanding() {
           </div>
 
           <div className="mt-10 bg-white/10 backdrop-blur-md rounded-xl p-4 border-2 border-white/12 max-w-xl">
-            <p className="text-lg md:text-xl font-bold text-white text-center">
+            <p className="text-lg md:text-base font-bold text-white text-center">
               SaludCompartida cuida hasta cuatro personas que están lejos. Cuidamos donde está tu corazón.
             </p>
           </div>
@@ -178,7 +178,7 @@ export default function MicroLanding() {
           <div className="mt-10">
             <button
               onClick={() => navigate('/')}
-              className="px-8 md:px-12 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-white text-xl md:text-2xl font-black rounded-full shadow-2xl hover:scale-105 transition-all duration-200 uppercase"
+              className="px-8 md:px-12 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-white text-base md:text-lg font-black rounded-full shadow-2xl hover:scale-105 transition-all duration-200 uppercase"
             >
               VER PLANES
             </button>

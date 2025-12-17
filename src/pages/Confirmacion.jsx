@@ -61,7 +61,7 @@ export default function Confirmacion() {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
               <CheckCircle className="w-12 h-12 text-green-600" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+            <h1 className="text-base md:text-base font-bold text-gray-900 mb-3">
               ¡Suscripción Exitosa!
             </h1>
             <p className="text-lg text-gray-600 mb-2">
@@ -75,7 +75,7 @@ export default function Confirmacion() {
           {/* Comprobante */}
           <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-6">
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
-              <h2 className="text-xl font-bold text-gray-900">Comprobante de Pago</h2>
+              <h2 className="text-base font-bold text-gray-900">Comprobante de Pago</h2>
               <button
                 onClick={handleDownloadReceipt}
                 className="flex items-center gap-2 text-cyan-600 hover:text-cyan-700 font-semibold transition-colors"
@@ -92,7 +92,7 @@ export default function Confirmacion() {
                   <FileText className="w-5 h-5 text-cyan-600" />
                   <p className="text-sm font-semibold text-gray-700">Número de Confirmación</p>
                 </div>
-                <p className="text-2xl font-bold text-gray-900 tracking-wider">
+                <p className="text-lg font-bold text-gray-900 tracking-wider">
                   {data.confirmationNumber}
                 </p>
               </div>
@@ -124,7 +124,7 @@ export default function Confirmacion() {
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-gray-200">
                   <p className="text-sm text-gray-600">Total Pagado</p>
-                  <p className="text-2xl font-bold text-cyan-600">${data.amount} USD</p>
+                  <p className="text-lg font-bold text-cyan-600">${data.amount} USD</p>
                 </div>
               </div>
 
@@ -152,7 +152,7 @@ export default function Confirmacion() {
                     {data.migrantAccessCode && (
                       <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-4">
                         <p className="text-xs text-gray-600 mb-1">Código para Migrante (USA)</p>
-                        <p className="text-2xl font-bold text-cyan-700 tracking-wider font-mono">
+                        <p className="text-lg font-bold text-cyan-700 tracking-wider font-mono">
                           {data.migrantAccessCode}
                         </p>
                         <p className="text-xs text-gray-600 mt-2">
@@ -163,7 +163,7 @@ export default function Confirmacion() {
                     {data.familyAccessCode && (
                       <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-4">
                         <p className="text-xs text-gray-600 mb-1">Código para Familiar (México)</p>
-                        <p className="text-2xl font-bold text-pink-700 tracking-wider font-mono">
+                        <p className="text-lg font-bold text-pink-700 tracking-wider font-mono">
                           {data.familyAccessCode}
                         </p>
                         <p className="text-xs text-gray-600 mt-2">

@@ -3,6 +3,63 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 
+// Iconos profesionales para el dropdown de usuario
+const DashboardIconMenu = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9 22V12H15V22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const DoctorIconMenu = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="8" r="3.5" stroke="#52D293" strokeWidth="2"/>
+    <path d="M6 20C6 16.5 8.5 14 12 14C15.5 14 18 16.5 18 20" stroke="#52D293" strokeWidth="2" strokeLinecap="round"/>
+    <rect x="11" y="15.5" width="2" height="3" rx="0.5" fill="#52D293"/>
+    <rect x="10" y="17" width="4" height="1.5" rx="0.5" fill="#52D293"/>
+  </svg>
+);
+
+const PharmacyIconMenu = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="7" y="9" width="10" height="12" rx="1.5" stroke="#FF2B8A" strokeWidth="2"/>
+    <rect x="10.5" y="11.5" width="3" height="7" rx="0.5" fill="#FF2B8A"/>
+    <rect x="8.5" y="13.5" width="7" height="3" rx="0.5" fill="#FF2B8A"/>
+  </svg>
+);
+
+const TherapyIconMenu = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 21C12 21 5 15.5 5 11C5 8.5 6.5 7 8.5 7C10 7 11.5 8 12 9.5C12.5 8 14 7 15.5 7C17.5 7 19 8.5 19 11C19 15.5 12 21 12 21Z" stroke="#9B00FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9 13L10 13L10.7 11L11.3 15L12 13L13 13" stroke="#9B00FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const SavingsIconMenu = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="9" stroke="#FF9500" strokeWidth="2"/>
+    <path d="M12 6V8M12 16V18" stroke="#FF9500" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M10 10H12.5C13.3 10 14 10.7 14 11.5C14 12.3 13.3 13 12.5 13H11.5C10.7 13 10 13.7 10 14.5C10 15.3 10.7 16 11.5 16H14" stroke="#FF9500" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
+const AccountIconMenu = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="8" r="3.5" stroke="#0071FF" strokeWidth="2"/>
+    <path d="M6 20C6 16.5 8.5 14 12 14C15.5 14 18 16.5 18 20" stroke="#0071FF" strokeWidth="2" strokeLinecap="round"/>
+    <rect x="10.5" y="18" width="3" height="3" rx="1" fill="#0071FF"/>
+  </svg>
+);
+
+const BlogIconMenu = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="6" y="4" width="12" height="16" rx="1.5" stroke="#FF6F61" strokeWidth="2"/>
+    <line x1="9" y1="8" x2="15" y2="8" stroke="#FF6F61" strokeWidth="2" strokeLinecap="round"/>
+    <line x1="9" y1="11" x2="15" y2="11" stroke="#FF6F61" strokeWidth="2" strokeLinecap="round"/>
+    <line x1="9" y1="14" x2="13" y2="14" stroke="#FF6F61" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
 // TopNav now supports: logo, back button, user info, login button, restart bubbles, and section navigation
 const TopNav = ({ 
   logoSrc, 
@@ -64,15 +121,31 @@ const TopNav = ({
   return (
     <header className={`${internalPage ? 'bg-white border-b border-gray-200' : 'bg-black border-b border-gray-800'} sticky top-0 z-50 shadow-lg`}>
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
-        {/* Logo - clickeable para volver al inicio */}
-        <div 
-          className="flex items-center gap-2 md:gap-4 cursor-pointer group"
-          onClick={onRestartBubbles ? handleRestartBubbles : handleScrollToTop}
-        >
-          <img src={finalLogoSrc} alt={logoAlt} className="h-10 md:h-12 object-contain group-hover:opacity-80 transition-opacity" />
+        {/* Logo y botón HOME */}
+        <div className="flex items-center gap-2 md:gap-4">
+          {/* Logo - clickeable para volver al inicio */}
+          <div 
+            className="cursor-pointer group"
+            onClick={onRestartBubbles ? handleRestartBubbles : handleScrollToTop}
+          >
+            <img src={finalLogoSrc} alt={logoAlt} className="h-10 md:h-12 object-contain group-hover:opacity-80 transition-opacity" />
+          </div>
           
-          {/* Home Icon - aparece cuando homeIcon es true */}
-          {homeIcon && (
+          {/* Botón HOME - Solo en páginas internas */}
+          {internalPage && (
+            <button
+              onClick={() => navigate('/page4')}
+              className="flex items-center gap-2 bg-cyan-500/20 border border-cyan-500/40 rounded-lg px-3 py-1.5 hover:bg-cyan-500/30 transition-colors"
+            >
+              <svg className="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span className="text-sm font-semibold text-cyan-600">HOME</span>
+            </button>
+          )}
+          
+          {/* Home Icon legacy - aparece cuando homeIcon es true */}
+          {homeIcon && !internalPage && (
             <div className="flex items-center gap-2 bg-cyan-500/20 border border-cyan-500/40 rounded-lg px-3 py-1.5">
               <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -216,45 +289,45 @@ const TopNav = ({
                 <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <button
                     onClick={() => navigate('/page4')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors first:rounded-t-lg font-semibold border-b border-gray-200"
+                    className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors first:rounded-t-lg font-semibold border-b border-gray-200"
                   >
-                    🏠 Dashboard Principal
+                    <DashboardIconMenu /> Dashboard Principal
                   </button>
                   <button
                     onClick={() => navigate('/telemedicine')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
+                    className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
                   >
-                    🩺 Telemedicina
+                    <DoctorIconMenu /> Telemedicina
                   </button>
                   <button
                     onClick={() => navigate('/pharmacy')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
+                    className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
                   >
-                    💊 Descuento en Farmacias
+                    <PharmacyIconMenu /> Descuento en Farmacias
                   </button>
                   <button
                     onClick={() => navigate('/therapy')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
+                    className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
                   >
-                    🧠 Sesiones Psicológicas
+                    <TherapyIconMenu /> Sesiones Psicológicas
                   </button>
                   <button
                     onClick={() => navigate('/savings')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
+                    className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
                   >
-                    💰 Mis Ahorros
+                    <SavingsIconMenu /> Mis Ahorros
                   </button>
                   <button
                     onClick={() => navigate('/account')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
+                    className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors"
                   >
-                    👤 Mi Cuenta
+                    <AccountIconMenu /> Mi Cuenta
                   </button>
                   <button
-                    onClick={() => navigate('/contact')}
-                    className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors last:rounded-b-lg"
+                    onClick={() => navigate('/blog')}
+                    className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-cyan-600 transition-colors last:rounded-b-lg"
                   >
-                    📞 Contacto
+                    <BlogIconMenu /> Blog
                   </button>
                 </div>
               </div>
@@ -497,39 +570,39 @@ const TopNav = ({
                   <div className="ml-4 mt-2 space-y-2">
                     <button
                       onClick={() => { navigate('/telemedicine'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
+                      className="flex items-center gap-2 text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full"
                     >
-                      → 🩺 Telemedicina
+                      <DoctorIconMenu /> → Telemedicina
                     </button>
                     <button
                       onClick={() => { navigate('/pharmacy'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
+                      className="flex items-center gap-2 text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full"
                     >
-                      → 💊 Descuento en Farmacias
+                      <PharmacyIconMenu /> → Descuento en Farmacias
                     </button>
                     <button
                       onClick={() => { navigate('/therapy'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
+                      className="flex items-center gap-2 text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full"
                     >
-                      → 🧠 Sesiones Psicológicas
+                      <TherapyIconMenu /> → Sesiones Psicológicas
                     </button>
                     <button
                       onClick={() => { navigate('/savings'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
+                      className="flex items-center gap-2 text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full"
                     >
-                      → 💰 Mis Ahorros
+                      <SavingsIconMenu /> → Mis Ahorros
                     </button>
                     <button
                       onClick={() => { navigate('/account'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
+                      className="flex items-center gap-2 text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full"
                     >
-                      → 👤 Mi Cuenta
+                      <AccountIconMenu /> → Mi Cuenta
                     </button>
                     <button
-                      onClick={() => { navigate('/contact'); setMenuOpen(false); setUserMenuOpen(false); }}
-                      className="text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 block w-full"
+                      onClick={() => { navigate('/blog'); setMenuOpen(false); setUserMenuOpen(false); }}
+                      className="flex items-center gap-2 text-left text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors py-2 w-full"
                     >
-                      → 📞 Contacto
+                      <BlogIconMenu /> → Blog
                     </button>
                   </div>
                 )}

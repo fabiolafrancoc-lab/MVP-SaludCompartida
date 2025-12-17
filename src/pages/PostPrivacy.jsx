@@ -49,7 +49,7 @@ export default function PostPrivacy() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-base md:text-lg font-bold text-gray-900 mb-4">
             Política de Privacidad
           </h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -85,7 +85,7 @@ export default function PostPrivacy() {
           <div className="lg:col-span-3 space-y-12">
             
             <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 1. Introducción
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -97,7 +97,7 @@ export default function PostPrivacy() {
             </section>
 
             <section id="responsible" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 2. Responsable del tratamiento
               </h2>
               <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
@@ -110,7 +110,7 @@ export default function PostPrivacy() {
             </section>
 
             <section id="data-collection" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 3. Datos que recopilamos
               </h2>
 
@@ -147,7 +147,7 @@ export default function PostPrivacy() {
             </section>
 
             <section id="purposes" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 4. Finalidades del tratamiento
               </h2>
               <ul className="space-y-3 text-gray-700 text-sm">
@@ -175,7 +175,7 @@ export default function PostPrivacy() {
             </section>
 
             <section id="legal-basis" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 5. Fundamento legal
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -198,7 +198,7 @@ export default function PostPrivacy() {
             </section>
 
             <section id="transfers" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 6. Transferencia de datos
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -235,7 +235,7 @@ export default function PostPrivacy() {
             </section>
 
             <section id="arco-rights" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 7. Derechos ARCO
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -272,7 +272,7 @@ export default function PostPrivacy() {
             </section>
 
             <section id="security" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 8. Seguridad de datos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -288,7 +288,7 @@ export default function PostPrivacy() {
             </section>
 
             <section id="cookies" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 9. Cookies y tecnologías de rastreo
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -306,7 +306,7 @@ export default function PostPrivacy() {
             </section>
 
             <section id="minors" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 10. Protección de menores de edad
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -324,7 +324,7 @@ export default function PostPrivacy() {
             </section>
 
             <section id="changes" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 11. Cambios a este aviso de privacidad
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -347,7 +347,7 @@ export default function PostPrivacy() {
         </div>
 
         <div className="mt-12 text-center bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-200">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <h3 className="text-lg font-bold text-gray-900 mb-4">
             ¿Tienes preguntas?
           </h3>
           <p className="text-gray-700 mb-6">

@@ -100,10 +100,10 @@ ${new Date().toLocaleDateString('es-MX', {
       <div className="max-w-6xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-6">
+          <h1 className="text-base md:text-lg font-black text-white mb-6">
             Contáctanos
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-base text-gray-300 max-w-3xl mx-auto">
             Estamos aquí para ayudarte. Escríbenos y te responderemos lo antes posible.
           </p>
         </div>
@@ -111,7 +111,7 @@ ${new Date().toLocaleDateString('es-MX', {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Formulario */}
           <div className="bg-gray-800/50 backdrop-blur-md border border-gray-700 rounded-3xl shadow-2xl p-10">
-            <h2 className="text-2xl font-black text-white mb-6">Envíanos un Mensaje</h2>
+            <h2 className="text-lg font-black text-white mb-6">Envíanos un Mensaje</h2>
 
             {submitSuccess && (
               <div className="bg-green-50 border-2 border-green-300 rounded-xl p-4 mb-6 flex items-start gap-3">
@@ -250,7 +250,7 @@ ${new Date().toLocaleDateString('es-MX', {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black text-white">WhatsApp</h3>
+                  <h3 className="text-lg font-black text-white">WhatsApp</h3>
                   <p className="text-green-700 font-semibold">Respuesta inmediata</p>
                 </div>
               </div>
@@ -278,7 +278,7 @@ ${new Date().toLocaleDateString('es-MX', {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black text-white">Email</h3>
+                  <h3 className="text-lg font-black text-white">Email</h3>
                   <p className="text-cyan-700 font-semibold">24-48 horas</p>
                 </div>
               </div>
@@ -297,7 +297,7 @@ ${new Date().toLocaleDateString('es-MX', {
 
             {/* Horarios */}
             <div className="bg-gray-800/50 backdrop-blur-md border border-gray-700 rounded-3xl shadow-xl p-8">
-              <h3 className="text-2xl font-black text-white mb-6">Horarios de Atención</h3>
+              <h3 className="text-lg font-black text-white mb-6">Horarios de Atención</h3>
               
               <div className="space-y-4">
                 <div className="flex items-center justify-between py-3 border-b border-gray-700">
@@ -324,7 +324,7 @@ ${new Date().toLocaleDateString('es-MX', {
 
             {/* Preguntas Frecuentes */}
             <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl shadow-xl p-8 border-2 border-purple-200">
-              <h3 className="text-2xl font-black text-white mb-4">¿Tienes Dudas?</h3>
+              <h3 className="text-lg font-black text-white mb-4">¿Tienes Dudas?</h3>
               <p className="text-gray-300 mb-6">
                 Muchas de tus preguntas probablemente ya están respondidas en nuestras páginas.
               </p>

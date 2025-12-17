@@ -44,7 +44,7 @@ export default function ArticleModal({ article, onClose }) {
             </div>
             <div>
               <span className="text-sm text-gray-500">{article.category}</span>
-              <h2 className="text-xl font-bold text-gray-900">{article.title}</h2>
+              <h2 className="text-base font-bold text-gray-900">{article.title}</h2>
             </div>
           </div>
           <button
@@ -101,7 +101,7 @@ export default function ArticleModal({ article, onClose }) {
           {/* Action Items */}
           {article.actionItems && article.actionItems.length > 0 && (
             <div className="mt-8 bg-gradient-to-r from-cyan-50 to-purple-50 rounded-xl p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center">
                 <svg className="w-6 h-6 mr-2 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                 </svg>

@@ -99,7 +99,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
           </svg>
         </div>
         
-        <h3 className="text-3xl font-bold text-gray-900 mb-4">
+        <h3 className="text-base font-bold text-gray-900 mb-4">
           ¡Gracias por tu opinión!
         </h3>
         
@@ -129,7 +129,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
           </svg>
         </div>
         
-        <h2 className="text-3xl font-bold text-gray-900 mb-3">
+        <h2 className="text-base font-bold text-gray-900 mb-3">
           ¿Qué temas te interesan más?
         </h2>
         

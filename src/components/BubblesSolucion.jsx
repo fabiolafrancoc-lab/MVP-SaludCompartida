@@ -41,7 +41,7 @@ const BubblesSolucion = () => {
     <section className="py-12 md:py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         <div className="text-center mb-8 md:mb-12">
-          <h3 className="text-2xl md:text-3xl font-black text-white mb-2">
+          <h3 className="text-lg md:text-base font-black text-white mb-2">
             Historias reales de familias como la tuya
           </h3>
           <p className="text-base md:text-lg text-gray-400">
@@ -66,7 +66,7 @@ const BubblesSolucion = () => {
                 hover:shadow-2xl transition-shadow
               `}>
                 <div className="flex items-start gap-3">
-                  <span className="text-2xl md:text-3xl flex-shrink-0">{bubble.icon}</span>
+                  <span className="text-lg md:text-base flex-shrink-0">{bubble.icon}</span>
                   <p className="text-white text-sm md:text-base font-semibold leading-snug">
                     {bubble.text}
                   </p>

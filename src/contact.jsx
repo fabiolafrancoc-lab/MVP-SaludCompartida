@@ -312,7 +312,7 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+          <h2 className="text-base font-bold text-gray-800 mb-4">
             ¡Tu Mensaje ha sido Enviado con Éxito!
           </h2>
           <p className="text-lg text-gray-600 max-w-md mx-auto leading-relaxed">
@@ -338,7 +338,7 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
           {/* Formulario - 3 columnas - pegado a la izquierda */}
           <div className="md:col-span-3 p-6 lg:p-10">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-3">
+              <h1 className="text-base font-bold text-gray-900 mb-3">
                 Hola{firstName ? ' ' : ''}{firstName && <span className="text-cyan-600">{firstName}</span>}, ¿tienes consultas para nosotros?
               </h1>
               <p className="text-lg text-gray-700">
@@ -563,7 +563,7 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
 
         {/* Información de Contacto */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+          <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-3">
             <svg className="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
