@@ -193,13 +193,18 @@ export default function Pago() {
     
     console.log('✅ Usando datos de usuario:', currentUserData);
     
-    // Generar códigos únicos para migrante y familiar
-    const generateCode = (prefix) => {
-      return `SC-${prefix}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+    // Generar códigos únicos para migrante y familiar (sin prefijos de país)
+    const generateCode = () => {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Sin O, 0, I, 1 para evitar confusión
+      let code = 'SC';
+      for (let i = 0; i < 4; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return code; // Ejemplo: SC2A4B, SCH7K9, etc.
     };
 
-    const migrantCode = generateCode('USA');
-    const familyCode = generateCode('MX');
+    const migrantCode = generateCode();
+    const familyCode = generateCode();
 
     // Guardar información del pago
     const subscriptionData = {

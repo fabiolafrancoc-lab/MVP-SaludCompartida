@@ -2,9 +2,14 @@
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Función para generar código aleatorio
+// Función para generar código de acceso único (formato: SC + 4 caracteres)
 function generateAccessCode() {
-  return Math.random().toString(36).substring(2, 10).toUpperCase();
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Sin O, 0, I, 1 para evitar confusión
+  let code = 'SC';
+  for (let i = 0; i < 4; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code; // Ejemplo: SC2A4B, SCH7K9, etc.
 }
 
 export default async function handler(req, res) {
