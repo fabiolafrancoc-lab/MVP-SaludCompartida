@@ -1,4 +1,11 @@
 /* ================================================
+   TAILWIND CSS - CRÍTICO PARA ESTILOS
+   ================================================ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================
    RESPONSIVE GLOBAL STYLES - SaludCompartida MVP
    Archivo: src/index.css
    ================================================ */
