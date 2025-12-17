@@ -261,7 +261,7 @@ export default function Account() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
       {/* TopNav Navigation */}
-      <TopNav internalPage={true} showMenu={true} />
+      <TopNav internalPage={true} showMenu={true} onBack={() => navigate('/page4')} />
 
       <main className="w-full max-w-4xl mx-auto px-safe py-safe">
         {/* Welcome Message */}

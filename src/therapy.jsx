@@ -1324,7 +1324,7 @@ SaludCompartida`,
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50">
       {/* Header with Navigation Menu */}
-      <TopNav internalPage={true} />
+      <TopNav internalPage={true} onBack={() => navigate('/page4')} />
 
       <div className="max-w-7xl mx-auto px-safe py-safe">
         {/* Hero Section - SIN ICONO DE CORAZÓN */}

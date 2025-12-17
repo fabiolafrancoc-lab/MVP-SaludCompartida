@@ -74,7 +74,7 @@ export default function Telemedicine() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-blue-50">
       {/* Header with Navigation Menu */}
-      <TopNav internalPage={true} />
+      <TopNav internalPage={true} onBack={() => navigate('/page4')} />
 
       <main className="max-w-7xl mx-auto px-safe py-safe">
         {/* Hero Section con Video Background */}
