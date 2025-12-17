@@ -71,19 +71,19 @@ export default function SubscriptionSuccess() {
       <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-3">
           <div className="flex items-center justify-between gap-4">
-            {/* Logo */}
-            <div className="flex items-center gap-2 md:gap-4 cursor-pointer group" onClick={() => navigate('/')}>
+            {/* Logo - REDUCIDO */}
+            <div className="flex items-center gap-2 cursor-pointer group" onClick={() => navigate('/')}>
               <img 
                 src="/saludcompartida logo WT.png" 
                 alt="SaludCompartida" 
-                className="h-10 md:h-12 object-contain group-hover:opacity-80 transition-opacity"
+                className="h-8 md:h-10 object-contain group-hover:opacity-80 transition-opacity"
               />
             </div>
             
             {/* Navegación Desktop */}
             <nav className="hidden lg:flex items-center gap-6">
               <button
-                onClick={() => navigate('/quienes-somos')}
+                onClick={() => navigate('/quienes-somos-internal')}
                 className="text-sm font-medium text-gray-700 hover:text-cyan-600 transition-colors"
               >
                 Quiénes Somos
@@ -113,6 +113,17 @@ export default function SubscriptionSuccess() {
                 Blog
               </button>
             </nav>
+            
+            {/* Ya tengo mi Código - Log In */}
+            <button
+              onClick={() => navigate('/page3')}
+              className="hidden md:flex items-center gap-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-pink-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+              </svg>
+              Ya tengo mi Código - Log In
+            </button>
             
             {/* Botón Volver */}
             <button
@@ -180,13 +191,13 @@ export default function SubscriptionSuccess() {
                 </svg>
               </div>
 
-              {/* Título */}
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {/* Título - REDUCIDO */}
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
                 ¡Pago Exitoso! 🎉
               </h1>
 
-              {/* Mensaje */}
-              <p className="text-lg text-gray-600 mb-4">
+              {/* Mensaje - REDUCIDO */}
+              <p className="text-base text-gray-600 mb-4">
                 Tu suscripción a <span className="font-semibold text-indigo-600">SaludCompartida</span> está activa.
               </p>
 
@@ -207,15 +218,15 @@ export default function SubscriptionSuccess() {
                 </div>
               )}
 
-              {/* Siguiente paso */}
+              {/* Siguiente paso - REDUCIDO */}
               <div className="bg-indigo-50 rounded-lg p-6 mb-8">
-                <h2 className="text-xl font-semibold text-gray-900 mb-3">
+                <h2 className="text-lg font-semibold text-gray-900 mb-3">
                   Próximo Paso
                 </h2>
-                <p className="text-gray-700 mb-4">
+                <p className="text-sm text-gray-700 mb-4">
                   Completa tu registro para comenzar a usar tu membresía.
                 </p>
-                <div className="text-4xl font-bold text-indigo-600">
+                <div className="text-3xl font-bold text-indigo-600">
                   {countdown}
                 </div>
                 <p className="text-sm text-gray-500 mt-2">
@@ -223,10 +234,10 @@ export default function SubscriptionSuccess() {
                 </p>
               </div>
 
-              {/* Botón manual */}
+              {/* Botón manual - REDUCIDO */}
               <button
                 onClick={() => navigate('/registro')}
-                className="w-full bg-indigo-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
+                className="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors text-base"
               >
                 Ir al Registro Ahora →
               </button>
