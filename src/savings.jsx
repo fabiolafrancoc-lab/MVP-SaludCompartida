@@ -166,7 +166,7 @@ const Savings = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
       {/* Header with Navigation Menu */}
-      <TopNav internalPage={true} />
+      <TopNav internalPage={true} onBack={() => navigate('/page4')} />
 
       {/* Main Content */}
       <main className="container mx-auto px-safe py-safe">

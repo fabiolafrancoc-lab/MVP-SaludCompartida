@@ -249,7 +249,7 @@ export default function Pharmacy() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header with Navigation Menu */}
-      <TopNav internalPage={true} />
+      <TopNav internalPage={true} onBack={() => navigate('/page4')} />
 
       <main className="max-w-6xl mx-auto px-safe py-safe">
         

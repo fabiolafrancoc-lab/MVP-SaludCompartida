@@ -58,7 +58,7 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50">
       {/* TopNav Navigation */}
-      <TopNav internalPage={true} showMenu={true} />
+      <TopNav internalPage={true} showMenu={true} onBack={() => navigate('/page4')} />
 
       {/* Contenido Principal */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
