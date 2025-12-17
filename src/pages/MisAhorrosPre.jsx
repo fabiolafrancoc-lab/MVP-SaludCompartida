@@ -90,10 +90,10 @@ const MisAhorrosPre = () => {
           <div className="flex justify-center mb-6">
             <SavingsIcon />
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-6">
+          <h1 className="text-base md:text-lg font-black text-white mb-6">
             Mis Ahorros
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-base text-gray-300 max-w-3xl mx-auto">
             Visualiza cuánto estás ahorrando con SaludCompartida
           </p>
         </div>
@@ -112,7 +112,7 @@ const MisAhorrosPre = () => {
 
           {/* Savings Examples */}
           <div className="bg-gradient-to-br from-emerald-900/40 to-green-900/40 rounded-2xl p-8 border-2 border-green-400/50 shadow-xl shadow-green-500/10 mb-8">
-            <h3 className="font-bold text-green-300 mb-6 text-2xl">Ejemplos de Ahorros Promedio</h3>
+            <h3 className="font-bold text-green-300 mb-6 text-lg">Ejemplos de Ahorros Promedio</h3>
             <div className="space-y-4">
               {savingsExamples.map((example, index) => (
                 <div key={index} className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl p-6 shadow-lg border-2 border-green-500/30 hover:border-green-500/60 transition-all duration-300">
@@ -123,7 +123,7 @@ const MisAhorrosPre = () => {
                     </div>
                     <div className="text-center">
                       <p className="text-sm text-green-400 font-semibold">Con SaludCompartida</p>
-                      <p className="text-xl text-green-400 font-black">{example.withPlan}</p>
+                      <p className="text-base text-green-400 font-black">{example.withPlan}</p>
                     </div>
                     <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-full font-black text-sm shadow-lg">
                       {example.savings}
@@ -139,7 +139,7 @@ const MisAhorrosPre = () => {
 
           {/* Use Cases */}
           <div className="bg-gradient-to-br from-green-900/30 via-gray-800/50 to-emerald-900/30 rounded-2xl p-8 border-2 border-green-500/30">
-            <h3 className="font-bold text-white mb-6 text-2xl">¿Para qué usar Mis Ahorros?</h3>
+            <h3 className="font-bold text-white mb-6 text-lg">¿Para qué usar Mis Ahorros?</h3>
             <div className="grid md:grid-cols-2 gap-4">
               {useCases.map((useCase, index) => (
                 <div key={index} className="flex items-center gap-3 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-lg p-4 shadow-lg border-2 border-green-500/30 hover:border-green-500/60 transition-all duration-300">
@@ -157,15 +157,15 @@ const MisAhorrosPre = () => {
 
         {/* CTA */}
         <div className="bg-gradient-to-r from-fuchsia-500 to-pink-600 rounded-3xl shadow-2xl p-10 text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-black mb-6">
+          <h2 className="text-base md:text-base font-black mb-6">
             Todo Esto por Solo $12 al Mes
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
+          <p className="text-base mb-8 max-w-2xl mx-auto">
             Invierte $12 y ahorra $5,500+ cada mes. El mejor retorno de inversión de tu vida.
           </p>
           <button
             onClick={() => navigate('/registro')}
-            className="bg-white text-fuchsia-600 px-10 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+            className="bg-white text-fuchsia-600 px-10 py-4 rounded-2xl font-bold text-base shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
           >
             Contratar Ahora
           </button>

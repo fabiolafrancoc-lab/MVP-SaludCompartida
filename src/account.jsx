@@ -266,7 +266,7 @@ export default function Account() {
       <main className="w-full max-w-4xl mx-auto px-safe py-safe">
         {/* Welcome Message */}
         <div className="w-full text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-lg sm:text-base md:text-base font-bold text-gray-900 mb-2">
             Bienvenida a tu Cuenta <span className="text-cyan-600">{userData.firstName || 'Usuario'}</span>
           </h1>
           <p className="text-base sm:text-lg text-gray-600">
@@ -283,7 +283,7 @@ export default function Account() {
               </svg>
             </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Tus Datos</h2>
+              <h2 className="text-base sm:text-lg font-bold text-gray-900">Tus Datos</h2>
               <p className="text-sm text-gray-600">Usuario en México</p>
             </div>
           </div>
@@ -448,7 +448,7 @@ export default function Account() {
               </svg>
             </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Miembros de tu Familia</h2>
+              <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-2">Miembros de tu Familia</h2>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                 Incluye hasta tres miembros de tu familia que accederán a SaludCompartida{' '}
                 <span className="text-gray-500 italic">(Registro Opcional)</span>

@@ -498,7 +498,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">
                 Hemos recibido tu mensaje con Éxito, en unos momentos te contactaremos
               </h2>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -523,7 +523,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-red-600 mb-3">
+              <h2 className="text-lg font-bold text-red-600 mb-3">
                 Código o Clave Errada
               </h2>
               <p className="text-gray-600">
@@ -605,7 +605,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                   </svg>
                 </div>
-                <h1 className="text-3xl md:text-4xl font-bold text-cyan-600 mb-2">
+                <h1 className="text-base md:text-base font-bold text-cyan-600 mb-2">
                   Ingresa tu Código
                 </h1>
                 <p className="text-gray-700 text-sm md:text-base">

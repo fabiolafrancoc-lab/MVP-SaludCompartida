@@ -48,7 +48,7 @@ export default function ConfirmacionTerms() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-base md:text-lg font-bold text-gray-900 mb-4">
             Términos y Condiciones
           </h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -83,7 +83,7 @@ export default function ConfirmacionTerms() {
 
           <div className="lg:col-span-3 space-y-12">
             <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 1. ¿Qué es SaludCompartida?
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -109,7 +109,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="definitions" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 2. Definiciones clave
               </h2>
               <div className="space-y-4">
@@ -136,7 +136,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="services" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 3. Descripción de servicios
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -179,7 +179,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="subscription" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 4. Suscripción y pagos
               </h2>
               <div className="space-y-6">
@@ -212,7 +212,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="usage" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 5. Uso de la plataforma
               </h2>
               <div className="space-y-4">
@@ -267,7 +267,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="privacy" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 6. Privacidad y protección de datos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -284,7 +284,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="limitations" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 7. Limitaciones del servicio
               </h2>
               <div className="bg-red-50 border-l-4 border-red-400 p-6 mb-6 rounded-r-lg">
@@ -305,7 +305,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="responsibilities" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 8. Responsabilidades y limitación de responsabilidad
               </h2>
               <div className="space-y-4">
@@ -339,7 +339,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="modifications" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 9. Modificaciones a los términos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -356,7 +356,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="jurisdiction" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-base font-bold text-gray-900 mb-6">
                 10. Ley aplicable y jurisdicción
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -370,7 +370,7 @@ export default function ConfirmacionTerms() {
         </div>
 
         <div className="mt-12 text-center bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl p-8 border border-cyan-200">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <h3 className="text-lg font-bold text-gray-900 mb-4">
             ¿Tienes preguntas sobre estos términos?
           </h3>
           <p className="text-gray-700 mb-6">

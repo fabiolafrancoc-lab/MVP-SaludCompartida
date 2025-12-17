@@ -256,14 +256,14 @@ export default function Pharmacy() {
         {/* HERO SECTION CON VIDEOS */}
         <div className="mb-12">
           {nombreUsuario && nombreUsuario !== 'Usuario' && (
-            <p className="text-center text-4xl md:text-5xl text-gray-700 mb-4">
+            <p className="text-center text-base md:text-lg text-gray-700 mb-4">
               ¡Hola <span className="font-bold text-cyan-600">{nombreUsuario}</span>!
             </p>
           )}
-          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-cyan-600 via-pink-600 to-cyan-600 bg-clip-text text-transparent">
+          <h1 className="text-base md:text-lg font-bold text-center mb-4 bg-gradient-to-r from-cyan-600 via-pink-600 to-cyan-600 bg-clip-text text-transparent">
             Descuentos en Farmacias
           </h1>
-          <p className="text-center text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-center text-base text-gray-600 mb-8 max-w-3xl mx-auto">
             <span className="font-bold text-pink-600">40% - 75% de descuento</span> en productos farmacéuticos y no farmacéuticos
             <br />
             <span className="text-cyan-600 font-semibold">¡Descuento sobre descuento!</span>
@@ -305,7 +305,7 @@ export default function Pharmacy() {
 
         {/* TARJETA PREMIUM BLACK/PLATINUM */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+          <h2 className="text-lg font-bold text-gray-800 mb-6 text-center">
             Tu Tarjeta de Descuento Premium
           </h2>
           
@@ -321,7 +321,7 @@ export default function Pharmacy() {
                 <div className="flex justify-between items-start mb-8">
                   <div>
                     <div className="text-amber-400 font-bold text-sm tracking-wider mb-1">PLATINUM MEMBER</div>
-                    <div className="text-white text-2xl font-bold">SaludCompartida</div>
+                    <div className="text-white text-lg font-bold">SaludCompartida</div>
                   </div>
                   <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center p-2">
                     {/* QR CODE PLACEHOLDER */}
@@ -341,7 +341,7 @@ export default function Pharmacy() {
                 {/* NOMBRE USUARIO */}
                 <div className="mb-6">
                   <div className="text-gray-400 text-xs uppercase tracking-wider mb-1">Titular</div>
-                  <div className="text-white text-xl font-semibold tracking-wide">
+                  <div className="text-white text-base font-semibold tracking-wide">
                     {nombreUsuario} {apellidoPaterno}
                   </div>
                 </div>
@@ -354,7 +354,7 @@ export default function Pharmacy() {
                   </div>
                   <div className="text-right">
                     <div className="text-gray-400 text-xs mb-1">Red de farmacias</div>
-                    <div className="text-white font-bold text-2xl">+1,700</div>
+                    <div className="text-white font-bold text-lg">+1,700</div>
                   </div>
                 </div>
               </div>
@@ -376,7 +376,7 @@ export default function Pharmacy() {
             <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <h3 className="text-2xl font-bold">Descuento sobre Descuento</h3>
+            <h3 className="text-lg font-bold">Descuento sobre Descuento</h3>
           </div>
           <p className="text-lg leading-relaxed">
             ¿Ya tienes descuentos en tu farmacia favorita? <span className="font-bold">¡Perfecto!</span> Nuestro descuento se aplica <span className="font-bold underline">sobre el precio ya rebajado</span>. Maximiza tus ahorros en cada compra.
@@ -385,7 +385,7 @@ export default function Pharmacy() {
 
         {/* CATEGORÍAS DE PRODUCTOS */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+          <h2 className="text-lg font-bold text-gray-800 mb-6 text-center">
             Descuentos en Todo lo que Necesitas
           </h2>
           
@@ -396,7 +396,7 @@ export default function Pharmacy() {
                 <svg className="w-10 h-10 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                 </svg>
-                <h3 className="text-xl font-bold text-gray-800">Productos Farmacéuticos</h3>
+                <h3 className="text-base font-bold text-gray-800">Productos Farmacéuticos</h3>
               </div>
               <ul className="space-y-2 text-gray-600">
                 <li className="flex items-center gap-2">
@@ -420,7 +420,7 @@ export default function Pharmacy() {
                 <svg className="w-10 h-10 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
-                <h3 className="text-xl font-bold text-gray-800">Productos del Hogar</h3>
+                <h3 className="text-base font-bold text-gray-800">Productos del Hogar</h3>
               </div>
               <ul className="space-y-2 text-gray-600">
                 <li className="flex items-center gap-2">
@@ -442,16 +442,16 @@ export default function Pharmacy() {
 
         {/* BUSCADOR DE UBICACIÓN */}
         <div className="mb-12" id="pharmacy-finder-section">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+          <h2 className="text-lg font-bold text-gray-800 mb-6 text-center">
             Encuentra Farmacias Cerca de Ti
           </h2>
 
           {step === 'initial' && (
             <div className="max-w-md mx-auto bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-8 shadow-xl text-center border-2 border-cyan-200">
               <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-5xl">📍</span>
+                <span className="text-lg">📍</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-3">¿Compartir mi ubicación?</h3>
+              <h3 className="text-lg font-bold text-gray-800 mb-3">¿Compartir mi ubicación?</h3>
               <p className="text-gray-700 mb-6 text-lg leading-relaxed">
                 Te mostraremos las farmacias más cercanas con los mejores descuentos
               </p>
@@ -470,7 +470,7 @@ export default function Pharmacy() {
           {/* SELECCIÓN DE MÉTODO DE UBICACIÓN */}
           {step === 'chooseMethod' && (
             <div id="location-section" className="max-w-4xl mx-auto space-y-6">
-              <h3 className="text-2xl font-bold text-gray-800 text-center mb-8">
+              <h3 className="text-lg font-bold text-gray-800 text-center mb-8">
                 ¿Cómo quieres proporcionar tu ubicación?
               </h3>
               
@@ -481,9 +481,9 @@ export default function Pharmacy() {
                   className="bg-gradient-to-br from-white to-cyan-50 rounded-2xl p-10 shadow-xl border-2 border-cyan-200 hover:border-cyan-500 cursor-pointer transition-all hover:shadow-2xl group transform hover:scale-105"
                 >
                   <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <span className="text-4xl">✍️</span>
+                    <span className="text-base">✍️</span>
                   </div>
-                  <h4 className="text-2xl font-bold text-gray-800 mb-3 text-center">Ingresa tu Dirección</h4>
+                  <h4 className="text-lg font-bold text-gray-800 mb-3 text-center">Ingresa tu Dirección</h4>
                   <p className="text-gray-600 text-center text-lg">
                     Escribe manualmente tu dirección completa
                   </p>
@@ -495,9 +495,9 @@ export default function Pharmacy() {
                   className="bg-gradient-to-br from-white to-pink-50 rounded-2xl p-10 shadow-xl border-2 border-pink-200 hover:border-pink-500 cursor-pointer transition-all hover:shadow-2xl group transform hover:scale-105"
                 >
                   <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <span className="text-4xl">📱</span>
+                    <span className="text-base">📱</span>
                   </div>
-                  <h4 className="text-2xl font-bold text-gray-800 mb-3 text-center">Compartir mi Ubicación Actual</h4>
+                  <h4 className="text-lg font-bold text-gray-800 mb-3 text-center">Compartir mi Ubicación Actual</h4>
                   <p className="text-gray-600 text-center text-lg">
                     Detectamos automáticamente dónde te encuentras
                   </p>
@@ -509,7 +509,7 @@ export default function Pharmacy() {
           {/* FORMULARIO DE DIRECCIÓN MANUAL */}
           {step === 'manualAddress' && (
             <div id="manual-form" className="max-w-3xl mx-auto bg-white rounded-2xl p-8 shadow-xl">
-              <h3 className="text-xl font-bold text-gray-800 mb-6 text-center">
+              <h3 className="text-base font-bold text-gray-800 mb-6 text-center">
                 Ingresa tu Dirección
               </h3>
               
@@ -781,8 +781,8 @@ export default function Pharmacy() {
 
         {/* CTA FINAL - SIN BOTÓN VOLVER */}
         <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl p-8 text-center text-white shadow-2xl">
-          <h3 className="text-3xl font-bold mb-3">Empieza a Ahorrar Hoy</h3>
-          <p className="text-xl mb-6 text-gray-300">
+          <h3 className="text-base font-bold mb-3">Empieza a Ahorrar Hoy</h3>
+          <p className="text-base mb-6 text-gray-300">
             En promedio, nuestros usuarios ahorran <span className="font-bold text-amber-400">$2,500 MXN al mes</span> en farmacias
           </p>
         </div>

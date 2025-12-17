@@ -55,10 +55,10 @@ export default function Privacy() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+            <h1 className="text-lg md:text-base font-bold mb-6 text-white">
               Política de Privacidad
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-4">
+            <p className="text-base text-gray-300 max-w-3xl mx-auto mb-4">
               Tu privacidad es fundamental para nosotros. Este aviso describe cómo recopilamos, usamos y protegemos tu información personal.
             </p>
             <p className="text-sm text-gray-400">
@@ -94,7 +94,7 @@ export default function Privacy() {
               
               {/* Sección 1: Introducción */}
               <section id="intro" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   1. Introducción
                 </h2>
                 <p className="text-gray-300 mb-4 leading-relaxed">
@@ -107,7 +107,7 @@ export default function Privacy() {
 
               {/* Sección 2: Responsable */}
               <section id="responsible" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   2. Responsable del tratamiento
                 </h2>
                 <div className="bg-purple-900/20 border border-purple-700/30 rounded-xl p-6">
@@ -125,7 +125,7 @@ export default function Privacy() {
 
               {/* Sección 3: Datos que recopilamos */}
               <section id="data-collection" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   3. Datos que recopilamos
                 </h2>
                 <div className="space-y-4">
@@ -160,7 +160,7 @@ export default function Privacy() {
 
               {/* Sección 4: Finalidades */}
               <section id="purpose" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   4. Finalidades del tratamiento
                 </h2>
                 <div className="space-y-3">
@@ -199,7 +199,7 @@ export default function Privacy() {
 
               {/* Sección 5: Fundamento legal */}
               <section id="legal-basis" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   5. Fundamento legal
                 </h2>
                 <p className="text-gray-300 mb-4 leading-relaxed">
@@ -235,7 +235,7 @@ export default function Privacy() {
 
               {/* Sección 6: Transferencia de datos */}
               <section id="data-transfer" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   6. Transferencia de datos
                 </h2>
                 <p className="text-gray-300 mb-4 leading-relaxed">
@@ -268,7 +268,7 @@ export default function Privacy() {
 
               {/* Sección 7: Derechos ARCO */}
               <section id="arco-rights" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   7. Derechos ARCO
                 </h2>
                 <p className="text-gray-300 mb-6 leading-relaxed">
@@ -301,7 +301,7 @@ export default function Privacy() {
 
               {/* Sección 8: Seguridad */}
               <section id="security" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   8. Seguridad de datos
                 </h2>
                 <p className="text-gray-300 mb-4 leading-relaxed">
@@ -318,7 +318,7 @@ export default function Privacy() {
 
               {/* Sección 9: Cookies y tecnologías */}
               <section id="cookies" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   9. Cookies y tecnologías de rastreo
                 </h2>
                 <p className="text-gray-300 mb-4 leading-relaxed">
@@ -359,7 +359,7 @@ export default function Privacy() {
 
               {/* Sección 10: Menores de edad */}
               <section id="minors" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   10. Protección de menores de edad
                 </h2>
                 <p className="text-gray-300 mb-4 leading-relaxed">
@@ -377,7 +377,7 @@ export default function Privacy() {
 
               {/* Sección 11: Cambios al aviso */}
               <section id="changes" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   11. Cambios a este aviso de privacidad
                 </h2>
                 <p className="text-gray-300 mb-4 leading-relaxed">
@@ -400,7 +400,7 @@ export default function Privacy() {
 
               {/* Nota de contacto final */}
               <div className="bg-gradient-to-r from-cyan-900/40 to-purple-900/40 backdrop-blur-md rounded-xl border border-cyan-700/30 p-8 text-center">
-                <h3 className="text-2xl font-bold text-white mb-4">¿Tienes preguntas?</h3>
+                <h3 className="text-lg font-bold text-white mb-4">¿Tienes preguntas?</h3>
                 <p className="text-gray-300 mb-6 leading-relaxed">
                   Si tienes dudas sobre este Aviso de Privacidad o deseas ejercer tus derechos ARCO, contáctanos:
                 </p>

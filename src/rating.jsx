@@ -253,7 +253,7 @@ const Rating = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-base font-bold text-gray-900 mb-3">
               ¡Gracias por tu opinión!
             </h2>
             <p className="text-gray-600 text-lg">
@@ -337,7 +337,7 @@ const Rating = () => {
             <div className="text-center">
               {/* Mensaje inspirador con energía y felicidad */}
               <div className="mb-8 bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-6 border-2 border-orange-200">
-                <p className="text-xl font-bold text-orange-600 mb-3">
+                <p className="text-base font-bold text-orange-600 mb-3">
                   {nombreUsuario}, ayúdanos a mejorar, ¡solo tomará dos minutos!
                 </p>
                 <p className="text-gray-700 leading-relaxed">
@@ -345,7 +345,7 @@ const Rating = () => {
                 </p>
               </div>
 
-              <h2 className="text-3xl font-bold text-gray-900 mb-3">
+              <h2 className="text-base font-bold text-gray-900 mb-3">
                 ¿Cómo fue tu experiencia?
               </h2>
               <p className="text-cyan-600 text-lg font-semibold mb-8">
@@ -388,7 +388,7 @@ const Rating = () => {
           {/* Step 2: Reasons */}
           {step === 2 && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+              <h2 className="text-lg font-bold text-gray-900 mb-3">
                 ¿Qué influyó en tu calificación?
               </h2>
               <p className="text-cyan-600 font-semibold mb-6">
@@ -461,7 +461,7 @@ const Rating = () => {
           {/* Step 3: Comment */}
           {step === 3 && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+              <h2 className="text-lg font-bold text-gray-900 mb-3">
                 ¿Algo más que quieras compartir?
               </h2>
               <p className="text-gray-600 mb-6">
@@ -503,7 +503,7 @@ const Rating = () => {
           {/* Step 4: Contact Info (only for low ratings) */}
           {step === 4 && rating <= 3 && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+              <h2 className="text-lg font-bold text-gray-900 mb-3">
                 Queremos resolverlo
               </h2>
               <p className="text-gray-600 mb-6">

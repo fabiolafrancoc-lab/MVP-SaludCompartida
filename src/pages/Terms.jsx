@@ -49,10 +49,10 @@ export default function Terms() {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+            <h1 className="text-lg md:text-base font-bold mb-6 text-white">
               Términos y Condiciones
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-4">
+            <p className="text-base text-gray-300 max-w-3xl mx-auto mb-4">
               Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.
             </p>
             <p className="text-sm text-gray-400">
@@ -88,7 +88,7 @@ export default function Terms() {
               
               {/* Sección 1: Introducción */}
               <section id="intro" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   1. ¿Qué es SaludCompartida?
                 </h2>
                 <p className="text-gray-300 mb-4 leading-relaxed">
@@ -118,7 +118,7 @@ export default function Terms() {
 
               {/* Sección 2: Definiciones */}
               <section id="definitions" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   2. Definiciones clave
                 </h2>
                 <div className="space-y-4">
@@ -151,7 +151,7 @@ export default function Terms() {
 
               {/* Sección 3: Descripción de servicios */}
               <section id="services" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   3. Descripción de servicios
                 </h2>
                 
@@ -221,7 +221,7 @@ export default function Terms() {
 
               {/* Sección 4: Suscripción y pagos */}
               <section id="subscription" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   4. Suscripción y pagos
                 </h2>
                 <div className="space-y-4 text-gray-300">
@@ -251,7 +251,7 @@ export default function Terms() {
 
               {/* Sección 5: Uso de la plataforma */}
               <section id="usage" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   5. Uso aceptable de la plataforma
                 </h2>
                 <div className="space-y-4">
@@ -277,7 +277,7 @@ export default function Terms() {
 
               {/* Sección 6: Privacidad y datos */}
               <section id="privacy" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   6. Privacidad y protección de datos
                 </h2>
                 <p className="text-gray-300 mb-4">
@@ -293,7 +293,7 @@ export default function Terms() {
 
               {/* Sección 7: Limitaciones del servicio */}
               <section id="limitations" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   7. Limitaciones del servicio
                 </h2>
                 <div className="bg-red-900/20 border border-red-700/30 rounded-xl p-6 mb-4">
@@ -313,7 +313,7 @@ export default function Terms() {
 
               {/* Sección 8: Responsabilidades */}
               <section id="responsibilities" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   8. Responsabilidades y limitación de responsabilidad
                 </h2>
                 <div className="space-y-4 text-gray-300 text-sm">
@@ -335,7 +335,7 @@ export default function Terms() {
 
               {/* Sección 9: Modificaciones */}
               <section id="modifications" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   9. Modificaciones al servicio y términos
                 </h2>
                 <div className="space-y-4 text-gray-300">
@@ -355,7 +355,7 @@ export default function Terms() {
 
               {/* Sección 10: Ley aplicable */}
               <section id="jurisdiction" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-base font-bold text-white mb-6">
                   10. Ley aplicable y jurisdicción
                 </h2>
                 <div className="space-y-4 text-gray-300 text-sm">
@@ -376,7 +376,7 @@ export default function Terms() {
 
               {/* Sección de contacto final */}
               <div className="bg-gradient-to-r from-cyan-900/40 to-purple-900/40 backdrop-blur-md rounded-xl border border-cyan-700/30 p-8 text-center">
-                <h3 className="text-2xl font-bold text-white mb-4">¿Preguntas sobre estos términos?</h3>
+                <h3 className="text-lg font-bold text-white mb-4">¿Preguntas sobre estos términos?</h3>
                 <p className="text-gray-300 mb-6">
                   Si tienes dudas o necesitas aclaraciones, nuestro equipo está aquí para ayudarte.
                 </p>

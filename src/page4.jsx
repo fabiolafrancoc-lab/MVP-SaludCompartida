@@ -184,8 +184,8 @@ const DashboardBox = ({ icon, title, message, color, onClick, badge, size = 'nor
   };
 
   const titleSizes = {
-    large: 'text-3xl',
-    normal: 'text-2xl',
+    large: 'text-base',
+    normal: 'text-lg',
     small: 'text-xl'
   };
   
@@ -533,7 +533,7 @@ const Page4 = () => {
           <div className="max-w-7xl mx-auto pr-12">
             <div className="flex items-center gap-4 mb-3">
               <ShieldCheckIcon />
-              <h2 className="text-2xl md:text-3xl font-bold">¡Bienvenido a SaludCompartida!</h2>
+              <h2 className="text-lg md:text-base font-bold">¡Bienvenido a SaludCompartida!</h2>
             </div>
             <p className="text-base md:text-lg leading-relaxed max-w-5xl mb-4">
               🎉 <span className="font-bold">¡Tu familia ya está protegida!</span> Ahora tienes acceso completo a:
@@ -560,16 +560,16 @@ const Page4 = () => {
         {/* Hero Section */}
         <div className="text-center mb-16">
           {userName && (
-            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+            <h1 className="text-lg md:text-base font-black mb-6 leading-tight">
               ¡Hola <span className="bg-gradient-to-r from-cyan-500 to-pink-500 bg-clip-text text-transparent">
                 {userName}
               </span>!
             </h1>
           )}
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
+          <h2 className="text-base md:text-lg font-black text-gray-900 mb-6 leading-tight">
             Todo lo que tu familia necesita
           </h2>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto font-medium">
+          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto font-medium">
             Porque cuidarlos no tiene que ser difícil ni caro
           </p>
           
@@ -628,7 +628,7 @@ const Page4 = () => {
               window.scrollTo(0, 0);
               navigate('/contact');
             }}
-            className="group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-pink-500 text-white rounded-2xl font-black text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
+            className="group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-pink-500 text-white rounded-2xl font-black text-base shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
           >
             {/* Shine Effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />

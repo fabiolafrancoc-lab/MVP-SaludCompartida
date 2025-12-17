@@ -320,7 +320,7 @@ export default function LoginCodigo() {
       <div className="relative bg-gradient-to-br from-cyan-50 to-pink-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Título grande antes de las fotos */}
-          <h2 className="text-6xl md:text-7xl font-black text-cyan-500 text-center mb-12">
+          <h2 className="text-base md:text-base font-black text-cyan-500 text-center mb-12">
             SaludCompartida
           </h2>
           
@@ -339,17 +339,17 @@ export default function LoginCodigo() {
               />
               
               {/* Texto grande después de la segunda foto */}
-              <h3 className="text-5xl md:text-6xl font-black text-cyan-500 text-center pt-6">
+              <h3 className="text-lg md:text-base font-black text-cyan-500 text-center pt-6">
                 Donde está tu CORAZÓN
               </h3>
             </div>
 
             {/* Columna derecha - Formulario */}
             <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 md:p-12 border border-gray-200">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-4">
+              <h1 className="text-base sm:text-base md:text-lg font-black text-gray-900 mb-4">
                 ¡Bienvenido!
               </h1>
-              <p className="text-lg sm:text-xl text-gray-600 mb-8">
+              <p className="text-lg sm:text-base text-gray-600 mb-8">
                 Ingresa tu código de acceso para continuar
               </p>
 
@@ -504,7 +504,7 @@ export default function LoginCodigo() {
                 {/* Botón */}
                 <button
                   onClick={handleAccessCode}
-                  className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 text-white py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-xl hover:from-cyan-700 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl touch-manipulation"
+                  className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 text-white py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-base hover:from-cyan-700 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl touch-manipulation"
                 >
                   Ingresar a SaludCompartida
                 </button>

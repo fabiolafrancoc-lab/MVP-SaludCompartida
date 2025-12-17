@@ -487,7 +487,7 @@ Beneficios disponibles:
             <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">¡Pago Exitoso!</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">¡Pago Exitoso!</h3>
             <p className="text-gray-600">
               Procesando tu suscripción...
             </p>
@@ -499,20 +499,20 @@ Beneficios disponibles:
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Columna izquierda - Resumen */}
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Completa tu Suscripción</h1>
+            <h1 className="text-lg sm:text-base font-bold text-gray-900 mb-2">Completa tu Suscripción</h1>
             <p className="text-base sm:text-lg text-gray-600 mb-8">
               Solo un paso más para proteger a tu familia
             </p>
 
             {/* Plan */}
             <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 mb-6">
-              <h3 className="font-bold text-lg sm:text-xl text-gray-900 mb-4">SaludCompartida</h3>
+              <h3 className="font-bold text-lg sm:text-base text-gray-900 mb-4">SaludCompartida</h3>
               <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
                 <div>
                   <p className="font-semibold text-base sm:text-lg text-gray-900 text-left">Plan Familiar US-MEX</p>
                   <p className="text-sm sm:text-base text-gray-600">Hasta 4 familiares en México</p>
                 </div>
-                <p className="text-2xl sm:text-3xl font-bold text-cyan-600">$12.00</p>
+                <p className="text-lg sm:text-base font-bold text-cyan-600">$12.00</p>
               </div>
               
               <p className="text-sm sm:text-base text-gray-700 mb-4 font-medium">
@@ -556,7 +556,7 @@ Beneficios disponibles:
             <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border-4 border-cyan-500">
               <div className="flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-pink-500 rounded-xl p-4 sm:p-5 mb-6">
                 <CreditCard className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                <h2 className="text-lg sm:text-xl font-bold text-white">Información de Pago</h2>
+                <h2 className="text-lg sm:text-base font-bold text-white">Información de Pago</h2>
               </div>
 
               {/* Información de suscripción */}
