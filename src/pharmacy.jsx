@@ -251,7 +251,7 @@ export default function Pharmacy() {
       {/* Header with Navigation Menu */}
       <TopNav internalPage={true} />
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-safe py-safe">
         
         {/* HERO SECTION CON VIDEOS */}
         <div className="mb-12">

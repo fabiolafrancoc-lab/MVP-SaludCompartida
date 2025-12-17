@@ -51,7 +51,7 @@ export default function Confirmacion() {
       </div>
 
       {/* Contenido */}
-      <div className="flex-1 px-4 py-8 md:py-12">
+      <div className="flex-1 px-safe py-safe">
         <div className="max-w-3xl mx-auto">
           {/* Éxito */}
           <div className="text-center mb-8">

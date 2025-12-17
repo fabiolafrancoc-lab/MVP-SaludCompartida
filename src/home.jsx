@@ -41,7 +41,7 @@ export default function Home() {
       />
 
       {/* Urgency Banner - DESTACADO EN ROJO */}
-      <div className="bg-gradient-to-r from-red-700 via-red-600 to-red-700 py-6 px-4 mt-16 border-y-4 border-red-400 shadow-2xl shadow-red-900/50">
+      <div className="bg-gradient-to-r from-red-700 via-red-600 to-red-700 py-6 px-safe mt-16 border-y-4 border-red-400 shadow-2xl shadow-red-900/50">
         <div className="flex items-center justify-center gap-3 text-center">
           <svg className="w-8 h-8 animate-pulse text-yellow-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -61,7 +61,7 @@ export default function Home() {
       </div>
 
       {/* Header */}
-      <section className="w-full px-4 sm:px-6 pt-8 sm:pt-12 pb-6 sm:pb-8">
+      <section className="w-full px-safe py-safe">
         <div className="w-full max-w-4xl mx-auto text-left">
           <p className="text-white font-bold tracking-widest uppercase mb-4 text-xs sm:text-sm">La Solución</p>
           <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-4 w-full">
@@ -74,7 +74,7 @@ export default function Home() {
       </section>
 
       {/* Problem Context - Compacto */}
-      <section className="w-full px-4 sm:px-6 pb-6 sm:pb-8">
+      <section className="w-full px-safe py-safe">
         <div className="w-full max-w-5xl mx-auto">
           <div className="w-full bg-gray-800/50 border border-gray-700 rounded-xl sm:rounded-2xl p-4 sm:p-6">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
@@ -97,7 +97,7 @@ export default function Home() {
       </section>
 
       {/* 30 Segundos - Línea Horizontal Compacta */}
-      <section className="w-full px-4 sm:px-6 py-6 sm:py-8 bg-gray-800/30">
+      <section className="w-full px-safe py-safe bg-gray-800/30">
         <div className="w-full max-w-4xl mx-auto">
           <h3 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 text-white">
             <span className="text-cyan-400">30 Segundos</span> para Cuidar a tu Familia
@@ -159,7 +159,7 @@ export default function Home() {
         </section>
 
         {/* ¿Qué obtienes? - Dos bloques lado a lado */}
-      <section className="w-full px-4 sm:px-6 py-8 sm:py-10">
+      <section className="w-full px-safe py-safe">
         <div className="w-full max-w-5xl mx-auto">
           <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-2 text-white">
             ¿Qué obtienes con
@@ -262,7 +262,7 @@ export default function Home() {
         </section>
 
         {/* CTA Compacto */}
-      <section className="w-full px-4 sm:px-6 py-8 sm:py-10">
+      <section className="w-full px-safe py-safe">
         <div className="w-full max-w-3xl mx-auto">
           <div className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 rounded-xl sm:rounded-2xl p-6 md:p-8 text-center text-white">
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">

@@ -588,22 +588,27 @@ Equipo SaludCompartida`,
   if (currentPage === 'register') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50">
-  <TopNav hideUser={true} showMenu={false} />
+        <TopNav 
+          hideUser={true} 
+          showMenu={false} 
+          internalPage={true}
+          onBack={() => navigate('/home')}
+        />
 
-        <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="container mx-auto px-safe py-safe">
           
-          <div className="mb-10 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 leading-tight">
+          <div className="mb-8 sm:mb-10 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 leading-tight px-2">
               Suscríbete hoy por $12 mensuales y en 30 segundos tu familia empieza a utilizar todos los beneficios de <span className="text-cyan-500">SaludCompartida</span>. Estamos donde está tu corazón.
             </h2>
           </div>
 
-          
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Layout: Formulario primero en móvil, fotos en desktop a la izquierda */}
+          <div className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-12 items-start">
             
-            <div className="relative space-y-8">
-              <div className="sticky top-24">
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-8">
+            {/* FORMULARIO - Primero en móvil, derecha en desktop */}
+            <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-8">
                   <img 
                     src="/girl%203.jpeg"
                     alt="Niña sonriendo"
@@ -649,9 +654,8 @@ Equipo SaludCompartida`,
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="space-y-8">
+            <div className="w-full lg:w-1/2 space-y-8">
               
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-500 via-pink-500 to-rose-500 p-8 shadow-xl animate-pulse">
                 <div className="relative z-10">
