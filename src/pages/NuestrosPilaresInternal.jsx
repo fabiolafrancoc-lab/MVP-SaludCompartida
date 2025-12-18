@@ -131,7 +131,7 @@ export default function NuestrosPilaresInternal() {
         </div>
       </section>
 
-      <Footer internalPage={true} />
+      <Footer variant="light" internalPage={true} />
     </main>
   )
 }

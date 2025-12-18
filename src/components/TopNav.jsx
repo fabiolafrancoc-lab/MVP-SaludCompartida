@@ -155,14 +155,14 @@ const TopNav = ({
           )}
         </div>
         
-        {/* Menú de navegación - Desktop */}
+        {/* Menú de navegación - Desktop - TEXTO MÁS PEQUEÑO */}
         {showMenu && (
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-4">
             {/* Botón HOME directo - Solo en páginas pre-suscripción */}
             {!internalPage && (
               <button
                 onClick={() => navigate('/home')}
-                className="text-sm font-medium text-white hover:text-cyan-400 transition-colors"
+                className="text-xs font-medium text-white hover:text-cyan-400 transition-colors"
               >
                 HOME
               </button>
@@ -171,10 +171,10 @@ const TopNav = ({
             {/* Dropdown Quienes Somos */}
             <div className="relative group">
               <button
-                className={`text-sm font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors flex items-center gap-1`}
+                className={`text-xs font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors flex items-center gap-1`}
               >
                 Quienes Somos
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
@@ -183,31 +183,31 @@ const TopNav = ({
               <div className={`absolute left-0 mt-2 w-56 ${internalPage ? 'bg-white border-gray-300' : 'bg-gray-900 border-gray-700'} rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50`}>
                 <button
                   onClick={() => navigate(internalPage ? '/quienes-somos-internal' : '/quienes-somos')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors first:rounded-t-lg`}
+                  className={`block w-full text-left px-4 py-3 text-xs ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors first:rounded-t-lg`}
                 >
                   Quienes Somos
                 </button>
                 <button
                   onClick={() => navigate(internalPage ? '/vision-mision-internal' : '/vision-mision')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
+                  className={`block w-full text-left px-4 py-3 text-xs ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Visión y Misión
                 </button>
                 <button
                   onClick={() => navigate(internalPage ? '/nuestros-pilares-internal' : '/nuestros-pilares')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
+                  className={`block w-full text-left px-4 py-3 text-xs ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Nuestros Pilares
                 </button>
                 <button
                   onClick={() => navigate(internalPage ? '/post-privacy' : '/privacy')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
+                  className={`block w-full text-left px-4 py-3 text-xs ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Política de Privacidad
                 </button>
                 <button
                   onClick={() => navigate(internalPage ? '/post-terms' : '/terms')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
+                  className={`block w-full text-left px-4 py-3 text-xs ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
                 >
                   Términos y Condiciones
                 </button>
@@ -217,10 +217,10 @@ const TopNav = ({
             {/* Dropdown Nuestros Servicios */}
             <div className="relative group">
               <button
-                className={`text-sm font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors flex items-center gap-1`}
+                className={`text-xs font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors flex items-center gap-1`}
               >
                 Nuestros Servicios
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
@@ -229,25 +229,25 @@ const TopNav = ({
               <div className={`absolute left-0 mt-2 w-64 ${internalPage ? 'bg-white border-gray-300' : 'bg-gray-900 border-gray-700'} rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50`}>
                 <button
                   onClick={() => navigate(internalPage ? '/telemedicine' : '/telemedicina-info')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors first:rounded-t-lg`}
+                  className={`block w-full text-left px-4 py-3 text-xs ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors first:rounded-t-lg`}
                 >
                   Videollamada con Doctores 24/7
                 </button>
                 <button
                   onClick={() => navigate(internalPage ? '/pharmacy' : '/farmacias-info')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
+                  className={`block w-full text-left px-4 py-3 text-xs ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Descuento en Farmacias
                 </button>
                 <button
                   onClick={() => navigate(internalPage ? '/therapy' : '/terapia-info')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
+                  className={`block w-full text-left px-4 py-3 text-xs ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Sesiones con Terapeuta
                 </button>
                 <button
                   onClick={() => navigate(internalPage ? '/savings' : '/mis-ahorros-info')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
+                  className={`block w-full text-left px-4 py-3 text-xs ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
                 >
                   Mis Ahorros
                 </button>

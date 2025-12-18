@@ -63,11 +63,11 @@ export default function Home() {
       {/* Header */}
       <section className="w-full px-safe py-safe">
         <div className="w-full max-w-4xl mx-auto text-left">
-          <p className="text-white font-bold tracking-widest uppercase mb-4 text-xs sm:text-sm">La Solución</p>
-          <h1 className="text-lg md:text-3xl lg:text-4xl sm:text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl lg:text-base md:text-2xl lg:text-3xl font-black mb-4 w-full">
+          <p className="text-white font-bold tracking-widest uppercase mb-4 text-base md:text-xl lg:text-2xl">La Solución</p>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 w-full">
             <span className="text-cyan-400 block">SaludCompartida</span>
           </h1>
-          <h2 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl md:text-base md:text-2xl lg:text-3xl lg:text-lg md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent w-full">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent w-full">
             Una App. Tu Familia Cuidada. $12/Mes
           </h2>
         </div>
@@ -80,16 +80,16 @@ export default function Home() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
                 <div className="bg-red-500/20 border border-red-500/40 rounded-xl px-4 py-2 flex-shrink-0">
-                  <span className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl font-black text-red-400">$576</span>
-                  <span className="text-gray-400 text-xs sm:text-sm ml-1">USD/año</span>
+                  <span className="text-3xl md:text-5xl lg:text-6xl font-black text-red-400">$576</span>
+                  <span className="text-gray-400 text-sm md:text-base ml-1">USD/año</span>
                 </div>
-                <p className="text-gray-300 text-xs sm:text-sm w-full max-w-md text-center sm:text-left leading-relaxed">
+                <p className="text-gray-300 text-sm md:text-base lg:text-lg w-full max-w-md text-center sm:text-left leading-relaxed">
                   Gasto promedio en consultas y medicamentos—adicional al IMSS, sin contar hospitalizaciones.
                 </p>
               </div>
               <div className="bg-green-500/20 border border-green-500/40 rounded-xl px-4 py-2 text-center flex-shrink-0">
-                <p className="text-gray-400 text-xs">Tu ahorro anual</p>
-                <span className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-black text-green-400">${savings}</span>
+                <p className="text-gray-400 text-sm md:text-base">Tu ahorro anual</p>
+                <span className="text-2xl md:text-4xl lg:text-5xl font-black text-green-400">${savings}</span>
               </div>
             </div>
           </div>
