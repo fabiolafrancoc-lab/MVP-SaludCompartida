@@ -128,6 +128,22 @@ export default function NuestrosPilaresInternal() {
             </p>
           </div>
         </div>
+
+        {/* Botón Volver inferior */}
+        <div className="max-w-4xl mx-auto mt-16 text-center">
+          <button
+            onClick={() => {
+              window.scrollTo(0, 0);
+              window.location.href = '/page4';
+            }}
+            className="inline-flex items-center gap-2 px-8 py-4 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Volver
+          </button>
+        </div>
         </div>
       </section>
 
