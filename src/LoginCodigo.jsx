@@ -22,6 +22,7 @@ export default function LoginCodigo() {
   const [errors, setErrors] = useState({});
   const [codeVerified, setCodeVerified] = useState(false);
   const [userDataLoaded, setUserDataLoaded] = useState(false);
+  const [sendingEmail, setSendingEmail] = useState(false);
 
   // Scroll al tope
   useEffect(() => {
@@ -201,6 +202,43 @@ export default function LoginCodigo() {
     } catch (error) {
       console.error('Error al verificar código:', error);
       setErrors({ specialCode: 'Error al verificar el código. Intenta de nuevo.' });
+    }
+  };
+
+  const handleCodeError = async () => {
+    setSendingEmail(true);
+    
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: 'contact@saludcompartida.com',
+          subject: 'Problema con código de acceso',
+          html: `
+            <h2>Usuario reporta problema con código de acceso</h2>
+            <p><strong>Nombre:</strong> ${firstName || 'No proporcionado'}</p>
+            <p><strong>Apellido:</strong> ${lastName || 'No proporcionado'}</p>
+            <p><strong>Email:</strong> ${email || 'No proporcionado'}</p>
+            <p><strong>WhatsApp:</strong> ${countryCode} ${whatsappNumber || 'No proporcionado'}</p>
+            <p><strong>Código intentado:</strong> ${specialCode || 'No proporcionado'}</p>
+            <p><strong>Mensaje:</strong> El usuario reporta que su código de acceso no funciona.</p>
+          `
+        })
+      });
+
+      if (response.ok) {
+        alert('✅ Tu solicitud ha sido enviada. Te contactaremos pronto.');
+      } else {
+        alert('❌ Hubo un error al enviar tu solicitud. Por favor intenta de nuevo.');
+      }
+    } catch (error) {
+      console.error('Error al enviar email:', error);
+      alert('❌ Hubo un error al enviar tu solicitud. Por favor intenta de nuevo.');
+    } finally {
+      setSendingEmail(false);
     }
   };
 
@@ -508,6 +546,20 @@ export default function LoginCodigo() {
                 >
                   Ingresar a SaludCompartida
                 </button>
+
+                {/* Link código erróneo - Envío automático */}
+                <div className="mt-4 text-center">
+                  <button
+                    onClick={handleCodeError}
+                    disabled={sendingEmail}
+                    className="text-sm text-gray-600 hover:text-cyan-600 underline transition-colors inline-flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    {sendingEmail ? 'Enviando...' : '¿Código erróneo? Reportar problema'}
+                  </button>
+                </div>
 
                 {/* Ayuda */}
                 <div className="mt-6 p-4 bg-cyan-50 rounded-xl border border-cyan-200">
