@@ -165,7 +165,7 @@ const Savings = () => {
           />
           <button
             onClick={handleVolver}
-            className="text-gray-600 hover:text-gray-900 font-medium text-2xl"
+            className="text-gray-600 hover:text-gray-900 font-medium text-base md:text-2xl lg:text-3xl"
           >
             Volver
           </button>
@@ -176,13 +176,13 @@ const Savings = () => {
       <main className="container mx-auto px-4 py-12">
         {/* Hero Section - Mensaje Personalizado */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-3xl font-bold text-gray-900 mb-4">
+          <h1 className="text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             ¡Felicidades{' '}
-            <span className="text-2xl md:text-3xl text-cyan-400 block mt-2">
+            <span className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl text-cyan-400 block mt-2">
               {userName}
             </span>
           </h1>
-          <p className="text-3xl md:text-2xl text-gray-700 max-w-3xl mx-auto">
+          <p className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl text-gray-700 max-w-3xl mx-auto">
             Estás cuidando la salud de tu familia de forma estratégica
           </p>
         </div>
@@ -197,13 +197,13 @@ const Savings = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div className="text-center">
-                  <p className="text-3xl md:text-2xl text-white mb-2">
+                  <p className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl text-white mb-2">
                     {isMigrant && isDemo ? 'Ahorros de tu Familia' : 'Este Mes has Ahorrado'}
                   </p>
-                  <p className="text-2xl md:text-3xl font-bold text-white">
+                  <p className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-white">
                     ${isMigrant && isDemo ? formatNoCents(savingsData.totalSavedUSD) : formatNoCents(displayedTotal)}
                   </p>
-                  <p className="text-3xl md:text-2xl text-white/90 mt-2">
+                  <p className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl text-white/90 mt-2">
                     {isMigrant && isDemo ? 'USD' : 'MXN'}
                   </p>
                   {isMigrant && isDemo && (
@@ -229,10 +229,10 @@ const Savings = () => {
         {/* Desglose por Servicio - Solo para usuarios de familia, NO para migrantes */}
         {!(isMigrant && isDemo) && (
         <div className="max-w-6xl mx-auto mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
+          <h2 className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-6">
             Desglose de Ahorros por Servicio
           </h2>
-          <p className="text-2xl text-center text-gray-700 mb-6">
+          <p className="text-base md:text-2xl lg:text-3xl text-center text-gray-700 mb-6">
             Cada peso que ahorras es un peso que inviertes en el bienestar de tu familia, <span className="text-cyan-600 font-semibold">{userName}</span>
           </p>
 
@@ -265,12 +265,12 @@ const Savings = () => {
 
                   {/* Información - 60% width */}
                   <div className="p-4 md:p-6 flex flex-col justify-center md:col-span-3">
-                    <h3 className="text-3xl md:text-2xl font-bold text-gray-900 mb-2">{service.name}</h3>
+                    <h3 className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2">{service.name}</h3>
                     <p className="text-gray-700 mb-3 italic">"{service.testimonial}"</p>
                     
                     <div className="space-y-2 mb-3">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-2xl md:text-3xl font-bold text-cyan-600">
+                        <span className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-cyan-600">
                           MX${formatNoCents(service.saved)}
                         </span>
                         <span className="text-gray-600">ahorrados</span>
@@ -314,7 +314,7 @@ const Savings = () => {
 
         {/* Gráfica Visual */}
         <div className="max-w-4xl mx-auto mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
+          <h2 className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-6">
             Evolución de tu Ahorro
           </h2>
           <div className="bg-white rounded-2xl p-4 md:p-6">
@@ -346,27 +346,27 @@ const Savings = () => {
 
         {/* Proyección Anual */}
         <div className="max-w-4xl mx-auto mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
+          <h2 className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-6">
             Proyección Anual
           </h2>
           <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 text-center">
-            <p className="text-2xl text-gray-700 mb-4">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-700 mb-4">
               <span className="text-cyan-600 font-bold">{userName}</span>, si continúas ahorrando así, a finales de diciembre habrás ahorrado
             </p>
-            <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 mb-2">
+            <p className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 mb-2">
               ~${formatNoCents(annualProjection)}
             </p>
-            <p className="text-2xl text-pink-600">MXN en el 2025</p>
+            <p className="text-base md:text-2xl lg:text-3xl text-pink-600">MXN en el 2025</p>
           </div>
         </div>
 
         {/* Call-to-Action Motivacional */}
         <div className="max-w-4xl mx-auto mb-16">
           <div className="bg-white rounded-2xl p-8 border border-cyan-100 text-center">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            <h3 className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               <span className="text-cyan-600">{userName}</span>, estás tomando decisiones acertadas para tu familia
             </h3>
-            <p className="text-2xl text-gray-700 mb-6">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-700 mb-6">
               Cada consulta, cada compra, cada servicio que usas representa dinero que puedes invertir en lo que realmente importa: el bienestar de tu familia.
             </p>
           </div>
@@ -374,7 +374,7 @@ const Savings = () => {
 
         {/* Tips de Ahorro Adicional */}
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-3xl font-bold text-gray-900 text-center mb-8">
+          <h2 className="text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-8">
             💡 Maximiza tus Ahorros
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -384,7 +384,7 @@ const Savings = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div>
-                  <h4 className="text-3xl font-bold text-gray-900 mb-2">Usa Telemedicina Primero</h4>
+                  <h4 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Usa Telemedicina Primero</h4>
                   <p className="text-gray-700">
                     Ahorra hasta <span className="text-cyan-600 font-bold">MX$2,356/mes</span> consultando primero por teléfono antes de ir al doctor
                   </p>
@@ -397,7 +397,7 @@ const Savings = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div>
-                  <h4 className="text-3xl font-bold text-gray-900 mb-2">Compras del Hogar</h4>
+                  <h4 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Compras del Hogar</h4>
                   <p className="text-gray-700">
                     Ahorra <span className="text-purple-400 font-bold">~MX$2,140/mes</span> comprando productos de hogar con descuento
                   </p>
@@ -410,7 +410,7 @@ const Savings = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div>
-                  <h4 className="text-3xl font-bold text-gray-900 mb-2">Sesiones de Terapia</h4>
+                  <h4 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Sesiones de Terapia</h4>
                   <p className="text-gray-700">
                     Invierte en salud mental: <span className="text-green-400 font-bold">MX$2,216/mes</span> en sesiones semanales
                   </p>
@@ -427,7 +427,7 @@ const Savings = () => {
               window.scrollTo(0, 0);
               navigate('/page3');
             }}
-            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-600 hover:to-pink-600 text-white rounded-xl font-bold text-2xl shadow-lg hover:shadow-xl transition-all"
+            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-600 hover:to-pink-600 text-white rounded-xl font-bold text-base md:text-2xl lg:text-3xl shadow-lg hover:shadow-xl transition-all"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

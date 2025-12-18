@@ -129,7 +129,7 @@ const BubblesIntro = ({ onComplete }) => {
       <div className="h-full flex flex-col items-center justify-start px-4 md:px-8 pt-20 pb-8 overflow-hidden">
         {/* Pregunta principal arriba - fija y grande */}
         <div className="text-center mb-6 md:mb-8 max-w-4xl z-10 relative">
-          <h2 className="text-2xl md:text-3xl lg:text-2xl font-black text-white leading-tight drop-shadow-2xl">
+          <h2 className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl lg:text-base md:text-2xl lg:text-3xl font-black text-white leading-tight drop-shadow-2xl">
             {slides[currentSlide].question}
           </h2>
         </div>

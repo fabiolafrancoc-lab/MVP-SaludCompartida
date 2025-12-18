@@ -45,10 +45,10 @@ export default function LandingBubblesSimple() {
     <div className="min-h-[300vh] bg-gradient-to-br from-gray-800 to-gray-900 relative">
       {/* Header */}
       <div className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 max-w-[90%] bg-gray-800/95 px-10 py-5 rounded-2xl backdrop-blur-lg shadow-2xl">
-        <div className="text-3xl font-extrabold text-white text-center mb-2">
+        <div className="text-lg md:text-3xl lg:text-4xl font-extrabold text-white text-center mb-2">
           ¿Sientes lo mismo?
         </div>
-        <div className="text-2xl text-white/80 text-center">
+        <div className="text-base md:text-2xl lg:text-3xl text-white/80 text-center">
           Miles de familias viven esto cada día
         </div>
       </div>
@@ -89,13 +89,13 @@ export default function LandingBubblesSimple() {
           <div className="max-w-6xl text-center text-white">
             {/* Logo */}
             <div 
-              className="text-2xl font-black mb-10 drop-shadow-2xl"
+              className="text-base md:text-2xl lg:text-3xl font-black mb-10 drop-shadow-2xl"
               style={{ animation: 'scaleIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
             >
               SaludCompartida
             </div>
 
-            <div className="text-3xl font-light mb-16 drop-shadow-lg">
+            <div className="text-lg md:text-3xl lg:text-4xl font-light mb-16 drop-shadow-lg">
               Protegiendo a tu familia desde aquí,<br/>
               cuidando su salud desde allá
             </div>
@@ -103,29 +103,29 @@ export default function LandingBubblesSimple() {
             {/* Services Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
               <div className="bg-white/20 backdrop-blur-md rounded-2xl p-8 border-2 border-white/40 hover:bg-white/25 hover:scale-105 transition-all">
-                <div className="text-2xl font-bold mb-4">Telemedicina 24/7</div>
-                <div className="text-2xl opacity-95">
+                <div className="text-base md:text-2xl lg:text-3xl font-bold mb-4">Telemedicina 24/7</div>
+                <div className="text-base md:text-2xl lg:text-3xl opacity-95">
                   Acceso inmediato a médicos profesionales
                 </div>
               </div>
 
               <div className="bg-white/20 backdrop-blur-md rounded-2xl p-8 border-2 border-white/40 hover:bg-white/25 hover:scale-105 transition-all">
-                <div className="text-2xl font-bold mb-4">Descuento en Farmacias</div>
-                <div className="text-2xl opacity-95">
+                <div className="text-base md:text-2xl lg:text-3xl font-bold mb-4">Descuento en Farmacias</div>
+                <div className="text-base md:text-2xl lg:text-3xl opacity-95">
                   Ahorra hasta 60% en medicamentos
                 </div>
               </div>
 
               <div className="bg-white/20 backdrop-blur-md rounded-2xl p-8 border-2 border-white/40 hover:bg-white/25 hover:scale-105 transition-all">
-                <div className="text-2xl font-bold mb-4">Terapia Psicológica</div>
-                <div className="text-2xl opacity-95">
+                <div className="text-base md:text-2xl lg:text-3xl font-bold mb-4">Terapia Psicológica</div>
+                <div className="text-base md:text-2xl lg:text-3xl opacity-95">
                   Una sesión semanal con psicólogos
                 </div>
               </div>
 
               <div className="bg-white/20 backdrop-blur-md rounded-2xl p-8 border-2 border-white/40 hover:bg-white/25 hover:scale-105 transition-all">
-                <div className="text-2xl font-bold mb-4">Hasta 4 Miembros</div>
-                <div className="text-2xl opacity-95">
+                <div className="text-base md:text-2xl lg:text-3xl font-bold mb-4">Hasta 4 Miembros</div>
+                <div className="text-base md:text-2xl lg:text-3xl opacity-95">
                   Protege hasta 4 personas
                 </div>
               </div>
@@ -133,10 +133,10 @@ export default function LandingBubblesSimple() {
 
             {/* Protection Message */}
             <div className="bg-white/25 backdrop-blur-md rounded-3xl p-12 border-3 border-white/50 mb-16">
-              <div className="text-3xl font-extrabold mb-6">
+              <div className="text-lg md:text-3xl lg:text-4xl font-extrabold mb-6">
                 Medicina Privada de Calidad
               </div>
-              <div className="text-2xl leading-relaxed opacity-98">
+              <div className="text-base md:text-2xl lg:text-3xl leading-relaxed opacity-98">
                 Ya no envíes dinero sin saber en qué se usa.<br/>
                 Ya no te desveles preocupándote por los costos.<br/>
                 <strong>Protege a los que más quieres con acceso inmediato a salud de calidad.</strong>
@@ -145,16 +145,16 @@ export default function LandingBubblesSimple() {
 
             {/* CTA */}
             <div className="bg-black/30 backdrop-blur-md rounded-3xl p-12 border-3 border-white/60">
-              <div className="text-2xl font-black mb-5 leading-tight">
+              <div className="text-base md:text-2xl lg:text-3xl font-black mb-5 leading-tight">
                 Deja de preocuparte.<br/>
                 Empieza a proteger.
               </div>
-              <div className="text-2xl font-normal mb-10 opacity-95">
+              <div className="text-base md:text-2xl lg:text-3xl font-normal mb-10 opacity-95">
                 Tu familia merece tranquilidad. Tú mereces dormir en paz.
               </div>
               <button
                 onClick={() => navigate('/')}
-                className="inline-block px-16 py-6 bg-white text-cyan-600 text-2xl font-extrabold rounded-full shadow-2xl hover:bg-gray-50 hover:scale-110 transition-all uppercase tracking-wide"
+                className="inline-block px-16 py-6 bg-white text-cyan-600 text-base md:text-2xl lg:text-3xl font-extrabold rounded-full shadow-2xl hover:bg-gray-50 hover:scale-110 transition-all uppercase tracking-wide"
               >
                 Protege a Tu Familia Ahora
               </button>

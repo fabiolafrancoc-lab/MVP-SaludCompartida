@@ -266,10 +266,10 @@ export default function Account() {
       <main className="w-full max-w-4xl mx-auto px-safe py-safe">
         {/* Welcome Message */}
         <div className="w-full text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
             Bienvenida a tu Cuenta <span className="text-cyan-600">{userData.firstName || 'Usuario'}</span>
           </h1>
-          <p className="text-3xl sm:text-2xl text-gray-600">
+          <p className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl text-gray-600">
             Gestiona tu información personal y la de tu familia
           </p>
         </div>
@@ -283,7 +283,7 @@ export default function Account() {
               </svg>
             </div>
             <div>
-              <h2 className="text-3xl sm:text-2xl font-bold text-gray-900">Tus Datos</h2>
+              <h2 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-bold text-gray-900">Tus Datos</h2>
               <p className="text-sm text-gray-600">Usuario en México</p>
             </div>
           </div>
@@ -448,8 +448,8 @@ export default function Account() {
               </svg>
             </div>
             <div>
-              <h2 className="text-3xl sm:text-2xl font-bold text-gray-900 mb-2">Miembros de tu Familia</h2>
-              <p className="text-sm sm:text-3xl text-gray-600 leading-relaxed">
+              <h2 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Miembros de tu Familia</h2>
+              <p className="text-sm sm:text-lg md:text-3xl lg:text-4xl text-gray-600 leading-relaxed">
                 Incluye hasta tres miembros de tu familia que accederán a SaludCompartida{' '}
                 <span className="text-gray-500 italic">(Registro Opcional)</span>
               </p>
@@ -459,7 +459,7 @@ export default function Account() {
           <div className="w-full space-y-6 sm:space-y-8">
             {familyMembers.map((member, index) => (
               <div key={index} className="w-full bg-gradient-to-r from-gray-50 to-white rounded-xl p-4 sm:p-6 border-2 border-gray-100">
-                <h3 className="text-3xl sm:text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <h3 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                   <span className="flex items-center justify-center w-8 h-8 bg-pink-500 text-white rounded-full text-sm font-bold">
                     {index + 1}
                   </span>
@@ -550,7 +550,7 @@ export default function Account() {
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className={`px-8 py-4 rounded-xl font-bold text-2xl transition-all shadow-lg ${
+            className={`px-8 py-4 rounded-xl font-bold text-base md:text-2xl lg:text-3xl transition-all shadow-lg ${
               isSaving
                 ? 'bg-gray-400 cursor-not-allowed'
                 : 'bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-600 hover:to-pink-600 hover:shadow-xl'
@@ -596,7 +596,7 @@ export default function Account() {
               window.scrollTo(0, 0);
               navigate('/contact');
             }}
-            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-2xl shadow-lg hover:shadow-xl transition-all"
+            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-base md:text-2xl lg:text-3xl shadow-lg hover:shadow-xl transition-all"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

@@ -35,14 +35,14 @@ export default function ArticleCard({ article, onClick }) {
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-6">
-          <h3 className="text-2xl font-bold text-white mb-2 line-clamp-2 drop-shadow-lg">
+          <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 line-clamp-2 drop-shadow-lg">
             {article.title}
           </h3>
         </div>
       </div>
 
       <div className="p-6">
-        <p className="text-gray-600 text-3xl leading-relaxed mb-5 line-clamp-3">
+        <p className="text-gray-600 text-sm md:text-base lg:text-lg leading-relaxed mb-5 line-clamp-3">
           {article.preview}
         </p>
         

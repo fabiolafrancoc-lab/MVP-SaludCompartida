@@ -17,19 +17,19 @@ const AnxietyTips = ({ onBack }) => {
             </svg>
           </div>
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+          <h1 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 text-center">
             Cómo reducir tu ansiedad
           </h1>
 
           <div className="bg-gradient-to-r from-cyan-100 to-purple-100 rounded-xl p-6 mb-8">
-            <p className="text-2xl text-gray-800 italic text-center font-semibold">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-800 italic text-center font-semibold">
               "La ansiedad no te hace débil. Reconocerla y enfrentarla te hace valiente."
             </p>
           </div>
 
           <div className="space-y-6">
             <div className="bg-cyan-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">1. Respira profundo cuando sientas el pecho apretado</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">1. Respira profundo cuando sientas el pecho apretado</h3>
               <p className="text-gray-700 mb-3">
                 Inhala contando hasta 4, aguanta 4 segundos, y exhala contando hasta 6. Repite 5 veces.
               </p>
@@ -39,7 +39,7 @@ const AnxietyTips = ({ onBack }) => {
             </div>
 
             <div className="bg-purple-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">2. Escribe lo que te preocupa</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">2. Escribe lo que te preocupa</h3>
               <p className="text-gray-700 mb-3">
                 Anota en tu celular o en papel: "¿Qué es lo peor que puede pasar?" y "¿Qué puedo controlar?"
               </p>
@@ -49,7 +49,7 @@ const AnxietyTips = ({ onBack }) => {
             </div>
 
             <div className="bg-pink-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">3. Mueve tu cuerpo 10 minutos al día</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">3. Mueve tu cuerpo 10 minutos al día</h3>
               <p className="text-gray-700 mb-3">
                 Camina, baila, estira. No tiene que ser ejercicio intenso. Solo muévete.
               </p>
@@ -59,7 +59,7 @@ const AnxietyTips = ({ onBack }) => {
             </div>
 
             <div className="bg-cyan-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">4. Limita el café y las noticias</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">4. Limita el café y las noticias</h3>
               <p className="text-gray-700 mb-3">
                 Si ya estás ansioso, la cafeína y las malas noticias lo empeoran. Toma agua, escucha música.
               </p>
@@ -69,7 +69,7 @@ const AnxietyTips = ({ onBack }) => {
             </div>
 
             <div className="bg-purple-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">5. Habla con alguien de confianza</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">5. Habla con alguien de confianza</h3>
               <p className="text-gray-700 mb-3">
                 Un amigo, un familiar, o tu terapeuta. No guardes todo para ti.
               </p>
@@ -80,7 +80,7 @@ const AnxietyTips = ({ onBack }) => {
           </div>
 
           <div className="mt-8 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl p-6">
-            <p className="text-gray-700 text-center font-semibold text-2xl">
+            <p className="text-gray-700 text-center font-semibold text-base md:text-2xl lg:text-3xl">
               Recuerda: La ansiedad miente. Te dice que todo está mal cuando no es cierto. 
               <br />
               <span className="text-purple-800">Eres más fuerte de lo que tu ansiedad te hace creer.</span>
@@ -116,19 +116,19 @@ const RelationshipTips = ({ onBack }) => {
             </svg>
           </div>
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+          <h1 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 text-center">
             Cómo mejorar tus relaciones
           </h1>
 
           <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl p-6 mb-8">
-            <p className="text-2xl text-gray-800 italic text-center font-semibold">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-800 italic text-center font-semibold">
               "Las buenas relaciones no son perfectas. Son honestas, pacientes y llenas de perdón."
             </p>
           </div>
 
           <div className="space-y-6">
             <div className="bg-purple-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">1. Escucha de verdad, no solo para responder</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">1. Escucha de verdad, no solo para responder</h3>
               <p className="text-gray-700 mb-3">
                 Cuando alguien te habla, guarda el celular. Míralo a los ojos. Déjalo terminar antes de hablar.
               </p>
@@ -138,7 +138,7 @@ const RelationshipTips = ({ onBack }) => {
             </div>
 
             <div className="bg-pink-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">2. Di lo que sientes sin atacar</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">2. Di lo que sientes sin atacar</h3>
               <p className="text-gray-700 mb-3">
                 En vez de "Nunca me ayudas", di "Me siento solo cuando tengo que hacer todo yo."
               </p>
@@ -148,7 +148,7 @@ const RelationshipTips = ({ onBack }) => {
             </div>
 
             <div className="bg-cyan-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">3. Perdona, pero también pon límites</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">3. Perdona, pero también pon límites</h3>
               <p className="text-gray-700 mb-3">
                 Perdonar no significa aceptar cualquier cosa. Puedes perdonar y al mismo tiempo decir "esto no está bien."
               </p>
@@ -158,7 +158,7 @@ const RelationshipTips = ({ onBack }) => {
             </div>
 
             <div className="bg-purple-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">4. Celebra lo bueno, no solo señales lo malo</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">4. Celebra lo bueno, no solo señales lo malo</h3>
               <p className="text-gray-700 mb-3">
                 Cuando tu pareja, hijo o amigo haga algo bien, díselo. "Me gustó que...", "Gracias por..."
               </p>
@@ -168,7 +168,7 @@ const RelationshipTips = ({ onBack }) => {
             </div>
 
             <div className="bg-pink-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">5. Pide lo que necesitas claramente</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">5. Pide lo que necesitas claramente</h3>
               <p className="text-gray-700 mb-3">
                 No esperes que adivinen. Di: "Necesito que me escuches 10 minutos sin darme consejos."
               </p>
@@ -179,7 +179,7 @@ const RelationshipTips = ({ onBack }) => {
           </div>
 
           <div className="mt-8 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl p-6">
-            <p className="text-gray-700 text-center font-semibold text-2xl">
+            <p className="text-gray-700 text-center font-semibold text-base md:text-2xl lg:text-3xl">
               Recuerda: Todas las relaciones pasan por momentos difíciles. 
               <br />
               <span className="text-purple-800">Lo que importa es cómo las enfrentan juntos.</span>
@@ -215,19 +215,19 @@ const StressTips = ({ onBack }) => {
             </svg>
           </div>
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+          <h1 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 text-center">
             Cómo manejar tu estrés
           </h1>
 
           <div className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-xl p-6 mb-8">
-            <p className="text-2xl text-gray-800 italic text-center font-semibold">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-800 italic text-center font-semibold">
               "El estrés no viene de lo que haces, sino de sentir que no tienes control. Toma el control donde puedas."
             </p>
           </div>
 
           <div className="space-y-6">
             <div className="bg-pink-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">1. Haz listas simples y tacha lo que terminas</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">1. Haz listas simples y tacha lo que terminas</h3>
               <p className="text-gray-700 mb-3">
                 Escribe 3 cosas que TIENES que hacer hoy. Solo 3. Cuando las termines, tacha y celebra.
               </p>
@@ -237,7 +237,7 @@ const StressTips = ({ onBack }) => {
             </div>
 
             <div className="bg-purple-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">2. Di "no" sin culpa cuando sea necesario</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">2. Di "no" sin culpa cuando sea necesario</h3>
               <p className="text-gray-700 mb-3">
                 No puedes con todo. "No puedo ahorita" o "déjame pensarlo" son respuestas válidas.
               </p>
@@ -247,7 +247,7 @@ const StressTips = ({ onBack }) => {
             </div>
 
             <div className="bg-cyan-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">3. Duerme aunque creas que no hay tiempo</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">3. Duerme aunque creas que no hay tiempo</h3>
               <p className="text-gray-700 mb-3">
                 Apaga el celular 30 minutos antes de dormir. Tu cerebro necesita descanso para funcionar.
               </p>
@@ -257,7 +257,7 @@ const StressTips = ({ onBack }) => {
             </div>
 
             <div className="bg-pink-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">4. Toma pausas de 5 minutos cada hora</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">4. Toma pausas de 5 minutos cada hora</h3>
               <p className="text-gray-700 mb-3">
                 Párate, estira, respira. No tienes que trabajar sin parar para ser productivo.
               </p>
@@ -267,7 +267,7 @@ const StressTips = ({ onBack }) => {
             </div>
 
             <div className="bg-purple-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-3 text-3xl">5. Suelta lo que no puedes controlar</h3>
+              <h3 className="font-bold text-gray-900 mb-3 text-lg md:text-3xl lg:text-4xl">5. Suelta lo que no puedes controlar</h3>
               <p className="text-gray-700 mb-3">
                 Pregúntate: "¿Esto depende de mí?" Si no, déjalo ir. Enfócate en lo que SÍ puedes cambiar.
               </p>
@@ -278,7 +278,7 @@ const StressTips = ({ onBack }) => {
           </div>
 
           <div className="mt-8 bg-gradient-to-r from-pink-100 to-purple-100 rounded-xl p-6">
-            <p className="text-gray-700 text-center font-semibold text-2xl">
+            <p className="text-gray-700 text-center font-semibold text-base md:text-2xl lg:text-3xl">
               Recuerda: El estrés es parte de la vida, pero no tiene que consumirte. 
               <br />
               <span className="text-pink-800">Pequeños cambios diarios hacen una gran diferencia.</span>
@@ -1013,7 +1013,7 @@ SaludCompartida`,
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">¡Bienvenido!</h2>
+            <h2 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2">¡Bienvenido!</h2>
             <p className="text-gray-600">¿Ya has agendado una sesión antes?</p>
           </div>
 
@@ -1075,11 +1075,11 @@ SaludCompartida`,
               </svg>
             </div>
 
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               ¡Tu sesión está agendada!
             </h2>
             
-            <p className="text-2xl text-gray-600 mb-8">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-600 mb-8">
               {sessionFor === 'myself' 
                 ? 'Que bueno que diste el primer paso. Hablar de lo que sientes es de valientes.'
                 : 'Gracias por cuidar a tu familia. Has tomado una gran decisión al apoyar a tu ser querido.'
@@ -1090,10 +1090,10 @@ SaludCompartida`,
               <p className="text-sm text-gray-600 mb-2">
                 {sessionFor === 'myself' ? 'Tu sesión' : `Sesión de ${otherPersonData.nombre} ${otherPersonData.apellidoPaterno}`}
               </p>
-              <p className="text-2xl font-bold text-gray-900 mb-1">
+              <p className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-1">
                 {selectedDate.toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' })}
               </p>
-              <p className="text-3xl text-gray-700">{selectedTime} hrs</p>
+              <p className="text-lg md:text-3xl lg:text-4xl text-gray-700">{selectedTime} hrs</p>
               <p className="text-sm text-gray-600 mt-4">Sesión individual por videollamada</p>
             </div>
 
@@ -1200,7 +1200,7 @@ SaludCompartida`,
                 </svg>
               </div>
               
-              <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
+              <h3 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 text-center mb-4">
                 ¿Seguro que quieres cancelar?
               </h3>
               
@@ -1237,7 +1237,7 @@ SaludCompartida`,
                 </svg>
               </div>
               
-              <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
+              <h3 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 text-center mb-4">
                 ¿Quieres reprogramar tu sesión?
               </h3>
               
@@ -1274,11 +1274,11 @@ SaludCompartida`,
                 </svg>
               </div>
               
-              <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
+              <h3 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 text-center mb-4">
                 Estamos Aquí para Ti
               </h3>
               
-              <p className="text-2xl text-gray-700 text-center mb-6">
+              <p className="text-base md:text-2xl lg:text-3xl text-gray-700 text-center mb-6">
                 Tu bienestar emocional es nuestra prioridad. Cuando estés listo para tu sesión, <strong className="text-purple-600">estaremos listos para atenderte</strong> con todo el apoyo que mereces.
               </p>
               
@@ -1325,11 +1325,11 @@ SaludCompartida`,
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section - SIN ICONO DE CORAZÓN */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-2xl font-bold text-gray-900 mb-4">
+          <h1 className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
             Tu Salud Mental Importa
           </h1>
           
-          <p className="text-3xl text-gray-600 mb-6 max-w-3xl mx-auto">
+          <p className="text-lg md:text-3xl lg:text-4xl text-gray-600 mb-6 max-w-3xl mx-auto">
             Hablar de lo que sientes no es de débiles, es de valientes. Una sesión a la semana puede cambiar tu vida.
           </p>
 
@@ -1353,7 +1353,7 @@ SaludCompartida`,
                 </svg>
               </div>
               <div className="flex-1">
-                <h3 className="text-3xl font-bold text-gray-900 mb-2">
+                <h3 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
                   ¡Qué bien verte de nuevo, {formData.nombre}!
                 </h3>
                 <p className="text-gray-700">
@@ -1365,7 +1365,7 @@ SaludCompartida`,
         )}
 
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
             ¿Por qué terapia?
           </h2>
           
@@ -1437,7 +1437,7 @@ SaludCompartida`,
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2 text-center">
+          <h2 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 text-center">
             Conoce a nuestros psicólogos
           </h2>
           <p className="text-gray-600 mb-8 text-center">
@@ -1501,7 +1501,7 @@ SaludCompartida`,
             </div>
           )}
           
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-6">
             {isRescheduling ? 'Reprograma tu sesión individual' : 'Agenda tu sesión individual'}
           </h2>
 
@@ -1932,7 +1932,7 @@ SaludCompartida`,
                     }`}
                   >
                     <div className="text-xs font-medium mb-1">{formatted.day}</div>
-                    <div className="text-2xl font-bold">{formatted.date}</div>
+                    <div className="text-base md:text-2xl lg:text-3xl font-bold">{formatted.date}</div>
                     <div className="text-xs">{formatted.month}</div>
                   </button>
                 );
@@ -2009,7 +2009,7 @@ SaludCompartida`,
             type="button"
             onClick={handleSubmit}
             disabled={!selectedDate || !selectedTime || !sessionFor}
-            className={`w-full py-4 rounded-xl font-bold text-2xl transition-all ${
+            className={`w-full py-4 rounded-xl font-bold text-base md:text-2xl lg:text-3xl transition-all ${
               selectedDate && selectedTime && sessionFor
                 ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 shadow-lg'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
@@ -2032,7 +2032,7 @@ SaludCompartida`,
               window.scrollTo(0, 0);
               navigate('/page3');
             }}
-            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-600 hover:to-pink-600 text-white rounded-xl font-bold text-2xl shadow-lg hover:shadow-xl transition-all"
+            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-600 hover:to-pink-600 text-white rounded-xl font-bold text-base md:text-2xl lg:text-3xl shadow-lg hover:shadow-xl transition-all"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

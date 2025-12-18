@@ -39,7 +39,7 @@ export default function PostTerms() {
           />
           <button
             onClick={() => navigate('/page4')}
-            className="text-gray-600 hover:text-gray-900 font-medium text-2xl transition-colors"
+            className="text-gray-600 hover:text-gray-900 font-medium text-base md:text-2xl lg:text-3xl transition-colors"
           >
             Volver
           </button>
@@ -48,10 +48,10 @@ export default function PostTerms() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-2xl font-bold text-gray-900 mb-4">
+          <h1 className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
             Términos y Condiciones
           </h1>
-          <p className="text-2xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base md:text-2xl lg:text-3xl text-gray-600 max-w-3xl mx-auto">
             Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.
           </p>
           <p className="text-sm text-gray-500 mt-4">
@@ -62,7 +62,7 @@ export default function PostTerms() {
         <div className="grid lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1">
             <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
-              <h3 className="font-bold text-gray-900 mb-4 text-2xl">Índice</h3>
+              <h3 className="font-bold text-gray-900 mb-4 text-base md:text-2xl lg:text-3xl">Índice</h3>
               <nav className="space-y-2">
                 {sections.map((section) => (
                   <button
@@ -83,7 +83,7 @@ export default function PostTerms() {
 
           <div className="lg:col-span-3 space-y-12">
             <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 1. ¿Qué es SaludCompartida?
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -111,7 +111,7 @@ export default function PostTerms() {
             </section>
 
             <section id="definitions" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 2. Definiciones clave
               </h2>
               <div className="space-y-4">
@@ -143,13 +143,13 @@ export default function PostTerms() {
             </section>
 
             <section id="services" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 3. Descripción de servicios
               </h2>
               
               <div className="space-y-6">
                 <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6 border border-cyan-200">
-                  <h3 className="font-bold text-gray-900 mb-2 text-2xl">Telemedicina 24/7</h3>
+                  <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Telemedicina 24/7</h3>
                   <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                     Consultas médicas ilimitadas por videollamada, teléfono o WhatsApp con profesionales certificados en México.
                   </p>
@@ -162,7 +162,7 @@ export default function PostTerms() {
                 </div>
 
                 <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-pink-200">
-                  <h3 className="font-bold text-gray-900 mb-2 text-2xl">Descuentos en Farmacias</h3>
+                  <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Descuentos en Farmacias</h3>
                   <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                     Acceso a descuentos de 40-75% en más de 1,700 farmacias afiliadas.
                   </p>
@@ -174,7 +174,7 @@ export default function PostTerms() {
                 </div>
 
                 <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
-                  <h3 className="font-bold text-gray-900 mb-2 text-2xl">Terapia Psicológica</h3>
+                  <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Terapia Psicológica</h3>
                   <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                     Acceso a sesiones de terapia psicológica con profesionales certificados.
                   </p>
@@ -188,7 +188,7 @@ export default function PostTerms() {
             </section>
 
             <section id="subscription" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 4. Suscripción y pagos
               </h2>
 
@@ -217,13 +217,13 @@ export default function PostTerms() {
             </section>
 
             <section id="usage" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 5. Uso aceptable de la plataforma
               </h2>
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Te comprometes a:</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Te comprometes a:</h3>
                   <ul className="space-y-2 text-gray-700 text-sm">
                     <li>• Proporcionar información precisa y actualizada</li>
                     <li>• Usar el servicio solo para fines legales y personales</li>
@@ -246,7 +246,7 @@ export default function PostTerms() {
             </section>
 
             <section id="privacy" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 6. Privacidad y protección de datos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -261,13 +261,13 @@ export default function PostTerms() {
             </section>
 
             <section id="limitations" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 7. Limitaciones del servicio
               </h2>
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Servicios NO cubiertos:</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Servicios NO cubiertos:</h3>
                   <ul className="space-y-2 text-gray-700 text-sm">
                     <li>• Emergencias médicas que requieran atención inmediata presencial</li>
                     <li>• Cirugías y procedimientos invasivos</li>
@@ -286,20 +286,20 @@ export default function PostTerms() {
             </section>
 
             <section id="responsibilities" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 8. Responsabilidades y limitación de responsabilidad
               </h2>
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Responsabilidad del usuario:</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Responsabilidad del usuario:</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     Eres responsable de proporcionar información médica precisa y seguir las indicaciones médicas recibidas.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Responsabilidad de SaludCompartida:</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Responsabilidad de SaludCompartida:</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     Nos esforzamos por proporcionar servicios de calidad, pero no garantizamos resultados médicos específicos.
                   </p>
@@ -314,7 +314,7 @@ export default function PostTerms() {
             </section>
 
             <section id="modifications" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 9. Modificaciones al servicio y términos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -331,7 +331,7 @@ export default function PostTerms() {
             </section>
 
             <section id="jurisdiction" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 10. Ley aplicable y jurisdicción
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -341,7 +341,7 @@ export default function PostTerms() {
                 Cualquier disputa relacionada con estos términos será resuelta en los tribunales competentes de México.
               </p>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <h3 className="font-bold text-gray-900 mb-2 text-2xl">Resolución de disputas:</h3>
+                <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Resolución de disputas:</h3>
                 <p className="text-gray-700 text-sm leading-relaxed">
                   Antes de iniciar cualquier procedimiento legal, te comprometemos a intentar resolver cualquier disputa mediante negociación directa con nuestro equipo de soporte.
                 </p>
@@ -352,7 +352,7 @@ export default function PostTerms() {
         </div>
 
         <div className="mt-12 text-center bg-gradient-to-r from-cyan-50 to-purple-50 rounded-2xl p-8 border border-cyan-200">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <h3 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
             ¿Preguntas sobre estos términos?
           </h3>
           <p className="text-gray-700 mb-6">

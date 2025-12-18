@@ -53,11 +53,11 @@ export default function MicroLanding() {
 
       {/* Step Animation Section */}
       <div className="min-h-screen flex flex-col items-center justify-center px-4 py-20 pt-24">
-        <h1 className="text-3xl md:text-3xl font-black text-white mb-3 text-center">
+        <h1 className="text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-black text-white mb-3 text-center">
           Así de simple es <span className="text-cyan-400">cuidar</span>
           <br className="hidden md:block" /> a los que están lejos
         </h1>
-        <p className="text-3xl md:text-2xl text-white/80 mb-10 text-center max-w-2xl">
+        <p className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl text-white/80 mb-10 text-center max-w-2xl">
           SaludCompartida está donde está tu corazón
         </p>
 
@@ -73,7 +73,7 @@ export default function MicroLanding() {
               }`}
             >
               <div className="flex items-center gap-4">
-                <div className={`flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center text-2xl md:text-3xl font-black text-white shadow-xl ${
+                <div className={`flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-black text-white shadow-xl ${
                   currentStep === index + 1 ? 'animate-pulse scale-105' : ''
                 }`}>
                   {index + 1}
@@ -81,12 +81,12 @@ export default function MicroLanding() {
 
                 <div className="flex-grow bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-cyan-400 text-3xl md:text-2xl font-black">PASO {index + 1}</span>
+                    <span className="text-cyan-400 text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-black">PASO {index + 1}</span>
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">
+                  <h3 className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-white mb-1">
                     {step.title}
                   </h3>
-                  <p className="text-sm md:text-3xl text-white/70">
+                  <p className="text-sm md:text-lg md:text-3xl lg:text-4xl text-white/70">
                     {step.description}
                   </p>
                 </div>
@@ -105,47 +105,47 @@ export default function MicroLanding() {
       {/* Services Circle Section */}
       {showServices && (
         <div className="min-h-screen bg-black flex flex-col items-center justify-center px-4 py-12 animate-fadeIn">
-          <h2 className="text-3xl md:text-3xl font-black text-white mb-4 text-center">
+          <h2 className="text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-black text-white mb-4 text-center">
             Todo Incluido en Tu Plan
           </h2>
-          <p className="text-3xl md:text-2xl text-cyan-400 italic mb-10 text-center max-w-2xl">
+          <p className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl text-cyan-400 italic mb-10 text-center max-w-2xl">
             SaludCompartida está donde está tu corazón
           </p>
 
           <div className="relative max-w-3xl w-full">
             <div className="grid md:grid-cols-2 gap-4 md:gap-6">
               <div className="bg-white/8 backdrop-blur-lg rounded-2xl p-5 border-2 border-cyan-400/30 hover:bg-white/12 hover:scale-105 transition-all duration-300 shadow-xl">
-                <h3 className="text-3xl md:text-2xl font-black text-white mb-2">
+                <h3 className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-black text-white mb-2">
                   1. Videollamada por WhatsApp 24/7
                 </h3>
-                <p className="text-sm md:text-3xl text-white/80">
+                <p className="text-sm md:text-lg md:text-3xl lg:text-4xl text-white/80">
                   Doctores y especialistas por WhatsApp en cualquier momento — sin esperas
                 </p>
               </div>
 
               <div className="bg-white/8 backdrop-blur-lg rounded-2xl p-5 border-2 border-pink-400/30 hover:bg-white/12 hover:scale-105 transition-all duration-300 shadow-xl">
-                <h3 className="text-3xl md:text-2xl font-black text-white mb-2">
+                <h3 className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-black text-white mb-2">
                   2. Receta Digital
                 </h3>
-                <p className="text-sm md:text-3xl text-white/80">
+                <p className="text-sm md:text-lg md:text-3xl lg:text-4xl text-white/80">
                   Enviada al instante • Lista para usar en farmacias
                 </p>
               </div>
 
               <div className="bg-white/8 backdrop-blur-lg rounded-2xl p-5 border-2 border-purple-400/30 hover:bg-white/12 hover:scale-105 transition-all duration-300 shadow-xl">
-                <h3 className="text-3xl md:text-2xl font-black text-white mb-2">
+                <h3 className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-black text-white mb-2">
                   3. Descuento en Farmacias
                 </h3>
-                <p className="text-sm md:text-3xl text-white/80">
+                <p className="text-sm md:text-lg md:text-3xl lg:text-4xl text-white/80">
                   Hasta 75% de ahorro en remedios y productos de farmacia (pañal, leche, refresco)
                 </p>
               </div>
 
               <div className="bg-white/8 backdrop-blur-lg rounded-2xl p-5 border-2 border-yellow-400/30 hover:bg-white/12 hover:scale-105 transition-all duration-300 shadow-xl">
-                <h3 className="text-3xl md:text-2xl font-black text-white mb-2">
+                <h3 className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-black text-white mb-2">
                   4. Terapia Psicológica
                 </h3>
-                <p className="text-sm md:text-3xl text-white/80">
+                <p className="text-sm md:text-lg md:text-3xl lg:text-4xl text-white/80">
                   1 sesión semanal • Psicólogos certificados • Salud mental importa
                 </p>
               </div>
@@ -170,7 +170,7 @@ export default function MicroLanding() {
           </div>
 
           <div className="mt-10 bg-white/10 backdrop-blur-md rounded-xl p-4 border-2 border-white/12 max-w-xl">
-            <p className="text-2xl md:text-3xl font-bold text-white text-center">
+            <p className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-white text-center">
               SaludCompartida cuida hasta cuatro personas que están lejos. Cuidamos donde está tu corazón.
             </p>
           </div>
@@ -178,7 +178,7 @@ export default function MicroLanding() {
           <div className="mt-10">
             <button
               onClick={() => navigate('/')}
-              className="px-8 md:px-12 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-white text-3xl md:text-2xl font-black rounded-full shadow-2xl hover:scale-105 transition-all duration-200 uppercase"
+              className="px-8 md:px-12 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-white text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-black rounded-full shadow-2xl hover:scale-105 transition-all duration-200 uppercase"
             >
               VER PLANES
             </button>

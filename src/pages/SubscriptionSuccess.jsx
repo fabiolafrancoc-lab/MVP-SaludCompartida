@@ -128,7 +128,7 @@ export default function SubscriptionSuccess() {
             {/* Botón Volver */}
             <button
               onClick={() => navigate('/')}
-              className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-2xl transition-colors flex items-center gap-1"
+              className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-base md:text-2xl lg:text-3xl transition-colors flex items-center gap-1"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -151,7 +151,7 @@ export default function SubscriptionSuccess() {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-4">
+              <h1 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
                 Procesando tu pago...
               </h1>
               <p className="text-gray-600">
@@ -168,7 +168,7 @@ export default function SubscriptionSuccess() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-4">
+              <h1 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
                 Hubo un problema
               </h1>
               <p className="text-red-600 mb-4">{error}</p>
@@ -192,12 +192,12 @@ export default function SubscriptionSuccess() {
               </div>
 
               {/* Título - REDUCIDO */}
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              <h1 className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                 ¡Pago Exitoso! 🎉
               </h1>
 
               {/* Mensaje - REDUCIDO */}
-              <p className="text-3xl text-gray-600 mb-4">
+              <p className="text-lg md:text-3xl lg:text-4xl text-gray-600 mb-4">
                 Tu suscripción a <span className="font-semibold text-indigo-600">SaludCompartida</span> está activa.
               </p>
 
@@ -220,13 +220,13 @@ export default function SubscriptionSuccess() {
 
               {/* Siguiente paso - REDUCIDO */}
               <div className="bg-indigo-50 rounded-lg p-6 mb-8">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-3">
+                <h2 className="text-base md:text-2xl lg:text-3xl font-semibold text-gray-900 mb-3">
                   Próximo Paso
                 </h2>
                 <p className="text-sm text-gray-700 mb-4">
                   Completa tu registro para comenzar a usar tu membresía.
                 </p>
-                <div className="text-3xl font-bold text-indigo-600">
+                <div className="text-lg md:text-3xl lg:text-4xl font-bold text-indigo-600">
                   {countdown}
                 </div>
                 <p className="text-sm text-gray-500 mt-2">
@@ -237,7 +237,7 @@ export default function SubscriptionSuccess() {
               {/* Botón manual - REDUCIDO */}
               <button
                 onClick={() => navigate('/registro')}
-                className="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors text-3xl"
+                className="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors text-lg md:text-3xl lg:text-4xl"
               >
                 Ir al Registro Ahora →
               </button>

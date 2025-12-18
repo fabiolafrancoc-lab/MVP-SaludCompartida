@@ -44,10 +44,10 @@ export default function TermsInternal() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-2xl font-bold text-gray-900 mb-4">
+          <h1 className="text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
             Términos y Condiciones
           </h1>
-          <p className="text-2xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base md:text-2xl lg:text-3xl text-gray-600 max-w-3xl mx-auto">
             Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.
           </p>
           <p className="text-sm text-gray-500 mt-4">
@@ -59,7 +59,7 @@ export default function TermsInternal() {
           {/* Sidebar - Índice navegable (sticky en desktop) */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24">
-              <h3 className="font-bold text-gray-900 mb-4 text-2xl">Índice</h3>
+              <h3 className="font-bold text-gray-900 mb-4 text-base md:text-2xl lg:text-3xl">Índice</h3>
               <nav className="space-y-2">
                 {sections.map((section) => (
                   <button
@@ -83,7 +83,7 @@ export default function TermsInternal() {
             
             {/* Sección 1: Introducción */}
             <section id="intro" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 1. ¿Qué es SaludCompartida?
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -117,7 +117,7 @@ export default function TermsInternal() {
 
             {/* Sección 2: Definiciones */}
             <section id="definitions" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 2. Definiciones clave
               </h2>
               <div className="space-y-4">
@@ -150,7 +150,7 @@ export default function TermsInternal() {
 
             {/* Sección 3: Descripción de servicios */}
             <section id="services" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 3. Descripción de servicios
               </h2>
               
@@ -162,7 +162,7 @@ export default function TermsInternal() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     <div>
-                      <h3 className="font-bold text-gray-900 mb-2 text-2xl">Telemedicina 24/7</h3>
+                      <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Telemedicina 24/7</h3>
                       <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                         Consultas médicas ilimitadas por videollamada, teléfono o WhatsApp con profesionales certificados en México. Las consultas están disponibles en días y horarios establecidos por SaludCompartida.
                       </p>
@@ -183,7 +183,7 @@ export default function TermsInternal() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                     <div>
-                      <h3 className="font-bold text-gray-900 mb-2 text-2xl">Descuentos en Farmacias</h3>
+                      <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Descuentos en Farmacias</h3>
                       <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                         Acceso a descuentos de 40-75% en más de 1,700 farmacias afiliadas, cubriendo el 95% del territorio mexicano.
                       </p>
@@ -204,7 +204,7 @@ export default function TermsInternal() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                     <div>
-                      <h3 className="font-bold text-gray-900 mb-2 text-2xl">Sesiones Psicológicas</h3>
+                      <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Sesiones Psicológicas</h3>
                       <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                         Una sesión psicológica semanal por videollamada con profesionales titulados y registrados en México (duración máxima: 50 minutos).
                       </p>
@@ -225,7 +225,7 @@ export default function TermsInternal() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     <div>
-                      <h3 className="font-bold text-gray-900 mb-2 text-2xl">Doctores y Especialistas</h3>
+                      <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Doctores y Especialistas</h3>
                       <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                         Acceso con descuento a consultas presenciales con médicos generales, especialistas y estudios médicos ambulatorios.
                       </p>
@@ -263,13 +263,13 @@ export default function TermsInternal() {
 
             {/* Sección 4: Suscripción y pagos */}
             <section id="subscription" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 4. Suscripción y pagos
               </h2>
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Costo del servicio</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Costo del servicio</h3>
                   <div className="bg-gradient-to-r from-cyan-50 to-purple-50 rounded-xl p-6">
                     <p className="text-gray-700 mb-4 leading-relaxed">
                       El costo de la suscripción mensual varía entre <span className="font-bold text-cyan-700">$12 a $18 USD</span> dependiendo del plan elegido y el país de destino del servicio.
@@ -288,35 +288,35 @@ export default function TermsInternal() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Cobertura familiar</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Cobertura familiar</h3>
                   <p className="text-gray-700 mb-3 leading-relaxed">
                     Cada suscripción cubre hasta 4 usuarios familiares en el país de destino. El migrante que contrata designa un usuario principal quien puede agregar hasta 3 personas adicionales sin necesidad de informar a SaludCompartida.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Renovación automática</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Renovación automática</h3>
                   <p className="text-gray-700 mb-3 leading-relaxed">
                     La suscripción se renueva automáticamente cada mes hasta que el usuario cancele el servicio. El cargo se realizará al método de pago registrado en la misma fecha de cada mes.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Cancelación</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Cancelación</h3>
                   <p className="text-gray-700 mb-3 leading-relaxed">
                     Puedes cancelar tu suscripción en cualquier momento desde la plataforma o contactando a nuestro equipo. La cancelación será efectiva al final del período de facturación actual. No se realizarán cargos adicionales después de la cancelación.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Política de reembolsos</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Política de reembolsos</h3>
                   <p className="text-gray-700 mb-3 leading-relaxed">
                     Los pagos son no reembolsables excepto en casos donde SaludCompartida no haya podido proporcionar los servicios contratados por causas atribuibles a la plataforma. Las solicitudes de reembolso deben presentarse dentro de los 7 días posteriores al cargo.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Métodos de pago aceptados</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Métodos de pago aceptados</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                     <div className="bg-gray-50 rounded-lg p-3 text-center">
                       <p className="font-medium text-gray-900">Tarjeta de crédito</p>
@@ -337,13 +337,13 @@ export default function TermsInternal() {
 
             {/* Sección 5: Uso de la plataforma */}
             <section id="usage" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 5. Uso de la plataforma
               </h2>
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Requisitos para usar el servicio</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Requisitos para usar el servicio</h3>
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start gap-2">
                       <svg className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
@@ -373,14 +373,14 @@ export default function TermsInternal() {
                 </div>
 
                 <div className="bg-gradient-to-r from-green-50 to-cyan-50 rounded-xl p-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Activación en 30 segundos</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Activación en 30 segundos</h3>
                   <p className="text-gray-700 leading-relaxed">
                     Después de completar tu suscripción, recibirás un código de activación por WhatsApp en menos de 30 segundos. Este código permite el acceso inmediato a todos los servicios de la plataforma.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Responsabilidades del usuario</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Responsabilidades del usuario</h3>
                   <ul className="space-y-2 text-gray-700 text-sm">
                     <li>• Mantener la confidencialidad de tu cuenta y contraseña</li>
                     <li>• Proporcionar información médica precisa y completa</li>
@@ -408,7 +408,7 @@ export default function TermsInternal() {
 
             {/* Sección 6: Privacidad y datos */}
             <section id="privacy" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 6. Privacidad y datos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -441,7 +441,7 @@ export default function TermsInternal() {
 
             {/* Sección 7: Limitaciones del servicio */}
             <section id="limitations" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 7. Limitaciones del servicio
               </h2>
 
@@ -457,7 +457,7 @@ export default function TermsInternal() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Servicios NO cubiertos</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Servicios NO cubiertos</h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-red-50 rounded-lg p-4">
                       <h4 className="font-semibold text-red-900 mb-2 text-sm">Hospitalización</h4>
@@ -479,7 +479,7 @@ export default function TermsInternal() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Alcance del servicio</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Alcance del servicio</h3>
                   <p className="text-gray-700 mb-3 leading-relaxed">
                     SaludCompartida se enfoca en servicios preventivos y ambulatorios:
                   </p>
@@ -512,7 +512,7 @@ export default function TermsInternal() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Disponibilidad de red</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Disponibilidad de red</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     La disponibilidad de farmacias afiliadas y doctores puede variar por región. Trabajamos continuamente para expandir nuestra red de proveedores. SaludCompartida no garantiza disponibilidad inmediata en todas las ubicaciones.
                   </p>
@@ -522,13 +522,13 @@ export default function TermsInternal() {
 
             {/* Sección 8: Responsabilidades y exenciones */}
             <section id="responsibilities" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 8. Responsabilidades y exenciones
               </h2>
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Responsabilidad del usuario</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Responsabilidad del usuario</h3>
                   <p className="text-gray-700 mb-3 leading-relaxed">
                     El usuario reconoce que la telemedicina puede tener limitaciones inherentes y acepta la responsabilidad de buscar atención presencial cuando así lo requiera su condición. El usuario debe:
                   </p>
@@ -542,7 +542,7 @@ export default function TermsInternal() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Limitaciones de responsabilidad de SaludCompartida</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Limitaciones de responsabilidad de SaludCompartida</h3>
                   <p className="text-gray-700 mb-3 leading-relaxed">
                     SaludCompartida actúa como intermediario entre usuarios y proveedores de servicios de salud. Nuestra responsabilidad se limita a:
                   </p>
@@ -565,7 +565,7 @@ export default function TermsInternal() {
                 </div>
 
                 <div className="bg-gray-50 rounded-xl p-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Casos de fuerza mayor</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-base md:text-2xl lg:text-3xl">Casos de fuerza mayor</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     SaludCompartida no será responsable por interrupciones del servicio causadas por eventos fuera de nuestro control razonable, incluyendo:
                   </p>
@@ -591,7 +591,7 @@ export default function TermsInternal() {
 
             {/* Sección 9: Modificaciones de términos */}
             <section id="modifications" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 9. Modificaciones de términos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -616,12 +616,12 @@ export default function TermsInternal() {
 
             {/* Sección 10: Ley aplicable y jurisdicción */}
             <section id="jurisdiction" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                 10. Ley aplicable y jurisdicción
               </h2>
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-2 text-2xl">Legislación aplicable</h3>
+                  <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Legislación aplicable</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     Estos términos y condiciones se rigen por las leyes de México y Estados Unidos, según corresponda a la prestación del servicio cross-border. Específicamente:
                   </p>
@@ -633,7 +633,7 @@ export default function TermsInternal() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-2 text-2xl">Resolución de conflictos</h3>
+                  <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Resolución de conflictos</h3>
                   <p className="text-gray-700 text-sm leading-relaxed mb-3">
                     En caso de controversia o desacuerdo relacionado con estos términos o el uso del servicio:
                   </p>
@@ -645,7 +645,7 @@ export default function TermsInternal() {
                 </div>
 
                 <div className="bg-gray-50 rounded-xl p-6">
-                  <h3 className="font-bold text-gray-900 mb-2 text-2xl">Separabilidad</h3>
+                  <h3 className="font-bold text-gray-900 mb-2 text-base md:text-2xl lg:text-3xl">Separabilidad</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     Si alguna disposición de estos términos es considerada inválida o inaplicable, las disposiciones restantes continuarán en pleno vigor y efecto.
                   </p>
@@ -663,7 +663,7 @@ export default function TermsInternal() {
               window.scrollTo(0, 0);
               navigate('/contact');
             }}
-            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-2xl shadow-lg hover:shadow-xl transition-all"
+            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-base md:text-2xl lg:text-3xl shadow-lg hover:shadow-xl transition-all"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
