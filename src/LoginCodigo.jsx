@@ -251,93 +251,42 @@ export default function LoginCodigo() {
           </div>
           
           {/* Menú de navegación - Desktop */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-4">
             <button
-              onClick={() => navigate('/home')}
-              className="text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors"
+              onClick={handleCodeError}
+              disabled={sendingEmail}
+              className="bg-pink-100 hover:bg-pink-200 text-gray-700 px-4 py-2 rounded-lg font-semibold transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              HOME
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              {sendingEmail ? 'Enviando...' : 'Código Erróneo'}
             </button>
 
-            <div className="relative group">
-              <button className="text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1">
-                Quienes Somos
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <button
-                  onClick={() => navigate('/quienes-somos')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
-                >
-                  Quienes Somos
-                </button>
-                <button
-                  onClick={() => navigate('/vision-mision')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors"
-                >
-                  Visión y Misión
-                </button>
-                <button
-                  onClick={() => navigate('/nuestros-pilares')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors last:rounded-b-lg"
-                >
-                  Nuestros Pilares
-                </button>
-              </div>
-            </div>
-
-            <div className="relative group">
-              <button className="text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors flex items-center gap-1">
-                Servicios
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <button
-                  onClick={() => navigate('/telemedicine')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors first:rounded-t-lg"
-                >
-                  Videollamada con Doctores 24/7
-                </button>
-                <button
-                  onClick={() => navigate('/pharmacy')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors"
-                >
-                  Descuento en Farmacias
-                </button>
-                <button
-                  onClick={() => navigate('/therapy')}
-                  className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-cyan-600 transition-colors last:rounded-b-lg"
-                >
-                  Sesiones con Terapeuta
-                </button>
-              </div>
-            </div>
-
             <button
-              onClick={() => navigate('/contacto')}
-              className="text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors"
+              onClick={() => navigate('/contact')}
+              className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg font-semibold transition-all"
             >
               Contacto
             </button>
           </nav>
 
           {/* Menú Mobile */}
-          <button 
-            className="lg:hidden p-2 text-gray-700 hover:text-cyan-600"
-            onClick={() => {
-              // Toggle mobile menu logic here
-            }}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <button
+              onClick={handleCodeError}
+              disabled={sendingEmail}
+              className="bg-pink-100 hover:bg-pink-200 text-gray-700 px-3 py-2 rounded-lg text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {sendingEmail ? 'Enviando...' : 'Código Erróneo'}
+            </button>
+            <button
+              onClick={() => navigate('/contact')}
+              className="bg-cyan-500 hover:bg-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-all"
+            >
+              Contacto
+            </button>
+          </div>
         </div>
       </header>
 
@@ -534,29 +483,18 @@ export default function LoginCodigo() {
                   Ingresar a SaludCompartida
                 </button>
 
-                {/* Link código erróneo - Envío automático */}
-                <div className="mt-4 text-center">
+                {/* Código erróneo - Recuadro pastel */}
+                <div className="mt-6 p-4 bg-pink-50 rounded-xl border border-pink-200">
                   <button
                     onClick={handleCodeError}
                     disabled={sendingEmail}
-                    className="text-base md:text-lg font-semibold text-gray-700 hover:text-cyan-600 underline transition-colors inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full text-base md:text-lg font-semibold text-gray-700 hover:text-cyan-600 transition-colors inline-flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    {sendingEmail ? 'Enviando...' : '¿Código erróneo? Reportar problema'}
+                    {sendingEmail ? 'Enviando...' : '¿Código erróneo? Contáctanos'}
                   </button>
-                </div>
-
-                {/* Ayuda */}
-                <div className="mt-6 p-4 bg-cyan-50 rounded-xl border border-cyan-200">
-                  <p className="text-sm text-gray-600 text-center flex items-center justify-center gap-2">
-                    <LightbulbIcon className="w-5 h-5 text-cyan-700 flex-shrink-0" />
-                    <span>
-                      <span className="font-semibold text-cyan-700">¿Necesitas ayuda?</span><br />
-                      Si no tienes tu código, contáctanos por WhatsApp
-                    </span>
-                  </p>
                 </div>
               </div>
             </div>
