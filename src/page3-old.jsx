@@ -481,7 +481,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
           />
           <button
             onClick={() => navigate('/')}
-            className="text-gray-600 hover:text-gray-900 text-lg font-medium transition-colors"
+            className="text-gray-600 hover:text-gray-900 text-2xl font-medium transition-colors"
           >
             Volver
           </button>
@@ -498,7 +498,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="text-lg font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 Hemos recibido tu mensaje con Éxito, en unos momentos te contactaremos
               </h2>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -523,7 +523,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
-              <h2 className="text-lg font-bold text-red-600 mb-3">
+              <h2 className="text-2xl font-bold text-red-600 mb-3">
                 Código o Clave Errada
               </h2>
               <p className="text-gray-600">
@@ -576,7 +576,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
             <div className="space-y-3">
               <button
                 onClick={handleSendErrorReport}
-                className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white py-4 rounded-lg font-bold text-lg hover:from-cyan-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl"
+                className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white py-4 rounded-lg font-bold text-2xl hover:from-cyan-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl"
               >
                 Enviar Consulta
               </button>
@@ -605,10 +605,10 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                   </svg>
                 </div>
-                <h1 className="text-base md:text-base font-bold text-cyan-600 mb-2">
+                <h1 className="text-3xl md:text-3xl font-bold text-cyan-600 mb-2">
                   Ingresa tu Código
                 </h1>
-                <p className="text-gray-700 text-sm md:text-base">
+                <p className="text-gray-700 text-sm md:text-3xl">
                   Completa tus datos para acceder a tus beneficios
                 </p>
               </div>
@@ -649,7 +649,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                 }}
                 onKeyPress={(e) => e.key === 'Enter' && handleAccessCode()}
                 placeholder="Ejemplo: SC-MX-123456"
-                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-lg font-mono uppercase ${
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-2xl font-mono uppercase ${
                   errors.specialCode ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
               />
@@ -680,7 +680,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                 }}
                 placeholder="Ejemplo: María"
                 disabled={codeVerified}
-                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-lg ${
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-2xl ${
                   errors.firstName ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100 text-gray-600 cursor-not-allowed' : 'border-gray-300'
                 }`}
               />
@@ -713,7 +713,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                 }}
                 placeholder="Ejemplo: González"
                 disabled={codeVerified}
-                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-lg ${
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-2xl ${
                   errors.lastName ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100 text-gray-600 cursor-not-allowed' : 'border-gray-300'
                 }`}
               />
@@ -743,7 +743,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                 onChange={(e) => setMotherLastName(e.target.value)}
                 placeholder="Ejemplo: López"
                 disabled={codeVerified}
-                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-lg ${
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-2xl ${
                   codeVerified ? 'border-gray-300 bg-gray-100 text-gray-600 cursor-not-allowed' : 'border-gray-300'
                 }`}
               />
@@ -767,7 +767,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                   setErrors({ ...errors, email: '' });
                 }}
                 placeholder="Ejemplo: maria@email.com"
-                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-lg ${
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-2xl ${
                   errors.email ? 'border-red-500 bg-red-50' : email ? 'border-gray-300' : 'bg-gray-50 text-gray-500 border-gray-300'
                 }`}
               />
@@ -791,7 +791,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                   value={countryCode}
                   onChange={(e) => setCountryCode(e.target.value)}
                   disabled={codeVerified}
-                  className={`px-4 py-3 border-2 rounded-lg font-semibold text-lg ${
+                  className={`px-4 py-3 border-2 rounded-lg font-semibold text-2xl ${
                     codeVerified ? 'bg-gray-100 border-gray-300 text-gray-600 cursor-not-allowed' : 'bg-white border-gray-300 text-gray-700'
                   }`}
                 >
@@ -813,7 +813,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
                   }}
                   placeholder="555 123 4567"
                   disabled={codeVerified}
-                  className={`flex-1 px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-lg ${
+                  className={`flex-1 px-4 py-3 border-2 rounded-lg focus:outline-none focus:border-cyan-500 text-2xl ${
                     errors.whatsappNumber ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100 text-gray-600 cursor-not-allowed' : 'border-gray-300'
                   }`}
                 />
@@ -881,7 +881,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
           {/* BOTÓN INGRESAR CON TELÉFONO */}
           <button
             onClick={handleAccessCode}
-            className="w-full mt-8 bg-gradient-to-r from-cyan-500 to-pink-500 text-white py-4 rounded-lg font-bold text-lg hover:from-cyan-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl"
+            className="w-full mt-8 bg-gradient-to-r from-cyan-500 to-pink-500 text-white py-4 rounded-lg font-bold text-2xl hover:from-cyan-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl"
           >
             Ingresar a SaludCompartida
           </button>

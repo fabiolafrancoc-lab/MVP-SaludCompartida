@@ -11,7 +11,7 @@ export default function VisionMision() {
         <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-lg md:text-base font-bold mb-6 text-white">
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 text-white">
             VISIÓN Y MISIÓN
           </h1>
         </div>
@@ -28,13 +28,13 @@ export default function VisionMision() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
                 </div>
-                <h2 className="text-base md:text-base font-bold text-cyan-400">
+                <h2 className="text-3xl md:text-3xl font-bold text-cyan-400">
                   VISIÓN
                 </h2>
               </div>
               
               <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-2xl p-8">
-                <p className="text-lg md:text-base text-white font-semibold leading-relaxed">
+                <p className="text-2xl md:text-3xl text-white font-semibold leading-relaxed">
                   "Que ninguna familia que recibe remesas tenga que elegir entre medicinas o comida. Estamos aquí para que cuides a los tuyos desde donde estés."
                 </p>
               </div>
@@ -53,13 +53,13 @@ export default function VisionMision() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                   </svg>
                 </div>
-                <h2 className="text-base md:text-base font-bold text-purple-400">
+                <h2 className="text-3xl md:text-3xl font-bold text-purple-400">
                   MISIÓN
                 </h2>
               </div>
               
               <div className="bg-purple-500/10 border border-purple-500/30 rounded-2xl p-8">
-                <p className="text-lg md:text-base text-white font-semibold leading-relaxed">
+                <p className="text-2xl md:text-3xl text-white font-semibold leading-relaxed">
                   "Convertimos tu esfuerzo en protección real. Por una suscripción mensual, tu familia tiene doctor cuando lo necesita, medicinas a precio justo y la tranquilidad de saber que están cuidados—aunque estés lejos."
                 </p>
               </div>
@@ -70,7 +70,7 @@ export default function VisionMision() {
         {/* Tagline final */}
         <div className="max-w-4xl mx-auto">
           <div className="text-center py-12 px-8 bg-gradient-to-r from-cyan-500/10 via-pink-500/10 to-purple-500/10 rounded-3xl border border-cyan-500/30">
-            <p className="text-base md:text-base font-bold bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+            <p className="text-3xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
               Donde está tu corazón, está SaludCompartida.
             </p>
           </div>

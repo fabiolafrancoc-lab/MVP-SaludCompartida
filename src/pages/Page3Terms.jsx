@@ -39,7 +39,7 @@ export default function Page3Terms() {
           />
           <button
             onClick={() => navigate('/page3')}
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"
+            className="text-gray-600 hover:text-gray-900 font-medium text-2xl transition-colors"
           >
             Volver
           </button>
@@ -48,10 +48,10 @@ export default function Page3Terms() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-base md:text-lg font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-2xl font-bold text-gray-900 mb-4">
             Términos y Condiciones
           </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-2xl text-gray-600 max-w-3xl mx-auto">
             Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.
           </p>
           <p className="text-sm text-gray-500 mt-4">
@@ -62,7 +62,7 @@ export default function Page3Terms() {
         <div className="grid lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
-              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
+              <h3 className="font-bold text-gray-900 mb-4 text-2xl">Índice</h3>
               <nav className="space-y-2">
                 {sections.map((section) => (
                   <button
@@ -85,7 +85,7 @@ export default function Page3Terms() {
             <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
               <div className="prose prose-lg max-w-none">
                 <section id="intro" className="mb-12">
-                  <h2 className="text-lg font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
                     1. ¿Qué es SaludCompartida?
                   </h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
@@ -103,7 +103,7 @@ export default function Page3Terms() {
                 </section>
 
                 <section id="definitions" className="mb-12">
-                  <h2 className="text-lg font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
                     2. Definiciones clave
                   </h2>
                   <div className="bg-gray-50 rounded-lg p-6 space-y-4">
@@ -127,11 +127,11 @@ export default function Page3Terms() {
                 </section>
 
                 <section id="services" className="mb-12">
-                  <h2 className="text-lg font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
                     3. Descripción de servicios
                   </h2>
                   
-                  <h3 className="text-base font-bold text-gray-900 mt-6 mb-3">Telemedicina 24/7</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mt-6 mb-3">Telemedicina 24/7</h3>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
                     <li>Consultas médicas por videollamada con doctores certificados</li>
                     <li>Disponible las 24 horas, los 7 días de la semana</li>
@@ -139,21 +139,21 @@ export default function Page3Terms() {
                     <li>No reemplaza atención médica de emergencia presencial</li>
                   </ul>
 
-                  <h3 className="text-base font-bold text-gray-900 mt-6 mb-3">Terapia y Salud Mental</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mt-6 mb-3">Terapia y Salud Mental</h3>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
                     <li>Sesiones con psicólogos y terapeutas licenciados</li>
                     <li>Apoyo emocional y herramientas de bienestar</li>
                     <li>Sesiones programadas según disponibilidad</li>
                   </ul>
 
-                  <h3 className="text-base font-bold text-gray-900 mt-6 mb-3">Descuentos en Farmacias</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mt-6 mb-3">Descuentos en Farmacias</h3>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
                     <li>Ahorros de hasta 70% en medicamentos</li>
                     <li>Red de farmacias asociadas en constante expansión</li>
                     <li>Tarjeta digital de descuento disponible en la app</li>
                   </ul>
 
-                  <h3 className="text-base font-bold text-gray-900 mt-6 mb-3">Gestión de Ahorros</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mt-6 mb-3">Gestión de Ahorros</h3>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2">
                     <li>Herramientas para calcular y visualizar ahorros acumulados</li>
                     <li>Comparación de costos: con vs. sin SaludCompartida</li>
@@ -162,24 +162,24 @@ export default function Page3Terms() {
                 </section>
 
                 <section id="subscription" className="mb-12">
-                  <h2 className="text-lg font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
                     4. Suscripción y pagos
                   </h2>
                   
                   <div className="bg-cyan-50 border border-cyan-200 rounded-lg p-6 mb-6">
-                    <h3 className="text-base font-bold text-gray-900 mb-3">Costo de Suscripción</h3>
+                    <h3 className="text-3xl font-bold text-gray-900 mb-3">Costo de Suscripción</h3>
                     <p className="text-gray-700 mb-2"><strong>$12 USD/mes</strong> por familia (hasta 5 miembros)</p>
                     <p className="text-sm text-gray-600">La suscripción se renueva automáticamente cada mes.</p>
                   </div>
 
-                  <h3 className="text-base font-bold text-gray-900 mb-3">Métodos de Pago</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mb-3">Métodos de Pago</h3>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
                     <li>Tarjetas de crédito/débito (Visa, Mastercard, American Express)</li>
                     <li>Procesamiento seguro mediante Square</li>
                     <li>Cobro automático mensual en la fecha de suscripción</li>
                   </ul>
 
-                  <h3 className="text-base font-bold text-gray-900 mb-3">Cancelación</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mb-3">Cancelación</h3>
                   <p className="text-gray-700 mb-2">
                     Puedes cancelar tu suscripción en cualquier momento desde tu cuenta. 
                   </p>
@@ -191,11 +191,11 @@ export default function Page3Terms() {
                 </section>
 
                 <section id="usage" className="mb-12">
-                  <h2 className="text-lg font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
                     5. Uso de la plataforma
                   </h2>
                   
-                  <h3 className="text-base font-bold text-gray-900 mb-3">Responsabilidades del Usuario</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mb-3">Responsabilidades del Usuario</h3>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
                     <li>Proporcionar información veraz y actualizada</li>
                     <li>Mantener la confidencialidad de tu cuenta</li>
@@ -203,7 +203,7 @@ export default function Page3Terms() {
                     <li>No compartir códigos de acceso con terceros no autorizados</li>
                   </ul>
 
-                  <h3 className="text-base font-bold text-gray-900 mb-3">Conducta Prohibida</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mb-3">Conducta Prohibida</h3>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2">
                     <li>Uso fraudulento o abuso del servicio</li>
                     <li>Compartir información falsa o engañosa</li>
@@ -213,7 +213,7 @@ export default function Page3Terms() {
                 </section>
 
                 <section id="privacy" className="mb-12">
-                  <h2 className="text-lg font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
                     6. Privacidad y datos
                   </h2>
                   <p className="text-gray-700 mb-4">
@@ -237,7 +237,7 @@ export default function Page3Terms() {
                 </section>
 
                 <section id="limitations" className="mb-12">
-                  <h2 className="text-lg font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
                     7. Limitaciones del servicio
                   </h2>
                   
@@ -251,7 +251,7 @@ export default function Page3Terms() {
                     </ul>
                   </div>
 
-                  <h3 className="text-base font-bold text-gray-900 mb-3">Exclusiones</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mb-3">Exclusiones</h3>
                   <p className="text-gray-700 mb-2">SaludCompartida NO cubre:</p>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2">
                     <li>Cirugías o procedimientos médicos invasivos</li>
@@ -263,11 +263,11 @@ export default function Page3Terms() {
                 </section>
 
                 <section id="responsibilities" className="mb-12">
-                  <h2 className="text-lg font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
                     8. Responsabilidades
                   </h2>
                   
-                  <h3 className="text-base font-bold text-gray-900 mb-3">De SaludCompartida</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mb-3">De SaludCompartida</h3>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
                     <li>Mantener la plataforma operativa y segura</li>
                     <li>Conectarte con profesionales certificados</li>
@@ -275,7 +275,7 @@ export default function Page3Terms() {
                     <li>Proporcionar soporte técnico</li>
                   </ul>
 
-                  <h3 className="text-base font-bold text-gray-900 mb-3">Del Usuario</h3>
+                  <h3 className="text-3xl font-bold text-gray-900 mb-3">Del Usuario</h3>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2">
                     <li>Seguir recomendaciones médicas de profesionales locales</li>
                     <li>Verificar la compatibilidad de medicamentos</li>
@@ -285,7 +285,7 @@ export default function Page3Terms() {
                 </section>
 
                 <section id="modifications" className="mb-12">
-                  <h2 className="text-lg font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
                     9. Modificaciones
                   </h2>
                   <p className="text-gray-700 mb-4">
@@ -299,7 +299,7 @@ export default function Page3Terms() {
                 </section>
 
                 <section id="jurisdiction" className="mb-12">
-                  <h2 className="text-lg font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-cyan-500">
                     10. Ley aplicable
                   </h2>
                   <p className="text-gray-700 mb-4">
@@ -315,7 +315,7 @@ export default function Page3Terms() {
                     ¿Tienes preguntas sobre estos términos?
                   </p>
                   <p className="text-center">
-                    <a href="mailto:legal@saludcompartida.com" className="text-cyan-600 font-semibold hover:underline text-lg">
+                    <a href="mailto:legal@saludcompartida.com" className="text-cyan-600 font-semibold hover:underline text-2xl">
                       legal@saludcompartida.com
                     </a>
                   </p>

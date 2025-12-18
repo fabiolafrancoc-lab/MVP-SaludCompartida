@@ -184,9 +184,9 @@ const DashboardBox = ({ icon, title, message, color, onClick, badge, size = 'nor
   };
 
   const titleSizes = {
-    large: 'text-base',
-    normal: 'text-lg',
-    small: 'text-xl'
+    large: 'text-3xl',
+    normal: 'text-2xl',
+    small: 'text-4xl'
   };
   
   // helper: decide readable text color (black or white) based on background
@@ -277,7 +277,7 @@ const DashboardBox = ({ icon, title, message, color, onClick, badge, size = 'nor
         </h3>
         
         {/* Message */}
-        <p className={`${size === 'small' ? 'text-sm' : 'text-base'} leading-relaxed text-white/95 font-semibold drop-shadow-md`}>
+        <p className={`${size === 'small' ? 'text-sm' : 'text-3xl'} leading-relaxed text-white/95 font-semibold drop-shadow-md`}>
           {message}
         </p>
         
@@ -505,7 +505,7 @@ const Page4 = () => {
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
               <LocationPinIcon />
-              <p className="text-sm md:text-base font-medium">
+              <p className="text-sm md:text-3xl font-medium">
                 📍 Ubicación detectada: <span className="font-bold">{country}</span>
                 {isUSAUser(countryCode) && ' - Mostrando información para usuarios en USA'}
                 {isMexicoUser(countryCode) && ' - Mostrando información para usuarios en México'}
@@ -533,22 +533,22 @@ const Page4 = () => {
           <div className="max-w-7xl mx-auto pr-12">
             <div className="flex items-center gap-4 mb-3">
               <ShieldCheckIcon />
-              <h2 className="text-lg md:text-base font-bold">¡Bienvenido a SaludCompartida!</h2>
+              <h2 className="text-2xl md:text-3xl font-bold">¡Bienvenido a SaludCompartida!</h2>
             </div>
-            <p className="text-base md:text-lg leading-relaxed max-w-5xl mb-4">
+            <p className="text-3xl md:text-2xl leading-relaxed max-w-5xl mb-4">
               🎉 <span className="font-bold">¡Tu familia ya está protegida!</span> Ahora tienes acceso completo a:
             </p>
             <div className="grid md:grid-cols-3 gap-4 max-w-5xl">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <p className="font-bold text-lg mb-1">🏥 Telemedicina 24/7</p>
+                <p className="font-bold text-2xl mb-1">🏥 Telemedicina 24/7</p>
                 <p className="text-sm">Habla con doctores certificados cuando lo necesites</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <p className="font-bold text-lg mb-1">💊 Descuento en Farmacias</p>
+                <p className="font-bold text-2xl mb-1">💊 Descuento en Farmacias</p>
                 <p className="text-sm">Hasta 75% OFF en medicamentos</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <p className="font-bold text-lg mb-1">🧠 Terapia con Psicólogos</p>
+                <p className="font-bold text-2xl mb-1">🧠 Terapia con Psicólogos</p>
                 <p className="text-sm">Cuida tu salud mental con profesionales</p>
               </div>
             </div>
@@ -560,16 +560,16 @@ const Page4 = () => {
         {/* Hero Section */}
         <div className="text-center mb-16">
           {userName && (
-            <h1 className="text-lg md:text-base font-black mb-6 leading-tight">
+            <h1 className="text-2xl md:text-3xl font-black mb-6 leading-tight">
               ¡Hola <span className="bg-gradient-to-r from-cyan-500 to-pink-500 bg-clip-text text-transparent">
                 {userName}
               </span>!
             </h1>
           )}
-          <h2 className="text-base md:text-lg font-black text-gray-900 mb-6 leading-tight">
+          <h2 className="text-3xl md:text-2xl font-black text-gray-900 mb-6 leading-tight">
             Todo lo que tu familia necesita
           </h2>
-          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto font-medium">
+          <p className="text-3xl md:text-2xl text-gray-600 max-w-3xl mx-auto font-medium">
             Porque cuidarlos no tiene que ser difícil ni caro
           </p>
           
@@ -628,7 +628,7 @@ const Page4 = () => {
               window.scrollTo(0, 0);
               navigate('/contact');
             }}
-            className="group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-pink-500 text-white rounded-2xl font-black text-base shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
+            className="group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-pink-500 text-white rounded-2xl font-black text-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
           >
             {/* Shine Effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
@@ -650,7 +650,7 @@ const Page4 = () => {
       <footer className="bg-white mt-16 py-8 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-safe">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className="text-gray-700 text-lg font-medium">
+            <p className="text-gray-700 text-2xl font-medium">
               SaludCompartida · Cuidando lo que más importa
             </p>
             

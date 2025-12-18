@@ -99,11 +99,11 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
           </svg>
         </div>
         
-        <h3 className="text-base font-bold text-gray-900 mb-4">
+        <h3 className="text-3xl font-bold text-gray-900 mb-4">
           ¡Gracias por tu opinión!
         </h3>
         
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-2xl text-gray-600 mb-8">
           Tus sugerencias nos ayudan a crear el contenido que realmente necesitas. 
           Pronto verás artículos sobre los temas más votados.
         </p>
@@ -129,11 +129,11 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
           </svg>
         </div>
         
-        <h2 className="text-base font-bold text-gray-900 mb-3">
+        <h2 className="text-3xl font-bold text-gray-900 mb-3">
           ¿Qué temas te interesan más?
         </h2>
         
-        <p className="text-lg text-gray-600 mb-2">
+        <p className="text-2xl text-gray-600 mb-2">
           Queremos escribir sobre lo que TÚ necesitas.
         </p>
         <p className="text-gray-600 mb-4">

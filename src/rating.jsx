@@ -253,10 +253,10 @@ const Rating = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-base font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">
               ¡Gracias por tu opinión!
             </h2>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 text-2xl">
               Tu feedback nos ayuda a mejorar cada día
             </p>
           </div>
@@ -337,7 +337,7 @@ const Rating = () => {
             <div className="text-center">
               {/* Mensaje inspirador con energía y felicidad */}
               <div className="mb-8 bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-6 border-2 border-orange-200">
-                <p className="text-base font-bold text-orange-600 mb-3">
+                <p className="text-3xl font-bold text-orange-600 mb-3">
                   {nombreUsuario}, ayúdanos a mejorar, ¡solo tomará dos minutos!
                 </p>
                 <p className="text-gray-700 leading-relaxed">
@@ -345,10 +345,10 @@ const Rating = () => {
                 </p>
               </div>
 
-              <h2 className="text-base font-bold text-gray-900 mb-3">
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">
                 ¿Cómo fue tu experiencia?
               </h2>
-              <p className="text-cyan-600 text-lg font-semibold mb-8">
+              <p className="text-cyan-600 text-2xl font-semibold mb-8">
                 Tu opinión nos ayuda a ser mejores
               </p>
               
@@ -369,7 +369,7 @@ const Rating = () => {
                   <div className="w-24 h-24 mx-auto mb-4">
                     {getRatingFace(rating)}
                   </div>
-                  <p className="text-lg font-semibold text-gray-900">
+                  <p className="text-2xl font-semibold text-gray-900">
                     {getRatingText(rating)}
                   </p>
                 </div>
@@ -378,7 +378,7 @@ const Rating = () => {
               <button
                 onClick={() => setStep(2)}
                 disabled={!canProceed()}
-                className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-cyan-600 hover:to-cyan-700 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-8 py-4 rounded-xl font-semibold text-2xl hover:from-cyan-600 hover:to-cyan-700 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
               >
                 Continuar
               </button>
@@ -388,7 +388,7 @@ const Rating = () => {
           {/* Step 2: Reasons */}
           {step === 2 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-3">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
                 ¿Qué influyó en tu calificación?
               </h2>
               <p className="text-cyan-600 font-semibold mb-6">
@@ -461,7 +461,7 @@ const Rating = () => {
           {/* Step 3: Comment */}
           {step === 3 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-3">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
                 ¿Algo más que quieras compartir?
               </h2>
               <p className="text-gray-600 mb-6">
@@ -503,7 +503,7 @@ const Rating = () => {
           {/* Step 4: Contact Info (only for low ratings) */}
           {step === 4 && rating <= 3 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-3">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
                 Queremos resolverlo
               </h2>
               <p className="text-gray-600 mb-6">
@@ -595,7 +595,7 @@ const Rating = () => {
                 window.scrollTo(0, 0);
                 navigate('/contact');
               }}
-              className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+              className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-2xl shadow-lg hover:shadow-xl transition-all"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

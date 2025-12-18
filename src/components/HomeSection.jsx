@@ -46,10 +46,10 @@ export default function HomeSection() {
       <section className="px-6 pt-12 pb-8">
         <div className="text-center max-w-4xl mx-auto">
           <p className="text-white font-bold tracking-widest uppercase mb-4">La Solución</p>
-          <h1 className="text-base md:text-9xl font-black mb-4">
+          <h1 className="text-3xl md:text-9xl font-black mb-4">
             <span className="text-cyan-400">SaludCompartida</span>
           </h1>
-          <h2 className="text-base md:text-base font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
             Una App. Tu Familia Cuidada. $12/Mes
           </h2>
         </div>
@@ -62,7 +62,7 @@ export default function HomeSection() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-4">
                 <div className="bg-red-500/20 border border-red-500/40 rounded-xl px-4 py-2">
-                  <span className="text-base font-black text-red-400">$576</span>
+                  <span className="text-3xl font-black text-red-400">$576</span>
                   <span className="text-gray-400 text-sm ml-1">USD/año</span>
                 </div>
                 <p className="text-gray-300 text-sm max-w-md">
@@ -71,7 +71,7 @@ export default function HomeSection() {
               </div>
               <div className="bg-green-500/20 border border-green-500/40 rounded-xl px-4 py-2 text-center">
                 <p className="text-gray-400 text-xs">Tu ahorro anual</p>
-                <span className="text-lg font-black text-green-400">${savings}</span>
+                <span className="text-2xl font-black text-green-400">${savings}</span>
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@ export default function HomeSection() {
       {/* 30 Segundos - Línea Horizontal Compacta */}
       <section className="px-6 py-8 bg-gray-800/30">
         <div className="max-w-4xl mx-auto">
-          <h3 className="text-lg font-bold text-center mb-6 text-white">
+          <h3 className="text-2xl font-bold text-center mb-6 text-white">
             <span className="text-cyan-400">30 Segundos</span> para Cuidar a tu Familia
           </h3>
           
@@ -99,7 +99,7 @@ export default function HomeSection() {
             {/* Step 1 */}
             <div className={`relative z-10 flex flex-col items-center transition-all duration-300 ${activeStep >= 1 ? 'opacity-100' : 'opacity-50'}`}>
               <div className={`w-16 h-16 rounded-full flex items-center justify-center border-3 transition-all duration-300 ${activeStep >= 1 ? 'bg-green-500/30 border-green-500' : 'bg-gray-800 border-gray-600'}`}>
-                <span className="text-base font-black text-green-400">$12</span>
+                <span className="text-3xl font-black text-green-400">$12</span>
               </div>
               <p className="text-sm font-bold text-white mt-2 text-center">Compras</p>
             </div>
@@ -136,17 +136,17 @@ export default function HomeSection() {
             </div>
           </div>
           
-          <p className="text-center text-white font-bold text-lg mt-4">Así de simple. Así de rápido.</p>
+          <p className="text-center text-white font-bold text-2xl mt-4">Así de simple. Así de rápido.</p>
         </div>
       </section>
 
       {/* ¿Qué obtienes? - Dos bloques lado a lado */}
       <section className="px-6 py-10">
         <div className="max-w-5xl mx-auto">
-          <h3 className="text-base md:text-lg font-bold text-center mb-2 text-white">
+          <h3 className="text-3xl md:text-2xl font-bold text-center mb-2 text-white">
             ¿Qué obtienes con
           </h3>
-          <h3 className="text-base md:text-lg font-black text-center mb-8 text-cyan-400">
+          <h3 className="text-3xl md:text-2xl font-black text-center mb-8 text-cyan-400">
             SaludCompartida?
           </h3>
           
@@ -161,7 +161,7 @@ export default function HomeSection() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold text-cyan-400">Para Ti</h4>
+                  <h4 className="text-2xl font-bold text-cyan-400">Para Ti</h4>
                   <p className="text-gray-400 text-xs">Migrante en EE.UU.</p>
                 </div>
               </div>
@@ -203,7 +203,7 @@ export default function HomeSection() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold text-pink-400">Para Tu Familia</h4>
+                  <h4 className="text-2xl font-bold text-pink-400">Para Tu Familia</h4>
                   <p className="text-gray-400 text-xs">en México</p>
                 </div>
               </div>
@@ -247,13 +247,13 @@ export default function HomeSection() {
       <section className="px-6 py-10">
         <div className="max-w-3xl mx-auto">
           <div className="bg-gradient-to-r from-cyan-600 to-cyan-500 rounded-2xl p-6 md:p-8 text-center text-white">
-            <h2 className="text-base md:text-lg font-bold mb-2">
+            <h2 className="text-3xl md:text-2xl font-bold mb-2">
               Tú trabajas duro <span className="text-yellow-400 font-black">"aquí"</span>. Nosotros los cuidamos <span className="text-yellow-400 font-black">"allá"</span>.
             </h2>
             
             <div className="my-4 inline-flex items-center gap-3 bg-white/10 rounded-xl px-4 py-2">
               <span className="text-cyan-200/60 line-through font-bold">$576/año</span>
-              <span className="text-lg font-black">$12/mes</span>
+              <span className="text-2xl font-black">$12/mes</span>
             </div>
             
             <p className="text-sm mb-4 text-white font-bold italic">

@@ -39,7 +39,7 @@ export default function ConfirmacionTerms() {
           />
           <button
             onClick={() => navigate('/confirmacion')}
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"
+            className="text-gray-600 hover:text-gray-900 font-medium text-2xl transition-colors"
           >
             Volver
           </button>
@@ -48,10 +48,10 @@ export default function ConfirmacionTerms() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-base md:text-lg font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-2xl font-bold text-gray-900 mb-4">
             Términos y Condiciones
           </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-2xl text-gray-600 max-w-3xl mx-auto">
             Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.
           </p>
           <p className="text-sm text-gray-500 mt-4">
@@ -62,7 +62,7 @@ export default function ConfirmacionTerms() {
         <div className="grid lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1">
             <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
-              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
+              <h3 className="font-bold text-gray-900 mb-4 text-2xl">Índice</h3>
               <nav className="space-y-2">
                 {sections.map((section) => (
                   <button
@@ -83,7 +83,7 @@ export default function ConfirmacionTerms() {
 
           <div className="lg:col-span-3 space-y-12">
             <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 1. ¿Qué es SaludCompartida?
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -109,7 +109,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="definitions" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 2. Definiciones clave
               </h2>
               <div className="space-y-4">
@@ -136,7 +136,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="services" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 3. Descripción de servicios
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -179,12 +179,12 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="subscription" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 4. Suscripción y pagos
               </h2>
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">4.1 Costo y renovación</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">4.1 Costo y renovación</h3>
                   <ul className="space-y-2 text-gray-700 text-sm">
                     <li>• La suscripción tiene un costo de <strong>$25 USD mensuales</strong></li>
                     <li>• Se renueva automáticamente cada mes en la fecha de contratación</li>
@@ -194,7 +194,7 @@ export default function ConfirmacionTerms() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">4.2 Política de reembolsos</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">4.2 Política de reembolsos</h3>
                   <ul className="space-y-2 text-gray-700 text-sm">
                     <li>• No ofrecemos reembolsos parciales del mes en curso</li>
                     <li>• Si cancelas, mantienes acceso hasta el final del período pagado</li>
@@ -203,7 +203,7 @@ export default function ConfirmacionTerms() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">4.3 Cambios de precio</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">4.3 Cambios de precio</h3>
                   <p className="text-gray-700 text-sm">
                     Nos reservamos el derecho de modificar el precio de la suscripción. Te notificaremos con 30 días de anticipación antes de aplicar cualquier cambio.
                   </p>
@@ -212,7 +212,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="usage" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 5. Uso de la plataforma
               </h2>
               <div className="space-y-4">
@@ -267,7 +267,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="privacy" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 6. Privacidad y protección de datos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -284,7 +284,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="limitations" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 7. Limitaciones del servicio
               </h2>
               <div className="bg-red-50 border-l-4 border-red-400 p-6 mb-6 rounded-r-lg">
@@ -305,7 +305,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="responsibilities" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 8. Responsabilidades y limitación de responsabilidad
               </h2>
               <div className="space-y-4">
@@ -339,7 +339,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="modifications" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 9. Modificaciones a los términos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -356,7 +356,7 @@ export default function ConfirmacionTerms() {
             </section>
 
             <section id="jurisdiction" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 10. Ley aplicable y jurisdicción
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -370,14 +370,14 @@ export default function ConfirmacionTerms() {
         </div>
 
         <div className="mt-12 text-center bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl p-8 border border-cyan-200">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">
             ¿Tienes preguntas sobre estos términos?
           </h3>
           <p className="text-gray-700 mb-6">
             Si tienes dudas o necesitas aclaraciones, contáctanos:
           </p>
           <div className="text-center">
-            <a href="mailto:contact@saludcompartida.com" className="text-cyan-600 hover:text-cyan-700 font-semibold text-lg">
+            <a href="mailto:contact@saludcompartida.com" className="text-cyan-600 hover:text-cyan-700 font-semibold text-2xl">
               💬 contact@saludcompartida.com
             </a>
           </div>
