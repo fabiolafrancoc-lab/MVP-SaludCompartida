@@ -215,17 +215,11 @@ export default function LoginCodigo() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          to: 'contact@saludcompartida.com',
-          subject: 'Problema con código de acceso',
-          html: `
-            <h2>Usuario reporta problema con código de acceso</h2>
-            <p><strong>Nombre:</strong> ${firstName || 'No proporcionado'}</p>
-            <p><strong>Apellido:</strong> ${lastName || 'No proporcionado'}</p>
-            <p><strong>Email:</strong> ${email || 'No proporcionado'}</p>
-            <p><strong>WhatsApp:</strong> ${countryCode} ${whatsappNumber || 'No proporcionado'}</p>
-            <p><strong>Código intentado:</strong> ${specialCode || 'No proporcionado'}</p>
-            <p><strong>Mensaje:</strong> El usuario reporta que su código de acceso no funciona.</p>
-          `
+          name: `${firstName || 'Usuario'} ${lastName || ''}`.trim(),
+          email: email || 'no-email@saludcompartida.com',
+          phone: `${countryCode} ${whatsappNumber || 'No proporcionado'}`,
+          message: `PROBLEMA CON CÓDIGO DE ACCESO\n\nCódigo intentado: ${specialCode || 'No proporcionado'}\n\nEl usuario reporta que su código de acceso no funciona correctamente.`,
+          type: 'code-error'
         })
       });
 
@@ -330,13 +324,6 @@ export default function LoginCodigo() {
               className="text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors"
             >
               Contacto
-            </button>
-
-            <button
-              onClick={() => navigate('/registro')}
-              className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-6 py-2 rounded-lg font-bold hover:from-cyan-600 hover:to-cyan-700 transition-all shadow-md hover:shadow-lg"
-            >
-              Contratar
             </button>
           </nav>
 
@@ -552,9 +539,9 @@ export default function LoginCodigo() {
                   <button
                     onClick={handleCodeError}
                     disabled={sendingEmail}
-                    className="text-sm text-gray-600 hover:text-cyan-600 underline transition-colors inline-flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="text-base md:text-lg font-semibold text-gray-700 hover:text-cyan-600 underline transition-colors inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     {sendingEmail ? 'Enviando...' : '¿Código erróneo? Reportar problema'}
