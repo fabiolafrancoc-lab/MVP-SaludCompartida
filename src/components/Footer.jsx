@@ -29,14 +29,14 @@ export default function Footer({ variant = 'dark', internalPage = false, confirm
               alt="SaludCompartida" 
               className="h-12 mb-6"
             />
-            <p className={`text-lg md:text-3xl lg:text-4xl ${textSecondary} italic leading-relaxed`}>
+            <p className={`text-sm md:text-base lg:text-lg ${textSecondary} italic leading-relaxed`}>
               Donde está tu corazón, está SaludCompartida
             </p>
           </div>
 
           {/* Columna: Quienes Somos */}
           <div>
-            <h3 className={`text-lg md:text-3xl lg:text-4xl font-bold ${textColor} mb-6 uppercase tracking-wider`}>
+            <h3 className={`text-base md:text-lg lg:text-xl font-bold ${textColor} mb-6 uppercase tracking-wider`}>
               Quienes Somos
             </h3>
             <ul className="space-y-3">
@@ -73,7 +73,7 @@ export default function Footer({ variant = 'dark', internalPage = false, confirm
 
           {/* Columna: Nuestros Servicios */}
           <div>
-            <h3 className={`text-lg md:text-3xl lg:text-4xl font-bold ${textColor} mb-6 uppercase tracking-wider`}>
+            <h3 className={`text-base md:text-lg lg:text-xl font-bold ${textColor} mb-6 uppercase tracking-wider`}>
               Nuestros Servicios
             </h3>
             <ul className="space-y-3">
@@ -110,7 +110,7 @@ export default function Footer({ variant = 'dark', internalPage = false, confirm
 
           {/* Columna: Legal */}
           <div>
-            <h3 className={`text-lg md:text-3xl lg:text-4xl font-bold ${textColor} mb-6 uppercase tracking-wider`}>
+            <h3 className={`text-base md:text-lg lg:text-xl font-bold ${textColor} mb-6 uppercase tracking-wider`}>
               Legal
             </h3>
             <ul className="space-y-3">

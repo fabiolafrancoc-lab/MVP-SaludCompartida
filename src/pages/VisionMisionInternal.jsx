@@ -82,7 +82,7 @@ export default function VisionMisionInternal() {
         </div>
       </section>
 
-      <Footer internalPage={true} />
+      <Footer variant="light" internalPage={true} />
     </main>
   )
 }
