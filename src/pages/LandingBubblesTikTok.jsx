@@ -134,10 +134,10 @@ export default function LandingBubblesTikTok() {
       }`}>
         {/* Header MÁS GRANDE Y DESTACADO */}
         <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-[2000] max-w-[95%] bg-gray-900/95 px-8 py-5 rounded-2xl backdrop-blur-lg shadow-2xl">
-          <div className="text-base md:text-lg font-extrabold text-white text-center mb-2">
+          <div className="text-3xl md:text-2xl font-extrabold text-white text-center mb-2">
             ¿Sientes lo mismo?
           </div>
-          <div className="text-lg md:text-base text-white/80 text-center">
+          <div className="text-2xl md:text-3xl text-white/80 text-center">
             Miles viven esto cada día
           </div>
         </div>
@@ -153,12 +153,12 @@ export default function LandingBubblesTikTok() {
       {showLogo && !showSolution && (
         <div className="fixed inset-0 z-[3000] bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center animate-fadeInFast">
           <div className="text-center px-4">
-            <h1 className="text-base md:text-lg font-black text-white mb-6 animate-logoZoom" style={{
+            <h1 className="text-3xl md:text-2xl font-black text-white mb-6 animate-logoZoom" style={{
               textShadow: '0 0 60px rgba(6, 182, 212, 0.6)'
             }}>
               SaludCompartida
             </h1>
-            <p className="text-lg md:text-base text-cyan-400 font-light italic">
+            <p className="text-2xl md:text-3xl text-cyan-400 font-light italic">
               Te ayudamos a cuidar donde está tu corazón
             </p>
           </div>
@@ -171,10 +171,10 @@ export default function LandingBubblesTikTok() {
           <div className="max-w-4xl w-full text-left space-y-4">
             {/* Logo arriba */}
             <div className="text-center mb-8">
-              <h1 className="text-base md:text-lg font-black text-white mb-2">
+              <h1 className="text-3xl md:text-2xl font-black text-white mb-2">
                 SaludCompartida
               </h1>
-              <p className="text-lg md:text-base text-cyan-400 font-light italic">
+              <p className="text-2xl md:text-3xl text-cyan-400 font-light italic">
                 Te ayudamos a cuidar donde está tu corazón
               </p>
             </div>
@@ -182,28 +182,28 @@ export default function LandingBubblesTikTok() {
             {/* Beneficios - Líneas limpias, SIN ICONOS */}
             <div className="space-y-4 text-white">
               <div className="border-l-4 border-cyan-400 pl-5 py-2 animate-slideInLeft" style={{animationDelay: '0.1s'}}>
-                <h3 className="text-base md:text-lg font-bold mb-1">Telemedicina 24/7</h3>
-                <p className="text-base md:text-lg text-white/80">Acceso inmediato a médicos profesionales</p>
+                <h3 className="text-3xl md:text-2xl font-bold mb-1">Telemedicina 24/7</h3>
+                <p className="text-3xl md:text-2xl text-white/80">Acceso inmediato a médicos profesionales</p>
               </div>
 
               <div className="border-l-4 border-pink-400 pl-5 py-2 animate-slideInLeft" style={{animationDelay: '0.2s'}}>
-                <h3 className="text-base md:text-lg font-bold mb-1">Receta Electrónica</h3>
-                <p className="text-base md:text-lg text-white/80">Recibe tu prescripción digital de ser necesario</p>
+                <h3 className="text-3xl md:text-2xl font-bold mb-1">Receta Electrónica</h3>
+                <p className="text-3xl md:text-2xl text-white/80">Recibe tu prescripción digital de ser necesario</p>
               </div>
 
               <div className="border-l-4 border-purple-400 pl-5 py-2 animate-slideInLeft" style={{animationDelay: '0.3s'}}>
-                <h3 className="text-base md:text-lg font-bold mb-1">Descuento en Farmacias</h3>
-                <p className="text-base md:text-lg text-white/80">Hasta 60% de ahorro en medicamentos</p>
+                <h3 className="text-3xl md:text-2xl font-bold mb-1">Descuento en Farmacias</h3>
+                <p className="text-3xl md:text-2xl text-white/80">Hasta 60% de ahorro en medicamentos</p>
               </div>
 
               <div className="border-l-4 border-yellow-400 pl-5 py-2 animate-slideInLeft" style={{animationDelay: '0.4s'}}>
-                <h3 className="text-base md:text-lg font-bold mb-1">Terapia Psicológica</h3>
-                <p className="text-base md:text-lg text-white/80">Una sesión semanal con psicólogos certificados</p>
+                <h3 className="text-3xl md:text-2xl font-bold mb-1">Terapia Psicológica</h3>
+                <p className="text-3xl md:text-2xl text-white/80">Una sesión semanal con psicólogos certificados</p>
               </div>
 
               <div className="border-l-4 border-green-400 pl-5 py-2 animate-slideInLeft" style={{animationDelay: '0.5s'}}>
-                <h3 className="text-base md:text-lg font-bold mb-1">Hasta 4 Miembros</h3>
-                <p className="text-base md:text-lg text-white/80">Cuida hasta 4 personas con un solo plan</p>
+                <h3 className="text-3xl md:text-2xl font-bold mb-1">Hasta 4 Miembros</h3>
+                <p className="text-3xl md:text-2xl text-white/80">Cuida hasta 4 personas con un solo plan</p>
               </div>
             </div>
 
@@ -211,7 +211,7 @@ export default function LandingBubblesTikTok() {
             <div className="text-center mt-10">
               <button
                 onClick={() => navigate('/')}
-                className="px-12 py-5 bg-gradient-to-r from-cyan-500 to-pink-500 text-white text-base md:text-lg font-black rounded-full shadow-2xl hover:scale-105 transition-all uppercase animate-pulse"
+                className="px-12 py-5 bg-gradient-to-r from-cyan-500 to-pink-500 text-white text-3xl md:text-2xl font-black rounded-full shadow-2xl hover:scale-105 transition-all uppercase animate-pulse"
               >
                 Cuidar Ahora
               </button>

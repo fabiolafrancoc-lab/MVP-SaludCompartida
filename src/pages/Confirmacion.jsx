@@ -43,7 +43,7 @@ export default function Confirmacion() {
           <img src="/saludcompartida logo WT.png" alt="SaludCompartida" className="h-16 md:h-20" />
           <button
             onClick={() => navigate('/contact')}
-            className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg hover:shadow-lg transition-all text-sm md:text-base flex items-center gap-2"
+            className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg hover:shadow-lg transition-all text-sm md:text-3xl flex items-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -61,10 +61,10 @@ export default function Confirmacion() {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
               <CheckCircle className="w-12 h-12 text-green-600" />
             </div>
-            <h1 className="text-base md:text-base font-bold text-gray-900 mb-3">
+            <h1 className="text-3xl md:text-3xl font-bold text-gray-900 mb-3">
               ¡Suscripción Exitosa!
             </h1>
-            <p className="text-lg text-gray-600 mb-2">
+            <p className="text-2xl text-gray-600 mb-2">
               Bienvenido a SaludCompartida, {data.firstName || 'Usuario'}
             </p>
             <p className="text-sm text-gray-500">
@@ -75,7 +75,7 @@ export default function Confirmacion() {
           {/* Comprobante */}
           <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-6">
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
-              <h2 className="text-base font-bold text-gray-900">Comprobante de Pago</h2>
+              <h2 className="text-3xl font-bold text-gray-900">Comprobante de Pago</h2>
               <button
                 onClick={handleDownloadReceipt}
                 className="flex items-center gap-2 text-cyan-600 hover:text-cyan-700 font-semibold transition-colors"
@@ -92,7 +92,7 @@ export default function Confirmacion() {
                   <FileText className="w-5 h-5 text-cyan-600" />
                   <p className="text-sm font-semibold text-gray-700">Número de Confirmación</p>
                 </div>
-                <p className="text-lg font-bold text-gray-900 tracking-wider">
+                <p className="text-2xl font-bold text-gray-900 tracking-wider">
                   {data.confirmationNumber}
                 </p>
               </div>
@@ -120,11 +120,11 @@ export default function Confirmacion() {
               <div className="bg-gray-50 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-3">
                   <p className="font-semibold text-gray-700">Plan Contratado</p>
-                  <p className="text-lg font-bold text-gray-900">{data.plan}</p>
+                  <p className="text-2xl font-bold text-gray-900">{data.plan}</p>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-gray-200">
                   <p className="text-sm text-gray-600">Total Pagado</p>
-                  <p className="text-lg font-bold text-cyan-600">${data.amount} USD</p>
+                  <p className="text-2xl font-bold text-cyan-600">${data.amount} USD</p>
                 </div>
               </div>
 
@@ -152,7 +152,7 @@ export default function Confirmacion() {
                     {data.migrantAccessCode && (
                       <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-4">
                         <p className="text-xs text-gray-600 mb-1">Código para Migrante (USA)</p>
-                        <p className="text-lg font-bold text-cyan-700 tracking-wider font-mono">
+                        <p className="text-2xl font-bold text-cyan-700 tracking-wider font-mono">
                           {data.migrantAccessCode}
                         </p>
                         <p className="text-xs text-gray-600 mt-2">
@@ -163,7 +163,7 @@ export default function Confirmacion() {
                     {data.familyAccessCode && (
                       <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-4">
                         <p className="text-xs text-gray-600 mb-1">Código para Familiar (México)</p>
-                        <p className="text-lg font-bold text-pink-700 tracking-wider font-mono">
+                        <p className="text-2xl font-bold text-pink-700 tracking-wider font-mono">
                           {data.familyAccessCode}
                         </p>
                         <p className="text-xs text-gray-600 mt-2">

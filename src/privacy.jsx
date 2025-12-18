@@ -51,10 +51,10 @@ export default function Privacy() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
           </div>
-          <h1 className="text-base md:text-lg font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-2xl font-bold text-gray-900 mb-4">
             Aviso de Privacidad
           </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-2xl text-gray-600 max-w-3xl mx-auto">
             Tu privacidad es fundamental para nosotros. Conoce cómo protegemos y utilizamos tus datos personales.
           </p>
           <p className="text-sm text-gray-500 mt-4">
@@ -66,7 +66,7 @@ export default function Privacy() {
           {/* Sidebar - Índice navegable */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24">
-              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
+              <h3 className="font-bold text-gray-900 mb-4 text-2xl">Índice</h3>
               <nav className="space-y-2">
                 {sections.map((section) => (
                   <button
@@ -90,7 +90,7 @@ export default function Privacy() {
             
             {/* Sección 1: Introducción */}
             <section id="intro" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 1. Introducción
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -109,11 +109,11 @@ export default function Privacy() {
 
             {/* Sección 2: Responsable del tratamiento */}
             <section id="responsible" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 2. Responsable del tratamiento
               </h2>
               <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl p-6">
-                <h3 className="font-bold text-gray-900 mb-4 text-lg">SaludCompartida S.A.P.I. de C.V.</h3>
+                <h3 className="font-bold text-gray-900 mb-4 text-2xl">SaludCompartida S.A.P.I. de C.V.</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <p className="text-sm text-gray-600 mb-1">CEO y Representante Legal</p>
@@ -140,7 +140,7 @@ export default function Privacy() {
 
             {/* Sección 3: Datos que recopilamos */}
             <section id="data-collection" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 3. Datos personales que recopilamos
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -150,7 +150,7 @@ export default function Privacy() {
               <div className="space-y-6">
                 {/* Datos de identificación */}
                 <div className="border-l-4 border-cyan-500 pl-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de identificación</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Datos de identificación</h3>
                   <ul className="text-gray-700 text-sm space-y-2">
                     <li className="flex items-start gap-2">
                       <svg className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -176,7 +176,7 @@ export default function Privacy() {
 
                 {/* Datos de salud */}
                 <div className="bg-red-50 border-l-4 border-red-400 pl-6 py-4 rounded-r-lg">
-                  <h3 className="font-bold text-red-900 mb-3 text-lg flex items-center gap-2">
+                  <h3 className="font-bold text-red-900 mb-3 text-2xl flex items-center gap-2">
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
                     </svg>
@@ -204,7 +204,7 @@ export default function Privacy() {
 
                 {/* Datos de familiares */}
                 <div className="border-l-4 border-purple-500 pl-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de familiares usuarios</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Datos de familiares usuarios</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     Información básica de hasta 4 miembros familiares designados como usuarios del servicio (nombre, edad, relación familiar).
                   </p>
@@ -212,7 +212,7 @@ export default function Privacy() {
 
                 {/* Datos de pago */}
                 <div className="border-l-4 border-pink-500 pl-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de pago</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Datos de pago</h3>
                   <ul className="text-gray-700 text-sm space-y-2">
                     <li>• Información de tarjeta de crédito/débito (procesada por proveedores seguros)</li>
                     <li>• Historial de transacciones</li>
@@ -225,7 +225,7 @@ export default function Privacy() {
 
                 {/* Datos de uso (estadísticos) */}
                 <div className="bg-gray-50 rounded-xl p-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de uso (únicamente estadísticos)</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Datos de uso (únicamente estadísticos)</h3>
                   <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                     Los siguientes datos se recopilan de forma <strong>anónima y agregada</strong>, sin asociar nombre o identidad individual:
                   </p>
@@ -241,7 +241,7 @@ export default function Privacy() {
 
             {/* Sección 4: Finalidades del tratamiento */}
             <section id="purpose" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 4. Finalidades del tratamiento
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -251,7 +251,7 @@ export default function Privacy() {
               <div className="space-y-6">
                 {/* Finalidades primarias */}
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-4 text-lg flex items-center gap-2">
+                  <h3 className="font-bold text-gray-900 mb-4 text-2xl flex items-center gap-2">
                     <span className="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2.5 py-1 rounded">PRIMARIAS</span>
                     Prestación de servicios de salud
                   </h3>
@@ -277,7 +277,7 @@ export default function Privacy() {
 
                 {/* Finalidades secundarias */}
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-4 text-lg flex items-center gap-2">
+                  <h3 className="font-bold text-gray-900 mb-4 text-2xl flex items-center gap-2">
                     <span className="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded">SECUNDARIAS</span>
                     Mejora y marketing de servicios
                   </h3>
@@ -314,7 +314,7 @@ export default function Privacy() {
 
                 {/* Cumplimiento regulatorio */}
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-4 text-lg flex items-center gap-2">
+                  <h3 className="font-bold text-gray-900 mb-4 text-2xl flex items-center gap-2">
                     <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">LEGAL</span>
                     Cumplimiento de requisitos legales
                   </h3>
@@ -327,7 +327,7 @@ export default function Privacy() {
 
                 {/* Comunicaciones */}
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-4 text-lg">Comunicaciones con usuarios</h3>
+                  <h3 className="font-bold text-gray-900 mb-4 text-2xl">Comunicaciones con usuarios</h3>
                   <ul className="text-gray-700 text-sm space-y-2">
                     <li>• Recordatorios de citas y sesiones programadas</li>
                     <li>• Información sobre el estado de tu suscripción</li>
@@ -340,7 +340,7 @@ export default function Privacy() {
 
             {/* Sección 5: Fundamento legal */}
             <section id="legal-basis" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 5. Fundamento legal
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -394,7 +394,7 @@ export default function Privacy() {
 
             {/* Sección 6: Transferencia de datos */}
             <section id="data-transfer" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 6. Transferencia de datos
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -404,7 +404,7 @@ export default function Privacy() {
               <div className="space-y-6">
                 {/* Proveedores médicos */}
                 <div className="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg flex items-center gap-2">
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl flex items-center gap-2">
                     <svg className="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                     </svg>
@@ -420,7 +420,7 @@ export default function Privacy() {
 
                 {/* Procesadores de pago */}
                 <div className="border-l-4 border-pink-500 pl-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Procesadores de pago</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Procesadores de pago</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     Utilizamos proveedores de pago certificados y seguros para procesar transacciones. Estos procesadores cumplen con los estándares PCI-DSS para protección de datos financieros.
                   </p>
@@ -428,7 +428,7 @@ export default function Privacy() {
 
                 {/* Infraestructura tecnológica */}
                 <div className="border-l-4 border-purple-500 pl-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Infraestructura tecnológica</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Infraestructura tecnológica</h3>
                   <ul className="text-gray-700 text-sm space-y-2">
                     <li><strong>Servidores:</strong> Utilizamos Vercel para hosting del sitio web y AWS para almacenamiento seguro de datos</li>
                     <li><strong>Ubicación:</strong> Nuestros servidores están ubicados en centros de datos certificados en Estados Unidos</li>
@@ -438,7 +438,7 @@ export default function Privacy() {
 
                 {/* Transferencias internacionales */}
                 <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
-                  <h3 className="font-bold text-yellow-900 mb-3 text-lg flex items-center gap-2">
+                  <h3 className="font-bold text-yellow-900 mb-3 text-2xl flex items-center gap-2">
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                     </svg>
@@ -468,7 +468,7 @@ export default function Privacy() {
 
             {/* Sección 7: Derechos ARCO */}
             <section id="arco-rights" className="bg-gradient-to-br from-cyan-500 to-purple-600 rounded-xl shadow-lg p-8 text-white">
-              <h2 className="text-base font-bold mb-6">
+              <h2 className="text-3xl font-bold mb-6">
                 7. Tus Derechos ARCO
               </h2>
               <p className="mb-6 leading-relaxed">
@@ -483,7 +483,7 @@ export default function Privacy() {
                       <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <h3 className="font-bold mb-2 text-lg">Acceso</h3>
+                  <h3 className="font-bold mb-2 text-2xl">Acceso</h3>
                   <p className="text-sm opacity-90">Conocer qué datos personales tenemos sobre ti y para qué los utilizamos</p>
                 </div>
 
@@ -493,7 +493,7 @@ export default function Privacy() {
                       <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                     </svg>
                   </div>
-                  <h3 className="font-bold mb-2 text-lg">Rectificación</h3>
+                  <h3 className="font-bold mb-2 text-2xl">Rectificación</h3>
                   <p className="text-sm opacity-90">Corregir información inexacta, incompleta o desactualizada</p>
                 </div>
 
@@ -503,7 +503,7 @@ export default function Privacy() {
                       <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <h3 className="font-bold mb-2 text-lg">Cancelación</h3>
+                  <h3 className="font-bold mb-2 text-2xl">Cancelación</h3>
                   <p className="text-sm opacity-90">Solicitar la eliminación de tus datos cuando ya no sean necesarios</p>
                 </div>
 
@@ -513,13 +513,13 @@ export default function Privacy() {
                       <path fillRule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <h3 className="font-bold mb-2 text-lg">Oposición</h3>
+                  <h3 className="font-bold mb-2 text-2xl">Oposición</h3>
                   <p className="text-sm opacity-90">Oponerte al tratamiento de tus datos para finalidades específicas</p>
                 </div>
               </div>
 
               <div className="bg-white/20 backdrop-blur rounded-xl p-6">
-                <h3 className="font-bold text-base mb-4">¿Cómo ejercer tus derechos?</h3>
+                <h3 className="font-bold text-3xl mb-4">¿Cómo ejercer tus derechos?</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <div className="bg-white/20 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
@@ -565,7 +565,7 @@ export default function Privacy() {
 
             {/* Sección 8: Seguridad de datos */}
             <section id="security" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 8. Seguridad de datos
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -578,7 +578,7 @@ export default function Privacy() {
                     <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
-                    <h3 className="font-bold text-gray-900 text-lg">Encriptación</h3>
+                    <h3 className="font-bold text-gray-900 text-2xl">Encriptación</h3>
                   </div>
                   <ul className="text-gray-700 text-sm space-y-1">
                     <li>• SSL/TLS para datos en tránsito</li>
@@ -592,7 +592,7 @@ export default function Privacy() {
                     <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
-                    <h3 className="font-bold text-gray-900 text-lg">Control de acceso</h3>
+                    <h3 className="font-bold text-gray-900 text-2xl">Control de acceso</h3>
                   </div>
                   <ul className="text-gray-700 text-sm space-y-1">
                     <li>• Acceso restringido solo a personal autorizado</li>
@@ -606,7 +606,7 @@ export default function Privacy() {
                     <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <h3 className="font-bold text-gray-900 text-lg">Auditorías y respaldos</h3>
+                    <h3 className="font-bold text-gray-900 text-2xl">Auditorías y respaldos</h3>
                   </div>
                   <ul className="text-gray-700 text-sm space-y-1">
                     <li>• Auditorías de seguridad periódicas</li>
@@ -620,7 +620,7 @@ export default function Privacy() {
                     <svg className="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
-                    <h3 className="font-bold text-gray-900 text-lg">Capacitación del personal</h3>
+                    <h3 className="font-bold text-gray-900 text-2xl">Capacitación del personal</h3>
                   </div>
                   <ul className="text-gray-700 text-sm space-y-1">
                     <li>• Entrenamiento en protección de datos</li>
@@ -631,7 +631,7 @@ export default function Privacy() {
               </div>
 
               <div className="bg-gray-50 rounded-xl p-6 mb-6">
-                <h3 className="font-bold text-gray-900 mb-3 text-lg">Conservación de datos</h3>
+                <h3 className="font-bold text-gray-900 mb-3 text-2xl">Conservación de datos</h3>
                 <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                   Conservamos tus datos personales solo durante el tiempo necesario para cumplir con las finalidades para las que fueron recopilados:
                 </p>
@@ -658,7 +658,7 @@ export default function Privacy() {
 
             {/* Sección 9: Cookies y tecnologías */}
             <section id="cookies" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 9. Cookies y tecnologías de rastreo
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -667,14 +667,14 @@ export default function Privacy() {
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">¿Qué son las cookies?</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">¿Qué son las cookies?</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas nuestro sitio web o usas nuestra aplicación. Nos ayudan a recordar tus preferencias y mejorar tu experiencia.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Tipos de cookies que utilizamos</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Tipos de cookies que utilizamos</h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-cyan-50 rounded-lg p-4">
                       <h4 className="font-semibold text-gray-900 mb-2 text-sm">Cookies esenciales</h4>
@@ -697,7 +697,7 @@ export default function Privacy() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Herramientas de análisis</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Herramientas de análisis</h3>
                   <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                     Utilizamos servicios de análisis de terceros (como Google Analytics) para comprender cómo se usa nuestra plataforma. Estos servicios pueden usar cookies para recopilar información anónima sobre:
                   </p>
@@ -710,7 +710,7 @@ export default function Privacy() {
                 </div>
 
                 <div className="bg-gradient-to-r from-green-50 to-cyan-50 rounded-xl p-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Control de cookies</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Control de cookies</h3>
                   <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                     Puedes controlar y administrar las cookies de las siguientes formas:
                   </p>
@@ -755,7 +755,7 @@ export default function Privacy() {
 
             {/* Sección 10: Menores de edad */}
             <section id="minors" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 10. Menores de edad
               </h2>
               
@@ -765,7 +765,7 @@ export default function Privacy() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2 text-lg">Protección de menores</h3>
+                    <h3 className="font-bold text-gray-900 mb-2 text-2xl">Protección de menores</h3>
                     <p className="text-gray-700 text-sm leading-relaxed">
                       SaludCompartida está comprometida con la protección de la privacidad de los menores de edad. Los servicios médicos pueden ser utilizados por menores, pero con las siguientes condiciones:
                     </p>
@@ -775,7 +775,7 @@ export default function Privacy() {
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Requisitos para menores de 18 años</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Requisitos para menores de 18 años</h3>
                   <ul className="space-y-3 text-gray-700 text-sm">
                     <li className="flex items-start gap-3">
                       <svg className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -808,7 +808,7 @@ export default function Privacy() {
                 </div>
 
                 <div className="bg-blue-50 rounded-xl p-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Derechos de los padres o tutores</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Derechos de los padres o tutores</h3>
                   <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                     Los padres o tutores legales pueden ejercer los derechos ARCO en nombre del menor en cualquier momento:
                   </p>
@@ -822,7 +822,7 @@ export default function Privacy() {
                 </div>
 
                 <div className="bg-purple-50 rounded-xl p-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Limitaciones para menores</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Limitaciones para menores</h3>
                   <ul className="text-gray-700 text-sm space-y-2">
                     <li>• Los menores de 18 años no pueden contratar directamente la suscripción</li>
                     <li>• Solo pueden ser designados como usuarios beneficiarios por un adulto</li>
@@ -841,7 +841,7 @@ export default function Privacy() {
 
             {/* Sección 11: Cambios al aviso */}
             <section id="changes" className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 11. Cambios al aviso de privacidad
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -850,7 +850,7 @@ export default function Privacy() {
 
               <div className="space-y-6">
                 <div className="bg-gradient-to-r from-cyan-50 to-purple-50 rounded-xl p-6">
-                  <h3 className="font-bold text-gray-900 mb-4 text-lg">¿Cuándo podemos modificar este aviso?</h3>
+                  <h3 className="font-bold text-gray-900 mb-4 text-2xl">¿Cuándo podemos modificar este aviso?</h3>
                   <ul className="text-gray-700 text-sm space-y-2">
                     <li>• Cuando agregamos nuevos servicios o funcionalidades</li>
                     <li>• Para cumplir con nuevas leyes o regulaciones</li>
@@ -861,7 +861,7 @@ export default function Privacy() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-4 text-lg">Cómo te notificaremos</h3>
+                  <h3 className="font-bold text-gray-900 mb-4 text-2xl">Cómo te notificaremos</h3>
                   <p className="text-gray-700 text-sm mb-4 leading-relaxed">
                     Te informaremos sobre cambios importantes en este aviso mediante:
                   </p>
@@ -916,7 +916,7 @@ export default function Privacy() {
                 </div>
 
                 <div className="bg-gray-50 rounded-xl p-6">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Historial de versiones</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Historial de versiones</h3>
                   <p className="text-gray-700 text-sm mb-3 leading-relaxed">
                     Mantenemos un registro de las versiones anteriores de este aviso de privacidad. Puedes solicitar acceso a versiones previas contactándonos en ffranco@saludcompartida.com
                   </p>
@@ -939,7 +939,7 @@ export default function Privacy() {
               window.scrollTo(0, 0);
               navigate('/contact');
             }}
-            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+            className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-2xl shadow-lg hover:shadow-xl transition-all"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

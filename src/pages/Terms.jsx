@@ -49,10 +49,10 @@ export default function Terms() {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="text-lg md:text-base font-bold mb-6 text-white">
+            <h1 className="text-2xl md:text-3xl font-bold mb-6 text-white">
               Términos y Condiciones
             </h1>
-            <p className="text-base text-gray-300 max-w-3xl mx-auto mb-4">
+            <p className="text-3xl text-gray-300 max-w-3xl mx-auto mb-4">
               Lee cuidadosamente estos términos antes de usar SaludCompartida. Al usar nuestro servicio, aceptas estar sujeto a estos términos.
             </p>
             <p className="text-sm text-gray-400">
@@ -64,7 +64,7 @@ export default function Terms() {
             {/* Sidebar - Índice navegable */}
             <div className="lg:col-span-1">
               <div className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-6 sticky top-28">
-                <h3 className="font-bold text-white mb-4 text-lg">Índice</h3>
+                <h3 className="font-bold text-white mb-4 text-2xl">Índice</h3>
                 <nav className="space-y-2">
                   {sections.map((section) => (
                     <button
@@ -88,7 +88,7 @@ export default function Terms() {
               
               {/* Sección 1: Introducción */}
               <section id="intro" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-base font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   1. ¿Qué es SaludCompartida?
                 </h2>
                 <p className="text-gray-300 mb-4 leading-relaxed">
@@ -118,7 +118,7 @@ export default function Terms() {
 
               {/* Sección 2: Definiciones */}
               <section id="definitions" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-base font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   2. Definiciones clave
                 </h2>
                 <div className="space-y-4">
@@ -151,7 +151,7 @@ export default function Terms() {
 
               {/* Sección 3: Descripción de servicios */}
               <section id="services" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-base font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   3. Descripción de servicios
                 </h2>
                 
@@ -163,7 +163,7 @@ export default function Terms() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                       <div>
-                        <h3 className="font-bold text-white mb-2 text-lg">Telemedicina 24/7</h3>
+                        <h3 className="font-bold text-white mb-2 text-2xl">Telemedicina 24/7</h3>
                         <p className="text-gray-300 text-sm mb-3 leading-relaxed">
                           Consultas médicas ilimitadas por videollamada, teléfono o WhatsApp con profesionales certificados en México.
                         </p>
@@ -184,7 +184,7 @@ export default function Terms() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                       </svg>
                       <div>
-                        <h3 className="font-bold text-white mb-2 text-lg">Descuentos en Farmacias</h3>
+                        <h3 className="font-bold text-white mb-2 text-2xl">Descuentos en Farmacias</h3>
                         <p className="text-gray-300 text-sm mb-3 leading-relaxed">
                           Acceso a descuentos de 40-75% en más de 1,700 farmacias afiliadas.
                         </p>
@@ -204,7 +204,7 @@ export default function Terms() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       <div>
-                        <h3 className="font-bold text-white mb-2 text-lg">Terapia Psicológica</h3>
+                        <h3 className="font-bold text-white mb-2 text-2xl">Terapia Psicológica</h3>
                         <p className="text-gray-300 text-sm mb-3 leading-relaxed">
                           Acceso a sesiones de terapia psicológica con profesionales certificados.
                         </p>
@@ -221,7 +221,7 @@ export default function Terms() {
 
               {/* Sección 4: Suscripción y pagos */}
               <section id="subscription" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-base font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   4. Suscripción y pagos
                 </h2>
                 <div className="space-y-4 text-gray-300">
@@ -251,7 +251,7 @@ export default function Terms() {
 
               {/* Sección 5: Uso de la plataforma */}
               <section id="usage" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-base font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   5. Uso aceptable de la plataforma
                 </h2>
                 <div className="space-y-4">
@@ -277,7 +277,7 @@ export default function Terms() {
 
               {/* Sección 6: Privacidad y datos */}
               <section id="privacy" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-base font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   6. Privacidad y protección de datos
                 </h2>
                 <p className="text-gray-300 mb-4">
@@ -293,7 +293,7 @@ export default function Terms() {
 
               {/* Sección 7: Limitaciones del servicio */}
               <section id="limitations" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-base font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   7. Limitaciones del servicio
                 </h2>
                 <div className="bg-red-900/20 border border-red-700/30 rounded-xl p-6 mb-4">
@@ -313,7 +313,7 @@ export default function Terms() {
 
               {/* Sección 8: Responsabilidades */}
               <section id="responsibilities" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-base font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   8. Responsabilidades y limitación de responsabilidad
                 </h2>
                 <div className="space-y-4 text-gray-300 text-sm">
@@ -335,7 +335,7 @@ export default function Terms() {
 
               {/* Sección 9: Modificaciones */}
               <section id="modifications" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-base font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   9. Modificaciones al servicio y términos
                 </h2>
                 <div className="space-y-4 text-gray-300">
@@ -355,7 +355,7 @@ export default function Terms() {
 
               {/* Sección 10: Ley aplicable */}
               <section id="jurisdiction" className="bg-gray-800/50 backdrop-blur-md rounded-xl border border-gray-700 p-8">
-                <h2 className="text-base font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   10. Ley aplicable y jurisdicción
                 </h2>
                 <div className="space-y-4 text-gray-300 text-sm">
@@ -376,7 +376,7 @@ export default function Terms() {
 
               {/* Sección de contacto final */}
               <div className="bg-gradient-to-r from-cyan-900/40 to-purple-900/40 backdrop-blur-md rounded-xl border border-cyan-700/30 p-8 text-center">
-                <h3 className="text-lg font-bold text-white mb-4">¿Preguntas sobre estos términos?</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">¿Preguntas sobre estos términos?</h3>
                 <p className="text-gray-300 mb-6">
                   Si tienes dudas o necesitas aclaraciones, nuestro equipo está aquí para ayudarte.
                 </p>

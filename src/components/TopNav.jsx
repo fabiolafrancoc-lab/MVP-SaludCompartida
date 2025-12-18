@@ -70,7 +70,8 @@ const TopNav = ({
   showLoginButton = false,
   showMenu = true,
   homeIcon = false,
-  internalPage = false // Nueva prop para páginas internas (después de login)
+  internalPage = false, // Nueva prop para páginas internas (después de login)
+  showBackButton = false // Nueva prop para mostrar "Volver" en páginas internas (excepto page4)
 }) => {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
@@ -82,7 +83,6 @@ const TopNav = ({
     : '/saludcompartida-transp dark-bg-no-tagline copy 2.jpg');
   const [quienesSomosOpen, setQuienesSomosOpen] = useState(false);
   const [serviciosOpen, setServiciosOpen] = useState(false);
-  const [legalOpen, setLegalOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const handleScrollToTop = () => {
@@ -195,9 +195,21 @@ const TopNav = ({
                 </button>
                 <button
                   onClick={() => navigate(internalPage ? '/nuestros-pilares-internal' : '/nuestros-pilares')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
                 >
                   Nuestros Pilares
+                </button>
+                <button
+                  onClick={() => navigate(internalPage ? '/post-privacy' : '/privacy')}
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors`}
+                >
+                  Política de Privacidad
+                </button>
+                <button
+                  onClick={() => navigate(internalPage ? '/post-terms' : '/terms')}
+                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
+                >
+                  Términos y Condiciones
                 </button>
               </div>
             </div>
@@ -242,34 +254,6 @@ const TopNav = ({
               </div>
             </div>
 
-            {/* Dropdown Legal */}
-            <div className="relative group">
-              <button
-                className={`text-sm font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors flex items-center gap-1`}
-              >
-                Legal
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {/* Dropdown Menu */}
-              <div className={`absolute left-0 mt-2 w-56 ${internalPage ? 'bg-white border-gray-300' : 'bg-gray-900 border-gray-700'} rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50`}>
-                <button
-                  onClick={() => navigate(internalPage ? '/post-terms' : '/terms')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors first:rounded-t-lg`}
-                >
-                  Términos y Condiciones
-                </button>
-                <button
-                  onClick={() => navigate(internalPage ? '/post-privacy' : '/privacy')}
-                  className={`block w-full text-left px-4 py-3 text-sm ${internalPage ? 'text-gray-700 hover:bg-gray-100 hover:text-cyan-600' : 'text-gray-300 hover:bg-gray-800 hover:text-cyan-400'} transition-colors last:rounded-b-lg`}
-                >
-                  Política de Privacidad
-                </button>
-              </div>
-            </div>
-
             {/* Dropdown HOME Usuario - Solo en páginas internas */}
             {internalPage && currentUser && (
               <div className="relative group">
@@ -280,6 +264,9 @@ const TopNav = ({
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                   HOME {currentUser.firstName || 'Nombre'} {currentUser.lastName || 'Apellido Paterno'}
+                  {showBackButton && (
+                    <span className="ml-1 text-xs font-normal">| Volver</span>
+                  )}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -397,7 +384,7 @@ const TopNav = ({
           {onBack && (
             <button
               onClick={handleBackButton}
-              className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-lg transition-colors flex items-center gap-1"
+              className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-2xl transition-colors flex items-center gap-1"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -415,7 +402,7 @@ const TopNav = ({
             {/* HOME directo - Mobile */}
             <button
               onClick={() => { navigate(internalPage ? '/page4' : '/home'); setMenuOpen(false); }}
-              className={`text-left text-base font-bold ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 border-l-2 border-cyan-500 pl-4`}
+              className={`text-left text-3xl font-bold ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 border-l-2 border-cyan-500 pl-4`}
             >
               HOME
             </button>
@@ -424,7 +411,7 @@ const TopNav = ({
             <div className="border-l-2 border-cyan-500 pl-4">
               <button
                 onClick={() => setQuienesSomosOpen(!quienesSomosOpen)}
-                className={`text-left text-base font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
+                className={`text-left text-3xl font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
               >
                 Quienes Somos
                 <svg 
@@ -457,6 +444,18 @@ const TopNav = ({
                   >
                     → Nuestros Pilares
                   </button>
+                  <button
+                    onClick={() => { navigate(internalPage ? '/post-privacy' : '/privacy'); setMenuOpen(false); setQuienesSomosOpen(false); }}
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
+                  >
+                    → Política de Privacidad
+                  </button>
+                  <button
+                    onClick={() => { navigate(internalPage ? '/post-terms' : '/terms'); setMenuOpen(false); setQuienesSomosOpen(false); }}
+                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
+                  >
+                    → Términos y Condiciones
+                  </button>
                 </div>
               )}
             </div>
@@ -465,7 +464,7 @@ const TopNav = ({
             <div className="border-l-2 border-cyan-500 pl-4">
               <button
                 onClick={() => setServiciosOpen(!serviciosOpen)}
-                className={`text-left text-base font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
+                className={`text-left text-3xl font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
               >
                 Nuestros Servicios
                 <svg 
@@ -508,53 +507,23 @@ const TopNav = ({
               )}
             </div>
 
-            {/* Dropdown Legal - Mobile */}
-            <div className="border-l-2 border-cyan-500 pl-4">
-              <button
-                onClick={() => setLegalOpen(!legalOpen)}
-                className={`text-left text-base font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
-              >
-                Legal
-                <svg 
-                  className={`w-5 h-5 transition-transform ${legalOpen ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {legalOpen && (
-                <div className="ml-4 mt-2 space-y-2">
-                  <button
-                    onClick={() => { navigate(internalPage ? '/post-terms' : '/terms'); setMenuOpen(false); setLegalOpen(false); }}
-                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
-                  >
-                    → Términos y Condiciones
-                  </button>
-                  <button
-                    onClick={() => { navigate(internalPage ? '/post-privacy' : '/privacy'); setMenuOpen(false); setLegalOpen(false); }}
-                    className={`text-left text-sm font-medium ${internalPage ? 'text-gray-700 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors py-2 block w-full`}
-                  >
-                    → Política de Privacidad
-                  </button>
-                </div>
-              )}
-            </div>
-
             {/* Dropdown HOME Usuario - Mobile - Solo en páginas internas */}
             {internalPage && currentUser && (
               <div className="border-l-2 border-cyan-500 pl-4 bg-cyan-500/5 rounded-lg py-2">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="text-left text-base font-bold text-cyan-600 hover:text-cyan-700 transition-colors py-2 w-full flex items-center justify-between"
+                  className="text-left text-2xl font-bold text-cyan-600 hover:text-cyan-700 transition-colors py-2 w-full flex items-center justify-between"
                 >
                   <span className="flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
-                    HOME {currentUser.firstName || 'Nombre'} {currentUser.lastName || 'Apellido Paterno'}
+                    <span className="flex flex-col">
+                      <span>HOME {currentUser.firstName || 'Nombre'} {currentUser.lastName || 'Apellido'}</span>
+                      {showBackButton && (
+                        <span className="text-xs font-normal text-cyan-500">Volver</span>
+                      )}
+                    </span>
                   </span>
                   <svg 
                     className={`w-5 h-5 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} 

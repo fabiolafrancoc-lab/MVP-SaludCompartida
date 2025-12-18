@@ -40,7 +40,7 @@ export default function PagoPrivacy() {
           />
           <button
             onClick={() => navigate('/pago')}
-            className="text-gray-600 hover:text-gray-900 font-medium text-lg transition-colors"
+            className="text-gray-600 hover:text-gray-900 font-medium text-2xl transition-colors"
           >
             Volver
           </button>
@@ -49,10 +49,10 @@ export default function PagoPrivacy() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-base md:text-lg font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-2xl font-bold text-gray-900 mb-4">
             Política de Privacidad
           </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-2xl text-gray-600 max-w-3xl mx-auto">
             Tu privacidad es fundamental para nosotros. Este aviso describe cómo recopilamos, usamos y protegemos tu información personal.
           </p>
           <p className="text-sm text-gray-500 mt-4">
@@ -63,7 +63,7 @@ export default function PagoPrivacy() {
         <div className="grid lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1">
             <div className="bg-gray-50 rounded-xl shadow-lg p-6 sticky top-24 border border-gray-200">
-              <h3 className="font-bold text-gray-900 mb-4 text-lg">Índice</h3>
+              <h3 className="font-bold text-gray-900 mb-4 text-2xl">Índice</h3>
               <nav className="space-y-2">
                 {sections.map((section) => (
                   <button
@@ -85,7 +85,7 @@ export default function PagoPrivacy() {
           <div className="lg:col-span-3 space-y-12">
             
             <section id="intro" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 1. Introducción
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -97,7 +97,7 @@ export default function PagoPrivacy() {
             </section>
 
             <section id="responsible" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 2. Responsable del tratamiento
               </h2>
               <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
@@ -110,13 +110,13 @@ export default function PagoPrivacy() {
             </section>
 
             <section id="data-collection" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 3. Datos que recopilamos
               </h2>
 
               <div className="space-y-6">
                 <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6 border border-cyan-200">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de identificación:</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Datos de identificación:</h3>
                   <ul className="text-gray-700 text-sm space-y-1">
                     <li>• Nombre completo</li>
                     <li>• Fecha de nacimiento</li>
@@ -127,7 +127,7 @@ export default function PagoPrivacy() {
                 </div>
 
                 <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de salud:</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Datos de salud:</h3>
                   <ul className="text-gray-700 text-sm space-y-1">
                     <li>• Historial médico</li>
                     <li>• Síntomas reportados</li>
@@ -137,7 +137,7 @@ export default function PagoPrivacy() {
                 </div>
 
                 <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-6 border border-pink-200">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Datos de pago:</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-2xl">Datos de pago:</h3>
                   <ul className="text-gray-700 text-sm space-y-1">
                     <li>• Información de tarjeta (procesada por terceros seguros)</li>
                     <li>• Historial de transacciones</li>
@@ -147,7 +147,7 @@ export default function PagoPrivacy() {
             </section>
 
             <section id="purposes" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 4. Finalidades del tratamiento
               </h2>
               <ul className="space-y-3 text-gray-700 text-sm">
@@ -175,7 +175,7 @@ export default function PagoPrivacy() {
             </section>
 
             <section id="legal-basis" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 5. Fundamento legal
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -198,7 +198,7 @@ export default function PagoPrivacy() {
             </section>
 
             <section id="transfers" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 6. Transferencia de datos
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -235,7 +235,7 @@ export default function PagoPrivacy() {
             </section>
 
             <section id="arco-rights" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 7. Derechos ARCO
               </h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -272,7 +272,7 @@ export default function PagoPrivacy() {
             </section>
 
             <section id="security" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 8. Seguridad de datos
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -288,7 +288,7 @@ export default function PagoPrivacy() {
             </section>
 
             <section id="cookies" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 9. Cookies y tecnologías de rastreo
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -306,7 +306,7 @@ export default function PagoPrivacy() {
             </section>
 
             <section id="minors" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 10. Protección de menores de edad
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -324,7 +324,7 @@ export default function PagoPrivacy() {
             </section>
 
             <section id="changes" className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-              <h2 className="text-base font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 11. Cambios a este aviso de privacidad
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -347,14 +347,14 @@ export default function PagoPrivacy() {
         </div>
 
         <div className="mt-12 text-center bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-200">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">
             ¿Tienes preguntas?
           </h3>
           <p className="text-gray-700 mb-6">
             Si tienes dudas sobre este Aviso de Privacidad o deseas ejercer tus derechos ARCO, contáctanos:
           </p>
           <div className="text-center">
-            <a href="mailto:contact@saludcompartida.com" className="text-purple-600 hover:text-purple-700 font-semibold text-lg">
+            <a href="mailto:contact@saludcompartida.com" className="text-purple-600 hover:text-purple-700 font-semibold text-2xl">
               💬 contact@saludcompartida.com
             </a>
           </div>

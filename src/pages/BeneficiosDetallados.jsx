@@ -222,10 +222,10 @@ const BeneficiosDetallados = () => {
       <div className="max-w-6xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-base md:text-lg font-black text-white mb-6">
+          <h1 className="text-3xl md:text-2xl font-black text-white mb-6">
             Beneficios Detallados
           </h1>
-          <p className="text-base text-gray-300 max-w-3xl mx-auto">
+          <p className="text-3xl text-gray-300 max-w-3xl mx-auto">
             Conoce todo lo que incluye tu membresía de <strong className="text-cyan-400">$12/mes</strong>
           </p>
         </div>
@@ -278,8 +278,8 @@ const BeneficiosDetallados = () => {
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl shadow-2xl p-10 mb-12 border border-gray-700">
           {/* Header del beneficio */}
           <div className="mb-8 pb-8 border-b border-gray-700">
-            <h2 className="text-base font-black text-white mb-2">{currentBenefit.title}</h2>
-            <p className="text-base text-gray-300">{currentBenefit.subtitle}</p>
+            <h2 className="text-3xl font-black text-white mb-2">{currentBenefit.title}</h2>
+            <p className="text-3xl text-gray-300">{currentBenefit.subtitle}</p>
           </div>
 
           {/* Features Grid */}
@@ -287,9 +287,9 @@ const BeneficiosDetallados = () => {
             {currentBenefit.features.map((feature, index) => (
               <div key={index} className="bg-gray-900/50 rounded-xl p-6 border border-gray-600">
                 <div className="flex items-start gap-4">
-                  <div className="text-base">{feature.icon}</div>
+                  <div className="text-3xl">{feature.icon}</div>
                   <div>
-                    <h3 className="font-bold text-white mb-2 text-lg">{feature.title}</h3>
+                    <h3 className="font-bold text-white mb-2 text-2xl">{feature.title}</h3>
                     <p className="text-gray-300">{feature.description}</p>
                   </div>
                 </div>
@@ -299,7 +299,7 @@ const BeneficiosDetallados = () => {
 
           {/* Use Cases */}
           <div className="bg-cyan-900/30 rounded-2xl p-8 border-2 border-cyan-700 mb-8">
-            <h3 className="font-bold text-white mb-6 text-lg">¿Cuándo usar este beneficio?</h3>
+            <h3 className="font-bold text-white mb-6 text-2xl">¿Cuándo usar este beneficio?</h3>
             <div className="grid md:grid-cols-2 gap-4">
               {currentBenefit.useCases.map((useCase, index) => (
                 <div key={index} className="flex items-center gap-3 bg-gray-800/50 rounded-lg p-4 shadow border border-gray-700">
@@ -317,22 +317,22 @@ const BeneficiosDetallados = () => {
           {/* Ejemplos de precios (solo para farmacias) */}
           {activeTab === 'farmacias' && currentBenefit.examples && (
             <div className="bg-green-900/30 rounded-2xl p-8 border-2 border-green-700">
-              <h3 className="font-bold text-white mb-6 text-lg">Ejemplos de Ahorros Reales</h3>
+              <h3 className="font-bold text-white mb-6 text-2xl">Ejemplos de Ahorros Reales</h3>
               <div className="space-y-4">
                 {currentBenefit.examples.map((example, index) => (
                   <div key={index} className="bg-gray-800/50 rounded-xl p-6 shadow-lg border border-gray-700">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="flex-1 min-w-[200px]">
-                        <p className="font-bold text-white text-lg">{example.medicine}</p>
+                        <p className="font-bold text-white text-2xl">{example.medicine}</p>
                       </div>
                       <div className="flex items-center gap-6">
                         <div className="text-center">
                           <p className="text-sm text-gray-400">Precio Normal</p>
-                          <p className="text-base text-gray-500 line-through font-bold">{example.normal}</p>
+                          <p className="text-3xl text-gray-500 line-through font-bold">{example.normal}</p>
                         </div>
                         <div className="text-center">
                           <p className="text-sm text-green-400 font-semibold">Con Descuento</p>
-                          <p className="text-lg text-green-400 font-black">{example.discount}</p>
+                          <p className="text-2xl text-green-400 font-black">{example.discount}</p>
                         </div>
                         <div className="bg-green-500 text-white px-4 py-2 rounded-full font-black">
                           {example.savings}
@@ -351,15 +351,15 @@ const BeneficiosDetallados = () => {
 
         {/* CTA */}
         <div className="bg-gradient-to-r from-cyan-500 to-pink-500 rounded-3xl shadow-2xl p-10 text-center text-white">
-          <h2 className="text-base md:text-base font-black mb-6">
+          <h2 className="text-3xl md:text-3xl font-black mb-6">
             Todo Esto por Solo $12 al Mes
           </h2>
-          <p className="text-base mb-8 max-w-2xl mx-auto">
+          <p className="text-3xl mb-8 max-w-2xl mx-auto">
             Menos de lo que gastas en café. Más valioso que cualquier otra cosa.
           </p>
           <button
             onClick={() => navigate('/')}
-            className="bg-white text-cyan-600 px-10 py-4 rounded-2xl font-bold text-base shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+            className="bg-white text-cyan-600 px-10 py-4 rounded-2xl font-bold text-3xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
           >
             Empezar Ahora →
           </button>

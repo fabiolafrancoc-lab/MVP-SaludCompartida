@@ -320,7 +320,7 @@ export default function LoginCodigo() {
       <div className="relative bg-gradient-to-br from-cyan-50 to-pink-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Título grande antes de las fotos */}
-          <h2 className="text-base md:text-base font-black text-cyan-500 text-center mb-12">
+          <h2 className="text-3xl md:text-3xl font-black text-cyan-500 text-center mb-12">
             SaludCompartida
           </h2>
           
@@ -339,24 +339,24 @@ export default function LoginCodigo() {
               />
               
               {/* Texto grande después de la segunda foto */}
-              <h3 className="text-lg md:text-base font-black text-cyan-500 text-center pt-6">
+              <h3 className="text-2xl md:text-3xl font-black text-cyan-500 text-center pt-6">
                 Donde está tu CORAZÓN
               </h3>
             </div>
 
             {/* Columna derecha - Formulario */}
             <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 md:p-12 border border-gray-200">
-              <h1 className="text-base sm:text-base md:text-lg font-black text-gray-900 mb-4">
+              <h1 className="text-3xl sm:text-3xl md:text-2xl font-black text-gray-900 mb-4">
                 ¡Bienvenido!
               </h1>
-              <p className="text-lg sm:text-base text-gray-600 mb-8">
+              <p className="text-2xl sm:text-3xl text-gray-600 mb-8">
                 Ingresa tu código de acceso para continuar
               </p>
 
               <div className="space-y-6">
                 {/* Código de Acceso */}
                 <div>
-                  <label className="block text-gray-800 font-bold mb-2 text-left text-sm sm:text-base">
+                  <label className="block text-gray-800 font-bold mb-2 text-left text-sm sm:text-3xl">
                     Código de Acceso <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -367,7 +367,7 @@ export default function LoginCodigo() {
                       setErrors({ ...errors, specialCode: '' });
                     }}
                     placeholder="Ej: ABCD1234"
-                    className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-base sm:text-lg font-mono ${
+                    className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-3xl sm:text-2xl font-mono ${
                       errors.specialCode ? 'border-red-500 bg-red-50' : 'border-gray-300'
                     }`}
                   />
@@ -378,7 +378,7 @@ export default function LoginCodigo() {
 
                 {/* Nombre */}
                 <div>
-                  <label className="block text-gray-800 font-bold mb-2 text-left text-sm sm:text-base">
+                  <label className="block text-gray-800 font-bold mb-2 text-left text-sm sm:text-3xl">
                     Nombre <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -389,7 +389,7 @@ export default function LoginCodigo() {
                       setErrors({ ...errors, firstName: '' });
                     }}
                     disabled={codeVerified}
-                    className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-base sm:text-lg ${
+                    className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-3xl sm:text-2xl ${
                       errors.firstName ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100' : 'border-gray-300'
                     }`}
                     placeholder="Tu nombre"
@@ -401,7 +401,7 @@ export default function LoginCodigo() {
 
                 {/* Apellido Paterno */}
                 <div>
-                  <label className="block text-gray-800 font-bold mb-2 text-left text-sm sm:text-base">
+                  <label className="block text-gray-800 font-bold mb-2 text-left text-sm sm:text-3xl">
                     Apellido Paterno <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -412,7 +412,7 @@ export default function LoginCodigo() {
                       setErrors({ ...errors, lastName: '' });
                     }}
                     disabled={codeVerified}
-                    className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-base sm:text-lg ${
+                    className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-3xl sm:text-2xl ${
                       errors.lastName ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100' : 'border-gray-300'
                     }`}
                     placeholder="Tu apellido paterno"
@@ -432,7 +432,7 @@ export default function LoginCodigo() {
                       value={countryCode}
                       onChange={(e) => setCountryCode(e.target.value)}
                       disabled={codeVerified}
-                      className={`px-3 py-3 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-lg ${
+                      className={`px-3 py-3 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-2xl ${
                         codeVerified ? 'border-gray-300 bg-gray-100' : 'border-gray-300'
                       }`}
                     >
@@ -454,7 +454,7 @@ export default function LoginCodigo() {
                       }}
                       placeholder="555 123 4567"
                       disabled={codeVerified}
-                      className={`flex-1 px-4 py-3 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-lg ${
+                      className={`flex-1 px-4 py-3 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-2xl ${
                         errors.whatsappNumber ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100' : 'border-gray-300'
                       }`}
                     />
@@ -504,7 +504,7 @@ export default function LoginCodigo() {
                 {/* Botón */}
                 <button
                   onClick={handleAccessCode}
-                  className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 text-white py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-base hover:from-cyan-700 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl touch-manipulation"
+                  className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 text-white py-4 sm:py-5 rounded-xl font-bold text-2xl sm:text-3xl hover:from-cyan-700 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl touch-manipulation"
                 >
                   Ingresar a SaludCompartida
                 </button>
