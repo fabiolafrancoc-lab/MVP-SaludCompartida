@@ -504,42 +504,42 @@ Beneficios disponibles:
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Columna izquierda - Resumen */}
           <div>
-            <h1 className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Completa tu Suscripción</h1>
-            <p className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl text-gray-600 mb-8">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Completa tu Suscripción</h1>
+            <p className="text-sm md:text-base lg:text-lg text-gray-600 mb-8">
               Solo un paso más para proteger a tu familia
             </p>
 
             {/* Plan */}
             <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 mb-6">
-              <h3 className="font-bold text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl text-gray-900 mb-4">SaludCompartida</h3>
+              <h3 className="font-bold text-lg md:text-xl lg:text-2xl text-gray-900 mb-4">SaludCompartida</h3>
               <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
                 <div>
-                  <p className="font-semibold text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl text-gray-900 text-left">Plan Familiar US-MEX</p>
-                  <p className="text-sm sm:text-lg md:text-3xl lg:text-4xl text-gray-600">Hasta 4 familiares en México</p>
+                  <p className="font-semibold text-base md:text-lg lg:text-xl text-gray-900 text-left">Plan Familiar US-MEX</p>
+                  <p className="text-sm md:text-base lg:text-lg text-gray-600">Hasta 4 familiares en México</p>
                 </div>
-                <p className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl font-bold text-cyan-600">$12.00</p>
+                <p className="text-lg md:text-xl lg:text-2xl font-bold text-cyan-600">$12.00</p>
               </div>
               
-              <p className="text-sm sm:text-lg md:text-3xl lg:text-4xl text-gray-700 mb-4 font-medium">
+              <p className="text-sm md:text-base lg:text-lg text-gray-700 mb-4 font-medium">
                 Servicio Mensual para tus familiares en México:
               </p>
               
               <div className="space-y-3">
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm sm:text-lg md:text-3xl lg:text-4xl text-gray-700 text-left">Videollamada con Doctores 24/7. Receta electrónica de ser necesario.</p>
+                  <p className="text-sm md:text-base lg:text-lg text-gray-700 text-left">Videollamada con Doctores 24/7. Receta electrónica de ser necesario.</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm sm:text-lg md:text-3xl lg:text-4xl text-gray-700">Descuentos en Farmacias</p>
+                  <p className="text-sm md:text-base lg:text-lg text-gray-700">Descuentos en Farmacias</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm sm:text-lg md:text-3xl lg:text-4xl text-gray-700">Terapia Psicológica Semanal</p>
+                  <p className="text-sm md:text-base lg:text-lg text-gray-700">Terapia Psicológica Semanal</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm sm:text-lg md:text-3xl lg:text-4xl text-gray-700">Acceso para familiares en México</p>
+                  <p className="text-sm md:text-base lg:text-lg text-gray-700">Acceso para familiares en México</p>
                 </div>
               </div>
             </div>
@@ -548,8 +548,8 @@ Beneficios disponibles:
             <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
               <Lock className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-blue-900 text-sm text-left">Aviso legal sobre pagos con tarjeta</p>
-                <p className="text-sm text-blue-700 text-justify">
+                <p className="font-semibold text-blue-900 text-xs text-left">Aviso legal sobre pagos con tarjeta</p>
+                <p className="text-xs text-blue-700 text-justify">
                   Procesamos los pagos con tarjeta a través de SQUARE, empresa certificada bajo la norma PCI DSS, que cifra y protege tus datos bancarios siguiendo los más altos estándares internacionales de seguridad.
                 </p>
               </div>
@@ -561,16 +561,16 @@ Beneficios disponibles:
             <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border-4 border-cyan-500">
               <div className="flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-pink-500 rounded-xl p-4 sm:p-5 mb-6">
                 <CreditCard className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                <h2 className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl font-bold text-white">Información de Pago</h2>
+                <h2 className="text-base md:text-lg lg:text-xl font-bold text-white">Información de Pago</h2>
               </div>
 
               {/* Información de suscripción */}
               <div className="mb-6 p-4 sm:p-5 bg-gray-50 rounded-xl">
-                <p className="text-sm sm:text-lg md:text-3xl lg:text-4xl text-gray-600 mb-1">Suscripción para:</p>
-                <p className="font-semibold text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl text-gray-900">
+                <p className="text-xs md:text-sm lg:text-base text-gray-600 mb-1">Suscripción para:</p>
+                <p className="font-semibold text-sm md:text-base lg:text-lg text-gray-900">
                   {userData.firstName} {userData.lastName}
                 </p>
-                <p className="text-sm sm:text-lg md:text-3xl lg:text-4xl text-gray-600">{userData.email}</p>
+                <p className="text-xs md:text-sm lg:text-base text-gray-600">{userData.email}</p>
               </div>
 
               {/* Formulario de tarjeta Square */}
