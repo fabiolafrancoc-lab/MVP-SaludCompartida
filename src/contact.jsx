@@ -312,14 +312,14 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+          <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
             ¡Tu Mensaje ha sido Enviado con Éxito!
           </h2>
-          <p className="text-2xl text-gray-600 max-w-md mx-auto leading-relaxed">
+          <p className="text-base md:text-2xl lg:text-3xl text-gray-600 max-w-md mx-auto leading-relaxed">
             {firstName && <span className="font-bold text-cyan-600">{firstName}</span>}
             {firstName ? ', ' : ''}estamos para servirte. En un plazo máximo de <span className="font-bold text-pink-600">15 minutos</span> recibirás una respuesta nuestra.
           </p>
-          <p className="text-2xl text-gray-600 mt-4 font-semibold">
+          <p className="text-base md:text-2xl lg:text-3xl text-gray-600 mt-4 font-semibold">
             Gracias por contactarnos{firstName ? `, ${firstName}` : ''}.
           </p>
         </div>
@@ -338,10 +338,10 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
           {/* Formulario - 3 columnas - pegado a la izquierda */}
           <div className="md:col-span-3 p-6 lg:p-10">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-3">
+              <h1 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
                 Hola{firstName ? ' ' : ''}{firstName && <span className="text-cyan-600">{firstName}</span>}, ¿tienes consultas para nosotros?
               </h1>
-              <p className="text-2xl text-gray-700">
+              <p className="text-base md:text-2xl lg:text-3xl text-gray-700">
                 Estamos para ayudarte para que sigas usando al máximo los servicios de SaludCompartida
               </p>
             </div>
@@ -540,7 +540,7 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-4 rounded-lg font-bold text-2xl transition-all duration-200 ${
+                className={`w-full py-4 rounded-lg font-bold text-base md:text-2xl lg:text-3xl transition-all duration-200 ${
                   isSubmitting
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 shadow-lg hover:shadow-xl'
@@ -563,7 +563,7 @@ Deja tu mensaje de voz y te devolveremos la llamada en máximo 15 minutos.
 
         {/* Información de Contacto */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+          <h2 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
             <svg className="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>

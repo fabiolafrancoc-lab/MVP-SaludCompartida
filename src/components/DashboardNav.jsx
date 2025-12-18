@@ -85,7 +85,7 @@ const DashboardNav = () => {
               window.scrollTo(0, 0);
               navigate('/page4');
             }}
-            className="text-gray-600 hover:text-gray-900 font-medium text-2xl"
+            className="text-gray-600 hover:text-gray-900 font-medium text-base md:text-2xl lg:text-3xl"
           >
             Volver
           </button>

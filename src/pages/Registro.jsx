@@ -598,7 +598,7 @@ Equipo SaludCompartida`,
         <div className="container mx-auto px-safe py-safe">
           
           <div className="mb-8 sm:mb-10 text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900 mb-3 leading-tight px-2">
+            <h2 className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 leading-tight px-2">
               Suscríbete hoy por $12 mensuales y en 30 segundos tu familia empieza a utilizar todos los beneficios de <span className="text-cyan-500">SaludCompartida</span>. Estamos donde está tu corazón.
             </h2>
           </div>
@@ -664,17 +664,17 @@ Equipo SaludCompartida`,
                       Suscripciones Disponibles - Segunda Fase
                     </p>
                     <div className="flex items-baseline gap-3 mb-4">
-                      <p className="text-white text-2xl font-bold animate-bounce">
+                      <p className="text-white text-base md:text-2xl lg:text-3xl font-bold animate-bounce">
                         {spotsLeft}
                       </p>
-                      <p className="text-white/80 text-2xl">
+                      <p className="text-white/80 text-base md:text-2xl lg:text-3xl">
                         de {totalSpots} suscripciones
                       </p>
                     </div>
                     
                     <div className="bg-white/20 rounded-xl p-4 mb-4">
-                      <p className="text-white text-2xl leading-relaxed">
-                        <span className="block text-yellow-200 font-bold text-3xl">Ya están suscritos {totalSpots - spotsLeft} familias</span>
+                      <p className="text-white text-base md:text-2xl lg:text-3xl leading-relaxed">
+                        <span className="block text-yellow-200 font-bold text-lg md:text-3xl lg:text-4xl">Ya están suscritos {totalSpots - spotsLeft} familias</span>
                       </p>
                     </div>
                   </div>
@@ -688,10 +688,10 @@ Equipo SaludCompartida`,
                 <div className="p-10">
                   
                   <div className="mb-10">
-                    <h3 className="text-3xl font-bold text-gray-900 mb-3">
+                    <h3 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
                       Comienza Tu Registro
                     </h3>
-                    <p className="text-gray-600 text-2xl leading-relaxed">
+                    <p className="text-gray-600 text-base md:text-2xl lg:text-3xl leading-relaxed">
                       Regístrate ahora y sé parte de las 1,000 familias que acceden a SaludCompartida. Estamos donde está tu corazón.
                     </p>
                   </div>
@@ -706,7 +706,7 @@ Equipo SaludCompartida`,
                           </svg>
                         </div>
                         <div>
-                          <h4 className="text-3xl font-bold text-gray-900 text-left">Tus Datos</h4>
+                          <h4 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 text-left">Tus Datos</h4>
                           <p className="text-sm text-gray-500 text-left">Información del migrante en EE.UU.</p>
                         </div>
                       </div>
@@ -835,7 +835,7 @@ Equipo SaludCompartida`,
                           </svg>
                         </div>
                         <div>
-                          <h4 className="text-3xl font-bold text-gray-900 text-left">Tu Conexión en Casa</h4>
+                          <h4 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 text-left">Tu Conexión en Casa</h4>
                           <p className="text-sm text-gray-500 text-left">Familiar en México</p>
                         </div>
                       </div>
@@ -950,7 +950,7 @@ Equipo SaludCompartida`,
 
                     <button
                       onClick={handleRegister}
-                      className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white py-4 px-6 rounded-xl font-bold text-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-3"
+                      className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white py-4 px-6 rounded-xl font-bold text-base md:text-2xl lg:text-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-3"
                     >
                       <span>Suscribirme Ahora</span>
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -967,7 +967,7 @@ Equipo SaludCompartida`,
                         <p className="text-gray-600 text-sm mb-2">
                           Consultas, escríbenos a:
                         </p>
-                        <p className="text-cyan-600 font-bold text-2xl">
+                        <p className="text-cyan-600 font-bold text-base md:text-2xl lg:text-3xl">
                           contact@saludcompartida.com
                         </p>
                       </div>

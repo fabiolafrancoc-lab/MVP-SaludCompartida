@@ -81,11 +81,11 @@ const CancelSubscription = () => {
               </div>
             </div>
             
-            <h1 className="text-3xl md:text-3xl font-bold text-gray-800 mb-4">
+            <h1 className="text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
               Suscripción Cancelada
             </h1>
             
-            <p className="text-2xl text-gray-600 mb-8">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-600 mb-8">
               Tu suscripción ha sido cancelada exitosamente. Recibirás un correo de confirmación con los detalles.
             </p>
 
@@ -97,7 +97,7 @@ const CancelSubscription = () => {
 
             <button
               onClick={() => navigateToDashboard()}
-              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-2xl shadow-lg hover:shadow-xl transition-all"
+              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-base md:text-2xl lg:text-3xl shadow-lg hover:shadow-xl transition-all"
             >
               Volver al Inicio
             </button>
@@ -119,7 +119,7 @@ const CancelSubscription = () => {
           />
           <button
             onClick={() => navigateToDashboard()}
-            className="text-gray-600 hover:text-gray-900 font-medium text-2xl"
+            className="text-gray-600 hover:text-gray-900 font-medium text-base md:text-2xl lg:text-3xl"
           >
             Volver
           </button>
@@ -135,17 +135,17 @@ const CancelSubscription = () => {
               </div>
             </div>
             
-            <h1 className="text-3xl md:text-3xl font-bold text-gray-800 mb-4">
+            <h1 className="text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
               Cancelar Suscripción
             </h1>
             
             {userName && (
-              <p className="text-3xl text-gray-600 mb-6">
+              <p className="text-lg md:text-3xl lg:text-4xl text-gray-600 mb-6">
                 {userName}, lamentamos verte partir
               </p>
             )}
             
-            <p className="text-2xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-600 max-w-2xl mx-auto">
               Si cancelas tu suscripción, tu familia en México perderá acceso a todos estos beneficios:
             </p>
           </div>
@@ -156,7 +156,7 @@ const CancelSubscription = () => {
               <div className="flex items-start gap-4">
                 <X className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-bold text-gray-800 text-2xl mb-1">
+                  <h3 className="font-bold text-gray-800 text-base md:text-2xl lg:text-3xl mb-1">
                     Telemedicina 24/7
                   </h3>
                   <p className="text-gray-600">
@@ -170,7 +170,7 @@ const CancelSubscription = () => {
               <div className="flex items-start gap-4">
                 <X className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-bold text-gray-800 text-2xl mb-1">
+                  <h3 className="font-bold text-gray-800 text-base md:text-2xl lg:text-3xl mb-1">
                     Descuentos en Farmacias
                   </h3>
                   <p className="text-gray-600">
@@ -184,7 +184,7 @@ const CancelSubscription = () => {
               <div className="flex items-start gap-4">
                 <X className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-bold text-gray-800 text-2xl mb-1">
+                  <h3 className="font-bold text-gray-800 text-base md:text-2xl lg:text-3xl mb-1">
                     Terapia Psicológica Semanal
                   </h3>
                   <p className="text-gray-600">
@@ -198,7 +198,7 @@ const CancelSubscription = () => {
           {/* Cost Reminder */}
           <div className="bg-cyan-50 border border-cyan-200 rounded-xl p-6 mb-8">
             <p className="text-center text-gray-700">
-              Por solo <span className="font-bold text-cyan-600 text-2xl">$12.00 USD</span> al mes, 
+              Por solo <span className="font-bold text-cyan-600 text-base md:text-2xl lg:text-3xl">$12.00 USD</span> al mes, 
               tu familia en México tiene acceso completo a servicios de salud de calidad.
             </p>
           </div>
@@ -207,14 +207,14 @@ const CancelSubscription = () => {
           <div className="flex flex-col md:flex-row gap-4 justify-center">
             <button
               onClick={() => navigateToDashboard()}
-              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-2xl shadow-lg hover:shadow-xl transition-all"
+              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-base md:text-2xl lg:text-3xl shadow-lg hover:shadow-xl transition-all"
             >
               Mantener Mi Suscripción
             </button>
             
             <button
               onClick={handleCancelRequest}
-              className="px-8 py-4 bg-white hover:bg-gray-50 text-red-600 border-2 border-red-600 rounded-xl font-bold text-2xl transition-all"
+              className="px-8 py-4 bg-white hover:bg-gray-50 text-red-600 border-2 border-red-600 rounded-xl font-bold text-base md:text-2xl lg:text-3xl transition-all"
             >
               Continuar con la Cancelación
             </button>
@@ -241,7 +241,7 @@ const CancelSubscription = () => {
           <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-lg w-full">
             <div className="text-center mb-6">
               <AlertTriangle className="w-16 h-16 text-red-600 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+              <h2 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-800 mb-2">
                 Confirmación Final
               </h2>
               <p className="text-gray-600">

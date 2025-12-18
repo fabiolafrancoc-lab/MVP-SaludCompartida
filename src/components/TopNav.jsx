@@ -122,25 +122,25 @@ const TopNav = ({
     <header className={`${internalPage ? 'bg-white border-b border-gray-200' : 'bg-black border-b border-gray-800'} sticky top-0 z-50 shadow-lg`}>
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
         {/* Logo y botón HOME */}
-        <div className="flex items-center gap-2 md:gap-4">
-          {/* Logo - clickeable para volver al inicio */}
+        <div className="flex items-center gap-1 md:gap-4">
+          {/* Logo - clickeable para volver al inicio - MÁS PEQUEÑO EN MOBILE */}
           <div 
             className="cursor-pointer group"
             onClick={onRestartBubbles ? handleRestartBubbles : handleScrollToTop}
           >
-            <img src={finalLogoSrc} alt={logoAlt} className="h-10 md:h-12 object-contain group-hover:opacity-80 transition-opacity" />
+            <img src={finalLogoSrc} alt={logoAlt} className="h-8 md:h-12 object-contain group-hover:opacity-80 transition-opacity" />
           </div>
           
-          {/* Botón HOME - Solo en páginas internas */}
+          {/* Botón HOME - Solo en páginas internas - COMPACTO EN MOBILE */}
           {internalPage && (
             <button
               onClick={() => navigate('/page4')}
-              className="flex items-center gap-2 bg-cyan-500/20 border border-cyan-500/40 rounded-lg px-3 py-1.5 hover:bg-cyan-500/30 transition-colors"
+              className="flex items-center gap-1 bg-cyan-500/20 border border-cyan-500/40 rounded-lg px-2 py-1 md:px-3 md:py-1.5 hover:bg-cyan-500/30 transition-colors"
             >
-              <svg className="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 md:w-5 md:h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
-              <span className="text-sm font-semibold text-cyan-600">HOME</span>
+              <span className="text-xs md:text-sm font-semibold text-cyan-600">HOME</span>
             </button>
           )}
           
@@ -254,20 +254,22 @@ const TopNav = ({
               </div>
             </div>
 
-            {/* Dropdown HOME Usuario - Solo en páginas internas */}
+            {/* Dropdown HOME Usuario - Solo en páginas internas - COMPACTO */}
             {internalPage && currentUser && (
               <div className="relative group">
                 <button
-                  className="text-sm font-medium text-gray-900 hover:text-cyan-600 transition-colors flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 rounded-lg px-3 py-2"
+                  className="text-xs md:text-sm font-medium text-gray-900 hover:text-cyan-600 transition-colors flex items-center gap-1 md:gap-2 bg-cyan-500/10 border border-cyan-500/30 rounded-lg px-2 py-1 md:px-3 md:py-2"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 md:w-4 md:h-4 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
-                  HOME {currentUser.firstName || 'Nombre'} {currentUser.lastName || 'Apellido Paterno'}
+                  <span className="truncate max-w-[120px] md:max-w-none">
+                    HOME {currentUser.firstName || 'Nombre'} {currentUser.lastName || 'Apellido'}
+                  </span>
                   {showBackButton && (
-                    <span className="ml-1 text-xs font-normal">| Volver</span>
+                    <span className="ml-1 text-xs font-normal whitespace-nowrap">| Volver</span>
                   )}
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
@@ -322,16 +324,16 @@ const TopNav = ({
           </nav>
         )}
         
-        {/* Navegación derecha */}
-        <div className="flex items-center gap-2 md:gap-3">
-          {/* Menú hamburguesa - Mobile */}
+        {/* Navegación derecha - COMPACTA EN MOBILE */}
+        <div className="flex items-center gap-1 md:gap-3">
+          {/* Menú hamburguesa - Mobile - MÁS PEQUEÑO */}
           {showMenu && (
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className={`lg:hidden ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-gray-300 hover:text-cyan-400'} transition-colors`}
               aria-label="Menú"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {menuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -384,7 +386,7 @@ const TopNav = ({
           {onBack && (
             <button
               onClick={handleBackButton}
-              className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-2xl transition-colors flex items-center gap-1"
+              className="text-gray-600 hover:text-gray-900 font-medium text-sm md:text-base md:text-2xl lg:text-3xl transition-colors flex items-center gap-1"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -402,7 +404,7 @@ const TopNav = ({
             {/* HOME directo - Mobile */}
             <button
               onClick={() => { navigate(internalPage ? '/page4' : '/home'); setMenuOpen(false); }}
-              className={`text-left text-3xl font-bold ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 border-l-2 border-cyan-500 pl-4`}
+              className={`text-left text-lg md:text-3xl lg:text-4xl font-bold ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 border-l-2 border-cyan-500 pl-4`}
             >
               HOME
             </button>
@@ -411,7 +413,7 @@ const TopNav = ({
             <div className="border-l-2 border-cyan-500 pl-4">
               <button
                 onClick={() => setQuienesSomosOpen(!quienesSomosOpen)}
-                className={`text-left text-3xl font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
+                className={`text-left text-lg md:text-3xl lg:text-4xl font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
               >
                 Quienes Somos
                 <svg 
@@ -464,7 +466,7 @@ const TopNav = ({
             <div className="border-l-2 border-cyan-500 pl-4">
               <button
                 onClick={() => setServiciosOpen(!serviciosOpen)}
-                className={`text-left text-3xl font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
+                className={`text-left text-lg md:text-3xl lg:text-4xl font-medium ${internalPage ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-cyan-400'} transition-colors py-2 w-full flex items-center justify-between`}
               >
                 Nuestros Servicios
                 <svg 
@@ -512,7 +514,7 @@ const TopNav = ({
               <div className="border-l-2 border-cyan-500 pl-4 bg-cyan-500/5 rounded-lg py-2">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="text-left text-2xl font-bold text-cyan-600 hover:text-cyan-700 transition-colors py-2 w-full flex items-center justify-between"
+                  className="text-left text-base md:text-2xl lg:text-3xl font-bold text-cyan-600 hover:text-cyan-700 transition-colors py-2 w-full flex items-center justify-between"
                 >
                   <span className="flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

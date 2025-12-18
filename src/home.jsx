@@ -47,10 +47,10 @@ export default function Home() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
           <p className="font-black text-white">
-            <span className="text-3xl md:text-3xl block md:inline">
+            <span className="text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl block md:inline">
               AHORA MISMO, <span className="text-yellow-300 animate-pulse">{1847 + counter}</span> FAMILIAS
             </span>
-            <span className="text-2xl md:text-2xl block md:inline md:ml-2 mt-1 md:mt-0">
+            <span className="text-base md:text-2xl lg:text-3xl md:text-base md:text-2xl lg:text-3xl block md:inline md:ml-2 mt-1 md:mt-0">
               ENFRENTAN UNA EMERGENCIA MÉDICA SIN RECURSOS
             </span>
           </p>
@@ -64,10 +64,10 @@ export default function Home() {
       <section className="w-full px-safe py-safe">
         <div className="w-full max-w-4xl mx-auto text-left">
           <p className="text-white font-bold tracking-widest uppercase mb-4 text-xs sm:text-sm">La Solución</p>
-          <h1 className="text-3xl sm:text-3xl md:text-3xl lg:text-2xl font-black mb-4 w-full">
+          <h1 className="text-lg md:text-3xl lg:text-4xl sm:text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl lg:text-base md:text-2xl lg:text-3xl font-black mb-4 w-full">
             <span className="text-cyan-400 block">SaludCompartida</span>
           </h1>
-          <h2 className="text-3xl sm:text-2xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent w-full">
+          <h2 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl md:text-base md:text-2xl lg:text-3xl lg:text-lg md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent w-full">
             Una App. Tu Familia Cuidada. $12/Mes
           </h2>
         </div>
@@ -80,7 +80,7 @@ export default function Home() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
                 <div className="bg-red-500/20 border border-red-500/40 rounded-xl px-4 py-2 flex-shrink-0">
-                  <span className="text-2xl sm:text-3xl font-black text-red-400">$576</span>
+                  <span className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl font-black text-red-400">$576</span>
                   <span className="text-gray-400 text-xs sm:text-sm ml-1">USD/año</span>
                 </div>
                 <p className="text-gray-300 text-xs sm:text-sm w-full max-w-md text-center sm:text-left leading-relaxed">
@@ -89,7 +89,7 @@ export default function Home() {
               </div>
               <div className="bg-green-500/20 border border-green-500/40 rounded-xl px-4 py-2 text-center flex-shrink-0">
                 <p className="text-gray-400 text-xs">Tu ahorro anual</p>
-                <span className="text-3xl sm:text-2xl font-black text-green-400">${savings}</span>
+                <span className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-black text-green-400">${savings}</span>
               </div>
             </div>
           </div>
@@ -99,7 +99,7 @@ export default function Home() {
       {/* 30 Segundos - Línea Horizontal Compacta */}
       <section className="w-full px-safe py-safe bg-gray-800/30">
         <div className="w-full max-w-4xl mx-auto">
-          <h3 className="text-3xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 text-white">
+          <h3 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-bold text-center mb-4 sm:mb-6 text-white">
             <span className="text-cyan-400">30 Segundos</span> para Cuidar a tu Familia
           </h3>
           
@@ -117,7 +117,7 @@ export default function Home() {
               {/* Step 1 */}
               <div className={`relative z-10 flex flex-col items-center transition-all duration-300 ${activeStep >= 1 ? 'opacity-100' : 'opacity-50'}`}>
                 <div className={`w-16 h-16 rounded-full flex items-center justify-center border-3 transition-all duration-300 ${activeStep >= 1 ? 'bg-green-500/30 border-green-500' : 'bg-gray-800 border-gray-600'}`}>
-                  <span className="text-3xl font-black text-green-400">$12</span>
+                  <span className="text-lg md:text-3xl lg:text-4xl font-black text-green-400">$12</span>
                 </div>
                 <p className="text-sm font-bold text-white mt-2 text-center">Compras</p>
               </div>
@@ -154,17 +154,17 @@ export default function Home() {
               </div>
             </div>
             
-            <p className="text-center text-white font-bold text-3xl sm:text-2xl mt-4">Así de simple. Así de rápido.</p>
+            <p className="text-center text-white font-bold text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl mt-4">Así de simple. Así de rápido.</p>
           </div>
         </section>
 
         {/* ¿Qué obtienes? - Dos bloques lado a lado */}
       <section className="w-full px-safe py-safe">
         <div className="w-full max-w-5xl mx-auto">
-          <h3 className="text-2xl sm:text-3xl md:text-2xl font-bold text-center mb-2 text-white">
+          <h3 className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-bold text-center mb-2 text-white">
             ¿Qué obtienes con
           </h3>
-          <h3 className="text-2xl sm:text-3xl md:text-2xl font-black text-center mb-6 sm:mb-8 text-cyan-400">
+          <h3 className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-black text-center mb-6 sm:mb-8 text-cyan-400">
             SaludCompartida?
           </h3>
           
@@ -179,7 +179,7 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-2xl font-bold text-cyan-400">Para Ti</h4>
+                    <h4 className="text-base md:text-2xl lg:text-3xl font-bold text-cyan-400">Para Ti</h4>
                     <p className="text-gray-400 text-xs">Migrante en EE.UU.</p>
                   </div>
                 </div>
@@ -221,7 +221,7 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-2xl font-bold text-pink-400">Para Tu Familia</h4>
+                    <h4 className="text-base md:text-2xl lg:text-3xl font-bold text-pink-400">Para Tu Familia</h4>
                     <p className="text-gray-400 text-xs">en México</p>
                   </div>
                 </div>
@@ -265,13 +265,13 @@ export default function Home() {
       <section className="w-full px-safe py-safe">
         <div className="w-full max-w-3xl mx-auto">
           <div className="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 rounded-xl sm:rounded-2xl p-6 md:p-8 text-center text-white">
-            <h2 className="text-2xl sm:text-3xl md:text-2xl font-bold mb-2">
+            <h2 className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl md:text-base md:text-2xl lg:text-3xl font-bold mb-2">
                 Tú trabajas duro <span className="text-yellow-400 font-black">"aquí"</span>. Nosotros los cuidamos <span className="text-yellow-400 font-black">"allá"</span>.
               </h2>
               
               <div className="my-4 inline-flex items-center gap-2 sm:gap-3 bg-white/10 rounded-xl px-3 sm:px-4 py-2">
-                <span className="text-cyan-200/60 line-through font-bold text-sm sm:text-3xl">$576/año</span>
-                <span className="text-3xl sm:text-2xl font-black">$12/mes</span>
+                <span className="text-cyan-200/60 line-through font-bold text-sm sm:text-lg md:text-3xl lg:text-4xl">$576/año</span>
+                <span className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-black">$12/mes</span>
               </div>
               
               <p className="text-xs sm:text-sm mb-4 text-white font-bold italic leading-relaxed">
@@ -280,7 +280,7 @@ export default function Home() {
               
               <button 
                 onClick={() => navigate('/registro')}
-                className="w-full sm:w-auto bg-fuchsia-500 text-white font-bold py-3 px-6 sm:px-8 rounded-xl hover:bg-fuchsia-600 transition-all transform hover:scale-105 shadow-lg text-sm sm:text-3xl"
+                className="w-full sm:w-auto bg-fuchsia-500 text-white font-bold py-3 px-6 sm:px-8 rounded-xl hover:bg-fuchsia-600 transition-all transform hover:scale-105 shadow-lg text-sm sm:text-lg md:text-3xl lg:text-4xl"
               >
                 Cuida a tu FAMILIA ahora
               </button>

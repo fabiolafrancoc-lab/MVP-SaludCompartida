@@ -563,11 +563,11 @@ Equipo SaludCompartida`,
         <div className="max-w-7xl mx-auto px-6 py-8">
           
           <div className="mb-10 text-center">
-            <h2 className="text-3xl md:text-3xl font-bold text-gray-900 mb-3 leading-tight">
+            <h2 className="text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 leading-tight">
               ¡Regístrate hoy y ten la posibilidad<br />
               de ser seleccionado para <span className="text-cyan-500">SaludCompartida</span>!
             </h2>
-            <p className="text-3xl text-orange-600 font-bold">
+            <p className="text-lg md:text-3xl lg:text-4xl text-orange-600 font-bold">
               ⚡ ¡Apúrate, quedan pocos cupos!
             </p>
           </div>
@@ -576,14 +576,14 @@ Equipo SaludCompartida`,
             <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 border-2 border-cyan-300 rounded-2xl p-6 shadow-lg max-w-2xl">
               <button
                 onClick={() => navigate('/page3')}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-600 text-white rounded-xl font-bold text-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-600 text-white rounded-xl font-bold text-base md:text-2xl lg:text-3xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                 </svg>
                 <div className="text-left">
                   <div className="text-sm font-normal text-cyan-100">¿Ya tienes tu código?</div>
-                  <div className="text-2xl font-bold">Ingresa el código que recibiste vía WhatsApp</div>
+                  <div className="text-base md:text-2xl lg:text-3xl font-bold">Ingresa el código que recibiste vía WhatsApp</div>
                 </div>
               </button>
             </div>
@@ -650,10 +650,10 @@ Equipo SaludCompartida`,
                       Cupos Disponibles - Programa Piloto
                     </p>
                     <div className="flex items-baseline gap-3 mb-4">
-                      <p className="text-white text-2xl font-bold animate-bounce">
+                      <p className="text-white text-base md:text-2xl lg:text-3xl font-bold animate-bounce">
                         {spotsLeft}
                       </p>
-                      <p className="text-white/80 text-2xl">
+                      <p className="text-white/80 text-base md:text-2xl lg:text-3xl">
                         de {totalSpots} cupos
                       </p>
                     </div>
@@ -679,10 +679,10 @@ Equipo SaludCompartida`,
                 <div className="p-10">
                   
                   <div className="mb-10">
-                    <h3 className="text-3xl font-bold text-gray-900 mb-3">
+                    <h3 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
                       Comienza Tu Registro
                     </h3>
-                    <p className="text-gray-600 text-2xl leading-relaxed">
+                    <p className="text-gray-600 text-base md:text-2xl lg:text-3xl leading-relaxed">
                       Completa tu información para tener la oportunidad de ser seleccionado en nuestro programa piloto
                     </p>
                   </div>
@@ -697,7 +697,7 @@ Equipo SaludCompartida`,
                           </svg>
                         </div>
                         <div>
-                          <h4 className="text-3xl font-bold text-gray-900">Tus Datos</h4>
+                          <h4 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900">Tus Datos</h4>
                           <p className="text-sm text-gray-500">Información del migrante en EE.UU.</p>
                         </div>
                       </div>
@@ -824,7 +824,7 @@ Equipo SaludCompartida`,
                           </svg>
                         </div>
                         <div>
-                          <h4 className="text-3xl font-bold text-gray-900">Tu Conexión en Casa</h4>
+                          <h4 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900">Tu Conexión en Casa</h4>
                           <p className="text-sm text-gray-500">Familiar en México</p>
                         </div>
                       </div>
@@ -936,7 +936,7 @@ Equipo SaludCompartida`,
 
                     <button
                       onClick={handleRegister}
-                      className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white py-4 px-6 rounded-xl font-bold text-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-3"
+                      className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white py-4 px-6 rounded-xl font-bold text-base md:text-2xl lg:text-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-3"
                     >
                       <span>Registrarme Ahora</span>
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -953,7 +953,7 @@ Equipo SaludCompartida`,
                         <p className="text-gray-600 text-sm mb-2">
                           Consultas, escríbenos a:
                         </p>
-                        <p className="text-cyan-600 font-bold text-2xl">
+                        <p className="text-cyan-600 font-bold text-base md:text-2xl lg:text-3xl">
                           contact@saludcompartida.com
                         </p>
                       </div>
@@ -1020,7 +1020,7 @@ Equipo SaludCompartida`,
                   <svg className="w-8 h-8 text-cyan-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                   </svg>
-                  <p className="text-gray-700 italic text-2xl leading-relaxed transition-opacity duration-500">
+                  <p className="text-gray-700 italic text-base md:text-2xl lg:text-3xl leading-relaxed transition-opacity duration-500">
                     "{testimonials[currentTestimonial]}"
                   </p>
                 </div>
@@ -1036,10 +1036,10 @@ Equipo SaludCompartida`,
                   </svg>
                 </div>
                 
-                <h2 className="text-3xl font-bold text-gray-900 mb-3">
+                <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
                   ¡Registro Recibido!
                 </h2>
-                <p className="text-orange-600 font-bold text-2xl mb-2">
+                <p className="text-orange-600 font-bold text-base md:text-2xl lg:text-3xl mb-2">
                   ⏰ Ahora cuenta cada minuto
                 </p>
                 <p className="text-gray-600">
