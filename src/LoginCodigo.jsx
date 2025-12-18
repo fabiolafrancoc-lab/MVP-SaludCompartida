@@ -264,7 +264,7 @@ export default function LoginCodigo() {
             </button>
 
             <button
-              onClick={() => navigate('/contact')}
+              onClick={() => navigate('/contact', { state: { from: '/page3' } })}
               className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg font-semibold transition-all"
             >
               Contacto
@@ -281,7 +281,7 @@ export default function LoginCodigo() {
               {sendingEmail ? 'Enviando...' : 'Código Erróneo'}
             </button>
             <button
-              onClick={() => navigate('/contact')}
+              onClick={() => navigate('/contact', { state: { from: '/page3' } })}
               className="bg-cyan-500 hover:bg-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-all"
             >
               Contacto
