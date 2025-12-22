@@ -184,9 +184,9 @@ const DashboardBox = ({ icon, title, message, color, onClick, badge, size = 'nor
   };
 
   const titleSizes = {
-    large: 'text-lg md:text-3xl lg:text-4xl',
-    normal: 'text-base md:text-2xl lg:text-3xl',
-    small: 'text-xl md:text-4xl lg:text-5xl'
+    large: 'text-base md:text-xl lg:text-2xl',
+    normal: 'text-sm md:text-lg lg:text-xl',
+    small: 'text-base md:text-xl lg:text-2xl'
   };
   
   // helper: decide readable text color (black or white) based on background
@@ -277,7 +277,7 @@ const DashboardBox = ({ icon, title, message, color, onClick, badge, size = 'nor
         </h3>
         
         {/* Message */}
-        <p className={`${size === 'small' ? 'text-sm' : 'text-lg md:text-3xl lg:text-4xl'} leading-relaxed text-white/95 font-semibold drop-shadow-md`}>
+        <p className={`${size === 'small' ? 'text-xs md:text-sm' : 'text-sm md:text-base lg:text-lg'} leading-relaxed text-white/95 font-semibold drop-shadow-md`}>
           {message}
         </p>
         
@@ -628,7 +628,7 @@ const Page4 = () => {
               window.scrollTo(0, 0);
               navigate('/contact');
             }}
-            className="group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-pink-500 text-white rounded-2xl font-black text-lg md:text-3xl lg:text-4xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
+            className="group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-pink-500 text-white rounded-2xl font-black text-base md:text-xl lg:text-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
           >
             {/* Shine Effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
@@ -650,7 +650,7 @@ const Page4 = () => {
       <footer className="bg-white mt-16 py-8 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-safe">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className="text-gray-700 text-base md:text-2xl lg:text-3xl font-medium">
+            <p className="text-gray-700 text-sm md:text-base lg:text-lg font-medium">
               SaludCompartida · Cuidando lo que más importa
             </p>
             
