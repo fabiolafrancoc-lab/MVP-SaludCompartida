@@ -1068,7 +1068,7 @@ SaludCompartida`,
   if (showConfirmation) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50">
-        <TopNav onBack={() => navigate('/page4')} hideUser={true} />
+        <TopNav internalPage={true} showBackButton={true} onBack={() => navigate('/page4')} />
 
         <div className="max-w-2xl mx-auto px-4 py-16">
           <div className="bg-white rounded-2xl shadow-xl p-8 text-center">

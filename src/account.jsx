@@ -448,8 +448,8 @@ export default function Account() {
               </svg>
             </div>
             <div>
-              <h2 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Miembros de tu Familia</h2>
-              <p className="text-sm sm:text-lg md:text-3xl lg:text-4xl text-gray-600 leading-relaxed">
+              <h2 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 mb-2">Miembros de tu Familia</h2>
+              <p className="text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
                 Incluye hasta tres miembros de tu familia que accederán a SaludCompartida{' '}
                 <span className="text-gray-500 italic">(Registro Opcional)</span>
               </p>
