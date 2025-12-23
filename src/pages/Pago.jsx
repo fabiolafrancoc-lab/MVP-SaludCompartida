@@ -607,7 +607,7 @@ Beneficios disponibles:
               <button
                 onClick={handleSquarePayment}
                 disabled={isProcessing || !squareLoaded}
-                className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold py-4 sm:py-5 text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+                className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold py-4 sm:py-5 text-sm sm:text-base md:text-lg lg:text-xl rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
               >
                 {isProcessing ? (
                   <span className="inline-flex items-center justify-center gap-2">

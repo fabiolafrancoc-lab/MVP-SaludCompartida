@@ -62,51 +62,6 @@ const Savings = () => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         )
-      },
-      {
-        name: 'Farmacia Benavides',
-        saved: 120.00,
-        uses: 3,
-        regularPrice: 200,
-        paidPrice: 80,
-        media: '/benavides.jpeg',
-        mediaType: 'image',
-        testimonial: 'Medicinas cuando más las necesitas',
-        icon: (
-          <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-          </svg>
-        )
-      },
-      {
-    name: 'Farmacias del Ahorro',
-    saved: 13.30,
-    uses: 2,
-    regularPrice: 35,
-    paidPrice: 21.70,
-    media: '/delahorro.jpeg',
-    mediaType: 'image',
-    testimonial: 'Cuidado inclusivo para todos',
-        icon: (
-          <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-        )
-      },
-      {
-    name: 'Compras para el Hogar',
-    saved: 110.20,
-    uses: 5,
-    regularPrice: 250,
-    paidPrice: 139.80,
-    media: '/familyeating.jpeg',
-    mediaType: 'image',
-    testimonial: 'Bienestar familiar completo',
-        icon: (
-          <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-        )
       }
     ],
     monthlyBreakdown: [
@@ -173,13 +128,13 @@ const Savings = () => {
         {/* Hero Section - Mensaje Personalizado */}
         <div className="text-center mb-12">
           <h1 className="text-base md:text-xl lg:text-2xl font-bold text-gray-900 mb-4">
-            ¡Felicidades{' '}
+            ¡Bienvenida{' '}
             <span className="text-sm md:text-lg lg:text-xl text-cyan-400 block mt-2">
               {userName}
             </span>
           </h1>
           <p className="text-sm md:text-base lg:text-lg text-gray-700 max-w-3xl mx-auto">
-            Estás cuidando la salud de tu familia de forma estratégica
+            ¡Acabas de dar el primer paso para cuidar la salud de tu familia!
           </p>
         </div>
 
@@ -193,11 +148,11 @@ const Savings = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div className="text-center">
-                  <p className="text-sm md:text-base lg:text-lg text-white mb-2">Este Mes has Ahorrado</p>
+                  <p className="text-sm md:text-base lg:text-lg text-white mb-2">Tu Potencial de Ahorro Mensual</p>
                   <p className="text-base md:text-xl lg:text-2xl font-bold text-white">
-                    ${formatNoCents(displayedTotal)}
+                    Hasta $2,825
                   </p>
-                  <p className="text-sm md:text-base lg:text-lg text-white/90 mt-2">MXN</p>
+                  <p className="text-sm md:text-base lg:text-lg text-white/90 mt-2">MXN al mes</p>
                 </div>
               </div>
             </div>
@@ -216,10 +171,10 @@ const Savings = () => {
         {/* Breakdown por Servicio con Media */}
         <div className="max-w-6xl mx-auto mb-12">
           <h2 className="text-base md:text-xl lg:text-2xl font-bold text-gray-900 text-center mb-6">
-            Desglose de Ahorros por Servicio
+            Ejemplos de lo que Podrás Ahorrar
           </h2>
           <p className="text-sm md:text-base lg:text-lg text-center text-gray-700 mb-6">
-            Cada peso que ahorras es un peso que inviertes en el bienestar de tu familia, <span className="text-cyan-600 font-semibold">{userName}</span>
+            Estos son ejemplos reales de cómo nuestros usuarios ahorran cada mes, <span className="text-cyan-600 font-semibold">{userName}</span>
           </p>
 
           <div className="space-y-4">
@@ -267,7 +222,7 @@ const Savings = () => {
                       </div>
                       
                       <p className="text-gray-600">
-                        Total {service.uses} uso{service.uses > 1 ? 's' : ''} en el mes
+                        Ejemplo de {service.uses} {service.name === 'Terapia' ? 'sesiones semanales' : 'uso' + (service.uses > 1 ? 's' : '')} en el mes
                       </p>
                       
                       <div className="grid grid-cols-2 gap-3 text-sm">
@@ -303,8 +258,8 @@ const Savings = () => {
 
         {/* Gráfica Visual */}
         <div className="max-w-4xl mx-auto mb-16">
-          <h2 className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-6">
-            Evolución de tu Ahorro
+          <h2 className="text-base md:text-xl lg:text-2xl font-bold text-gray-900 text-center mb-6">
+            Evolución Proyectada de tu Ahorro
           </h2>
           <div className="bg-white rounded-2xl p-4 md:p-6">
             <ResponsiveContainer width="100%" height={180}>
@@ -335,15 +290,15 @@ const Savings = () => {
 
         {/* Proyección Anual */}
         <div className="max-w-4xl mx-auto mb-16">
-          <h2 className="text-base md:text-2xl lg:text-3xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-6">
+          <h2 className="text-base md:text-xl lg:text-2xl font-bold text-gray-900 text-center mb-6">
             Proyección Anual
           </h2>
           <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 text-center">
             <p className="text-sm md:text-base lg:text-lg text-gray-700 mb-4">
-              <span className="text-cyan-600 font-bold">{userName}</span>, si continúas ahorrando así, a finales de diciembre habrás ahorrado
+              <span className="text-cyan-600 font-bold">{userName}</span>, si usas nuestros servicios regularmente, podrías ahorrar hasta
             </p>
             <p className="text-base md:text-xl lg:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 mb-2">
-              ~${formatNoCents(annualProjection)}
+              ~$11,300
             </p>
             <p className="text-sm md:text-base lg:text-lg text-pink-600">MXN en el 2025</p>
           </div>
