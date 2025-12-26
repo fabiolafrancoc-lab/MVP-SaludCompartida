@@ -98,7 +98,7 @@ export default function Telemedicine() {
               <div className="bg-green-400 rounded-full p-2 animate-pulse">
                 <Clock className="w-6 h-6" />
               </div>
-              <span className="text-lg md:text-3xl lg:text-4xl font-bold bg-green-400 text-green-900 px-4 py-1 rounded-full">
+              <span className="text-lg md:text-3xl lg:text-4xl font-bold bg-green-400 text-white px-4 py-1 rounded-full">
                 Disponible 24/7
               </span>
             </div>
