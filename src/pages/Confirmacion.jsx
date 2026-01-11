@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { CheckCircle, Download, Mail, CreditCard, Calendar, FileText } from 'lucide-react';
 import Footer from '../components/Footer';
+import { trackEvent } from '../hooks/useMetaPixel';
 
 export default function Confirmacion() {
   const location = useLocation();
@@ -11,7 +12,19 @@ export default function Confirmacion() {
   // Scroll al tope cuando se monta el componente
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    
+    // 📊 META PIXEL: Track Purchase event
+    if (data.confirmationNumber) {
+      trackEvent('Purchase', {
+        content_name: 'Suscripción SaludCompartida',
+        content_ids: [data.confirmationNumber],
+        content_type: 'product',
+        value: 12.00,
+        currency: 'USD',
+        num_items: 1
+      });
+    }
+  }, [data.confirmationNumber]);
 
   // Si no hay datos de suscripción, redirigir
   if (!data.confirmationNumber) {

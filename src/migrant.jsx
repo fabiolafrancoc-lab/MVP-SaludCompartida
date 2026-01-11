@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { UserContext } from './contexts/UserContext';
 import { LightbulbIcon } from './components/CustomIcons';
+import { trackEvent } from './hooks/useMetaPixel';
 
 // Custom Navigation Icons - Diseñados profesionalmente
 const CloseIcon = () => (
@@ -156,6 +157,13 @@ const Migrant = () => {
       if (!hasVisited) {
         setShowWelcomeBanner(true);
         localStorage.setItem('migrant_dashboard_visited', 'true');
+        
+        // 📊 META PIXEL: Track CompleteRegistration (Usuario Migrante)
+        trackEvent('CompleteRegistration', {
+          content_name: 'Login Usuario Migrante',
+          user_type: 'migrant',
+          status: 'success'
+        });
       }
     } catch (e) {
       console.error('Error loading user data:', e);

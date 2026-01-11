@@ -4,6 +4,7 @@ import TopNav from '../components/TopNav';
 import { insertRegistration } from '../lib/supabase';
 import { sendAccessCode } from '../lib/notifications';
 import { LightbulbIcon } from '../components/CustomIcons';
+import { trackEvent } from '../hooks/useMetaPixel';
 import '../Registro.css';
 
 function Registro() {
@@ -357,6 +358,14 @@ Suscripciones restantes después de este registro: ${spotsLeft - 1}
           familyAccessCode: result.familyAccessCode
         };
         localStorage.setItem('registrationUser', JSON.stringify(registrationUser));
+        
+        // 📊 META PIXEL: Track Lead event
+        trackEvent('Lead', {
+          content_name: 'Registro Completo',
+          content_category: 'registration',
+          value: 12.00,
+          currency: 'USD'
+        });
         
         // Redirigir a página de pago
         navigate('/pago');
