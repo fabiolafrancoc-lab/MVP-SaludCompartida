@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, Lock, ArrowLeft, CheckCircle } from 'lucide-react';
+import { trackEvent } from '../hooks/useMetaPixel';
 
 // Square Application ID y Location ID
 const SQUARE_APP_ID = import.meta.env.VITE_SQUARE_APP_ID || 'sandbox-sq0idb-NKXeieWPwl3DnnkJ3asYcw';
@@ -24,6 +25,14 @@ export default function Pago() {
   // Scroll al tope cuando se monta el componente
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // 📊 META PIXEL: Track InitiateCheckout event
+    trackEvent('InitiateCheckout', {
+      content_name: 'Página de Pago',
+      content_category: 'checkout',
+      value: 12.00,
+      currency: 'USD'
+    });
   }, []);
 
   // Cargar datos del usuario registrado

@@ -5,6 +5,7 @@ import { UserContext } from './contexts/UserContext';
 import { getUserByAccessCode } from './lib/supabase';
 import TopNav from './components/TopNav';
 import { LightbulbIcon } from './components/CustomIcons';
+import { trackEvent } from './hooks/useMetaPixel';
 
 export default function LoginCodigo() {
   const navigate = useNavigate();
@@ -157,6 +158,13 @@ export default function LoginCodigo() {
       localStorage.setItem('currentUser', JSON.stringify(userData));
       setCurrentUser(userData);
 
+      // 📊 META PIXEL: Track CompleteRegistration (Usuario Normal)
+      trackEvent('CompleteRegistration', {
+        content_name: 'Login Usuario Normal',
+        user_type: 'normal',
+        status: 'success'
+      });
+
       if (isMigrantUser) {
         navigate('/migrant');
       } else {
@@ -190,6 +198,13 @@ export default function LoginCodigo() {
 
         localStorage.setItem('currentUser', JSON.stringify(userData));
         setCurrentUser(userData);
+
+        // 📊 META PIXEL: Track CompleteRegistration (Usuario Normal desde Supabase)
+        trackEvent('CompleteRegistration', {
+          content_name: 'Login Usuario Normal',
+          user_type: 'normal',
+          status: 'success'
+        });
 
         if (isMigrantUser) {
           navigate('/migrant');
