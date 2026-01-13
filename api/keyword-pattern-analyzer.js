@@ -15,10 +15,13 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-);
+// Helper function to get Supabase client (lazy initialization)
+function getSupabaseClient() {
+  return createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  );
+}
 
 /**
  * Categorías y palabras clave a detectar
@@ -269,6 +272,7 @@ export async function analyzeKeywords(userId, message) {
  */
 async function saveKeywordAnalysis(userId, originalMessage, detectedKeywords) {
   try {
+    const supabase = getSupabaseClient();
     const { error } = await supabase
       .from('keyword_analysis')
       .insert({
@@ -295,6 +299,7 @@ async function saveKeywordAnalysis(userId, originalMessage, detectedKeywords) {
  */
 export async function getUserBehaviorPatterns(userId) {
   try {
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('keyword_analysis')
       .select('detected_keywords, created_at')
@@ -344,6 +349,7 @@ export async function getUserBehaviorPatterns(userId) {
  */
 export async function getPopulationPatterns(filters = {}) {
   try {
+    const supabase = getSupabaseClient();
     let query = supabase
       .from('keyword_analysis')
       .select(`
