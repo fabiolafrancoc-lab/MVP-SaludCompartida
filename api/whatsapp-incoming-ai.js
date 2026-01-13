@@ -2,10 +2,13 @@
 import { processUserMessage } from './ai-companion-engine.js';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-);
+// Lazy initialization of Supabase client
+function getSupabaseClient() {
+  return createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  );
+}
 
 export default async function handler(req, res) {
   // Verificación del webhook de Meta (GET request)
@@ -109,6 +112,7 @@ export default async function handler(req, res) {
 // Obtener datos del usuario desde la tabla de registrations
 async function getUserDataFromPhone(phoneNumber) {
   try {
+    const supabase = getSupabaseClient();
     // Limpiar número de teléfono (quitar whatsapp:, +, espacios, etc)
     const cleanPhone = phoneNumber.replace(/\D/g, '');
     
