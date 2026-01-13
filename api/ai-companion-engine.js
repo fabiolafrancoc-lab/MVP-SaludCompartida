@@ -22,10 +22,13 @@ import {
   getUserBehaviorPatterns
 } from './keyword-pattern-analyzer.js';
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-);
+// Lazy initialization of Supabase client to ensure env vars are available
+function getSupabaseClient() {
+  return createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  );
+}
 
 // Pool de nombres mexicanos comunes para companions
 const COMPANION_NAMES = {
@@ -317,6 +320,7 @@ export async function processUserMessage(phoneNumber, userMessage, userProfileNa
     // 2.5. Incrementar contador de CONVERSACIONES (no mensajes individuales)
     // Una conversación = usuario habla + AI responde (intercambio completo)
     const conversationCount = (companion.conversation_count || 0) + 1;
+    const supabase = getSupabaseClient();
     await supabase
       .from('ai_companions')
       .update({ conversation_count: conversationCount })
@@ -399,6 +403,7 @@ export async function processUserMessage(phoneNumber, userMessage, userProfileNa
 
 // Obtener perfil del companion
 async function getCompanionProfile(phoneNumber) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('ai_companions')
     .select('*')
@@ -425,6 +430,7 @@ async function createCompanionProfile(phoneNumber, userName, userGender = null, 
   
   console.log(`👥 Asignando companion "${uniqueName}" (personalidad: ${selectedCompanion.personality}) a usuario género: ${userGender || 'desconocido'}, edad: ${userAge || 'desconocida'}`);
   
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('ai_companions')
     .insert({
@@ -458,6 +464,7 @@ async function generateUniqueName(gender) {
     const candidateName = namePool[Math.floor(Math.random() * namePool.length)];
     
     // Verificar si ya está en uso
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('ai_companions')
       .select('companion_name')
@@ -537,6 +544,7 @@ function selectCompanionForUser(userGender, userAge = null) {
 
 // Obtener memoria relevante
 async function getRelevantMemory(userId) {
+  const supabase = getSupabaseClient();
   // Últimas 5 conversaciones
   const { data: recentConversations } = await supabase
     .from('companion_conversations')
@@ -562,6 +570,7 @@ async function getRelevantMemory(userId) {
 
 // Verificar recordatorios pendientes
 async function checkPendingReminders(userId) {
+  const supabase = getSupabaseClient();
   const now = new Date();
   const currentTime = now.toTimeString().slice(0, 5); // HH:MM
 
@@ -723,6 +732,7 @@ async function callOpenAI(messages) {
 
 // Guardar conversación
 async function saveConversation(userId, messageFrom, messageContent) {
+  const supabase = getSupabaseClient();
   await supabase
     .from('companion_conversations')
     .insert({
@@ -745,6 +755,7 @@ async function updateMemory(userId, userMessage, aiResponse) {
 
 // Actualizar última interacción
 async function updateLastInteraction(userId) {
+  const supabase = getSupabaseClient();
   await supabase
     .from('ai_companions')
     .update({ updated_at: new Date().toISOString() })
