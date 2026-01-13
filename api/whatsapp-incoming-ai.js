@@ -132,12 +132,3 @@ async function sendWhatsAppMessage(to, message) {
     return false;
   }
 }
-
-  } catch (error) {
-    console.error('❌ Error procesando mensaje entrante:', error);
-    res.status(500).json({ 
-      error: 'Error processing incoming message',
-      message: error.message 
-    });
-  }
-}
