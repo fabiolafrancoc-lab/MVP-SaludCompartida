@@ -1,12 +1,34 @@
 // AI Companion Engine - Core Logic
 import { createClient } from '@supabase/supabase-js';
+import { 
+  analyzeCommunicationStyle, 
+  generateMimicInstructions, 
+  updateCommunicationStyle 
+} from './communication-analyzer.js';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_KEY
 );
 
-// Personalidades disponibles
+// Pool de nombres mexicanos comunes para companions
+const COMPANION_NAMES = {
+  female: [
+    'Lupita', 'María', 'Rosa', 'Carmen', 'Juanita', 'Elena', 'Patricia', 
+    'Guadalupe', 'Sofía', 'Ana', 'Teresa', 'Martha', 'Silvia', 'Beatriz',
+    'Norma', 'Alejandra', 'Gabriela', 'Verónica', 'Claudia', 'Laura',
+    'Isabel', 'Adriana', 'Leticia', 'Rocío', 'Alma', 'Yolanda', 'Cristina',
+    'Margarita', 'Dolores', 'Antonia', 'Josefina', 'Blanca', 'Francisca'
+  ],
+  male: [
+    'Roberto', 'Jorge', 'José', 'Juan', 'Carlos', 'Luis', 'Miguel',
+    'Pedro', 'Antonio', 'Manuel', 'Francisco', 'Jesús', 'Rafael',
+    'Alejandro', 'Fernando', 'Ricardo', 'Eduardo', 'Javier', 'Sergio',
+    'Arturo', 'Raúl', 'Enrique', 'Ramón', 'Alberto', 'Armando', 'Víctor'
+  ]
+};
+
+// Personalidades base (usaremos estas como templates)
 const COMPANION_PERSONALITIES = {
   lupita_cariñosa: {
     name: 'Lupita',
@@ -253,16 +275,27 @@ export async function processUserMessage(phoneNumber, userMessage, userProfileNa
       // Primera vez - crear perfil con gender-aware companion selection
       companion = await createCompanionProfile(phoneNumber, userProfileName, userGender, userAge);
       
-      const companionData = COMPANION_PERSONALITIES[companion.companion_personality];
+      // Usar el nombre único asignado
+      const uniqueName = companion.companion_name;
       
       return {
-        response: `Hola ${userProfileName}, mucho gusto. Me llamo ${companionData.name}. 😊\n\nMe dijeron que podría acompañarte, platicar contigo cuando quieras. A mí me gusta mucho conversar.\n\n¿Cómo estás? ¿Me cuentas un poco de ti?`,
+        response: `Hola ${userProfileName}, mucho gusto. Me llamo ${uniqueName}. 😊\n\nMe dijeron que podría acompañarte, platicar contigo cuando quieras. A mí me gusta mucho conversar.\n\n¿Cómo estás? ¿Me cuentas un poco de ti?`,
         isOnboarding: true
       };
     }
 
     // 2. Guardar mensaje del usuario en historial
     await saveConversation(companion.user_id, 'user', userMessage);
+
+    // 2.5. ANALIZAR ESTILO DE COMUNICACIÓN (MIMIC/MIRRORING)
+    const currentStyle = companion.communication_style || {};
+    const updatedStyle = await analyzeCommunicationStyle(userMessage, currentStyle);
+    
+    // Si detectamos cambios significativos, actualizar en BD
+    if (JSON.stringify(updatedStyle) !== JSON.stringify(currentStyle)) {
+      await updateCommunicationStyle(supabase, companion.user_id, updatedStyle);
+      companion.communication_style = updatedStyle; // Actualizar en memoria para este mensaje
+    }
 
     // 3. Obtener memoria relevante (últimas conversaciones + temas importantes)
     const memory = await getRelevantMemory(companion.user_id);
@@ -325,7 +358,10 @@ async function createCompanionProfile(phoneNumber, userName, userGender = null, 
   // Seleccionar companion basado en género y edad del usuario
   const selectedCompanion = selectCompanionForUser(userGender, userAge);
   
-  console.log(`👥 Asignando companion "${selectedCompanion.name}" a usuario género: ${userGender || 'desconocido'}, edad: ${userAge || 'desconocida'}`);
+  // Generar nombre único para este usuario
+  const uniqueName = await generateUniqueName(selectedCompanion.gender);
+  
+  console.log(`👥 Asignando companion "${uniqueName}" (personalidad: ${selectedCompanion.personality}) a usuario género: ${userGender || 'desconocido'}, edad: ${userAge || 'desconocida'}`);
   
   const { data, error } = await supabase
     .from('ai_companions')
@@ -335,7 +371,7 @@ async function createCompanionProfile(phoneNumber, userName, userGender = null, 
       user_name: userName || 'Amigo',
       user_gender: userGender,
       user_age: userAge,
-      companion_name: selectedCompanion.name,
+      companion_name: uniqueName, // Nombre único
       companion_personality: selectedCompanion.personality,
       onboarding_completed: false
     })
@@ -350,53 +386,90 @@ async function createCompanionProfile(phoneNumber, userName, userGender = null, 
   return data;
 }
 
+// Generar nombre único que no esté en uso
+async function generateUniqueName(gender) {
+  const namePool = gender === 'female' ? COMPANION_NAMES.female : COMPANION_NAMES.male;
+  const maxAttempts = 100;
+  
+  for (let i = 0; i < maxAttempts; i++) {
+    // Seleccionar nombre aleatorio del pool
+    const candidateName = namePool[Math.floor(Math.random() * namePool.length)];
+    
+    // Verificar si ya está en uso
+    const { data, error } = await supabase
+      .from('ai_companions')
+      .select('companion_name')
+      .eq('companion_name', candidateName)
+      .limit(1);
+    
+    if (error) {
+      console.error('Error checking name availability:', error);
+      continue;
+    }
+    
+    // Si no está en uso, lo usamos
+    if (!data || data.length === 0) {
+      console.log(`✅ Nombre único generado: ${candidateName}`);
+      return candidateName;
+    }
+    
+    console.log(`⚠️ Nombre ${candidateName} ya en uso, intentando otro...`);
+  }
+  
+  // Fallback: agregar número al nombre si todos están ocupados
+  const baseName = namePool[0];
+  const timestamp = Date.now().toString().slice(-4);
+  const fallbackName = `${baseName}${timestamp}`;
+  console.log(`⚠️ Usando nombre con sufijo: ${fallbackName}`);
+  return fallbackName;
+}
+
 // Seleccionar companion apropiado basado en usuario
 function selectCompanionForUser(userGender, userAge = null) {
-  // REGLA 1: Mujeres SIEMPRE tienen companions femeninos (evita celos y apegos románticos)
-  const femaleCompanions = [
-    { name: 'Lupita', personality: 'lupita_cariñosa' },
-    { name: 'María', personality: 'maria_alegre' },
-    { name: 'Rosa', personality: 'rosa_maternal' }
+  // Definimos personalidades con género
+  const femalePersonalities = [
+    { personality: 'lupita_cariñosa', gender: 'female' },
+    { personality: 'maria_alegre', gender: 'female' },
+    { personality: 'rosa_maternal', gender: 'female' }
   ];
 
-  // REGLA 2: Hombres pueden tener cualquier companion
-  const maleCompanions = [
-    { name: 'Don Roberto', personality: 'don_roberto_sabio' },
-    { name: 'Jorge', personality: 'jorge_amigable' }
+  const malePersonalities = [
+    { personality: 'don_roberto_sabio', gender: 'male' },
+    { personality: 'jorge_amigable', gender: 'male' }
   ];
 
-  const allCompanions = [...femaleCompanions, ...maleCompanions];
+  const allPersonalities = [...femalePersonalities, ...malePersonalities];
 
   // Normalizar género
   const normalizedGender = userGender?.toLowerCase();
 
   // Si el usuario es mujer → SOLO companions femeninos
   if (normalizedGender === 'female' || normalizedGender === 'mujer' || normalizedGender === 'f' || normalizedGender === 'femenino') {
-    const selected = femaleCompanions[Math.floor(Math.random() * femaleCompanions.length)];
-    console.log(`✅ Usuario MUJER → Companion femenino: ${selected.name}`);
+    const selected = femalePersonalities[Math.floor(Math.random() * femalePersonalities.length)];
+    console.log(`✅ Usuario MUJER → Companion femenino`);
     return selected;
   }
 
   // Si el usuario es hombre → cualquier companion
   if (normalizedGender === 'male' || normalizedGender === 'hombre' || normalizedGender === 'm' || normalizedGender === 'masculino') {
-    // Si es adulto mayor (65+), preferir companions de edad similar
+    // Si es adulto mayor (65+), preferir personalidades maduras
     if (userAge && userAge >= 65) {
-      const elderlyCompanions = [
-        { name: 'Don Roberto', personality: 'don_roberto_sabio' },
-        { name: 'Rosa', personality: 'rosa_maternal' }
+      const elderlyPersonalities = [
+        { personality: 'don_roberto_sabio', gender: 'male' },
+        { personality: 'rosa_maternal', gender: 'female' }
       ];
-      const selected = elderlyCompanions[Math.floor(Math.random() * elderlyCompanions.length)];
-      console.log(`✅ Usuario HOMBRE ADULTO MAYOR → Companion: ${selected.name}`);
+      const selected = elderlyPersonalities[Math.floor(Math.random() * elderlyPersonalities.length)];
+      console.log(`✅ Usuario HOMBRE ADULTO MAYOR → Companion maduro`);
       return selected;
     }
-    const selected = allCompanions[Math.floor(Math.random() * allCompanions.length)];
-    console.log(`✅ Usuario HOMBRE → Companion: ${selected.name}`);
+    const selected = allPersonalities[Math.floor(Math.random() * allPersonalities.length)];
+    console.log(`✅ Usuario HOMBRE → Companion aleatorio`);
     return selected;
   }
 
   // Por defecto (si no sabemos género) → companion femenino (más seguro culturalmente)
-  const selected = femaleCompanions[Math.floor(Math.random() * femaleCompanions.length)];
-  console.log(`⚠️ Género desconocido → Companion femenino por seguridad: ${selected.name}`);
+  const selected = femalePersonalities[Math.floor(Math.random() * femalePersonalities.length)];
+  console.log(`⚠️ Género desconocido → Companion femenino por seguridad`);
   return selected;
 }
 
@@ -442,12 +515,24 @@ async function checkPendingReminders(userId) {
 
 // Construir prompt para GPT-4
 function buildGPTPrompt(companion, memory, userMessage, reminders, personality) {
+  // Reemplazar el nombre genérico del companion con el nombre único asignado
+  const personalizedSystemPrompt = personality.systemPrompt
+    .replace(new RegExp(`Eres ${personality.name}`, 'g'), `Eres ${companion.companion_name}`)
+    .replace(new RegExp(`Tu nombre es ${personality.name}`, 'g'), `Tu nombre es ${companion.companion_name}`)
+    .replace(new RegExp(`Me llamo ${personality.name}`, 'g'), `Me llamo ${companion.companion_name}`);
+  
   let contextString = `INFORMACIÓN DEL USUARIO:\n`;
   contextString += `- Nombre: ${companion.user_name}\n`;
   contextString += `- Edad: ${companion.user_age || 'no especificada'}\n`;
   
   if (companion.user_interests && companion.user_interests.length > 0) {
     contextString += `- Intereses: ${companion.user_interests.join(', ')}\n`;
+  }
+
+  // AGREGAR INSTRUCCIONES DE MIMIC (CRÍTICO PARA ALINEACIÓN)
+  if (companion.communication_style) {
+    const mimicInstructions = generateMimicInstructions(companion.communication_style);
+    contextString += mimicInstructions;
   }
 
   // Agregar temas importantes de memoria
@@ -465,7 +550,7 @@ function buildGPTPrompt(companion, memory, userMessage, reminders, personality) 
   if (memory.recentConversations.length > 0) {
     contextString += `\nÚLTIMAS CONVERSACIONES:\n`;
     memory.recentConversations.reverse().forEach(conv => {
-      const who = conv.message_from === 'user' ? companion.user_name : personality.name;
+      const who = conv.message_from === 'user' ? companion.user_name : companion.companion_name;
       contextString += `${who}: ${conv.message_content}\n`;
     });
   }
@@ -482,7 +567,7 @@ function buildGPTPrompt(companion, memory, userMessage, reminders, personality) 
   return [
     {
       role: 'system',
-      content: personality.systemPrompt + '\n\n' + contextString
+      content: personalizedSystemPrompt + '\n\n' + contextString
     },
     {
       role: 'user',
