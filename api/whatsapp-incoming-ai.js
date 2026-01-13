@@ -1,5 +1,11 @@
 // Webhook para mensajes entrantes de WhatsApp - Con AI Companion
 import { processUserMessage } from './ai-companion-engine.js';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_KEY
+);
 
 export default async function handler(req, res) {
   // Verificación del webhook de Meta (GET request)
@@ -48,11 +54,23 @@ export default async function handler(req, res) {
             return res.status(200).json({ success: true, message: 'No text content' });
           }
 
-          // Procesar mensaje con AI Companion
+          // Intentar obtener género y edad del usuario desde registrations
+          const userData = await getUserDataFromPhone(phoneNumber);
+          
+          console.log('👤 Datos del usuario:', {
+            phone: phoneNumber,
+            name: userData?.name || profileName,
+            gender: userData?.gender || 'desconocido',
+            age: userData?.age || 'desconocida'
+          });
+
+          // Procesar mensaje con AI Companion (incluye género para asignación correcta)
           const { response: aiResponse, isOnboarding, error } = await processUserMessage(
             phoneNumber,
             messageText,
-            profileName
+            userData?.name || profileName,
+            userData?.gender || null,
+            userData?.age || null
           );
 
           // Enviar respuesta por WhatsApp
@@ -86,6 +104,64 @@ export default async function handler(req, res) {
 
   // Método no permitido
   return res.status(405).json({ error: 'Method not allowed' });
+}
+
+// Obtener datos del usuario desde la tabla de registrations
+async function getUserDataFromPhone(phoneNumber) {
+  try {
+    // Limpiar número de teléfono (quitar whatsapp:, +, espacios, etc)
+    const cleanPhone = phoneNumber.replace(/\D/g, '');
+    
+    // Buscar en registrations por teléfono del familiar O del migrante
+    const { data, error } = await supabase
+      .from('registrations')
+      .select('family_first_name, family_last_name, migrant_first_name, migrant_last_name, family_phone, migrant_phone, family_birthdate, migrant_birthdate')
+      .or(`family_phone.ilike.%${cleanPhone}%,migrant_phone.ilike.%${cleanPhone}%`)
+      .limit(1)
+      .single();
+
+    if (error || !data) {
+      console.log('⚠️ Usuario no encontrado en registrations');
+      return null;
+    }
+
+    // Determinar si es familiar o migrante
+    const isFamilyUser = data.family_phone?.includes(cleanPhone);
+    const name = isFamilyUser 
+      ? `${data.family_first_name} ${data.family_last_name}`.trim()
+      : `${data.migrant_first_name} ${data.migrant_last_name}`.trim();
+    
+    // Calcular edad desde birthdate
+    let age = null;
+    const birthdate = isFamilyUser ? data.family_birthdate : data.migrant_birthdate;
+    if (birthdate) {
+      const today = new Date();
+      const birth = new Date(birthdate);
+      age = today.getFullYear() - birth.getFullYear();
+      if (today.getMonth() < birth.getMonth() || 
+          (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())) {
+        age--;
+      }
+    }
+
+    // NOTA: Por ahora no tenemos género en registrations
+    // En México, culturalmente: Familiar (México) = más probable mujer, Migrante (USA) = más probable hombre
+    // Pero esto es una suposición - idealmente capturamos género en registro
+    
+    // Estrategia conservadora: asumir gender desconocido → asignará companion femenino
+    const inferredGender = null; // No asumimos, mejor asignar femenino por defecto
+    
+    return {
+      name,
+      gender: inferredGender,
+      age,
+      isFamilyUser
+    };
+
+  } catch (error) {
+    console.error('Error obteniendo datos de usuario:', error);
+    return null;
+  }
 }
 
 // Función para enviar mensaje por WhatsApp usando Meta API

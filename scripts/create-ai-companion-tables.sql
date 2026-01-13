@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS ai_companions (
   -- Información del usuario
   user_name TEXT NOT NULL,
   user_age INTEGER,
-  user_gender TEXT,
+  user_gender TEXT CHECK (user_gender IN ('female', 'male', 'F', 'M', 'mujer', 'hombre', 'otro')),
   user_interests TEXT[], -- Array: ["jardinería", "cocina", "nietos"]
   
   -- Configuración del companion
