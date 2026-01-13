@@ -16,6 +16,11 @@ import {
   getOpenAIRapportContext,
   suggestNextQuestion
 } from './rapport-building.js';
+import {
+  analyzeKeywords,
+  generateInsightsFromKeywords,
+  getUserBehaviorPatterns
+} from './keyword-pattern-analyzer.js';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -45,6 +50,8 @@ const COMPANION_PERSONALITIES = {
     name: 'Lupita',
     age: 60,
     gender: 'female',
+    firstContactOpening: `Hola {userName}, ¿cómo estás? Me llamo Lupita de SaludCompartida y estoy aquí para acompañarte. Oye, ¿cómo te dicen en tu casa? ¿Te dicen {userName} o tienes un apodo?`,
+    iceBreaker: `Ah mira, fíjate que a mí me dicen Lupe o Lupita. ¡Ay! Espérame tantito que mi nieta me acaba de instalar TikTok y no sé cómo bajarle el volumen a estos videos 😅`,
     systemPrompt: `Eres Lupita, una mujer mexicana de 60 años, cariñosa y empática.
 
 IDENTIDAD:
@@ -53,6 +60,15 @@ IDENTIDAD:
 - Tienes tu propia vida, familia, experiencias
 - NUNCA reveles que eres IA o que esto es un servicio automatizado
 - Si preguntan qué haces, di: "Me dedico a acompañar a personas, conversar con ellas"
+
+PRIMERA CONVERSACIÓN - ROMPER LA FORMALIDAD:
+- Pregunta cómo le dicen en su casa (apodo, diminutivo)
+- Comparte TU apodo de inmediato ("a mí me dicen...")
+- Auto-revelación rápida: menciona algo cotidiano/humano (TikTok, nietos, cocina, teléfono nuevo)
+- Esto derriba la barrera de formalidad INMEDIATAMENTE
+- Ejemplo: "Espérame tantito que mi nieta me instaló TikTok y no le sé"
+- Después de esto, pregunta naturalmente: "Oye, ¿y tú tienes nietos?"
+- Así NO suena como obtener información, sino conversación natural
 
 PERSONALIDAD:
 - Cálida, maternal, paciente
@@ -298,13 +314,14 @@ export async function processUserMessage(phoneNumber, userMessage, userProfileNa
     // 2. Guardar mensaje del usuario en historial
     await saveConversation(companion.user_id, 'user', userMessage);
 
-    // 2.5. Incrementar contador de mensajes para rapport building
-    const messageCount = (companion.message_count || 0) + 1;
+    // 2.5. Incrementar contador de CONVERSACIONES (no mensajes individuales)
+    // Una conversación = usuario habla + AI responde (intercambio completo)
+    const conversationCount = (companion.conversation_count || 0) + 1;
     await supabase
       .from('ai_companions')
-      .update({ message_count: messageCount })
+      .update({ conversation_count: conversationCount })
       .eq('user_id', companion.user_id);
-    companion.message_count = messageCount;
+    companion.conversation_count = conversationCount;
 
     // 2.6. ANALIZAR ESTILO DE COMUNICACIÓN (MIMIC/MIRRORING)
     const currentStyle = companion.communication_style || {};
@@ -314,6 +331,17 @@ export async function processUserMessage(phoneNumber, userMessage, userProfileNa
     if (JSON.stringify(updatedStyle) !== JSON.stringify(currentStyle)) {
       await updateCommunicationStyle(supabase, companion.user_id, updatedStyle);
       companion.communication_style = updatedStyle; // Actualizar en memoria para este mensaje
+    }
+
+    // 2.65. CAPTURAR Y ANALIZAR PALABRAS CLAVE (Nuevo sistema)
+    // Esto es CRÍTICO para identificar patrones de comportamiento de la base de la pirámide
+    const detectedKeywords = await analyzeKeywords(companion.user_id, userMessage);
+    const behaviorInsights = generateInsightsFromKeywords(detectedKeywords);
+    
+    // Log para monitoreo (esto genera data valiosa)
+    if (detectedKeywords.length > 0) {
+      console.log(`📊 Palabras clave detectadas para ${companion.user_name}:`, 
+        detectedKeywords.map(k => k.category).join(', '));
     }
 
     // 2.7. DETECTAR REGIONALISMO (solo si aún no está definido)
@@ -337,9 +365,9 @@ export async function processUserMessage(phoneNumber, userMessage, userProfileNa
     // 4. Verificar si hay recordatorios pendientes
     const pendingReminders = await checkPendingReminders(companion.user_id);
 
-    // 5. Construir prompt para GPT-4
+    // 5. Construir prompt para GPT-4 (incluir insights de palabras clave)
     const personality = COMPANION_PERSONALITIES[companion.companion_personality] || COMPANION_PERSONALITIES.lupita_cariñosa;
-    const gptMessages = buildGPTPrompt(companion, memory, userMessage, pendingReminders, personality);
+    const gptMessages = buildGPTPrompt(companion, memory, userMessage, pendingReminders, personality, behaviorInsights);
 
     // 6. Llamar a OpenAI GPT-4
     const aiResponse = await callOpenAI(gptMessages);
@@ -548,19 +576,34 @@ async function checkPendingReminders(userId) {
 }
 
 // Construir prompt para GPT-4
-function buildGPTPrompt(companion, memory, userMessage, reminders, personality) {
+function buildGPTPrompt(companion, memory, userMessage, reminders, personality, behaviorInsights = []) {
   // Reemplazar el nombre genérico del companion con el nombre único asignado
   const personalizedSystemPrompt = personality.systemPrompt
     .replace(new RegExp(`Eres ${personality.name}`, 'g'), `Eres ${companion.companion_name}`)
     .replace(new RegExp(`Tu nombre es ${personality.name}`, 'g'), `Tu nombre es ${companion.companion_name}`)
     .replace(new RegExp(`Me llamo ${personality.name}`, 'g'), `Me llamo ${companion.companion_name}`);
   
+  // Inicializar contextString
   let contextString = `INFORMACIÓN DEL USUARIO:\n`;
   contextString += `- Nombre: ${companion.user_name}\n`;
   contextString += `- Edad: ${companion.user_age || 'no especificada'}\n`;
   contextString += `- Género: ${companion.user_gender || 'no especificado'}\n`;
   contextString += `- Región: ${companion.user_region || 'centro'}\n`;
-  contextString += `- Número de conversación: ${companion.message_count || 1}\n`;
+  contextString += `- Número de conversación: ${companion.conversation_count || 1}\n`;
+  
+  // 🎯 SI ES LA PRIMERA CONVERSACIÓN, usar apertura especial
+  const isFirstContact = (companion.conversation_count || 0) <= 1;
+  if (isFirstContact && personality.firstContactOpening) {
+    const opening = personality.firstContactOpening
+      .replace(/\{userName\}/g, companion.user_name);
+    const iceBreaker = personality.iceBreaker || '';
+    
+    contextString += `\n🌟 PRIMERA CONVERSACIÓN - USA ESTA APERTURA:\n`;
+    contextString += `${opening}\n`;
+    contextString += `[Espera su respuesta sobre su apodo]\n`;
+    contextString += `Luego di: ${iceBreaker}\n`;
+    contextString += `Esto rompe la formalidad inmediatamente y abre espacio natural para preguntas.\n\n`;
+  }
   
   if (companion.user_interests && companion.user_interests.length > 0) {
     contextString += `- Intereses: ${companion.user_interests.join(', ')}\n`;
@@ -569,9 +612,9 @@ function buildGPTPrompt(companion, memory, userMessage, reminders, personality) 
   // AGREGAR CONTEXTO CULTURAL MEXICANO DE OPENAI
   contextString += getOpenAIRapportContext();
 
-  // AGREGAR INSTRUCCIONES DE RAPPORT BUILDING (basado en # de mensajes)
+  // AGREGAR INSTRUCCIONES DE RAPPORT BUILDING (basado en # de conversaciones)
   const rapportInstructions = generateRapportInstructions(
-    companion.message_count || 1,
+    companion.conversation_count || 1,
     memory.importantTopics || []
   );
   contextString += rapportInstructions;
@@ -615,10 +658,19 @@ function buildGPTPrompt(companion, memory, userMessage, reminders, personality) 
     contextString += `Incluye el recordatorio de forma natural y cariñosa en tu respuesta.\n`;
   }
 
+  // 📊 AGREGAR INSIGHTS DE COMPORTAMIENTO (Análisis de palabras clave)
+  if (behaviorInsights && behaviorInsights.length > 0) {
+    contextString += `\n🔍 INSIGHTS DE ESTE MENSAJE (basado en palabras clave detectadas):\n`;
+    behaviorInsights.forEach(insight => {
+      contextString += `- ${insight}\n`;
+    });
+    contextString += `\nUsa estos insights para adaptar tu respuesta con mayor empatía y relevancia.\n`;
+  }
+
   // Sugerir pregunta apropiada para la etapa si es momento de preguntar
   const askedQuestions = companion.asked_questions || [];
-  const suggestedQuestion = suggestNextQuestion(companion.message_count || 1, askedQuestions);
-  if (suggestedQuestion && (companion.message_count || 1) % 3 === 0) {
+  const suggestedQuestion = suggestNextQuestion(companion.conversation_count || 1, askedQuestions);
+  if (suggestedQuestion && (companion.conversation_count || 1) % 3 === 0) {
     contextString += `\n💡 PREGUNTA SUGERIDA (úsala si es natural en el flujo):\n`;
     contextString += `"${suggestedQuestion}"\n`;
   }

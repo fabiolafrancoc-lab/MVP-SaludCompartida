@@ -3,33 +3,38 @@
 
 /**
  * Etapas de conocimiento entre dos personas (basado en psicología social)
+ * NOTA: Se cuenta por CONVERSACIONES (intercambios completos), no mensajes individuales
  */
 const RELATIONSHIP_STAGES = {
-  // ETAPA 1: Desconocidos → Conocidos (Mensajes 1-5)
+  // ETAPA 1: Desconocidos → Conocidos (Conversaciones 1-5)
   stranger_to_acquaintance: {
-    messageRange: [1, 5],
+    conversationRange: [1, 5],
     characteristics: {
-      depth: 'superficial',
-      topics: ['saludos básicos', 'clima', 'familia general', 'ubicación', 'trabajo general'],
+      depth: 'superficial - EMPEZAR POR LO POSITIVO',
+      topics: ['gustos musicales', 'hobbies', 'familia (positivo)', 'telenovelas favoritas', 'comida favorita', 'pasatiempos'],
       questions: [
-        '¿Y tú dónde vives?',
-        '¿Tienes familia por acá?',
-        '¿A qué te dedicas?',
-        '¿Cómo has estado de salud?',
-        '¿Hace cuánto que vives aquí?'
+        '¿Qué tipo de música te gusta?',
+        '¿Tienes algún hobby o algo que te gusta hacer?',
+        '¿Cuántos hijos tienes?',
+        '¿Con quién te llevas mejor de tus hijos?',
+        '¿Dónde viven tus hijos?',
+        '¿Miras telenovelas? ¿Cuál te gustó más?',
+        '¿Qué fue lo que más te gustó de esa telenovela?',
+        '¿Qué comida te gusta más?',
+        '¿Sales a caminar o te gusta quedarte en casa?'
       ],
       boundaries: {
-        avoid: ['dinero', 'religión', 'política', 'problemas profundos', 'temas personales íntimos'],
-        tone: 'Amable pero reservado. No preguntes mucho. No compartas cosas muy personales aún.'
+        avoid: ['problemas', 'enfermedades', 'dinero', 'preocupaciones', 'tristezas'],
+        tone: 'POSITIVO, alegre, curioso sobre gustos y preferencias. NO preguntes sobre problemas o cosas negativas aún.'
       },
-      selfDisclosure: 'Mínimo - solo información básica si preguntan',
-      empathy: 'Educado pero no muy emocional'
+      selfDisclosure: 'Mínimo - comparte tus gustos si preguntan ("A mí me gusta la música de Juan Gabriel")',
+      empathy: 'Alegre y entusiasta cuando compartan sus gustos'
     }
   },
 
-  // ETAPA 2: Conocidos → Amigos Casuales (Mensajes 6-15)
+  // ETAPA 2: Conocidos → Amigos Casuales (Conversaciones 6-15)
   acquaintance_to_casual_friend: {
-    messageRange: [6, 15],
+    conversationRange: [6, 15],
     characteristics: {
       depth: 'ligera a moderada',
       topics: ['intereses compartidos', 'anécdotas ligeras', 'familia (más detalles)', 'gustos', 'rutinas'],
@@ -49,9 +54,9 @@ const RELATIONSHIP_STAGES = {
     }
   },
 
-  // ETAPA 3: Amigos Casuales → Amigos Cercanos (Mensajes 16-30)
+  // ETAPA 3: Amigos Casuales → Amigos Cercanos (Conversaciones 16-30)
   casual_to_close_friend: {
-    messageRange: [16, 30],
+    conversationRange: [16, 30],
     characteristics: {
       depth: 'moderada a profunda',
       topics: ['preocupaciones personales', 'salud (detalles)', 'familia (problemas)', 'soledad', 'nostalgia'],
@@ -71,9 +76,9 @@ const RELATIONSHIP_STAGES = {
     }
   },
 
-  // ETAPA 4: Amigos Cercanos → Confidentes (Mensajes 31+)
+  // ETAPA 4: Amigos Cercanos → Confidentes (Conversaciones 31+)
   close_to_confidant: {
-    messageRange: [31, Infinity],
+    conversationRange: [31, Infinity],
     characteristics: {
       depth: 'muy profunda',
       topics: ['todo - sin censura', 'miedos', 'arrepentimientos', 'sueños', 'vulnerabilidades'],
@@ -97,15 +102,15 @@ const RELATIONSHIP_STAGES = {
 /**
  * Determina en qué etapa de relación está el usuario
  */
-export function determineRelationshipStage(messageCount) {
+export function determineRelationshipStage(conversationCount) {
   for (const [stageName, stageData] of Object.entries(RELATIONSHIP_STAGES)) {
-    const [min, max] = stageData.messageRange;
-    if (messageCount >= min && messageCount <= max) {
+    const [min, max] = stageData.conversationRange;
+    if (conversationCount >= min && conversationCount <= max) {
       return { stage: stageName, data: stageData };
     }
   }
   
-  // Si es más de 31 mensajes, es confidente
+  // Si es más de 31 conversaciones, es confidente
   return { 
     stage: 'close_to_confidant', 
     data: RELATIONSHIP_STAGES.close_to_confidant 
@@ -115,10 +120,10 @@ export function determineRelationshipStage(messageCount) {
 /**
  * Genera instrucciones de rapport para el AI basado en la etapa
  */
-export function generateRapportInstructions(messageCount, previousTopics = []) {
-  const { stage, data } = determineRelationshipStage(messageCount);
+export function generateRapportInstructions(conversationCount, previousTopics = []) {
+  const { stage, data } = determineRelationshipStage(conversationCount);
   
-  let instructions = `\n\n🤝 ETAPA DE RELACIÓN (Mensaje #${messageCount}):\n`;
+  let instructions = `\n\n🤝 ETAPA DE RELACIÓN (Conversación #${conversationCount}):\n`;
   instructions += `Estás en: ${stage.replace(/_/g, ' ').toUpperCase()}\n`;
   
   instructions += `\n📊 PROFUNDIDAD DE LA CONVERSACIÓN:\n`;
@@ -142,7 +147,7 @@ export function generateRapportInstructions(messageCount, previousTopics = []) {
   instructions += `- ${data.characteristics.empathy}\n`;
   
   // Si hay temas previos, dar seguimiento gradualmente
-  if (previousTopics.length > 0 && messageCount > 5) {
+  if (previousTopics.length > 0 && conversationCount > 5) {
     instructions += `\n🔄 DA SEGUIMIENTO A ESTOS TEMAS:\n`;
     previousTopics.slice(-3).forEach(topic => {
       instructions += `  • ${topic.topic}: Pregunta cómo va\n`;
@@ -151,7 +156,7 @@ export function generateRapportInstructions(messageCount, previousTopics = []) {
   
   instructions += `\n⚠️ REGLA DE ORO:\n`;
   instructions += `Las amistades reales se construyen GRADUALMENTE. No apresures la intimidad.\n`;
-  instructions += `En mensaje ${messageCount}, actúa como lo haría una persona real en esta etapa.\n`;
+  instructions += `En conversación ${conversationCount}, actúa como lo haría una persona real en esta etapa.\n`;
   
   return instructions;
 }
@@ -159,14 +164,20 @@ export function generateRapportInstructions(messageCount, previousTopics = []) {
 /**
  * Preguntas clave por etapa para construir rapport naturalmente
  * Basado en la teoría de "36 preguntas para enamorarse" adaptada a amistad
+ * ETAPA 1: Empezar por LO POSITIVO (cultura latinoamericana)
  */
 const KEY_RAPPORT_QUESTIONS = {
   early: [
-    '¿Qué es lo que más te gusta de donde vives?',
-    '¿Cómo es un día típico para ti?',
-    '¿Tienes algún pasatiempo favorito?',
     '¿Qué tipo de música te gusta?',
-    '¿Sales mucho o prefieres quedarte en casa?'
+    '¿Tienes algún hobby o algo que te gusta hacer?',
+    '¿Qué comida es tu favorita?',
+    '¿Miras telenovelas? ¿Cuál te gustó más?',
+    '¿Sales a caminar o prefieres quedarte en casa?',
+    '¿Cuántos hijos tienes?',
+    '¿Con quién te llevas mejor de tu familia?',
+    '¿Dónde viven tus hijos?',
+    '¿Qué te gusta hacer cuando tienes tiempo libre?',
+    '¿Hay alguna canción que te traiga buenos recuerdos?'
   ],
   
   middle: [
@@ -189,12 +200,12 @@ const KEY_RAPPORT_QUESTIONS = {
 /**
  * Sugiere una pregunta apropiada para la etapa actual
  */
-export function suggestNextQuestion(messageCount, askedQuestions = []) {
+export function suggestNextQuestion(conversationCount, askedQuestions = []) {
   let pool = [];
   
-  if (messageCount <= 10) {
+  if (conversationCount <= 10) {
     pool = KEY_RAPPORT_QUESTIONS.early;
-  } else if (messageCount <= 25) {
+  } else if (conversationCount <= 25) {
     pool = KEY_RAPPORT_QUESTIONS.middle;
   } else {
     pool = KEY_RAPPORT_QUESTIONS.deep;
@@ -213,8 +224,8 @@ export function suggestNextQuestion(messageCount, askedQuestions = []) {
 /**
  * Valida si una pregunta es apropiada para la etapa actual
  */
-export function isQuestionAppropriate(question, messageCount) {
-  const { data } = determineRelationshipStage(messageCount);
+export function isQuestionAppropriate(question, conversationCount) {
+  const { data } = determineRelationshipStage(conversationCount);
   const lowerQuestion = question.toLowerCase();
   
   // Verificar si la pregunta toca temas prohibidos para esta etapa
@@ -222,7 +233,7 @@ export function isQuestionAppropriate(question, messageCount) {
     if (lowerQuestion.includes(avoidTopic.toLowerCase())) {
       return {
         appropriate: false,
-        reason: `Tema "${avoidTopic}" es demasiado profundo para la etapa actual (mensaje ${messageCount})`
+        reason: `Tema "${avoidTopic}" es demasiado profundo para la etapa actual (conversación ${conversationCount})`
       };
     }
   }
