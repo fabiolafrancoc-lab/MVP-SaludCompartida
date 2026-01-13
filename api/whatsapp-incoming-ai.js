@@ -17,11 +17,21 @@ export default async function handler(req, res) {
     const token = req.query['hub.verify_token'];
     const challenge = req.query['hub.challenge'];
 
+    // DEBUG: Log para ver qué estamos recibiendo
+    console.log('🔍 Webhook verification attempt:', {
+      mode,
+      receivedToken: token,
+      expectedToken: process.env.WHATSAPP_VERIFY_TOKEN,
+      tokensMatch: token === process.env.WHATSAPP_VERIFY_TOKEN,
+      challenge
+    });
+
     // Verificar token (configura WHATSAPP_VERIFY_TOKEN en Vercel)
     if (mode === 'subscribe' && token === process.env.WHATSAPP_VERIFY_TOKEN) {
       console.log('✅ Webhook verificado');
       return res.status(200).send(challenge);
     } else {
+      console.log('❌ Webhook verification failed');
       return res.status(403).send('Forbidden');
     }
   }
