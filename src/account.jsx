@@ -34,14 +34,15 @@ export default function Account() {
     motherLastName: storedUserData?.motherLastName || '',
     date_of_birth: storedUserData?.date_of_birth || '',
     phone: storedUserData?.phone || '',
-    email: storedUserData?.email || ''
+    email: storedUserData?.email || '',
+    gender: storedUserData?.gender || ''
   });
 
   const [familyMembers, setFamilyMembers] = useState(
     storedUserData?.familyMembers || [
-      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '' },
-      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '' },
-      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '' }
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '', gender: '' },
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '', gender: '' },
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '', gender: '' }
     ]
   );
 
@@ -67,7 +68,8 @@ export default function Account() {
               lastName: dep.last_name || '',
               motherLastName: dep.mother_last_name || '',
               relationship: dep.relationship || '',
-              date_of_birth: dep.date_of_birth || ''
+              date_of_birth: dep.date_of_birth || '',
+              gender: dep.gender || ''
             }));
             
             // Completar con dependientes vacíos hasta tener 3
@@ -77,7 +79,8 @@ export default function Account() {
                 lastName: '', 
                 motherLastName: '', 
                 relationship: '',
-                date_of_birth: ''
+                date_of_birth: '',
+                gender: ''
               });
             }
             
@@ -394,6 +397,41 @@ export default function Account() {
               )}
             </div>
 
+            {/* Gender */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Sexo <span className="text-gray-500 text-xs">(opcional)</span>
+              </label>
+              <select
+                name="gender"
+                value={userData.gender}
+                onChange={(e) => handleUserChange('gender', e.target.value)}
+                className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all ${
+                  userData.gender 
+                    ? 'border-gray-200 focus:border-cyan-500' 
+                    : 'border-gray-200 bg-gray-50 text-gray-500 focus:border-cyan-500'
+                }`}
+              >
+                <option value="">Selecciona</option>
+                <option value="female">Mujer</option>
+                <option value="male">Hombre</option>
+              </select>
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Correo Electrónico <span className="text-red-500">*</span>
+              </label>
+                <div className="flex items-center gap-2 mt-2">
+                  <svg className="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                  <p className="text-sm text-red-600 font-medium">Este campo es obligatorio</p>
+                </div>
+              )}
+            </div>
+
             {/* WhatsApp */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
@@ -538,6 +576,22 @@ export default function Account() {
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
                       placeholder="mm/dd/yyyy"
                     />
+                  </div>
+
+                  {/* Gender */}
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Sexo <span className="text-gray-400 text-xs">(Opcional)</span>
+                    </label>
+                    <select
+                      value={member.gender}
+                      onChange={(e) => handleFamilyChange(index, 'gender', e.target.value)}
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
+                    >
+                      <option value="">Selecciona</option>
+                      <option value="female">Mujer</option>
+                      <option value="male">Hombre</option>
+                    </select>
                   </div>
                 </div>
               </div>
