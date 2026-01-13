@@ -73,10 +73,10 @@ export default async function handler(req, res) {
     // TODO: Guardar en Supabase
     // TODO: Enviar por email
     
-    // Enviar por WhatsApp
+    // Enviar por WhatsApp usando Meta Business API
     if (phone) {
       try {
-        const whatsappResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-whatsapp-codes`, {
+        const whatsappResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-whatsapp-codes-meta`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

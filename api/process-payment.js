@@ -46,10 +46,10 @@ export default async function handler(req, res) {
 
     console.log('🎫 Códigos generados:', { migrantCode, familyCode });
 
-    // Enviar por WhatsApp
+    // Enviar por WhatsApp usando Meta Business API
     if (phone) {
       try {
-        const whatsappResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'https://saludcompartida.app'}/api/send-whatsapp-codes`, {
+        const whatsappResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'https://saludcompartida.app'}/api/send-whatsapp-codes-meta`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
