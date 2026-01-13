@@ -5,6 +5,17 @@ import {
   generateMimicInstructions, 
   updateCommunicationStyle 
 } from './communication-analyzer.js';
+import {
+  detectUserRegion,
+  generateRegionalInstructions,
+  updateUserRegion
+} from './mexican-regionalism.js';
+import {
+  determineRelationshipStage,
+  generateRapportInstructions,
+  getOpenAIRapportContext,
+  suggestNextQuestion
+} from './rapport-building.js';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -287,7 +298,15 @@ export async function processUserMessage(phoneNumber, userMessage, userProfileNa
     // 2. Guardar mensaje del usuario en historial
     await saveConversation(companion.user_id, 'user', userMessage);
 
-    // 2.5. ANALIZAR ESTILO DE COMUNICACIÓN (MIMIC/MIRRORING)
+    // 2.5. Incrementar contador de mensajes para rapport building
+    const messageCount = (companion.message_count || 0) + 1;
+    await supabase
+      .from('ai_companions')
+      .update({ message_count: messageCount })
+      .eq('user_id', companion.user_id);
+    companion.message_count = messageCount;
+
+    // 2.6. ANALIZAR ESTILO DE COMUNICACIÓN (MIMIC/MIRRORING)
     const currentStyle = companion.communication_style || {};
     const updatedStyle = await analyzeCommunicationStyle(userMessage, currentStyle);
     
@@ -295,6 +314,21 @@ export async function processUserMessage(phoneNumber, userMessage, userProfileNa
     if (JSON.stringify(updatedStyle) !== JSON.stringify(currentStyle)) {
       await updateCommunicationStyle(supabase, companion.user_id, updatedStyle);
       companion.communication_style = updatedStyle; // Actualizar en memoria para este mensaje
+    }
+
+    // 2.7. DETECTAR REGIONALISMO (solo si aún no está definido)
+    if (!companion.user_region || companion.user_region === 'centro') {
+      const recentMessages = memory?.recentConversations?.map(c => c.message_content) || [];
+      const detectedRegion = detectUserRegion({
+        city: companion.user_city,
+        state: companion.user_state,
+        recentMessages: [...recentMessages, userMessage]
+      });
+      
+      if (detectedRegion !== companion.user_region) {
+        await updateUserRegion(supabase, companion.user_id, detectedRegion);
+        companion.user_region = detectedRegion;
+      }
     }
 
     // 3. Obtener memoria relevante (últimas conversaciones + temas importantes)
@@ -524,10 +558,27 @@ function buildGPTPrompt(companion, memory, userMessage, reminders, personality) 
   let contextString = `INFORMACIÓN DEL USUARIO:\n`;
   contextString += `- Nombre: ${companion.user_name}\n`;
   contextString += `- Edad: ${companion.user_age || 'no especificada'}\n`;
+  contextString += `- Género: ${companion.user_gender || 'no especificado'}\n`;
+  contextString += `- Región: ${companion.user_region || 'centro'}\n`;
+  contextString += `- Número de conversación: ${companion.message_count || 1}\n`;
   
   if (companion.user_interests && companion.user_interests.length > 0) {
     contextString += `- Intereses: ${companion.user_interests.join(', ')}\n`;
   }
+
+  // AGREGAR CONTEXTO CULTURAL MEXICANO DE OPENAI
+  contextString += getOpenAIRapportContext();
+
+  // AGREGAR INSTRUCCIONES DE RAPPORT BUILDING (basado en # de mensajes)
+  const rapportInstructions = generateRapportInstructions(
+    companion.message_count || 1,
+    memory.importantTopics || []
+  );
+  contextString += rapportInstructions;
+
+  // AGREGAR INSTRUCCIONES REGIONALES
+  const regionalInstructions = generateRegionalInstructions(companion.user_region || 'centro');
+  contextString += regionalInstructions;
 
   // AGREGAR INSTRUCCIONES DE MIMIC (CRÍTICO PARA ALINEACIÓN)
   if (companion.communication_style) {
@@ -562,6 +613,14 @@ function buildGPTPrompt(companion, memory, userMessage, reminders, personality) 
       contextString += `- ${r.medication_name} (${r.dosage}) - Hora: ${r.times.join(', ')}\n`;
     });
     contextString += `Incluye el recordatorio de forma natural y cariñosa en tu respuesta.\n`;
+  }
+
+  // Sugerir pregunta apropiada para la etapa si es momento de preguntar
+  const askedQuestions = companion.asked_questions || [];
+  const suggestedQuestion = suggestNextQuestion(companion.message_count || 1, askedQuestions);
+  if (suggestedQuestion && (companion.message_count || 1) % 3 === 0) {
+    contextString += `\n💡 PREGUNTA SUGERIDA (úsala si es natural en el flujo):\n`;
+    contextString += `"${suggestedQuestion}"\n`;
   }
 
   return [

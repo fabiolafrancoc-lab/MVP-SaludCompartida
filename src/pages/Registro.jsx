@@ -22,6 +22,7 @@ function Registro() {
   const [migrantMotherLastName, setMigrantMotherLastName] = useState('');
   const [migrantEmail, setMigrantEmail] = useState('');
   const [migrantPhone, setMigrantPhone] = useState('');
+  const [migrantGender, setMigrantGender] = useState(''); // NUEVO: campo de género
   const [familyCountry, setFamilyCountry] = useState('');
   
   const [familyFirstName, setFamilyFirstName] = useState('');
@@ -29,6 +30,7 @@ function Registro() {
   const [familyMotherLastName, setFamilyMotherLastName] = useState('');
   const [familyEmail, setFamilyEmail] = useState('');
   const [familyPhone, setFamilyPhone] = useState('');
+  const [familyGender, setFamilyGender] = useState(''); // NUEVO: campo de género del familiar
   
   // Estados para validación y errores
   const [formError, setFormError] = useState('');
@@ -164,6 +166,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
     if (!migrantFirstName) missing.push('migrantFirstName');
     if (!migrantLastName) missing.push('migrantLastName');
     if (!migrantEmail) missing.push('migrantEmail');
+    if (!migrantGender) missing.push('migrantGender'); // NUEVO: validar género
     
     // Validar formato de email del migrante
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -196,6 +199,7 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
     if (!familyCountry) missing.push('familyCountry');
     if (!familyFirstName) missing.push('familyFirstName');
     if (!familyLastName) missing.push('familyLastName');
+    if (!familyGender) missing.push('familyGender'); // NUEVO: validar género del familiar
     if (!familyPhone || familyPhone.replace(/\s/g, '').length < 10) missing.push('familyPhone');
     
     // Validar que el teléfono del familiar no sea un número inválido
@@ -364,7 +368,11 @@ Suscripciones restantes después de este registro: ${spotsLeft - 1}
           content_name: 'Registro Completo',
           content_category: 'registration',
           value: 12.00,
-          currency: 'USD'
+          currency: 'USD',
+          // Datos demográficos para segmentación
+          migrant_gender: migrantGender,
+          family_gender: familyGender,
+          family_country: familyCountry
         });
         
         // Redirigir a página de pago
@@ -767,6 +775,24 @@ Equipo SaludCompartida`,
                       </div>
 
                       <div>
+                        <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Sexo</label>
+                        <select
+                          value={migrantGender}
+                          onChange={(e) => {
+                            setMigrantGender(e.target.value);
+                            clearError();
+                          }}
+                          className={`w-full px-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all text-gray-900 bg-white ${
+                            missingFields.includes('migrantGender') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cyan-500'
+                          }`}
+                        >
+                          <option value="">Selecciona</option>
+                          <option value="female">Mujer</option>
+                          <option value="male">Hombre</option>
+                        </select>
+                      </div>
+
+                      <div>
                         <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Correo Electrónico</label>
                         <input
                           type="email"
@@ -893,6 +919,24 @@ Equipo SaludCompartida`,
                             className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all text-gray-900 placeholder-gray-400 bg-white"
                           />
                         </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Sexo</label>
+                        <select
+                          value={familyGender}
+                          onChange={(e) => {
+                            setFamilyGender(e.target.value);
+                            clearError();
+                          }}
+                          className={`w-full px-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-pink-500 transition-all text-gray-900 bg-white ${
+                            missingFields.includes('familyGender') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-pink-500'
+                          }`}
+                        >
+                          <option value="">Selecciona</option>
+                          <option value="female">Mujer</option>
+                          <option value="male">Hombre</option>
+                        </select>
                       </div>
 
                       <div>
