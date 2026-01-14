@@ -12,6 +12,10 @@
     "api/test-recording-upload.js": {
       "maxDuration": 60,
       "memory": 1024
+    },
+    "api/process-transcription.js": {
+      "maxDuration": 60,
+      "memory": 1024
     }
   }
 }
