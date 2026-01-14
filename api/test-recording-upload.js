@@ -43,6 +43,8 @@ export default async function handler(req, res) {
 
   try {
     console.log('📤 Starting recording upload...');
+    console.log('OpenAI API Key exists:', !!process.env.OPENAI_API_KEY);
+    console.log('OpenAI API Key length:', process.env.OPENAI_API_KEY?.length);
     console.log('Content-Type:', req.headers['content-type']);
     
     // Por ahora, aceptar datos en JSON simple para testing
