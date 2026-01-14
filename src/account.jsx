@@ -40,9 +40,9 @@ export default function Account() {
 
   const [familyMembers, setFamilyMembers] = useState(
     storedUserData?.familyMembers || [
-      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '', gender: '' },
-      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '', gender: '' },
-      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '', gender: '' }
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '', gender: '', phone: '' },
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '', gender: '', phone: '' },
+      { firstName: '', lastName: '', motherLastName: '', relationship: '', date_of_birth: '', gender: '', phone: '' }
     ]
   );
 
@@ -69,7 +69,8 @@ export default function Account() {
               motherLastName: dep.mother_last_name || '',
               relationship: dep.relationship || '',
               date_of_birth: dep.date_of_birth || '',
-              gender: dep.gender || ''
+              gender: dep.gender || '',
+              phone: dep.phone || ''
             }));
             
             // Completar con dependientes vacíos hasta tener 3
@@ -80,7 +81,8 @@ export default function Account() {
                 motherLastName: '', 
                 relationship: '',
                 date_of_birth: '',
-                gender: ''
+                gender: '',
+                phone: ''
               });
             }
             
@@ -144,7 +146,15 @@ export default function Account() {
 
   const handleFamilyChange = (index, field, value) => {
     const updated = [...familyMembers];
-    updated[index][field] = value;
+    
+    if (field === 'phone') {
+      // Limpiar y limitar a 10 dígitos
+      const cleaned = value.replace(/\D/g, '').slice(0, 10);
+      updated[index][field] = cleaned;
+    } else {
+      updated[index][field] = value;
+    }
+    
     setFamilyMembers(updated);
   };
 
@@ -603,6 +613,26 @@ export default function Account() {
                       <option value="female">Mujer</option>
                       <option value="male">Hombre</option>
                     </select>
+                  </div>
+
+                  {/* Phone Number */}
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Teléfono <span className="text-gray-400 text-xs">(Opcional)</span>
+                    </label>
+                    <div className="flex gap-2">
+                      <div className="flex items-center px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-xl font-mono text-gray-700">
+                        +52
+                      </div>
+                      <input
+                        type="tel"
+                        value={formatPhoneDisplay(member.phone)}
+                        onChange={(e) => handleFamilyChange(index, 'phone', e.target.value)}
+                        className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all font-mono"
+                        placeholder="XXX XXX XXXX"
+                        maxLength="12"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
