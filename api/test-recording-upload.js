@@ -85,7 +85,7 @@ export default async function handler(req, res) {
 
     // Subir a Vercel Blob Storage
     const blob = await put(blobFileName, audioBuffer, {
-      access: 'private', // Solo accesible con token
+      access: 'public', // Necesario para Vercel Blob free tier
       addRandomSuffix: false,
       contentType: 'audio/opus' // Ajustar según el formato
     });
