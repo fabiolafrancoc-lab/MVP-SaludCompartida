@@ -144,7 +144,7 @@ Responde en JSON con esta estructura:
         analysis_quality_rating: analysis.qualityRating || null,
         analysis_key_moments: analysis.keyMoments || [],
         analysis_emotional_tone: analysis.emotionalTone || null,
-        analysis_recommendations: analysis.recommendations || [],
+        analysis_improvement_areas: analysis.recommendations || [],
         analysis_status: 'completed',
         analyzed_at: new Date().toISOString()
       })
