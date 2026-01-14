@@ -4,7 +4,11 @@
 
 ALTER TABLE call_recordings ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY IF NOT EXISTS "Service role bypass" ON call_recordings
+-- Eliminar política si existe (para evitar error de duplicado)
+DROP POLICY IF EXISTS "Service role bypass" ON call_recordings;
+
+-- Crear política nueva
+CREATE POLICY "Service role bypass" ON call_recordings
   FOR ALL
   USING (auth.role() = 'service_role');
 
