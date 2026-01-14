@@ -87,13 +87,23 @@ export default async function handler(req, res) {
     console.log('✅ Transcription completed');
     console.log('Text preview:', transcription.text.substring(0, 100));
 
-    // Guardar transcripción
+    // Generar embedding para aprendizaje colectivo
+    console.log('🔢 Generating embedding for collective learning...');
+    const embeddingResponse = await openai.embeddings.create({
+      model: 'text-embedding-3-small',
+      input: transcription.text
+    });
+    const embedding = embeddingResponse.data[0].embedding;
+    console.log('✅ Embedding generated');
+
+    // Guardar transcripción + embedding
     await supabase
       .from('call_recordings')
       .update({
         transcription_text: transcription.text,
         transcription_segments: transcription.segments || [],
         transcription_duration: transcription.duration,
+        transcription_embedding: embedding,
         transcription_status: 'completed',
         transcribed_at: new Date().toISOString(),
         analysis_status: 'processing'
