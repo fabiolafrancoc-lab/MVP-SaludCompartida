@@ -35,6 +35,20 @@ async function uploadRecording(audioFilePath) {
     }
 
     const audioBuffer = fs.readFileSync(audioFilePath);
+    const fileSizeMB = audioBuffer.length / 1024 / 1024;
+    
+    console.log('✅ File loaded:', {
+      size: `${(audioBuffer.length / 1024).toFixed(2)} KB`,
+      filename: path.basename(audioFilePath)
+    });
+
+    // Advertencia para archivos muy grandes
+    if (fileSizeMB > 25) {
+      console.log('\n⚠️  WARNING: File is very large (' + fileSizeMB.toFixed(1) + ' MB)');
+      console.log('   Recommended: Use files under 10 MB for faster processing');
+      console.log('   This may take 5-10 minutes to process...\n');
+    }
+
     const audioBase64 = audioBuffer.toString('base64');
     const filename = path.basename(audioFilePath);
 
