@@ -1,28 +1,134 @@
 # 📋 INSTRUCCIONES: Crear Tabla call_recordings en Supabase
 
-## Paso 1: Acceder al SQL Editor de Supabase
+## ⚠️ IMPORTANTE: Ejecutar EN ORDEN (5 pasos)
+
+El script se dividió en 5 partes para evitar errores. Ejecuta cada archivo en orden.
+
+---
+
+## Paso 1: Acceder al SQL Editor
 
 1. Ve a: https://supabase.com/dashboard
-2. Selecciona tu proyecto: **MVP-SaludCompartida**
-3. En el menú lateral izquierdo, haz clic en **SQL Editor**
-4. Haz clic en **"New query"** (botón verde arriba a la derecha)
+2. Selecciona tu proyecto
+3. Menú lateral → **SQL Editor**
+4. Click en **"New query"**
 
-## Paso 2: Copiar el SQL
+---
 
-Abre el archivo: `scripts/execute-call-recordings.sql`
+## Paso 2: Ejecutar STEP 1 - Crear Tabla
 
-**O copia directamente desde aquí:**
+**Archivo:** `scripts/step1-create-table.sql`
 
+1. Copia TODO el contenido del archivo
+2. Pégalo en el SQL Editor
+3. Click en **"Run"**
+4. Deberías ver: ✅ **"Tabla creada correctamente"**
+
+**Verifica:**
 ```sql
--- Copia TODO el contenido del archivo execute-call-recordings.sql
--- (138 líneas en total)
+SELECT COUNT(*) FROM call_recordings;
+```
+Debe devolver: `0`
+
+---
+
+## Paso 3: Ejecutar STEP 2 - Crear Índices
+
+**Archivo:** `scripts/step2-create-indexes.sql`
+
+1. **New query** (botón verde)
+2. Copia el contenido de step2
+3. **Run**
+4. Deberías ver: ✅ **"Índices creados correctamente"**
+
+---
+
+## Paso 4: Ejecutar STEP 3 - Habilitar RLS
+
+**Archivo:** `scripts/step3-enable-rls.sql`
+
+1. **New query**
+2. Copia el contenido de step3
+3. **Run**
+4. Deberías ver: ✅ **"RLS configurado correctamente"**
+
+---
+
+## Paso 5: Ejecutar STEP 4 - Crear Vistas
+
+**Archivo:** `scripts/step4-create-views.sql`
+
+1. **New query**
+2. Copia el contenido de step4
+3. **Run**
+4. Deberías ver: ✅ **"Vistas creadas correctamente"**
+
+---
+
+## Paso 6: Ejecutar STEP 5 - Crear Trigger
+
+**Archivo:** `scripts/step5-create-trigger.sql`
+
+1. **New query**
+2. Copia el contenido de step5
+3. **Run**
+4. Deberías ver: ✅ **"Trigger creado correctamente"**
+
+---
+
+## ✅ Verificación Final
+
+En el **Table Editor** de Supabase deberías ver:
+
+### Tabla:
+- ✅ `call_recordings` (28 columnas)
+
+### Vistas:
+- ✅ `best_training_calls`
+- ✅ `agent_performance`
+- ✅ `most_effective_techniques`
+
+**Query de verificación:**
+```sql
+-- Debe funcionar sin errores
+SELECT 
+  COUNT(*) as total_recordings,
+  COUNT(*) FILTER (WHERE transcription_status = 'completed') as transcribed,
+  COUNT(*) FILTER (WHERE analysis_status = 'completed') as analyzed
+FROM call_recordings;
 ```
 
-## Paso 3: Ejecutar
+Debe devolver: `total_recordings: 0, transcribed: 0, analyzed: 0`
 
-1. Pega el contenido completo en el editor SQL
-2. Haz clic en **"Run"** (botón verde abajo a la derecha)
-3. Deberías ver: ✅ **"Success. No rows returned"**
+---
+
+## ⏱️ Tiempo total: 5 minutos
+
+---
+
+## 🚨 Si hay algún error en algún paso:
+
+**"relation already exists"**
+- ✅ Esto está bien, significa que ya se ejecutó antes
+- Continúa con el siguiente paso
+
+**"syntax error at or near..."**
+- Asegúrate de copiar TODO el contenido del archivo
+- No edites el código al pegarlo
+
+**"permission denied"**
+- Verifica que estés usando tu cuenta de admin
+- Ve a Project Settings → API → service_role key
+
+---
+
+## 📊 Estructura Final
+
+### call_recordings tiene:
+- **Metadata básica**: user_id, agent_id, recording_url, duration, date
+- **Transcripción**: status, text, segments (Whisper API)
+- **Análisis**: techniques, power_phrases, quality_rating, category (GPT-4)
+- **Training**: is_training_example, quality_rating
 
 ## Paso 4: Verificar
 
