@@ -233,6 +233,361 @@ const KEYWORD_CATEGORIES = {
       'cómo consigo', 'dónde puedo', 'a dónde voy'
     ],
     importance: 'high'
+  },
+
+  // ============================================================================
+  // CRISIS SOCIAL - PATRONES DE ALTO RIESGO (Para alertas B2G/NGO)
+  // ============================================================================
+  
+  crisis_violencia: {
+    keywords: [
+      'me pega', 'me golpea', 'me pegó', 'golpes', 'moretones',
+      'violencia', 'abuso', 'maltrato', 'me lastima',
+      'tengo miedo de', 'amenaza', 'me amenaza',
+      'pandillas', 'bandas', 'narco', 'extorsión',
+      'balacera', 'disparos', 'peligro', 'inseguro', 'inseguridad'
+    ],
+    importance: 'critical'
+  },
+
+  crisis_trabajo_infantil: {
+    keywords: [
+      'mi hijo trabaja', 'mi hija trabaja', 'niño trabajando',
+      'no va a la escuela', 'dejó la escuela', 'salió de la escuela',
+      'tiene que trabajar', 'ayudar a la familia',
+      'en la calle vendiendo', 'vendiendo chicles', 'limpiando carros'
+    ],
+    importance: 'critical'
+  },
+
+  crisis_trata_personas: {
+    keywords: [
+      'la obligaron', 'no puede salir', 'no la dejan salir',
+      'le quitaron documentos', 'sin papeles', 'retenida',
+      'prostitución', 'explotación', 'trabajar sin pago',
+      'tráfico', 'la vendieron', 'se la llevaron'
+    ],
+    importance: 'critical'
+  },
+
+  crisis_salud_mental: {
+    keywords: [
+      'quiero morir', 'me quiero morir', 'suicidio', 'quitarme la vida',
+      'no tiene sentido', 'ya no aguanto más', 'mejor muerto',
+      'pensamientos de', 'acabar con todo', 'desaparecer',
+      'autolesión', 'me corto', 'me lastimo', 'me hago daño'
+    ],
+    importance: 'critical'
+  },
+
+  crisis_adicciones: {
+    keywords: [
+      'drogas', 'droga', 'drogado', 'piedra', 'cristal',
+      'cocaína', 'coca', 'mariguana', 'mota',
+      'alcohol', 'alcoholismo', 'tomar', 'borracho', 'tomado',
+      'adicto', 'adicción', 'vicio', 'no puedo dejar',
+      'rehab', 'rehabilitación', 'clínica'
+    ],
+    importance: 'critical'
+  },
+
+  // ============================================================================
+  // NECESIDADES BÁSICAS - Para insights B2G (World Bank, BID)
+  // ============================================================================
+
+  basicas_agua: {
+    keywords: [
+      'agua', 'sin agua', 'no hay agua', 'cortan el agua',
+      'agua sucia', 'agua contaminada', 'no llega agua',
+      'garrafón', 'pipa de agua', 'cisterna',
+      'no tenemos para agua', 'comprar agua'
+    ],
+    importance: 'high'
+  },
+
+  basicas_alimentacion: {
+    keywords: [
+      'hambre', 'no hay comida', 'sin comer', 'no he comido',
+      'comida', 'no tengo para comer', 'sin alimento',
+      'banco de alimentos', 'despensa', 'comedor',
+      'tortillas', 'frijoles', 'arroz', 'huevo',
+      'desnutrición', 'desnutrido', 'flaco', 'bajo de peso'
+    ],
+    importance: 'high'
+  },
+
+  basicas_vivienda: {
+    keywords: [
+      'casa', 'vivienda', 'techo', 'sin casa', 'homeless',
+      'cuarto', 'rento', 'alquiler', 'renta cara',
+      'hacinamiento', 'muchos en un cuarto', 'compartimos',
+      'humedad', 'goteras', 'frío', 'calor extremo',
+      'no tengo dónde', 'me van a correr', 'desalojo'
+    ],
+    importance: 'high'
+  },
+
+  basicas_educacion: {
+    keywords: [
+      'escuela', 'primaria', 'secundaria', 'preparatoria',
+      'no fue a la escuela', 'no pudo estudiar', 'dejó de estudiar',
+      'no sabe leer', 'no sabe escribir', 'analfabeta',
+      'quiere estudiar', 'sueño de estudiar', 'terminar la escuela',
+      'útiles escolares', 'uniformes', 'libros', 'colegiatura'
+    ],
+    importance: 'medium'
+  },
+
+  // ============================================================================
+  // PRODUCTOS Y MARCAS - Para insights B2B (CPG companies)
+  // ============================================================================
+
+  productos_farmacia: {
+    keywords: [
+      // Marcas de medicamentos (genéricos comunes)
+      'metformina', 'losartán', 'enalapril', 'simvastatina',
+      'omeprazol', 'ranitidina', 'ibuprofeno', 'paracetamol',
+      'aspirina', 'captopril', 'glibenclamida', 'amlodipino',
+      
+      // Farmacias
+      'similares', 'del ahorro', 'guadalajara', 'benavides',
+      'san pablo', 'farmacia', 'botica', 'genérico',
+      
+      // Patterns de compra
+      'cada mes compro', 'me dura', 'me alcanza para',
+      'caro', 'barato', 'genérico', 'de marca'
+    ],
+    importance: 'high'
+  },
+
+  productos_limpieza: {
+    keywords: [
+      // Detergentes y limpieza
+      'pinol', 'fabuloso', 'maestro limpio', 'cloralex',
+      'ariel', 'roma', 'salvo', 'vel rosita',
+      'jabón', 'detergente', 'cloro', 'suavitel',
+      
+      // Patterns de uso
+      'rinde', 'dura más', 'compro el chico', 'compro el grande',
+      'envase pequeño', 'sachet', 'bolsita', 'individual',
+      'no me alcanza para', 'junto para comprar'
+    ],
+    importance: 'medium'
+  },
+
+  productos_alimentos: {
+    keywords: [
+      // Marcas mexicanas comunes
+      'bimbo', 'marinela', 'sabritas', 'coca cola', 'pepsi',
+      'maseca', 'minsa', 'nestle', 'herdez', 'la costeña',
+      'lala', 'alpura', 'santa clara',
+      
+      // Productos básicos
+      'leche', 'pan', 'tortillas', 'huevo', 'frijol', 'arroz',
+      'aceite', 'azúcar', 'sal', 'café',
+      
+      // Patterns
+      'compro a granel', 'por kilo', 'suelto', 'en el tianguis',
+      'en el mercado', 'más barato', 'me rinde más'
+    ],
+    importance: 'medium'
+  },
+
+  productos_higiene: {
+    keywords: [
+      // Marcas
+      'colgate', 'palmolive', 'suavitel', 'downy',
+      'kotex', 'saba', 'always', 'gillette',
+      'dove', 'pantene', 'head shoulders', 'sedal',
+      
+      // Productos
+      'pasta de dientes', 'cepillo', 'shampoo', 'jabón',
+      'desodorante', 'papel de baño', 'toallas sanitarias',
+      
+      // Patterns
+      'sale caro', 'compro el económico', 'dura poco'
+    ],
+    importance: 'low'
+  },
+
+  // ============================================================================
+  // COMPORTAMIENTO FINANCIERO - Para analytics predictivo
+  // ============================================================================
+
+  financiero_remesas: {
+    keywords: [
+      'mandar dinero', 'enviar dinero', 'transferir',
+      'western union', 'moneygram', 'xoom', 'remitly', 'ria',
+      'cuánto mandas', 'cuánto envías', 'cada cuánto',
+      'comisión', 'tarifa', 'tipo de cambio', 'tarda',
+      'quincenal', 'semanal', 'mensual', 'cada mes'
+    ],
+    importance: 'high'
+  },
+
+  financiero_ahorro: {
+    keywords: [
+      'ahorro', 'ahorrar', 'guardado', 'guardando',
+      'banco', 'cuenta', 'cajita', 'alcancía',
+      'no puedo ahorrar', 'no me queda', 'no alcanza',
+      'junto para', 'estoy juntando', 'poco a poco',
+      'meta', 'objetivo', 'quiero juntar'
+    ],
+    importance: 'medium'
+  },
+
+  financiero_deuda: {
+    keywords: [
+      'deuda', 'debo', 'préstamo', 'prestado', 'empeñado',
+      'caja de ahorro', 'tanda', 'crédito', 'fiado',
+      'no puedo pagar', 'me están cobrando', 'intereses',
+      'agiotista', 'usurero', 'amenazas', 'debo meses'
+    ],
+    importance: 'high'
+  },
+
+  financiero_sensibilidad_precio: {
+    keywords: [
+      'caro', 'muy caro', 'carísimo', 'barato',
+      'subió el precio', 'aumentó', 'antes costaba',
+      'ya no alcanza', 'no me alcanza', 'no puedo comprar',
+      'oferta', 'descuento', 'promoción', '2x1',
+      'espero a que baje', 'cuando haya dinero'
+    ],
+    importance: 'medium'
+  },
+
+  // ============================================================================
+  // MIGRACIÓN EXPANDIDA - Para predictive analytics
+  // ============================================================================
+
+  migracion_intencion: {
+    keywords: [
+      'me quiero ir', 'quiero cruzar', 'irme al norte',
+      'buscar mejor vida', 'oportunidades allá',
+      'coyote', 'pollero', 'cuánto cuesta cruzar',
+      'visa', 'tramitar papeles', 'pasaporte',
+      'trabajo en usa', 'me dijeron que allá'
+    ],
+    importance: 'high'
+  },
+
+  migracion_familia_separada: {
+    keywords: [
+      'mi familia está allá', 'mis hijos están en',
+      'mi esposo está en usa', 'mi esposa se fue',
+      'no los he visto', 'años sin verlos',
+      'por videollamada', 'solo por teléfono',
+      'me quedé solo', 'se fueron', 'me dejaron'
+    ],
+    importance: 'high'
+  },
+
+  migracion_retorno: {
+    keywords: [
+      'quiero regresar', 'volver a méxico', 'regresar a mi tierra',
+      'deportado', 'me deportaron', 'me regresaron',
+      'ya no aguanto aquí', 'mejor allá',
+      'juntar para volver', 'cuando tenga dinero regreso'
+    ],
+    importance: 'medium'
+  },
+
+  // ============================================================================
+  // TELECOMUNICACIONES - Para partnerships con carriers
+  // ============================================================================
+
+  telecom_proveedor: {
+    keywords: [
+      'telcel', 'movistar', 'at&t', 'unefon', 'virgin',
+      'plan', 'paquete', 'megas', 'gigas', 'datos',
+      'se me acaban', 'no tengo saldo', 'recargar',
+      'wifi', 'internet', 'sin internet', 'no tengo internet'
+    ],
+    importance: 'medium'
+  },
+
+  telecom_uso: {
+    keywords: [
+      'llamadas internacionales', 'llamar a méxico', 'llamar a usa',
+      'whatsapp', 'facebook', 'messenger', 'videollamada',
+      'gastar datos', 'consume mucho', 'se acaban rápido',
+      'solo con wifi', 'busco wifi gratis'
+    ],
+    importance: 'medium'
+  },
+
+  telecom_pain_points: {
+    keywords: [
+      'caro', 'muy caro', 'no me alcanza para plan',
+      'no tengo señal', 'mala señal', 'se cae la llamada',
+      'lento', 'muy lento el internet', 'no carga',
+      'me cobran de más', 'cargos extras', 'no entiendo mi recibo'
+    ],
+    importance: 'medium'
+  },
+
+  // ============================================================================
+  // OPORTUNIDADES - Para insights de movilidad social
+  // ============================================================================
+
+  oportunidades_emprendimiento: {
+    keywords: [
+      'negocio', 'poner un negocio', 'quiero emprender',
+      'vender', 'cocinar para vender', 'hacer tamales',
+      'trabajar por mi cuenta', 'independiente',
+      'tienda', 'puesto', 'ambulante', 'en mi casa',
+      'clientes', 'ventas', 'ganancias', 'invertir'
+    ],
+    importance: 'high'
+  },
+
+  oportunidades_educacion: {
+    keywords: [
+      'estudiar', 'terminar la escuela', 'sacar el grado',
+      'curso', 'capacitación', 'certificado', 'título',
+      'aprender', 'inglés', 'computación', 'oficio',
+      'quiero ser', 'sueño con', 'me gustaría estudiar',
+      'beca', 'gratuito', 'gratis', 'en línea'
+    ],
+    importance: 'high'
+  },
+
+  oportunidades_empleo: {
+    keywords: [
+      'mejor trabajo', 'cambiar de trabajo', 'busco trabajo',
+      'ascenso', 'promoción', 'subir de puesto',
+      'más sueldo', 'mejor pagado', 'con prestaciones',
+      'seguro social', 'imss', 'vacaciones', 'aguinaldo',
+      'contrato', 'planta', 'base', 'sindicato'
+    ],
+    importance: 'high'
+  },
+
+  // ============================================================================
+  // COMPARTIR Y ECONOMÍA COLABORATIVA - Comportamiento único del segmento
+  // ============================================================================
+
+  economia_compartir: {
+    keywords: [
+      'compartimos', 'compartir', 'entre varios', 'cooperamos',
+      'nos juntamos para', 'entre todos', 'ponemos entre',
+      'vamos juntos a', 'dividimos', 'a medias',
+      'me presta', 'le presto', 'prestamos', 'turnamos',
+      'comprar entre todos', 'compra en grupo'
+    ],
+    importance: 'high'
+  },
+
+  economia_informal: {
+    keywords: [
+      'cash', 'efectivo', 'en mano', 'sin recibo',
+      'por fuera', 'sin contrato', 'de palabra',
+      'por día', 'por semana', 'me pagan diario',
+      'no está dado de alta', 'sin papeles', 'informal',
+      'tianguis', 'mercado sobre ruedas', 'vendedor ambulante'
+    ],
+    importance: 'medium'
   }
 };
 
@@ -382,11 +737,59 @@ export async function getPopulationPatterns(filters = {}) {
     const analysis = {
       totalSamples: data.length,
       categoryDistribution: {},
+      
+      // Categorías originales
       topHealthSymptoms: {},
       topEmotionalStates: {},
       topEconomicIssues: {},
       migrationThemes: {},
-      culturalElements: {}
+      culturalElements: {},
+      
+      // NUEVAS CATEGORÍAS PARA B2B/B2G
+      crisisAlerts: {
+        violence: 0,
+        childLabor: 0,
+        trafficking: 0,
+        mentalHealth: 0,
+        addiction: 0
+      },
+      basicNeeds: {
+        water: 0,
+        food: 0,
+        housing: 0,
+        education: 0
+      },
+      productBehavior: {
+        pharmacyBrands: {},
+        cleaningProducts: {},
+        foodBrands: {},
+        pricePatterns: {}
+      },
+      financialBehavior: {
+        remittanceProviders: {},
+        savingsPatterns: {},
+        debtPatterns: {},
+        priceSensitivity: {}
+      },
+      migrationInsights: {
+        migrationIntent: 0,
+        separatedFamily: 0,
+        returnIntent: 0
+      },
+      telecomUsage: {
+        providers: {},
+        usagePatterns: {},
+        painPoints: {}
+      },
+      opportunities: {
+        entrepreneurship: 0,
+        education: 0,
+        employment: 0
+      },
+      collaborativeEconomy: {
+        sharingBehavior: 0,
+        informalEconomy: 0
+      }
     };
     
     data.forEach(record => {
@@ -416,6 +819,70 @@ export async function getPopulationPatterns(filters = {}) {
             analysis.culturalElements[kw] = (analysis.culturalElements[kw] || 0) + 1;
           });
         }
+        
+        // NUEVAS CATEGORÍAS
+        else if (cat.startsWith('crisis_')) {
+          if (cat === 'crisis_violencia') analysis.crisisAlerts.violence++;
+          else if (cat === 'crisis_trabajo_infantil') analysis.crisisAlerts.childLabor++;
+          else if (cat === 'crisis_trata_personas') analysis.crisisAlerts.trafficking++;
+          else if (cat === 'crisis_salud_mental') analysis.crisisAlerts.mentalHealth++;
+          else if (cat === 'crisis_adicciones') analysis.crisisAlerts.addiction++;
+        }
+        else if (cat.startsWith('basicas_')) {
+          if (cat === 'basicas_agua') analysis.basicNeeds.water++;
+          else if (cat === 'basicas_alimentacion') analysis.basicNeeds.food++;
+          else if (cat === 'basicas_vivienda') analysis.basicNeeds.housing++;
+          else if (cat === 'basicas_educacion') analysis.basicNeeds.education++;
+        }
+        else if (cat.startsWith('productos_')) {
+          item.keywords.forEach(kw => {
+            if (cat === 'productos_farmacia') {
+              analysis.productBehavior.pharmacyBrands[kw] = (analysis.productBehavior.pharmacyBrands[kw] || 0) + 1;
+            } else if (cat === 'productos_limpieza') {
+              analysis.productBehavior.cleaningProducts[kw] = (analysis.productBehavior.cleaningProducts[kw] || 0) + 1;
+            } else if (cat === 'productos_alimentos') {
+              analysis.productBehavior.foodBrands[kw] = (analysis.productBehavior.foodBrands[kw] || 0) + 1;
+            }
+          });
+        }
+        else if (cat.startsWith('financiero_')) {
+          item.keywords.forEach(kw => {
+            if (cat === 'financiero_remesas') {
+              analysis.financialBehavior.remittanceProviders[kw] = (analysis.financialBehavior.remittanceProviders[kw] || 0) + 1;
+            } else if (cat === 'financiero_ahorro') {
+              analysis.financialBehavior.savingsPatterns[kw] = (analysis.financialBehavior.savingsPatterns[kw] || 0) + 1;
+            } else if (cat === 'financiero_deuda') {
+              analysis.financialBehavior.debtPatterns[kw] = (analysis.financialBehavior.debtPatterns[kw] || 0) + 1;
+            } else if (cat === 'financiero_sensibilidad_precio') {
+              analysis.financialBehavior.priceSensitivity[kw] = (analysis.financialBehavior.priceSensitivity[kw] || 0) + 1;
+            }
+          });
+        }
+        else if (cat.startsWith('migracion_') && cat !== 'migracion_nostalgia' && cat !== 'migracion_documentos' && cat !== 'migracion_discriminacion') {
+          if (cat === 'migracion_intencion') analysis.migrationInsights.migrationIntent++;
+          else if (cat === 'migracion_familia_separada') analysis.migrationInsights.separatedFamily++;
+          else if (cat === 'migracion_retorno') analysis.migrationInsights.returnIntent++;
+        }
+        else if (cat.startsWith('telecom_')) {
+          item.keywords.forEach(kw => {
+            if (cat === 'telecom_proveedor') {
+              analysis.telecomUsage.providers[kw] = (analysis.telecomUsage.providers[kw] || 0) + 1;
+            } else if (cat === 'telecom_uso') {
+              analysis.telecomUsage.usagePatterns[kw] = (analysis.telecomUsage.usagePatterns[kw] || 0) + 1;
+            } else if (cat === 'telecom_pain_points') {
+              analysis.telecomUsage.painPoints[kw] = (analysis.telecomUsage.painPoints[kw] || 0) + 1;
+            }
+          });
+        }
+        else if (cat.startsWith('oportunidades_')) {
+          if (cat === 'oportunidades_emprendimiento') analysis.opportunities.entrepreneurship++;
+          else if (cat === 'oportunidades_educacion') analysis.opportunities.education++;
+          else if (cat === 'oportunidades_empleo') analysis.opportunities.employment++;
+        }
+        else if (cat.startsWith('economia_')) {
+          if (cat === 'economia_compartir') analysis.collaborativeEconomy.sharingBehavior++;
+          else if (cat === 'economia_informal') analysis.collaborativeEconomy.informalEconomy++;
+        }
       });
     });
     
@@ -431,10 +898,57 @@ export async function getPopulationPatterns(filters = {}) {
  */
 export function generateInsightsFromKeywords(detectedKeywords) {
   const insights = [];
+  const alerts = []; // Para situaciones críticas
   
   detectedKeywords.forEach(item => {
-    const { category, importance } = item;
+    const { category, importance, keywords } = item;
     
+    // ALERTAS CRÍTICAS - Requieren intervención inmediata
+    if (importance === 'critical') {
+      if (category === 'crisis_violencia') {
+        alerts.push({
+          level: 'CRITICAL',
+          type: 'VIOLENCE',
+          action: 'Contactar equipo de crisis inmediatamente. Preguntar si está en peligro AHORA.',
+          keywords: keywords
+        });
+        insights.push('🚨 ALERTA: Posible situación de violencia. Prioriza la seguridad del usuario. Pregunta si está en peligro ahora mismo.');
+      } else if (category === 'crisis_salud_mental') {
+        alerts.push({
+          level: 'CRITICAL',
+          type: 'SUICIDE_RISK',
+          action: 'Contactar línea de prevención de suicidio. NO dejar solo al usuario.',
+          keywords: keywords
+        });
+        insights.push('🚨 ALERTA: Riesgo de suicidio detectado. Mantén la conversación, pregunta directamente, ofrece línea de crisis.');
+      } else if (category === 'crisis_trabajo_infantil') {
+        alerts.push({
+          level: 'CRITICAL',
+          type: 'CHILD_LABOR',
+          action: 'Documentar para reporte a NGO/autoridades.',
+          keywords: keywords
+        });
+        insights.push('⚠️ ALERTA: Posible trabajo infantil. Documenta con empatía, no juzgues.');
+      } else if (category === 'crisis_trata_personas') {
+        alerts.push({
+          level: 'CRITICAL',
+          type: 'HUMAN_TRAFFICKING',
+          action: 'Contactar autoridades/NGO especializada inmediatamente.',
+          keywords: keywords
+        });
+        insights.push('🚨 ALERTA: Posible trata de personas. Documenta detalles, ofrece recursos de ayuda.');
+      } else if (category === 'crisis_adicciones') {
+        alerts.push({
+          level: 'HIGH',
+          type: 'SUBSTANCE_ABUSE',
+          action: 'Ofrecer recursos de rehabilitación, contacto con grupos de apoyo.',
+          keywords: keywords
+        });
+        insights.push('⚠️ Adicción detectada. Escucha sin juzgar, pregunta si quiere ayuda, ofrece recursos.');
+      }
+    }
+    
+    // INSIGHTS NORMALES (no críticos)
     if (importance === 'high') {
       if (category === 'emocional_tristeza') {
         insights.push('El usuario puede estar pasando por un momento difícil emocionalmente. Muestra empatía extra.');
@@ -448,9 +962,25 @@ export function generateInsightsFromKeywords(detectedKeywords) {
         insights.push('Hay nostalgia por su tierra. Pregunta sobre sus recuerdos, valida la distancia emocional.');
       } else if (category === 'social_soledad') {
         insights.push('El usuario expresa soledad. Dale compañía cálida, pregunta sobre su día, hazle saber que importa.');
+      } else if (category === 'basicas_agua') {
+        insights.push('💧 Falta de acceso a agua potable. Documenta detalles para reporte B2G.');
+      } else if (category === 'basicas_alimentacion') {
+        insights.push('🍽️ Inseguridad alimentaria detectada. Pregunta con sensibilidad, documenta.');
+      } else if (category === 'basicas_vivienda') {
+        insights.push('🏠 Problemas de vivienda. Documenta situación para análisis de necesidades.');
+      } else if (category === 'productos_farmacia') {
+        insights.push('💊 Menciona medicamentos/farmacias. Captura marcas, precios, frecuencia de compra.');
+      } else if (category === 'financiero_remesas') {
+        insights.push('💵 Patrón de remesas detectado. Captura frecuencia, montos, proveedores.');
+      } else if (category === 'oportunidades_emprendimiento') {
+        insights.push('💼 Interés en emprendimiento. Explora la idea, documenta tipo de negocio.');
+      } else if (category === 'oportunidades_educacion') {
+        insights.push('📚 Aspiración educativa. Pregunta qué quiere estudiar, documenta barreras.');
+      } else if (category === 'economia_compartir') {
+        insights.push('🤝 Comportamiento de economía colaborativa. Documenta cómo comparten recursos.');
       }
     }
   });
   
-  return insights;
+  return { insights, alerts };
 }
