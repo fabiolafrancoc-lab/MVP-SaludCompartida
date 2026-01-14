@@ -10,6 +10,9 @@
     "preview": "vite preview",
     "send-codes": "node scripts/send-access-codes.js"
   },
+  "npmConfig": {
+    "legacy-peer-deps": "true"
+  },
   "dependencies": {
     "@langchain/community": "^1.1.4",
     "@langchain/openai": "^1.2.2",
