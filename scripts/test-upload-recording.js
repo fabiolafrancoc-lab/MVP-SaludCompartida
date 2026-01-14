@@ -11,8 +11,12 @@
  * node scripts/test-upload-recording.js path/to/audio.m4a
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuración
 const API_URL = 'https://saludcompartida.app'; // Tu URL de producción
