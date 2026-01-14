@@ -19,7 +19,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Configuración
-const API_URL = 'https://saludcompartida.app'; // Tu URL de producción
+const API_URL = 'https://www.saludcompartida.app'; // Tu URL de producción
 // const API_URL = 'http://localhost:3000'; // Para testing local
 
 const TEST_USER_ID = '+525512345678'; // Reemplaza con un número real de testing
