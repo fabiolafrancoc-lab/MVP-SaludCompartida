@@ -1,8 +1,8 @@
 // Configuración de Supabase usando el cliente oficial
 import { createClient } from '@supabase/supabase-js';
 
-const SUPABASE_URL = 'https://ozpffhjaknxwoueaojkh.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96cGZmaGpha254d291ZWFvamtoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4MjA5MDUsImV4cCI6MjA3ODM5NjkwNX0.Co05GFfcqmANmlT5tiQ-2fpN6VYc3w2m3PSKdHFCvds';
+const SUPABASE_URL = 'https://rzmdekjegbdgitqekjee.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bWRla2plZ2JkZ2l0cWVramVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzNTk0ODcsImV4cCI6MjA3ODkzNTQ4N30.4dygSUII0hKSW7nM-ymm4Z9iF-cBTJkK3Bm9TQJlU2c';
 
 // Crear cliente de Supabase
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
