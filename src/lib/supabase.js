@@ -41,11 +41,13 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     traffic_source: trafficSource
   };
   
-  // Agregar campos demográficos (usando nombres correctos de columnas)
-  if (migrantData.gender) newRegistration.migrant_gender = migrantData.gender;
-  if (migrantData.birthdate) newRegistration.migrant_date_of_birth = migrantData.birthdate;
-  if (familyData.gender) newRegistration.family_gender = familyData.gender;
-  if (familyData.birthdate) newRegistration.family_date_of_birth = familyData.birthdate;
+  // TEMPORAL: Guardar datos demográficos para update posterior
+  const demographicData = {
+    migrant_gender: migrantData.gender || null,
+    migrant_date_of_birth: migrantData.birthdate || null,
+    family_gender: familyData.gender || null,
+    family_date_of_birth: familyData.birthdate || null
+  };
 
   console.log('🔄 Intentando guardar en Supabase:', newRegistration);
   
@@ -70,6 +72,24 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
         migrantAccessCode,
         familyAccessCode 
       };
+    }
+    
+    // UPDATE: Agregar datos demográficos con query directa SQL
+    const registrationId = data[0].id;
+    try {
+      const { error: updateError } = await supabase
+        .from('registrations')
+        .update(demographicData)
+        .eq('id', registrationId);
+      
+      if (updateError) {
+        console.warn('⚠️ No se pudieron actualizar datos demográficos:', updateError);
+        // No fallar el registro por esto
+      } else {
+        console.log('✅ Datos demográficos actualizados correctamente');
+      }
+    } catch (updateErr) {
+      console.warn('⚠️ Error actualizando demographics:', updateErr);
     }
     
     return { 
