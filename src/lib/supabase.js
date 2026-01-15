@@ -41,11 +41,11 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     traffic_source: trafficSource
   };
   
-  // Agregar campos demográficos solo si existen (workaround para schema cache)
+  // Agregar campos demográficos (usando nombres correctos de columnas)
   if (migrantData.gender) newRegistration.migrant_gender = migrantData.gender;
-  if (migrantData.birthdate) newRegistration.migrant_birthdate = migrantData.birthdate;
+  if (migrantData.birthdate) newRegistration.migrant_date_of_birth = migrantData.birthdate;
   if (familyData.gender) newRegistration.family_gender = familyData.gender;
-  if (familyData.birthdate) newRegistration.family_birthdate = familyData.birthdate;
+  if (familyData.birthdate) newRegistration.family_date_of_birth = familyData.birthdate;
 
   console.log('🔄 Intentando guardar en Supabase:', newRegistration);
   
