@@ -29,6 +29,8 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     migrant_email: migrantData.email,
     migrant_country_code: migrantData.countryCode || '+1',
     migrant_phone: migrantData.phone,
+    migrant_gender: migrantData.gender || null, // M o F
+    migrant_birthdate: migrantData.birthdate || null, // YYYY-MM-DD
     migrant_access_code: migrantAccessCode,
     family_first_name: familyData.firstName,
     family_last_name: familyData.lastName,
@@ -36,6 +38,8 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     family_email: familyData.email || null,
     family_country_code: familyData.countryCode || '+52',
     family_phone: familyData.phone,
+    family_gender: familyData.gender || null, // M o F
+    family_birthdate: familyData.birthdate || null, // YYYY-MM-DD
     family_access_code: familyAccessCode,
     family_country: familyData.country || null,
     traffic_source: trafficSource

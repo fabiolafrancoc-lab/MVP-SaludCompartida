@@ -27,8 +27,13 @@ export default async function handler(req, res) {
     console.log(`🎭 Generating personalized script for ${phone}...`);
     
     // Inicializar Lupita Agent con Weaviate
-    const agent = new LupitaAgent();
-    await agent.initialize();
+    // El agente se asigna automáticamente según el teléfono del usuario
+    const agent = new LupitaAgent(phone);
+    await agent.initialize(phone);
+    
+    // Obtener info del agente asignado
+    const agentInfo = agent.getAgentInfo();
+    console.log(`📞 Agente asignado: ${agentInfo.name} (${agentInfo.age} años, ${agentInfo.specialization})`);
     
     // LangChain Agent + Weaviate genera el script automáticamente
     // Internamente:
@@ -36,14 +41,20 @@ export default async function handler(req, res) {
     // 2. Calcula churn risk actual (get_churn_risk)
     // 3. Busca técnicas exitosas en knowledge base (search_knowledge)
     // 4. Busca casos similares (search_similar_users)
-    // 5. Genera script personalizado con GPT-4
+    // 5. Genera script personalizado con GPT-4 usando personalidad del agente
     const scriptOutput = await agent.generateScript(phone);
     
-    console.log(`✅ Script generated for ${phone}`);
+    console.log(`✅ Script generated for ${phone} by ${agentInfo.name}`);
     
     return res.status(200).json({
       success: true,
       phone,
+      agent: {
+        name: agentInfo.name,
+        fullName: agentInfo.fullName,
+        age: agentInfo.age,
+        specialization: agentInfo.specialization
+      },
       script: scriptOutput,
       generated_at: new Date().toISOString(),
       powered_by: 'LangChain + Weaviate + OpenAI GPT-4'
