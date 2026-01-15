@@ -2,7 +2,7 @@
 import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://rzmdekjegbdgitqekjee.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bWRla2plZ2JkZ2l0cWVramVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzNTk0ODcsImV4cCI6MjA3ODkzNTQ4N30.4dygSUII0hKSW7nM-ymm4Z9iF-cBTJkK3Bm9TQJlU2c';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bWRla2plZ2JkZ2l0cWVramVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzNTk0ODcsImV4cCI6MjA3ODkzNTQ4N30.7gS2HOL_KpBaNxZUBZOCLrM1tamungV7-mLXZQGfNks';
 
 // Crear cliente de Supabase
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
