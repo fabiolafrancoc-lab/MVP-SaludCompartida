@@ -40,19 +40,11 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     family_country: familyData.country || null,
     traffic_source: trafficSource
   };
-  
-  // TEMPORAL: Guardar datos demográficos para update posterior
-  const demographicData = {
-    migrant_gender: migrantData.gender || null,
-    migrant_date_of_birth: migrantData.birthdate || null,
-    family_gender: familyData.gender || null,
-    family_date_of_birth: familyData.birthdate || null
-  };
 
   console.log('🔄 Intentando guardar en Supabase:', newRegistration);
   
   try {
-    // INSERT sin .select() para evitar problemas de RLS
+    // Simple INSERT without demographic data (will be added later via admin)
     const { error } = await supabase
       .from('registrations')
       .insert([newRegistration]);
@@ -63,25 +55,6 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     }
 
     console.log('✅ Registro insertado en Supabase exitosamente');
-    
-    // UPDATE: Agregar datos demográficos usando el teléfono como identificador
-    if (demographicData.family_date_of_birth || demographicData.migrant_date_of_birth) {
-      try {
-        const { error: updateError } = await supabase
-          .from('registrations')
-          .update(demographicData)
-          .eq('family_phone', newRegistration.family_phone);
-        
-        if (updateError) {
-          console.warn('⚠️ No se pudieron actualizar datos demográficos:', updateError);
-          // No fallar el registro por esto
-        } else {
-          console.log('✅ Datos demográficos actualizados correctamente');
-        }
-      } catch (updateErr) {
-        console.warn('⚠️ Error actualizando demographics:', updateErr);
-      }
-    }
     
     return { 
       success: true, 
