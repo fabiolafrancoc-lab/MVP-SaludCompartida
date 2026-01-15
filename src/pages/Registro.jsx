@@ -22,7 +22,8 @@ function Registro() {
   const [migrantMotherLastName, setMigrantMotherLastName] = useState('');
   const [migrantEmail, setMigrantEmail] = useState('');
   const [migrantPhone, setMigrantPhone] = useState('');
-  const [migrantGender, setMigrantGender] = useState(''); // NUEVO: campo de género
+  const [migrantGender, setMigrantGender] = useState(''); // M o F
+  const [migrantBirthdate, setMigrantBirthdate] = useState(''); // NUEVO: fecha de nacimiento
   const [familyCountry, setFamilyCountry] = useState('');
   
   const [familyFirstName, setFamilyFirstName] = useState('');
@@ -30,7 +31,8 @@ function Registro() {
   const [familyMotherLastName, setFamilyMotherLastName] = useState('');
   const [familyEmail, setFamilyEmail] = useState('');
   const [familyPhone, setFamilyPhone] = useState('');
-  const [familyGender, setFamilyGender] = useState(''); // NUEVO: campo de género del familiar
+  const [familyGender, setFamilyGender] = useState(''); // M o F
+  const [familyBirthdate, setFamilyBirthdate] = useState(''); // NUEVO: fecha de nacimiento del familiar
   
   // Estados para validación y errores
   const [formError, setFormError] = useState('');
@@ -166,7 +168,8 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
     if (!migrantFirstName) missing.push('migrantFirstName');
     if (!migrantLastName) missing.push('migrantLastName');
     if (!migrantEmail) missing.push('migrantEmail');
-    if (!migrantGender) missing.push('migrantGender'); // NUEVO: validar género
+    if (!migrantGender) missing.push('migrantGender');
+    if (!migrantBirthdate) missing.push('migrantBirthdate'); // NUEVO: validar fecha de nacimiento
     
     // Validar formato de email del migrante
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -199,7 +202,8 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
     if (!familyCountry) missing.push('familyCountry');
     if (!familyFirstName) missing.push('familyFirstName');
     if (!familyLastName) missing.push('familyLastName');
-    if (!familyGender) missing.push('familyGender'); // NUEVO: validar género del familiar
+    if (!familyGender) missing.push('familyGender');
+    if (!familyBirthdate) missing.push('familyBirthdate'); // NUEVO: validar fecha de nacimiento del familiar
     if (!familyPhone || familyPhone.replace(/\s/g, '').length < 10) missing.push('familyPhone');
     
     // Validar que el teléfono del familiar no sea un número inválido
@@ -243,7 +247,9 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
             motherLastName: migrantMotherLastName,
             email: migrantEmail,
             countryCode: '+1',
-            phone: cleanMigrantPhone
+            phone: cleanMigrantPhone,
+            gender: migrantGender,
+            birthdate: migrantBirthdate
           },
           {
             firstName: familyFirstName,
@@ -252,7 +258,9 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
             email: familyEmail,
             countryCode: '+52',
             phone: cleanFamilyPhone,
-            country: familyCountry
+            country: familyCountry,
+            gender: familyGender,
+            birthdate: familyBirthdate
           },
           trafficSource || 'direct' // Agregar origen de tráfico
         );
@@ -369,9 +377,11 @@ Suscripciones restantes después de este registro: ${spotsLeft - 1}
           content_category: 'registration',
           value: 12.00,
           currency: 'USD',
-          // Datos demográficos para segmentación
+          // Datos demográficos para segmentación y asignación de agentes AI
           migrant_gender: migrantGender,
+          migrant_birthdate: migrantBirthdate,
           family_gender: familyGender,
+          family_birthdate: familyBirthdate,
           family_country: familyCountry
         });
         
@@ -787,9 +797,28 @@ Equipo SaludCompartida`,
                           }`}
                         >
                           <option value="">Selecciona</option>
-                          <option value="female">Mujer</option>
-                          <option value="male">Hombre</option>
+                          <option value="F">Mujer</option>
+                          <option value="M">Hombre</option>
                         </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Fecha de Nacimiento</label>
+                        <input
+                          type="date"
+                          value={migrantBirthdate}
+                          onChange={(e) => {
+                            setMigrantBirthdate(e.target.value);
+                            clearError();
+                          }}
+                          max={new Date().toISOString().split('T')[0]}
+                          className={`w-full px-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all text-gray-900 bg-white ${
+                            missingFields.includes('migrantBirthdate') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cyan-500'
+                          }`}
+                        />
+                        <p className="mt-2 text-xs text-gray-500">
+                          Necesitamos tu edad para asignarte el mejor agente AI
+                        </p>
                       </div>
 
                       <div>
@@ -934,9 +963,28 @@ Equipo SaludCompartida`,
                           }`}
                         >
                           <option value="">Selecciona</option>
-                          <option value="female">Mujer</option>
-                          <option value="male">Hombre</option>
+                          <option value="F">Mujer</option>
+                          <option value="M">Hombre</option>
                         </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-700 mb-2 text-left">Fecha de Nacimiento</label>
+                        <input
+                          type="date"
+                          value={familyBirthdate}
+                          onChange={(e) => {
+                            setFamilyBirthdate(e.target.value);
+                            clearError();
+                          }}
+                          max={new Date().toISOString().split('T')[0]}
+                          className={`w-full px-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-pink-500 transition-all text-gray-900 bg-white ${
+                            missingFields.includes('familyBirthdate') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-pink-500'
+                          }`}
+                        />
+                        <p className="mt-2 text-xs text-gray-500">
+                          Necesitamos la edad para asignar el mejor agente AI
+                        </p>
                       </div>
 
                       <div>

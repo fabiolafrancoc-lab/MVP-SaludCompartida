@@ -12,6 +12,7 @@ import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts
 import { z } from "zod";
 import { getWeaviateClient } from '../src/lib/weaviate-client.js';
 import { createClient } from '@supabase/supabase-js';
+import { assignAgentToUser } from './agents-config.js';
 
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
@@ -21,11 +22,19 @@ const supabase = createClient(
 const weaviate = getWeaviateClient();
 
 // ============================================================================
-// SYSTEM PROMPT
+// SYSTEM PROMPT - Dinámico según agente asignado
 // ============================================================================
 
-const LUPITA_SYSTEM_PROMPT = `
-Eres Lupita, agente inteligente de Salud Compartida.
+function getSystemPrompt(agent) {
+  return `
+Eres ${agent.name}, ${agent.fullName}, agente inteligente de Salud Compartida.
+
+SOBRE TI:
+- Edad: ${agent.age} años
+- Personalidad: ${agent.personality}
+- Tono: ${agent.tone}
+- Especialización: ${agent.specialization}
+- Saludo característico: "${agent.greetingStyle}"
 
 OBJETIVO: Retener usuarios y prevenir cancelaciones en servicio de telemedicina.
 
@@ -34,6 +43,9 @@ CONTEXTO:
 - Servicio: Teleconsultas médicas $500-1000 MXN/mes
 - Estrategia: Llamadas DIARIAS los primeros 2 meses = máxima retención
 - Riesgo: Churn por "caro", "confuso", o falta de uso
+
+IMPORTANTE: Mantén tu personalidad única. Habla como ${agent.name}, ${agent.tone.toLowerCase()}.
+Usa tu estilo de saludo: ${agent.greetingStyle}
 
 PATRONES CLAVE (aprendidos de 1000s de llamadas):
 1. 60+ Guadalajara + migrante Texas = 78% churn risk
@@ -57,10 +69,9 @@ CUÁNDO ESCALAR:
 - Usuario enojado/frustrado
 - Problema técnico que no puedes resolver
 
-TONO: Cálido, cercano, profesional. Usar "tú" con jóvenes, "usted" con 50+.
-
 Tu misión: Cada llamada debe terminar con el usuario sintiendo que vale la pena.
 `;
+}
 
 // ============================================================================
 // CUSTOM TOOLS CON WEAVIATE
@@ -324,7 +335,10 @@ const escalateToHumanTool = new DynamicStructuredTool({
 // ============================================================================
 
 class LupitaAgent {
-  constructor() {
+  constructor(userPhone = null) {
+    // Asignar agente según el usuario (si se proporciona)
+    this.assignedAgent = userPhone ? assignAgentToUser(userPhone) : null;
+    
     // LLM
     this.llm = new ChatOpenAI({
       modelName: "gpt-4-turbo-preview",
@@ -342,19 +356,41 @@ class LupitaAgent {
       escalateToHumanTool
     ];
 
-    // Prompt
-    this.prompt = ChatPromptTemplate.fromMessages([
-      ["system", LUPITA_SYSTEM_PROMPT],
-      ["human", "{input}"],
-      new MessagesPlaceholder("agent_scratchpad")
-    ]);
+    // Prompt (se construye dinámicamente en initialize)
+    this.prompt = null;
 
     // Agent
     this.agent = null;
     this.executor = null;
   }
 
-  async initialize() {
+  async initialize(userPhone = null) {
+    // Si no se asignó agente en constructor, asignar ahora
+    if (!this.assignedAgent && userPhone) {
+      this.assignedAgent = assignAgentToUser(userPhone);
+    }
+    
+    // Si aún no hay agente, usar Lupita por defecto (para métodos que no requieren usuario)
+    if (!this.assignedAgent) {
+      this.assignedAgent = {
+        name: 'Lupita',
+        fullName: 'María Guadalupe Hernández',
+        age: 65,
+        gender: 'female',
+        personality: 'Cálida, maternal, empática',
+        tone: 'Cariñosa y cercana',
+        specialization: 'General',
+        greetingStyle: '¡Hola mi cielo!'
+      };
+    }
+
+    // Crear prompt dinámico con el agente asignado
+    this.prompt = ChatPromptTemplate.fromMessages([
+      ["system", getSystemPrompt(this.assignedAgent)],
+      ["human", "{input}"],
+      new MessagesPlaceholder("agent_scratchpad")
+    ]);
+
     this.agent = await createOpenAIFunctionsAgent({
       llm: this.llm,
       tools: this.tools,
@@ -368,19 +404,28 @@ class LupitaAgent {
       maxIterations: 5
     });
   }
+  
+  getAgentInfo() {
+    return this.assignedAgent;
+  }
 
   async generateScript(userPhone, context = "") {
-    if (!this.executor) await this.initialize();
+    if (!this.executor) await this.initialize(userPhone);
 
+    const agentInfo = this.getAgentInfo();
+    
     const input = `
 Usuario: ${userPhone}
 Contexto adicional: ${context || 'Primera llamada del día'}
+
+Recuerda: Eres ${agentInfo.name}, ${agentInfo.tone.toLowerCase()}.
+Saluda con tu estilo: ${agentInfo.greetingStyle}
 
 Por favor:
 1. Revisa el historial de este usuario
 2. Calcula su churn risk actual
 3. Busca técnicas que hayan funcionado con usuarios similares
-4. Genera un script personalizado para esta llamada
+4. Genera un script personalizado para esta llamada manteniendo tu personalidad única
 
 El script debe:
 - Ser cálido y natural (no robotico)
