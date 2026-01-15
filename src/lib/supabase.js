@@ -44,7 +44,7 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
   console.log('🔄 Intentando guardar en Supabase:', newRegistration);
   
   try {
-    // Simple INSERT without demographic data (will be added later via admin)
+    // INSERT basic registration
     const { error } = await supabase
       .from('registrations')
       .insert([newRegistration]);
@@ -55,6 +55,44 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     }
 
     console.log('✅ Registro insertado en Supabase exitosamente');
+    
+    // Save demographics separately to avoid schema cache issues
+    const demographicRecords = [];
+    
+    if (migrantData.birthdate || migrantData.gender) {
+      demographicRecords.push({
+        phone: migrantData.phone,
+        user_type: 'migrant',
+        first_name: migrantData.firstName,
+        last_name: migrantData.lastName,
+        gender: migrantData.gender || null,
+        date_of_birth: migrantData.birthdate || null
+      });
+    }
+    
+    if (familyData.birthdate || familyData.gender) {
+      demographicRecords.push({
+        phone: familyData.phone,
+        user_type: 'family',
+        first_name: familyData.firstName,
+        last_name: familyData.lastName,
+        gender: familyData.gender || null,
+        date_of_birth: familyData.birthdate || null
+      });
+    }
+    
+    if (demographicRecords.length > 0) {
+      const { error: demoError } = await supabase
+        .from('user_demographics')
+        .insert(demographicRecords);
+      
+      if (demoError) {
+        console.warn('⚠️ No se pudieron guardar demographics:', demoError);
+        // Don't fail registration for this
+      } else {
+        console.log('✅ Demographics guardados correctamente');
+      }
+    }
     
     return { 
       success: true, 
