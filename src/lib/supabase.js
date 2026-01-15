@@ -52,49 +52,39 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
   console.log('🔄 Intentando guardar en Supabase:', newRegistration);
   
   try {
-    const { data, error } = await supabase
+    // INSERT sin .select() para evitar problemas de RLS
+    const { error } = await supabase
       .from('registrations')
-      .insert([newRegistration])
-      .select();
+      .insert([newRegistration]);
 
     if (error) {
       console.error('❌ ERROR insertando registro:', error);
       return { success: false, error: error.message };
     }
 
-    console.log('✅ RESPUESTA de Supabase:', data);
+    console.log('✅ Registro insertado en Supabase exitosamente');
     
-    if (!data || data.length === 0) {
-      console.error('❌ Supabase retornó vacío');
-      return { 
-        success: false, 
-        error: 'No se pudo insertar en Supabase',
-        migrantAccessCode,
-        familyAccessCode 
-      };
-    }
-    
-    // UPDATE: Agregar datos demográficos con query directa SQL
-    const registrationId = data[0].id;
-    try {
-      const { error: updateError } = await supabase
-        .from('registrations')
-        .update(demographicData)
-        .eq('id', registrationId);
-      
-      if (updateError) {
-        console.warn('⚠️ No se pudieron actualizar datos demográficos:', updateError);
-        // No fallar el registro por esto
-      } else {
-        console.log('✅ Datos demográficos actualizados correctamente');
+    // UPDATE: Agregar datos demográficos usando el teléfono como identificador
+    if (demographicData.family_date_of_birth || demographicData.migrant_date_of_birth) {
+      try {
+        const { error: updateError } = await supabase
+          .from('registrations')
+          .update(demographicData)
+          .eq('family_phone', newRegistration.family_phone);
+        
+        if (updateError) {
+          console.warn('⚠️ No se pudieron actualizar datos demográficos:', updateError);
+          // No fallar el registro por esto
+        } else {
+          console.log('✅ Datos demográficos actualizados correctamente');
+        }
+      } catch (updateErr) {
+        console.warn('⚠️ Error actualizando demographics:', updateErr);
       }
-    } catch (updateErr) {
-      console.warn('⚠️ Error actualizando demographics:', updateErr);
     }
     
     return { 
       success: true, 
-      data: data[0], 
       migrantAccessCode,
       familyAccessCode 
     };
