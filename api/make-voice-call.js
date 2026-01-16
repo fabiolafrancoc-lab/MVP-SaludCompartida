@@ -95,6 +95,7 @@ export default async function handler(req, res) {
     }
 
     const VAPI_API_KEY = process.env.VAPI_API_KEY;
+    const VAPI_PHONE_NUMBER_ID = process.env.VAPI_PHONE_NUMBER_ID || 'f122d1d0-065a-4146-a0c5-b2ad3aa19f17';
     
     if (!VAPI_API_KEY) {
       return res.status(500).json({
@@ -123,6 +124,9 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        // Número desde el cual llamar (provisto por Vapi)
+        phoneNumberId: VAPI_PHONE_NUMBER_ID,
+        
         // A quién llamar (formato E164)
         customer: {
           number: phone
