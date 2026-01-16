@@ -123,8 +123,11 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        // Número a llamar
-        phoneNumber: phone,
+        // Número a llamar (formato objeto)
+        phoneNumberId: null,
+        customer: {
+          number: phone
+        },
         
         // Configuración del asistente
         assistant: {
@@ -132,7 +135,7 @@ export default async function handler(req, res) {
           
           // Voz (ultra-realista)
           voice: {
-            provider: 'elevenlabs',
+            provider: '11labs',
             voiceId: agentVoice.voiceId,
             stability: 0.6,
             similarityBoost: 0.85,
