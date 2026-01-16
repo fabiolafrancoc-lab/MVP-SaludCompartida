@@ -123,11 +123,8 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        // Número a llamar (formato objeto)
-        phoneNumberId: null,
-        customer: {
-          number: phone
-        },
+        // Número a llamar
+        phoneNumber: phone,
         
         // Configuración del asistente
         assistant: {
