@@ -123,7 +123,14 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        // Número a llamar (outbound call) - usando customer object
+        // Desde qué número llamar (Twilio)
+        phoneNumber: {
+          twilioPhoneNumber: process.env.TWILIO_PHONE_NUMBER,
+          twilioAccountSid: process.env.TWILIO_ACCOUNT_SID,
+          twilioAuthToken: process.env.TWILIO_AUTH_TOKEN
+        },
+        
+        // A quién llamar
         customer: {
           number: phone
         },
