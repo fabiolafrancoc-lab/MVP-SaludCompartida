@@ -123,10 +123,8 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        // Cliente a llamar
-        customer: {
-          number: phone
-        },
+        // Número a llamar (outbound call)
+        phoneNumber: phone,
         
         // Configuración del asistente
         assistant: {
