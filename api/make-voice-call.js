@@ -123,19 +123,12 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        // Desde qué número llamar (Twilio)
-        phoneNumber: {
-          twilioPhoneNumber: process.env.TWILIO_PHONE_NUMBER,
-          twilioAccountSid: process.env.TWILIO_ACCOUNT_SID,
-          twilioAuthToken: process.env.TWILIO_AUTH_TOKEN
-        },
-        
-        // A quién llamar
+        // A quién llamar (formato E164)
         customer: {
           number: phone
         },
         
-        // Configuración del asistente
+        // Configuración del asistente inline
         assistant: {
           name: agentVoice.name,
           
