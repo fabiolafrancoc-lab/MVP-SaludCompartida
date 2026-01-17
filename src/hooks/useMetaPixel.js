@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -10,7 +12,7 @@ export const useMetaPixel = () => {
   // Inicializar Meta Pixel solo una vez
   useEffect(() => {
     // Verificar si ya está cargado
-    if (window.fbq) return;
+    if (typeof window === 'undefined' || window.fbq) return;
 
     // Cargar Meta Pixel
     !(function (f, b, e, v, n, t, s) {
@@ -37,7 +39,7 @@ export const useMetaPixel = () => {
   // Inicializar TikTok Pixel solo una vez
   useEffect(() => {
     // Verificar si ya está cargado
-    if (window.ttq) return;
+    if (typeof window === 'undefined' || window.ttq) return;
 
     // Cargar TikTok Pixel
     !function (w, d, t) {
@@ -49,6 +51,8 @@ export const useMetaPixel = () => {
 
   // Rastrear navegación virtual (cambios de ruta sin recargar)
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     // Meta Pixel PageView
     if (window.fbq) {
       window.fbq('track', 'PageView');
@@ -65,6 +69,8 @@ export const useMetaPixel = () => {
 
 // Función helper para trackear eventos personalizados en ambos pixels
 export const trackEvent = (eventName, data = {}) => {
+  if (typeof window === 'undefined') return;
+  
   // Meta Pixel
   if (window.fbq) {
     window.fbq('track', eventName, data);
