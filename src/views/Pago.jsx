@@ -30,10 +30,13 @@ export default function Pago() {
     
     // 📊 META PIXEL: Track InitiateCheckout event
     trackEvent('InitiateCheckout', {
-      content_name: 'Página de Pago',
+      content_id: 'membership-plan',
+      content_name: 'Plan Familiar Mensual',
       content_category: 'checkout',
+      content_type: 'product',
       value: 12.00,
-      currency: 'USD'
+      currency: 'USD',
+      quantity: 1
     });
   }, []);
 
@@ -262,6 +265,18 @@ export default function Pago() {
     };
 
     localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
+
+    // Track Purchase event con datos completos para TikTok Pixel
+    trackEvent('Purchase', {
+      value: 12.00,
+      currency: 'USD',
+      content_id: paymentData.id, // Payment ID de Square
+      content_type: 'product',
+      content_name: 'Plan Familiar Mensual',
+      email: currentUserData.email,
+      phone: currentUserData.phone,
+      quantity: 1
+    });
 
     setIsProcessing(false);
     setShowSuccess(true);
