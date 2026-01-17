@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/node";
 
 Sentry.init({
-  dsn: process.env.SENTRY_DSN,
+  dsn: "https://7424291d4047ffdeba57b9d6d9665ad9@o4510726860177408.ingest.us.sentry.io/4510727032406016",
   
   // Performance Monitoring para APIs
   tracesSampleRate: 0.1, // 10% de requests en producción
