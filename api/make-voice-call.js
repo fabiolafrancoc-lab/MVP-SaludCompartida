@@ -174,23 +174,89 @@ export default async function handler(req, res) {
           maxDurationSeconds: 600, // 10 minutos máximo
           backgroundSound: 'off',
           
-          // Funciones que puede usar el AI
+          // ⭐ FUNCIONES PROPIETARIAS - Salud Compartida
           functions: [
             {
-              name: 'schedule_appointment',
-              description: 'Agenda una cita médica o de terapia',
+              name: 'scheduleTelemedicine',
+              description: 'Agendar cita de telemedicina 24/7. Usa cuando el usuario pida consulta médica, doctor, o telemedicina.',
               parameters: {
                 type: 'object',
                 properties: {
-                  date: { type: 'string' },
-                  time: { type: 'string' },
-                  type: { type: 'string', enum: ['telemedicine', 'therapy'] }
-                }
-              }
+                  phone_number: { 
+                    type: 'string',
+                    description: 'Número de teléfono del usuario'
+                  },
+                  preferred_date: { 
+                    type: 'string',
+                    description: 'Fecha preferida en formato YYYY-MM-DD'
+                  },
+                  preferred_time: { 
+                    type: 'string',
+                    description: 'Hora preferida en formato HH:MM (24hrs)'
+                  },
+                  reason: { 
+                    type: 'string',
+                    description: 'Motivo de la consulta'
+                  },
+                  urgency_level: { 
+                    type: 'string',
+                    enum: ['low', 'normal', 'high', 'emergency'],
+                    description: 'Nivel de urgencia'
+                  }
+                },
+                required: ['phone_number', 'preferred_date', 'preferred_time', 'reason']
+              },
+              url: 'https://saludcompartida.app/api/vapi-functions/schedule-telemedicine',
+              async: false
+            },
+            {
+              name: 'checkPharmacy',
+              description: 'Consultar disponibilidad y precio de medicamentos en farmacias. Usa cuando pregunten por medicinas, farmacias, o precios.',
+              parameters: {
+                type: 'object',
+                properties: {
+                  medication_name: { 
+                    type: 'string',
+                    description: 'Nombre del medicamento (genérico o comercial)'
+                  },
+                  phone_number: { 
+                    type: 'string',
+                    description: 'Número de teléfono del usuario'
+                  },
+                  user_location: { 
+                    type: 'string',
+                    description: 'Ciudad o estado en México (opcional)'
+                  }
+                },
+                required: ['medication_name', 'phone_number']
+              },
+              url: 'https://saludcompartida.app/api/vapi-functions/check-pharmacy',
+              async: false
+            },
+            {
+              name: 'verifyEligibility',
+              description: 'Verificar si el usuario puede usar un servicio específico según su membresía. Usa cuando pregunten si tienen acceso a algo.',
+              parameters: {
+                type: 'object',
+                properties: {
+                  phone_number: { 
+                    type: 'string',
+                    description: 'Número de teléfono del usuario'
+                  },
+                  service_type: { 
+                    type: 'string',
+                    enum: ['telemedicine', 'pharmacy', 'therapy', 'emergency'],
+                    description: 'Tipo de servicio a verificar'
+                  }
+                },
+                required: ['phone_number', 'service_type']
+              },
+              url: 'https://saludcompartida.app/api/vapi-functions/verify-eligibility',
+              async: false
             },
             {
               name: 'escalate_to_human',
-              description: 'Transferir a agente humano',
+              description: 'Transferir a agente humano cuando el caso sea muy complejo o el usuario insista',
               parameters: {
                 type: 'object',
                 properties: {
