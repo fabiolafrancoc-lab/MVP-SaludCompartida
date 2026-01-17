@@ -84,7 +84,10 @@ export async function insertRegistration(migrantData, familyData, trafficSource 
     if (demographicRecords.length > 0) {
       const { error: demoError } = await supabase
         .from('user_demographics')
-        .insert(demographicRecords);
+        .upsert(demographicRecords, { 
+          onConflict: 'phone',
+          ignoreDuplicates: false 
+        });
       
       if (demoError) {
         console.warn('⚠️ No se pudieron guardar demographics:', demoError);

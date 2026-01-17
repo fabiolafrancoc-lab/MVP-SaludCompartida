@@ -87,8 +87,19 @@ export const trackEvent = (eventName, data = {}) => {
     };
     
     const tiktokEvent = tiktokEventMap[eventName] || eventName;
-    window.ttq.track(tiktokEvent, data);
-    console.log('📊 TikTok Pixel Event:', tiktokEvent, data);
+    
+    // Enriquecer datos para TikTok Pixel con información requerida
+    const enrichedData = {
+      ...data,
+      // Agregar content_id si no existe (requerido para Video Shopping Ads)
+      content_id: data.content_id || data.paymentId || 'membership-plan',
+      // Asegurar que email y phone estén en el formato correcto para CompletePayment
+      ...(data.email && { email: data.email }),
+      ...(data.phone && { phone_number: data.phone }),
+    };
+    
+    window.ttq.track(tiktokEvent, enrichedData);
+    console.log('📊 TikTok Pixel Event:', tiktokEvent, enrichedData);
   }
 };
 
