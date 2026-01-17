@@ -6,7 +6,7 @@
 -- TABLA 1: Citas de Telemedicina
 CREATE TABLE IF NOT EXISTS telemedicine_appointments (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_email TEXT REFERENCES registrations(migrant_email),
+  user_email TEXT,
   phone_number TEXT NOT NULL,
   preferred_date DATE NOT NULL,
   preferred_time TIME NOT NULL,
