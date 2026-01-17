@@ -283,8 +283,31 @@ export default async function handler(req, res) {
 
     console.log(`✅ Llamada iniciada: ${vapiData.id}`);
 
-    // Guardar en base de datos para tracking
-    // TODO: Insertar en tabla scheduled_calls o call_logs
+    // Guardar en base de datos para tracking y análisis
+    const { createClient } = require('@supabase/supabase-js');
+    const supabase = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_KEY
+    );
+
+    const { data: callLog, error: logError } = await supabase
+      .from('ai_voice_calls')
+      .insert({
+        vapi_call_id: vapiData.id,
+        phone_number: normalizedPhone,
+        agent_id: agentId,
+        agent_name: agentVoice.name,
+        call_reason: callReason,
+        initiated_at: new Date().toISOString(),
+        status: 'initiated'
+      });
+
+    if (logError) {
+      console.error('⚠️ Error guardando llamada en DB:', logError);
+      // NO FALLAR - la llamada ya se inició en Vapi exitosamente
+    } else {
+      console.log('📊 Llamada registrada en DB para tracking');
+    }
 
     return res.status(200).json({
       success: true,
