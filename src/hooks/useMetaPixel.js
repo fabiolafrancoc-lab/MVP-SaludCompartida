@@ -93,9 +93,10 @@ export const trackEvent = (eventName, data = {}) => {
       ...data,
       // Agregar content_id si no existe (requerido para Video Shopping Ads)
       content_id: data.content_id || data.paymentId || 'membership-plan',
-      // Asegurar que email y phone estén en el formato correcto para CompletePayment
+      // Asegurar que email y phone_number estén en el formato correcto para CompletePayment
       ...(data.email && { email: data.email }),
-      ...(data.phone && { phone_number: data.phone }),
+      ...(data.phone && { phone_number: data.phone }), // TikTok usa phone_number, no phone
+      ...(data.phone_number && { phone_number: data.phone_number }), // Si ya viene phone_number
     };
     
     window.ttq.track(tiktokEvent, enrichedData);

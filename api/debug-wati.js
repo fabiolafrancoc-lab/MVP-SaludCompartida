@@ -35,31 +35,60 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Paso 1: Verificar que el endpoint WATI responde
-    console.log('🧪 Paso 1: Verificando conectividad con WATI...');
-    
-    const healthCheck = await fetch(`${WATI_ENDPOINT}/api/v1/getMessages`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${WATI_TOKEN}`
-      }
-    });
+    // Probar diferentes estructuras de endpoint
+    const testEndpoints = [
+      `${WATI_ENDPOINT}/api/v1/getContacts?pageSize=1`,
+      `https://live-mt-server.wati.io/api/v1/getContacts?pageSize=1`,
+      `https://live-server-1079185.wati.io/api/v1/getContacts?pageSize=1`
+    ];
 
-    console.log('📡 Health check status:', healthCheck.status);
+    const testResults = [];
 
-    if (!healthCheck.ok) {
-      const errorText = await healthCheck.text();
-      console.error('❌ WATI endpoint no responde correctamente:', errorText);
+    for (const testUrl of testEndpoints) {
+      console.log(`🧪 Probando: ${testUrl}`);
       
+      try {
+        const response = await fetch(testUrl, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${WATI_TOKEN}`
+          }
+        });
+
+        const data = await response.text();
+        
+        testResults.push({
+          url: testUrl,
+          status: response.status,
+          ok: response.ok,
+          response: data.substring(0, 200)
+        });
+
+        if (response.ok) {
+          console.log(`✅ ÉXITO con: ${testUrl}`);
+          break;
+        }
+      } catch (err) {
+        testResults.push({
+          url: testUrl,
+          error: err.message
+        });
+      }
+    }
+
+    console.log('📊 Resultados de tests:', testResults);
+
+    const successTest = testResults.find(t => t.ok);
+    
+    if (!successTest) {
       return res.status(500).json({
-        error: 'WATI endpoint no responde',
-        status: healthCheck.status,
-        details: errorText,
-        endpoint: WATI_ENDPOINT
+        error: 'Ninguna estructura de endpoint funcionó',
+        testResults,
+        instructions: 'Ve a WATI Dashboard → Settings → API Docs y copia el endpoint exacto que aparece ahí'
       });
     }
 
-    console.log('✅ WATI endpoint responde correctamente');
+    console.log('✅ Endpoint correcto encontrado:', successTest.url);
 
     // Paso 2: Intentar enviar mensaje de prueba
     console.log('🧪 Paso 2: Enviando mensaje de prueba...');

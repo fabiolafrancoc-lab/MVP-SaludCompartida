@@ -44,10 +44,11 @@ export default async function handler(req, res) {
     console.log('📱 Número formateado para WATI:', formattedPhone);
 
     // Enviar mensaje via WATI
+    // WATI_TOKEN ya incluye "Bearer " prefix desde variables de entorno
     const response = await fetch(`${WATI_ENDPOINT}/api/v1/sendSessionMessage/${formattedPhone}`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${WATI_TOKEN}`,
+        'Authorization': WATI_TOKEN,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

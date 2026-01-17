@@ -454,6 +454,9 @@ Beneficios disponibles:
       const notifContactData = await notifContact.json();
       console.log('✅ Notificación a contact@:', notifContactData);
 
+      // Esperar 1 segundo para evitar rate limit de Resend (max 2 req/sec)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       // Enviar a ffranco@saludcompartida.com
       const notifFfranco = await fetch('/api/send-email', {
         method: 'POST',
