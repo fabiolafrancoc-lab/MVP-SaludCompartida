@@ -13,7 +13,7 @@
  * }
  */
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Verificar que solo Vercel Cron puede ejecutar esto
   const authHeader = req.headers.authorization;
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     console.log('🔄 Ejecutando cron job de llamadas programadas...');
 
     // Importar supabase
-    const { createClient } = await import('@supabase/supabase-js');
+    const { createClient } = require('@supabase/supabase-js');
     const supabase = createClient(
       process.env.SUPABASE_URL,
       process.env.SUPABASE_SERVICE_KEY
