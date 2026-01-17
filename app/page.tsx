@@ -1,4 +1,4 @@
-import ClientRouter from './ClientRouter';
+import ClientRouter from '../src/ClientRouter';
 
 export default function Page() {
   return <ClientRouter />;
