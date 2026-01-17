@@ -1,6 +1,11 @@
 "use client";
 
-import ClientRouter from '../src/ClientRouter';
+import dynamic from 'next/dynamic';
+
+const ClientRouter = dynamic(() => import('../src/ClientRouter'), {
+  ssr: false,
+  loading: () => <div>Cargando...</div>
+});
 
 export default function Page() {
   return <ClientRouter />;
