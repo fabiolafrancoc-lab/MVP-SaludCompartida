@@ -1,3 +1,5 @@
+'use client';
+
 // src/pages/Blog.jsx
 
 import { useState, useEffect } from 'react';

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 // Icono de Lightbulb (Idea/Tip) - Diseño geométrico personalizado

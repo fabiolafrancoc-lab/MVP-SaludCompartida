@@ -1,3 +1,5 @@
+'use client';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { CheckCircle, Download, Mail, CreditCard, Calendar, FileText } from 'lucide-react';
