@@ -1,3 +1,5 @@
+'use client';
+
 import TopNav from '../components/TopNav'
 import Footer from '../components/Footer'
 import { useState } from 'react'

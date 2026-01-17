@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 // Ícono de WhatsApp con diseño personalizado VERDE OFICIAL
