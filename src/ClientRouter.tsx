@@ -41,9 +41,9 @@ import QuienesSomos from './views/QuienesSomos.jsx';
 import QuienesSomosInternal from './views/QuienesSomosInternal.jsx';
 import VisionMision from './views/VisionMision.jsx';
 import VisionMisionInternal from './views/VisionMisionInternal.jsx';
-import AICompanion from './views/AICompanion.jsx';
-import AICompanionInternal from './views/AICompanionInternal.jsx';
-import DepositPayment from './views/DepositPayment.jsx';
+// import AICompanion from './views/AICompanion.jsx'; // TODO: Create this file
+// import AICompanionInternal from './views/AICompanionInternal.jsx'; // TODO: Create this file
+// import DepositPayment from './views/DepositPayment.jsx'; // TODO: Create this file
 import MisAhorrosPre from './views/MisAhorrosPre.jsx';
 import Contacto from './views/Contacto.jsx';
 import CancelSubscription from './views/CancelSubscription.jsx';
@@ -94,9 +94,10 @@ function App() {
       <Route path="/quienes-somos-internal" element={<QuienesSomosInternal />} />
       <Route path="/vision-mision" element={<VisionMision />} />
       <Route path="/vision-mision-internal" element={<VisionMisionInternal />} />
-      <Route path="/ai-companion" element={<AICompanion />} />
-      <Route path="/ai-companion-internal" element={<AICompanionInternal />} />
-      <Route path="/deposit-payment" element={<DepositPayment />} />
+      {/* TODO: Create these components */}
+      {/* <Route path="/ai-companion" element={<AICompanion />} /> */}
+      {/* <Route path="/ai-companion-internal" element={<AICompanionInternal />} /> */}
+      {/* <Route path="/deposit-payment" element={<DepositPayment />} /> */}
       <Route path="/mis-ahorros-pre" element={<MisAhorrosPre />} />
       <Route path="/contacto" element={<Contacto />} />
       <Route path="/cancel-subscription" element={<CancelSubscription />} />
