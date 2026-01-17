@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 
 Sentry.init({
-  dsn: process.env.VITE_SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN,
+  dsn: "https://7424291d4047ffdeba57b9d6d9665ad9@o4510726860177408.ingest.us.sentry.io/4510727032406016",
   
   // Performance Monitoring
   integrations: [new BrowserTracing()],
