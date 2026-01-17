@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useState, useEffect } from 'react';
 
 // Context para mantener la sesión del usuario activo
@@ -13,6 +15,8 @@ export const UserProvider = ({ children }) => {
 
   // Cargar usuario desde localStorage al iniciar
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
       try {
@@ -26,6 +30,8 @@ export const UserProvider = ({ children }) => {
 
   // Sincronizar con localStorage cuando cambia el usuario
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     if (currentUser) {
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
     } else {
@@ -35,7 +41,9 @@ export const UserProvider = ({ children }) => {
 
   const logout = () => {
     setCurrentUser(null);
-    localStorage.removeItem('currentUser');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('currentUser');
+    }
   };
 
   const value = {
