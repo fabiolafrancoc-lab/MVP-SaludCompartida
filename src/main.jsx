@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import { useMetaPixel } from './hooks/useMetaPixel'
+// Sentry Error Monitoring
+import '../sentry.client.config.js'
 import LoginCodigo from './LoginCodigo.jsx'
 import Page4 from './page4.jsx'
 import Telemedicine from './telemedicine.jsx'
