@@ -59,7 +59,7 @@ function Registro() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const source = params.get('source') || params.get('utm_source') || params.get('ref');
-    
+
     if (source) {
       setTrafficSource(source.toLowerCase());
       // Guardar en localStorage para persistencia
@@ -71,6 +71,30 @@ function Registro() {
         setTrafficSource(savedSource);
       }
     }
+  }, []);
+
+  // TEST: Send WhatsApp message when page loads
+  useEffect(() => {
+    const sendTestMessage = async () => {
+      try {
+        console.log('📱 Sending test WhatsApp message...');
+        const response = await fetch('/api/send-whatsapp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: '6046035116',
+            message: `🧪 TEST: Someone landed on /registro page\n\nTimestamp: ${new Date().toLocaleString('es-MX')}\nUser Agent: ${navigator.userAgent.substring(0, 50)}...`,
+            countryCode: '+1'
+          })
+        });
+        const data = await response.json();
+        console.log('📱 Test WhatsApp result:', data);
+      } catch (error) {
+        console.error('❌ Test WhatsApp error:', error);
+      }
+    };
+
+    sendTestMessage();
   }, []);
 
   useEffect(() => {
