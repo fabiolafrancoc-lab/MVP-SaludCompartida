@@ -139,17 +139,18 @@ export default async function handler(req, res) {
             stability: 0.5,  // Menos estabilidad = más expresiva y natural
             similarityBoost: 0.75,  // Menos boost = más variación natural
             style: 0.3,  // Más estilo conversacional
-            optimizeStreamingLatency: 3,
+            optimizeStreamingLatency: 4,  // Máxima velocidad (4 = más rápido)
             // CRÍTICO: Usar modelo multilingüe de ElevenLabs
-            model: 'eleven_multilingual_v2',  // Soporta acento por idioma
+            model: 'eleven_turbo_v2',  // Turbo = mucho más rápido
             language: 'es'  // Español (usa acento de la región del speaker)
           },
           
           // Modelo de lenguaje
           model: {
             provider: 'openai',
-            model: 'gpt-4-turbo',
-            temperature: 0.8,  // Más temperatura = respuestas más naturales y variadas
+            model: 'gpt-4o',  // GPT-4o es más rápido que gpt-4-turbo
+            temperature: 0.7,  // Reducir un poco para respuestas más coherentes
+            maxTokens: 150,  // Respuestas más cortas = más rápido
             systemPrompt: systemPrompt,
             messages: [
               {
@@ -169,10 +170,13 @@ export default async function handler(req, res) {
           // Primera frase al contestar
           firstMessage: getFirstMessage(agentVoice, callReason, userName),
           
-          // Configuración avanzada
-          endCallPhrases: ['adiós', 'hasta luego', 'gracias', 'bye'],
-          maxDurationSeconds: 600, // 10 minutos máximo
-          backgroundSound: 'off'
+          // Configuración avanzada para conversación fluida
+          endCallPhrases: ['adiós', 'hasta luego', 'gracias', 'bye', 'cuelgo'],
+          maxDurationSeconds: 300, // 5 minutos máximo
+          backgroundSound: 'off',
+          silenceTimeoutSeconds: 30, // Colgar si 30 segundos de silencio
+          responseDelaySeconds: 0.4, // Responder rápido (400ms)
+          interruptionThreshold: 100 // Permitir interrupciones naturales
         }
         
         // NOTA: Las tools/functions deben configurarse en el Assistant creado en Vapi Dashboard
@@ -317,7 +321,7 @@ function getFirstMessage(agent, reason, userName) {
   
   if (reason === 'welcome') {
     if (esMayor) {
-      return `¿Bueno? ¿${userName}? Ay qué bueno que contestas mija. Soy ${agent.name} de Salud Compartida. Nada más te llamo rapidito para darte la bienvenida, ¿tienes un minutito?`;
+      return `¿Bueno? ¿${userName}? Ay qué bueno que contestas. Soy ${agent.name} de Salud Compartida. Nada más te llamo rapidito para darte la bienvenida, ¿tienes un minutito?`;
     } else {
       return `¿Hola? ¿${userName}? Qué onda, soy ${agent.name} de Salud Compartida. Te llamo para darte la bienvenida y checar que todo esté bien, ¿tienes chance de platicar un ratito?`;
     }
@@ -325,7 +329,7 @@ function getFirstMessage(agent, reason, userName) {
   
   if (reason === 'follow_up') {
     if (esMayor) {
-      return `¿${userName}? Hola mija, soy ${agent.name}. Nada más te marcaba para saber cómo te ha ido, ¿todo bien por allá?`;
+      return `¿${userName}? Hola, soy ${agent.name}. Nada más te marcaba para saber cómo te ha ido, ¿todo bien por allá?`;
     } else {
       return `¿Hola ${userName}? Soy ${agent.name} de Salud Compartida. Oye te llamo rapidito para ver cómo te va con el servicio, ¿tienes un segundo?`;
     }
@@ -333,14 +337,14 @@ function getFirstMessage(agent, reason, userName) {
   
   if (reason === 'retention') {
     if (esMayor) {
-      return `¿${userName}? Ay mija buenos días, soy ${agent.name}. Fíjate que vi que no has usado el servicio y me preocupé. ¿Está todo bien? ¿Pasó algo?`;
+      return `¿${userName}? Buenos días, soy ${agent.name}. Fíjate que vi que no has usado el servicio y me preocupé. ¿Está todo bien? ¿Pasó algo?`;
     } else {
       return `¿Qué onda ${userName}? Soy ${agent.name}. Oye vi que no has usado el servicio, ¿todo bien? ¿Hay algo que te podamos ayudar?`;
     }
   }
   
   if (esMayor) {
-    return `¿Bueno? ¿${userName}? Hola mija, soy ${agent.name} de Salud Compartida. ¿Tienes un minutito para platicar?`;
+    return `¿Bueno? ¿${userName}? Hola, soy ${agent.name} de Salud Compartida. ¿Tienes un minutito para platicar?`;
   } else {
     return `¿Hola? ¿${userName}? Qué onda, soy ${agent.name} de Salud Compartida. ¿Cómo estás?`;
   }
