@@ -140,8 +140,8 @@ export default async function handler(req, res) {
             similarityBoost: 0.75,  // Menos boost = más variación natural
             style: 0.3,  // Más estilo conversacional
             optimizeStreamingLatency: 3,
-            // CRÍTICO: Forzar español mexicano
-            language: 'es-MX'
+            // CRÍTICO: Español para voces mexicanas de ElevenLabs
+            language: 'es'
           },
           
           // Modelo de lenguaje
@@ -161,7 +161,7 @@ export default async function handler(req, res) {
           // Configuración de conversación
           transcriber: {
             provider: 'deepgram',
-            language: 'es-MX',  // Español mexicano específicamente
+            language: 'es-419',  // Español latinoamericano (incluye México)
             model: 'nova-2'
           },
           
