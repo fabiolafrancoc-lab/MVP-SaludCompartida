@@ -142,7 +142,9 @@ export default async function handler(req, res) {
             optimizeStreamingLatency: 4,  // Máxima velocidad (4 = más rápido)
             // CRÍTICO: Usar modelo multilingüe de ElevenLabs
             model: 'eleven_turbo_v2',  // Turbo = mucho más rápido
-            language: 'es'  // Español (usa acento de la región del speaker)
+            language: 'es',  // Español (usa acento de la región del speaker)
+            // API Key para acceder a voces privadas de tu Collection
+            apiKey: process.env.ELEVENLABS_API_KEY
           },
           
           // Modelo de lenguaje
@@ -167,6 +169,14 @@ export default async function handler(req, res) {
             model: 'nova-2'
           },
           
+          // Configuración de conversación
+          transcriber: {
+            provider: 'deepgram',
+            language: 'es',  // Español general (mejor reconocimiento)
+            model: 'nova-2',
+            keywords: ['Salud Compartida', 'telemedicina', 'México', 'familia'] // Ayuda a reconocer palabras clave
+          },
+          
           // Primera frase al contestar
           firstMessage: getFirstMessage(agentVoice, callReason, userName),
           
@@ -175,7 +185,13 @@ export default async function handler(req, res) {
           maxDurationSeconds: 300, // 5 minutos máximo
           backgroundSound: 'off',
           silenceTimeoutSeconds: 30, // Colgar si 30 segundos de silencio
-          responseDelaySeconds: 0.4 // Responder rápido (400ms)
+          responseDelaySeconds: 0.8, // Esperar 800ms después de que termines de hablar
+          // VAD (Voice Activity Detection) - CRÍTICO para conversación natural
+          voiceActivityDetection: {
+            enabled: true,
+            threshold: 0.5, // Sensibilidad media
+            silenceDurationMs: 1000 // Esperar 1 segundo de silencio antes de considerar que terminaste
+          }
         }
         
         // NOTA: Las tools/functions deben configurarse en el Assistant creado en Vapi Dashboard
