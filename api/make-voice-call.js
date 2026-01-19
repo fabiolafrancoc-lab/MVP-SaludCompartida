@@ -6,48 +6,50 @@
  */
 
 // Configuración de voces para cada agente
+// VOCES CON ACENTO MEXICANO AUTÉNTICO de ElevenLabs
+// Usar voces multilingual con language_code es-MX para acento mexicano
 const AGENT_VOICES = {
-  // Mujeres mayores (60+)
-  agent_001: { // Lupita
-    voiceId: "ThT5KcBeYPX3keUQqHPh",
+  // Mujeres mayores (60+) - Voces mexicanas maduras
+  agent_001: { // Lupita - VOZ PRINCIPAL
+    voiceId: "Xb7hH8MSUJpSbSDYk0k2", // Alice (multilingual) - configurada para es-MX
     name: "Lupita",
     age: 65,
     tone: "maternal y cálida"
   },
   agent_002: { // Carmen
-    voiceId: "EXAVITQu4vr4xnSDxMaL",
+    voiceId: "pNInz6obpgDQGcFmaJgB", // Adam multilingual
     name: "Carmen", 
     age: 62,
     tone: "directa pero afectuosa"
   },
   agent_003: { // Rosa
-    voiceId: "21m00Tcm4TlvDq8ikWAM",
+    voiceId: "IKne3meq5aSn9XLyUdCD", // Charlie (neutral, adaptable)
     name: "Rosa",
     age: 68,
     tone: "empática y escucha activa"
   },
   agent_004: { // Teresa
-    voiceId: "AZnzlk1XvdvUeBnXmlld",
+    voiceId: "onwK4e9ZLuTAKqWW03F9", // Daniel (mature voice)
     name: "Teresa",
     age: 64,
     tone: "organizada y metódica"
   },
   
-  // Mujeres jóvenes (<40)
+  // Mujeres jóvenes (<40) - Voces mexicanas jóvenes modernas
   agent_005: { // María
-    voiceId: "pNInz6obpgDQGcFmaJgB",
+    voiceId: "XB0fDUnXU5powFXDhCwa", // Charlotte (young, energetic)
     name: "María",
     age: 32,
     tone: "energética y moderna"
   },
   agent_006: { // Ana
-    voiceId: "EXAVITQu4vr4xnSDxMaL",
+    voiceId: "ThT5KcBeYPX3keUQqHPh", // Dorothy (calm, patient)
     name: "Ana",
     age: 35,
     tone: "paciente y educativa"
   },
   agent_007: { // Sofía
-    voiceId: "XB0fDUnXU5powFXDhCwa",
+    voiceId: "XrExE9yKIg1WjnnlVkGX", // Matilda (conversational)
     name: "Sofía",
     age: 29,
     tone: "dinámica y motivacional"
@@ -143,7 +145,9 @@ export default async function handler(req, res) {
             stability: 0.5,  // Menos estabilidad = más expresiva y natural
             similarityBoost: 0.75,  // Menos boost = más variación natural
             style: 0.3,  // Más estilo conversacional
-            optimizeStreamingLatency: 3
+            optimizeStreamingLatency: 3,
+            // CRÍTICO: Forzar español mexicano
+            language: 'es-MX'
           },
           
           // Modelo de lenguaje
