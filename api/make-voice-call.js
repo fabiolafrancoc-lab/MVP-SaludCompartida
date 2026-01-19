@@ -95,7 +95,7 @@ export default async function handler(req, res) {
     }
 
     const VAPI_API_KEY = process.env.VAPI_API_KEY;
-    const VAPI_PHONE_NUMBER_ID = process.env.VAPI_PHONE_NUMBER_ID || 'f122d1d0-065a-4146-a0c5-b2ad3aa19f17';
+    const VAPI_PHONE_NUMBER_ID = process.env.VAPI_PHONE_NUMBER_ID || '9aafdbd3-9d61-49f5-929a-51bb2323419f';
     
     if (!VAPI_API_KEY) {
       return res.status(500).json({
