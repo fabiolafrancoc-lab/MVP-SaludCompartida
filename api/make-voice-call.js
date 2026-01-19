@@ -6,30 +6,30 @@
  */
 
 // Configuración de voces para cada agente
-// VOCES CON ACENTO MEXICANO AUTÉNTICO de ElevenLabs
-// Usar voces multilingual con language_code es-MX para acento mexicano
+// VOCES DE LA COLLECTION "SaludCompartida AI" en ElevenLabs
+// Estas son las 9 voces seleccionadas con acento mexicano auténtico
 const AGENT_VOICES = {
   // Mujeres mayores (60+) - Voces mexicanas maduras
-  agent_001: { // Lupita - VOZ PRINCIPAL
-    voiceId: "Xb7hH8MSUJpSbSDYk0k2", // Alice (multilingual) - configurada para es-MX
+  agent_001: { // Lupita - AGENTE PRINCIPAL
+    voiceId: "z1ngDYs2H24Xsd8ts3az", // Voz 1 - Maternal y cálida
     name: "Lupita",
     age: 65,
     tone: "maternal y cálida"
   },
   agent_002: { // Carmen
-    voiceId: "pNInz6obpgDQGcFmaJgB", // Adam multilingual
+    voiceId: "7uSWXMmzGnsyxZwYFfmK", // Voz 2 - Directa pero afectuosa
     name: "Carmen", 
     age: 62,
     tone: "directa pero afectuosa"
   },
   agent_003: { // Rosa
-    voiceId: "IKne3meq5aSn9XLyUdCD", // Charlie (neutral, adaptable)
+    voiceId: "iBGVhgcEZS6A5gTOjqSJ", // Voz 3 - Empática
     name: "Rosa",
     age: 68,
     tone: "empática y escucha activa"
   },
   agent_004: { // Teresa
-    voiceId: "onwK4e9ZLuTAKqWW03F9", // Daniel (mature voice)
+    voiceId: "spPXlKT5a4JMfbhPRAzA", // Voz 4 - Organizada
     name: "Teresa",
     age: 64,
     tone: "organizada y metódica"
@@ -37,25 +37,25 @@ const AGENT_VOICES = {
   
   // Mujeres jóvenes (<40) - Voces mexicanas jóvenes modernas
   agent_005: { // María
-    voiceId: "XB0fDUnXU5powFXDhCwa", // Charlotte (young, energetic)
+    voiceId: "lJtjZw9ZjSbD9Zs9bOWq", // Voz 5 - Energética y moderna
     name: "María",
     age: 32,
     tone: "energética y moderna"
   },
   agent_006: { // Ana
-    voiceId: "ThT5KcBeYPX3keUQqHPh", // Dorothy (calm, patient)
+    voiceId: "UrKtSFzzmJW3NBpFdBsS", // Voz 6 - Paciente
     name: "Ana",
     age: 35,
     tone: "paciente y educativa"
   },
   agent_007: { // Sofía
-    voiceId: "XrExE9yKIg1WjnnlVkGX", // Matilda (conversational)
+    voiceId: "1vvbVDm3EpGMyY1WVZ3r", // Voz 7 - Dinámica
     name: "Sofía",
     age: 29,
     tone: "dinámica y motivacional"
   },
   agent_008: { // Daniela
-    voiceId: "ThT5KcBeYPX3keUQqHPh",
+    voiceId: "UctfklnBpi63FuT1eawL", // Voz 8 - Profesional
     name: "Daniela",
     age: 38,
     tone: "profesional y detallista"
@@ -63,16 +63,10 @@ const AGENT_VOICES = {
   
   // Hombres mayores (60+)
   agent_009: { // Don Roberto
-    voiceId: "VR6AewLTigWG4xSOukaG",
+    voiceId: "V7u2lnqW19eqtNekA5Y0", // Voz 9 - Autoritativo
     name: "Don Roberto",
     age: 67,
     tone: "autoritativo y confiable"
-  },
-  agent_010: { // Don Miguel
-    voiceId: "pqHfZKP75CvOlQylNhV4",
-    name: "Don Miguel",
-    age: 63,
-    tone: "amigable y práctico"
   }
 };
 
