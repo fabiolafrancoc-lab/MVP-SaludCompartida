@@ -171,8 +171,7 @@ export default async function handler(req, res) {
           transcriber: {
             provider: 'deepgram',
             language: 'es',  // Español general (mejor reconocimiento)
-            model: 'nova-2',
-            keywords: ['Salud Compartida', 'telemedicina', 'México', 'familia'] // Ayuda a reconocer palabras clave
+            model: 'nova-2'
           },
           
           // Primera frase al contestar
@@ -183,13 +182,7 @@ export default async function handler(req, res) {
           maxDurationSeconds: 300, // 5 minutos máximo
           backgroundSound: 'off',
           silenceTimeoutSeconds: 30, // Colgar si 30 segundos de silencio
-          responseDelaySeconds: 0.8, // Esperar 800ms después de que termines de hablar
-          // VAD (Voice Activity Detection) - CRÍTICO para conversación natural
-          voiceActivityDetection: {
-            enabled: true,
-            threshold: 0.5, // Sensibilidad media
-            silenceDurationMs: 1000 // Esperar 1 segundo de silencio antes de considerar que terminaste
-          }
+          responseDelaySeconds: 0.8 // Esperar 800ms después de que termines de hablar
         }
         
         // NOTA: Las tools/functions deben configurarse en el Assistant creado en Vapi Dashboard
