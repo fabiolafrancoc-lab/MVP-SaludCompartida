@@ -172,12 +172,13 @@ export default async function handler(req, res) {
           // Configuración avanzada
           endCallPhrases: ['adiós', 'hasta luego', 'gracias', 'bye'],
           maxDurationSeconds: 600, // 10 minutos máximo
-          backgroundSound: 'off',
-          
-          // ⭐ FUNCIONES PROPIETARIAS - Salud Compartida
-          tools: [
-            {
-              type: 'function',
+          backgroundSound: 'off'
+        },
+        
+        // ⭐ FUNCIONES PROPIETARIAS - Salud Compartida (fuera de assistant)
+        tools: [
+          {
+            type: 'function',
               function: {
                 name: 'scheduleTelemedicine',
                 description: 'Agendar cita de telemedicina 24/7. Usa cuando el usuario pida consulta médica, doctor, o telemedicina.',
@@ -281,7 +282,6 @@ export default async function handler(req, res) {
               }
             }
           ]
-        }
       })
     });
 
