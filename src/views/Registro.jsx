@@ -383,13 +383,13 @@ Suscripciones restantes después de este registro: ${spotsLeft - 1}
           lastName: migrantLastName,
           motherLastName: migrantMotherLastName,
           email: migrantEmail,
-          phone: cleanMigrantPhone,
+          phone: '+1' + cleanMigrantPhone,  // Número completo con código de país para Meta Pixel
           countryCode: '+1',
           familyFirstName: familyFirstName,
           familyLastName: familyLastName,
           familyMotherLastName: familyMotherLastName,
           familyEmail: familyEmail,
-          familyPhone: cleanFamilyPhone,
+          familyPhone: '+52' + cleanFamilyPhone,  // Número completo con código de país
           familyCountryCode: '+52',
           familyCountry: familyCountry,
           migrantAccessCode: result.migrantAccessCode,
