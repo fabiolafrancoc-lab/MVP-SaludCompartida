@@ -204,7 +204,7 @@ export default async function handler(req, res) {
       .from('ai_voice_calls')
       .insert({
         vapi_call_id: vapiData.id,
-        phone_number: normalizedPhone,
+        phone_number: phone,
         agent_id: agentId,
         agent_name: agentVoice.name,
         call_reason: callReason,
