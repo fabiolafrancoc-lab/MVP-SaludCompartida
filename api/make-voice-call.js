@@ -175,8 +175,7 @@ export default async function handler(req, res) {
           maxDurationSeconds: 300, // 5 minutos máximo
           backgroundSound: 'off',
           silenceTimeoutSeconds: 30, // Colgar si 30 segundos de silencio
-          responseDelaySeconds: 0.4, // Responder rápido (400ms)
-          interruptionThreshold: 100 // Permitir interrupciones naturales
+          responseDelaySeconds: 0.4 // Responder rápido (400ms)
         }
         
         // NOTA: Las tools/functions deben configurarse en el Assistant creado en Vapi Dashboard
