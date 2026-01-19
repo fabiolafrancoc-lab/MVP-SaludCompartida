@@ -5,9 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { CreditCard, Lock, ArrowLeft, CheckCircle } from 'lucide-react';
 import { trackEvent } from '../hooks/useMetaPixel';
 
-// Square Application ID y Location ID
-const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APP_ID || 'sandbox-sq0idb-NKXeieWPwl3DnnkJ3asYcw';
-const SQUARE_LOCATION_ID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || 'LT92PZMMZ3CQ2';
+// Square Application ID y Location ID (from Vercel environment variables)
+const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APP_ID;
+const SQUARE_LOCATION_ID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID;
+
+if (!SQUARE_APP_ID || !SQUARE_LOCATION_ID) {
+  console.error('❌ Square credentials not configured. Set NEXT_PUBLIC_SQUARE_APP_ID and NEXT_PUBLIC_SQUARE_LOCATION_ID in Vercel.');
+}
 
 export default function Pago() {
   const navigate = useNavigate();
@@ -59,7 +63,7 @@ export default function Pago() {
         // Cargar el script de Square
         if (!window.Square) {
           const script = document.createElement('script');
-          script.src = 'https://sandbox.web.squarecdn.com/v1/square.js';
+          script.src = 'https://web.squarecdn.com/v1/square.js';
           script.async = false; // Cambiar a false para carga sincrónica
           script.onload = () => {
             console.log('✅ Script de Square cargado');

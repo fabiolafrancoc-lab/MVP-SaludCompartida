@@ -7,8 +7,16 @@ export default async function handler(req, res) {
   }
 
   const { sourceId, amount, currency, description } = req.body;
-  const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN || 'EAAAlwfQWzG7D77hEzn9EMZ82cEM_J86txrAAZYuKycqipeq6xkGremv_XAgEFXk';
-  const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID || 'LT92PZMMZ3CQ2';
+  const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN;
+  const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID;
+
+  if (!SQUARE_ACCESS_TOKEN || !SQUARE_LOCATION_ID) {
+    console.error('❌ Square credentials not configured');
+    return res.status(500).json({
+      success: false,
+      error: 'Payment system not configured'
+    });
+  }
 
   if (!sourceId || !amount) {
     return res.status(400).json({ 
@@ -20,8 +28,8 @@ export default async function handler(req, res) {
   try {
     console.log('💳 Llamando a Square API directamente...');
     
-    // Llamar a Square REST API directamente
-    const response = await fetch('https://connect.squareupsandbox.com/v2/payments', {
+    // Llamar a Square REST API directamente (Production)
+    const response = await fetch('https://connect.squareup.com/v2/payments', {
       method: 'POST',
       headers: {
         'Square-Version': '2024-12-18',
