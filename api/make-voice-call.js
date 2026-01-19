@@ -142,9 +142,7 @@ export default async function handler(req, res) {
             optimizeStreamingLatency: 4,  // Máxima velocidad (4 = más rápido)
             // CRÍTICO: Usar modelo multilingüe de ElevenLabs
             model: 'eleven_turbo_v2',  // Turbo = mucho más rápido
-            language: 'es',  // Español (usa acento de la región del speaker)
-            // API Key para acceder a voces privadas de tu Collection
-            apiKey: process.env.ELEVENLABS_API_KEY
+            language: 'es'  // Español - usa las voces mexicanas de la Collection
           },
           
           // Modelo de lenguaje
