@@ -81,6 +81,10 @@ export default async function handler(req, res) {
       agentId,         // ID del agente asignado
       callReason,      // "welcome", "follow-up", "retention", etc.
       userName,        // Nombre del usuario
+      userEmail,       // Email del usuario (opcional)
+      userProfile,     // 'adulto_mayor' o 'madre_hijos'
+      callNumber,      // Número de llamada en secuencia (1, 2, 3...)
+      previousTopics,  // Array de temas mencionados en llamadas anteriores
       userContext = {} // Info adicional del usuario
     } = req.body;
 
@@ -132,6 +136,18 @@ export default async function handler(req, res) {
         assistant: {
           name: agentVoice.name,
           
+          // Metadata para el webhook (se guarda en call_transcripts)
+          metadata: {
+            agentId: agentId,
+            callReason: callReason,
+            userName: userName,
+            userEmail: userEmail,
+            userProfile: userProfile,  // 'adulto_mayor' o 'madre_hijos'
+            callNumber: callNumber || 1,  // Número de llamada en secuencia
+            previousTopics: previousTopics || [],  // Temas de llamadas anteriores
+            timestamp: new Date().toISOString()
+          },
+          
           // Voz (ultra-realista con acento mexicano)
           voice: {
             provider: '11labs',
@@ -176,6 +192,9 @@ export default async function handler(req, res) {
           
           // Primera frase al contestar
           firstMessage: getFirstMessage(agentVoice, callReason, userName),
+          
+          // ✅ HABILITAR GRABACIÓN DE LLAMADAS
+          recordingEnabled: true,
           
           // Configuración avanzada para conversación fluida
           endCallPhrases: ['adiós', 'hasta luego', 'gracias', 'bye', 'cuelgo'],
