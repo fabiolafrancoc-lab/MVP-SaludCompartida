@@ -82,6 +82,7 @@ export default async function handler(req, res) {
       callReason,      // "welcome", "follow-up", "retention", etc.
       userName,        // Nombre del usuario
       userEmail,       // Email del usuario (opcional)
+      accessCode,      // Código de acceso del usuario en user_accounts
       userProfile,     // 'adulto_mayor' o 'madre_hijos'
       callNumber,      // Número de llamada en secuencia (1, 2, 3...)
       previousTopics,  // Array de temas mencionados en llamadas anteriores
@@ -142,8 +143,9 @@ export default async function handler(req, res) {
             callReason: callReason,
             userName: userName,
             userEmail: userEmail,
-            userProfile: userProfile,  // 'adulto_mayor' o 'madre_hijos'
-            callNumber: callNumber || 1,  // Número de llamada en secuencia
+            accessCode: accessCode,        // Código de acceso en user_accounts
+            userProfile: userProfile,      // 'adulto_mayor' o 'madre_hijos'
+            callNumber: callNumber || 1,   // Número de llamada en secuencia
             previousTopics: previousTopics || [],  // Temas de llamadas anteriores
             timestamp: new Date().toISOString()
           },

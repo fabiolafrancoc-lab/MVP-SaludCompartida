@@ -119,6 +119,7 @@ async function handleCallEnd(event) {
     const phoneNumber = call.customer?.number || 'unknown';
     const userName = call.metadata?.userName || call.customer?.name || null;
     const userEmail = call.metadata?.userEmail || null;
+    const accessCode = call.metadata?.accessCode || null; // Código de acceso del usuario
     const agentId = call.metadata?.agentId || call.assistantId || 'agent_001';
     const callReason = call.metadata?.callReason || 'general';
     const userProfile = call.metadata?.userProfile || null; // 'adulto_mayor' o 'madre_hijos'
@@ -130,6 +131,7 @@ async function handleCallEnd(event) {
       .from('call_transcripts')
       .insert({
         call_id: call.id,
+        access_code: accessCode,
         phone_number: phoneNumber,
         user_name: userName,
         user_email: userEmail,
