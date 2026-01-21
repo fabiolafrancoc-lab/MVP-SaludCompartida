@@ -87,6 +87,12 @@
     <p class="subtitle">Prueba de llamada con tu agente de IA</p>
     
     <input 
+      type="text" 
+      id="name" 
+      placeholder="Tu nombre (ej: María García)"
+    />
+    
+    <input 
       type="tel" 
       id="phone" 
       placeholder="+13055551234 o +525512345678"
@@ -101,18 +107,25 @@
     
     <div class="instructions">
       <strong>📋 Instrucciones:</strong><br><br>
-      1. Ingresa tu número con código de país<br>
-      2. Formato: +1 (USA) o +52 (México)<br>
-      3. Ejemplo: +13055551234<br>
-      4. Lupita te llamará en ~5 segundos
+      1. Ingresa tu nombre completo<br>
+      2. Ingresa tu número con código de país<br>
+      3. Formato: +1 (USA) o +52 (México)<br>
+      4. Ejemplo: +13055551234<br>
+      5. Lupita te llamará en ~5 segundos
     </div>
   </div>
 
   <script>
     async function callLupita() {
+      const name = document.getElementById('name').value;
       const phone = document.getElementById('phone').value;
       const btn = document.getElementById('callBtn');
       const result = document.getElementById('result');
+      
+      if (!name || name.trim().length < 2) {
+        showResult('error', '❌ Ingresa tu nombre');
+        return;
+      }
       
       if (!phone || phone.length < 10) {
         showResult('error', '❌ Ingresa un número válido');
@@ -129,13 +142,16 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ phoneNumber: phone })
+          body: JSON.stringify({ 
+            phoneNumber: phone,
+            userName: name
+          })
         });
         
         const data = await response.json();
         
         if (response.ok) {
-          showResult('success', `✅ ${data.message}<br><small>Call ID: ${data.callId}</small>`);
+          showResult('success', `✅ ${data.message}<br><small>Lupita dirá: "Hola, ¿hablo con ${name}?"</small><br><small>Call ID: ${data.callId}</small>`);
         } else {
           showResult('error', `❌ Error: ${data.error}<br><small>${data.details || ''}</small>`);
         }
