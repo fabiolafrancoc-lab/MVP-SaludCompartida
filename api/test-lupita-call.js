@@ -28,9 +28,10 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'VAPI_API_KEY no configurado en Vercel' });
   }
 
-  // Determinar saludo según hora (zona horaria de México/USA)
+  // Determinar saludo según hora (zona horaria de México -6 UTC / USA Central -6 UTC)
   const now = new Date();
-  const hour = now.getHours(); // Hora en UTC, ajustar si es necesario
+  const mexicoTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
+  const hour = mexicoTime.getHours();
   const greeting = hour >= 12 && hour < 20 ? 'buenas tardes' : 'buenos días';
 
   try {
