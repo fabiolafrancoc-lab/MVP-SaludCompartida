@@ -55,6 +55,34 @@ export default async function handler(req, res) {
             ? `Hola, ¿hablo con ${userName}? Le habla Lupita de Salud Compartida. ¿Tiene un minutito para platicar?`
             : `Hola, le habla Lupita de Salud Compartida. ¿Tiene un minutito para platicar?`,
           
+          // CRÍTICO: Sin ruido de fondo (eliminar ambiente de call center)
+          backgroundSound: 'off',
+          
+          // Mejorar detección de cuando el usuario habla
+          voice: {
+            provider: '11labs',
+            voiceId: 'z1ngDYs2H24Xsd8ts3az',
+            model: 'eleven_turbo_v2',
+            stability: 0.5,
+            similarityBoost: 0.75,
+            style: 0.3,
+            optimizeStreamingLatency: 4,
+            language: 'es'
+          },
+          
+          // Configuración para que ESCUCHE mejor
+          transcriber: {
+            provider: 'deepgram',
+            model: 'nova-2',
+            language: 'es',
+            keywords: ['sí', 'no', 'ajá', 'ok', 'bueno', 'hola']  // Palabras clave mexicanas
+          },
+          
+          // CRÍTICO: Detección de interrupciones (que pare de hablar cuando hablas)
+          interruptionThreshold: 50,  // Más sensible = la interrumpes más fácil (50-200, default 100)
+          responseDelaySeconds: 1.2,  // Espera 1.2 segundos después de que termines de hablar
+          silenceTimeoutSeconds: 3,   // Si hay silencio 3 segundos, pregunta si sigues ahí
+          
           variableValues: {
             userName: userName || 'Usuario',
             callNumber: '1',
