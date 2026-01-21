@@ -880,7 +880,7 @@ Equipo SaludCompartida`,
                               clearError();
                             }}
                             placeholder="305 123 4567"
-                            maxLength="14"
+                            maxLength="17"
                             className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all text-gray-900 placeholder-gray-400 bg-white ${
                               missingFields.includes('migrantPhone') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cyan-500'
                             }`}
@@ -1050,7 +1050,7 @@ Equipo SaludCompartida`,
                               clearError();
                             }}
                             placeholder="55 1234 5678"
-                            maxLength="14"
+                            maxLength="17"
                             className={`w-full pl-14 pr-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-pink-500 transition-all text-gray-900 placeholder-gray-400 bg-white ${
                               missingFields.includes('familyPhone') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-pink-500'
                             }`}

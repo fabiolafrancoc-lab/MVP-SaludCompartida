@@ -464,10 +464,10 @@ export default function Account() {
                 </svg>
               </label>
               <div className="flex">
-                <div className={`flex items-center border-2 border-r-0 rounded-l-xl px-4 ${
+                <div className={`flex items-center justify-center border-2 border-r-0 rounded-l-xl px-3 ${
                   errors.phone ? 'border-red-500 bg-red-50' : 'bg-gray-100 border-gray-200'
                 }`}>
-                  <span className="text-gray-700 font-semibold">{countryCode}</span>
+                  <span className="text-2xl">{countryCode === '+1' ? '🇺🇸' : '🇲🇽'}</span>
                 </div>
                 <input
                   type="tel"
@@ -481,8 +481,8 @@ export default function Account() {
                         ? 'border-gray-200 focus:border-cyan-500' 
                         : 'border-gray-200 bg-gray-50 text-gray-500 focus:border-cyan-500'
                   }`}
-                  placeholder="555 123 4567"
-                  maxLength="12"
+                  placeholder="+1 305 555 1234 o +52 55 1234 5678"
+                  maxLength="17"
                 />
               </div>
               {errors.phone && (
