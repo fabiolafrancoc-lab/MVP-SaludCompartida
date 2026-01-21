@@ -83,10 +83,9 @@ export default async function handler(req, res) {
             keywords: ['sí', 'no', 'ajá', 'ok', 'bueno', 'hola']  // Palabras clave mexicanas
           },
           
-          // CRÍTICO: Detección de interrupciones (que pare de hablar cuando hablas)
-          interruptionThreshold: 50,  // Más sensible = la interrumpes más fácil (50-200, default 100)
+          // CRÍTICO: Configuración de respuesta y silencios (VAPI requiere mínimo 10s)
           responseDelaySeconds: 1.2,  // Espera 1.2 segundos después de que termines de hablar
-          silenceTimeoutSeconds: 3,   // Si hay silencio 3 segundos, pregunta si sigues ahí
+          silenceTimeoutSeconds: 10,  // Si hay silencio 10 segundos, considera que terminó (mínimo requerido)
           
           variableValues: {
             userName: userName || 'Usuario',
