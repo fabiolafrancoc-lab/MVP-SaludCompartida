@@ -116,6 +116,12 @@
   </div>
 
   <script>
+    // Determinar saludo según hora
+    function getGreeting() {
+      const hour = new Date().getHours();
+      return hour >= 12 && hour < 20 ? 'buenas tardes' : 'buenos días';
+    }
+    
     async function callLupita() {
       const name = document.getElementById('name').value;
       const phone = document.getElementById('phone').value;
@@ -131,6 +137,9 @@
         showResult('error', '❌ Ingresa un número válido');
         return;
       }
+      
+      const greeting = getGreeting();
+      const greetingCap = greeting.charAt(0).toUpperCase() + greeting.slice(1);
       
       btn.disabled = true;
       btn.textContent = '📞 Llamando...';
@@ -151,7 +160,7 @@
         const data = await response.json();
         
         if (response.ok) {
-          showResult('success', `✅ ${data.message}<br><small>Lupita dirá: "Hola, ¿hablo con ${name}?"</small><br><small>Call ID: ${data.callId}</small>`);
+          showResult('success', `✅ ${data.message}<br><small>Lupita dirá: "${greetingCap}, soy Lupita y estoy llamando a ${name}..."</small><br><small>Call ID: ${data.callId}</small>`);
         } else {
           showResult('error', `❌ Error: ${data.error}<br><small>${data.details || ''}</small>`);
         }

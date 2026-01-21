@@ -28,6 +28,11 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'VAPI_API_KEY no configurado en Vercel' });
   }
 
+  // Determinar saludo según hora (zona horaria de México/USA)
+  const now = new Date();
+  const hour = now.getHours(); // Hora en UTC, ajustar si es necesario
+  const greeting = hour >= 12 && hour < 20 ? 'buenas tardes' : 'buenos días';
+
   try {
     console.log(`📞 Llamando a ${phoneNumber} con Lupita...`);
 
@@ -52,8 +57,8 @@ export default async function handler(req, res) {
         // Override del primer mensaje con el nombre del usuario
         assistantOverrides: {
           firstMessage: userName 
-            ? `Hola, ¿hablo con ${userName}? Le habla Lupita de Salud Compartida. ¿Tiene un minutito para platicar?`
-            : `Hola, le habla Lupita de Salud Compartida. ¿Tiene un minutito para platicar?`,
+            ? `${greeting.charAt(0).toUpperCase() + greeting.slice(1)}, soy Lupita y estoy llamando a ${userName} para darle la bienvenida a nuestro programa. ¿Podré hablar con ${userName}?`
+            : `${greeting.charAt(0).toUpperCase() + greeting.slice(1)}, le habla Lupita de Salud Compartida. ¿Tiene un minutito para platicar?`,
           
           // CRÍTICO: Sin ruido de fondo (eliminar ambiente de call center)
           backgroundSound: 'off',
