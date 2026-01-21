@@ -404,18 +404,23 @@ function getCallObjective(reason) {
  * Primera frase al contestar el teléfono (PROFESIONAL Y FORMAL)
  */
 function getFirstMessage(agent, reason, userName) {
+  // Determinar saludo según hora del día
+  const now = new Date();
+  const hour = now.getHours();
+  const greeting = hour >= 12 && hour < 20 ? 'buenas tardes' : 'buenos días';
+  const greetingCapitalized = greeting.charAt(0).toUpperCase() + greeting.slice(1);
   
   if (reason === 'welcome') {
-    return `Hola, ¿hablo con ${userName}? Le habla Lupita de Salud Compartida. Le llamo porque recibió nuestro servicio de salud. ¿Tiene un minutito para que le explique?`;
+    return `${greetingCapitalized}, soy Lupita y estoy llamando a ${userName} para darle la bienvenida a nuestro programa. ¿Podré hablar con ${userName}?`;
   }
   
   if (reason === 'follow_up') {
-    return `Hola ${userName}, le habla Lupita de Salud Compartida. Le llamo para saber cómo le ha ido con el servicio. ¿Tiene un momento?`;
+    return `${greetingCapitalized} ${userName}, le habla Lupita de Salud Compartida. Le llamo para saber cómo le ha ido con el servicio. ¿Tiene un momento?`;
   }
   
   if (reason === 'retention') {
-    return `Hola ${userName}, le habla Lupita de Salud Compartida. Vi que aún no ha usado el servicio y quería saber si tiene alguna duda o si le puedo ayudar en algo. ¿Tiene un momento?`;
+    return `${greetingCapitalized} ${userName}, le habla Lupita de Salud Compartida. Vi que aún no ha usado el servicio y quería saber si tiene alguna duda o si le puedo ayudar en algo. ¿Tiene un momento?`;
   }
   
-  return `Hola, ¿hablo con ${userName}? Le habla Lupita de Salud Compartida. ¿Tiene un momento para hablar?`;
+  return `${greetingCapitalized}, soy Lupita y estoy llamando a ${userName} para darle la bienvenida a Salud Compartida. ¿Podré hablar con ${userName}?`;
 }
