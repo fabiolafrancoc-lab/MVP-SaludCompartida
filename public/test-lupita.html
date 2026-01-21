@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Lupita - Llamada de Prueba</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+    }
+    input {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.02);
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      display: none;
+    }
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+    }
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 2px solid #f5c6cb;
+    }
+    .instructions {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📞 Test Lupita</h1>
+    <p class="subtitle">Prueba de llamada con tu agente de IA</p>
+    
+    <input 
+      type="tel" 
+      id="phone" 
+      placeholder="+13055551234 o +525512345678"
+      value="+1"
+    />
+    
+    <button onclick="callLupita()" id="callBtn">
+      🎙️ Que Lupita me llame
+    </button>
+    
+    <div id="result" class="result"></div>
+    
+    <div class="instructions">
+      <strong>📋 Instrucciones:</strong><br><br>
+      1. Ingresa tu número con código de país<br>
+      2. Formato: +1 (USA) o +52 (México)<br>
+      3. Ejemplo: +13055551234<br>
+      4. Lupita te llamará en ~5 segundos
+    </div>
+  </div>
+
+  <script>
+    async function callLupita() {
+      const phone = document.getElementById('phone').value;
+      const btn = document.getElementById('callBtn');
+      const result = document.getElementById('result');
+      
+      if (!phone || phone.length < 10) {
+        showResult('error', '❌ Ingresa un número válido');
+        return;
+      }
+      
+      btn.disabled = true;
+      btn.textContent = '📞 Llamando...';
+      result.style.display = 'none';
+      
+      try {
+        const response = await fetch('/api/test-lupita-call', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ phoneNumber: phone })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          showResult('success', `✅ ${data.message}<br><small>Call ID: ${data.callId}</small>`);
+        } else {
+          showResult('error', `❌ Error: ${data.error}<br><small>${data.details || ''}</small>`);
+        }
+      } catch (error) {
+        showResult('error', `❌ Error de conexión: ${error.message}`);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🎙️ Que Lupita me llame';
+      }
+    }
+    
+    function showResult(type, message) {
+      const result = document.getElementById('result');
+      result.className = `result ${type}`;
+      result.innerHTML = message;
+      result.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
