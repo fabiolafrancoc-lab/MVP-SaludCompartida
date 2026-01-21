@@ -32,7 +32,15 @@ export default async function handler(req, res) {
   const now = new Date();
   const mexicoTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
   const hour = mexicoTime.getHours();
-  const greeting = hour >= 12 && hour < 20 ? 'buenas tardes' : 'buenos días';
+  
+  let greeting;
+  if (hour >= 6 && hour < 12) {
+    greeting = 'buenos días';
+  } else if (hour >= 12 && hour < 20) {
+    greeting = 'buenas tardes';
+  } else {
+    greeting = 'buenas noches';
+  }
 
   try {
     console.log(`📞 Llamando a ${phoneNumber} con Lupita...`);
