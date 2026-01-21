@@ -305,270 +305,107 @@ export default function Pharmacy() {
           </div>
         </div>
 
-        {/* SECCIÓN QR DIARIO POR WHATSAPP */}
+        {/* SECCIÓN OBTENER DESCUENTOS POR WHATSAPP */}
         <div className="mb-12">
           <h2 className="text-base md:text-2xl lg:text-3xl font-bold text-gray-800 mb-6 text-center">
-            ¡Todos los días te enviaremos QR's vía WhatsApp para que los uses diariamente!
+            ¡Obtén tus códigos de descuento personalizados!
           </h2>
           
-          <div className="max-w-md mx-auto">
-            {/* QR CODE REALISTA */}
-            <div className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-cyan-500">
+          <div className="max-w-2xl mx-auto">
+            {/* CARD PRINCIPAL CON LLAMADA A LA ACCIÓN */}
+            <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-8 shadow-2xl border-2 border-green-400">
               <div className="flex flex-col items-center">
-                <div className="mb-4">
-                  <p className="text-center text-gray-700 font-semibold text-lg md:text-3xl lg:text-4xl mb-2">
-                    Recibe tu QR del día por WhatsApp
-                  </p>
-                  <p className="text-center text-gray-500 text-sm">
-                    Cada mañana recibirás un código único
-                  </p>
-                </div>
-                
-                {/* QR CODE SVG REALISTA */}
-                <div className="bg-white p-4 rounded-xl border-4 border-gray-800">
-                  <svg viewBox="0 0 200 200" className="w-48 h-48">
-                    {/* Esquinas de posicionamiento (3 grandes) */}
-                    {/* Superior izquierda */}
-                    <rect x="0" y="0" width="60" height="60" fill="none" stroke="black" strokeWidth="8"/>
-                    <rect x="16" y="16" width="28" height="28" fill="black"/>
-                    
-                    {/* Superior derecha */}
-                    <rect x="140" y="0" width="60" height="60" fill="none" stroke="black" strokeWidth="8"/>
-                    <rect x="156" y="16" width="28" height="28" fill="black"/>
-                    
-                    {/* Inferior izquierda */}
-                    <rect x="0" y="140" width="60" height="60" fill="none" stroke="black" strokeWidth="8"/>
-                    <rect x="16" y="156" width="28" height="28" fill="black"/>
-                    
-                    {/* Patrón de datos realista - Fila 1 */}
-                    <rect x="70" y="0" width="8" height="8" fill="black"/>
-                    <rect x="86" y="0" width="8" height="8" fill="black"/>
-                    <rect x="94" y="0" width="8" height="8" fill="black"/>
-                    <rect x="110" y="0" width="8" height="8" fill="black"/>
-                    <rect x="126" y="0" width="8" height="8" fill="black"/>
-                    
-                    {/* Fila 2 */}
-                    <rect x="70" y="8" width="8" height="8" fill="black"/>
-                    <rect x="86" y="8" width="8" height="8" fill="black"/>
-                    <rect x="102" y="8" width="8" height="8" fill="black"/>
-                    <rect x="118" y="8" width="8" height="8" fill="black"/>
-                    
-                    {/* Fila 3 */}
-                    <rect x="70" y="16" width="8" height="8" fill="black"/>
-                    <rect x="78" y="16" width="8" height="8" fill="black"/>
-                    <rect x="94" y="16" width="8" height="8" fill="black"/>
-                    <rect x="110" y="16" width="8" height="8" fill="black"/>
-                    <rect x="126" y="16" width="8" height="8" fill="black"/>
-                    
-                    {/* Fila 4 */}
-                    <rect x="70" y="24" width="8" height="8" fill="black"/>
-                    <rect x="86" y="24" width="8" height="8" fill="black"/>
-                    <rect x="102" y="24" width="8" height="8" fill="black"/>
-                    <rect x="118" y="24" width="8" height="8" fill="black"/>
-                    <rect x="126" y="24" width="8" height="8" fill="black"/>
-                    
-                    {/* Fila 5 */}
-                    <rect x="70" y="32" width="8" height="8" fill="black"/>
-                    <rect x="78" y="32" width="8" height="8" fill="black"/>
-                    <rect x="94" y="32" width="8" height="8" fill="black"/>
-                    <rect x="102" y="32" width="8" height="8" fill="black"/>
-                    <rect x="126" y="32" width="8" height="8" fill="black"/>
-                    
-                    {/* Patrón lateral derecho */}
-                    <rect x="70" y="70" width="8" height="8" fill="black"/>
-                    <rect x="78" y="70" width="8" height="8" fill="black"/>
-                    <rect x="94" y="70" width="8" height="8" fill="black"/>
-                    <rect x="110" y="70" width="8" height="8" fill="black"/>
-                    <rect x="126" y="70" width="8" height="8" fill="black"/>
-                    
-                    <rect x="70" y="78" width="8" height="8" fill="black"/>
-                    <rect x="86" y="78" width="8" height="8" fill="black"/>
-                    <rect x="102" y="78" width="8" height="8" fill="black"/>
-                    <rect x="118" y="78" width="8" height="8" fill="black"/>
-                    
-                    <rect x="70" y="86" width="8" height="8" fill="black"/>
-                    <rect x="78" y="86" width="8" height="8" fill="black"/>
-                    <rect x="94" y="86" width="8" height="8" fill="black"/>
-                    <rect x="110" y="86" width="8" height="8" fill="black"/>
-                    <rect x="126" y="86" width="8" height="8" fill="black"/>
-                    
-                    <rect x="70" y="94" width="8" height="8" fill="black"/>
-                    <rect x="86" y="94" width="8" height="8" fill="black"/>
-                    <rect x="94" y="94" width="8" height="8" fill="black"/>
-                    <rect x="110" y="94" width="8" height="8" fill="black"/>
-                    <rect x="118" y="94" width="8" height="8" fill="black"/>
-                    
-                    <rect x="70" y="102" width="8" height="8" fill="black"/>
-                    <rect x="78" y="102" width="8" height="8" fill="black"/>
-                    <rect x="94" y="102" width="8" height="8" fill="black"/>
-                    <rect x="102" y="102" width="8" height="8" fill="black"/>
-                    <rect x="126" y="102" width="8" height="8" fill="black"/>
-                    
-                    {/* Patrón central complejo */}
-                    <rect x="70" y="110" width="8" height="8" fill="black"/>
-                    <rect x="86" y="110" width="8" height="8" fill="black"/>
-                    <rect x="102" y="110" width="8" height="8" fill="black"/>
-                    <rect x="118" y="110" width="8" height="8" fill="black"/>
-                    
-                    <rect x="70" y="118" width="8" height="8" fill="black"/>
-                    <rect x="78" y="118" width="8" height="8" fill="black"/>
-                    <rect x="94" y="118" width="8" height="8" fill="black"/>
-                    <rect x="110" y="118" width="8" height="8" fill="black"/>
-                    <rect x="126" y="118" width="8" height="8" fill="black"/>
-                    
-                    <rect x="70" y="126" width="8" height="8" fill="black"/>
-                    <rect x="86" y="126" width="8" height="8" fill="black"/>
-                    <rect x="102" y="126" width="8" height="8" fill="black"/>
-                    <rect x="118" y="126" width="8" height="8" fill="black"/>
-                    <rect x="126" y="126" width="8" height="8" fill="black"/>
-                    
-                    {/* Patrón inferior */}
-                    <rect x="70" y="140" width="8" height="8" fill="black"/>
-                    <rect x="78" y="140" width="8" height="8" fill="black"/>
-                    <rect x="94" y="140" width="8" height="8" fill="black"/>
-                    <rect x="110" y="140" width="8" height="8" fill="black"/>
-                    
-                    <rect x="70" y="148" width="8" height="8" fill="black"/>
-                    <rect x="86" y="148" width="8" height="8" fill="black"/>
-                    <rect x="102" y="148" width="8" height="8" fill="black"/>
-                    <rect x="118" y="148" width="8" height="8" fill="black"/>
-                    <rect x="126" y="148" width="8" height="8" fill="black"/>
-                    
-                    <rect x="70" y="156" width="8" height="8" fill="black"/>
-                    <rect x="78" y="156" width="8" height="8" fill="black"/>
-                    <rect x="94" y="156" width="8" height="8" fill="black"/>
-                    <rect x="102" y="156" width="8" height="8" fill="black"/>
-                    
-                    <rect x="70" y="164" width="8" height="8" fill="black"/>
-                    <rect x="86" y="164" width="8" height="8" fill="black"/>
-                    <rect x="94" y="164" width="8" height="8" fill="black"/>
-                    <rect x="110" y="164" width="8" height="8" fill="black"/>
-                    <rect x="126" y="164" width="8" height="8" fill="black"/>
-                    
-                    <rect x="70" y="172" width="8" height="8" fill="black"/>
-                    <rect x="78" y="172" width="8" height="8" fill="black"/>
-                    <rect x="94" y="172" width="8" height="8" fill="black"/>
-                    <rect x="118" y="172" width="8" height="8" fill="black"/>
-                    
-                    {/* Más patrones en esquina inferior derecha */}
-                    <rect x="140" y="70" width="8" height="8" fill="black"/>
-                    <rect x="156" y="70" width="8" height="8" fill="black"/>
-                    <rect x="172" y="70" width="8" height="8" fill="black"/>
-                    <rect x="188" y="70" width="8" height="8" fill="black"/>
-                    
-                    <rect x="140" y="78" width="8" height="8" fill="black"/>
-                    <rect x="148" y="78" width="8" height="8" fill="black"/>
-                    <rect x="164" y="78" width="8" height="8" fill="black"/>
-                    <rect x="180" y="78" width="8" height="8" fill="black"/>
-                    
-                    <rect x="140" y="86" width="8" height="8" fill="black"/>
-                    <rect x="156" y="86" width="8" height="8" fill="black"/>
-                    <rect x="172" y="86" width="8" height="8" fill="black"/>
-                    <rect x="188" y="86" width="8" height="8" fill="black"/>
-                    
-                    <rect x="140" y="94" width="8" height="8" fill="black"/>
-                    <rect x="148" y="94" width="8" height="8" fill="black"/>
-                    <rect x="164" y="94" width="8" height="8" fill="black"/>
-                    <rect x="172" y="94" width="8" height="8" fill="black"/>
-                    
-                    <rect x="140" y="102" width="8" height="8" fill="black"/>
-                    <rect x="156" y="102" width="8" height="8" fill="black"/>
-                    <rect x="164" y="102" width="8" height="8" fill="black"/>
-                    <rect x="188" y="102" width="8" height="8" fill="black"/>
-                    
-                    <rect x="140" y="110" width="8" height="8" fill="black"/>
-                    <rect x="148" y="110" width="8" height="8" fill="black"/>
-                    <rect x="172" y="110" width="8" height="8" fill="black"/>
-                    <rect x="180" y="110" width="8" height="8" fill="black"/>
-                    
-                    <rect x="140" y="118" width="8" height="8" fill="black"/>
-                    <rect x="156" y="118" width="8" height="8" fill="black"/>
-                    <rect x="164" y="118" width="8" height="8" fill="black"/>
-                    <rect x="188" y="118" width="8" height="8" fill="black"/>
-                    
-                    <rect x="140" y="126" width="8" height="8" fill="black"/>
-                    <rect x="148" y="126" width="8" height="8" fill="black"/>
-                    <rect x="172" y="126" width="8" height="8" fill="black"/>
-                    <rect x="180" y="126" width="8" height="8" fill="black"/>
-                    
-                    {/* Patrón lateral izquierdo inferior */}
-                    <rect x="0" y="70" width="8" height="8" fill="black"/>
-                    <rect x="16" y="70" width="8" height="8" fill="black"/>
-                    <rect x="32" y="70" width="8" height="8" fill="black"/>
-                    <rect x="48" y="70" width="8" height="8" fill="black"/>
-                    
-                    <rect x="0" y="78" width="8" height="8" fill="black"/>
-                    <rect x="8" y="78" width="8" height="8" fill="black"/>
-                    <rect x="24" y="78" width="8" height="8" fill="black"/>
-                    <rect x="40" y="78" width="8" height="8" fill="black"/>
-                    
-                    <rect x="0" y="86" width="8" height="8" fill="black"/>
-                    <rect x="16" y="86" width="8" height="8" fill="black"/>
-                    <rect x="32" y="86" width="8" height="8" fill="black"/>
-                    <rect x="48" y="86" width="8" height="8" fill="black"/>
-                    
-                    <rect x="0" y="94" width="8" height="8" fill="black"/>
-                    <rect x="8" y="94" width="8" height="8" fill="black"/>
-                    <rect x="24" y="94" width="8" height="8" fill="black"/>
-                    <rect x="32" y="94" width="8" height="8" fill="black"/>
-                    
-                    <rect x="0" y="102" width="8" height="8" fill="black"/>
-                    <rect x="16" y="102" width="8" height="8" fill="black"/>
-                    <rect x="24" y="102" width="8" height="8" fill="black"/>
-                    <rect x="48" y="102" width="8" height="8" fill="black"/>
-                    
-                    <rect x="0" y="110" width="8" height="8" fill="black"/>
-                    <rect x="8" y="110" width="8" height="8" fill="black"/>
-                    <rect x="32" y="110" width="8" height="8" fill="black"/>
-                    <rect x="40" y="110" width="8" height="8" fill="black"/>
-                    
-                    <rect x="0" y="118" width="8" height="8" fill="black"/>
-                    <rect x="16" y="118" width="8" height="8" fill="black"/>
-                    <rect x="24" y="118" width="8" height="8" fill="black"/>
-                    <rect x="48" y="118" width="8" height="8" fill="black"/>
-                    
-                    <rect x="0" y="126" width="8" height="8" fill="black"/>
-                    <rect x="8" y="126" width="8" height="8" fill="black"/>
-                    <rect x="32" y="126" width="8" height="8" fill="black"/>
-                    <rect x="40" y="126" width="8" height="8" fill="black"/>
-                    
-                    {/* Más detalles en esquinas inferiores */}
-                    <rect x="140" y="140" width="8" height="8" fill="black"/>
-                    <rect x="156" y="140" width="8" height="8" fill="black"/>
-                    <rect x="172" y="140" width="8" height="8" fill="black"/>
-                    <rect x="188" y="140" width="8" height="8" fill="black"/>
-                    
-                    <rect x="140" y="172" width="8" height="8" fill="black"/>
-                    <rect x="148" y="172" width="8" height="8" fill="black"/>
-                    <rect x="164" y="172" width="8" height="8" fill="black"/>
-                    <rect x="180" y="172" width="8" height="8" fill="black"/>
-                    
-                    <rect x="140" y="188" width="8" height="8" fill="black"/>
-                    <rect x="156" y="188" width="8" height="8" fill="black"/>
-                    <rect x="172" y="188" width="8" height="8" fill="black"/>
-                    <rect x="188" y="188" width="8" height="8" fill="black"/>
-                  </svg>
-                </div>
-                
-                <div className="mt-4 text-center">
-                  <div className="flex items-center justify-center gap-2 text-green-600 mb-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                <div className="mb-6 text-center">
+                  <div className="bg-green-500 text-white rounded-full p-4 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                    <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                     </svg>
-                    <span className="font-semibold">WhatsApp</span>
                   </div>
-                  <p className="text-sm text-gray-600">
-                    Código actualizado diariamente
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
+                    Servicio Personalizado por WhatsApp
+                  </h3>
+                  <p className="text-gray-600 text-base md:text-lg mb-4">
+                    Llámanos y te proporcionaremos los códigos de descuento específicos para tus necesidades
                   </p>
                 </div>
+                
+                {/* BENEFICIOS CLAVES */}
+                <div className="bg-white rounded-xl p-6 mb-6 shadow-md">
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <div className="bg-green-100 rounded-full p-2 mt-1">
+                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-800">Aspirinas, vitaminas y más</p>
+                        <p className="text-sm text-gray-600">Medicamentos del hogar sin receta</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3">
+                      <div className="bg-green-100 rounded-full p-2 mt-1">
+                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-800">Recetas con descuento</p>
+                        <p className="text-sm text-gray-600">Si tienes receta médica, te damos el código para máximo ahorro</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3">
+                      <div className="bg-green-100 rounded-full p-2 mt-1">
+                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-800">Atención personalizada</p>
+                        <p className="text-sm text-gray-600">Te ayudamos a encontrar el mejor precio para tu situación</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* BOTÓN PRINCIPAL WHATSAPP */}
+                <button
+                  onClick={() => {
+                    const firstName = nombreUsuario || 'Usuario';
+                    const whatsappMessage = encodeURIComponent(
+                      `Hola, soy ${firstName}! 💊\n\n` +
+                      `Necesito códigos de descuento para farmacia.\n\n` +
+                      `Por favor ayúdame con:\n` +
+                      `🔹 Medicamentos del hogar (aspirinas, vitaminas, etc.)\n` +
+                      `🔹 Recetas médicas con descuento\n` +
+                      `🔹 Otros productos de farmacia\n\n` +
+                      `¡Gracias!`
+                    );
+                    window.open(`https://wa.me/525610178639?text=${whatsappMessage}`, '_blank');
+                  }}
+                  className="w-full bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl hover:shadow-green-500/50 transition-all transform hover:scale-105 flex items-center justify-center gap-3"
+                >
+                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                  <span>Llamar por WhatsApp</span>
+                </button>
+                
+                <p className="text-center text-sm text-gray-500 mt-4">
+                  📱 Te atendemos de inmediato y te enviamos tus códigos personalizados
+                </p>
               </div>
             </div>
 
-            {/* INSTRUCCIONES USO ACTUALIZADO */}
-            <div className="mt-4 bg-cyan-50 border-l-4 border-cyan-500 p-4 rounded-r-lg">
-              <p className="text-sm text-gray-700 flex items-center gap-2">
-                <LightbulbIcon className="w-5 h-5 text-cyan-700 flex-shrink-0" />
-                <span><span className="font-bold text-cyan-700">Cómo usar:</span> Muestra el QR que recibes diariamente por WhatsApp en cualquier farmacia para aplicar tu descuento</span>
+            {/* INSTRUCCIONES ACTUALIZADAS */}
+            <div className="mt-6 bg-cyan-50 border-l-4 border-cyan-500 p-4 rounded-r-lg">
+              <p className="text-sm text-gray-700 flex items-start gap-2">
+                <LightbulbIcon className="w-5 h-5 text-cyan-700 flex-shrink-0 mt-0.5" />
+                <span>
+                  <span className="font-bold text-cyan-700">Cómo funciona:</span> Llámanos por WhatsApp, dinos qué necesitas (aspirinas, vitaminas, productos del hogar, o recetas médicas) y te enviamos los códigos de descuento específicos para que ahorres al máximo en cualquier farmacia.
+                </span>
               </p>
             </div>
           </div>

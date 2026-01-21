@@ -1,4 +1,4 @@
-# System Prompt para Lupita - V2 (Corregido)
+# System Prompt para Lupita - V3 (Optimizado para Velocidad)
 
 ## Copia este prompt completo en VAPI Dashboard → Lupita → Model → System Prompt:
 
@@ -80,7 +80,7 @@ DEBES RESPONDER ASÍ:
 LUEGO DI:
 "Perfecto, llamaré entonces. Que tenga buen día."
 
-IMPORTANTE: Respuesta corta para evitar delays.
+IMPORTANTE: Respuestas cortas para evitar delays del sistema.
 
 EJEMPLOS DE CONVERSACIONES COMPLETAS:
 
@@ -121,47 +121,81 @@ RECUERDA:
 4. REEMPLAZA todo el texto con el de arriba
 5. Guarda
 
-## Configuraciones adicionales en VAPI Dashboard:
+## Configuraciones VAPI actuales (V3):
 
-### Voice Settings:
+### Model:
+```
+Provider: OpenAI
+Model: gpt-4o
+Temperature: 0.7-0.9
+Max Tokens: 150-250
+```
+
+### Voice:
 ```
 Provider: 11labs
 Voice ID: z1ngDYs2H24Xsd8ts3az
-Model: eleven_turbo_v2
+Model: eleven_turbo_v2_5
+Language: es
 Stability: 0.5
 Similarity Boost: 0.75
-Style: 0.3
-Optimize Streaming Latency: 4
-Language: es
+```
+
+### Transcriber:
+```
+Provider: Deepgram
+Model: Nova-2 General
+Language: Multi
+Confidence Threshold: 0.5
+Background Denoising: OFF
 ```
 
 ### Advanced Settings:
 ```
-Background Sound: OFF (crítico para eliminar ruido de call center)
-Interruption Threshold: 50 (más sensible, se calla más fácil)
-Response Delay: 1.2 seconds (espera a que termines de hablar)
-Silence Timeout: 3 seconds (pregunta si sigues ahí después de 3s de silencio)
-Max Duration: 300 seconds (5 minutos)
-End Call Phrases: ["adiós", "hasta luego", "gracias", "bye", "cuelgo", "ya me voy"]
+Background Sound: OFF
+Silence Timeout: 60 seconds
+Maximum Duration: 600 seconds (10 minutos)
+Idle Timeout: 15 seconds
+Max Idle Messages: 1
 ```
 
-### First Message:
+### Functions:
 ```
-Hola, ¿hablo con {{userName}}? Le habla Lupita de Salud Compartida. ¿Tiene un minutito para platicar?
+Enable End Call Function: OFF (DESACTIVADO)
 ```
 
 ---
 
-## Cambios clave vs versión anterior:
+## Cambios V2 → V3:
 
-❌ **ANTES:** "María, su hijo me pidió que la marcara"
-✅ **AHORA:** "¿Cómo se llama su familiar en México?" (pregunta, no asume)
+✅ **Saludo más corto**: "Buenos días, ¿se encontrará [NOMBRE]?" (eliminado "soy Lupita", "estoy llamando de", "para darle la bienvenida")
 
-❌ **ANTES:** Hablaba sin parar
-✅ **AHORA:** Máximo 2 oraciones, luego ESCUCHA
+✅ **Pregunta de callback simplificada**: "¿A qué hora puedo llamarle? Llamo para darle la bienvenida." (eliminado "Salud Compartida" en segunda mención)
 
-❌ **ANTES:** Ruido de fondo de call center
-✅ **AHORA:** backgroundSound: 'off'
+✅ **Respuesta final ultra-corta**: "Perfecto, llamaré entonces. Que tenga buen día." (eliminado mensaje largo anti-desconfianza)
 
-❌ **ANTES:** No paraba cuando la interrumpían
-✅ **AHORA:** interruptionThreshold: 50 (más sensible)
+✅ **3 opciones de horario**: Buenos días (6am-12pm), Buenas tardes (12pm-8pm), Buenas noches (8pm-6am)
+
+✅ **Optimizado para velocidad**: GPT-4o genera respuestas en 1-1.5 segundos en vez de 2-3 segundos
+
+✅ **Idle Timeout aumentado**: 7.5s → 15s para dar tiempo a GPT
+
+✅ **End Call Function desactivado**: Evita que el sistema cuelgue prematuramente
+
+---
+
+## Próximos pasos:
+
+1. ✅ Copiar prompt V3 a VAPI Dashboard
+2. ⏳ Probar llamada completa (saludo → callback → despedida)
+3. ⏳ Verificar que NO cuelgue prematuramente
+4. ⏳ Confirmar que dice el saludo correcto según hora
+5. ⏳ Validar webhook guardando transcripción en Supabase
+
+---
+
+## Notas de troubleshooting:
+
+- **Problema identificado**: VAPI estaba colgando llamadas mientras GPT-4o generaba respuestas largas
+- **Solución aplicada**: Reducir longitud de todas las respuestas del prompt
+- **Resultado esperado**: Llamadas completas sin cortes prematuros
