@@ -8,12 +8,15 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { phoneNumber } = req.body;
+  const { phoneNumber, userName } = req.body;
 
   if (!phoneNumber) {
     return res.status(400).json({ 
       error: 'Falta el número de teléfono',
-      example: { phoneNumber: '+13055551234' }
+      example: { 
+        phoneNumber: '+13055551234',
+        userName: 'María García'
+      }
     });
   }
 
@@ -46,9 +49,23 @@ export default async function handler(req, res) {
         // Usar el Assistant de Lupita que creaste en VAPI
         assistantId: LUPITA_ASSISTANT_ID,
         
+        // Override del primer mensaje con el nombre del usuario
+        assistantOverrides: {
+          firstMessage: userName 
+            ? `Hola, ¿hablo con ${userName}? Le habla Lupita de Salud Compartida. ¿Tiene un minutito para platicar?`
+            : `Hola, le habla Lupita de Salud Compartida. ¿Tiene un minutito para platicar?`,
+          
+          variableValues: {
+            userName: userName || 'Usuario',
+            callNumber: '1',
+            userProfile: 'test'
+          }
+        },
+        
         // Metadata opcional
         metadata: {
           test: true,
+          userName: userName,
           timestamp: new Date().toISOString()
         }
       })
