@@ -64,11 +64,12 @@ export default function Telemedicine() {
     const whatsappMessage = encodeURIComponent(
       `${greeting}! 🩺\n\n` +
       `Necesito consultar con un doctor.\n\n` +
-      `� Puedes llamarme o déjame un mensaje de voz\n` +
+      `📞 Puedes llamarme o déjame un mensaje de voz\n` +
       `⏱️ Te respondo de inmediato`
     );
     // Número del proveedor de telemedicina: +52 56 1017 8639
-    window.open(`https://wa.me/525610178639?text=${whatsappMessage}`, '_blank');
+    // Usar location.href en lugar de window.open para mejor compatibilidad móvil
+    window.location.href = `https://wa.me/525610178639?text=${whatsappMessage}`;
   };
 
   const handleSupportWhatsApp = () => {
