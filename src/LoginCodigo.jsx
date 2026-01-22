@@ -106,22 +106,75 @@ export default function LoginCodigo() {
       newErrors.specialCode = 'El código de acceso es requerido';
     }
     
-    if (!firstName.trim()) {
-      newErrors.firstName = 'El nombre es requerido';
-    }
-    
-    if (!lastName.trim()) {
-      newErrors.lastName = 'El apellido paterno es requerido';
-    }
-    
-    if (!whatsappNumber.trim()) {
-      newErrors.whatsappNumber = 'El número de WhatsApp es requerido';
-    } else if (whatsappNumber.replace(/\s/g, '').length !== 10) {
-      newErrors.whatsappNumber = 'Debe tener 10 dígitos';
-    }
-    
     if (!acceptedTerms) {
       newErrors.acceptedTerms = 'Debes aceptar los términos y condiciones';
+    }
+    
+    // Si el código ya fue verificado en Supabase, solo validar términos
+    if (codeVerified && acceptedTerms) {
+      const upperCode = specialCode.trim().toUpperCase();
+      
+      // Buscar datos en Supabase
+      try {
+        const result = await getUserByAccessCode(upperCode);
+        
+        if (result.success && result.data) {
+          const dbUser = result.data;
+          
+          const isMigrantUser = Boolean(
+            dbUser.country_code === '+1' ||
+            (upperCode && upperCode.toUpperCase().includes('US'))
+          );
+
+          const userData = {
+            firstName: dbUser.first_name,
+            lastName: dbUser.last_name,
+            motherLastName: dbUser.mother_last_name || '',
+            email: dbUser.email || '',
+            whatsapp: dbUser.phone,
+            phone: dbUser.phone,
+            countryCode: dbUser.country_code,
+            accessCode: upperCode,
+            isMigrant: isMigrantUser
+          };
+
+          localStorage.setItem('currentUser', JSON.stringify(userData));
+          setCurrentUser(userData);
+
+          // 📊 META PIXEL: Track CompleteRegistration
+          trackEvent('CompleteRegistration', {
+            content_name: 'Login Usuario con Código',
+            user_type: isMigrantUser ? 'migrant' : 'family',
+            status: 'success'
+          });
+
+          if (isMigrantUser) {
+            navigate('/migrant');
+          } else {
+            navigate('/page4');
+          }
+          return;
+        }
+      } catch (error) {
+        console.error('Error al verificar código:', error);
+      }
+    }
+    
+    // Validaciones adicionales solo si NO se verificó el código
+    if (!codeVerified) {
+      if (!firstName.trim()) {
+        newErrors.firstName = 'El nombre es requerido';
+      }
+      
+      if (!lastName.trim()) {
+        newErrors.lastName = 'El apellido paterno es requerido';
+      }
+      
+      if (!whatsappNumber.trim()) {
+        newErrors.whatsappNumber = 'El número de WhatsApp es requerido';
+      } else if (whatsappNumber.replace(/\s/g, '').length < 10) {
+        newErrors.whatsappNumber = 'Debe tener al menos 10 dígitos';
+      }
     }
     
     if (Object.keys(newErrors).length > 0) {
@@ -131,7 +184,7 @@ export default function LoginCodigo() {
     
     const upperCode = specialCode.trim().toUpperCase();
     
-    // Verificar códigos de acceso
+    // Verificar códigos de acceso en localStorage
     const accessCodes = JSON.parse(localStorage.getItem('accessCodes') || '{}');
     if (accessCodes[upperCode]) {
       const codeData = accessCodes[upperCode];
@@ -147,11 +200,12 @@ export default function LoginCodigo() {
       );
 
       const userData = {
-        firstName: codeData.firstName,
-        lastName: codeData.lastName,
-        motherLastName: codeData.motherLastName || '',
-        email: codeData.email || '',
+        firstName: codeData.firstName || firstName,
+        lastName: codeData.lastName || lastName,
+        motherLastName: codeData.motherLastName || motherLastName || '',
+        email: codeData.email || email || '',
         whatsapp: whatsappNumber.replace(/\s/g, ''),
+        phone: whatsappNumber.replace(/\s/g, ''),
         countryCode: countryCode,
         accessCode: upperCode,
         isMigrant: isMigrantUser
@@ -160,7 +214,7 @@ export default function LoginCodigo() {
       localStorage.setItem('currentUser', JSON.stringify(userData));
       setCurrentUser(userData);
 
-      // 📊 META PIXEL: Track CompleteRegistration (Usuario Normal)
+      // 📊 META PIXEL: Track CompleteRegistration
       trackEvent('CompleteRegistration', {
         content_name: 'Login Usuario Normal',
         user_type: 'normal',
@@ -175,51 +229,8 @@ export default function LoginCodigo() {
       return;
     }
 
-    // Buscar en Supabase
-    try {
-      const result = await getUserByAccessCode(upperCode);
-      
-      if (result.success && result.data) {
-        const dbUser = result.data;
-        
-        const isMigrantUser = Boolean(
-          dbUser.country_code === '+1' ||
-          (upperCode && upperCode.toUpperCase().includes('US'))
-        );
-
-        const userData = {
-          firstName: dbUser.first_name,
-          lastName: dbUser.last_name,
-          motherLastName: dbUser.mother_last_name || '',
-          email: dbUser.email || '',
-          whatsapp: dbUser.phone,
-          countryCode: dbUser.country_code,
-          accessCode: upperCode,
-          isMigrant: isMigrantUser
-        };
-
-        localStorage.setItem('currentUser', JSON.stringify(userData));
-        setCurrentUser(userData);
-
-        // 📊 META PIXEL: Track CompleteRegistration (Usuario Normal desde Supabase)
-        trackEvent('CompleteRegistration', {
-          content_name: 'Login Usuario Normal',
-          user_type: 'normal',
-          status: 'success'
-        });
-
-        if (isMigrantUser) {
-          navigate('/migrant');
-        } else {
-          navigate('/page4');
-        }
-      } else {
-        setErrors({ specialCode: 'Código de acceso no válido' });
-      }
-    } catch (error) {
-      console.error('Error al verificar código:', error);
-      setErrors({ specialCode: 'Error al verificar el código. Intenta de nuevo.' });
-    }
+    // Si no está en localStorage ni se verificó, mostrar error
+    setErrors({ specialCode: 'Código de acceso no válido. Verifica que lo hayas ingresado correctamente.' });
   };
 
   const handleCodeError = async () => {
@@ -365,12 +376,23 @@ export default function LoginCodigo() {
                   {errors.specialCode && (
                     <p className="text-red-500 text-sm mt-1">{errors.specialCode}</p>
                   )}
+                  {codeVerified && (
+                    <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg flex items-start gap-2">
+                      <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <div>
+                        <p className="text-green-800 font-semibold text-sm">✅ Código verificado</p>
+                        <p className="text-green-700 text-xs mt-1">Tus datos fueron cargados automáticamente. Solo acepta los términos para continuar.</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Nombre */}
                 <div>
                   <label className="block text-gray-800 font-bold mb-2 text-left text-sm md:text-base">
-                    Nombre <span className="text-red-500">*</span>
+                    Nombre {codeVerified ? <span className="text-gray-500 font-normal">(Verificado ✓)</span> : <span className="text-red-500">*</span>}
                   </label>
                   <input
                     type="text"
@@ -381,7 +403,7 @@ export default function LoginCodigo() {
                     }}
                     disabled={codeVerified}
                     className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-base md:text-lg ${
-                      errors.firstName ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100' : 'border-gray-300'
+                      errors.firstName ? 'border-red-500 bg-red-50' : codeVerified ? 'border-green-200 bg-green-50 text-green-900' : 'border-gray-300'
                     }`}
                     placeholder="Tu nombre"
                   />
@@ -393,7 +415,7 @@ export default function LoginCodigo() {
                 {/* Apellido Paterno */}
                 <div>
                   <label className="block text-gray-800 font-bold mb-2 text-left text-sm md:text-base">
-                    Apellido Paterno <span className="text-red-500">*</span>
+                    Apellido Paterno {codeVerified ? <span className="text-gray-500 font-normal">(Verificado ✓)</span> : <span className="text-red-500">*</span>}
                   </label>
                   <input
                     type="text"
@@ -404,7 +426,7 @@ export default function LoginCodigo() {
                     }}
                     disabled={codeVerified}
                     className={`w-full px-4 py-3.5 sm:py-4 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-base md:text-lg ${
-                      errors.lastName ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100' : 'border-gray-300'
+                      errors.lastName ? 'border-red-500 bg-red-50' : codeVerified ? 'border-green-200 bg-green-50 text-green-900' : 'border-gray-300'
                     }`}
                     placeholder="Tu apellido paterno"
                   />
@@ -416,7 +438,7 @@ export default function LoginCodigo() {
                 {/* WhatsApp */}
                 <div>
                   <label className="block text-gray-800 font-bold mb-2 text-left text-sm md:text-base">
-                    WhatsApp <span className="text-red-500">*</span>
+                    WhatsApp {codeVerified ? <span className="text-gray-500 font-normal">(Verificado ✓)</span> : <span className="text-red-500">*</span>}
                   </label>
                   <div className="flex gap-2">
                     <select
@@ -424,7 +446,7 @@ export default function LoginCodigo() {
                       onChange={(e) => setCountryCode(e.target.value)}
                       disabled={codeVerified}
                       className={`px-3 py-3 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-sm md:text-base ${
-                        codeVerified ? 'border-gray-300 bg-gray-100' : 'border-gray-300'
+                        codeVerified ? 'border-green-200 bg-green-50' : 'border-gray-300'
                       }`}
                     >
                       <option value="+52">🇲🇽 +52</option>
@@ -446,7 +468,7 @@ export default function LoginCodigo() {
                       placeholder="555 123 4567"
                       disabled={codeVerified}
                       className={`flex-1 px-4 py-3 border-2 rounded-xl focus:outline-none focus:border-cyan-500 text-base md:text-lg ${
-                        errors.whatsappNumber ? 'border-red-500 bg-red-50' : codeVerified ? 'border-gray-300 bg-gray-100' : 'border-gray-300'
+                        errors.whatsappNumber ? 'border-red-500 bg-red-50' : codeVerified ? 'border-green-200 bg-green-50 text-green-900' : 'border-gray-300'
                       }`}
                     />
                   </div>
