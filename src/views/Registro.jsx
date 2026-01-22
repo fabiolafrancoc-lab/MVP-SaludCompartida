@@ -122,21 +122,27 @@ function Registro() {
   }, [currentPage, testimonials.length]);
 
   const formatUSPhone = (value) => {
-    const numbers = value.replace(/\D/g, '');
-    // Limitar a máximo 10 dígitos
-    const limited = numbers.slice(0, 10);
-    if (limited.length <= 3) return limited;
-    if (limited.length <= 6) return `${limited.slice(0, 3)} ${limited.slice(3)}`;
-    return `${limited.slice(0, 3)} ${limited.slice(3, 6)} ${limited.slice(6)}`;
+    // Permitir + al inicio y solo números después
+    let cleaned = value;
+    if (cleaned.startsWith('+')) {
+      cleaned = '+' + cleaned.slice(1).replace(/\D/g, '');
+    } else {
+      cleaned = cleaned.replace(/\D/g, '');
+    }
+    // Limitar a máximo 13 caracteres (+1 y 10-11 dígitos)
+    return cleaned.slice(0, 13);
   };
 
   const formatMXPhone = (value) => {
-    const numbers = value.replace(/\D/g, '');
-    // Limitar a máximo 10 dígitos
-    const limited = numbers.slice(0, 10);
-    if (limited.length <= 3) return limited;
-    if (limited.length <= 6) return `${limited.slice(0, 3)} ${limited.slice(3)}`;
-    return `${limited.slice(0, 3)} ${limited.slice(3, 6)} ${limited.slice(6)}`;
+    // Permitir + al inicio y solo números después
+    let cleaned = value;
+    if (cleaned.startsWith('+')) {
+      cleaned = '+' + cleaned.slice(1).replace(/\D/g, '');
+    } else {
+      cleaned = cleaned.replace(/\D/g, '');
+    }
+    // Limitar a máximo 13 caracteres (+52 y 10 dígitos)
+    return cleaned.slice(0, 13);
   };
 
   const clearError = () => {
@@ -206,10 +212,12 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
       return;
     }
     
-    if (!migrantPhone || migrantPhone.replace(/\s/g, '').length < 10) missing.push('migrantPhone');
+    // Validar teléfono del migrante (mínimo 10 dígitos, puede incluir +)
+    const migrantPhoneDigits = migrantPhone ? migrantPhone.replace(/\D/g, '') : '';
+    if (!migrantPhone || migrantPhoneDigits.length < 10) missing.push('migrantPhone');
     
     // Validar que el teléfono del migrante no sea un número inválido
-    const cleanMigrantPhoneCheck = migrantPhone.replace(/\s/g, '');
+    const cleanMigrantPhoneCheck = migrantPhoneDigits;
     if (cleanMigrantPhoneCheck) {
       // Rechazar números repetitivos (1111111111, 2222222222, etc.)
       if (/^(\d)\1+$/.test(cleanMigrantPhoneCheck)) {
@@ -230,10 +238,13 @@ Fecha: ${new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric
     if (!familyLastName) missing.push('familyLastName');
     if (!familyGender) missing.push('familyGender');
     if (!familyBirthdate) missing.push('familyBirthdate'); // NUEVO: validar fecha de nacimiento del familiar
-    if (!familyPhone || familyPhone.replace(/\s/g, '').length < 10) missing.push('familyPhone');
+    
+    // Validar teléfono del familiar (mínimo 10 dígitos, puede incluir +)
+    const familyPhoneDigits = familyPhone ? familyPhone.replace(/\D/g, '') : '';
+    if (!familyPhone || familyPhoneDigits.length < 10) missing.push('familyPhone');
     
     // Validar que el teléfono del familiar no sea un número inválido
-    const cleanFamilyPhoneCheck = familyPhone.replace(/\s/g, '');
+    const cleanFamilyPhoneCheck = familyPhoneDigits;
     if (cleanFamilyPhoneCheck) {
       // Rechazar números repetitivos (1111111111, 2222222222, etc.)
       if (/^(\d)\1+$/.test(cleanFamilyPhoneCheck)) {
@@ -871,7 +882,7 @@ Equipo SaludCompartida`,
                           </svg>
                         </label>
                         <div className="relative">
-                          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold pointer-events-none z-10">+1</div>
+                          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl pointer-events-none z-10">🇺🇸</div>
                           <input
                             type="tel"
                             value={migrantPhone}
@@ -879,15 +890,15 @@ Equipo SaludCompartida`,
                               setMigrantPhone(formatUSPhone(e.target.value));
                               clearError();
                             }}
-                            placeholder="305 123 4567"
-                            maxLength="17"
+                            placeholder="+13051234567 o 3051234567"
+                            maxLength="13"
                             className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all text-gray-900 placeholder-gray-400 bg-white ${
                               missingFields.includes('migrantPhone') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-cyan-500'
                             }`}
                           />
                         </div>
                         <p className="mt-2 text-xs text-gray-500">
-                          10 dígitos • Tu código de acceso será enviado a este WhatsApp
+                          Puedes escribir con + o sin +. Ej: +13051234567 • Tu código será enviado aquí
                         </p>
                       </div>
 
@@ -1041,7 +1052,7 @@ Equipo SaludCompartida`,
                           </svg>
                         </label>
                         <div className="relative">
-                          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold pointer-events-none z-10">+52</div>
+                          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl pointer-events-none z-10">🇲🇽</div>
                           <input
                             type="tel"
                             value={familyPhone}
@@ -1049,15 +1060,15 @@ Equipo SaludCompartida`,
                               setFamilyPhone(formatMXPhone(e.target.value));
                               clearError();
                             }}
-                            placeholder="55 1234 5678"
-                            maxLength="17"
-                            className={`w-full pl-14 pr-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-pink-500 transition-all text-gray-900 placeholder-gray-400 bg-white ${
+                            placeholder="+525551234567 o 5551234567"
+                            maxLength="13"
+                            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl focus:ring-2 focus:ring-pink-500 transition-all text-gray-900 placeholder-gray-400 bg-white ${
                               missingFields.includes('familyPhone') ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-pink-500'
                             }`}
                           />
                         </div>
                         <p className="mt-2 text-xs text-gray-500">
-                          10 dígitos • Su código de acceso será enviado a este WhatsApp
+                          Puedes escribir con + o sin +. Ej: +525551234567 • Su código será enviado aquí
                         </p>
                       </div>
                     </div>
