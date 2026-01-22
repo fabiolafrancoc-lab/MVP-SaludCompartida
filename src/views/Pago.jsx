@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, Lock, ArrowLeft, CheckCircle } from 'lucide-react';
 import { trackEvent } from '../hooks/useMetaPixel';
-import { createRegistration } from '../lib/supabase';
+import { insertRegistration } from '../lib/supabase';
 
 // Square Application ID y Location ID (from Vercel environment variables)
 const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APP_ID;
@@ -299,7 +299,7 @@ export default function Pago() {
         currency: 'USD'
       };
       
-      const result = await createRegistration(supabaseData);
+      const result = await insertRegistration(supabaseData);
       
       if (result.success) {
         console.log('✅ Códigos guardados en Supabase:', result.data.id);
