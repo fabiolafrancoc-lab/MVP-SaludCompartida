@@ -30,18 +30,12 @@ export default function Account() {
   // Detectar código de país desde localStorage
   const [countryCode, setCountryCode] = useState(storedUserData?.countryCode || '+52');
 
-  // Limpiar el teléfono de cualquier código de país (+52, +1, etc)
-  const cleanPhoneNumber = (phone) => {
-    if (!phone) return '';
-    return phone.replace(/\D/g, '').replace(/^(52|1)/, '').slice(0, 10);
-  };
-
   const [userData, setUserData] = useState({
     firstName: storedUserData?.firstName || '',
     lastName: storedUserData?.lastName || '',
     motherLastName: storedUserData?.motherLastName || '',
     date_of_birth: storedUserData?.date_of_birth || '',
-    phone: cleanPhoneNumber(storedUserData?.phone) || '',
+    phone: storedUserData?.phone || '',
     email: storedUserData?.email || '',
     gender: storedUserData?.gender || ''
   });
@@ -78,7 +72,7 @@ export default function Account() {
               relationship: dep.relationship || '',
               date_of_birth: dep.date_of_birth || '',
               gender: dep.gender || '',
-              phone: cleanPhoneNumber(dep.phone) || ''
+              phone: dep.phone || ''
             }));
             
             // Completar con dependientes vacíos hasta tener 3
@@ -120,7 +114,7 @@ export default function Account() {
               lastName: dbUser.last_name || '',
               motherLastName: dbUser.mother_last_name || '',
               date_of_birth: dbUser.date_of_birth || '',
-              phone: cleanPhoneNumber(dbUser.phone) || '',
+              phone: dbUser.phone || '',
               email: dbUser.email || ''
             });
             
@@ -143,7 +137,17 @@ export default function Account() {
     setErrors(prev => ({ ...prev, [field]: false }));
 
     if (field === 'phone') {
-      const cleaned = value.replace(/\D/g, '').slice(0, 10);
+      // Permitir + al inicio y números, máximo 13 caracteres para México (+525567633424) o 12 para USA (+13055551234)
+      let cleaned = value;
+      if (cleaned.startsWith('+')) {
+        // Mantener el + y solo números después
+        cleaned = '+' + cleaned.slice(1).replace(/\D/g, '');
+      } else {
+        // Si no empieza con +, solo números
+        cleaned = cleaned.replace(/\D/g, '');
+      }
+      // Limitar a 13 caracteres totales
+      cleaned = cleaned.slice(0, 13);
       setUserData(prev => ({ ...prev, phone: cleaned }));
     } else if (field === 'date_of_birth') {
       setUserData(prev => ({ ...prev, date_of_birth: value }));
@@ -156,8 +160,14 @@ export default function Account() {
     const updated = [...familyMembers];
     
     if (field === 'phone') {
-      // Limpiar y limitar a 10 dígitos
-      const cleaned = value.replace(/\D/g, '').slice(0, 10);
+      // Permitir + al inicio y números, máximo 13 caracteres
+      let cleaned = value;
+      if (cleaned.startsWith('+')) {
+        cleaned = '+' + cleaned.slice(1).replace(/\D/g, '');
+      } else {
+        cleaned = cleaned.replace(/\D/g, '');
+      }
+      cleaned = cleaned.slice(0, 13);
       updated[index][field] = cleaned;
     } else {
       updated[index][field] = value;
@@ -168,6 +178,9 @@ export default function Account() {
 
   const formatPhoneDisplay = (phone) => {
     if (!phone) return '';
+    // Si tiene +, mostrarlo tal cual sin formateo adicional
+    if (phone.startsWith('+')) return phone;
+    // Si son solo números, formatear con espacios
     const cleaned = phone.replace(/\D/g, '');
     if (cleaned.length <= 3) return cleaned;
     if (cleaned.length <= 6) return `${cleaned.slice(0, 3)} ${cleaned.slice(3)}`;
@@ -189,7 +202,9 @@ export default function Account() {
       newErrors.date_of_birth = true;
     }
 
-    if (!userData.phone || userData.phone.length !== 10) {
+    // Validar teléfono: mínimo 10 dígitos (puede tener + al inicio)
+    const phoneDigits = userData.phone.replace(/\D/g, '');
+    if (!userData.phone || phoneDigits.length < 10) {
       newErrors.phone = true;
     }
 
@@ -485,8 +500,8 @@ export default function Account() {
                       ? 'border-red-500 focus:border-red-600 bg-red-50' 
                       : 'border-gray-200 focus:border-cyan-500 bg-white'
                   }`}
-                  placeholder="555 123 4567"
-                  maxLength="17"
+                  placeholder="+525551234567 o 5551234567"
+                  maxLength="13"
                 />
               </div>
               {errors.phone && (
@@ -494,11 +509,11 @@ export default function Account() {
                   <svg className="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                   </svg>
-                  <p className="text-sm text-red-600 font-medium">Este campo es obligatorio (10 dígitos)</p>
+                  <p className="text-sm text-red-600 font-medium">Mínimo 10 dígitos requeridos</p>
                 </div>
               )}
               <p className="text-xs text-gray-500 mt-1">
-                Tus 10 dígitos · Puedes editar tu número aquí
+                Puedes escribir con + o sin +. Ej: +525567633424 o 5567633424
               </p>
             </div>
           </div>

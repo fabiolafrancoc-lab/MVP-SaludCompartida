@@ -1,17 +1,11 @@
-'use client';
-
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, Lock, ArrowLeft, CheckCircle } from 'lucide-react';
 import { trackEvent } from '../hooks/useMetaPixel';
 
-// Square Application ID y Location ID (from Vercel environment variables)
-const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APP_ID;
-const SQUARE_LOCATION_ID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID;
-
-if (!SQUARE_APP_ID || !SQUARE_LOCATION_ID) {
-  console.error('❌ Square credentials not configured. Set NEXT_PUBLIC_SQUARE_APP_ID and NEXT_PUBLIC_SQUARE_LOCATION_ID in Vercel.');
-}
+// Square Application ID y Location ID
+const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APP_ID || 'sandbox-sq0idb-NKXeieWPwl3DnnkJ3asYcw';
+const SQUARE_LOCATION_ID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || 'LT92PZMMZ3CQ2';
 
 export default function Pago() {
   const navigate = useNavigate();
@@ -34,13 +28,10 @@ export default function Pago() {
     
     // 📊 META PIXEL: Track InitiateCheckout event
     trackEvent('InitiateCheckout', {
-      content_id: 'membership-plan',
-      content_name: 'Plan Familiar Mensual',
+      content_name: 'Página de Pago',
       content_category: 'checkout',
-      content_type: 'product',
       value: 12.00,
-      currency: 'USD',
-      quantity: 1
+      currency: 'USD'
     });
   }, []);
 
@@ -63,7 +54,7 @@ export default function Pago() {
         // Cargar el script de Square
         if (!window.Square) {
           const script = document.createElement('script');
-          script.src = 'https://web.squarecdn.com/v1/square.js';
+          script.src = 'https://sandbox.web.squarecdn.com/v1/square.js';
           script.async = false; // Cambiar a false para carga sincrónica
           script.onload = () => {
             console.log('✅ Script de Square cargado');
@@ -270,18 +261,6 @@ export default function Pago() {
 
     localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
 
-    // Track Purchase event con datos completos para TikTok Pixel
-    trackEvent('Purchase', {
-      value: 12.00,
-      currency: 'USD',
-      content_id: paymentData.id, // Payment ID de Square
-      content_type: 'product',
-      content_name: 'Plan Familiar Mensual',
-      email: currentUserData.email,
-      phone: currentUserData.phone,
-      quantity: 1
-    });
-
     setIsProcessing(false);
     setShowSuccess(true);
 
@@ -460,9 +439,6 @@ Beneficios disponibles:
       });
       const notifContactData = await notifContact.json();
       console.log('✅ Notificación a contact@:', notifContactData);
-
-      // Esperar 1 segundo para evitar rate limit de Resend (max 2 req/sec)
-      await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Enviar a ffranco@saludcompartida.com
       const notifFfranco = await fetch('/api/send-email', {
