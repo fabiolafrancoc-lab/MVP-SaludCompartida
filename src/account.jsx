@@ -465,23 +465,22 @@ export default function Account() {
               </label>
               <div className="flex">
                 <div className={`flex items-center justify-center border-2 border-r-0 rounded-l-xl px-3 ${
-                  errors.phone ? 'border-red-500 bg-red-50' : 'bg-gray-100 border-gray-200'
+                  errors.phone ? 'border-red-500 bg-red-50' : 'bg-white border-gray-200'
                 }`}>
-                  <span className="text-2xl">{countryCode === '+1' ? '🇺🇸' : '🇲🇽'}</span>
+                  <span className="text-2xl mr-1">{countryCode === '+1' ? '🇺🇸' : '🇲🇽'}</span>
+                  <span className="text-gray-700 font-semibold">{countryCode}</span>
                 </div>
                 <input
                   type="tel"
                   name="phone"
                   value={formatPhoneDisplay(userData.phone)}
                   onChange={(e) => handleUserChange('phone', e.target.value)}
-                  className={`flex-1 px-4 py-3 border-2 rounded-r-xl focus:ring-2 focus:ring-cyan-500 transition-all ${
+                  className={`flex-1 px-4 py-3 border-2 rounded-r-xl focus:ring-2 focus:ring-cyan-500 transition-all font-medium ${
                     errors.phone 
                       ? 'border-red-500 focus:border-red-600 bg-red-50' 
-                      : userData.phone 
-                        ? 'border-gray-200 focus:border-cyan-500' 
-                        : 'border-gray-200 bg-gray-50 text-gray-500 focus:border-cyan-500'
+                      : 'border-gray-200 focus:border-cyan-500 bg-white'
                   }`}
-                  placeholder="+1 305 555 1234 o +52 55 1234 5678"
+                  placeholder="555 123 4567"
                   maxLength="17"
                 />
               </div>
@@ -490,11 +489,11 @@ export default function Account() {
                   <svg className="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                   </svg>
-                  <p className="text-sm text-red-600 font-medium">Este campo es obligatorio</p>
+                  <p className="text-sm text-red-600 font-medium">Este campo es obligatorio (10 dígitos)</p>
                 </div>
               )}
               <p className="text-xs text-gray-500 mt-1">
-                Formato: XXX XXX XXXX
+                🇲🇽 {countryCode} seguido de tus 10 dígitos · Puedes editar tu número aquí
               </p>
             </div>
           </div>
