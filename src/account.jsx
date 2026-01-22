@@ -30,12 +30,18 @@ export default function Account() {
   // Detectar código de país desde localStorage
   const [countryCode, setCountryCode] = useState(storedUserData?.countryCode || '+52');
 
+  // Limpiar el teléfono de cualquier código de país (+52, +1, etc)
+  const cleanPhoneNumber = (phone) => {
+    if (!phone) return '';
+    return phone.replace(/\D/g, '').replace(/^(52|1)/, '').slice(0, 10);
+  };
+
   const [userData, setUserData] = useState({
     firstName: storedUserData?.firstName || '',
     lastName: storedUserData?.lastName || '',
     motherLastName: storedUserData?.motherLastName || '',
     date_of_birth: storedUserData?.date_of_birth || '',
-    phone: storedUserData?.phone || '',
+    phone: cleanPhoneNumber(storedUserData?.phone) || '',
     email: storedUserData?.email || '',
     gender: storedUserData?.gender || ''
   });
@@ -72,7 +78,7 @@ export default function Account() {
               relationship: dep.relationship || '',
               date_of_birth: dep.date_of_birth || '',
               gender: dep.gender || '',
-              phone: dep.phone || ''
+              phone: cleanPhoneNumber(dep.phone) || ''
             }));
             
             // Completar con dependientes vacíos hasta tener 3
@@ -114,7 +120,7 @@ export default function Account() {
               lastName: dbUser.last_name || '',
               motherLastName: dbUser.mother_last_name || '',
               date_of_birth: dbUser.date_of_birth || '',
-              phone: dbUser.phone || '',
+              phone: cleanPhoneNumber(dbUser.phone) || '',
               email: dbUser.email || ''
             });
             
