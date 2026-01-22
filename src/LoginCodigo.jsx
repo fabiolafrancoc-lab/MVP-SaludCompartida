@@ -83,12 +83,21 @@ export default function LoginCodigo() {
           setMotherLastName(dbUser.mother_last_name || '');
           setEmail(dbUser.email || '');
           
-          const formattedPhone = dbUser.phone.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3');
+          // Formatear teléfono - extraer solo dígitos y formatear
+          const phoneDigits = (dbUser.phone || '').replace(/\D/g, '');
+          const formattedPhone = phoneDigits.length === 10 
+            ? phoneDigits.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3')
+            : phoneDigits;
+          
           setWhatsappNumber(formattedPhone);
-          setCountryCode(dbUser.country_code);
+          setCountryCode(dbUser.country_code || '+52');
           
           setCodeVerified(true);
           setErrors({});
+          
+          console.log('✅ Código verificado en Supabase:', upperCode);
+        } else {
+          console.log('❌ Código no encontrado en Supabase:', upperCode);
         }
       } catch (error) {
         console.error('Error verificando código:', error);
