@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, Lock, ArrowLeft, CheckCircle } from 'lucide-react';
 import { trackEvent } from '../hooks/useMetaPixel';
+import { createRegistration } from '../lib/supabase';
 
 // Square Application ID y Location ID (from Vercel environment variables)
 const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APP_ID;
@@ -269,6 +270,47 @@ export default function Pago() {
     };
 
     localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
+
+    // 🔥 GUARDAR EN SUPABASE (CRÍTICO)
+    console.log('💾 Guardando códigos en Supabase...');
+    try {
+      const supabaseData = {
+        migrant_first_name: currentUserData.firstName,
+        migrant_last_name: currentUserData.lastName,
+        migrant_mother_last_name: currentUserData.motherLastName || '',
+        migrant_email: currentUserData.email,
+        migrant_phone: currentUserData.phone,
+        migrant_country_code: currentUserData.countryCode,
+        migrant_date_of_birth: currentUserData.birthdate || null,
+        migrant_access_code: migrantCode,
+        
+        family_first_name: currentUserData.familyFirstName,
+        family_last_name: currentUserData.familyLastName,
+        family_mother_last_name: currentUserData.familyMotherLastName || '',
+        family_phone: currentUserData.familyPhone,
+        family_country_code: currentUserData.familyCountryCode,
+        family_date_of_birth: currentUserData.familyBirthdate || null,
+        family_access_code: familyCode,
+        
+        payment_method: 'Square',
+        payment_id: paymentData.id,
+        plan_type: 'monthly',
+        amount: 12.00,
+        currency: 'USD'
+      };
+      
+      const result = await createRegistration(supabaseData);
+      
+      if (result.success) {
+        console.log('✅ Códigos guardados en Supabase:', result.data.id);
+      } else {
+        console.error('❌ Error guardando en Supabase:', result.error);
+        // No bloqueamos el flujo si falla Supabase
+      }
+    } catch (supabaseError) {
+      console.error('❌ Error crítico con Supabase:', supabaseError);
+      // No bloqueamos el flujo
+    }
 
     // Track Purchase event con datos completos para TikTok Pixel
     trackEvent('Purchase', {
