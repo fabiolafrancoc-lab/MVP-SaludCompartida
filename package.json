@@ -13,6 +13,7 @@
     "legacy-peer-deps": "true"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
     "@langchain/community": "^1.1.4",
     "@langchain/openai": "^1.2.2",
     "@react-google-maps/api": "^2.20.7",

@@ -1,0 +1,244 @@
+{
+  "project": {
+    "name": "SaludCompartida MVP",
+    "repository": "fabiolafrancoc-lab/MVP-SaludCompartida",
+    "deployment": "Vercel",
+    "domain": "saludcompartida.app",
+    "started": "2026-01-22"
+  },
+  "stack": {
+    "frontend": "Next.js 16.1.3 + React Router 6.18.0",
+    "backend": "Next.js API Routes (Serverless)",
+    "database": "Supabase (PostgreSQL)",
+    "payments": "Square (Production)",
+    "hosting": "Vercel",
+    "analytics": ["Meta Pixel: 35350289364", "TikTok Pixel"],
+    "communications": ["Twilio WhatsApp", "Resend Email"]
+  },
+  "critical_fixes": [
+    {
+      "date": "2026-01-22",
+      "id": "SQUARE_CODES_NOT_SAVED",
+      "severity": "CRITICAL",
+      "status": "RESOLVED",
+      "commit": "0038e43",
+      "description": "Square payment codes not being saved to Supabase",
+      "files_modified": [
+        "src/page-components/Pago.jsx",
+        "src/views/Pago.jsx"
+      ],
+      "solution": "Added createRegistration() call after payment success",
+      "impact": "Without this fix, service does not work - users cannot login with purchased codes"
+    },
+    {
+      "date": "2026-01-22",
+      "id": "WRONG_NAVIGATION_PATH",
+      "severity": "CRITICAL",
+      "status": "RESOLVED",
+      "commit": "0038e43",
+      "description": "Users redirected to /telemedicine or /migrant instead of /page4 dashboard",
+      "files_modified": ["src/LoginCodigo.jsx"],
+      "solution": "Changed all navigate() calls to /page4 regardless of user type",
+      "impact": "Customer journey broken - users couldn't access full menu"
+    },
+    {
+      "date": "2026-01-22",
+      "id": "MOBILE_AUTO_FILL_BROKEN",
+      "severity": "HIGH",
+      "status": "RESOLVED",
+      "commit": "2702df8",
+      "description": "Access code doesn't auto-fill user data on mobile",
+      "files_modified": ["src/LoginCodigo.jsx"],
+      "solution": "Fixed phone number formatting to handle various formats",
+      "impact": "Poor UX - users had to manually enter data"
+    },
+    {
+      "date": "2026-01-22",
+      "id": "WHATSAPP_BUTTON_NOT_OPENING_APP",
+      "severity": "HIGH",
+      "status": "RESOLVED",
+      "commit": "2702df8",
+      "description": "WhatsApp button in telemedicine opens web instead of app",
+      "files_modified": ["src/telemedicine.jsx"],
+      "solution": "Changed window.open() to window.location.href for deep linking",
+      "impact": "Users couldn't contact doctors via WhatsApp easily"
+    },
+    {
+      "date": "2026-01-22",
+      "id": "INTERNATIONAL_PHONE_REJECTED",
+      "severity": "MEDIUM",
+      "status": "RESOLVED",
+      "commit": "7d043fe",
+      "description": "Phone fields reject +52/+1 country codes",
+      "files_modified": [
+        "src/account.jsx",
+        "src/views/Registro.jsx",
+        "src/page-components/Pago.jsx"
+      ],
+      "solution": "Changed maxLength to 13, validation to check digits only",
+      "impact": "Registration blocked for international users"
+    },
+    {
+      "date": "2026-01-22",
+      "id": "NEXTJS_BUILD_CONFLICT",
+      "severity": "HIGH",
+      "status": "RESOLVED",
+      "commit": "dcb22c8",
+      "description": "Next.js detects both /app and /src/pages as conflicting routers",
+      "files_modified": ["src/pages/ → src/page-components/", "src/main.jsx"],
+      "solution": "Renamed directory to non-reserved name",
+      "impact": "Deployment failing - service down"
+    }
+  ],
+  "architecture_decisions": {
+    "why_nextjs_without_app_router": "Use Next.js for build optimization and API routes, but React Router for client-side routing. No SSR/SSG needed for SPA.",
+    "why_square_over_stripe": "Client already has Square account, lower fees, better Mexico support, PCI compliance handled by Square",
+    "unified_customer_journey": "Both migrant (+1) and family (+52) users see /page4 dashboard first, then choose their path",
+    "access_code_persistence": "Codes stored in Supabase (permanent), localStorage (temporary), and email (backup)",
+    "phone_format_strategy": "Store digits only in DB, display with country code in UI, accept multiple input formats"
+  },
+  "knowledge_base": {
+    "access_codes": {
+      "format": "SC + 4 alphanumeric chars",
+      "excluded_chars": ["O", "0", "I", "1"],
+      "types": {
+        "migrant": "For USA migrant (+1)",
+        "family": "For Mexico family (+52)"
+      },
+      "storage": [
+        "Supabase registrations table (permanent)",
+        "localStorage accessCodes (temporary)",
+        "Email confirmation (backup)"
+      ]
+    },
+    "phone_numbers": {
+      "formats_accepted": [
+        "+1 305 123 4567",
+        "3051234567",
+        "+52 55 6123 4567",
+        "5561234567"
+      ],
+      "validation": {
+        "min_digits": 10,
+        "max_chars": 13,
+        "regex": "/\\D/g to extract digits"
+      },
+      "storage": {
+        "phone": "digits only",
+        "country_code": "+52 or +1"
+      }
+    },
+    "square_payment_flow": [
+      "User completes /registro",
+      "Navigate to /pago",
+      "Square SDK tokenizes card",
+      "processSquarePayment() calls /api/square-payment",
+      "Square API returns payment.id",
+      "handleSuccessfulPayment() generates codes",
+      "createRegistration() saves to Supabase (CRITICAL)",
+      "Send codes via WhatsApp + Email",
+      "Navigate to /confirmacion"
+    ],
+    "supabase_integration": {
+      "main_table": "registrations",
+      "critical_fields": [
+        "migrant_access_code",
+        "family_access_code",
+        "migrant_first_name",
+        "migrant_phone",
+        "family_first_name",
+        "family_phone",
+        "payment_method",
+        "payment_id"
+      ],
+      "helper_function": "getUserByAccessCode(code)",
+      "search_strategy": "Search migrant_access_code first, then family_access_code"
+    },
+    "meta_pixel_tracking": {
+      "pixel_id": "35350289364",
+      "events": {
+        "PageView": "Every page",
+        "Lead": "Completes registration (page 3)",
+        "InitiateCheckout": "Enters payment page",
+        "Purchase": "Completes payment",
+        "CompleteRegistration": "Activates access code"
+      },
+      "location": [
+        "index.html (initialization)",
+        "src/hooks/useMetaPixel.js (helper)"
+      ]
+    }
+  },
+  "testing": {
+    "high_priority": [
+      "Real Square purchase → verify code in Supabase",
+      "Login with new code on mobile device",
+      "Verify auto-filled fields",
+      "Confirm navigation to /page4",
+      "Test WhatsApp button on iPhone"
+    ],
+    "medium_priority": [
+      "Test code after 1 month (persistence)",
+      "Verify emails reach both migrant and family",
+      "Confirm Meta Pixel events in Events Manager",
+      "Test international numbers (+34, +57, etc.)"
+    ],
+    "low_priority": [
+      "Performance test 100+ users",
+      "Load test Supabase queries",
+      "Verify RLS policies"
+    ]
+  },
+  "known_bugs": [
+    {
+      "id": "HISTORICAL_CODES_NOT_IN_DB",
+      "severity": "MEDIUM",
+      "description": "Codes generated before commit 0038e43 not in Supabase",
+      "examples": ["SCRZT6", "SCHP45"],
+      "impact": "Yesterday's users cannot login",
+      "workaround": "Re-purchase or manual DB insertion",
+      "permanent_fix": "Batch migration from old emails to Supabase"
+    }
+  ],
+  "integrations": {
+    "supabase": {
+      "url": "https://xqwwtdpljffxhhflccef.supabase.co",
+      "tables": ["registrations", "dependents", "lupita_conversations"],
+      "auth": "Service role key in Vercel env vars"
+    },
+    "square": {
+      "environment": "Production",
+      "location_id": "Vercel env var",
+      "access_token": "Encrypted in Vercel"
+    },
+    "meta_pixel": {
+      "id": "35350289364",
+      "dashboard": "https://business.facebook.com/events_manager2"
+    },
+    "twilio": {
+      "service": "WhatsApp",
+      "status": "Production",
+      "endpoint": "/api/send-whatsapp"
+    },
+    "vercel": {
+      "auto_deploy": true,
+      "source": "GitHub main branch",
+      "build_time_avg": "2 minutes",
+      "domain": "saludcompartida.app"
+    }
+  },
+  "lupita_ai": {
+    "technology": "VAPI + Claude 3.5 Sonnet",
+    "status": "Active",
+    "personality": "Mexican assistant, 55 years old, warm and maternal",
+    "known_issue": "Uses 'mihijo' instead of 'mija/mijo'",
+    "suggested_fix": "Add gender detection to system prompt",
+    "memory_table": "lupita_conversations (SQL script created)"
+  },
+  "last_updated": "2026-01-22T22:00:00-08:00",
+  "total_fixes_today": {
+    "critical": 7,
+    "minor": 3
+  },
+  "deployment_status": "STABLE"
+}
