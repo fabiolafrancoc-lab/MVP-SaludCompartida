@@ -467,8 +467,7 @@ export default function Account() {
                 <div className={`flex items-center justify-center border-2 border-r-0 rounded-l-xl px-3 ${
                   errors.phone ? 'border-red-500 bg-red-50' : 'bg-white border-gray-200'
                 }`}>
-                  <span className="text-2xl mr-1">{countryCode === '+1' ? '🇺🇸' : '🇲🇽'}</span>
-                  <span className="text-gray-700 font-semibold">{countryCode}</span>
+                  <span className="text-2xl">{countryCode === '+1' ? '🇺🇸' : '🇲🇽'}</span>
                 </div>
                 <input
                   type="tel"
@@ -493,7 +492,7 @@ export default function Account() {
                 </div>
               )}
               <p className="text-xs text-gray-500 mt-1">
-                🇲🇽 {countryCode} seguido de tus 10 dígitos · Puedes editar tu número aquí
+                Tus 10 dígitos · Puedes editar tu número aquí
               </p>
             </div>
           </div>
