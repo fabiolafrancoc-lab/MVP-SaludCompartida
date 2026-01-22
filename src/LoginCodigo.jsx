@@ -157,11 +157,9 @@ export default function LoginCodigo() {
             status: 'success'
           });
 
-          if (isMigrantUser) {
-            navigate('/migrant');
-          } else {
-            navigate('/page4');
-          }
+          // 🔥 SIEMPRE ir a page4 primero (Dashboard principal)
+          // El usuario elige desde ahí a dónde navegar
+          navigate('/page4');
           return;
         }
       } catch (error) {
@@ -230,11 +228,9 @@ export default function LoginCodigo() {
         status: 'success'
       });
 
-      if (isMigrantUser) {
-        navigate('/migrant');
-      } else {
-        navigate('/page4');
-      }
+      // 🔥 SIEMPRE ir a page4 primero (Dashboard principal)
+      // El usuario elige desde ahí a dónde navegar
+      navigate('/page4');
       return;
     }
 
