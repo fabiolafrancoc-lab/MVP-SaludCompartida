@@ -45,6 +45,7 @@ export default async function handler(req, res) {
   if (watiEndpoint && watiToken) {
     try {
       console.log('📡 Probando conexión con WATI...');
+      console.log('Endpoint:', watiEndpoint);
       
       // Intentar obtener la lista de plantillas (endpoint simple de verificación)
       const testResponse = await fetch(`${watiEndpoint}/api/v1/getMessageTemplates`, {
@@ -55,10 +56,24 @@ export default async function handler(req, res) {
         }
       });
 
-      const testData = await testResponse.json();
+      results.integrations.wati.httpStatus = testResponse.status;
+      results.integrations.wati.statusText = testResponse.statusText;
+
+      let testData;
+      const responseText = await testResponse.text();
+      
+      try {
+        testData = JSON.parse(responseText);
+      } catch (parseError) {
+        results.integrations.wati.status = '❌ INVALID RESPONSE';
+        results.integrations.wati.error = 'Response is not valid JSON';
+        results.integrations.wati.rawResponse = responseText.substring(0, 200);
+        results.integrations.wati.connected = false;
+        console.error('❌ WATI respuesta inválida:', responseText.substring(0, 200));
+        return;
+      }
 
       results.integrations.wati.status = testResponse.ok ? '✅ CONNECTED' : '❌ ERROR';
-      results.integrations.wati.httpStatus = testResponse.status;
       results.integrations.wati.connected = testResponse.ok;
       
       if (testResponse.ok) {
@@ -67,13 +82,15 @@ export default async function handler(req, res) {
           : 0;
         console.log('✅ WATI conectado exitosamente');
       } else {
-        results.integrations.wati.error = testData.message || 'Unknown error';
+        results.integrations.wati.error = testData.message || testData.error || 'Unknown error';
+        results.integrations.wati.errorDetails = testData;
         console.error('❌ WATI error:', testData);
       }
 
     } catch (error) {
       results.integrations.wati.status = '❌ CONNECTION FAILED';
       results.integrations.wati.error = error.message;
+      results.integrations.wati.errorStack = error.stack;
       results.integrations.wati.connected = false;
       console.error('❌ Error conectando con WATI:', error);
     }
