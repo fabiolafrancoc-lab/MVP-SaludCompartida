@@ -1,6 +1,7 @@
 // Square API integration functions
 
-import { Client, Environment } from 'square';
+const square = require('square');
+const { Client, Environment } = square;
 
 // Initialize Square client
 const getSquareClient = () => {

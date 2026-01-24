@@ -63,9 +63,7 @@ export const usuarioFamiliaSchema = z.object({
     'Tío/a',
     'Primo/a',
     'Otro familiar'
-  ], {
-    errorMap: () => ({ message: 'Selecciona un parentesco válido' })
-  })
+  ])
 });
 
 export type UsuarioFamilia = z.infer<typeof usuarioFamiliaSchema>;
@@ -95,9 +93,7 @@ export type DatosFamilia = z.infer<typeof datosFamiliaSchema>;
 // ========================================
 
 export const planSchema = z.object({
-  planId: z.enum(['basic', 'premium'], {
-    errorMap: () => ({ message: 'Selecciona un plan válido' })
-  }),
+  planId: z.enum(['basic', 'premium']),
   planName: z.string(),
   planPrice: z.number().positive()
 });
@@ -151,9 +147,9 @@ export function validateSafe<T>(schema: z.ZodSchema<T>, data: unknown): {
 export function formatZodErrors(errors: z.ZodError): Record<string, string> {
   const formatted: Record<string, string> = {};
   
-  errors.errors.forEach((error) => {
-    const path = error.path.join('.');
-    formatted[path] = error.message;
+  errors.issues.forEach((issue) => {
+    const path = issue.path.join('.');
+    formatted[path] = issue.message;
   });
   
   return formatted;
