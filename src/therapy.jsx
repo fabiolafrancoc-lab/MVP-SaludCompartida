@@ -1733,7 +1733,9 @@ SaludCompartida`,
                       Este campo es obligatorio
                     </p>
                   ) : (
-                    <p className="text-xs text-gray-500 mt-1">Formato: XXX XXX XXXX</p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      ⚠️ Solo números, sin el signo +. Ejemplo: 5551234567
+                    </p>
                   )}
                 </div>
               </div>
@@ -1895,7 +1897,9 @@ SaludCompartida`,
                         Este campo es obligatorio
                       </p>
                     ) : (
-                      <p className="text-xs text-gray-500 mt-1">Formato: XXX XXX XXXX (diferente al tuyo)</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        ⚠️ Solo números, sin el signo +. Ejemplo: 5551234567 (diferente al tuyo)
+                      </p>
                     )}
                   </div>
 
