@@ -31,17 +31,16 @@ export interface Database {
 // Registration Types
 export interface Registration {
   id: number;
-  registration_id: string;
   codigo_familia: string;
   
-  suscriptor_nombre: string;
-  suscriptor_email: string;
-  suscriptor_telefono: string;
-  suscriptor_estado_usa: string;
+  migrant_name: string;
+  migrant_email: string;
+  migrant_phone: string;
+  migrant_state: string;
   
-  usuario_principal_nombre: string;
-  usuario_principal_telefono: string;
-  usuario_principal_parentesco: string;
+  principal_name: string;
+  principal_phone: string;
+  principal_relationship: string;
   
   plan_id: string;
   plan_name: string;
@@ -51,9 +50,10 @@ export interface Registration {
   square_subscription_id: string | null;
   square_payment_id: string | null;
   
-  subscription_status: 'pending' | 'active' | 'cancelled' | 'expired';
+  status: 'pending' | 'active' | 'cancelled' | 'expired' | 'paused';
   activated_at: string | null;
   last_payment_at: string | null;
+  cancelled_at: string | null;
   
   created_at: string;
   updated_at: string;
@@ -64,20 +64,22 @@ export type RegistrationUpdate = Partial<RegistrationInsert>;
 
 export interface FamilyMember {
   id: number;
-  registration_id: string;
-  nombre: string;
-  telefono: string | null;
-  parentesco: string;
+  registration_id: number;
+  name: string;
+  phone: string | null;
+  relationship: string;
   is_principal: boolean;
+  is_active: boolean;
   created_at: string;
+  updated_at: string;
 }
 
-export type FamilyMemberInsert = Omit<FamilyMember, 'id' | 'created_at'>;
+export type FamilyMemberInsert = Omit<FamilyMember, 'id' | 'created_at' | 'updated_at'>;
 export type FamilyMemberUpdate = Partial<FamilyMemberInsert>;
 
 export interface SavingsRecord {
   id: number;
-  registration_id: string;
+  registration_id: number;
   month: string;
   telemedicina_savings: number;
   farmacia_savings: number;
@@ -85,16 +87,17 @@ export interface SavingsRecord {
   otros_savings: number;
   total_savings: number;
   created_at: string;
+  updated_at: string;
 }
 
-export type SavingsRecordInsert = Omit<SavingsRecord, 'id' | 'created_at'>;
+export type SavingsRecordInsert = Omit<SavingsRecord, 'id' | 'created_at' | 'updated_at'>;
 export type SavingsRecordUpdate = Partial<SavingsRecordInsert>;
 
 export interface ServiceUsage {
   id: number;
-  registration_id: string;
+  registration_id: number;
   family_member_id: number | null;
-  service_type: 'telemedicina' | 'farmacia' | 'terapia' | 'especialista' | 'examen';
+  service_type: 'telemedicina' | 'farmacia' | 'terapia' | 'especialista' | 'examen' | 'otro';
   description: string | null;
   amount_paid: number;
   amount_saved: number;

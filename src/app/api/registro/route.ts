@@ -10,28 +10,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Datos incompletos' }, { status: 400 });
     }
 
-    const registrationId = generateRegistrationId();
     const codigoFamilia = generateCodigoFamilia();
-
     const supabase = getSupabaseClient();
 
     // 1. Crear registro principal
     const { data: registration, error: dbError } = await supabase
       .from('registrations')
       .insert({
-        registration_id: registrationId,
         codigo_familia: codigoFamilia,
-        suscriptor_nombre: suscriptor.nombre,
-        suscriptor_email: suscriptor.email,
-        suscriptor_telefono: suscriptor.telefono,
-        suscriptor_estado_usa: suscriptor.estado,
-        usuario_principal_nombre: usuarioPrincipal.nombre,
-        usuario_principal_telefono: usuarioPrincipal.telefono,
-        usuario_principal_parentesco: usuarioPrincipal.parentesco,
+        migrant_name: suscriptor.nombre,
+        migrant_email: suscriptor.email,
+        migrant_phone: suscriptor.telefono,
+        migrant_state: suscriptor.estado,
+        principal_name: usuarioPrincipal.nombre,
+        principal_phone: usuarioPrincipal.telefono,
+        principal_relationship: usuarioPrincipal.parentesco,
         plan_id: planId,
         plan_name: planName,
         plan_price: planPrice,
-        subscription_status: 'pending',
+        status: 'pending',
         created_at: new Date().toISOString(),
       })
       .select()
@@ -41,6 +38,9 @@ export async function POST(request: NextRequest) {
       console.error('Error creating registration:', dbError);
       return NextResponse.json({ error: 'Error al crear registro' }, { status: 500 });
     }
+
+    // Obtener el ID numérico generado
+    const registrationId = registration.id;
 
     // 2. Crear miembros de familia
     const familyMembers = [
@@ -52,9 +52,9 @@ export async function POST(request: NextRequest) {
       await supabase.from('family_members').insert(
         familyMembers.map((member: any) => ({
           registration_id: registrationId,
-          nombre: member.nombre,
-          telefono: member.telefono || null,
-          parentesco: member.parentesco,
+          name: member.nombre,
+          phone: member.telefono || null,
+          relationship: member.parentesco,
           is_principal: member.is_principal || false,
         }))
       );
