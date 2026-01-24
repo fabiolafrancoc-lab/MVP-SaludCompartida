@@ -1,17 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSupabaseClient, generateRegistrationId, generateCodigoFamilia } from '@/lib/supabase';
+import { getSupabaseClient, generateCodigoFamilia } from '@/lib/supabase';
+import { 
+  sendMigrantWelcomeEmail, 
+  sendAuraImmediateNotification 
+} from '@/lib/resend';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { suscriptor, usuarioPrincipal, usuariosAdicionales, planId, planName, planPrice } = body;
 
-    if (!suscriptor?.email || !usuarioPrincipal?.nombre) {
-      return NextResponse.json({ error: 'Datos incompletos' }, { status: 400 });
+    if (!suscriptor?.email || !usuarioPrincipal?.nombre || !usuarioPrincipal?.apellido || !usuarioPrincipal?.fechaNacimiento) {
+      return NextResponse.json({ error: 'Datos incompletos. Se requiere: nombre, apellido y fecha de nacimiento del usuario principal.' }, { status: 400 });
     }
 
     const codigoFamilia = generateCodigoFamilia();
     const supabase = getSupabaseClient();
+    const now = new Date();
+    const activationDate = now.toLocaleDateString('es-MX', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+    const activationTime = now.toLocaleTimeString('es-MX', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    });
 
     // 1. Crear registro principal
     const { data: registration, error: dbError } = await supabase
@@ -53,6 +68,8 @@ export async function POST(request: NextRequest) {
         familyMembers.map((member: any) => ({
           registration_id: registrationId,
           name: member.nombre,
+          last_name: member.apellido || null,
+          birth_date: member.fechaNacimiento || null,
           phone: member.telefono || null,
           relationship: member.parentesco,
           is_principal: member.is_principal || false,
@@ -60,7 +77,46 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 3. TODO: Crear checkout en Square
+    // 3. Enviar emails automáticos
+    try {
+      // Separar nombre y apellido del migrante
+      const migrantFullName = suscriptor.nombre.split(' ');
+      const migrantFirstName = migrantFullName[0];
+      const migrantLastName = migrantFullName.slice(1).join(' ') || migrantFullName[0];
+
+      // Email 1: Al migrante con credenciales
+      await sendMigrantWelcomeEmail({
+        migrantName: suscriptor.nombre,
+        migrantEmail: suscriptor.email,
+        codigoFamilia,
+        planName,
+        planPrice,
+      });
+
+      // Email 4: A Aura (notificación inmediata) con datos completos
+      await sendAuraImmediateNotification({
+        migrantName: migrantFirstName,
+        migrantLastName: migrantLastName,
+        migrantEmail: suscriptor.email,
+        migrantPhone: suscriptor.telefono,
+        migrantState: suscriptor.estado,
+        principalName: usuarioPrincipal.nombre,
+        principalLastName: usuarioPrincipal.apellido,
+        principalBirthDate: usuarioPrincipal.fechaNacimiento,
+        principalPhone: usuarioPrincipal.telefono,
+        codigoFamilia,
+        planName,
+        planPrice,
+        familyMembersCount: familyMembers.length,
+        activationDate,
+        activationTime,
+      });
+    } catch (emailError) {
+      console.error('Error sending emails:', emailError);
+      // No bloqueamos el registro si fallan los emails
+    }
+
+    // 4. TODO: Crear checkout en Square
     // Por ahora retornamos URL simulada
     const checkoutUrl = `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?nuevo=true&codigo=${codigoFamilia}`;
 

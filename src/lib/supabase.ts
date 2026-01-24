@@ -66,6 +66,8 @@ export interface FamilyMember {
   id: number;
   registration_id: number;
   name: string;
+  last_name: string | null;
+  birth_date: string | null;
   phone: string | null;
   relationship: string;
   is_principal: boolean;

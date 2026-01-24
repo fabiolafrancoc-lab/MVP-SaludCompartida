@@ -58,6 +58,8 @@ CREATE TABLE family_members (
   registration_id BIGINT NOT NULL REFERENCES registrations(id) ON DELETE CASCADE,
   
   name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100),
+  birth_date DATE,
   phone VARCHAR(20),
   relationship VARCHAR(20) NOT NULL,
   is_principal BOOLEAN DEFAULT FALSE NOT NULL,
