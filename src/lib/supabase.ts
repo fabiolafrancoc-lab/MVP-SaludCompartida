@@ -1,0 +1,178 @@
+import { createClient } from '@supabase/supabase-js';
+
+// Tipos de la base de datos
+export interface Database {
+  public: {
+    Tables: {
+      registrations: {
+        Row: Registration;
+        Insert: RegistrationInsert;
+        Update: RegistrationUpdate;
+      };
+      family_members: {
+        Row: FamilyMember;
+        Insert: FamilyMemberInsert;
+        Update: FamilyMemberUpdate;
+      };
+      savings_records: {
+        Row: SavingsRecord;
+        Insert: SavingsRecordInsert;
+        Update: SavingsRecordUpdate;
+      };
+      service_usage: {
+        Row: ServiceUsage;
+        Insert: ServiceUsageInsert;
+        Update: ServiceUsageUpdate;
+      };
+    };
+  };
+}
+
+// Registration Types
+export interface Registration {
+  id: number;
+  registration_id: string;
+  codigo_familia: string;
+  
+  suscriptor_nombre: string;
+  suscriptor_email: string;
+  suscriptor_telefono: string;
+  suscriptor_estado_usa: string;
+  
+  usuario_principal_nombre: string;
+  usuario_principal_telefono: string;
+  usuario_principal_parentesco: string;
+  
+  plan_id: string;
+  plan_name: string;
+  plan_price: number;
+  
+  square_customer_id: string | null;
+  square_subscription_id: string | null;
+  square_payment_id: string | null;
+  
+  subscription_status: 'pending' | 'active' | 'cancelled' | 'expired';
+  activated_at: string | null;
+  last_payment_at: string | null;
+  
+  created_at: string;
+  updated_at: string;
+}
+
+export type RegistrationInsert = Omit<Registration, 'id' | 'created_at' | 'updated_at'>;
+export type RegistrationUpdate = Partial<RegistrationInsert>;
+
+export interface FamilyMember {
+  id: number;
+  registration_id: string;
+  nombre: string;
+  telefono: string | null;
+  parentesco: string;
+  is_principal: boolean;
+  created_at: string;
+}
+
+export type FamilyMemberInsert = Omit<FamilyMember, 'id' | 'created_at'>;
+export type FamilyMemberUpdate = Partial<FamilyMemberInsert>;
+
+export interface SavingsRecord {
+  id: number;
+  registration_id: string;
+  month: string;
+  telemedicina_savings: number;
+  farmacia_savings: number;
+  terapia_savings: number;
+  otros_savings: number;
+  total_savings: number;
+  created_at: string;
+}
+
+export type SavingsRecordInsert = Omit<SavingsRecord, 'id' | 'created_at'>;
+export type SavingsRecordUpdate = Partial<SavingsRecordInsert>;
+
+export interface ServiceUsage {
+  id: number;
+  registration_id: string;
+  family_member_id: number | null;
+  service_type: 'telemedicina' | 'farmacia' | 'terapia' | 'especialista' | 'examen';
+  description: string | null;
+  amount_paid: number;
+  amount_saved: number;
+  used_at: string;
+  created_at: string;
+}
+
+export type ServiceUsageInsert = Omit<ServiceUsage, 'id' | 'created_at'>;
+export type ServiceUsageUpdate = Partial<ServiceUsageInsert>;
+
+let supabaseClient: any = null;
+
+export function getSupabaseClient() {
+  if (supabaseClient) return supabaseClient;
+
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error('Missing Supabase environment variables');
+  }
+
+  supabaseClient = createClient(supabaseUrl, supabaseKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+
+  return supabaseClient;
+}
+
+export async function createRegistration(data: RegistrationInsert): Promise<Registration> {
+  const supabase = getSupabaseClient();
+  
+  const { data: registration, error } = await supabase
+    .from('registrations')
+    .insert(data)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error creating registration:', error);
+    throw new Error(`Failed to create registration: ${error.message}`);
+  }
+
+  return registration;
+}
+
+export async function getRegistrationByCode(codigoFamilia: string): Promise<Registration | null> {
+  const supabase = getSupabaseClient();
+  
+  const { data, error } = await supabase
+    .from('registrations')
+    .select()
+    .eq('codigo_familia', codigoFamilia)
+    .single();
+
+  if (error) {
+    if (error.code === 'PGRST116') return null;
+    console.error('Error fetching registration:', error);
+    throw new Error(`Failed to fetch registration: ${error.message}`);
+  }
+
+  return data;
+}
+
+export function generateRegistrationId(): string {
+  const timestamp = Date.now();
+  const random = Math.floor(Math.random() * 10000);
+  return `${timestamp}${random.toString().padStart(4, '0')}`;
+}
+
+export function generateCodigoFamilia(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = 'SC-';
+  for (let i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
