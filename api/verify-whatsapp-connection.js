@@ -47,14 +47,20 @@ export default async function handler(req, res) {
       console.log('📡 Probando conexión con WATI...');
       console.log('Endpoint:', watiEndpoint);
       
-      // Intentar obtener la lista de plantillas (endpoint simple de verificación)
+      // Intentar obtener la lista de plantillas con timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 segundos timeout
+      
       const testResponse = await fetch(`${watiEndpoint}/api/v1/getMessageTemplates`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${watiToken}`,
           'Content-Type': 'application/json'
-        }
+        },
+        signal: controller.signal
       });
+
+      clearTimeout(timeoutId);
 
       results.integrations.wati.httpStatus = testResponse.status;
       results.integrations.wati.statusText = testResponse.statusText;
@@ -89,8 +95,7 @@ export default async function handler(req, res) {
 
     } catch (error) {
       results.integrations.wati.status = '❌ CONNECTION FAILED';
-      results.integrations.wati.error = error.message;
-      results.integrations.wati.errorStack = error.stack;
+      results.integrations.wati.error = error.name === 'AbortError' ? 'Request timeout (8s)' : error.message;
       results.integrations.wati.connected = false;
       console.error('❌ Error conectando con WATI:', error);
     }
