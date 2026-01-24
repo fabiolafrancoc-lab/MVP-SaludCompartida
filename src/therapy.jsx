@@ -773,6 +773,39 @@ export default function Therapy() {
 
     console.log('Agendamiento de terapia:', dataToSend);
     
+    // 📧 ENVIAR NOTIFICACIÓN A ADMINISTRACIÓN (nuevo)
+    try {
+      const bookingNotificationData = {
+        sessionFor,
+        patientName: patientInfo,
+        patientPhone,
+        patientEmail,
+        contactName: sessionFor === 'other' ? `${formData.nombre} ${formData.apellidoPaterno}` : patientInfo,
+        contactPhone: sessionFor === 'other' ? `+52${formData.telefono}` : patientPhone,
+        contactEmail: sessionFor === 'other' ? formData.email : patientEmail,
+        relationship: sessionFor === 'other' ? otherPersonData.relationship : null,
+        date: selectedDate.toISOString(),
+        time: selectedTime,
+        concerns: formData.concerns,
+        bookingId: `THERAPY-${Date.now()}`
+      };
+
+      const adminNotification = await fetch('/api/notify-therapy-booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingNotificationData)
+      });
+
+      if (adminNotification.ok) {
+        console.log('✅ Notificación enviada a administración');
+      } else {
+        console.error('❌ Error enviando notificación a administración');
+      }
+    } catch (error) {
+      console.error('❌ Error en notificación a administración:', error);
+      // No bloqueamos el flujo si falla la notificación
+    }
+    
     // Enviar email de confirmación
     try {
       const emailMessage = `
