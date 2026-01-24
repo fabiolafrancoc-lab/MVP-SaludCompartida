@@ -303,6 +303,40 @@ export default function Pago() {
       
       if (result.success) {
         console.log('✅ Códigos guardados en Supabase:', result.data.id);
+        
+        // 📧 ENVIAR NOTIFICACIÓN AUTOMÁTICA POR EMAIL
+        try {
+          const notificationData = {
+            registrationId: result.data.id,
+            nombreCompleto: `${currentUserData.firstName} ${currentUserData.lastName || ''}`.trim(),
+            sexo: currentUserData.gender || 'No proporcionado',
+            fechaNacimiento: currentUserData.birthDate || null,
+            fechaActivacion: new Date().toISOString(),
+            email: currentUserData.email,
+            telefono: currentUserData.phone,
+            planType: 'monthly',
+            amount: '12.00'
+          };
+
+          const notifyResponse = await fetch('/api/notify-new-registration', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(notificationData),
+          });
+
+          const notifyResult = await notifyResponse.json();
+          
+          if (notifyResult.success) {
+            console.log('✅ Notificación enviada a fabiola.franco@bopidea.com');
+          } else {
+            console.error('⚠️ Error enviando notificación:', notifyResult.error);
+          }
+        } catch (notifyError) {
+          console.error('⚠️ Error en notificación (no crítico):', notifyError);
+          // No bloquear el flujo si falla la notificación
+        }
       } else {
         console.error('❌ Error guardando en Supabase:', result.error);
         // No bloqueamos el flujo si falla Supabase
