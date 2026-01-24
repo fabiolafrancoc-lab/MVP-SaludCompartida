@@ -263,85 +263,168 @@
 
 ## 🤖 7. SISTEMA DE INTELIGENCIA ARTIFICIAL
 
-### Claude AI (Anthropic) - Analítica y Procesamiento
+### Claude AI (Anthropic) - Lupita Voice AI via VAPI
+
 - ✅ **SDK Instalado:** `@anthropic-ai/sdk`
 - ✅ **Archivo:** `src/lib/claude-client.js`
 - ✅ **Modelo:** `claude-3-5-sonnet-20241022`
-- ✅ **Funciones implementadas:**
-  1. `chatWithClaude()` - Chat directo con Claude
-  2. `analyzeConversation()` - Analizar conversaciones completas
-  3. `detectEmotion()` - Detectar emociones en mensajes
-  4. `generateExecutiveSummary()` - Resumen ejecutivo de múltiples chats
-  5. `improveSystemPrompt()` - Mejorar prompts del sistema
-  6. `checkClaudeHealth()` - Verificar disponibilidad de API
+- ✅ **Integración:** VAPI.ai (llamadas de voz)
 
-**Casos de uso:**
-- ✅ Analizar transcripciones de llamadas/chats
-- ✅ Detectar emociones y sentimientos del usuario
-- ✅ Generar resúmenes inteligentes de conversaciones
-- ✅ Detectar urgencias y flags de alerta (crisis, suicidio, violencia)
-- ✅ Identificar temas principales y patterns de comportamiento
-- ✅ Sugerir acciones de seguimiento para el equipo médico
+**Sistema de Voz Completo:**
+```
+TELNYX (+52 559 990 6900)
+    ↓
+VAPI.ai (Orquestador)
+    ├── Speech-to-Text (transcripción)
+    ├── Claude 3.5 Sonnet (conversación)
+    ├── ElevenLabs (voz de Lupita)
+    └── Grabación + Webhook
+    ↓
+Supabase (guarda transcripción)
+```
 
-**Ventajas de Claude:**
-- ✅ Contexto largo (200K tokens) - puede analizar conversaciones extensas
-- ✅ Excelente en análisis de sentimientos
-- ✅ Genera JSON estructurado de manera confiable
-- ✅ Mejor para análisis y procesamiento de datos
+**Configuración VAPI:**
+- ✅ **API Key:** `VAPI_API_KEY=e4c6a7c4-203c-455f-ae23-cc46e5ed6bee`
+- ✅ **Phone Number ID:** `VAPI_PHONE_NUMBER_ID=9aafdbd3-9d61-49f5-929a-51bb2323419f`
+- ✅ **Webhook:** `/api/vapi-webhook` (recibe eventos de llamadas)
+- ✅ **Modelo en VAPI:** Claude 3.5 Sonnet configurado en dashboard
 
-**Variable de entorno:** `ANTHROPIC_API_KEY`
+**6 Funciones de Análisis (Post-Llamada):**
 
----
+1. **`chatWithClaude(messages, options)`**
+   - Chat directo con Claude
+   - Uso: Testing y debugging
 
-### OpenAI GPT-4 - Conversaciones y AI Companion
-- ✅ **SDK Instalado:** `openai`
-- ✅ **Archivos:**
-  - `api/ai-companion-engine.js` - Motor del AI Companion
-  - `api/whatsapp-incoming-ai.js` - Webhook para WhatsApp
-- ✅ **Modelo:** `gpt-4`
+2. **`analyzeConversation(transcript)`** ⭐ Principal
+   - Analiza transcripción completa de llamada
+   - Retorna JSON con:
+     - `sentiment`: positive/negative/neutral/mixed
+     - `topics`: [salud mental, familia, migración]
+     - `emotions`: [tristeza, ansiedad, esperanza]
+     - `urgency`: low/medium/high/critical
+     - `summary`: Resumen en 2-3 oraciones
+     - `actionItems`: Acciones recomendadas
+     - `flags`: [crisis, suicidio, violencia]
 
-**AI Companion Features:**
-- ✅ Conversaciones naturales en español mexicano
-- ✅ Memoria a largo plazo (recuerda conversaciones previas)
-- ✅ Recordatorios personalizados de medicamentos
-- ✅ Personalidades configurables:
-  - **Lupita:** Asistente amigable y empática (femenina)
-  - **Don Roberto:** Consejero sabio y paternal (masculino)
+3. **`detectEmotion(text)`**
+   - Detecta emoción dominante en mensaje
+   - Retorna: joy, sadness, anger, fear, anxiety, hope
+
+4. **`generateExecutiveSummary(conversations)`**
+   - Resumen de múltiples llamadas
+   - Para reportes semanales/mensuales
+
+5. **`improveSystemPrompt(currentPrompt, feedback)`**
+   - Optimiza prompts del sistema
+   - Mejora personalidad de Lupita
+
+6. **`checkClaudeHealth()`**
+   - Verifica disponibilidad de API
+   - Health check
+
+**Casos de Uso:**
+
+**Durante la llamada (VAPI + Claude):**
+- ✅ Conversación natural en español mexicano
+- ✅ Respuestas empáticas y contextuales
+- ✅ Memoria de conversaciones previas (via VAPI context)
 - ✅ Detección emocional en tiempo real
-- ✅ Seguimiento de temas importantes (familia, salud, migración)
-- ✅ 100% vía WhatsApp (canal familiar para usuarios)
+- ✅ Acompañamiento emocional
 
-**Tablas en Supabase (AI System):**
-1. ✅ `ai_companions` - Perfiles de usuarios y configuración de personalidad
-2. ✅ `companion_memory` - Memoria a largo plazo (temas importantes guardados)
-3. ✅ `companion_conversations` - Historial completo de conversaciones
-4. ✅ `medication_reminders` - Recordatorios de medicamentos configurados
-5. ✅ `medication_adherence` - Tracking de adherencia al tratamiento
+**Después de la llamada (Análisis):**
+- ✅ Analizar transcripción completa
+- ✅ Detectar urgencias y alertas
+- ✅ Generar resumen para equipo médico
+- ✅ Identificar patterns de comportamiento
+- ✅ Sugerir seguimiento
 
-**Casos de uso:**
-- ✅ Chat conversacional con usuarios por WhatsApp
-- ✅ Acompañamiento emocional continuo
-- ✅ Recordatorios personalizados de medicinas
-- ✅ Seguimiento de tratamientos y adherencia
-- ✅ Detección temprana de cambios emocionales
-- ✅ Apoyo en temas de migración, familia y salud mental
-
-**Ventajas de GPT-4:**
-- ✅ Conversaciones más naturales y fluidas
-- ✅ Más rápido en respuestas en tiempo real
-- ✅ Mejor para chat interactivo
-- ✅ Más económico por token
+**Ventajas de Claude para voz:**
+- ✅ Contexto largo (200K tokens) - recordar toda la conversación
+- ✅ Mejor comprensión de emociones sutiles
+- ✅ Respuestas más empáticas y contextuales
 - ✅ Excelente en español mexicano coloquial
+- ✅ Análisis post-llamada con JSON estructurado
 
-**Variable de entorno:** `OPENAI_API_KEY`
+**Tablas en Supabase (Voice System):**
+1. ✅ `ai_companions` - Perfiles y configuración VAPI
+2. ✅ `companion_memory` - Memoria largo plazo
+3. ✅ `companion_conversations` - Historial llamadas
+4. ✅ `medication_reminders` - Recordatorios
+5. ✅ `medication_adherence` - Tracking adherencia
+
+**Variables de entorno:**
+- ⏳ `ANTHROPIC_API_KEY` (⚠️ PENDIENTE - para análisis post-llamada)
+- ✅ `VAPI_API_KEY` (para integración VAPI)
+- ✅ `VAPI_PHONE_NUMBER_ID` (número de teléfono)
+- ✅ `TELNYX_API_KEY` (proveedor telefonía)
+- ✅ `TELNYX_PHONE_NUMBER` (+52 559 990 6900)
+
+**⚠️ GAPS IDENTIFICADOS:**
+
+1. **AWS S3 - NO CONFIGURADO** 🔴 CRÍTICO
+   - ❌ Grabaciones actualmente en VAPI storage
+   - 🚨 Necesario para compliance legal (HIPAA/datos salud)
+   - 🚨 Retención mínima 7 años requerida
+   - 📋 Acción: Configurar bucket S3 + descargar grabaciones de VAPI
+
+2. **Weaviate - NO ACTIVO** 🟡
+   - ✅ Configurado y credenciales disponibles
+   - ❌ NO se guarda nada actualmente
+   - 💡 Para: Aprendizaje grupal, búsqueda semántica, patrones
+   - 📋 Acción: Activar en `/api/vapi-webhook.js`
+
+3. **Claude Análisis - NO CONECTADO** 🟡
+   - ✅ Cliente implementado (`claude-client.js` - 6 funciones)
+   - ❌ NO se llama después de llamadas
+   - 💡 Para: Detectar urgencias, emociones, alertas de crisis
+   - 📋 Acción: Integrar `analyzeConversation()` en webhook
+
+4. **Memoria 4 Llamadas - NO IMPLEMENTADO** 🟡
+   - ✅ Tablas existen (`call_transcripts`, `companion_calls`)
+   - ❌ NO se recupera historial en llamadas nuevas
+   - 💡 Para: Continuidad conversacional, personalización
+   - 📋 Acción: Crear `getLast4Calls()` + integrar con VAPI context
+
+**Ver:** `ARQUITECTURA_AI_COMPANION_COMPLETA.md` para detalles completos
 
 ---
 
-### Arquitectura del Sistema de IA
+### OpenAI GPT-4 - ❌ NO USADO ACTUALMENTE
+
+**Estado:** ⚠️ **Instalado pero NO activo en el MVP**
+
+El SDK de OpenAI está instalado, pero **NO se está usando** en los archivos del MVP actual. 
+
+**Archivos existentes (sistema antiguo):**
+- ❌ `api/ai-companion-engine.js` - Motor del AI Companion (no usado)
+- ❌ `api/whatsapp-incoming-ai.js` - Webhook para WhatsApp (no usado)
+
+**Aclaración importante:**
+- ❌ OpenAI GPT-4 **NO** se usa con WhatsApp
+- ❌ El AI Companion **NO** funciona por WhatsApp
+- ✅ El sistema de voz usa **Claude** (no GPT-4) vía VAPI.ai
+
+**Sistema de Voz Real:**
+```
+Usuario llama → TELNYX → VAPI.AI → Claude 3.5 Sonnet → ElevenLabs → Usuario
+```
+
+**WhatsApp Real:**
+```
+Usuario escribe → WATI → Plantillas predefinidas → Usuario
+(❌ Sin IA, sin GPT-4, sin Claude)
+```
+
+---
+
+### ⚠️ Arquitectura: DOS SISTEMAS INDEPENDIENTES (NO TRABAJAN JUNTOS)
+
+#### 🟦 SISTEMA 1: WhatsApp Business (WATI) - Servicio al Cliente
 
 ```
 ┌─────────────────────────────────────────┐
-│      Usuario envía mensaje WhatsApp     │
+│  Usuario envía mensaje a WhatsApp       │
+│  +1 555 842 0346 (Número USA)           │
 └──────────────┬──────────────────────────┘
                │
                ▼
@@ -351,50 +434,123 @@
                │
                ▼
 ┌─────────────────────────────────────────┐
-│  Webhook: /api/whatsapp-incoming-ai     │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│      AI COMPANION ENGINE (OpenAI)       │
-│  1. Obtiene perfil usuario (Supabase)   │
-│  2. Carga memoria conversacional        │
-│  3. Construye prompt con contexto       │
-│  4. Llama a GPT-4                       │
-│  5. Guarda conversación                 │
-│  6. Actualiza memoria                   │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│    Respuesta enviada por WhatsApp       │
-└─────────────────────────────────────────┘
-
-       [Análisis Posterior]
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│      CLAUDE ANALYZER (Anthropic)        │
-│  1. Analiza transcripción completa      │
-│  2. Detecta sentimientos y emociones    │
-│  3. Identifica urgencias y flags        │
-│  4. Genera resumen ejecutivo            │
-│  5. Sugiere acciones de seguimiento     │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│      Dashboard de Analytics             │
-│  - Sentimiento por usuario              │
-│  - Temas más frecuentes                 │
-│  - Urgencias detectadas                 │
-│  - Recomendaciones de seguimiento       │
+│  ❌ NO usa AI Companion                 │
+│  ✅ Respuestas predefinidas/plantillas  │
+│  ✅ Información sobre servicios         │
+│  ✅ Atención de reclamos                │
+│  ✅ Confirmaciones de suscripción       │
+│  ✅ Notificaciones automáticas          │
 └─────────────────────────────────────────┘
 ```
 
-**Diferencias clave:**
-- **Claude:** Mejor para análisis y procesamiento (backend)
-- **OpenAI GPT-4:** Mejor para conversaciones naturales (frontend con usuarios)
+**Propósito de WhatsApp:**
+- ✅ Informar a migrantes sobre acceso a SaludCompartida
+- ✅ Informar a usuarios en México sobre su cuenta
+- ✅ Responder consultas sobre el servicio
+- ✅ Atender reclamos y soporte
+- ✅ Enviar confirmaciones de pago
+- ❌ **NO** es conversacional con IA
+- ❌ **NO** usa GPT-4 ni Claude
+
+---
+
+#### 🟩 SISTEMA 2: Llamadas de Voz con Lupita (VAPI + TELNYX) - AI Companion
+
+```
+┌─────────────────────────────────────────┐
+│  Usuario llama por teléfono             │
+│  +52 559 990 6900 (Número México)       │
+└──────────────┬──────────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────┐
+│       TELNYX (Proveedor Telefonía)       │
+│       • Recibe la llamada                │
+│       • Enruta a VAPI.ai vía SIP         │
+└──────────────┬──────────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────┐
+│       VAPI.AI (Voice AI Platform)        │
+│       • Orquesta la conversación         │
+│       • Speech-to-Text (transcripción)   │
+│       • Llama a Claude 3.5 Sonnet        │
+│       • Text-to-Speech (ElevenLabs)      │
+│       • Graba la llamada                 │
+└──────────────┬──────────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────┐
+│     LUPITA (AI Companion con Claude)     │
+│  • Conversación natural en español MX    │
+│  • Memoria de conversaciones previas     │
+│  • Acompañamiento emocional              │
+│  • Recordatorios de medicamentos         │
+│  • Detección de emociones en tiempo real │
+└──────────────┬──────────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────┐
+│     Webhook a Supabase                   │
+│  • Guarda transcripción completa         │
+│  • Guarda audio de la llamada            │
+│  • Actualiza memoria del usuario         │
+│  • Registra temas y emociones            │
+└──────────────┬──────────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────┐
+│     Claude Post-Análisis (Opcional)      │
+│  • Analiza llamada completa (backend)    │
+│  • Detecta urgencias y flags             │
+│  • Genera resumen para equipo médico     │
+│  • Sugiere acciones de seguimiento       │
+└──────────────┬──────────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────┐
+│      Dashboard de Analytics              │
+│  • Sentimiento por usuario               │
+│  • Temas discutidos                      │
+│  • Alertas de crisis                     │
+│  • Recomendaciones médicas               │
+└─────────────────────────────────────────┘
+```
+
+**Propósito de VAPI + Lupita:**
+- ✅ Conversación de voz natural e interactiva
+- ✅ Acompañamiento emocional continuo
+- ✅ Recordatorios personalizados de medicamentos
+- ✅ Detección de cambios emocionales
+- ✅ Memoria a largo plazo (recuerda conversaciones previas)
+- ✅ Seguimiento de adherencia a tratamientos
+- ❌ **NO** está relacionado con WhatsApp
+- ❌ **NO** usa el número de WhatsApp
+
+---
+
+### 📊 Comparación: WhatsApp vs. Lupita (Voz)
+
+| Característica | WhatsApp (WATI) | Lupita (VAPI + TELNYX) |
+|----------------|----------------|------------------------|
+| **Canal** | Mensajes de texto | Llamadas de voz |
+| **Número** | +1 555 842 0346 (USA) | +52 559 990 6900 (México) |
+| **IA** | ❌ No usa IA | ✅ Claude 3.5 Sonnet |
+| **Propósito** | Soporte, info, notificaciones | Acompañamiento emocional |
+| **Tipo** | Plantillas predefinidas | Conversación natural |
+| **Memoria** | ❌ No tiene | ✅ Recuerda conversaciones |
+| **Análisis** | ❌ No analiza | ✅ Detecta emociones |
+
+### 🔑 Diferencia Clave
+
+**NO SON EL MISMO SISTEMA:**
+- WhatsApp = **Servicio al cliente tradicional** (sin IA)
+- Lupita (Voz) = **AI Companion conversacional** (con IA avanzada)
+
+**Trabajan en PARALELO, no juntos:**
+- Usuario puede usar WhatsApp **O** llamar a Lupita
+- Son canales independientes
+- Diferentes propósitos
 
 **Documentación:**
 - ✅ `CLAUDE_INTEGRATION_STATUS.md` - Guía de integración de Claude
