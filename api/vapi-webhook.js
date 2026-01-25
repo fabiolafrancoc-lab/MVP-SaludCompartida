@@ -6,7 +6,8 @@
  * - call-end: Cuando termina una llamada (con transcripción completa)
  * - function-call: Cuando el AI necesita ejecutar una función
  * 
- * NUEVO: Guarda transcripciones en call_transcripts con análisis de IA
+ * NUEVO (2026-01-24): Descarga recordings de VAPI y sube a AWS S3 (legal + companion)
+ * Guarda transcripciones en call_transcripts + companion_calls con análisis de IA
  * para detectar códigos de comportamiento (CRISIS, EMOCION, SALUD, etc.)
  * 
  * Documentación: https://docs.vapi.ai/webhooks
@@ -14,6 +15,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { CODIGOS_COMPORTAMIENTO } from '../ai-brain/lupita-scripts-relacionales.js';
+import { processCallAudio } from '../src/lib/vapi-audio-handler.js';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -78,8 +80,20 @@ async function handleCallStart(event) {
     assistantId: call.assistantId
   });
 
-  // Opcional: Actualizar estado en base de datos
-  // Por ejemplo, marcar scheduled_voice_calls como "in_progress"
+  // Insertar en companion_calls (nueva tabla)
+  try {
+    await supabase.from('companion_calls').insert({
+      call_id: call.id,
+      phone_number: call.customer?.number || 'unknown',
+      started_at: call.startedAt ? new Date(call.startedAt).toISOString() : new Date().toISOString(),
+      status: 'in_progress',
+      vapi_phone_number_id: call.phoneNumberId || process.env.VAPI_PHONE_NUMBER_ID,
+      companion_type: call.metadata?.companion || 'lupita'
+    });
+    console.log('✅ companion_calls record created for call:', call.id);
+  } catch (error) {
+    console.error('❌ Error creating companion_calls record:', error);
+  }
 }
 
 /**
@@ -167,6 +181,57 @@ async function handleCallEnd(event) {
     }
 
     console.log('✅ Call transcript saved:', transcriptData.id);
+
+    // **NUEVO: Procesar audio y subir a S3**
+    if (recording?.url) {
+      console.log('📥 Processing audio from VAPI recording...');
+      try {
+        const audioResult = await processCallAudio(call.id, recording.url);
+        
+        // Actualizar companion_calls con URLs de S3
+        await supabase.from('companion_calls')
+          .update({
+            s3_legal_url: audioResult.legalUrl,
+            s3_active_url: audioResult.companionUrl,
+            s3_legal_key: audioResult.legalKey,
+            s3_active_key: audioResult.companionKey,
+            audio_size_bytes: audioResult.audioSize,
+            status: 'completed',
+            ended_at: call.endedAt ? new Date(call.endedAt).toISOString() : new Date().toISOString(),
+            duration_seconds: Math.round(call.duration || 0),
+            transcript: transcriptMessages,
+            vapi_recording_url: recording.url,
+            hung_up_by: call.endedReason === 'hangup' ? 'user' : 'system'
+          })
+          .eq('call_id', call.id);
+        
+        console.log('✅ Audio uploaded to S3 (legal + companion):', {
+          legal: audioResult.legalUrl,
+          companion: audioResult.companionUrl
+        });
+      } catch (audioError) {
+        console.error('❌ Error processing audio:', audioError);
+        // Actualizar con error pero mantener metadata
+        await supabase.from('companion_calls')
+          .update({
+            status: 'failed',
+            ended_at: new Date().toISOString(),
+            vapi_recording_url: recording.url
+          })
+          .eq('call_id', call.id);
+      }
+    } else {
+      console.warn('⚠️ No recording URL provided by VAPI');
+      // Actualizar companion_calls sin audio
+      await supabase.from('companion_calls')
+        .update({
+          status: 'completed',
+          ended_at: call.endedAt ? new Date(call.endedAt).toISOString() : new Date().toISOString(),
+          duration_seconds: Math.round(call.duration || 0),
+          transcript: transcriptMessages
+        })
+        .eq('call_id', call.id);
+    }
 
     // Analizar la llamada con IA si hay transcripción
     if (fullTranscriptText.length > 50) {
