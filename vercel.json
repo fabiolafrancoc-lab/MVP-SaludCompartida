@@ -16,13 +16,11 @@
     },
     {
       "path": "/api/cron/daily-summary",
-      "schedule": "0 7 * * *",
-      "comment": "Email diario a Aura a las 07:00 hrs"
+      "schedule": "0 7 * * *"
     },
     {
       "path": "/api/cron/daily-summary",
-      "schedule": "0 19 * * *",
-      "comment": "Email diario a Aura a las 19:00 hrs"
+      "schedule": "0 19 * * *"
     }
   ],
   "functions": {
