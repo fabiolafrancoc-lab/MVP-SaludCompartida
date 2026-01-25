@@ -1,0 +1,13 @@
+{
+  "name": "lupita-connect-lambda",
+  "version": "1.0.0",
+  "description": "AWS Lambda function for Lupita AI in Amazon Connect",
+  "type": "module",
+  "main": "index.mjs",
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.709.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
