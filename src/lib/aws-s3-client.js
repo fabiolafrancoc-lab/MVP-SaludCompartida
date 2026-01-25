@@ -10,12 +10,12 @@
 import { S3Client, PutObjectCommand, ListObjectsV2Command, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 
-// Configurar cliente S3
+// Configurar cliente S3 para LEGAL ARCHIVE
 const s3Client = new S3Client({
-  region: process.env.AWS_REGION || 'us-east-1',
+  region: process.env.AWS_REGION || 'us-east-2',
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID_LEGAL,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_LEGAL
   }
 });
 
@@ -47,7 +47,7 @@ export async function uploadRecordingToS3(audioFile, metadata) {
     const upload = new Upload({
       client: s3Client,
       params: {
-        Bucket: process.env.AWS_S3_BUCKET,
+        Bucket: process.env.AWS_S3_BUCKET_LEGAL,
         Key: fileName,
         Body: audioFile,
         ContentType: 'audio/opus',
@@ -71,7 +71,7 @@ export async function uploadRecordingToS3(audioFile, metadata) {
 
     await upload.done();
     
-    const s3Url = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+    const s3Url = `https://${process.env.AWS_S3_BUCKET_LEGAL}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
     
     console.log('✅ Recording uploaded to S3:', s3Url);
     
@@ -138,7 +138,7 @@ async function cleanupOldRecordings(phoneNumber) {
     
     // Listar todas las grabaciones del usuario
     const listCommand = new ListObjectsV2Command({
-      Bucket: process.env.AWS_S3_BUCKET,
+      Bucket: process.env.AWS_S3_BUCKET_LEGAL,
       Prefix: prefix
     });
     
@@ -161,7 +161,7 @@ async function cleanupOldRecordings(phoneNumber) {
     
     for (const recording of toDelete) {
       await s3Client.send(new DeleteObjectCommand({
-        Bucket: process.env.AWS_S3_BUCKET,
+        Bucket: process.env.AWS_S3_BUCKET_LEGAL,
         Key: recording.Key
       }));
       console.log(`  ✅ Deleted: ${recording.Key}`);
@@ -186,7 +186,7 @@ export async function getLast4Recordings(phoneNumber) {
     const prefix = `recordings/${phoneKey}/`;
     
     const listCommand = new ListObjectsV2Command({
-      Bucket: process.env.AWS_S3_BUCKET,
+      Bucket: process.env.AWS_S3_BUCKET_LEGAL,
       Prefix: prefix
     });
     
@@ -202,7 +202,7 @@ export async function getLast4Recordings(phoneNumber) {
       .slice(0, 4)
       .map(item => ({
         key: item.Key,
-        url: `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${item.Key}`,
+        url: `https://${process.env.AWS_S3_BUCKET_LEGAL}.s3.${process.env.AWS_REGION}.amazonaws.com/${item.Key}`,
         lastModified: item.LastModified,
         size: item.Size
       }));
@@ -222,7 +222,7 @@ export async function checkS3Health() {
   try {
     // Intentar listar el bucket
     const listCommand = new ListObjectsV2Command({
-      Bucket: process.env.AWS_S3_BUCKET,
+      Bucket: process.env.AWS_S3_BUCKET_LEGAL,
       MaxKeys: 1
     });
     
@@ -232,7 +232,7 @@ export async function checkS3Health() {
     return { 
       healthy: true, 
       message: 'S3 connection successful',
-      bucket: process.env.AWS_S3_BUCKET,
+      bucket: process.env.AWS_S3_BUCKET_LEGAL,
       region: process.env.AWS_REGION
     };
     
@@ -242,9 +242,9 @@ export async function checkS3Health() {
       healthy: false, 
       error: error.message,
       config: {
-        bucket: process.env.AWS_S3_BUCKET,
+        bucket: process.env.AWS_S3_BUCKET_LEGAL,
         region: process.env.AWS_REGION,
-        hasCredentials: !!(process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY)
+        hasCredentials: !!(process.env.AWS_ACCESS_KEY_ID_LEGAL && process.env.AWS_SECRET_ACCESS_KEY_LEGAL)
       }
     };
   }
