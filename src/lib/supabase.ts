@@ -249,43 +249,4 @@ export async function getDependentsByAccessCode(codigoFamilia: string): Promise<
   }
 
   return data || [];
-// ============================================
-// FUNCIONES FALTANTES - FIX BUILD AWS
-// ============================================
-
-export async function saveDependents(accessCode: string, dependents: any[]) {
-  const { data, error } = await supabase
-    .from('dependents')
-    .upsert(
-      dependents.map(dep => ({
-        ...dep,
-        access_code: accessCode
-      }))
-    );
-  
-  if (error) throw error;
-  return data;
-}
-
-export async function getDependentsByAccessCode(accessCode: string) {
-  const { data, error } = await supabase
-    .from('dependents')
-    .select('*')
-    .eq('access_code', accessCode);
-  
-  if (error) throw error;
-  return data;
-}
-
-export async function updateUserByAccessCode(accessCode: string, updates: any) {
-  const { data, error } = await supabase
-    .from('users')
-    .update(updates)
-    .eq('access_code', accessCode)
-    .select()
-    .single();
-  
-  if (error) throw error;
-  return data;
-}
 }
