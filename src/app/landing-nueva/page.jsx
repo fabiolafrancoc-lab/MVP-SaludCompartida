@@ -1084,7 +1084,155 @@ export default function LandingNueva() {
         </div>
       </section>
 
-      {/* Rest of sections truncated for brevity - componente completo creado */}
+      {/* Benefits Section - Dual Audience */}
+      <section className="benefits-section">
+        <div className="benefits-content">
+          <h2 className="section-headline">No Es Solo para Uno</h2>
+          <p className="section-subheadline">Es para todos los que amas</p>
+          
+          <div className="benefits-grid">
+            <div className="benefit-audience migrant">
+              <div className="audience-label">Para Ti en EE.UU.</div>
+              <div className="benefit-card">
+                <div className="benefit-icon">📱</div>
+                <h3>Dashboard en tu celular</h3>
+                <p>Ve todo desde tu celular: quién usó el doctor, cuánto ahorraste, cuándo es la próxima terapia</p>
+              </div>
+              <div className="benefit-card">
+                <div className="benefit-icon">🔔</div>
+                <h3>Notificaciones en tiempo real</h3>
+                <p>Te avisamos cada vez que tu familia use un servicio. Paz mental 24/7</p>
+              </div>
+            </div>
+            
+            <div className="benefit-audience family">
+              <div className="audience-label">Para Tu Familia en México</div>
+              <div className="benefit-card">
+                <div className="benefit-icon">👨‍⚕️</div>
+                <h3>Doctor 24/7 por WhatsApp</h3>
+                <p>Escribe cuando quieran. Doctor real responde en minutos</p>
+              </div>
+              <div className="benefit-card">
+                <div className="benefit-icon">💊</div>
+                <h3>75% descuento en farmacias</h3>
+                <p>Más de 1,700 farmacias en México. Solo muestran el código</p>
+              </div>
+              <div className="benefit-card">
+                <div className="benefit-icon">🧠</div>
+                <h3>Terapia semanal incluida</h3>
+                <p>Para la ansiedad, depresión, o simplemente platicar</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Companions Section - Full Story */}
+      <section className="companions-section">
+        <div className="companions-content">
+          <div className="companions-badge">
+            <span>Esto no es salud. Es conexión.</span>
+          </div>
+          
+          <h2 className="companions-headline">Siempre Acompañados</h2>
+          
+          <div className="companions-grid">
+            <div className="companion-card lupita">
+              <div className="companion-avatar">
+                <div className="avatar-circle">L</div>
+              </div>
+              <div className="companion-for">Para tu familia en México</div>
+              <h3 className="companion-name">Lupita</h3>
+              <p className="companion-desc">
+                La amiga que nunca duerme. Responde sus dudas de salud a las 3 AM. 
+                Les recuerda tomar sus pastillas. Celebra con ellos cuando bajan de peso.
+              </p>
+              <div className="companion-features">
+                <span>Recordatorios</span>
+                <span>Seguimiento</span>
+                <span>Motivación diaria</span>
+              </div>
+            </div>
+
+            <div className="companion-card fernanda">
+              <div className="companion-avatar">
+                <div className="avatar-circle">F</div>
+              </div>
+              <div className="companion-for">Para ti en Estados Unidos</div>
+              <h3 className="companion-name">Fernanda</h3>
+              <p className="companion-desc">
+                Tu mano derecha desde EE.UU. Te avisa cuando tu mamá usa el doctor. 
+                Te manda el resumen semanal. Te recuerda que llamar no cuesta nada.
+              </p>
+              <div className="companion-features">
+                <span>Reportes semanales</span>
+                <span>Alertas importantes</span>
+                <span>Paz mental</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="companions-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <div>
+              <strong>María (Phoenix):</strong> "Mi mamá le escribe más a Lupita que a mí. 
+              Ya están hasta intercambiando recetas."
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof */}
+      <section className="social-proof">
+        <div className="social-content">
+          <div className="section-label">Historias Reales</div>
+          
+          <div className="testimonial-card">
+            <p className="testimonial-quote">
+              "Llevo 3 meses. Mi mamá ha ido 4 veces al doctor, 2 al psicólogo, 
+              y ha ahorrado $187 en medicinas. Yo duermo tranquilo."
+            </p>
+            <div className="testimonial-author">
+              <div className="author-avatar">M</div>
+              <div>
+                <div className="author-name">María R.</div>
+                <div className="author-location">Phoenix, AZ</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="testimonial-card lupita-story">
+            <p className="testimonial-quote">
+              "Lupita le manda memes a mi papá cada mañana. 
+              Él tiene 68 años y nunca había usado WhatsApp. Ahora revisa el celular más que yo."
+            </p>
+            <div className="testimonial-author">
+              <div className="author-avatar">J</div>
+              <div>
+                <div className="author-name">José Luis M.</div>
+                <div className="author-location">Tucson, AZ</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="stats-row">
+            <div className="stat">
+              <div className="stat-number">24/7</div>
+              <div className="stat-label">Disponible</div>
+            </div>
+            <div className="stat">
+              <div className="stat-number">1,700+</div>
+              <div className="stat-label">Farmacias</div>
+            </div>
+            <div className="stat">
+              <div className="stat-number">$432</div>
+              <div className="stat-label">Ahorro Anual</div>
+            </div>
+          </div>
+        </div>
+      </section>
       
       <section className="final-cta">
         <div className="final-content">
