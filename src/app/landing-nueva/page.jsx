@@ -1,1258 +1,367 @@
 'use client';
 
-import React from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import NewHeader from '@/components/landing/NewHeader';
-import NewStickyFooter from '@/components/landing/NewStickyFooter';
 
-export default function LandingNueva() {
+/**
+ * Page 1 - Landing Page SaludCompartida
+ * Diseño emocional con foto izquierda, formulario derecha
+ * Contador naranja de familias protegidas
+ * 
+ * NOTA: Este diseño está APROBADO - No cambiar layout
+ */
+
+export default function Page1Landing() {
   const router = useRouter();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    countryCode: '+1'
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const scrollToSubscribe = () => {
-    router.push('/registro');
+  // Contador de familias (puede venir de API)
+  const familiesProtected = 847;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    try {
+      // Guardar en localStorage para siguiente página
+      localStorage.setItem('registrationData', JSON.stringify(formData));
+      
+      // Navegar a página 2 (registro completo)
+      router.push('/registro');
+    } catch (err) {
+      setError('Hubo un error. Por favor intenta de nuevo.');
+      console.error('Error:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <>
-      <NewHeader />
-      <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", background: '#1F2937', color: '#FFFFFF', paddingTop: '80px', paddingBottom: '100px' }}>
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
-        
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-
-        body {
-          overflow-x: hidden;
-          -webkit-font-smoothing: antialiased;
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes arrowPulse {
-          0%, 100% { 
-            opacity: 0.4;
-            transform: translateX(0);
-          }
-          50% { 
-            opacity: 1;
-            transform: translateX(4px);
-          }
-        }
-
-        .hero {
-          padding: 40px 20px;
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .hero::before {
-          content: '';
-          position: absolute;
-          top: -50%;
-          right: -50%;
-          width: 100%;
-          height: 100%;
-          background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 60%);
-          pointer-events: none;
-        }
-
-        .hero::after {
-          content: '';
-          position: absolute;
-          bottom: -30%;
-          left: -30%;
-          width: 80%;
-          height: 80%;
-          background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 60%);
-          pointer-events: none;
-        }
-
-        .hero-content {
-          position: relative;
-          z-index: 1;
-          max-width: 480px;
-          margin: 0 auto;
-        }
-
-        .emotional-opener {
-          text-align: center;
-          margin-bottom: 32px;
-          animation: fadeInUp 0.8s ease-out;
-        }
-
-        .emotional-opener .greeting {
-          font-family: 'DM Serif Display', serif;
-          font-size: 28px;
-          color: #06B6D4;
-          margin-bottom: 12px;
-          line-height: 1.2;
-        }
-
-        .emotional-opener .subtext {
-          font-size: 16px;
-          color: rgba(255, 255, 255, 0.8);
-          line-height: 1.6;
-        }
-
-        .emotional-opener .highlight {
-          color: #EC4899;
-          font-weight: 600;
-        }
-
-        .fomo-container {
-          background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(236, 72, 153, 0.08));
-          border: 1px solid rgba(6, 182, 212, 0.2);
-          border-radius: 20px;
-          padding: 28px 24px;
-          margin-bottom: 28px;
-          text-align: center;
-          animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .commitment-icon {
-          width: 48px;
-          height: 48px;
-          margin: 0 auto 16px;
-          color: #EC4899;
-          opacity: 0.9;
-        }
-
-        .commitment-text {
-          font-size: 17px;
-          line-height: 1.5;
-          color: rgba(255, 255, 255, 0.9);
-          margin-bottom: 20px;
-        }
-
-        .commitment-text strong {
-          color: #06B6D4;
-        }
-
-        .limit-box {
-          background: rgba(6, 182, 212, 0.12);
-          border: 1px solid rgba(6, 182, 212, 0.3);
-          border-radius: 12px;
-          padding: 16px 20px;
-          margin-bottom: 16px;
-        }
-
-        .limit-number {
-          font-family: 'DM Serif Display', serif;
-          font-size: 32px;
-          color: #06B6D4;
-          line-height: 1.2;
-          margin-bottom: 4px;
-        }
-
-        .limit-detail {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.7);
-        }
-
-        .limit-detail strong {
-          color: #F59E0B;
-        }
-
-        .commitment-why {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.6);
-          font-style: italic;
-        }
-
-        .value-card {
-          background: #374151;
-          border-radius: 20px;
-          padding: 24px;
-          margin-bottom: 24px;
-          animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        .value-headline {
-          font-family: 'DM Serif Display', serif;
-          font-size: 32px;
-          line-height: 1.2;
-          margin-bottom: 16px;
-        }
-
-        .value-headline .aqui {
-          color: #06B6D4;
-        }
-
-        .value-headline .alla {
-          color: #EC4899;
-        }
-
-        .value-price {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          padding: 16px;
-          background: rgba(6, 182, 212, 0.1);
-          border-radius: 12px;
-          margin-bottom: 16px;
-        }
-
-        .price-main {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .price-daily {
-          display: flex;
-          align-items: baseline;
-          gap: 4px;
-        }
-
-        .price-cents {
-          font-family: 'DM Serif Display', serif;
-          font-size: 42px;
-          color: #06B6D4;
-          line-height: 1;
-        }
-
-        .price-per {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.7);
-        }
-
-        .price-monthly {
-          font-size: 13px;
-          color: rgba(255, 255, 255, 0.5);
-          margin-top: 2px;
-        }
-
-        .price-comparison {
-          flex: 1;
-        }
-
-        .price-original {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.5);
-          text-decoration: line-through;
-        }
-
-        .price-savings {
-          font-size: 14px;
-          color: #10B981;
-          font-weight: 600;
-        }
-
-        .pillars-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 10px;
-          margin-bottom: 16px;
-        }
-
-        .pillar-item {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(255, 255, 255, 0.05);
-          padding: 10px 12px;
-          border-radius: 10px;
-          font-size: 13px;
-          color: rgba(255, 255, 255, 0.85);
-        }
-
-        .pillar-item svg {
-          width: 18px;
-          height: 18px;
-          color: #06B6D4;
-          flex-shrink: 0;
-        }
-
-        .pillar-5-highlight {
-          background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(6, 182, 212, 0.1));
-          border: 1px solid rgba(236, 72, 153, 0.3);
-          border-radius: 14px;
-          padding: 16px;
-          position: relative;
-        }
-
-        .p5-label {
-          position: absolute;
-          top: -10px;
-          left: 16px;
-          background: #374151;
-          padding: 2px 10px;
-          font-size: 10px;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          color: #EC4899;
-          border-radius: 4px;
-        }
-
-        .p5-content {
-          display: flex;
-          align-items: center;
-          gap: 14px;
-          margin-top: 4px;
-        }
-
-        .p5-avatars-small {
-          display: flex;
-        }
-
-        .p5-av {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 700;
-          font-size: 14px;
-          color: white;
-          border: 2px solid #374151;
-        }
-
-        .p5-av.lupita {
-          background: linear-gradient(135deg, #EC4899, #9333EA);
-          z-index: 2;
-        }
-
-        .p5-av.fernanda {
-          background: linear-gradient(135deg, #06B6D4, #0891B2);
-          margin-left: -10px;
-          z-index: 1;
-        }
-
-        .p5-text {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .p5-names {
-          font-weight: 600;
-          font-size: 14px;
-          color: #FFFFFF;
-        }
-
-        .p5-desc {
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.6);
-        }
-
-        .cta-primary {
-          display: block;
-          width: 100%;
-          padding: 18px 24px;
-          background: linear-gradient(135deg, #EC4899, #DB2777);
-          border: none;
-          border-radius: 14px;
-          color: #FFFFFF;
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          font-size: 18px;
-          font-weight: 700;
-          text-align: center;
-          text-decoration: none;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          animation: fadeInUp 0.8s ease-out 0.6s both;
-          box-shadow: 0 8px 32px rgba(236, 72, 153, 0.3);
-        }
-
-        .cta-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 40px rgba(236, 72, 153, 0.4);
-        }
-
-        .cta-subtext {
-          text-align: center;
-          margin-top: 12px;
-          font-size: 13px;
-          color: rgba(255, 255, 255, 0.5);
-          animation: fadeInUp 0.8s ease-out 0.7s both;
-        }
-
-        .trust-section {
-          padding: 40px 20px;
-          background: #374151;
-        }
-
-        .trust-content {
-          max-width: 480px;
-          margin: 0 auto;
-        }
-
-        .process-time {
-          text-align: center;
-          margin-bottom: 28px;
-        }
-
-        .time-highlight {
-          font-family: 'DM Serif Display', serif;
-          font-size: 40px;
-          background: linear-gradient(135deg, #06B6D4, #EC4899);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          display: block;
-        }
-
-        .time-text {
-          font-size: 18px;
-          color: rgba(255, 255, 255, 0.8);
-        }
-
-        .process-visual {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          margin-bottom: 24px;
-          padding: 24px 0;
-          position: relative;
-        }
-
-        .process-visual::before {
-          content: '';
-          position: absolute;
-          top: 52px;
-          left: 15%;
-          right: 15%;
-          height: 3px;
-          background: linear-gradient(90deg, #06B6D4, #25D366, #EC4899);
-          border-radius: 2px;
-          z-index: 0;
-        }
-
-        .process-step {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          flex: 1;
-          position: relative;
-          z-index: 1;
-        }
-
-        .process-icon {
-          width: 64px;
-          height: 64px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 12px;
-          position: relative;
-          border: 3px solid #374151;
-        }
-
-        .process-icon.step-1 {
-          background: linear-gradient(135deg, #06B6D4, #0891B2);
-        }
-
-        .process-icon.step-2 {
-          background: linear-gradient(135deg, #25D366, #128C7E);
-        }
-
-        .process-icon.step-3 {
-          background: linear-gradient(135deg, #EC4899, #DB2777);
-        }
-
-        .process-icon svg {
-          width: 28px;
-          height: 28px;
-          color: #FFFFFF;
-        }
-
-        .process-price {
-          font-family: 'DM Serif Display', serif;
-          font-size: 22px;
-          color: #FFFFFF;
-          font-weight: 700;
-        }
-
-        .process-label {
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.8);
-          max-width: 80px;
-          line-height: 1.3;
-        }
-
-        .process-sublabel {
-          font-size: 11px;
-          color: #06B6D4;
-          margin-top: 4px;
-        }
-
-        .process-arrow {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-top: 20px;
-          animation: arrowPulse 1.5s ease-in-out infinite;
-        }
-
-        .process-message {
-          text-align: center;
-          font-size: 18px;
-          color: rgba(255, 255, 255, 0.7);
-          font-style: italic;
-        }
-
-        .benefits-section {
-          padding: 40px 20px;
-        }
-
-        .benefits-content {
-          max-width: 480px;
-          margin: 0 auto;
-        }
-
-        .audience-label {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 11px;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          padding: 4px 10px;
-          border-radius: 6px;
-          margin-bottom: 16px;
-        }
-
-        .audience-label.migrant {
-          background: rgba(6, 182, 212, 0.15);
-          color: #06B6D4;
-        }
-
-        .audience-label.family {
-          background: rgba(236, 72, 153, 0.15);
-          color: #EC4899;
-        }
-
-        .benefits-grid {
-          display: grid;
-          gap: 16px;
-        }
-
-        .benefit-card {
-          display: flex;
-          gap: 16px;
-          padding: 20px;
-          background: #374151;
-          border-radius: 16px;
-          border-left: 3px solid #06B6D4;
-          transition: transform 0.2s ease;
-        }
-
-        .benefit-card:hover {
-          transform: translateX(4px);
-        }
-
-        .benefit-card.family {
-          border-left-color: #EC4899;
-        }
-
-        .benefit-icon {
-          width: 44px;
-          height: 44px;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-
-        .benefit-card:not(.family) .benefit-icon {
-          background: rgba(6, 182, 212, 0.15);
-          color: #06B6D4;
-        }
-
-        .benefit-card.family .benefit-icon {
-          background: rgba(236, 72, 153, 0.15);
-          color: #EC4899;
-        }
-
-        .benefit-text h3 {
-          font-size: 15px;
-          font-weight: 600;
-          margin-bottom: 4px;
-        }
-
-        .benefit-text p {
-          font-size: 13px;
-          color: rgba(255, 255, 255, 0.6);
-          line-height: 1.4;
-        }
-
-        .companions-section {
-          padding: 48px 20px;
-          background: linear-gradient(180deg, #1F2937, #374151);
-        }
-
-        .companions-content {
-          max-width: 480px;
-          margin: 0 auto;
-        }
-
-        .not-health-badge {
-          display: inline-block;
-          background: linear-gradient(135deg, #EC4899, #06B6D4);
-          color: #FFFFFF;
-          font-size: 11px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          padding: 6px 14px;
-          border-radius: 20px;
-          margin-bottom: 12px;
-        }
-
-        .companions-title {
-          font-family: 'DM Serif Display', serif;
-          font-size: 36px;
-          text-align: left;
-          margin-bottom: 16px;
-          background: linear-gradient(135deg, #EC4899, #06B6D4);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        .companions-intro {
-          font-size: 16px;
-          line-height: 1.6;
-          color: rgba(255, 255, 255, 0.8);
-          margin-bottom: 28px;
-        }
-
-        .soledad-message {
-          background: rgba(236, 72, 153, 0.1);
-          border-left: 3px solid #EC4899;
-          padding: 16px 20px;
-          border-radius: 0 12px 12px 0;
-          margin: 24px 0;
-        }
-
-        .soledad-text {
-          font-size: 15px;
-          line-height: 1.6;
-          color: rgba(255, 255, 255, 0.85);
-          font-style: italic;
-        }
-
-        .soledad-text strong {
-          color: #EC4899;
-          font-style: normal;
-        }
-
-        .companions-grid {
-          display: grid;
-          gap: 16px;
-          margin-bottom: 24px;
-        }
-
-        .companion-card {
-          background: #1F2937;
-          border-radius: 20px;
-          padding: 24px;
-          text-align: center;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          transition: transform 0.2s ease;
-        }
-
-        .companion-card:hover {
-          transform: translateY(-2px);
-        }
-
-        .companion-card.lupita {
-          border-color: rgba(236, 72, 153, 0.3);
-        }
-
-        .companion-card.fernanda {
-          border-color: rgba(6, 182, 212, 0.3);
-        }
-
-        .companion-avatar {
-          width: 80px;
-          height: 80px;
-          margin: 0 auto 16px;
-        }
-
-        .companion-name {
-          font-family: 'DM Serif Display', serif;
-          font-size: 24px;
-          margin-bottom: 4px;
-        }
-
-        .companion-card.lupita .companion-name {
-          color: #EC4899;
-        }
-
-        .companion-card.fernanda .companion-name {
-          color: #06B6D4;
-        }
-
-        .companion-for {
-          font-size: 12px;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          color: rgba(255, 255, 255, 0.5);
-          margin-bottom: 12px;
-        }
-
-        .companion-desc {
-          font-size: 14px;
-          line-height: 1.5;
-          color: rgba(255, 255, 255, 0.75);
-          margin-bottom: 16px;
-        }
-
-        .companion-features {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 8px;
-        }
-
-        .companion-features span {
-          font-size: 11px;
-          padding: 6px 10px;
-          border-radius: 20px;
-          background: rgba(255, 255, 255, 0.08);
-          color: rgba(255, 255, 255, 0.7);
-        }
-
-        .companions-note {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.6);
-          text-align: center;
-          padding: 16px;
-          background: rgba(6, 182, 212, 0.1);
-          border-radius: 12px;
-        }
-
-        .social-proof {
-          padding: 40px 20px;
-          background: linear-gradient(180deg, #374151, #1F2937);
-        }
-
-        .social-content {
-          max-width: 480px;
-          margin: 0 auto;
-          text-align: center;
-        }
-
-        .section-label {
-          font-size: 11px;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          color: #06B6D4;
-          margin-bottom: 16px;
-        }
-
-        .testimonial-card {
-          background: #1F2937;
-          border: 1px solid rgba(6, 182, 212, 0.2);
-          border-radius: 20px;
-          padding: 24px;
-          margin-bottom: 16px;
-        }
-
-        .testimonial-card.lupita-story {
-          border-color: rgba(236, 72, 153, 0.3);
-          background: linear-gradient(135deg, #1F2937, rgba(236, 72, 153, 0.05));
-        }
-
-        .testimonial-quote {
-          font-family: 'DM Serif Display', serif;
-          font-size: 20px;
-          line-height: 1.4;
-          margin-bottom: 16px;
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .testimonial-author {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-        }
-
-        .author-avatar {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #06B6D4, #EC4899);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 700;
-          font-size: 14px;
-        }
-
-        .author-avatar.lupita-avatar {
-          background: linear-gradient(135deg, #EC4899, #9333EA);
-        }
-
-        .author-info {
-          text-align: left;
-        }
-
-        .author-name {
-          font-weight: 600;
-          font-size: 14px;
-        }
-
-        .author-location {
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.5);
-        }
-
-        .stats-row {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
-          margin-top: 24px;
-        }
-
-        .stat-item {
-          text-align: center;
-        }
-
-        .stat-number {
-          font-family: 'DM Serif Display', serif;
-          font-size: 28px;
-          color: #06B6D4;
-          line-height: 1;
-        }
-
-        .stat-label {
-          font-size: 11px;
-          color: rgba(255, 255, 255, 0.5);
-          margin-top: 4px;
-        }
-
-        .final-cta {
-          padding: 48px 20px;
-          text-align: center;
-        }
-
-        .final-content {
-          max-width: 480px;
-          margin: 0 auto;
-        }
-
-        .final-headline {
-          font-family: 'DM Serif Display', serif;
-          font-size: 28px;
-          margin-bottom: 8px;
-        }
-
-        .final-subheadline {
-          font-size: 16px;
-          color: rgba(255, 255, 255, 0.7);
-          margin-bottom: 24px;
-        }
-
-        .cta-secondary {
-          display: block;
-          width: 100%;
-          padding: 18px 24px;
-          background: linear-gradient(135deg, #06B6D4, #0891B2);
-          border: none;
-          border-radius: 14px;
-          color: #FFFFFF;
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          font-size: 18px;
-          font-weight: 700;
-          text-align: center;
-          text-decoration: none;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          box-shadow: 0 8px 32px rgba(6, 182, 212, 0.3);
-          margin-bottom: 16px;
-        }
-
-        .cta-secondary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 40px rgba(6, 182, 212, 0.4);
-        }
-
-        .guarantee {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          font-size: 13px;
-          color: rgba(255, 255, 255, 0.6);
-        }
-
-        @media (min-width: 480px) {
-          .hero {
-            padding: 100px 24px 60px;
-          }
-
-          .emotional-opener .greeting {
-            font-size: 32px;
-          }
-
-          .value-headline {
-            font-size: 36px;
-          }
-        }
-      `}</style>
-
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content">
-          <div className="emotional-opener">
-            <h1 className="greeting">Gracias por escuchar mi historia</h1>
-            <p className="subtext">
-              Sé lo que sientes. La preocupación a las <span className="highlight">3 AM</span> cuando suena el teléfono. 
-              Por eso creé esto <span className="highlight">para ti</span>.
-            </p>
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
+      {/* Header */}
+      <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <img 
+            src="/saludcompartida_logo.png" 
+            alt="SaludCompartida" 
+            className="h-10 md:h-12"
+          />
+          <div className="flex items-center gap-4">
+            <a 
+              href="tel:+18001234567" 
+              className="hidden md:flex items-center gap-2 text-gray-600 hover:text-cyan-600 transition-colors"
+            >
+              <PhoneIcon className="w-5 h-5" />
+              <span className="font-medium">1-800-123-4567</span>
+            </a>
+            <button 
+              onClick={() => router.push('/login')}
+              className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            >
+              Iniciar Sesión
+            </button>
           </div>
+        </div>
+      </header>
 
-          <div className="fomo-container">
-            <div className="commitment-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-              </svg>
-            </div>
-            <p className="commitment-text">
-              Queremos hacer las cosas <strong>bien</strong>.<br/>
-              Conocer a cada familia. Escuchar sus historias.
-            </p>
-            <div className="limit-box">
-              <div className="limit-number">100 familias</div>
-              <div className="limit-detail">es todo lo que podemos aceptar hasta el <strong>20 de febrero</strong></div>
-            </div>
-            <p className="commitment-why">
-              Porque ustedes merecen atención, no solo un número.
-            </p>
-          </div>
-
-          <div className="value-card">
-            <h2 className="value-headline">
-              Tú trabajas duro <span className="aqui">"aquí"</span>.<br/>
-              Nosotros los cuidamos <span className="alla">"allá"</span>.
-            </h2>
-            
-            <div className="value-price">
-              <div className="price-main">
-                <div className="price-daily">
-                  <span className="price-cents">40¢</span>
-                  <span className="price-per">al día</span>
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8 md:py-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+          
+          {/* Left Side - Image & Emotional Content */}
+          <div className="order-2 lg:order-1">
+            {/* Main Image */}
+            <div className="relative">
+              <img 
+                src="/images/familia-mexicana.jpg" 
+                alt="Familia mexicana feliz"
+                className="rounded-3xl shadow-2xl w-full object-cover"
+                style={{ maxHeight: '500px' }}
+              />
+              
+              {/* Overlay Badge */}
+              <div className="absolute -bottom-4 -right-4 md:bottom-6 md:right-6 bg-white rounded-2xl shadow-xl p-4 md:p-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
+                    <HeartIcon className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-gray-600 text-sm">Cuidando familias</p>
+                    <p className="text-gray-900 font-bold text-lg">Desde USA a México</p>
+                  </div>
                 </div>
-                <div className="price-monthly">
-                  <span>$12/mes • Hasta 4 familiares</span>
-                </div>
-              </div>
-              <div className="price-comparison">
-                <div className="price-original">$576/año en gastos médicos</div>
-                <div className="price-savings">Ahorras $432 al año</div>
               </div>
             </div>
 
-            <div className="pillars-grid">
-              <div className="pillar-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-                <span>Doctor 24/7</span>
-              </div>
-              <div className="pillar-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-                </svg>
-                <span>75% Farmacias</span>
-              </div>
-              <div className="pillar-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                  <line x1="9" y1="9" x2="9.01" y2="9"/>
-                  <line x1="15" y1="9" x2="15.01" y2="9"/>
-                </svg>
-                <span>Terapia Semanal</span>
-              </div>
-              <div className="pillar-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="12" y1="1" x2="12" y2="23"/>
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                </svg>
-                <span>Tus Ahorros</span>
-              </div>
+            {/* Emotional Text */}
+            <div className="mt-8 space-y-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                Porque la distancia no debería separarte de 
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-500"> cuidar a quien amas</span>
+              </h2>
+              <p className="text-gray-600 text-lg">
+                Tu mamá merece atención médica de calidad. Tu papá merece sus medicamentos a tiempo. 
+                Tus hijos merecen un doctor cuando lo necesitan.
+              </p>
             </div>
 
-            <div className="pillar-5-highlight">
-              <div className="p5-label">Porque la distancia duele</div>
-              <div className="p5-content">
-                <div className="p5-avatars-small">
-                  <div className="p5-av lupita">L</div>
-                  <div className="p5-av fernanda">F</div>
-                </div>
-                <div className="p5-text">
-                  <span className="p5-names">Lupita y Fernanda</span>
-                  <span className="p5-desc">Para que no te extrañen tanto cuando no puedes llamar</span>
-                </div>
+            {/* Trust Badges */}
+            <div className="mt-6 flex flex-wrap gap-4">
+              <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
+                <CheckIcon className="w-5 h-5 text-green-500" />
+                <span className="text-green-700 font-medium text-sm">Telemedicina 24/7</span>
+              </div>
+              <div className="flex items-center gap-2 bg-cyan-50 px-4 py-2 rounded-full">
+                <CheckIcon className="w-5 h-5 text-cyan-500" />
+                <span className="text-cyan-700 font-medium text-sm">75% descuento farmacia</span>
+              </div>
+              <div className="flex items-center gap-2 bg-pink-50 px-4 py-2 rounded-full">
+                <CheckIcon className="w-5 h-5 text-pink-500" />
+                <span className="text-pink-700 font-medium text-sm">Terapia semanal</span>
               </div>
             </div>
           </div>
 
-          <button className="cta-primary" onClick={scrollToSubscribe}>
-            Quiero Cuidar a Mi Familia
-          </button>
-          <p className="cta-subtext">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-            Pago seguro • Cancela cuando quieras
+          {/* Right Side - Form */}
+          <div className="order-1 lg:order-2">
+            {/* Counter Badge - Orange */}
+            <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-4 mb-6 shadow-lg">
+              <div className="flex items-center justify-center gap-3">
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                  <UsersIcon className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-white">
+                  <p className="text-3xl font-bold">{familiesProtected.toLocaleString()}</p>
+                  <p className="text-white/90 text-sm">familias ya protegidas</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Form Card */}
+            <div className="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-100">
+              <div className="text-center mb-6">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                  Protege a tu familia hoy
+                </h1>
+                <p className="text-gray-600">
+                  Desde <span className="text-cyan-600 font-bold">$12 USD</span> al mes para toda la familia
+                </p>
+              </div>
+
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-4">
+                  {error}
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Name Fields */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-gray-700 font-medium mb-1 text-sm">
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      required
+                      placeholder="Tu nombre"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-medium mb-1 text-sm">
+                      Apellido
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      required
+                      placeholder="Tu apellido"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all outline-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1 text-sm">
+                    Correo electrónico
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="tu@email.com"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all outline-none"
+                  />
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1 text-sm">
+                    Teléfono (WhatsApp)
+                  </label>
+                  <div className="flex gap-2">
+                    <select
+                      name="countryCode"
+                      value={formData.countryCode}
+                      onChange={handleChange}
+                      className="px-3 py-3 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all outline-none bg-gray-50"
+                    >
+                      <option value="+1">🇺🇸 +1</option>
+                      <option value="+52">🇲🇽 +52</option>
+                    </select>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                      placeholder="(555) 123-4567"
+                      className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all outline-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-600 hover:to-pink-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <LoadingSpinner />
+                      Procesando...
+                    </span>
+                  ) : (
+                    'Comenzar Ahora →'
+                  )}
+                </button>
+
+                {/* Terms */}
+                <p className="text-center text-gray-500 text-xs mt-4">
+                  Al continuar, aceptas nuestros{' '}
+                  <a href="/terminos" className="text-cyan-600 hover:underline">
+                    Términos de Servicio
+                  </a>{' '}
+                  y{' '}
+                  <a href="/privacidad" className="text-cyan-600 hover:underline">
+                    Política de Privacidad
+                  </a>
+                </p>
+              </form>
+
+              {/* Social Proof */}
+              <div className="mt-6 pt-6 border-t border-gray-100">
+                <div className="flex items-center justify-center gap-2">
+                  <div className="flex -space-x-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white"></div>
+                    <div className="w-8 h-8 rounded-full bg-gray-400 border-2 border-white"></div>
+                    <div className="w-8 h-8 rounded-full bg-gray-500 border-2 border-white"></div>
+                  </div>
+                  <p className="text-gray-600 text-sm">
+                    <span className="font-semibold">+2,500</span> familias confían en nosotros
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* WhatsApp Help */}
+            <div className="mt-6 text-center">
+              <p className="text-gray-600 mb-2">¿Necesitas ayuda?</p>
+              <a 
+                href="https://wa.me/5529984922702?text=Hola,%20necesito%20información%20sobre%20SaludCompartida"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-medium transition-colors"
+              >
+                <WhatsAppIcon className="w-5 h-5" />
+                Escríbenos por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8 mt-12">
+        <div className="container mx-auto px-4 text-center">
+          <img 
+            src="/saludcompartida_logo_white.png" 
+            alt="SaludCompartida" 
+            className="h-8 mx-auto mb-4 opacity-80"
+          />
+          <p className="text-gray-400 text-sm">
+            SaludCompartida © 2025 - Cuidando familias, construyendo futuro
+          </p>
+          <p className="text-gray-500 text-xs mt-2">
+            Servicio de salud para familias de migrantes en México, Centroamérica e India
           </p>
         </div>
-      </section>
-
-      {/* Trust Section */}
-      <section className="trust-section">
-        <div className="trust-content">
-          <div className="process-time">
-            <span className="time-highlight">30 Segundos</span>
-            <p className="time-text">para Cuidar a tu Familia</p>
-          </div>
-          
-          <div className="process-visual">
-            <div className="process-step">
-              <div className="process-icon step-1">
-                <span className="process-price">$12</span>
-              </div>
-              <span className="process-label">Compras</span>
-            </div>
-            
-            <div className="process-arrow">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </div>
-            
-            <div className="process-step">
-              <div className="process-icon step-2">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                </svg>
-              </div>
-              <span className="process-label">WhatsApp a tu familia</span>
-              <span className="process-sublabel">30 segundos</span>
-            </div>
-            
-            <div className="process-arrow">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </div>
-            
-            <div className="process-step">
-              <div className="process-icon step-3">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                  <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
-              </div>
-              <span className="process-label">¡Listo!</span>
-            </div>
-          </div>
-
-          <p className="process-message">
-            Así de simple. Así de rápido.
-          </p>
-        </div>
-      </section>
-
-      {/* Benefits Section - Dual Audience */}
-      <section className="benefits-section">
-        <div className="benefits-content">
-          <h2 className="section-headline">No Es Solo para Uno</h2>
-          <p className="section-subheadline">Es para todos los que amas</p>
-          
-          <div className="benefits-grid">
-            <div className="benefit-audience migrant">
-              <div className="audience-label">Para Ti en EE.UU.</div>
-              <div className="benefit-card">
-                <div className="benefit-icon">📱</div>
-                <h3>Dashboard en tu celular</h3>
-                <p>Ve todo desde tu celular: quién usó el doctor, cuánto ahorraste, cuándo es la próxima terapia</p>
-              </div>
-              <div className="benefit-card">
-                <div className="benefit-icon">🔔</div>
-                <h3>Notificaciones en tiempo real</h3>
-                <p>Te avisamos cada vez que tu familia use un servicio. Paz mental 24/7</p>
-              </div>
-            </div>
-            
-            <div className="benefit-audience family">
-              <div className="audience-label">Para Tu Familia en México</div>
-              <div className="benefit-card">
-                <div className="benefit-icon">👨‍⚕️</div>
-                <h3>Doctor 24/7 por WhatsApp</h3>
-                <p>Escribe cuando quieran. Doctor real responde en minutos</p>
-              </div>
-              <div className="benefit-card">
-                <div className="benefit-icon">💊</div>
-                <h3>75% descuento en farmacias</h3>
-                <p>Más de 1,700 farmacias en México. Solo muestran el código</p>
-              </div>
-              <div className="benefit-card">
-                <div className="benefit-icon">🧠</div>
-                <h3>Terapia semanal incluida</h3>
-                <p>Para la ansiedad, depresión, o simplemente platicar</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Companions Section - Full Story */}
-      <section className="companions-section">
-        <div className="companions-content">
-          <div className="companions-badge">
-            <span>Esto no es salud. Es conexión.</span>
-          </div>
-          
-          <h2 className="companions-headline">Siempre Acompañados</h2>
-          
-          <div className="companions-grid">
-            <div className="companion-card lupita">
-              <div className="companion-avatar">
-                <div className="avatar-circle">L</div>
-              </div>
-              <div className="companion-for">Para tu familia en México</div>
-              <h3 className="companion-name">Lupita</h3>
-              <p className="companion-desc">
-                La amiga que nunca duerme. Responde sus dudas de salud a las 3 AM. 
-                Les recuerda tomar sus pastillas. Celebra con ellos cuando bajan de peso.
-              </p>
-              <div className="companion-features">
-                <span>Recordatorios</span>
-                <span>Seguimiento</span>
-                <span>Motivación diaria</span>
-              </div>
-            </div>
-
-            <div className="companion-card fernanda">
-              <div className="companion-avatar">
-                <div className="avatar-circle">F</div>
-              </div>
-              <div className="companion-for">Para ti en Estados Unidos</div>
-              <h3 className="companion-name">Fernanda</h3>
-              <p className="companion-desc">
-                Tu mano derecha desde EE.UU. Te avisa cuando tu mamá usa el doctor. 
-                Te manda el resumen semanal. Te recuerda que llamar no cuesta nada.
-              </p>
-              <div className="companion-features">
-                <span>Reportes semanales</span>
-                <span>Alertas importantes</span>
-                <span>Paz mental</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="companions-note">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-            <div>
-              <strong>María (Phoenix):</strong> "Mi mamá le escribe más a Lupita que a mí. 
-              Ya están hasta intercambiando recetas."
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Proof */}
-      <section className="social-proof">
-        <div className="social-content">
-          <div className="section-label">Historias Reales</div>
-          
-          <div className="testimonial-card">
-            <p className="testimonial-quote">
-              "Llevo 3 meses. Mi mamá ha ido 4 veces al doctor, 2 al psicólogo, 
-              y ha ahorrado $187 en medicinas. Yo duermo tranquilo."
-            </p>
-            <div className="testimonial-author">
-              <div className="author-avatar">M</div>
-              <div>
-                <div className="author-name">María R.</div>
-                <div className="author-location">Phoenix, AZ</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="testimonial-card lupita-story">
-            <p className="testimonial-quote">
-              "Lupita le manda memes a mi papá cada mañana. 
-              Él tiene 68 años y nunca había usado WhatsApp. Ahora revisa el celular más que yo."
-            </p>
-            <div className="testimonial-author">
-              <div className="author-avatar">J</div>
-              <div>
-                <div className="author-name">José Luis M.</div>
-                <div className="author-location">Tucson, AZ</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="stats-row">
-            <div className="stat">
-              <div className="stat-number">24/7</div>
-              <div className="stat-label">Disponible</div>
-            </div>
-            <div className="stat">
-              <div className="stat-number">1,700+</div>
-              <div className="stat-label">Farmacias</div>
-            </div>
-            <div className="stat">
-              <div className="stat-number">$432</div>
-              <div className="stat-label">Ahorro Anual</div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section className="final-cta">
-        <div className="final-content">
-          <h2 className="final-headline">¿Listo para la tranquilidad?</h2>
-          <p className="final-subheadline">En 30 segundos, tu familia estará protegida.</p>
-          
-          <button className="cta-secondary" onClick={scrollToSubscribe}>
-            Suscribirme Ahora — Solo 40¢/día
-          </button>
-          
-          <div className="guarantee">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            Cancela cuando quieras. Sin preguntas.
-          </div>
-        </div>
-      </section>
-      </div>
-      <NewStickyFooter />
-    </>
+      </footer>
+    </div>
   );
 }
+
+// ============================================
+// ICONOS SVG
+// ============================================
+
+const PhoneIcon = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+  </svg>
+);
+
+const HeartIcon = ({ className }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+  </svg>
+);
+
+const CheckIcon = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+  </svg>
+);
+
+const UsersIcon = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+);
+
+const WhatsAppIcon = ({ className }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+);
+
+const LoadingSpinner = () => (
+  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+  </svg>
+);
