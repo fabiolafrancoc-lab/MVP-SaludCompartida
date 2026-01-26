@@ -199,3 +199,93 @@ export function generateCodigoFamilia(): string {
   }
   return code;
 }
+
+// ALIAS: insertRegistration -> createRegistration (para compatibilidad)
+export async function insertRegistration(data: RegistrationInsert): Promise<Registration> {
+  return createRegistration(data);
+}
+
+// ALIAS: getUserByAccessCode -> getRegistrationByCode (para compatibilidad)
+export async function getUserByAccessCode(codigoFamilia: string): Promise<Registration | null> {
+  return getRegistrationByCode(codigoFamilia);
+}
+
+// Guardar dependientes (family members)
+export async function saveDependents(registrationId: number, dependents: FamilyMemberInsert[]): Promise<FamilyMember[]> {
+  const supabase = getSupabaseClient();
+  
+  const { data, error } = await supabase
+    .from('family_members')
+    .insert(dependents)
+    .select();
+
+  if (error) {
+    console.error('Error saving dependents:', error);
+    throw new Error(`Failed to save dependents: ${error.message}`);
+  }
+
+  return data;
+}
+
+// Obtener dependientes por código de familia
+export async function getDependentsByAccessCode(codigoFamilia: string): Promise<FamilyMember[]> {
+  const supabase = getSupabaseClient();
+  
+  // Primero obtener la registration
+  const registration = await getRegistrationByCode(codigoFamilia);
+  if (!registration) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from('family_members')
+    .select()
+    .eq('registration_id', registration.id)
+    .eq('is_active', true);
+
+  if (error) {
+    console.error('Error fetching dependents:', error);
+    throw new Error(`Failed to fetch dependents: ${error.message}`);
+  }
+
+  return data || [];
+// ============================================
+// FUNCIONES FALTANTES - FIX BUILD AWS
+// ============================================
+
+export async function saveDependents(accessCode: string, dependents: any[]) {
+  const { data, error } = await supabase
+    .from('dependents')
+    .upsert(
+      dependents.map(dep => ({
+        ...dep,
+        access_code: accessCode
+      }))
+    );
+  
+  if (error) throw error;
+  return data;
+}
+
+export async function getDependentsByAccessCode(accessCode: string) {
+  const { data, error } = await supabase
+    .from('dependents')
+    .select('*')
+    .eq('access_code', accessCode);
+  
+  if (error) throw error;
+  return data;
+}
+
+export async function updateUserByAccessCode(accessCode: string, updates: any) {
+  const { data, error } = await supabase
+    .from('users')
+    .update(updates)
+    .eq('access_code', accessCode)
+    .select()
+    .single();
+  
+  if (error) throw error;
+  return data;
+}
+}
