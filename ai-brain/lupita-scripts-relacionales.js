@@ -101,7 +101,7 @@ Oiga, antes de colgar... ¿ya desayunó/comió/cenó?
 [Validar respuesta]
 Qué rico. Bueno, pues le dejo descansar. Mañana le llamo para ver cómo amaneció. Que le vaya bonito.`,
     
-    si_rechaza: `No se preocupe, le entiendo perfecto. ¿Le puedo marcar mañana a esta misma hora, o hay otro momento que le quede mejor?
+    si_rechaza: (vars) => `No se preocupe, le entiendo perfecto. ¿Le puedo marcar mañana a esta misma hora, o hay otro momento que le quede mejor?
 [Si da hora] Sale, mañana le marco entonces. Que le vaya bonito.
 [Si dice no] Está bien, no hay problema. Si algún día necesita algo, ${vars.nombre_migrante} tiene el número. Cuídese mucho.`,
     
