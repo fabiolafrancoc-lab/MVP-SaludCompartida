@@ -1,13 +1,21 @@
 {
-  "name": "lupita-connect-lambda",
-  "version": "1.0.0",
-  "description": "AWS Lambda function for Lupita AI in Amazon Connect",
+  "name": "lupita-voice-handler",
+  "version": "2.0.0",
+  "description": "SaludCompartida - Lupita AI Companion Lambda para AWS Connect + Bedrock + ElevenLabs",
   "type": "module",
   "main": "index.mjs",
-  "dependencies": {
-    "@aws-sdk/client-bedrock-runtime": "^3.709.0"
+  "scripts": {
+    "deploy": "zip -r lupita-lambda.zip index.mjs package.json node_modules/ && aws lambda update-function-code --function-name lupita-voice-handler --zip-file fileb://lupita-lambda.zip --region us-west-2",
+    "test": "node test-local.mjs"
   },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.723.0"
+  },
+  "devDependencies": {},
   "engines": {
     "node": ">=20.0.0"
-  }
+  },
+  "author": "SaludCompartida",
+  "license": "UNLICENSED",
+  "private": true
 }

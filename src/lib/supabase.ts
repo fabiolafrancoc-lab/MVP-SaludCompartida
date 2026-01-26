@@ -167,6 +167,24 @@ export async function getRegistrationByCode(codigoFamilia: string): Promise<Regi
   return data;
 }
 
+export async function updateUserByAccessCode(codigoFamilia: string, updates: RegistrationUpdate): Promise<Registration> {
+  const supabase = getSupabaseClient();
+  
+  const { data, error } = await supabase
+    .from('registrations')
+    .update(updates)
+    .eq('codigo_familia', codigoFamilia)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error updating registration:', error);
+    throw new Error(`Failed to update registration: ${error.message}`);
+  }
+
+  return data;
+}
+
 export function generateRegistrationId(): string {
   const timestamp = Date.now();
   const random = Math.floor(Math.random() * 10000);
