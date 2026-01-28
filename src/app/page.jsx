@@ -1,3 +1,16 @@
+/**
+ * 🏠 HOMEPAGE PRINCIPAL → saludcompartida.app/
+ * 
+ * Landing page completa con diseño mobile-first (2700 líneas)
+ * 10 secciones: Hero, Pillars, Bridge, Companions, Testimonials, Pricing, Final FOMO, Footer
+ * Responsive: 375px → 768px → 1024px → 1280px
+ * Form: name + email + phone → localStorage → /registro
+ * 
+ * @route / (URL raíz del sitio)
+ * @created 2026-01-27
+ * @status ACTIVO - Este es el diseño que se muestra en producción
+ */
+
 'use client';
 
 import { useState } from 'react';

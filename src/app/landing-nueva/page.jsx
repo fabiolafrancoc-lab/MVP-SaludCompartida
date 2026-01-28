@@ -4,11 +4,15 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 /**
- * Page 1 - Landing Page SaludCompartida
- * Diseño emocional con foto izquierda, formulario derecha
- * Contador naranja de familias protegidas
+ * LANDING ALTERNATIVA - saludcompartida.app/landing-nueva
  * 
- * NOTA: Este diseño está APROBADO - No cambiar layout
+ * Diseño emocional con foto izquierda, formulario derecha
+ * Contador naranja de familias protegidas (847)
+ * Form: firstName + lastName + email + phone → /registro-nuevo
+ * 
+ * @route /landing-nueva (URL separada para campañas específicas)
+ * @approved Diseño aprobado - No cambiar layout sin autorización
+ * @purpose Página alternativa para pruebas A/B o campañas dirigidas
  */
 
 export default function Page1Landing() {
