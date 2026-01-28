@@ -1,316 +1,629 @@
-'use client';'use client';
+'use client';'use client';'use client';
 
 
+
+import SharedHeader from '../components/SharedHeader';
+
+import SharedFooter from '../components/SharedFooter';
 
 import SharedHeader from '../components/SharedHeader';import { useState } from 'react';
 
-import SharedFooter from '../components/SharedFooter';import { useRouter } from 'next/navigation';
+export default function LandingPage() {
 
+  return (import SharedFooter from '../components/SharedFooter';import { useRouter } from 'next/navigation';
 
+    <>
 
-export default function LandingPage() {/**
-
-  return ( * LANDING ALTERNATIVA - saludcompartida.app/landing-nueva
-
-    <> * 
-
-      <SharedHeader /> * Diseño emocional con foto izquierda, formulario derecha
-
-       * Contador naranja de familias protegidas (847)
-
-      <style jsx global>{` * Form: firstName + lastName + email + phone → /registro-nuevo
-
-        :root { * 
-
-          --cyan: #06B6D4; * @route /landing-nueva (URL separada para campañas específicas)
-
-          --magenta: #EC4899; * @approved Diseño aprobado - No cambiar layout sin autorización
-
-          --gray-900: #111827; * @purpose Página alternativa para pruebas A/B o campañas dirigidas
-
-          --gray-800: #1F2937; */
-
-        }
-
-export default function Page1Landing() {
-
-        body {  const router = useRouter();
-
-          font-family: 'Plus Jakarta Sans', sans-serif;  const [formData, setFormData] = useState({
-
-          background: var(--gray-900);    firstName: '',
-
-          color: white;    lastName: '',
-
-          margin: 0;    email: '',
-
-          padding: 0;    phone: '',
-
-        }    countryCode: '+1'
-
-  });
-
-        /* HERO SECTION */  const [isLoading, setIsLoading] = useState(false);
-
-        .hero {  const [error, setError] = useState('');
-
-          min-height: 100vh;
-
-          display: flex;  // Contador de familias (puede venir de API)
-
-          flex-direction: column;  const familiesProtected = 847;
-
-          justify-content: center;
-
-          align-items: center;  const handleChange = (e) => {
-
-          padding: 120px 24px 80px;    const { name, value } = e.target;
-
-          background: var(--gray-900);    setFormData(prev => ({ ...prev, [name]: value }));
-
-          position: relative;  };
-
-          overflow: hidden;
-
-        }  const handleSubmit = async (e) => {
-
-    e.preventDefault();
-
-        .hero-content {    setIsLoading(true);
-
-          max-width: 1200px;    setError('');
-
-          width: 100%;
-
-          text-align: center;    try {
-
-          z-index: 2;      // Guardar en localStorage para siguiente página
-
-        }      localStorage.setItem('registrationData', JSON.stringify(formData));
+      <SharedHeader />
 
       
 
-        .hero-title {      // Navegar a página 2 (registro completo)
+      <style jsx global>{`export default function LandingPage() {/**
 
-          font-size: 56px;      router.push('/registro');
+        :root {
 
-          font-weight: 800;    } catch (err) {
+          --cyan: #06B6D4;  return ( * LANDING ALTERNATIVA - saludcompartida.app/landing-nueva
 
-          margin-bottom: 24px;      setError('Hubo un error. Por favor intenta de nuevo.');
+          --magenta: #EC4899;
 
-          background: linear-gradient(135deg, var(--cyan), var(--magenta));      console.error('Error:', err);
+          --gray-900: #111827;    <> * 
 
-          -webkit-background-clip: text;    } finally {
+          --gray-800: #1F2937;
 
-          -webkit-text-fill-color: transparent;      setIsLoading(false);
+        }      <SharedHeader /> * Diseño emocional con foto izquierda, formulario derecha
 
-          background-clip: text;    }
 
-          line-height: 1.2;  };
+
+        body {       * Contador naranja de familias protegidas (847)
+
+          font-family: 'Plus Jakarta Sans', sans-serif;
+
+          background: var(--gray-900);      <style jsx global>{` * Form: firstName + lastName + email + phone → /registro-nuevo
+
+          color: white;
+
+          margin: 0;        :root { * 
+
+          padding: 0;
+
+        }          --cyan: #06B6D4; * @route /landing-nueva (URL separada para campañas específicas)
+
+
+
+        .hero {          --magenta: #EC4899; * @approved Diseño aprobado - No cambiar layout sin autorización
+
+          min-height: 100vh;
+
+          display: flex;          --gray-900: #111827; * @purpose Página alternativa para pruebas A/B o campañas dirigidas
+
+          flex-direction: column;
+
+          justify-content: center;          --gray-800: #1F2937; */
+
+          align-items: center;
+
+          padding: 120px 24px 80px;        }
+
+          background: var(--gray-900);
+
+        }export default function Page1Landing() {
+
+
+
+        .hero-content {        body {  const router = useRouter();
+
+          max-width: 1200px;
+
+          width: 100%;          font-family: 'Plus Jakarta Sans', sans-serif;  const [formData, setFormData] = useState({
+
+          text-align: center;
+
+        }          background: var(--gray-900);    firstName: '',
+
+
+
+        .hero-title {          color: white;    lastName: '',
+
+          font-size: 56px;
+
+          font-weight: 800;          margin: 0;    email: '',
+
+          margin-bottom: 24px;
+
+          background: linear-gradient(135deg, var(--cyan), var(--magenta));          padding: 0;    phone: '',
+
+          -webkit-background-clip: text;
+
+          -webkit-text-fill-color: transparent;        }    countryCode: '+1'
+
+          line-height: 1.2;
+
+        }  });
+
+
+
+        .hero-subtitle {        /* HERO SECTION */  const [isLoading, setIsLoading] = useState(false);
+
+          font-size: 24px;
+
+          color: rgba(255,255,255,0.8);        .hero {  const [error, setError] = useState('');
+
+          margin-bottom: 40px;
+
+        }          min-height: 100vh;
+
+
+
+        .hero-video-container {          display: flex;  // Contador de familias (puede venir de API)
+
+          width: 100%;
+
+          max-width: 900px;          flex-direction: column;  const familiesProtected = 847;
+
+          margin: 40px auto;
+
+          border-radius: 24px;          justify-content: center;
+
+          overflow: hidden;
+
+          box-shadow: 0 20px 60px rgba(0,0,0,0.5);          align-items: center;  const handleChange = (e) => {
 
         }
 
-  return (
+          padding: 120px 24px 80px;    const { name, value } = e.target;
+
+        .hero-video {
+
+          width: 100%;          background: var(--gray-900);    setFormData(prev => ({ ...prev, [name]: value }));
+
+          height: auto;
+
+          display: block;          position: relative;  };
+
+        }
+
+          overflow: hidden;
+
+        .cta-button {
+
+          display: inline-block;        }  const handleSubmit = async (e) => {
+
+          background: linear-gradient(135deg, var(--cyan), var(--magenta));
+
+          color: white;    e.preventDefault();
+
+          font-size: 20px;
+
+          font-weight: 700;        .hero-content {    setIsLoading(true);
+
+          padding: 18px 48px;
+
+          border-radius: 12px;          max-width: 1200px;    setError('');
+
+          text-decoration: none;
+
+          margin-top: 40px;          width: 100%;
+
+        }
+
+          text-align: center;    try {
+
+        .testimonials {
+
+          padding: 80px 24px;          z-index: 2;      // Guardar en localStorage para siguiente página
+
+          background: var(--gray-800);
+
+        }        }      localStorage.setItem('registrationData', JSON.stringify(formData));
+
+
+
+        .section-title {      
+
+          font-size: 48px;
+
+          font-weight: 800;        .hero-title {      // Navegar a página 2 (registro completo)
+
+          text-align: center;
+
+          margin-bottom: 60px;          font-size: 56px;      router.push('/registro');
+
+          background: linear-gradient(135deg, var(--cyan), var(--magenta));
+
+          -webkit-background-clip: text;          font-weight: 800;    } catch (err) {
+
+          -webkit-text-fill-color: transparent;
+
+        }          margin-bottom: 24px;      setError('Hubo un error. Por favor intenta de nuevo.');
+
+
+
+        .testimonial-card {          background: linear-gradient(135deg, var(--cyan), var(--magenta));      console.error('Error:', err);
+
+          background: var(--gray-900);
+
+          border-radius: 20px;          -webkit-background-clip: text;    } finally {
+
+          padding: 40px;
+
+          margin: 0 auto 32px;          -webkit-text-fill-color: transparent;      setIsLoading(false);
+
+          max-width: 800px;
+
+        }          background-clip: text;    }
+
+
+
+        .testimonial-text {          line-height: 1.2;  };
+
+          font-size: 20px;
+
+          line-height: 1.8;        }
+
+          margin-bottom: 24px;
+
+          font-style: italic;  return (
+
+        }
 
         .hero-subtitle {    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
 
-          font-size: 24px;      {/* Header */}
+        .testimonial-author {
 
-          color: rgba(255,255,255,0.8);      <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+          font-size: 18px;          font-size: 24px;      {/* Header */}
 
-          margin-bottom: 40px;        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          font-weight: 600;
 
-          line-height: 1.6;          <img 
-
-        }            src="/saludcompartida_logo.png" 
-
-            alt="SaludCompartida" 
-
-        .hero-video-container {            className="h-10 md:h-12"
-
-          width: 100%;          />
-
-          max-width: 900px;          <div className="flex items-center gap-4">
-
-          margin: 40px auto;            <a 
-
-          border-radius: 24px;              href="tel:+18001234567" 
-
-          overflow: hidden;              className="hidden md:flex items-center gap-2 text-gray-600 hover:text-cyan-600 transition-colors"
-
-          box-shadow: 0 20px 60px rgba(0,0,0,0.5);            >
-
-          border: 2px solid rgba(6, 182, 212, 0.3);              <PhoneIcon className="w-5 h-5" />
-
-        }              <span className="font-medium">1-800-123-4567</span>
-
-            </a>
-
-        .hero-video {            <button 
-
-          width: 100%;              onClick={() => router.push('/login')}
-
-          height: auto;              className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-
-          display: block;            >
-
-        }              Iniciar Sesión
-
-            </button>
-
-        .hero-cta {          </div>
-
-          margin-top: 40px;        </div>
-
-        }      </header>
-
-
-
-        .cta-button {      {/* Main Content */}
-
-          display: inline-block;      <main className="container mx-auto px-4 py-8 md:py-12">
-
-          background: linear-gradient(135deg, var(--cyan), var(--magenta));        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-
-          color: white;          
-
-          font-size: 20px;          {/* Left Side - Image & Emotional Content */}
-
-          font-weight: 700;          <div className="order-2 lg:order-1">
-
-          padding: 18px 48px;            {/* Main Image */}
-
-          border-radius: 12px;            <div className="relative">
-
-          text-decoration: none;              <img 
-
-          transition: all 0.3s ease;                src="/images/familia-mexicana.jpg" 
-
-          border: none;                alt="Familia mexicana feliz"
-
-          cursor: pointer;                className="rounded-3xl shadow-2xl w-full object-cover"
-
-        }                style={{ maxHeight: '500px' }}
-
-              />
-
-        .cta-button:hover {              
-
-          transform: translateY(-2px);              {/* Overlay Badge */}
-
-          box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);              <div className="absolute -bottom-4 -right-4 md:bottom-6 md:right-6 bg-white rounded-2xl shadow-xl p-4 md:p-6">
-
-        }                <div className="flex items-center gap-3">
-
-                  <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
-
-        /* TESTIMONIALS SECTION */                    <HeartIcon className="w-6 h-6 text-white" />
-
-        .testimonials {                  </div>
-
-          padding: 80px 24px;                  <div>
-
-          background: var(--gray-800);                    <p className="text-gray-600 text-sm">Cuidando familias</p>
-
-        }                    <p className="text-gray-900 font-bold text-lg">Desde USA a México</p>
-
-                  </div>
-
-        .testimonials-container {                </div>
-
-          max-width: 1200px;              </div>
-
-          margin: 0 auto;            </div>
+          color: var(--cyan);          color: rgba(255,255,255,0.8);      <header className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
 
         }
 
-            {/* Emotional Text */}
+          margin-bottom: 40px;        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+
+        .pricing {
+
+          padding: 80px 24px;          line-height: 1.6;          <img 
+
+          background: var(--gray-900);
+
+        }        }            src="/saludcompartida_logo.png" 
+
+
+
+        .pricing-card {            alt="SaludCompartida" 
+
+          background: var(--gray-800);
+
+          border-radius: 24px;        .hero-video-container {            className="h-10 md:h-12"
+
+          padding: 60px 40px;
+
+          max-width: 800px;          width: 100%;          />
+
+          margin: 0 auto;
+
+          text-align: center;          max-width: 900px;          <div className="flex items-center gap-4">
+
+        }
+
+          margin: 40px auto;            <a 
+
+        .price {
+
+          font-size: 72px;          border-radius: 24px;              href="tel:+18001234567" 
+
+          font-weight: 800;
+
+          color: var(--cyan);          overflow: hidden;              className="hidden md:flex items-center gap-2 text-gray-600 hover:text-cyan-600 transition-colors"
+
+        }
+
+          box-shadow: 0 20px 60px rgba(0,0,0,0.5);            >
+
+        .price-period {
+
+          font-size: 24px;          border: 2px solid rgba(6, 182, 212, 0.3);              <PhoneIcon className="w-5 h-5" />
+
+          color: rgba(255,255,255,0.6);
+
+        }        }              <span className="font-medium">1-800-123-4567</span>
+
+
+
+        .features-list {            </a>
+
+          text-align: left;
+
+          margin: 40px 0;        .hero-video {            <button 
+
+        }
+
+          width: 100%;              onClick={() => router.push('/login')}
+
+        .feature-item {
+
+          font-size: 18px;          height: auto;              className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+
+          padding: 12px 0;
+
+          border-bottom: 1px solid rgba(255,255,255,0.1);          display: block;            >
+
+        }
+
+        }              Iniciar Sesión
+
+        .subscription-form {
+
+          padding: 80px 24px;            </button>
+
+          background: var(--gray-800);
+
+        }        .hero-cta {          </div>
+
+
+
+        .form-container {          margin-top: 40px;        </div>
+
+          max-width: 600px;
+
+          margin: 0 auto;        }      </header>
+
+        }
+
+
+
+        .form-title {
+
+          font-size: 36px;        .cta-button {      {/* Main Content */}
+
+          font-weight: 700;
+
+          text-align: center;          display: inline-block;      <main className="container mx-auto px-4 py-8 md:py-12">
+
+          margin-bottom: 40px;
+
+        }          background: linear-gradient(135deg, var(--cyan), var(--magenta));        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+
+
+
+        .form-group {          color: white;          
+
+          margin-bottom: 24px;
+
+        }          font-size: 20px;          {/* Left Side - Image & Emotional Content */}
+
+
+
+        .form-label {          font-weight: 700;          <div className="order-2 lg:order-1">
+
+          display: block;
+
+          font-size: 16px;          padding: 18px 48px;            {/* Main Image */}
+
+          font-weight: 600;
+
+          margin-bottom: 8px;          border-radius: 12px;            <div className="relative">
+
+        }
+
+          text-decoration: none;              <img 
+
+        .form-input {
+
+          width: 100%;          transition: all 0.3s ease;                src="/images/familia-mexicana.jpg" 
+
+          padding: 16px;
+
+          font-size: 16px;          border: none;                alt="Familia mexicana feliz"
+
+          border: 2px solid rgba(6, 182, 212, 0.3);
+
+          border-radius: 8px;          cursor: pointer;                className="rounded-3xl shadow-2xl w-full object-cover"
+
+          background: var(--gray-900);
+
+          color: white;        }                style={{ maxHeight: '500px' }}
+
+        }
+
+              />
+
+        .submit-button {
+
+          width: 100%;        .cta-button:hover {              
+
+          background: linear-gradient(135deg, var(--cyan), var(--magenta));
+
+          color: white;          transform: translateY(-2px);              {/* Overlay Badge */}
+
+          font-size: 20px;
+
+          font-weight: 700;          box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);              <div className="absolute -bottom-4 -right-4 md:bottom-6 md:right-6 bg-white rounded-2xl shadow-xl p-4 md:p-6">
+
+          padding: 18px;
+
+          border-radius: 12px;        }                <div className="flex items-center gap-3">
+
+          border: none;
+
+          cursor: pointer;                  <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
+
+        }
+
+        /* TESTIMONIALS SECTION */                    <HeartIcon className="w-6 h-6 text-white" />
+
+        @media (max-width: 768px) {
+
+          .hero-title {        .testimonials {                  </div>
+
+            font-size: 36px;
+
+          }          padding: 80px 24px;                  <div>
+
+          .hero-subtitle {
+
+            font-size: 18px;          background: var(--gray-800);                    <p className="text-gray-600 text-sm">Cuidando familias</p>
+
+          }
+
+          .section-title {        }                    <p className="text-gray-900 font-bold text-lg">Desde USA a México</p>
+
+            font-size: 32px;
+
+          }                  </div>
+
+        }
+
+      `}</style>        .testimonials-container {                </div>
+
+
+
+      <section className="hero">          max-width: 1200px;              </div>
+
+        <div className="hero-content">
+
+          <h1 className="hero-title">          margin: 0 auto;            </div>
+
+            Cuida a tu Familia en México desde Estados Unidos
+
+          </h1>        }
+
+          <p className="hero-subtitle">
+
+            Telemedicina 24/7, Descuentos en Farmacias y Apoyo Emocional por solo $12/mes            {/* Emotional Text */}
+
+          </p>
 
         .section-title {            <div className="mt-8 space-y-4">
 
-          font-size: 48px;              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+          <div className="hero-video-container">
 
-          font-weight: 800;                Porque la distancia no debería separarte de 
+            <video className="hero-video" autoPlay loop muted playsInline>          font-size: 48px;              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
 
-          text-align: center;                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-500"> cuidar a quien amas</span>
+              <source src="/LANDING_VIDEO SIN FIN_LIVIANO.mov" type="video/mp4" />
 
-          margin-bottom: 60px;              </h2>
-
-          background: linear-gradient(135deg, var(--cyan), var(--magenta));              <p className="text-gray-600 text-lg">
-
-          -webkit-background-clip: text;                Tu mamá merece atención médica de calidad. Tu papá merece sus medicamentos a tiempo. 
-
-          -webkit-text-fill-color: transparent;                Tus hijos merecen un doctor cuando lo necesitan.
-
-          background-clip: text;              </p>
-
-        }            </div>
-
-
-
-        .testimonial-card {            {/* Trust Badges */}
-
-          background: var(--gray-900);            <div className="mt-6 flex flex-wrap gap-4">
-
-          border-radius: 20px;              <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
-
-          padding: 40px;                <CheckIcon className="w-5 h-5 text-green-500" />
-
-          border: 2px solid rgba(6, 182, 212, 0.2);                <span className="text-green-700 font-medium text-sm">Telemedicina 24/7</span>
-
-          margin-bottom: 32px;              </div>
-
-        }              <div className="flex items-center gap-2 bg-cyan-50 px-4 py-2 rounded-full">
-
-                <CheckIcon className="w-5 h-5 text-cyan-500" />
-
-        .testimonial-text {                <span className="text-cyan-700 font-medium text-sm">75% descuento farmacia</span>
-
-          font-size: 20px;              </div>
-
-          line-height: 1.8;              <div className="flex items-center gap-2 bg-pink-50 px-4 py-2 rounded-full">
-
-          color: rgba(255,255,255,0.9);                <CheckIcon className="w-5 h-5 text-pink-500" />
-
-          margin-bottom: 24px;                <span className="text-pink-700 font-medium text-sm">Terapia semanal</span>
-
-          font-style: italic;              </div>
-
-        }            </div>
+            </video>          font-weight: 800;                Porque la distancia no debería separarte de 
 
           </div>
 
-        .testimonial-author {
+          text-align: center;                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-500"> cuidar a quien amas</span>
 
-          font-size: 18px;          {/* Right Side - Form */}
+          <a href="#subscription" className="cta-button">
 
-          font-weight: 600;          <div className="order-1 lg:order-2">
+            Protege a tu Familia Ahora          margin-bottom: 60px;              </h2>
 
-          color: var(--cyan);            {/* Counter Badge - Orange */}
+          </a>
 
-        }            <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-4 mb-6 shadow-lg">
+        </div>          background: linear-gradient(135deg, var(--cyan), var(--magenta));              <p className="text-gray-600 text-lg">
 
-              <div className="flex items-center justify-center gap-3">
+      </section>
 
-        /* PRICING SECTION */                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+          -webkit-background-clip: text;                Tu mamá merece atención médica de calidad. Tu papá merece sus medicamentos a tiempo. 
+
+      <section className="testimonials">
+
+        <div>          -webkit-text-fill-color: transparent;                Tus hijos merecen un doctor cuando lo necesitan.
+
+          <h2 className="section-title">HISTORIAS REALES</h2>
+
+                    background-clip: text;              </p>
+
+          <div className="testimonial-card">
+
+            <p className="testimonial-text">        }            </div>
+
+              "Gracias a SaludCompartida, mi mamá en México puede hablar con un doctor a cualquier hora."
+
+            </p>
+
+            <p className="testimonial-author">— María G., Los Angeles, CA</p>
+
+          </div>        .testimonial-card {            {/* Trust Badges */}
+
+
+
+          <div className="testimonial-card">          background: var(--gray-900);            <div className="mt-6 flex flex-wrap gap-4">
+
+            <p className="testimonial-text">
+
+              "Los descuentos en medicinas son increíbles. Mis papás ahorran más de $200 dólares al mes."          border-radius: 20px;              <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
+
+            </p>
+
+            <p className="testimonial-author">— Carlos R., Houston, TX</p>          padding: 40px;                <CheckIcon className="w-5 h-5 text-green-500" />
+
+          </div>
+
+        </div>          border: 2px solid rgba(6, 182, 212, 0.2);                <span className="text-green-700 font-medium text-sm">Telemedicina 24/7</span>
+
+      </section>
+
+          margin-bottom: 32px;              </div>
+
+      <section className="pricing">
+
+        <div>        }              <div className="flex items-center gap-2 bg-cyan-50 px-4 py-2 rounded-full">
+
+          <h2 className="section-title">Un Precio Simple</h2>
+
+                          <CheckIcon className="w-5 h-5 text-cyan-500" />
+
+          <div className="pricing-card">
+
+            <div className="price">$12<span className="price-period">/mes</span></div>        .testimonial-text {                <span className="text-cyan-700 font-medium text-sm">75% descuento farmacia</span>
+
+            
+
+            <div className="features-list">          font-size: 20px;              </div>
+
+              <div className="feature-item">✓ Telemedicina 24/7 ilimitada</div>
+
+              <div className="feature-item">✓ Descuentos hasta 75% en farmacias</div>          line-height: 1.8;              <div className="flex items-center gap-2 bg-pink-50 px-4 py-2 rounded-full">
+
+              <div className="feature-item">✓ Terapia semanal con psicólogo</div>
+
+              <div className="feature-item">✓ Dashboard de ahorros</div>          color: rgba(255,255,255,0.9);                <CheckIcon className="w-5 h-5 text-pink-500" />
+
+              <div className="feature-item">✓ Lupita y Fernanda - Acompañamiento</div>
+
+              <div className="feature-item">✓ Hasta 4 familiares incluidos</div>          margin-bottom: 24px;                <span className="text-pink-700 font-medium text-sm">Terapia semanal</span>
+
+            </div>
+
+          font-style: italic;              </div>
+
+            <a href="#subscription" className="cta-button">Comenzar Ahora</a>
+
+          </div>        }            </div>
+
+        </div>
+
+      </section>          </div>
+
+
+
+      <section id="subscription" className="subscription-form">        .testimonial-author {
+
+        <div className="form-container">
+
+          <h2 className="form-title">¡Únete a SaludCompartida!</h2>          font-size: 18px;          {/* Right Side - Form */}
+
+          
+
+          <form action="/subscribe" method="GET">          font-weight: 600;          <div className="order-1 lg:order-2">
+
+            <div className="form-group">
+
+              <label className="form-label">Tu Nombre</label>          color: var(--cyan);            {/* Counter Badge - Orange */}
+
+              <input type="text" name="name" className="form-input" placeholder="¿Cómo te llamas?" required />
+
+            </div>        }            <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-4 mb-6 shadow-lg">
+
+
+
+            <div className="form-group">              <div className="flex items-center justify-center gap-3">
+
+              <label className="form-label">Tu Email</label>
+
+              <input type="email" name="email" className="form-input" placeholder="tu@email.com" required />        /* PRICING SECTION */                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+
+            </div>
 
         .pricing {                  <UsersIcon className="w-6 h-6 text-white" />
 
-          padding: 80px 24px;                </div>
+            <div className="form-group">
 
-          background: var(--gray-900);                <div className="text-white">
+              <label className="form-label">Tu Teléfono</label>          padding: 80px 24px;                </div>
 
-        }                  <p className="text-3xl font-bold">{familiesProtected.toLocaleString()}</p>
+              <input type="tel" name="phone" className="form-input" placeholder="+1 (555) 123-4567" required />
 
-                  <p className="text-white/90 text-sm">familias ya protegidas</p>
+            </div>          background: var(--gray-900);                <div className="text-white">
 
-        .pricing-container {                </div>
+
+
+            <button type="submit" className="submit-button">        }                  <p className="text-3xl font-bold">{familiesProtected.toLocaleString()}</p>
+
+              Quiero Proteger a mi Familia
+
+            </button>                  <p className="text-white/90 text-sm">familias ya protegidas</p>
+
+          </form>
+
+        </div>        .pricing-container {                </div>
+
+      </section>
 
           max-width: 800px;              </div>
 
-          margin: 0 auto;            </div>
+      <SharedFooter />
 
-          text-align: center;
+    </>          margin: 0 auto;            </div>
+
+  );
+
+}          text-align: center;
+
 
         }            {/* Form Card */}
 
