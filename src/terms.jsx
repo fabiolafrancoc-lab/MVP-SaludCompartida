@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import TopNav from './components/TopNav';
+import SharedHeader from './components/SharedHeader';
+import SharedFooter from './components/SharedFooter';
 
 export default function Terms() {
   const navigate = useNavigate();
@@ -37,8 +38,8 @@ export default function Terms() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900" style={{background: '#111827'}}>
-      <TopNav internalPage={true} showMenu={true} />
+    <div className="min-h-screen bg-gray-900" style={{background: '#111827', paddingTop: '72px'}}>
+      <SharedHeader />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
@@ -672,7 +673,7 @@ export default function Terms() {
         </div>
 
         {/* Footer */}
-        <div className="mt-16 text-center border-t border-gray-200 pt-8">
+        <div className="mt-16 text-center border-t border-gray-700 pt-8">
           <p className="text-gray-400 mb-4">
             ¿Tienes preguntas sobre privacidad y protección de datos?
           </p>
@@ -682,11 +683,11 @@ export default function Terms() {
           >
             Lee nuestro Aviso de Privacidad →
           </button>
-          <p className="text-sm text-gray-400 mt-6">
-            © 2025 SaludCompartida. Todos los derechos reservados.
-          </p>
         </div>
       </div>
+      
+      <SharedFooter />
     </div>
   );
+}
 }

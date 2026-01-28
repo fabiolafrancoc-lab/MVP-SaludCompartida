@@ -64,8 +64,9 @@ export default function LandingPage() {
         .header {
           padding: 16px 24px;
           display: flex;
-          justify-content: flex-start;
-          background: rgba(17, 24, 39, 0.95);
+          justify-content: space-between;
+          align-items: center;
+          background: rgba(17, 24, 39, 0.98);
           backdrop-filter: blur(10px);
           position: fixed;
           top: 0;
@@ -75,9 +76,149 @@ export default function LandingPage() {
           border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
+        .header-content {
+          max-width: 1400px;
+          width: 100%;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 40px;
+        }
+
         .logo-img {
           height: 40px;
           width: auto;
+          cursor: pointer;
+        }
+
+        .nav-menu {
+          display: none;
+          gap: 32px;
+          flex: 1;
+          justify-content: center;
+        }
+
+        @media (min-width: 1024px) {
+          .nav-menu {
+            display: flex;
+          }
+        }
+
+        .nav-item {
+          position: relative;
+          color: rgba(255,255,255,0.85);
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: color 0.2s ease;
+        }
+
+        .nav-item:hover {
+          color: var(--cyan);
+        }
+
+        .dropdown {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          margin-top: 12px;
+          background: rgba(31, 41, 55, 0.98);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 12px;
+          padding: 8px;
+          min-width: 220px;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-10px);
+          transition: all 0.3s ease;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .nav-item:hover .dropdown {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
+        .dropdown-item {
+          display: block;
+          padding: 10px 16px;
+          color: rgba(255,255,255,0.8);
+          font-size: 13px;
+          border-radius: 8px;
+          transition: all 0.2s ease;
+          text-decoration: none;
+        }
+
+        .dropdown-item:hover {
+          background: rgba(6, 182, 212, 0.1);
+          color: var(--cyan);
+        }
+
+        .nav-cta {
+          display: none;
+          gap: 12px;
+        }
+
+        @media (min-width: 1024px) {
+          .nav-cta {
+            display: flex;
+          }
+        }
+
+        .btn-contratar {
+          padding: 10px 24px;
+          background: linear-gradient(135deg, var(--cyan), #0891B2);
+          color: white;
+          font-size: 14px;
+          font-weight: 600;
+          border-radius: 8px;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        .btn-contratar:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-login {
+          padding: 10px 24px;
+          background: transparent;
+          color: white;
+          font-size: 14px;
+          font-weight: 600;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.2);
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        .btn-login:hover {
+          border-color: var(--cyan);
+          color: var(--cyan);
+        }
+
+        .mobile-menu-btn {
+          display: block;
+          background: transparent;
+          border: none;
+          color: white;
+          cursor: pointer;
+          padding: 8px;
+        }
+
+        @media (min-width: 1024px) {
+          .mobile-menu-btn {
+            display: none;
+          }
         }
 
         /* ===== HERO SECTION - SPLIT ===== */
@@ -1042,7 +1183,58 @@ export default function LandingPage() {
 
       {/* Header */}
       <header className="header">
-        <img src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="logo-img" />
+        <div className="header-content">
+          {/* Logo */}
+          <a href="/">
+            <img src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="logo-img" />
+          </a>
+
+          {/* Desktop Navigation */}
+          <nav className="nav-menu">
+            {/* Quiénes Somos */}
+            <div className="nav-item">
+              Quiénes Somos
+              <div className="dropdown">
+                <a href="#vision-mision" className="dropdown-item">Visión y Misión</a>
+                <a href="#valores" className="dropdown-item">Nuestros Valores</a>
+                <a href="#pilares" className="dropdown-item">Nuestros Pilares</a>
+              </div>
+            </div>
+
+            {/* Nuestros Servicios */}
+            <div className="nav-item">
+              Nuestros Servicios
+              <div className="dropdown">
+                <a href="#telemedicina" className="dropdown-item">Telemedicina 24/7</a>
+                <a href="#farmacias" className="dropdown-item">Descuentos en Farmacias</a>
+                <a href="#terapia" className="dropdown-item">Terapia Semanal</a>
+                <a href="#ahorros" className="dropdown-item">Mis Ahorros</a>
+              </div>
+            </div>
+
+            {/* Lo que nos hace únicos */}
+            <div className="nav-item">
+              Lo que nos hace Únicos
+              <div className="dropdown">
+                <a href="#lupita-fernanda" className="dropdown-item">Lupita y Fernanda</a>
+                <a href="#por-que-creamos" className="dropdown-item">Por qué creamos SaludCompartida</a>
+              </div>
+            </div>
+          </nav>
+
+          {/* CTA Buttons */}
+          <div className="nav-cta">
+            <a href="/subscribe" className="btn-contratar">Contratar SaludCompartida</a>
+            <a href="/dashboard" className="btn-login">Ya Tengo mi Clave</a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button className="mobile-menu-btn" onClick={() => alert('Menú móvil próximamente')}>
+            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
       </header>
 
       {/* Hero Section */}
@@ -1471,10 +1663,14 @@ export default function LandingPage() {
         <p className="footer-tagline">
           Cuidando familias, acortando distancias.
         </p>
+        <div className="footer-contact">
+          <p style={{color: 'rgba(255,255,255,0.7)', marginBottom: '8px'}}>
+            <strong style={{color: 'var(--cyan)'}}>Contacto:</strong> contact@saludcompartida.com
+          </p>
+        </div>
         <div className="footer-links">
           <a href="/terms">Términos y Condiciones</a>
           <a href="/privacy">Política de Privacidad</a>
-          <a href="/account">Mi Cuenta</a>
         </div>
         <p className="footer-copyright">
           Hecho con ❤️ para familias migrantes en Estados Unidos.
