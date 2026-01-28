@@ -130,12 +130,12 @@ export default function SharedHeader() {
 
         .shared-btn-login {
           padding: 10px 24px;
-          background: transparent;
+          background: linear-gradient(135deg, #EC4899, #DB2777);
           color: white;
           font-size: 14px;
           font-weight: 600;
           border-radius: 8px;
-          border: 1px solid rgba(255,255,255,0.2);
+          border: none;
           cursor: pointer;
           transition: all 0.3s ease;
           text-decoration: none;
@@ -143,8 +143,8 @@ export default function SharedHeader() {
         }
 
         .shared-btn-login:hover {
-          border-color: #06B6D4;
-          color: #06B6D4;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
         }
 
         .shared-mobile-menu-btn {
