@@ -178,16 +178,16 @@ export default function SharedHeader() {
               <div className="shared-dropdown">
                 <a href="/vision-mision" className="shared-dropdown-item">Visión y Misión</a>
                 <a href="/valores" className="shared-dropdown-item">Nuestros Valores</a>
-                <a href="/#pilares" className="shared-dropdown-item">Nuestros Pilares</a>
+                <a href="/pilares" className="shared-dropdown-item">Nuestros Pilares</a>
               </div>
             </div>
 
-            {/* Guía de Utilización */}
+            {/* Cómo Utilizar SaludCompartida */}
             <div className="shared-nav-item">
-              Guía de Utilización de Nuestros Servicios
+              Cómo Utilizar SaludCompartida
               <div className="shared-dropdown">
-                <a href="/#guia-utilizacion" className="shared-dropdown-item">Guía de Utilización</a>
-                <a href="/#guia-adulto-mayor" className="shared-dropdown-item">Guía de Utilización para el Adulto Mayor</a>
+                <a href="/como-utilizar" className="shared-dropdown-item">Cómo utilizar nuestros servicios</a>
+                <a href="/como-utilizar-adulto-mayor" className="shared-dropdown-item">Cómo nuestro Adulto Mayor utiliza nuestros servicios</a>
               </div>
             </div>
 
@@ -195,9 +195,8 @@ export default function SharedHeader() {
             <div className="shared-nav-item">
               Lo que nos hace Únicos
               <div className="shared-dropdown">
-                <a href="/#lupita" className="shared-dropdown-item">Lupita</a>
-                <a href="/#fernanda" className="shared-dropdown-item">Fernanda</a>
-                <a href="/#por-que-creamos" className="shared-dropdown-item">Por qué creamos SaludCompartida</a>
+                <a href="/por-que-creamos" className="shared-dropdown-item">Por qué creamos SaludCompartida</a>
+                <a href="/lupita-fernanda" className="shared-dropdown-item">Lupita y Fernanda</a>
               </div>
             </div>
           </nav>
