@@ -1061,7 +1061,7 @@ export default function LandingPage() {
           {/* Video izquierda (mobile: arriba, desktop: izquierda) */}
           <div className="hero-grid-image">
             <video 
-              src="/VIDEO_LANDING_SIN_FIN.MOV" 
+              src="/VIDEO_LANDING_SIN_FIN.mov" 
               autoPlay
               loop
               muted
@@ -1177,11 +1177,11 @@ export default function LandingPage() {
             {/* Pillar 1 */}
             <div className="pillar-card">
               <div className="pillar-number">1</div>
-              <h3 className="pillar-title">Servicios Médicos que te permitan ahorrar dinero</h3>
+              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 1:</span> Servicios Médicos que te permitan ahorrar dinero</h3>
               <p className="pillar-description">
-                Doctor por videollamada 24/7. Sin citas, sin esperas, sin madrugadas. 
-                Descuentos en farmacias en todos los productos hasta un 75% en más de 1,700 farmacias en todo México. 
-                Soporte emocional para quien más lo necesita de tu familia semanalmente.
+                • Doctor por videollamada 24/7. Sin citas, sin esperas, sin madrugadas.<br/>
+                • Descuentos en farmacias en todos los productos hasta un 75% en más de 1,700 farmacias en todo México.<br/>
+                • Soporte emocional para quien más lo necesita de tu familia semanalmente.
               </p>
               <div className="pillar-stat">
                 <div className="pillar-stat-number">$6.3B</div>
@@ -1192,10 +1192,12 @@ export default function LandingPage() {
             {/* Pillar 2 */}
             <div className="pillar-card">
               <div className="pillar-number">2</div>
-              <h3 className="pillar-title">Te Acompañamos y Queremos Mejorar para ti</h3>
+              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 2:</span> Te Acompañamos y Queremos Mejorar para ti</h3>
               <p className="pillar-description">
-                Pregúntanos a través de WhatsApp. ¿Cómo te atendieron? ¿Qué dudas tienes? 
-                ¿En qué más te podemos ayudar? No estás solo navegando el sistema.
+                • Pregúntanos a través de WhatsApp.<br/>
+                • ¿Cómo te atendieron? ¿Qué dudas tienes?<br/>
+                • ¿En qué más te podemos ayudar?<br/>
+                • No estás solo navegando el sistema.
               </p>
               <div className="pillar-stat">
                 <div className="pillar-stat-number">24/7</div>
@@ -1206,10 +1208,11 @@ export default function LandingPage() {
             {/* Pillar 3 */}
             <div className="pillar-card">
               <div className="pillar-number">3</div>
-              <h3 className="pillar-title">Nos comprometemos a mostrarte cuánto estás ahorrando</h3>
+              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 3:</span> Nos comprometemos a mostrarte cuánto estás ahorrando</h3>
               <p className="pillar-description">
-                Información visible para ti y para tu familia. Ayudarte a reducir tus gastos es nuestra prioridad. 
-                Dashboard accesible en todo momento.
+                • Información visible para ti y para tu familia.<br/>
+                • Ayudarte a reducir tus gastos es nuestra prioridad.<br/>
+                • Dashboard accesible en todo momento.
               </p>
               <div className="pillar-stat">
                 <div className="pillar-stat-number">$432</div>
@@ -1220,15 +1223,30 @@ export default function LandingPage() {
             {/* Pillar 4 */}
             <div className="pillar-card">
               <div className="pillar-number">4</div>
-              <h3 className="pillar-title">Acompañar a tus seres queridos</h3>
+              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 4:</span> Acompañar a tus seres queridos</h3>
               <p className="pillar-description">
-                Acompañar a tus seres queridos en otros temas no necesariamente médicamente relacionados: 
-                comidas que le gustan a tu familia, música, precios más baratos de alimentos, etc. 
+                • Acompañar a tus seres queridos en otros temas no necesariamente médicamente relacionados:<br/>
+                • Comidas que le gustan a tu familia, música, precios más baratos de alimentos, etc.
+              </p>
+              <p className="pillar-description" style={{marginTop: '12px'}}>
                 Nuestro objetivo es acompañar a tus seres queridos en caso de que se sientan solos.
               </p>
               <div className="pillar-stat">
-                <div className="pillar-stat-number">∞</div>
-                <div className="pillar-stat-label">Llamadas de compañía incluidas</div>
+                <div className="pillar-stat-number">
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" style={{width: '48px', height: '48px'}}>
+                    {/* Adulto mayor */}
+                    <circle cx="20" cy="20" r="8" fill="var(--cyan)"/>
+                    <path d="M12 35 C12 28, 28 28, 28 35" fill="var(--cyan)"/>
+                    {/* Madre con niños */}
+                    <circle cx="44" cy="22" r="7" fill="var(--magenta)"/>
+                    <path d="M37 38 C37 32, 51 32, 51 38" fill="var(--magenta)"/>
+                    <circle cx="38" cy="45" r="4" fill="var(--magenta)" opacity="0.7"/>
+                    <circle cx="50" cy="45" r="4" fill="var(--magenta)" opacity="0.7"/>
+                    {/* Corazón conectando */}
+                    <path d="M32 28 L32 32 M28 30 L36 30" stroke="var(--white)" strokeWidth="2" opacity="0.5"/>
+                  </svg>
+                </div>
+                <div className="pillar-stat-label">Acompañamiento real a tus seres queridos</div>
               </div>
             </div>
           </div>
@@ -1253,8 +1271,8 @@ export default function LandingPage() {
       <section className="companions">
         <div className="companions-content">
           <div className="companions-header">
-            <span className="companions-label" style={{fontSize: '18px', fontWeight: 700, padding: '12px 28px'}}>El Diferenciador</span>
-            <h2 className="companions-title">Lupita y Fernanda</h2>
+            <span className="companions-label" style={{fontSize: '18px', fontWeight: 700, padding: '12px 28px', background: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(6,182,212,0.2))', border: '2px solid var(--magenta)'}}>LO QUE NOS HACE ÚNICOS</span>
+            <h2 className="companions-title"><span style={{color: 'var(--magenta)'}}>Lupita</span> y <span style={{color: 'var(--magenta)'}}>Fernanda</span></h2>
             <p className="companions-subtitle">
               No son asistentes. Son amigas que llaman para alegrar el día.
             </p>
@@ -1408,7 +1426,7 @@ export default function LandingPage() {
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
-                  Dashboard de ahorros en tiempo real
+                  Nos comprometemos a mostrarte cuánto estás ahorrando
                 </div>
               </div>
             </div>
@@ -1435,7 +1453,7 @@ export default function LandingPage() {
             Cerramos el <strong>30 de enero</strong>.
           </p>
           <button onClick={() => window.location.href = 'https://saludcompartida.app/subscribe'} className="cta-white">
-            Quiero MI Lugar Ahora - Me quiero suscribir
+            Quiero MI Lugar Ahora - Me quiero subscribir
           </button>
         </div>
       </section>
