@@ -1,22 +1,56 @@
 /**
  * 🏠 HOMEPAGE PRINCIPAL → saludcompartida.app/
  * 
- * Landing page con FONDO OSCURO (dark background: #111827)
+ * Landing page con FONDO OSCURO (dark background)
  * Mobile-first: 375px base → 768px tablet → 1024px desktop
- * Hero split: Imagen izquierda + Formulario derecha
- * Form action: GET /subscribe
+ * 10 secciones: Hero split, Pillars, Bridge, Companions, Testimonials, Pricing, FOMO, Footer
+ * Form: name + email + phone → /subscribe (GET request)
  * 
  * @route / (URL raíz del sitio)
  * @created 2026-01-27
- * @status ACTIVO - Diseño oscuro correcto
+ * @updated 2026-01-27 - Corregido a diseño oscuro
+ * @status ACTIVO - Fondo oscuro gray-900
  */
 
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
+/**
+ * ============================================
+ * SaludCompartida - Nueva Landing Page
+ * ============================================
+ * 
+ * Mobile-First (375px base)
+ * Tablet (768px+)
+ * Desktop (1024px+)
+ * 
+ * Diseño: Hero imagen + formulario side-by-side en desktop
+ * ============================================
+ */
 
 export default function LandingPage() {
   const router = useRouter();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Save to localStorage and navigate to registro
+    localStorage.setItem('registrationData', JSON.stringify(formData));
+    router.push('/registro');
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   const scrollToForm = () => {
     const formEl = document.querySelector('.form-input');
@@ -29,6 +63,9 @@ export default function LandingPage() {
   return (
     <>
       <style jsx global>{`
+        /* ============================================
+           VARIABLES Y RESET
+           ============================================ */
         :root {
           --cyan: #06B6D4;
           --cyan-dark: #0891B2;
@@ -37,7 +74,6 @@ export default function LandingPage() {
           --gray-900: #111827;
           --gray-800: #1F2937;
           --gray-700: #374151;
-          --gray-600: #4B5563;
           --gray-100: #F3F4F6;
           --white: #FFFFFF;
           --orange: #F59E0B;
@@ -51,28 +87,43 @@ export default function LandingPage() {
           box-sizing: border-box;
         }
 
-        body {
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          background: var(--gray-900);
-          color: var(--white);
-          overflow-x: hidden;
-          -webkit-font-smoothing: antialiased;
-          line-height: 1.6;
+        html {
+          font-size: 16px;
+          scroll-behavior: smooth;
         }
 
-        /* ===== HEADER ===== */
+        body {
+          font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+          background: var(--gray-900);
+          color: var(--white);
+          line-height: 1.6;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        img {
+          max-width: 100%;
+          height: auto;
+          display: block;
+        }
+
+        /* ============================================
+           HEADER - Mobile: 64px alto
+           ============================================ */
         .header {
-          padding: 16px 24px;
-          display: flex;
-          justify-content: center;
-          background: rgba(17, 24, 39, 0.95);
-          backdrop-filter: blur(10px);
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
           z-index: 100;
-          border-bottom: 1px solid rgba(255,255,255,0.05);
+          height: 64px;
+          padding: 0 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(17, 24, 39, 0.95);
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .logo-img {
@@ -80,42 +131,28 @@ export default function LandingPage() {
           width: auto;
         }
 
-        /* ===== HERO SECTION - SPLIT ===== */
+        /* ============================================
+           HERO SECTION - Mobile First
+           ============================================ */
         .hero {
+          padding-top: 64px;
           min-height: 100vh;
           display: flex;
           flex-direction: column;
-          padding-top: 72px;
         }
 
-        @media (min-width: 1024px) {
-          .hero {
-            flex-direction: row;
-          }
-        }
-
-        /* Left side - Image */
         .hero-image {
           position: relative;
-          min-height: 50vh;
-          background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
+          width: 100%;
+          height: 280px;
           overflow: hidden;
-        }
-
-        @media (min-width: 1024px) {
-          .hero-image {
-            width: 50%;
-            min-height: calc(100vh - 72px);
-          }
         }
 
         .hero-image img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          position: absolute;
-          top: 0;
-          left: 0;
+          object-position: center;
         }
 
         .hero-image::after {
@@ -125,7 +162,11 @@ export default function LandingPage() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: linear-gradient(180deg, rgba(17,24,39,0.3) 0%, rgba(17,24,39,0.7) 100%);
+          background: linear-gradient(
+            180deg,
+            rgba(17, 24, 39, 0.2) 0%,
+            rgba(17, 24, 39, 0.8) 100%
+          );
         }
 
         .hero-overlay {
@@ -133,7 +174,7 @@ export default function LandingPage() {
           bottom: 0;
           left: 0;
           right: 0;
-          padding: 40px 24px;
+          padding: 20px;
           z-index: 2;
         }
 
@@ -141,63 +182,50 @@ export default function LandingPage() {
           display: inline-block;
           background: rgba(6, 182, 212, 0.2);
           border: 1px solid rgba(6, 182, 212, 0.4);
-          padding: 8px 20px;
-          border-radius: 24px;
-          font-size: 13px;
+          padding: 6px 14px;
+          border-radius: 20px;
+          font-size: 11px;
           color: var(--cyan);
-          margin-bottom: 16px;
+          margin-bottom: 12px;
           letter-spacing: 0.5px;
           text-transform: uppercase;
         }
 
         .hero-headline {
           font-family: 'DM Serif Display', serif;
-          font-size: clamp(28px, 5vw, 40px);
-          line-height: 1.2;
+          font-size: 24px;
+          line-height: 1.25;
           color: var(--white);
-          text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .hero-headline .highlight {
           color: var(--cyan);
         }
 
-        /* Right side - Form */
         .hero-form {
-          padding: 40px 24px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
+          padding: 24px 20px 40px;
           background: var(--gray-900);
         }
 
-        @media (min-width: 1024px) {
-          .hero-form {
-            width: 50%;
-            padding: 60px 80px;
-          }
-        }
-
         .form-container {
-          max-width: 440px;
-          margin: 0 auto;
           width: 100%;
+          max-width: 100%;
         }
 
-        /* Community message */
         .community-message {
-          background: linear-gradient(135deg, rgba(236,72,153,0.06), rgba(6,182,212,0.06));
-          border: 1px solid rgba(255,255,255,0.08);
+          background: linear-gradient(135deg, rgba(236, 72, 153, 0.06), rgba(6, 182, 212, 0.06));
+          border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 16px;
-          padding: 24px;
-          margin-bottom: 24px;
+          padding: 20px;
+          margin-bottom: 20px;
           text-align: center;
         }
 
         .community-message p {
-          font-size: 16px;
-          color: rgba(255,255,255,0.9);
-          line-height: 1.7;
+          font-size: 15px;
+          color: rgba(255, 255, 255, 0.9);
+          line-height: 1.6;
         }
 
         .community-message strong {
@@ -209,91 +237,90 @@ export default function LandingPage() {
           font-weight: 600;
         }
 
-        /* FOMO Counter */
         .fomo-counter {
           background: linear-gradient(135deg, var(--orange), var(--orange-dark));
           border-radius: 16px;
-          padding: 20px 24px;
-          margin-bottom: 28px;
+          padding: 16px 20px;
+          margin-bottom: 24px;
           text-align: center;
         }
 
         .fomo-label {
-          font-size: 12px;
+          font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 1px;
-          color: rgba(255,255,255,0.9);
-          margin-bottom: 8px;
+          color: rgba(255, 255, 255, 0.9);
+          margin-bottom: 6px;
         }
 
         .fomo-numbers {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          margin-bottom: 8px;
+          gap: 6px;
+          margin-bottom: 6px;
         }
 
         .fomo-current {
           font-family: 'DM Serif Display', serif;
-          font-size: 48px;
+          font-size: 40px;
           color: var(--white);
           line-height: 1;
         }
 
         .fomo-separator {
-          font-size: 28px;
-          color: rgba(255,255,255,0.5);
+          font-size: 24px;
+          color: rgba(255, 255, 255, 0.5);
         }
 
         .fomo-total {
-          font-size: 28px;
-          color: rgba(255,255,255,0.7);
+          font-size: 24px;
+          color: rgba(255, 255, 255, 0.7);
         }
 
         .fomo-deadline {
-          font-size: 14px;
-          color: rgba(255,255,255,0.85);
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.85);
         }
 
         .fomo-deadline strong {
           color: var(--white);
         }
 
-        /* Form */
         .form-intro {
-          margin-bottom: 20px;
+          margin-bottom: 16px;
         }
 
         .form-title {
           font-family: 'DM Serif Display', serif;
-          font-size: 28px;
+          font-size: 24px;
           color: var(--white);
-          margin-bottom: 8px;
+          margin-bottom: 6px;
         }
 
         .form-subtitle {
-          font-size: 15px;
-          color: rgba(255,255,255,0.6);
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.6);
         }
 
         .form-group {
-          margin-bottom: 16px;
+          margin-bottom: 14px;
         }
 
         .form-label {
           display: block;
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 500;
-          color: rgba(255,255,255,0.8);
-          margin-bottom: 8px;
+          color: rgba(255, 255, 255, 0.8);
+          margin-bottom: 6px;
         }
 
         .form-input {
           width: 100%;
-          padding: 14px 16px;
+          height: 48px;
+          padding: 0 16px;
           background: var(--gray-800);
-          border: 1px solid rgba(255,255,255,0.1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 10px;
           font-size: 16px;
           color: var(--white);
@@ -308,7 +335,7 @@ export default function LandingPage() {
         }
 
         .form-input::placeholder {
-          color: rgba(255,255,255,0.3);
+          color: rgba(255, 255, 255, 0.3);
         }
 
         .phone-group {
@@ -317,23 +344,28 @@ export default function LandingPage() {
         }
 
         .country-code {
-          width: 85px;
-          padding: 14px 10px;
+          width: 72px;
+          height: 48px;
+          padding: 0 8px;
           background: var(--gray-800);
-          border: 1px solid rgba(255,255,255,0.1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 10px;
-          font-size: 15px;
+          font-size: 14px;
           color: var(--white);
           text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .submit-btn {
           width: 100%;
-          padding: 16px 24px;
+          min-height: 56px;
+          padding: 14px 20px;
           background: linear-gradient(135deg, var(--cyan), var(--cyan-dark));
           border: none;
           border-radius: 12px;
-          font-size: 17px;
+          font-size: 16px;
           font-weight: 700;
           color: var(--white);
           cursor: pointer;
@@ -346,9 +378,13 @@ export default function LandingPage() {
           box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
         }
 
+        .submit-btn:active {
+          transform: translateY(0);
+        }
+
         .submit-btn .subtext {
           display: block;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 400;
           opacity: 0.9;
           margin-top: 4px;
@@ -357,18 +393,19 @@ export default function LandingPage() {
         .trust-row {
           display: flex;
           justify-content: center;
-          gap: 20px;
+          gap: 16px;
           margin-top: 20px;
           padding-top: 20px;
-          border-top: 1px solid rgba(255,255,255,0.05);
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          flex-wrap: wrap;
         }
 
         .trust-item {
           display: flex;
           align-items: center;
           gap: 6px;
-          font-size: 12px;
-          color: rgba(255,255,255,0.5);
+          font-size: 11px;
+          color: rgba(255, 255, 255, 0.5);
         }
 
         .trust-item svg {
@@ -377,136 +414,121 @@ export default function LandingPage() {
           color: var(--green);
         }
 
-        /* ===== 4 PILLARS SECTION ===== */
+        /* ============================================
+           4 PILLARS SECTION
+           ============================================ */
         .pillars {
-          padding: 80px 24px;
+          padding: 60px 20px;
           background: var(--gray-800);
-        }
-
-        .pillars-content {
-          max-width: 1000px;
-          margin: 0 auto;
         }
 
         .section-label {
           display: inline-block;
           background: rgba(6, 182, 212, 0.15);
           border: 1px solid rgba(6, 182, 212, 0.3);
-          padding: 8px 20px;
-          border-radius: 24px;
-          font-size: 12px;
+          padding: 6px 16px;
+          border-radius: 20px;
+          font-size: 11px;
           color: var(--cyan);
           text-transform: uppercase;
           letter-spacing: 1px;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
         }
 
         .pillars-headline {
           font-family: 'DM Serif Display', serif;
-          font-size: clamp(28px, 5vw, 42px);
+          font-size: 28px;
           line-height: 1.2;
-          margin-bottom: 16px;
+          margin-bottom: 12px;
         }
 
-        .pillars-headline .cyan { color: var(--cyan); }
-        .pillars-headline .magenta { color: var(--magenta); }
+        .pillars-headline .cyan {
+          color: var(--cyan);
+        }
+
+        .pillars-headline .magenta {
+          color: var(--magenta);
+        }
 
         .pillars-subheadline {
-          font-size: 18px;
-          color: rgba(255,255,255,0.7);
-          margin-bottom: 48px;
-          max-width: 600px;
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.7);
+          margin-bottom: 32px;
         }
 
         .pillars-grid {
-          display: grid;
-          gap: 24px;
-        }
-
-        @media (min-width: 768px) {
-          .pillars-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
         }
 
         .pillar-card {
           background: var(--gray-900);
-          border-radius: 20px;
-          padding: 32px;
-          border: 1px solid rgba(255,255,255,0.05);
-          transition: all 0.3s ease;
-        }
-
-        .pillar-card:hover {
-          border-color: rgba(6, 182, 212, 0.3);
-          transform: translateY(-4px);
+          border-radius: 16px;
+          padding: 24px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .pillar-number {
-          width: 40px;
-          height: 40px;
+          width: 36px;
+          height: 36px;
           background: linear-gradient(135deg, var(--cyan), var(--magenta));
-          border-radius: 10px;
+          border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
           font-weight: 700;
-          font-size: 18px;
-          margin-bottom: 20px;
+          font-size: 16px;
+          margin-bottom: 16px;
         }
 
         .pillar-title {
           font-family: 'DM Serif Display', serif;
-          font-size: 24px;
-          margin-bottom: 12px;
+          font-size: 20px;
+          margin-bottom: 10px;
         }
 
         .pillar-description {
-          font-size: 15px;
-          color: rgba(255,255,255,0.7);
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.7);
           line-height: 1.6;
         }
 
         .pillar-stat {
-          margin-top: 20px;
-          padding-top: 20px;
-          border-top: 1px solid rgba(255,255,255,0.1);
+          margin-top: 16px;
+          padding-top: 16px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .pillar-stat-number {
           font-family: 'DM Serif Display', serif;
-          font-size: 32px;
+          font-size: 28px;
           color: var(--cyan);
         }
 
         .pillar-stat-label {
-          font-size: 13px;
-          color: rgba(255,255,255,0.5);
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.5);
         }
 
-        /* ===== THE BRIDGE - LONELINESS ===== */
+        /* Bridge Section */
         .bridge {
-          padding: 80px 24px;
-          background: linear-gradient(180deg, var(--gray-900) 0%, var(--gray-800) 100%);
+          padding: 60px 20px;
+          background: var(--gray-900);
           text-align: center;
         }
 
-        .bridge-content {
-          max-width: 700px;
-          margin: 0 auto;
-        }
-
         .bridge-intro {
-          font-size: 18px;
-          color: rgba(255,255,255,0.6);
-          margin-bottom: 24px;
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 20px;
         }
 
         .bridge-headline {
           font-family: 'DM Serif Display', serif;
-          font-size: clamp(28px, 5vw, 40px);
+          font-size: 26px;
           line-height: 1.3;
-          margin-bottom: 32px;
+          margin-bottom: 24px;
         }
 
         .bridge-headline .magenta {
@@ -514,72 +536,61 @@ export default function LandingPage() {
         }
 
         .bridge-subtext {
-          font-size: 17px;
-          color: rgba(255,255,255,0.8);
+          font-size: 15px;
+          color: rgba(255, 255, 255, 0.8);
           line-height: 1.7;
-          margin-bottom: 48px;
         }
 
-        /* ===== LUPITA & FERNANDA SECTION ===== */
+        .bridge-subtext strong {
+          color: var(--cyan);
+        }
+
+        /* Companions Section */
         .companions {
-          padding: 80px 24px;
+          padding: 60px 20px;
           background: var(--gray-800);
-        }
-
-        .companions-content {
-          max-width: 1100px;
-          margin: 0 auto;
         }
 
         .companions-header {
           text-align: center;
-          margin-bottom: 48px;
+          margin-bottom: 32px;
         }
 
         .companions-label {
           display: inline-block;
           background: rgba(236, 72, 153, 0.15);
           border: 1px solid rgba(236, 72, 153, 0.3);
-          padding: 8px 20px;
-          border-radius: 24px;
-          font-size: 12px;
+          padding: 6px 16px;
+          border-radius: 20px;
+          font-size: 11px;
           color: var(--magenta);
           text-transform: uppercase;
           letter-spacing: 1px;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
         }
 
         .companions-title {
           font-family: 'DM Serif Display', serif;
-          font-size: clamp(28px, 5vw, 42px);
-          margin-bottom: 16px;
+          font-size: 28px;
+          margin-bottom: 12px;
         }
 
         .companions-subtitle {
-          font-size: 18px;
-          color: rgba(255,255,255,0.7);
-          max-width: 600px;
-          margin: 0 auto;
+          font-size: 15px;
+          color: rgba(255, 255, 255, 0.7);
         }
 
-        /* Companion cards */
         .companion-cards {
-          display: grid;
-          gap: 32px;
-          margin-bottom: 48px;
-        }
-
-        @media (min-width: 768px) {
-          .companion-cards {
-            grid-template-columns: repeat(2, 1fr);
-          }
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
         }
 
         .companion-card {
           background: var(--gray-900);
-          border-radius: 24px;
+          border-radius: 20px;
           overflow: hidden;
-          border: 1px solid rgba(255,255,255,0.05);
+          border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .companion-card.lupita {
@@ -591,8 +602,8 @@ export default function LandingPage() {
         }
 
         .companion-image {
-          height: 280px;
-          background: var(--gray-700);
+          width: 100%;
+          height: 200px;
           position: relative;
           overflow: hidden;
         }
@@ -605,13 +616,13 @@ export default function LandingPage() {
 
         .companion-badge {
           position: absolute;
-          top: 16px;
-          left: 16px;
-          background: rgba(0,0,0,0.7);
+          top: 12px;
+          left: 12px;
+          background: rgba(0, 0, 0, 0.7);
           backdrop-filter: blur(10px);
-          padding: 8px 16px;
-          border-radius: 20px;
-          font-size: 13px;
+          padding: 6px 12px;
+          border-radius: 16px;
+          font-size: 11px;
           font-weight: 600;
         }
 
@@ -624,26 +635,26 @@ export default function LandingPage() {
         }
 
         .companion-body {
-          padding: 28px;
+          padding: 24px;
         }
 
         .companion-name {
           font-family: 'DM Serif Display', serif;
-          font-size: 28px;
-          margin-bottom: 8px;
+          font-size: 24px;
+          margin-bottom: 6px;
         }
 
         .companion-for {
-          font-size: 14px;
-          color: rgba(255,255,255,0.5);
-          margin-bottom: 16px;
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.5);
+          margin-bottom: 12px;
         }
 
         .companion-description {
-          font-size: 15px;
-          color: rgba(255,255,255,0.8);
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.8);
           line-height: 1.6;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
         }
 
         .companion-features {
@@ -653,57 +664,41 @@ export default function LandingPage() {
         }
 
         .companion-features span {
-          background: rgba(255,255,255,0.05);
+          background: rgba(255, 255, 255, 0.05);
           padding: 6px 12px;
-          border-radius: 20px;
-          font-size: 12px;
-          color: rgba(255,255,255,0.7);
+          border-radius: 16px;
+          font-size: 11px;
+          color: rgba(255, 255, 255, 0.7);
         }
 
-        /* ===== TESTIMONIALS - VISUAL ===== */
+        /* Testimonials */
         .testimonials {
-          padding: 80px 24px;
+          padding: 60px 20px;
           background: var(--gray-900);
-        }
-
-        .testimonials-content {
-          max-width: 1100px;
-          margin: 0 auto;
         }
 
         .testimonials-header {
           text-align: center;
-          margin-bottom: 48px;
+          margin-bottom: 32px;
         }
 
         .testimonials-title {
           font-family: 'DM Serif Display', serif;
-          font-size: clamp(28px, 5vw, 38px);
-          margin-bottom: 16px;
+          font-size: 26px;
+          margin-bottom: 12px;
         }
 
         .testimonials-grid {
-          display: grid;
-          gap: 24px;
-        }
-
-        @media (min-width: 768px) {
-          .testimonials-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .testimonials-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
         }
 
         .testimonial-card {
           background: var(--gray-800);
-          border-radius: 20px;
+          border-radius: 16px;
           overflow: hidden;
-          border: 1px solid rgba(255,255,255,0.05);
+          border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .testimonial-card.featured {
@@ -711,8 +706,8 @@ export default function LandingPage() {
         }
 
         .testimonial-image {
+          width: 100%;
           height: 200px;
-          background: var(--gray-700);
           position: relative;
           overflow: hidden;
         }
@@ -728,30 +723,30 @@ export default function LandingPage() {
           bottom: 12px;
           left: 12px;
           background: rgba(236, 72, 153, 0.9);
-          padding: 6px 12px;
-          border-radius: 16px;
-          font-size: 11px;
+          padding: 5px 10px;
+          border-radius: 12px;
+          font-size: 10px;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
 
         .testimonial-body {
-          padding: 24px;
+          padding: 20px;
         }
 
         .testimonial-quote {
-          font-size: 15px;
-          color: rgba(255,255,255,0.9);
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.9);
           line-height: 1.6;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
           font-style: italic;
         }
 
         .testimonial-quote::before {
           content: '"';
           color: var(--magenta);
-          font-size: 24px;
+          font-size: 20px;
           font-style: normal;
         }
 
@@ -771,6 +766,7 @@ export default function LandingPage() {
           justify-content: center;
           font-weight: 700;
           font-size: 14px;
+          flex-shrink: 0;
         }
 
         .author-name {
@@ -780,62 +776,57 @@ export default function LandingPage() {
 
         .author-location {
           font-size: 12px;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255, 255, 255, 0.5);
         }
 
-        /* ===== PRICING SECTION ===== */
+        /* Pricing */
         .pricing {
-          padding: 80px 24px;
-          background: linear-gradient(180deg, var(--gray-800) 0%, var(--gray-900) 100%);
+          padding: 60px 20px;
+          background: var(--gray-800);
           text-align: center;
         }
 
-        .pricing-content {
-          max-width: 500px;
-          margin: 0 auto;
-        }
-
         .pricing-box {
-          background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(236,72,153,0.08));
+          background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(236, 72, 153, 0.08));
           border: 2px solid rgba(6, 182, 212, 0.3);
-          border-radius: 24px;
-          padding: 40px 32px;
-          margin-bottom: 32px;
+          border-radius: 20px;
+          padding: 32px 24px;
+          margin-bottom: 28px;
         }
 
         .pricing-label {
           font-size: 14px;
-          color: rgba(255,255,255,0.6);
-          margin-bottom: 16px;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 12px;
         }
 
         .pricing-amount {
           display: flex;
           align-items: baseline;
           justify-content: center;
-          gap: 8px;
-          margin-bottom: 8px;
+          gap: 6px;
+          margin-bottom: 6px;
         }
 
         .pricing-currency {
-          font-size: 28px;
-          color: rgba(255,255,255,0.7);
+          font-size: 24px;
+          color: rgba(255, 255, 255, 0.7);
         }
 
         .pricing-number {
           font-family: 'DM Serif Display', serif;
-          font-size: 72px;
+          font-size: 60px;
           color: var(--cyan);
           line-height: 1;
         }
 
         .pricing-period {
-          font-size: 18px;
-          color: rgba(255,255,255,0.6);
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.6);
         }
 
         .pricing-daily {
-          font-size: 16px;
+          font-size: 15px;
           color: var(--orange);
           font-weight: 600;
           margin-bottom: 24px;
@@ -843,17 +834,17 @@ export default function LandingPage() {
 
         .pricing-includes {
           text-align: left;
-          padding: 24px;
-          background: rgba(0,0,0,0.2);
-          border-radius: 16px;
+          padding: 20px;
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 12px;
         }
 
         .pricing-includes-title {
-          font-size: 12px;
+          font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 1px;
-          color: rgba(255,255,255,0.5);
-          margin-bottom: 16px;
+          color: rgba(255, 255, 255, 0.5);
+          margin-bottom: 14px;
         }
 
         .pricing-includes-list {
@@ -864,28 +855,32 @@ export default function LandingPage() {
 
         .pricing-includes-item {
           display: flex;
-          align-items: center;
-          gap: 12px;
-          font-size: 14px;
-          color: rgba(255,255,255,0.85);
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.85);
+          line-height: 1.4;
         }
 
         .pricing-includes-item svg {
-          width: 20px;
-          height: 20px;
+          width: 18px;
+          height: 18px;
           color: var(--green);
           flex-shrink: 0;
+          margin-top: 1px;
         }
 
         .cta-final {
-          display: inline-block;
-          padding: 18px 48px;
+          display: block;
+          width: 100%;
+          padding: 16px 24px;
           background: linear-gradient(135deg, var(--magenta), var(--magenta-dark));
-          border-radius: 14px;
-          font-size: 18px;
+          border-radius: 12px;
+          font-size: 16px;
           font-weight: 700;
           color: var(--white);
           text-decoration: none;
+          text-align: center;
           transition: all 0.3s ease;
           margin-bottom: 16px;
           cursor: pointer;
@@ -893,8 +888,8 @@ export default function LandingPage() {
         }
 
         .cta-final:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
         }
 
         .guarantee {
@@ -902,73 +897,244 @@ export default function LandingPage() {
           align-items: center;
           justify-content: center;
           gap: 8px;
-          font-size: 14px;
-          color: rgba(255,255,255,0.5);
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.5);
         }
 
         .guarantee svg {
-          width: 18px;
-          height: 18px;
+          width: 16px;
+          height: 16px;
           color: var(--green);
         }
 
-        /* ===== FINAL FOMO ===== */
+        /* Final FOMO */
         .final-fomo {
-          padding: 60px 24px;
+          padding: 48px 20px;
           background: linear-gradient(135deg, var(--orange), var(--orange-dark));
           text-align: center;
         }
 
-        .final-fomo-content {
-          max-width: 600px;
-          margin: 0 auto;
-        }
-
         .final-fomo-headline {
           font-family: 'DM Serif Display', serif;
-          font-size: clamp(24px, 4vw, 32px);
-          margin-bottom: 12px;
+          font-size: 22px;
+          margin-bottom: 10px;
         }
 
         .final-fomo-numbers {
-          font-size: 18px;
-          margin-bottom: 24px;
+          font-size: 16px;
+          margin-bottom: 20px;
+          line-height: 1.5;
         }
 
         .final-fomo-numbers strong {
-          font-size: 24px;
+          font-size: 18px;
         }
 
         .cta-white {
           display: inline-block;
-          padding: 16px 40px;
+          padding: 14px 32px;
           background: var(--white);
-          border-radius: 12px;
-          font-size: 17px;
+          border-radius: 10px;
+          font-size: 15px;
           font-weight: 700;
           color: var(--orange-dark);
           text-decoration: none;
           transition: all 0.3s ease;
           cursor: pointer;
-          border: none;
         }
 
         .cta-white:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* ===== FOOTER ===== */
+        /* Footer */
         .footer {
-          padding: 32px 24px;
+          padding: 24px 20px;
+          min-height: 80px;
           background: var(--gray-900);
           text-align: center;
-          border-top: 1px solid rgba(255,255,255,0.05);
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .footer p {
-          font-size: 13px;
-          color: rgba(255,255,255,0.4);
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ============================================
+           TABLET BREAKPOINT - 768px+
+           ============================================ */
+        @media (min-width: 768px) {
+          .hero-image {
+            height: 360px;
+          }
+
+          .hero-headline {
+            font-size: 32px;
+          }
+
+          .hero-form {
+            padding: 40px;
+          }
+
+          .form-container {
+            max-width: 480px;
+            margin: 0 auto;
+          }
+
+          .pillars {
+            padding: 80px 40px;
+          }
+
+          .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+          }
+
+          .pillars-headline {
+            font-size: 36px;
+          }
+
+          .companion-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+          }
+
+          .companion-image {
+            height: 240px;
+          }
+
+          .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+          }
+        }
+
+        /* ============================================
+           DESKTOP BREAKPOINT - 1024px+
+           ============================================ */
+        @media (min-width: 1024px) {
+          .hero {
+            flex-direction: row;
+            min-height: calc(100vh - 64px);
+          }
+
+          .hero-image {
+            width: 50%;
+            height: auto;
+            min-height: calc(100vh - 64px);
+          }
+
+          .hero-overlay {
+            padding: 40px;
+          }
+
+          .hero-headline {
+            font-size: 40px;
+          }
+
+          .hero-form {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+          }
+
+          .form-container {
+            max-width: 440px;
+          }
+
+          .pillars {
+            padding: 100px 60px;
+          }
+
+          .pillars-content {
+            max-width: 1000px;
+            margin: 0 auto;
+          }
+
+          .pillars-headline {
+            font-size: 42px;
+          }
+
+          .bridge {
+            padding: 100px 60px;
+          }
+
+          .bridge-content {
+            max-width: 700px;
+            margin: 0 auto;
+          }
+
+          .bridge-headline {
+            font-size: 40px;
+          }
+
+          .companions {
+            padding: 100px 60px;
+          }
+
+          .companions-content {
+            max-width: 1000px;
+            margin: 0 auto;
+          }
+
+          .companion-image {
+            height: 280px;
+          }
+
+          .testimonials {
+            padding: 100px 60px;
+          }
+
+          .testimonials-content {
+            max-width: 1100px;
+            margin: 0 auto;
+          }
+
+          .testimonials-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+
+          .pricing {
+            padding: 100px 60px;
+          }
+
+          .pricing-content {
+            max-width: 500px;
+            margin: 0 auto;
+          }
+
+          .cta-final {
+            display: inline-block;
+            width: auto;
+            padding: 18px 48px;
+          }
+        }
+
+        /* ============================================
+           LARGE DESKTOP - 1280px+
+           ============================================ */
+        @media (min-width: 1280px) {
+          .hero-headline {
+            font-size: 48px;
+          }
+
+          .pillars-headline {
+            font-size: 48px;
+          }
+
+          .bridge-headline {
+            font-size: 44px;
+          }
         }
       `}</style>
 
@@ -996,7 +1162,6 @@ export default function LandingPage() {
 
         <div className="hero-form">
           <div className="form-container">
-            
             {/* Community Message */}
             <div className="community-message">
               <p>
@@ -1023,22 +1188,47 @@ export default function LandingPage() {
               <p className="form-subtitle">En 30 segundos tu familia recibe acceso por WhatsApp</p>
             </div>
 
-            <form action="https://saludcompartida.app/subscribe" method="GET">
+            <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label className="form-label">Tu Nombre</label>
-                <input type="text" className="form-input" name="name" placeholder="¿Cómo te llamas?" required />
+                <input 
+                  type="text" 
+                  className="form-input" 
+                  name="name" 
+                  placeholder="¿Cómo te llamas?" 
+                  value={formData.name}
+                  onChange={handleChange}
+                  required 
+                />
               </div>
 
               <div className="form-group">
                 <label className="form-label">Tu Email</label>
-                <input type="email" className="form-input" name="email" placeholder="tu@email.com" required />
+                <input 
+                  type="email" 
+                  className="form-input" 
+                  name="email" 
+                  placeholder="tu@email.com" 
+                  value={formData.email}
+                  onChange={handleChange}
+                  required 
+                />
               </div>
 
               <div className="form-group">
                 <label className="form-label">Tu Teléfono en EE.UU.</label>
                 <div className="phone-group">
                   <span className="country-code">🇺🇸 +1</span>
-                  <input type="tel" className="form-input" name="phone" placeholder="(555) 123-4567" required style={{flex: 1}} />
+                  <input 
+                    type="tel" 
+                    className="form-input" 
+                    name="phone" 
+                    placeholder="(555) 123-4567" 
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required 
+                    style={{ flex: 1 }}
+                  />
                 </div>
               </div>
 
@@ -1051,26 +1241,25 @@ export default function LandingPage() {
             <div className="trust-row">
               <div className="trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
                 Pago seguro
               </div>
               <div className="trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                  <polyline points="22 4 12 14.01 9 11.01"/>
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
                 Sin contratos
               </div>
               <div className="trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12 6 12 12 16 14"/>
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
                 </svg>
                 24/7
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -1088,7 +1277,6 @@ export default function LandingPage() {
           </p>
 
           <div className="pillars-grid">
-            {/* Pillar 1 */}
             <div className="pillar-card">
               <div className="pillar-number">1</div>
               <h3 className="pillar-title">Ayuda Médica</h3>
@@ -1098,11 +1286,10 @@ export default function LandingPage() {
               </p>
               <div className="pillar-stat">
                 <div className="pillar-stat-number">$6.3B</div>
-                <div className="pillar-stat-label">Gasto anual en salud que queremos reducir para cada familia</div>
+                <div className="pillar-stat-label">Gasto anual en salud que queremos reducir</div>
               </div>
             </div>
 
-            {/* Pillar 2 */}
             <div className="pillar-card">
               <div className="pillar-number">2</div>
               <h3 className="pillar-title">Te Acompañamos</h3>
@@ -1112,11 +1299,10 @@ export default function LandingPage() {
               </p>
               <div className="pillar-stat">
                 <div className="pillar-stat-number">24/7</div>
-                <div className="pillar-stat-label">Siempre disponibles para resolver tus dudas</div>
+                <div className="pillar-stat-label">Siempre disponibles para resolver dudas</div>
               </div>
             </div>
 
-            {/* Pillar 3 */}
             <div className="pillar-card">
               <div className="pillar-number">3</div>
               <h3 className="pillar-title">Tus Ahorros</h3>
@@ -1130,7 +1316,6 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Pillar 4 */}
             <div className="pillar-card">
               <div className="pillar-number">4</div>
               <h3 className="pillar-title">Compañía</h3>
@@ -1147,7 +1332,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Bridge Section - Loneliness */}
+      {/* Bridge Section */}
       <section className="bridge">
         <div className="bridge-content">
           <p className="bridge-intro">Con 40¢ al día cubrimos doctor, farmacias y terapia. Pero...</p>
@@ -1162,7 +1347,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Lupita & Fernanda Section */}
+      {/* Companions Section */}
       <section className="companions">
         <div className="companions-content">
           <div className="companions-header">
@@ -1174,10 +1359,9 @@ export default function LandingPage() {
           </div>
 
           <div className="companion-cards">
-            {/* Lupita */}
             <div className="companion-card lupita">
               <div className="companion-image">
-                <img src="/SENIOR_CITIZEN.jpeg" alt="Lupita acompañando" />
+                <img src="/SENIOR_CITIZEN_COOKING.jpeg" alt="Lupita acompañando" />
                 <span className="companion-badge">Para adultos 55+</span>
               </div>
               <div className="companion-body">
@@ -1195,7 +1379,6 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Fernanda */}
             <div className="companion-card fernanda">
               <div className="companion-image">
                 <img src="https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=600&h=400&fit=crop" alt="Fernanda acompañando" />
@@ -1228,10 +1411,9 @@ export default function LandingPage() {
           </div>
 
           <div className="testimonials-grid">
-            {/* Testimonial 1 - Lupita/Recetas */}
             <div className="testimonial-card featured">
               <div className="testimonial-image">
-                <img src="/SENIOR_CITIZEN.jpeg" alt="Abuela cocinando" />
+                <img src="/SENIOR_CITIZEN_COOKING.jpeg" alt="Abuela cocinando" />
                 <span className="testimonial-tag">Lupita</span>
               </div>
               <div className="testimonial-body">
@@ -1248,9 +1430,8 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Testimonial 2 - Medical */}
             <div className="testimonial-card">
-              <div className="testimonial-body" style={{paddingTop: '32px'}}>
+              <div className="testimonial-body">
                 <p className="testimonial-quote">
                   Por primera vez en 8 años, no me preocupo cuando mi mamá me dice que le duele algo. Sé que puede llamar al doctor en cualquier momento.
                 </p>
@@ -1264,9 +1445,8 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Testimonial 3 - Fernanda */}
             <div className="testimonial-card featured">
-              <div className="testimonial-body" style={{paddingTop: '32px'}}>
+              <div className="testimonial-body">
                 <p className="testimonial-quote">
                   Fernanda le ayudó a mi esposa a elegir la ropa para ir al concierto de su sobrina. Cosas simples, pero que le alegran la vida cuando yo no estoy.
                 </p>
@@ -1300,31 +1480,31 @@ export default function LandingPage() {
               <div className="pricing-includes-list">
                 <div className="pricing-includes-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="20 6 9 17 4 12"/>
+                    <polyline points="20 6 9 17 4 12" />
                   </svg>
                   Telemedicina 24/7 ilimitada
                 </div>
                 <div className="pricing-includes-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="20 6 9 17 4 12"/>
+                    <polyline points="20 6 9 17 4 12" />
                   </svg>
                   Hasta 75% descuento en 1,700+ farmacias
                 </div>
                 <div className="pricing-includes-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="20 6 9 17 4 12"/>
+                    <polyline points="20 6 9 17 4 12" />
                   </svg>
                   Terapia psicológica semanal
                 </div>
                 <div className="pricing-includes-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="20 6 9 17 4 12"/>
+                    <polyline points="20 6 9 17 4 12" />
                   </svg>
                   Lupita y Fernanda (compañía ilimitada)
                 </div>
                 <div className="pricing-includes-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="20 6 9 17 4 12"/>
+                    <polyline points="20 6 9 17 4 12" />
                   </svg>
                   Dashboard de ahorros en tiempo real
                 </div>
@@ -1338,9 +1518,9 @@ export default function LandingPage() {
 
           <div className="guarantee">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
-            Cancela cuando quieras. Sin preguntas. Sin letras pequeñas.
+            Cancela cuando quieras. Sin preguntas.
           </div>
         </div>
       </section>
