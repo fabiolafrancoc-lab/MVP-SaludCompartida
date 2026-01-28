@@ -189,12 +189,12 @@ export default function LandingPage() {
 
         .btn-login {
           padding: 10px 24px;
-          background: transparent;
+          background: linear-gradient(135deg, var(--magenta), #DB2777);
           color: white;
           font-size: 14px;
           font-weight: 600;
           border-radius: 8px;
-          border: 1px solid rgba(255,255,255,0.2);
+          border: none;
           cursor: pointer;
           transition: all 0.3s ease;
           text-decoration: none;
@@ -202,8 +202,8 @@ export default function LandingPage() {
         }
 
         .btn-login:hover {
-          border-color: var(--cyan);
-          color: var(--cyan);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
         }
 
         .mobile-menu-btn {
@@ -1962,17 +1962,21 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Testimonial 3 - Fernanda */}
+            {/* Testimonial 3 - Lucía */}
             <div className="testimonial-card featured">
-              <div className="testimonial-body" style={{paddingTop: '32px'}}>
+              <div className="testimonial-image">
+                <img src="/LANDING_TOP_PICTURE.jpeg" alt="Familia unida" />
+                <span className="testimonial-tag">Fernanda</span>
+              </div>
+              <div className="testimonial-body">
                 <p className="testimonial-quote">
-                  Fernanda le ayudó a mi esposa a elegir la ropa para ir al concierto de su sobrina. Cosas simples, pero que le alegran la vida cuando yo no estoy.
+                  Fernanda me llama cuando estoy sola con la niña y mi esposo trabajando. A veces solo necesito que alguien me escuche. Es como tener una amiga que siempre tiene tiempo para mí.
                 </p>
                 <div className="testimonial-author">
-                  <div className="author-avatar">RC</div>
+                  <div className="author-avatar">LM</div>
                   <div>
-                    <div className="author-name">Roberto C.</div>
-                    <div className="author-location">Houston, Texas</div>
+                    <div className="author-name">Lucía M.</div>
+                    <div className="author-location">Esposa de migrante, Dallas</div>
                   </div>
                 </div>
               </div>
