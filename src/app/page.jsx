@@ -64,7 +64,7 @@ export default function LandingPage() {
         .header {
           padding: 16px 24px;
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           background: rgba(17, 24, 39, 0.95);
           backdrop-filter: blur(10px);
           position: fixed;
@@ -960,15 +960,55 @@ export default function LandingPage() {
 
         /* ===== FOOTER ===== */
         .footer {
-          padding: 32px 24px;
+          padding: 48px 24px 32px;
           background: var(--gray-900);
           text-align: center;
           border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        .footer p {
+        .footer-logo {
+          height: 36px;
+          width: auto;
+          margin-bottom: 16px;
+          opacity: 0.7;
+        }
+
+        .footer-text {
+          font-size: 14px;
+          color: rgba(255,255,255,0.6);
+          margin-bottom: 8px;
+        }
+
+        .footer-tagline {
           font-size: 13px;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.5);
+          margin-bottom: 24px;
+          font-style: italic;
+        }
+
+        .footer-links {
+          display: flex;
+          justify-content: center;
+          gap: 24px;
+          flex-wrap: wrap;
+          margin-bottom: 16px;
+        }
+
+        .footer-links a {
+          font-size: 13px;
+          color: rgba(255,255,255,0.5);
+          text-decoration: none;
+          transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+          color: var(--cyan);
+        }
+
+        .footer-copyright {
+          font-size: 12px;
+          color: rgba(255,255,255,0.3);
+          margin-top: 16px;
         }
       `}</style>
 
@@ -1361,7 +1401,25 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>© 2026 SaludCompartida. Hecho con ❤️ para familias migrantes.</p>
+        <img 
+          src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" 
+          alt="SaludCompartida" 
+          className="footer-logo"
+        />
+        <p className="footer-text">
+          <strong>SaludCompartida</strong> © 2026
+        </p>
+        <p className="footer-tagline">
+          Cuidando familias, acortando distancias.
+        </p>
+        <div className="footer-links">
+          <a href="/terminos">Términos y Condiciones</a>
+          <a href="/privacidad">Política de Privacidad</a>
+          <a href="/contacto">Contacto</a>
+        </div>
+        <p className="footer-copyright">
+          Hecho con ❤️ para familias migrantes en Estados Unidos.
+        </p>
       </footer>
     </>
   );
