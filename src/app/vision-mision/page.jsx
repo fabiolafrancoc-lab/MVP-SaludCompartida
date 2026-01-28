@@ -123,9 +123,9 @@ export default function VisionMisionPage() {
 
       <div className="vision-mision-page">
         <div className="vision-mision-container">
-          <h1 className="page-title">Nuestra Visión y Misión</h1>
+          <h1 className="page-title">Visión y Misión</h1>
           <p className="page-subtitle">
-            El propósito que guía cada paso de SaludCompartida
+            Nuestro compromiso de transformar el acceso a la salud en América Latina
           </p>
 
           <div className="vision-mision-grid">
@@ -136,9 +136,9 @@ export default function VisionMisionPage() {
                 <path d="M32 12 L32 32 L44 44" stroke="var(--cyan)" strokeWidth="3" strokeLinecap="round"/>
                 <circle cx="32" cy="32" r="4" fill="var(--cyan)"/>
               </svg>
-              <h2 className="card-title">Visión</h2>
+              <h2 className="card-title">VISIÓN</h2>
               <p className="card-text">
-                Ser el puente de salud y compañía más confiable para las familias migrantes, donde la distancia nunca sea una barrera para cuidar a quienes más amas.
+                "Dominar la categoría de remesas-a-servicios en toda América Latina a través de una plataforma escalable y replicable que brinde atención de calidad a millones de familias, generando retornos excepcionales para nuestros inversionistas."
               </p>
             </div>
 
@@ -148,9 +148,9 @@ export default function VisionMisionPage() {
                 <path d="M32 8 L40 24 L56 28 L44 40 L48 56 L32 48 L16 56 L20 40 L8 28 L24 24 Z" 
                       stroke="var(--cyan)" strokeWidth="3" fill="rgba(6, 182, 212, 0.2)"/>
               </svg>
-              <h2 className="card-title">Misión</h2>
+              <h2 className="card-title">MISIÓN</h2>
               <p className="card-text">
-                Ofrecer servicios de salud accesibles y compañía genuina para familias en México, permitiendo que los migrantes en Estados Unidos cuiden de sus seres queridos con tranquilidad y amor, sin importar la distancia.
+                "Eliminamos la crisis de salud que enfrentan las familias de migrantes mediante un modelo de suscripción infinitamente escalable: brindando atención integral a millones, retornos comprometidos a nuestros accionistas, asociaciones justas en toda nuestra cadena de valor y un propósito significativo para nuestro equipo."
               </p>
             </div>
           </div>

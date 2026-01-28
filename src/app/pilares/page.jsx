@@ -224,7 +224,7 @@ export default function PilaresPage() {
               </div>
             </div>
 
-            {/* Pillar 4 - Lupita y Fernanda (MAGENTA) */}
+            {/* Pillar 4 - Lupita y Fernanda (MAGENTA - AL FINAL) */}
             <div className="pillar-card">
               <div className="pillar-number">4</div>
               <h3 className="pillar-title">
@@ -248,9 +248,6 @@ export default function PilaresPage() {
                     <path d="M12 35 C12 28, 28 28, 28 35" fill="var(--magenta)"/>
                     <circle cx="44" cy="22" r="7" fill="var(--magenta)"/>
                     <path d="M37 38 C37 32, 51 32, 51 38" fill="var(--magenta)"/>
-                    <circle cx="38" cy="45" r="4" fill="var(--magenta)" opacity="0.7"/>
-                    <circle cx="50" cy="45" r="4" fill="var(--magenta)" opacity="0.7"/>
-                    <path d="M32 28 L32 32 M28 30 L36 30" stroke="var(--white)" strokeWidth="2" opacity="0.5"/>
                   </svg>
                 </div>
                 <div className="pillar-stat-label">Acompañamiento real a tus seres queridos</div>
