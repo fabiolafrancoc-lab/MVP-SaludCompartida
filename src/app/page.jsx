@@ -14,6 +14,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import SharedHeader from '../components/SharedHeader';
+import SharedFooter from '../components/SharedFooter';
 
 export default function LandingPage() {
   const router = useRouter();
@@ -1524,61 +1526,8 @@ export default function LandingPage() {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet" />
 
-      {/* Header */}
-      <header className="header">
-        <div className="header-content">
-          {/* Logo */}
-          <a href="/">
-            <img src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="logo-img" />
-          </a>
-
-          {/* Desktop Navigation */}
-          <nav className="nav-menu">
-            {/* Quiénes Somos */}
-            <div className="nav-item">
-              Quiénes Somos
-              <div className="dropdown">
-                <a href="#vision-mision" className="dropdown-item">Visión y Misión</a>
-                <a href="#valores" className="dropdown-item">Nuestros Valores</a>
-                <a href="#pilares" className="dropdown-item">Nuestros Pilares</a>
-              </div>
-            </div>
-
-            {/* Nuestros Servicios */}
-            <div className="nav-item">
-              Nuestros Servicios
-              <div className="dropdown">
-                <a href="#telemedicina" className="dropdown-item">Telemedicina 24/7</a>
-                <a href="#farmacias" className="dropdown-item">Descuentos en Farmacias</a>
-                <a href="#terapia" className="dropdown-item">Terapia Semanal</a>
-                <a href="#ahorros" className="dropdown-item">Mis Ahorros</a>
-              </div>
-            </div>
-
-            {/* Lo que nos hace únicos */}
-            <div className="nav-item">
-              Lo que nos hace Únicos
-              <div className="dropdown">
-                <a href="#lupita-fernanda" className="dropdown-item">Lupita y Fernanda</a>
-                <a href="#por-que-creamos" className="dropdown-item">Por qué creamos SaludCompartida</a>
-              </div>
-            </div>
-          </nav>
-
-          {/* CTA Buttons */}
-          <div className="nav-cta">
-            <a href="/subscribe" className="btn-contratar">Contratar SaludCompartida</a>
-            <a href="/dashboard" className="btn-login">Ya Tengo mi Clave</a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button className="mobile-menu-btn" onClick={() => alert('Menú móvil próximamente')}>
-            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-          </button>
-        </div>
-      </header>
+      {/* Header - Using SharedHeader Component */}
+      <SharedHeader />
 
       {/* Hero Section */}
       <section className="hero" style={{paddingTop: '88px', minHeight: 'auto'}}>
@@ -1843,32 +1792,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="footer">
-        <img 
-          src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" 
-          alt="SaludCompartida" 
-          className="footer-logo"
-        />
-        <p className="footer-text">
-          <strong>SaludCompartida</strong> © 2026
-        </p>
-        <p className="footer-tagline">
-          Cuidando familias, acortando distancias.
-        </p>
-        <div className="footer-contact">
-          <p style={{color: 'rgba(255,255,255,0.7)', marginBottom: '8px'}}>
-            <strong style={{color: 'var(--cyan)'}}>Contacto:</strong> contact@saludcompartida.com
-          </p>
-        </div>
-        <div className="footer-links">
-          <a href="/terms">Términos y Condiciones</a>
-          <a href="/privacy">Política de Privacidad</a>
-        </div>
-        <p className="footer-copyright">
-          Hecho con ❤️ para familias migrantes en Estados Unidos.
-        </p>
-      </footer>
+      {/* Footer - Using SharedFooter Component */}
+      <SharedFooter />
     </>
   );
 }
