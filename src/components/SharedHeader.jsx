@@ -182,14 +182,12 @@ export default function SharedHeader() {
               </div>
             </div>
 
-            {/* Nuestros Servicios */}
+            {/* Guía de Utilización */}
             <div className="shared-nav-item">
-              Nuestros Servicios
+              Guía de Utilización de Nuestros Servicios
               <div className="shared-dropdown">
-                <a href="/#telemedicina" className="shared-dropdown-item">Telemedicina 24/7</a>
-                <a href="/#ahorros" className="shared-dropdown-item">Mis Ahorros</a>
-                <a href="/#lupita" className="shared-dropdown-item">Lupita (Adultos Mayores)</a>
-                <a href="/#fernanda" className="shared-dropdown-item">Fernanda (Mamás y Familias)</a>
+                <a href="/#guia-utilizacion" className="shared-dropdown-item">Guía de Utilización</a>
+                <a href="/#guia-adulto-mayor" className="shared-dropdown-item">Guía de Utilización para el Adulto Mayor</a>
               </div>
             </div>
 

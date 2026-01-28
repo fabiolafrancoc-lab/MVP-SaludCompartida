@@ -790,6 +790,120 @@ export default function LandingPage() {
           color: rgba(255,255,255,0.5);
         }
 
+        /* ===== GUÍAS DE UTILIZACIÓN ===== */
+        .guias-section {
+          padding: 100px 24px;
+          background: var(--gray-900);
+        }
+
+        .guias-content {
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+
+        .guias-header {
+          text-align: center;
+          margin-bottom: 60px;
+        }
+
+        .guias-title {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(36px, 5vw, 52px);
+          margin-bottom: 16px;
+          background: linear-gradient(135deg, var(--cyan), var(--magenta));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .guias-subtitle {
+          font-size: 20px;
+          color: rgba(255,255,255,0.7);
+          max-width: 700px;
+          margin: 0 auto;
+        }
+
+        .guias-grid {
+          display: grid;
+          gap: 40px;
+          margin-top: 60px;
+        }
+
+        @media (min-width: 1024px) {
+          .guias-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        .guia-card {
+          background: var(--gray-800);
+          border-radius: 24px;
+          overflow: hidden;
+          border: 2px solid rgba(6, 182, 212, 0.2);
+          transition: all 0.3s ease;
+        }
+
+        .guia-card:hover {
+          transform: translateY(-8px);
+          border-color: var(--cyan);
+          box-shadow: 0 12px 40px rgba(6, 182, 212, 0.3);
+        }
+
+        .guia-image-container {
+          width: 100%;
+          overflow: hidden;
+          background: var(--gray-700);
+        }
+
+        .guia-image {
+          width: 100%;
+          height: auto;
+          display: block;
+          transition: transform 0.3s ease;
+        }
+
+        .guia-card:hover .guia-image {
+          transform: scale(1.05);
+        }
+
+        .guia-info {
+          padding: 32px;
+          text-align: center;
+        }
+
+        .guia-label {
+          display: inline-block;
+          background: rgba(6, 182, 212, 0.15);
+          border: 1px solid rgba(6, 182, 212, 0.3);
+          padding: 8px 20px;
+          border-radius: 20px;
+          font-size: 13px;
+          color: var(--cyan);
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          margin-bottom: 16px;
+          font-weight: 600;
+        }
+
+        .guia-card:nth-child(2) .guia-label {
+          background: rgba(236, 72, 153, 0.15);
+          border-color: rgba(236, 72, 153, 0.3);
+          color: var(--magenta);
+        }
+
+        .guia-name {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 12px;
+          color: white;
+        }
+
+        .guia-description {
+          font-size: 16px;
+          color: rgba(255,255,255,0.7);
+          line-height: 1.6;
+        }
+
         /* ===== THE BRIDGE - LONELINESS ===== */
         .bridge {
           padding: 80px 24px;
@@ -1676,6 +1790,56 @@ export default function LandingPage() {
                   </svg>
                 </div>
                 <div className="pillar-stat-label" style={{color: 'var(--magenta)'}}>Acompañamiento real a tus seres queridos</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Guías de Utilización Section */}
+      <section id="guias-utilizacion" className="guias-section">
+        <div className="guias-content">
+          <div className="guias-header">
+            <h2 className="guias-title">Guías de Utilización de Nuestros Servicios</h2>
+            <p className="guias-subtitle">
+              Hemos creado guías paso a paso para que tú y tu familia aprovechen al máximo SaludCompartida
+            </p>
+          </div>
+
+          <div className="guias-grid">
+            {/* Guía General */}
+            <div id="guia-utilizacion" className="guia-card">
+              <div className="guia-image-container">
+                <img 
+                  src="/GUIA DE UTILIZACION.png" 
+                  alt="Guía de Utilización de SaludCompartida"
+                  className="guia-image"
+                />
+              </div>
+              <div className="guia-info">
+                <span className="guia-label">Guía General</span>
+                <h3 className="guia-name">Guía de Utilización</h3>
+                <p className="guia-description">
+                  Aprende a usar todos los servicios de SaludCompartida: telemedicina, descuentos en farmacias, y cómo contactarnos por WhatsApp.
+                </p>
+              </div>
+            </div>
+
+            {/* Guía Adulto Mayor */}
+            <div id="guia-adulto-mayor" className="guia-card">
+              <div className="guia-image-container">
+                <img 
+                  src="/GUIA DE UTILIZACION_ADULTO MAYOR.jpeg" 
+                  alt="Guía de Utilización para el Adulto Mayor"
+                  className="guia-image"
+                />
+              </div>
+              <div className="guia-info">
+                <span className="guia-label">Para Adultos Mayores</span>
+                <h3 className="guia-name">Guía de Utilización para el Adulto Mayor</h3>
+                <p className="guia-description">
+                  Guía especialmente diseñada con pasos sencillos y letra grande para que tus padres o abuelos usen los servicios sin complicaciones.
+                </p>
               </div>
             </div>
           </div>
