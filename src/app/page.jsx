@@ -1497,7 +1497,7 @@ export default function LandingPage() {
                 backgroundColor: '#1F2937'
               }}
             >
-              <source src="/LANDING_VIDEO SIN FIN_LIVIANO.mov" type="video/mp4" />
+              <source src="/LANDING_VIDEO_LARGO.mov" type="video/mp4" />
               Tu navegador no soporta video.
             </video>
           </div>
