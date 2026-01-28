@@ -541,6 +541,147 @@ export default function LandingPage() {
           color: var(--green);
         }
 
+        /* ===== VISION Y MISION SECTION ===== */
+        .vision-mision {
+          padding: 80px 24px;
+          background: var(--gray-900);
+        }
+
+        .vision-mision-content {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .vision-mision-header {
+          text-align: center;
+          margin-bottom: 64px;
+        }
+
+        .vision-mision-title {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(32px, 5vw, 48px);
+          color: var(--white);
+          margin-bottom: 16px;
+        }
+
+        .vision-mision-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+
+        @media (min-width: 768px) {
+          .vision-mision-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+          }
+        }
+
+        .vm-card {
+          background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(236, 72, 153, 0.05));
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 16px;
+          padding: 40px;
+          text-align: center;
+        }
+
+        .vm-card-icon {
+          width: 64px;
+          height: 64px;
+          margin: 0 auto 24px;
+          background: linear-gradient(135deg, var(--cyan), var(--magenta));
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .vm-card h3 {
+          font-size: 28px;
+          color: var(--cyan);
+          margin-bottom: 16px;
+        }
+
+        .vm-card p {
+          font-size: 16px;
+          line-height: 1.7;
+          color: rgba(255,255,255,0.8);
+        }
+
+        /* ===== VALORES SECTION ===== */
+        .valores {
+          padding: 80px 24px;
+          background: var(--gray-800);
+        }
+
+        .valores-content {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .valores-header {
+          text-align: center;
+          margin-bottom: 64px;
+        }
+
+        .valores-title {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(32px, 5vw, 48px);
+          color: var(--white);
+          margin-bottom: 16px;
+        }
+
+        .valores-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+          .valores-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .valores-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+
+        .valor-card {
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.05);
+          border-radius: 12px;
+          padding: 32px;
+          transition: all 0.3s ease;
+        }
+
+        .valor-card:hover {
+          transform: translateY(-4px);
+          border-color: var(--cyan);
+          box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
+        }
+
+        .valor-card-icon {
+          width: 48px;
+          height: 48px;
+          margin-bottom: 16px;
+          color: var(--magenta);
+        }
+
+        .valor-card h3 {
+          font-size: 20px;
+          color: var(--white);
+          margin-bottom: 12px;
+        }
+
+        .valor-card p {
+          font-size: 15px;
+          line-height: 1.6;
+          color: rgba(255,255,255,0.7);
+        }
+
         /* ===== 4 PILLARS SECTION ===== */
         .pillars {
           padding: 80px 24px;
@@ -822,6 +963,92 @@ export default function LandingPage() {
           border-radius: 20px;
           font-size: 12px;
           color: rgba(255,255,255,0.7);
+        }
+
+        /* ===== POR QUE CREAMOS - VIDEO SECTION ===== */
+        .por-que-creamos {
+          padding: 80px 24px;
+          background: linear-gradient(180deg, var(--gray-900) 0%, var(--gray-800) 100%);
+        }
+
+        .por-que-content {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .por-que-header {
+          text-align: center;
+          margin-bottom: 48px;
+        }
+
+        .por-que-title {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(32px, 5vw, 48px);
+          color: var(--white);
+          margin-bottom: 16px;
+        }
+
+        .por-que-subtitle {
+          font-size: 18px;
+          color: rgba(255,255,255,0.7);
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .por-que-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 48px;
+          align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+          .por-que-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+          }
+        }
+
+        .video-container {
+          position: relative;
+          width: 100%;
+          padding-bottom: 56.25%; /* 16:9 aspect ratio */
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .video-container video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .por-que-text {
+          padding: 32px;
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.05);
+          border-radius: 16px;
+        }
+
+        .por-que-text h3 {
+          font-size: 24px;
+          color: var(--cyan);
+          margin-bottom: 16px;
+        }
+
+        .por-que-text p {
+          font-size: 16px;
+          line-height: 1.7;
+          color: rgba(255,255,255,0.8);
+          margin-bottom: 16px;
+        }
+
+        .por-que-text p:last-child {
+          margin-bottom: 0;
         }
 
         /* ===== TESTIMONIALS - VISUAL ===== */
@@ -1353,8 +1580,139 @@ export default function LandingPage() {
         </div> {/* Cierre hero-grid */}
       </section>
 
+      {/* Visión y Misión Section */}
+      <section id="vision-mision" className="vision-mision">
+        <div className="vision-mision-content">
+          <div className="vision-mision-header">
+            <h2 className="vision-mision-title">
+              Nuestra Visión y <span style={{color: 'var(--cyan)'}}>Misión</span>
+            </h2>
+          </div>
+
+          <div className="vision-mision-grid">
+            {/* Visión */}
+            <div className="vm-card">
+              <div className="vm-card-icon">
+                <svg width="32" height="32" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </div>
+              <h3>Visión</h3>
+              <p>
+                Ser el puente de salud y compañía más confiable para las familias migrantes, 
+                donde la distancia nunca sea una barrera para cuidar a quienes más amas.
+              </p>
+            </div>
+
+            {/* Misión */}
+            <div className="vm-card">
+              <div className="vm-card-icon">
+                <svg width="32" height="32" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </div>
+              <h3>Misión</h3>
+              <p>
+                Ofrecer servicios de salud accesibles y compañía genuina para familias en México, 
+                permitiendo que los migrantes en Estados Unidos cuiden de sus seres queridos 
+                con tranquilidad y amor, sin importar la distancia.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Valores Section */}
+      <section id="valores" className="valores">
+        <div className="valores-content">
+          <div className="valores-header">
+            <h2 className="valores-title">
+              Nuestros <span style={{color: 'var(--magenta)'}}>Valores</span>
+            </h2>
+          </div>
+
+          <div className="valores-grid">
+            {/* Valor 1: Empatía */}
+            <div className="valor-card">
+              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+              <h3>Empatía</h3>
+              <p>
+                Entendemos el dolor de estar lejos de casa. Cada familia que servimos 
+                es tratada como si fuera la nuestra.
+              </p>
+            </div>
+
+            {/* Valor 2: Transparencia */}
+            <div className="valor-card">
+              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              <h3>Transparencia</h3>
+              <p>
+                Sin letra pequeña. Sin sorpresas. Mostramos exactamente cuánto ahorras 
+                y cómo funciona cada servicio.
+              </p>
+            </div>
+
+            {/* Valor 3: Compromiso */}
+            <div className="valor-card">
+              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M9 11l3 3L22 4"/>
+                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+              </svg>
+              <h3>Compromiso</h3>
+              <p>
+                Estamos disponibles 24/7. Tu familia nunca estará sola cuando más 
+                nos necesite.
+              </p>
+            </div>
+
+            {/* Valor 4: Innovación */}
+            <div className="valor-card">
+              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="5"/>
+                <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"/>
+              </svg>
+              <h3>Innovación</h3>
+              <p>
+                Creamos soluciones únicas como Lupita y Fernanda, pensando siempre 
+                en lo que realmente necesitan las familias.
+              </p>
+            </div>
+
+            {/* Valor 5: Calidad */}
+            <div className="valor-card">
+              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              <h3>Calidad</h3>
+              <p>
+                Solo trabajamos con médicos y terapeutas certificados. La salud 
+                de tu familia merece lo mejor.
+              </p>
+            </div>
+
+            {/* Valor 6: Accesibilidad */}
+            <div className="valor-card">
+              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <h3>Accesibilidad</h3>
+              <p>
+                Por 40¢ al día, hacemos que el cuidado de salud de calidad sea 
+                accesible para todas las familias migrantes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 4 Pillars Section */}
-      <section className="pillars">
+      <section id="pilares" className="pillars">
         <div className="pillars-content">
           <span className="section-label">Los Cuatro Pilares de SaludCompartida</span>
           <h2 className="pillars-headline">
@@ -1366,8 +1724,8 @@ export default function LandingPage() {
           </p>
 
           <div className="pillars-grid">
-            {/* Pillar 1 */}
-            <div className="pillar-card">
+            {/* Pillar 1 - Telemedicina */}
+            <div id="telemedicina" className="pillar-card">
               <div className="pillar-number">1</div>
               <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 1:</span> Servicios Médicos que te permitan ahorrar dinero</h3>
               <p className="pillar-description">
@@ -1382,7 +1740,7 @@ export default function LandingPage() {
             </div>
 
             {/* Pillar 2 */}
-            <div className="pillar-card">
+            <div id="farmacias" className="pillar-card">
               <div className="pillar-number">2</div>
               <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 2:</span> Te Acompañamos y Queremos Mejorar para ti</h3>
               <p className="pillar-description">
@@ -1398,7 +1756,7 @@ export default function LandingPage() {
             </div>
 
             {/* Pillar 3 */}
-            <div className="pillar-card">
+            <div id="ahorros" className="pillar-card">
               <div className="pillar-number">3</div>
               <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 3:</span> Nos comprometemos a mostrarte cuánto estás ahorrando</h3>
               <p className="pillar-description">
@@ -1413,7 +1771,7 @@ export default function LandingPage() {
             </div>
 
             {/* Pillar 4 */}
-            <div className="pillar-card">
+            <div id="terapia" className="pillar-card">
               <div className="pillar-number">4</div>
               <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 4:</span> Acompañar a tus seres queridos</h3>
               <p className="pillar-description">
@@ -1460,7 +1818,7 @@ export default function LandingPage() {
       </section>
 
       {/* Lupita & Fernanda Section */}
-      <section className="companions">
+      <section id="lupita-fernanda" className="companions">
         <div className="companions-content">
           <div className="companions-header">
             <span className="companions-label" style={{fontSize: '18px', fontWeight: 700, padding: '12px 28px', background: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(6,182,212,0.2))', border: '2px solid var(--magenta)'}}>LO QUE NOS HACE ÚNICOS</span>
@@ -1506,6 +1864,54 @@ export default function LandingPage() {
                   <span>Sin juicios</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Por qué creamos SaludCompartida - Video Testimonial */}
+      <section id="por-que-creamos" className="por-que-creamos">
+        <div className="por-que-content">
+          <div className="por-que-header">
+            <h2 className="por-que-title">
+              Por qué creamos <span style={{color: 'var(--magenta)'}}>SaludCompartida</span>
+            </h2>
+            <p className="por-que-subtitle">
+              La historia detrás de nuestra misión de acortar distancias y cuidar familias
+            </p>
+          </div>
+
+          <div className="por-que-grid">
+            {/* Video Testimonial */}
+            <div className="video-container">
+              <video 
+                controls
+                poster="/video-poster.jpg"
+                style={{borderRadius: '16px'}}
+              >
+                <source src="/testimonial-founder.mp4" type="video/mp4" />
+                Tu navegador no soporta el elemento de video.
+              </video>
+            </div>
+
+            {/* Texto explicativo */}
+            <div className="por-que-text">
+              <h3>Nuestra Historia</h3>
+              <p>
+                SaludCompartida nació de una necesidad real. Como muchos migrantes, 
+                sentíamos la angustia de estar lejos cuando nuestros seres queridos 
+                nos necesitaban.
+              </p>
+              <p>
+                Queríamos crear algo más que un servicio médico. Queríamos construir 
+                un puente que acortara las distancias, que les permitiera a las familias 
+                sentirse acompañadas aunque estén a miles de kilómetros.
+              </p>
+              <p>
+                <strong style={{color: 'var(--cyan)'}}>Por eso creamos a Lupita y Fernanda.</strong> 
+                Por eso incluimos no solo telemedicina, sino compañía, terapia, y todo 
+                lo que una familia necesita para sentirse cuidada y acompañada.
+              </p>
             </div>
           </div>
         </div>
