@@ -177,6 +177,7 @@ export default function SharedHeader() {
               Quiénes Somos
               <div className="shared-dropdown">
                 <a href="/vision-mision" className="shared-dropdown-item">Visión y Misión</a>
+                <a href="/que-resolvemos" className="shared-dropdown-item">Qué Resolvemos</a>
                 <a href="/valores" className="shared-dropdown-item">Nuestros Valores</a>
                 <a href="/pilares" className="shared-dropdown-item">Nuestros Pilares</a>
               </div>
