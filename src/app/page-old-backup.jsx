@@ -1,3 +1,15 @@
+/**
+ * ⚠️ BACKUP SOLAMENTE - NO SE USA EN PRODUCCIÓN
+ * 
+ * Este era el diseño anterior del homepage (MobileLandingPage)
+ * Tema oscuro emocional: "La distancia duele", countdown timer
+ * Guardado como backup en caso de necesitar revertir
+ * 
+ * @deprecated Reemplazado por page.jsx el 2026-01-27
+ * @backup_of Homepage anterior (1072 líneas)
+ * @status INACTIVO - Solo referencia
+ */
+
 'use client';
 
 import { useState } from 'react';
