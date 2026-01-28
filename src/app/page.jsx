@@ -1614,10 +1614,26 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Pillar 2 - Dashboard de Ahorros */}
-            <div id="ahorros" className="pillar-card">
+            {/* Pillar 2 - WhatsApp */}
+            <div id="whatsapp" className="pillar-card">
               <div className="pillar-number">2</div>
-              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 2:</span> Nos comprometemos a mostrarte cuánto estás ahorrando</h3>
+              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 2:</span> Te Acompañamos y Queremos Mejorar para ti</h3>
+              <p className="pillar-description">
+                • Pregúntanos a través de WhatsApp.<br/>
+                • ¿Cómo te atendieron? ¿Qué dudas tienes?<br/>
+                • ¿En qué más te podemos ayudar?<br/>
+                • No estás solo navegando el sistema.
+              </p>
+              <div className="pillar-stat">
+                <div className="pillar-stat-number">24/7</div>
+                <div className="pillar-stat-label">Siempre disponibles para resolver tus dudas</div>
+              </div>
+            </div>
+
+            {/* Pillar 3 - Dashboard de Ahorros */}
+            <div id="ahorros" className="pillar-card">
+              <div className="pillar-number">3</div>
+              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 3:</span> Nos comprometemos a mostrarte cuánto estás ahorrando</h3>
               <p className="pillar-description">
                 • Información visible para ti y para tu familia.<br/>
                 • Ayudarte a reducir tus gastos es nuestra prioridad.<br/>
@@ -1629,54 +1645,37 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Pillar 3 - Lupita (MAGENTA) */}
-            <div id="lupita" className="pillar-card">
-              <div className="pillar-number" style={{background: 'linear-gradient(135deg, var(--magenta), #DB2777)'}}>3</div>
-              <h3 className="pillar-title"><span style={{color: 'var(--magenta)'}}>PILAR 3: Lupita</span> - Tu compañía para adultos mayores</h3>
-              <p className="pillar-description">
-                • Lupita llama a tus padres o abuelos semanalmente.<br/>
-                • Compañía genuina: recetas, historias, música.<br/>
-                • Seguimiento de cómo se sienten y qué necesitan.<br/>
-                • Reportes para ti sobre cada llamada.
-              </p>
-              <p className="pillar-description" style={{marginTop: '12px'}}>
-                Porque la soledad no es parte del envejecimiento. Lupita está ahí cuando tú no puedes.
-              </p>
-              <div className="pillar-stat">
-                <div className="pillar-stat-number">
-                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" style={{width: '48px', height: '48px'}}>
-                    <circle cx="32" cy="24" r="12" fill="var(--magenta)"/>
-                    <path d="M16 50 C16 38, 48 38, 48 50" fill="var(--magenta)"/>
-                    <path d="M20 30 L20 26 M44 30 L44 26" stroke="var(--magenta)" strokeWidth="3" strokeLinecap="round"/>
-                  </svg>
-                </div>
-                <div className="pillar-stat-label" style={{color: 'var(--magenta)'}}>Compañía real para quien más lo necesita</div>
-              </div>
-            </div>
-
-            {/* Pillar 4 - Fernanda (MAGENTA) */}
-            <div id="fernanda" className="pillar-card">
+            {/* Pillar 4 - Lupita y Fernanda (MAGENTA) */}
+            <div id="lupita-fernanda" className="pillar-card">
               <div className="pillar-number" style={{background: 'linear-gradient(135deg, var(--magenta), #DB2777)'}}>4</div>
-              <h3 className="pillar-title"><span style={{color: 'var(--magenta)'}}>PILAR 4: Fernanda</span> - Tu apoyo para mamás y familias</h3>
+              <h3 className="pillar-title"><span style={{color: 'var(--magenta)'}}>PILAR 4: Lupita y Fernanda</span> - Acompañamiento a tus seres queridos</h3>
               <p className="pillar-description">
-                • Fernanda acompaña a mamás, esposas de migrantes, familias jóvenes.<br/>
-                • Conversaciones sobre crianza, recetas, presupuesto familiar.<br/>
-                • Alguien que escucha cuando se sienten solas.<br/>
-                • Una amiga que siempre tiene tiempo.
+                <strong>Lupita:</strong> Compañía para adultos mayores.<br/>
+                • Llama semanalmente a tus padres o abuelos.<br/>
+                • Conversaciones sobre recetas, historias, música.<br/><br/>
+                <strong>Fernanda:</strong> Apoyo para mamás y familias.<br/>
+                • Acompaña a esposas de migrantes, madres jóvenes.<br/>
+                • Crianza, recetas, presupuesto familiar.
               </p>
               <p className="pillar-description" style={{marginTop: '12px'}}>
-                Especialmente diseñada para madres que necesitan compañía mientras cuidan a sus hijos.
+                Nuestro objetivo es acompañar a tus seres queridos en caso de que se sientan solos.
               </p>
               <div className="pillar-stat">
                 <div className="pillar-stat-number">
                   <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" style={{width: '48px', height: '48px'}}>
-                    <circle cx="32" cy="22" r="10" fill="var(--magenta)"/>
-                    <path d="M20 45 C20 35, 44 35, 44 45" fill="var(--magenta)"/>
-                    <circle cx="24" cy="52" r="5" fill="var(--magenta)" opacity="0.7"/>
-                    <circle cx="40" cy="52" r="5" fill="var(--magenta)" opacity="0.7"/>
+                    {/* Adulto mayor */}
+                    <circle cx="20" cy="20" r="8" fill="var(--magenta)"/>
+                    <path d="M12 35 C12 28, 28 28, 28 35" fill="var(--magenta)"/>
+                    {/* Madre con niños */}
+                    <circle cx="44" cy="22" r="7" fill="var(--magenta)"/>
+                    <path d="M37 38 C37 32, 51 32, 51 38" fill="var(--magenta)"/>
+                    <circle cx="38" cy="45" r="4" fill="var(--magenta)" opacity="0.7"/>
+                    <circle cx="50" cy="45" r="4" fill="var(--magenta)" opacity="0.7"/>
+                    {/* Corazón conectando */}
+                    <path d="M32 28 L32 32 M28 30 L36 30" stroke="var(--white)" strokeWidth="2" opacity="0.5"/>
                   </svg>
                 </div>
-                <div className="pillar-stat-label" style={{color: 'var(--magenta)'}}>Acompañamiento para madres y familias</div>
+                <div className="pillar-stat-label" style={{color: 'var(--magenta)'}}>Acompañamiento real a tus seres queridos</div>
               </div>
             </div>
           </div>
