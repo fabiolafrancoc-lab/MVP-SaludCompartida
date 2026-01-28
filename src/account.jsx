@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import TopNav from './components/TopNav';
+import SharedHeader from './components/SharedHeader';
+import SharedFooter from './components/SharedFooter';
 import { updateUserByAccessCode, saveDependents, getDependentsByAccessCode } from './lib/supabase';
 
 export default function Account() {
@@ -295,9 +296,9 @@ export default function Account() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      {/* TopNav Navigation */}
-      <TopNav internalPage={true} showBackButton={true} showMenu={true} onBack={() => navigate('/page4')} />
+    <div className="min-h-screen bg-gray-900" style={{paddingTop: '72px'}}>
+      {/* Shared Header */}
+      <SharedHeader />
 
       <main className="w-full max-w-4xl mx-auto px-safe py-safe">
         {/* Welcome Message */}
@@ -721,6 +722,8 @@ export default function Account() {
           </button>
         </div>
       </main>
+      
+      <SharedFooter />
     </div>
   );
 }
