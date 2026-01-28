@@ -1482,20 +1482,24 @@ export default function LandingPage() {
           {/* Video izquierda (mobile: arriba, desktop: izquierda) */}
           <div className="hero-grid-image">
             <video 
-              src="/LANDING_VIDEO SIN FIN_LIVIANO.mov" 
               autoPlay
               loop
               muted
               playsInline
+              preload="auto"
               style={{
                 width: '100%',
                 maxWidth: '500px',
                 height: 'auto',
                 borderRadius: '16px',
                 margin: '0 auto',
-                display: 'block'
+                display: 'block',
+                backgroundColor: '#1F2937'
               }}
-            />
+            >
+              <source src="/LANDING_VIDEO SIN FIN_LIVIANO.mov" type="video/mp4" />
+              Tu navegador no soporta video.
+            </video>
           </div>
 
           {/* Contenido derecha (mobile: abajo, desktop: derecha) */}
@@ -1762,10 +1766,13 @@ export default function LandingPage() {
             <div className="video-container">
               <video 
                 controls
-                poster="/video-poster.jpg"
-                style={{borderRadius: '16px'}}
+                style={{
+                  borderRadius: '16px',
+                  width: '100%',
+                  height: 'auto'
+                }}
               >
-                <source src="/testimonial-founder.mp4" type="video/mp4" />
+                <source src="/VIDEO_PAGINA copy.mp4" type="video/mp4" />
                 Tu navegador no soporta el elemento de video.
               </video>
             </div>
