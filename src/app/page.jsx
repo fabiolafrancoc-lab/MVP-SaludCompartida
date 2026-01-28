@@ -1037,6 +1037,26 @@ export default function LandingPage() {
         <div className="hero-form">
           <div className="form-container">
             
+            {/* Headline primero */}
+            <div style={{marginBottom: '24px'}}>
+              <span className="hero-welcome" style={{display: 'inline-block', marginBottom: '16px'}}>Bienvenido</span>
+              <h1 className="hero-headline" style={{fontSize: 'clamp(24px, 5vw, 32px)', lineHeight: '1.3', marginBottom: '16px'}}>
+                Si llegaste hasta aquí, es porque <span className="highlight">tú también lo sientes</span>.
+              </h1>
+              {/* Imagen debajo del headline */}
+              <img 
+                src="/LANDING_TOP_PICTURE.jpeg" 
+                alt="Familia unida" 
+                style={{
+                  width: '100%',
+                  maxWidth: '280px',
+                  height: 'auto',
+                  borderRadius: '12px',
+                  marginTop: '16px'
+                }}
+              />
+            </div>
+
             {/* Community Message */}
             <div className="community-message">
               <p>
@@ -1060,7 +1080,7 @@ export default function LandingPage() {
             {/* Form */}
             <div className="form-intro">
               <h2 className="form-title">Cuéntanos de ti</h2>
-              <p className="form-subtitle">En 30 segundos tu familia recibe acceso por WhatsApp</p>
+              <p className="form-subtitle" style={{fontSize: '13px'}}>Suscríbete y en 30 segundos tu familia recibe acceso por WhatsApp</p>
             </div>
 
             <form action="https://saludcompartida.app/subscribe" method="GET">
@@ -1083,8 +1103,8 @@ export default function LandingPage() {
               </div>
 
               <button type="submit" className="submit-btn">
-                Quiero Ser Familia Fundadora
-                <span className="subtext">Solo 40¢ al día — Cancela cuando quieras</span>
+                Quiero Ser Parte de las Familias Fundadoras de SaludCompartida
+                <span className="subtext">40¢ diarios ($12 mensuales) — Cancela cuando quieras</span>
               </button>
             </form>
 
@@ -1093,7 +1113,10 @@ export default function LandingPage() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 </svg>
-                Pago seguro
+                <div>
+                  <div>Pago seguro mediante Square</div>
+                  <div style={{fontSize: '10px', opacity: 0.7}}>PCI-DSS Level 1 • SSL/TLS</div>
+                </div>
               </div>
               <div className="trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1217,7 +1240,7 @@ export default function LandingPage() {
             {/* Lupita */}
             <div className="companion-card lupita">
               <div className="companion-image">
-                <img src="/SENIOR_CITIZEN.jpeg" alt="Lupita acompañando" />
+                <img src="/SENIOR_CITIZEN_COOKING.jpeg" alt="Lupita acompañando" />
                 <span className="companion-badge">Para adultos 55+</span>
               </div>
               <div className="companion-body">
@@ -1246,7 +1269,8 @@ export default function LandingPage() {
                 <p className="companion-for">Para tu esposa, hermana, prima</p>
                 <p className="companion-description">
                   Como una amiga que entiende lo que es manejar tres horarios de niños, 
-                  elegir qué ponerse para el concierto, o simplemente necesitar desahogarse.
+                  lidiar con hijos adolescentes, elegir qué ponerse para el concierto, 
+                  o simplemente necesitar desahogarse.
                 </p>
                 <div className="companion-features">
                   <span>Alguien que escucha</span>
@@ -1271,7 +1295,7 @@ export default function LandingPage() {
             {/* Testimonial 1 - Lupita/Recetas */}
             <div className="testimonial-card featured">
               <div className="testimonial-image">
-                <img src="/SENIOR_CITIZEN.jpeg" alt="Abuela cocinando" />
+                <img src="/SENIOR_CITIZEN_COOKING.jpeg" alt="Abuela cocinando" />
                 <span className="testimonial-tag">Lupita</span>
               </div>
               <div className="testimonial-body">
