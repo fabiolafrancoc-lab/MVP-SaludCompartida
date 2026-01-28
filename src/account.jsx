@@ -295,23 +295,23 @@ export default function Account() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-pink-50">
+    <div className="min-h-screen bg-gray-900">
       {/* TopNav Navigation */}
       <TopNav internalPage={true} showBackButton={true} showMenu={true} onBack={() => navigate('/page4')} />
 
       <main className="w-full max-w-4xl mx-auto px-safe py-safe">
         {/* Welcome Message */}
         <div className="w-full text-center mb-6 sm:mb-8">
-          <h1 className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-base md:text-2xl lg:text-3xl sm:text-lg md:text-3xl lg:text-4xl md:text-lg md:text-3xl lg:text-4xl font-bold text-white mb-2">
             Bienvenida a tu Cuenta <span className="text-cyan-600">{userData.firstName || 'Usuario'}</span>
           </h1>
-          <p className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl text-gray-600">
+          <p className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl text-gray-400">
             Gestiona tu información personal y la de tu familia
           </p>
         </div>
 
         {/* User Information Section */}
-        <div className="w-full bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-6 sm:mb-8">
+        <div className="w-full bg-gray-800 rounded-2xl shadow-xl p-6 md:p-8 mb-6 sm:mb-8">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-cyan-100">
             <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center">
               <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -319,8 +319,8 @@ export default function Account() {
               </svg>
             </div>
             <div>
-              <h2 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-bold text-gray-900">Tus Datos</h2>
-              <p className="text-sm text-gray-600">Usuario en México</p>
+              <h2 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-bold text-white">Tus Datos</h2>
+              <p className="text-sm text-gray-400">Usuario en México</p>
             </div>
           </div>
 
@@ -328,7 +328,7 @@ export default function Account() {
             {/* Name Fields */}
             <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
                   Nombre <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -340,8 +340,8 @@ export default function Account() {
                     errors.firstName 
                       ? 'border-red-500 focus:border-red-600 bg-red-50' 
                       : userData.firstName 
-                        ? 'border-gray-200 focus:border-cyan-500' 
-                        : 'border-gray-200 bg-gray-50 text-gray-500 focus:border-cyan-500'
+                        ? 'border-gray-600 focus:border-cyan-500' 
+                        : 'border-gray-600 bg-gray-50 text-gray-400 focus:border-cyan-500'
                   }`}
                   placeholder="Tu nombre"
                 />
@@ -356,7 +356,7 @@ export default function Account() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
                   Apellido Paterno <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -368,8 +368,8 @@ export default function Account() {
                     errors.lastName 
                       ? 'border-red-500 focus:border-red-600 bg-red-50' 
                       : userData.lastName 
-                        ? 'border-gray-200 focus:border-cyan-500' 
-                        : 'border-gray-200 bg-gray-50 text-gray-500 focus:border-cyan-500'
+                        ? 'border-gray-600 focus:border-cyan-500' 
+                        : 'border-gray-600 bg-gray-50 text-gray-400 focus:border-cyan-500'
                   }`}
                   placeholder="Apellido paterno"
                 />
@@ -384,8 +384,8 @@ export default function Account() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Apellido Materno <span className="text-gray-500 text-xs">(opcional)</span>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  Apellido Materno <span className="text-gray-400 text-xs">(opcional)</span>
                 </label>
                 <input
                   type="text"
@@ -393,8 +393,8 @@ export default function Account() {
                   onChange={(e) => handleUserChange('motherLastName', e.target.value)}
                   className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all ${
                     userData.motherLastName 
-                      ? 'border-gray-200 focus:border-cyan-500' 
-                      : 'border-gray-200 bg-gray-50 text-gray-500 focus:border-cyan-500'
+                      ? 'border-gray-600 focus:border-cyan-500' 
+                      : 'border-gray-600 bg-gray-50 text-gray-400 focus:border-cyan-500'
                   }`}
                   placeholder="Apellido materno"
                 />
@@ -403,7 +403,7 @@ export default function Account() {
 
             {/* Birth Date */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-300 mb-2">
                 Fecha de Nacimiento <span className="text-red-500">*</span>
               </label>
               <input
@@ -415,8 +415,8 @@ export default function Account() {
                   errors.date_of_birth 
                     ? 'border-red-500 focus:border-red-600 bg-red-50' 
                     : userData.date_of_birth 
-                      ? 'border-gray-200 focus:border-cyan-500' 
-                      : 'border-gray-200 bg-gray-50 text-gray-500 focus:border-cyan-500'
+                      ? 'border-gray-600 focus:border-cyan-500' 
+                      : 'border-gray-600 bg-gray-50 text-gray-400 focus:border-cyan-500'
                 }`}
                 placeholder="mm/dd/yyyy"
               />
@@ -432,8 +432,8 @@ export default function Account() {
 
             {/* Gender */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Sexo <span className="text-gray-500 text-xs">(opcional)</span>
+              <label className="block text-sm font-semibold text-gray-300 mb-2">
+                Sexo <span className="text-gray-400 text-xs">(opcional)</span>
               </label>
               <select
                 name="gender"
@@ -441,8 +441,8 @@ export default function Account() {
                 onChange={(e) => handleUserChange('gender', e.target.value)}
                 className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all ${
                   userData.gender 
-                    ? 'border-gray-200 focus:border-cyan-500' 
-                    : 'border-gray-200 bg-gray-50 text-gray-500 focus:border-cyan-500'
+                    ? 'border-gray-600 focus:border-cyan-500' 
+                    : 'border-gray-600 bg-gray-50 text-gray-400 focus:border-cyan-500'
                 }`}
               >
                 <option value="">Selecciona</option>
@@ -453,7 +453,7 @@ export default function Account() {
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-300 mb-2">
                 Correo Electrónico <span className="text-red-500">*</span>
               </label>
               <input
@@ -463,7 +463,7 @@ export default function Account() {
                 onChange={(e) => handleUserChange('email', e.target.value)}
                 placeholder="tu@email.com"
                 className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-cyan-500 transition-all ${
-                  errors.email ? 'border-red-500 bg-red-50' : 'border-gray-200 focus:border-cyan-500'
+                  errors.email ? 'border-red-500 bg-red-50' : 'border-gray-600 focus:border-cyan-500'
                 }`}
               />
               {errors.email && (
@@ -478,7 +478,7 @@ export default function Account() {
 
             {/* WhatsApp */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+              <label className="block text-sm font-semibold text-gray-300 mb-2 flex items-center gap-2">
                 <span>WhatsApp <span className="text-red-500">*</span></span>
                 <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -486,7 +486,7 @@ export default function Account() {
               </label>
               <div className="flex">
                 <div className={`flex items-center justify-center border-2 border-r-0 rounded-l-xl px-3 ${
-                  errors.phone ? 'border-red-500 bg-red-50' : 'bg-white border-gray-200'
+                  errors.phone ? 'border-red-500 bg-red-50' : 'bg-gray-800 border-gray-600'
                 }`}>
                   <span className="text-2xl">{countryCode === '+1' ? '🇺🇸' : '🇲🇽'}</span>
                 </div>
@@ -498,7 +498,7 @@ export default function Account() {
                   className={`flex-1 px-4 py-3 border-2 rounded-r-xl focus:ring-2 focus:ring-cyan-500 transition-all font-medium ${
                     errors.phone 
                       ? 'border-red-500 focus:border-red-600 bg-red-50' 
-                      : 'border-gray-200 focus:border-cyan-500 bg-white'
+                      : 'border-gray-600 focus:border-cyan-500 bg-gray-800'
                   }`}
                   placeholder="+525551234567 o 5551234567"
                   maxLength="13"
@@ -512,7 +512,7 @@ export default function Account() {
                   <p className="text-sm text-red-600 font-medium">Mínimo 10 dígitos requeridos</p>
                 </div>
               )}
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-400 mt-1">
                 Puedes escribir con + o sin +. Ej: +525567633424 o 5567633424
               </p>
             </div>
@@ -520,7 +520,7 @@ export default function Account() {
         </div>
 
         {/* Family Members Section */}
-        <div className="w-full bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-6 sm:mb-8">
+        <div className="w-full bg-gray-800 rounded-2xl shadow-xl p-6 md:p-8 mb-6 sm:mb-8">
           <div className="flex items-start gap-3 mb-6 pb-4 border-b-2 border-pink-100">
             <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-xl flex items-center justify-center flex-shrink-0">
               <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -528,18 +528,18 @@ export default function Account() {
               </svg>
             </div>
             <div>
-              <h2 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 mb-2">Miembros de tu Familia</h2>
-              <p className="text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
+              <h2 className="text-base md:text-lg lg:text-xl font-bold text-white mb-2">Miembros de tu Familia</h2>
+              <p className="text-sm md:text-base lg:text-lg text-gray-400 leading-relaxed">
                 Incluye hasta tres miembros de tu familia que accederán a SaludCompartida{' '}
-                <span className="text-gray-500 italic">(Registro Opcional)</span>
+                <span className="text-gray-400 italic">(Registro Opcional)</span>
               </p>
             </div>
           </div>
 
           <div className="w-full space-y-6 sm:space-y-8">
             {familyMembers.map((member, index) => (
-              <div key={index} className="w-full bg-gradient-to-r from-gray-50 to-white rounded-xl p-4 sm:p-6 border-2 border-gray-100">
-                <h3 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <div key={index} className="w-full bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl p-4 sm:p-6 border-2 border-gray-700">
+                <h3 className="text-lg md:text-3xl lg:text-4xl sm:text-base md:text-2xl lg:text-3xl font-bold text-white mb-4 flex items-center gap-2">
                   <span className="flex items-center justify-center w-8 h-8 bg-pink-500 text-white rounded-full text-sm font-bold">
                     {index + 1}
                   </span>
@@ -550,40 +550,40 @@ export default function Account() {
                   {/* Name Fields */}
                   <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-300 mb-2">
                         Nombre
                       </label>
                       <input
                         type="text"
                         value={member.firstName}
                         onChange={(e) => handleFamilyChange(index, 'firstName', e.target.value)}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
+                        className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
                         placeholder="Nombre"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-300 mb-2">
                         Apellido Paterno
                       </label>
                       <input
                         type="text"
                         value={member.lastName}
                         onChange={(e) => handleFamilyChange(index, 'lastName', e.target.value)}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
+                        className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
                         placeholder="Apellido paterno"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label className="block text-sm font-semibold text-gray-300 mb-2">
                         Apellido Materno <span className="text-gray-400 text-xs">(opcional)</span>
                       </label>
                       <input
                         type="text"
                         value={member.motherLastName}
                         onChange={(e) => handleFamilyChange(index, 'motherLastName', e.target.value)}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
+                        className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
                         placeholder="Apellido materno"
                       />
                     </div>
@@ -591,13 +591,13 @@ export default function Account() {
 
                   {/* Relationship */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-300 mb-2">
                       Parentesco <span className="text-gray-400 text-xs">(Opcional)</span>
                     </label>
                     <select
                       value={member.relationship}
                       onChange={(e) => handleFamilyChange(index, 'relationship', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
+                      className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
                     >
                       <option value="">Selecciona parentesco</option>
                       {relationshipOptions.map((option, i) => (
@@ -608,27 +608,27 @@ export default function Account() {
 
                   {/* Birth Date */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-300 mb-2">
                       Fecha de Nacimiento <span className="text-gray-400 text-xs">(Opcional)</span>
                     </label>
                     <input
                       type="date"
                       value={member.date_of_birth}
                       onChange={(e) => handleFamilyChange(index, 'date_of_birth', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
+                      className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
                       placeholder="mm/dd/yyyy"
                     />
                   </div>
 
                   {/* Gender */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-300 mb-2">
                       Sexo <span className="text-gray-400 text-xs">(Opcional)</span>
                     </label>
                     <select
                       value={member.gender}
                       onChange={(e) => handleFamilyChange(index, 'gender', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
+                      className="w-full px-4 py-3 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
                     >
                       <option value="">Selecciona</option>
                       <option value="female">Mujer</option>
@@ -638,18 +638,18 @@ export default function Account() {
 
                   {/* Phone Number */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-300 mb-2">
                       Teléfono <span className="text-gray-400 text-xs">(Opcional)</span>
                     </label>
                     <div className="flex gap-2">
-                      <div className="flex items-center px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-xl font-mono text-gray-700">
+                      <div className="flex items-center px-4 py-3 bg-gray-700 border-2 border-gray-600 rounded-xl font-mono text-gray-300">
                         +52
                       </div>
                       <input
                         type="tel"
                         value={formatPhoneDisplay(member.phone)}
                         onChange={(e) => handleFamilyChange(index, 'phone', e.target.value)}
-                        className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all font-mono"
+                        className="flex-1 px-4 py-3 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all font-mono"
                         placeholder="XXX XXX XXXX"
                         maxLength="12"
                       />
@@ -678,7 +678,7 @@ export default function Account() {
 
         {/* Success Message */}
         {showSuccess && (
-          <div className="mt-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-4 w-full max-w-md mx-auto">
+          <div className="mt-6 bg-green-900/20 border-l-4 border-green-500 rounded-lg p-4 w-full max-w-md mx-auto">
             <div className="flex items-center">
               <svg className="w-6 h-6 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -689,7 +689,7 @@ export default function Account() {
         )}
 
         {/* Info Box */}
-        <div className="mt-8 bg-cyan-50 border-l-4 border-cyan-500 rounded-lg p-4">
+        <div className="mt-8 bg-cyan-900/20 border-l-4 border-cyan-500 rounded-lg p-4">
           <div className="flex items-start">
             <svg className="w-6 h-6 text-cyan-600 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
