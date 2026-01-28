@@ -176,8 +176,8 @@ export default function SharedHeader() {
             <div className="shared-nav-item">
               Quiénes Somos
               <div className="shared-dropdown">
-                <a href="/#vision-mision" className="shared-dropdown-item">Visión y Misión</a>
-                <a href="/#valores" className="shared-dropdown-item">Nuestros Valores</a>
+                <a href="/vision-mision" className="shared-dropdown-item">Visión y Misión</a>
+                <a href="/valores" className="shared-dropdown-item">Nuestros Valores</a>
                 <a href="/#pilares" className="shared-dropdown-item">Nuestros Pilares</a>
               </div>
             </div>
@@ -187,9 +187,9 @@ export default function SharedHeader() {
               Nuestros Servicios
               <div className="shared-dropdown">
                 <a href="/#telemedicina" className="shared-dropdown-item">Telemedicina 24/7</a>
-                <a href="/#farmacias" className="shared-dropdown-item">Descuentos en Farmacias</a>
-                <a href="/#terapia" className="shared-dropdown-item">Terapia Semanal</a>
                 <a href="/#ahorros" className="shared-dropdown-item">Mis Ahorros</a>
+                <a href="/#lupita" className="shared-dropdown-item">Lupita (Adultos Mayores)</a>
+                <a href="/#fernanda" className="shared-dropdown-item">Fernanda (Mamás y Familias)</a>
               </div>
             </div>
 
@@ -197,7 +197,8 @@ export default function SharedHeader() {
             <div className="shared-nav-item">
               Lo que nos hace Únicos
               <div className="shared-dropdown">
-                <a href="/#lupita-fernanda" className="shared-dropdown-item">Lupita y Fernanda</a>
+                <a href="/#lupita" className="shared-dropdown-item">Lupita</a>
+                <a href="/#fernanda" className="shared-dropdown-item">Fernanda</a>
                 <a href="/#por-que-creamos" className="shared-dropdown-item">Por qué creamos SaludCompartida</a>
               </div>
             </div>
