@@ -697,12 +697,13 @@ export default function LandingPage() {
           display: inline-block;
           background: rgba(6, 182, 212, 0.15);
           border: 1px solid rgba(6, 182, 212, 0.3);
-          padding: 8px 20px;
+          padding: 10px 24px;
           border-radius: 24px;
-          font-size: 12px;
+          font-size: 15px;
+          font-weight: 600;
           color: var(--cyan);
           text-transform: uppercase;
-          letter-spacing: 1px;
+          letter-spacing: 1.5px;
           margin-bottom: 20px;
         }
 
@@ -1069,8 +1070,9 @@ export default function LandingPage() {
 
         .testimonials-title {
           font-family: 'DM Serif Display', serif;
-          font-size: clamp(28px, 5vw, 38px);
+          font-size: clamp(42px, 6vw, 56px);
           margin-bottom: 16px;
+          font-weight: 700;
         }
 
         .testimonials-grid {
@@ -1580,137 +1582,6 @@ export default function LandingPage() {
         </div> {/* Cierre hero-grid */}
       </section>
 
-      {/* Visión y Misión Section */}
-      <section id="vision-mision" className="vision-mision">
-        <div className="vision-mision-content">
-          <div className="vision-mision-header">
-            <h2 className="vision-mision-title">
-              Nuestra Visión y <span style={{color: 'var(--cyan)'}}>Misión</span>
-            </h2>
-          </div>
-
-          <div className="vision-mision-grid">
-            {/* Visión */}
-            <div className="vm-card">
-              <div className="vm-card-icon">
-                <svg width="32" height="32" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
-              </div>
-              <h3>Visión</h3>
-              <p>
-                Ser el puente de salud y compañía más confiable para las familias migrantes, 
-                donde la distancia nunca sea una barrera para cuidar a quienes más amas.
-              </p>
-            </div>
-
-            {/* Misión */}
-            <div className="vm-card">
-              <div className="vm-card-icon">
-                <svg width="32" height="32" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                </svg>
-              </div>
-              <h3>Misión</h3>
-              <p>
-                Ofrecer servicios de salud accesibles y compañía genuina para familias en México, 
-                permitiendo que los migrantes en Estados Unidos cuiden de sus seres queridos 
-                con tranquilidad y amor, sin importar la distancia.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Valores Section */}
-      <section id="valores" className="valores">
-        <div className="valores-content">
-          <div className="valores-header">
-            <h2 className="valores-title">
-              Nuestros <span style={{color: 'var(--magenta)'}}>Valores</span>
-            </h2>
-          </div>
-
-          <div className="valores-grid">
-            {/* Valor 1: Empatía */}
-            <div className="valor-card">
-              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-              </svg>
-              <h3>Empatía</h3>
-              <p>
-                Entendemos el dolor de estar lejos de casa. Cada familia que servimos 
-                es tratada como si fuera la nuestra.
-              </p>
-            </div>
-
-            {/* Valor 2: Transparencia */}
-            <div className="valor-card">
-              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 6v6l4 2"/>
-              </svg>
-              <h3>Transparencia</h3>
-              <p>
-                Sin letra pequeña. Sin sorpresas. Mostramos exactamente cuánto ahorras 
-                y cómo funciona cada servicio.
-              </p>
-            </div>
-
-            {/* Valor 3: Compromiso */}
-            <div className="valor-card">
-              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M9 11l3 3L22 4"/>
-                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
-              </svg>
-              <h3>Compromiso</h3>
-              <p>
-                Estamos disponibles 24/7. Tu familia nunca estará sola cuando más 
-                nos necesite.
-              </p>
-            </div>
-
-            {/* Valor 4: Innovación */}
-            <div className="valor-card">
-              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="5"/>
-                <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"/>
-              </svg>
-              <h3>Innovación</h3>
-              <p>
-                Creamos soluciones únicas como Lupita y Fernanda, pensando siempre 
-                en lo que realmente necesitan las familias.
-              </p>
-            </div>
-
-            {/* Valor 5: Calidad */}
-            <div className="valor-card">
-              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-              <h3>Calidad</h3>
-              <p>
-                Solo trabajamos con médicos y terapeutas certificados. La salud 
-                de tu familia merece lo mejor.
-              </p>
-            </div>
-
-            {/* Valor 6: Accesibilidad */}
-            <div className="valor-card">
-              <svg className="valor-card-icon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <h3>Accesibilidad</h3>
-              <p>
-                Por 40¢ al día, hacemos que el cuidado de salud de calidad sea 
-                accesible para todas las familias migrantes.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 4 Pillars Section */}
       <section id="pilares" className="pillars">
         <div className="pillars-content">
@@ -1739,26 +1610,10 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Pillar 2 */}
-            <div id="farmacias" className="pillar-card">
-              <div className="pillar-number">2</div>
-              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 2:</span> Te Acompañamos y Queremos Mejorar para ti</h3>
-              <p className="pillar-description">
-                • Pregúntanos a través de WhatsApp.<br/>
-                • ¿Cómo te atendieron? ¿Qué dudas tienes?<br/>
-                • ¿En qué más te podemos ayudar?<br/>
-                • No estás solo navegando el sistema.
-              </p>
-              <div className="pillar-stat">
-                <div className="pillar-stat-number">24/7</div>
-                <div className="pillar-stat-label">Siempre disponibles para resolver tus dudas</div>
-              </div>
-            </div>
-
-            {/* Pillar 3 */}
+            {/* Pillar 2 - Dashboard de Ahorros */}
             <div id="ahorros" className="pillar-card">
-              <div className="pillar-number">3</div>
-              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 3:</span> Nos comprometemos a mostrarte cuánto estás ahorrando</h3>
+              <div className="pillar-number">2</div>
+              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 2:</span> Nos comprometemos a mostrarte cuánto estás ahorrando</h3>
               <p className="pillar-description">
                 • Información visible para ti y para tu familia.<br/>
                 • Ayudarte a reducir tus gastos es nuestra prioridad.<br/>
@@ -1770,33 +1625,54 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Pillar 4 */}
-            <div id="terapia" className="pillar-card">
-              <div className="pillar-number">4</div>
-              <h3 className="pillar-title"><span style={{color: 'var(--cyan)'}}>PILAR 4:</span> Acompañar a tus seres queridos</h3>
+            {/* Pillar 3 - Lupita (MAGENTA) */}
+            <div id="lupita" className="pillar-card">
+              <div className="pillar-number" style={{background: 'linear-gradient(135deg, var(--magenta), #DB2777)'}}>3</div>
+              <h3 className="pillar-title"><span style={{color: 'var(--magenta)'}}>PILAR 3: Lupita</span> - Tu compañía para adultos mayores</h3>
               <p className="pillar-description">
-                • Acompañar a tus seres queridos en otros temas no necesariamente médicamente relacionados:<br/>
-                • Comidas que le gustan a tu familia, música, precios más baratos de alimentos, etc.
+                • Lupita llama a tus padres o abuelos semanalmente.<br/>
+                • Compañía genuina: recetas, historias, música.<br/>
+                • Seguimiento de cómo se sienten y qué necesitan.<br/>
+                • Reportes para ti sobre cada llamada.
               </p>
               <p className="pillar-description" style={{marginTop: '12px'}}>
-                Nuestro objetivo es acompañar a tus seres queridos en caso de que se sientan solos.
+                Porque la soledad no es parte del envejecimiento. Lupita está ahí cuando tú no puedes.
               </p>
               <div className="pillar-stat">
                 <div className="pillar-stat-number">
                   <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" style={{width: '48px', height: '48px'}}>
-                    {/* Adulto mayor */}
-                    <circle cx="20" cy="20" r="8" fill="var(--cyan)"/>
-                    <path d="M12 35 C12 28, 28 28, 28 35" fill="var(--cyan)"/>
-                    {/* Madre con niños */}
-                    <circle cx="44" cy="22" r="7" fill="var(--magenta)"/>
-                    <path d="M37 38 C37 32, 51 32, 51 38" fill="var(--magenta)"/>
-                    <circle cx="38" cy="45" r="4" fill="var(--magenta)" opacity="0.7"/>
-                    <circle cx="50" cy="45" r="4" fill="var(--magenta)" opacity="0.7"/>
-                    {/* Corazón conectando */}
-                    <path d="M32 28 L32 32 M28 30 L36 30" stroke="var(--white)" strokeWidth="2" opacity="0.5"/>
+                    <circle cx="32" cy="24" r="12" fill="var(--magenta)"/>
+                    <path d="M16 50 C16 38, 48 38, 48 50" fill="var(--magenta)"/>
+                    <path d="M20 30 L20 26 M44 30 L44 26" stroke="var(--magenta)" strokeWidth="3" strokeLinecap="round"/>
                   </svg>
                 </div>
-                <div className="pillar-stat-label">Acompañamiento real a tus seres queridos</div>
+                <div className="pillar-stat-label" style={{color: 'var(--magenta)'}}>Compañía real para quien más lo necesita</div>
+              </div>
+            </div>
+
+            {/* Pillar 4 - Fernanda (MAGENTA) */}
+            <div id="fernanda" className="pillar-card">
+              <div className="pillar-number" style={{background: 'linear-gradient(135deg, var(--magenta), #DB2777)'}}>4</div>
+              <h3 className="pillar-title"><span style={{color: 'var(--magenta)'}}>PILAR 4: Fernanda</span> - Tu apoyo para mamás y familias</h3>
+              <p className="pillar-description">
+                • Fernanda acompaña a mamás, esposas de migrantes, familias jóvenes.<br/>
+                • Conversaciones sobre crianza, recetas, presupuesto familiar.<br/>
+                • Alguien que escucha cuando se sienten solas.<br/>
+                • Una amiga que siempre tiene tiempo.
+              </p>
+              <p className="pillar-description" style={{marginTop: '12px'}}>
+                Especialmente diseñada para madres que necesitan compañía mientras cuidan a sus hijos.
+              </p>
+              <div className="pillar-stat">
+                <div className="pillar-stat-number">
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" style={{width: '48px', height: '48px'}}>
+                    <circle cx="32" cy="22" r="10" fill="var(--magenta)"/>
+                    <path d="M20 45 C20 35, 44 35, 44 45" fill="var(--magenta)"/>
+                    <circle cx="24" cy="52" r="5" fill="var(--magenta)" opacity="0.7"/>
+                    <circle cx="40" cy="52" r="5" fill="var(--magenta)" opacity="0.7"/>
+                  </svg>
+                </div>
+                <div className="pillar-stat-label" style={{color: 'var(--magenta)'}}>Acompañamiento para madres y familias</div>
               </div>
             </div>
           </div>
