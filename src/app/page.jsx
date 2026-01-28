@@ -1061,7 +1061,7 @@ export default function LandingPage() {
           {/* Video izquierda (mobile: arriba, desktop: izquierda) */}
           <div className="hero-grid-image">
             <video 
-              src="/VIDEO_LANDING_SIN_FIN.mov" 
+              src="/LANDING_VIDEO SIN FIN_LIVIANO.mov" 
               autoPlay
               loop
               muted
@@ -1472,9 +1472,9 @@ export default function LandingPage() {
           Cuidando familias, acortando distancias.
         </p>
         <div className="footer-links">
-          <a href="/terminos">Términos y Condiciones</a>
-          <a href="/privacidad">Política de Privacidad</a>
-          <a href="/contacto">Contacto</a>
+          <a href="/terms">Términos y Condiciones</a>
+          <a href="/privacy">Política de Privacidad</a>
+          <a href="/account">Mi Cuenta</a>
         </div>
         <p className="footer-copyright">
           Hecho con ❤️ para familias migrantes en Estados Unidos.
