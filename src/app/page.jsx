@@ -184,6 +184,29 @@ export default function LandingPage() {
           width: 100%;
         }
 
+        /* Hero Grid - New Layout */
+        .hero-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+
+        @media (min-width: 1024px) {
+          .hero-grid {
+            grid-template-columns: 1fr 1fr;
+            align-items: start;
+            gap: 48px;
+          }
+        }
+
+        .hero-grid-image {
+          width: 100%;
+        }
+
+        .hero-grid-content {
+          width: 100%;
+        }
+
         /* Community message */
         .community-message {
           background: linear-gradient(135deg, rgba(236,72,153,0.06), rgba(6,182,212,0.06));
@@ -1023,51 +1046,51 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-image">
-          <img src="https://saludcompartida.app/girl_3.jpeg" alt="Tu familia en México" />
-          <div className="hero-overlay">
-            <span className="hero-welcome">Bienvenido</span>
-            <h1 className="hero-headline">
-              Si llegaste hasta aquí, es porque <span className="highlight">tú también lo sientes</span>.
-            </h1>
-          </div>
+      <section className="hero" style={{paddingTop: '88px', minHeight: 'auto'}}>
+        {/* Headline principal arriba */}
+        <div style={{textAlign: 'center', padding: '40px 24px 32px', maxWidth: '900px', margin: '0 auto'}}>
+          <span className="hero-welcome" style={{display: 'inline-block', marginBottom: '16px'}}>Bienvenido</span>
+          <h1 className="hero-headline" style={{fontSize: 'clamp(28px, 5vw, 42px)', lineHeight: '1.2', margin: '0'}}>
+            Si llegaste hasta aquí, es porque <span className="highlight">tú también lo sientes</span>.
+          </h1>
         </div>
 
-        <div className="hero-form">
-          <div className="form-container">
-            
-            {/* Headline primero */}
-            <div style={{marginBottom: '24px'}}>
-              <span className="hero-welcome" style={{display: 'inline-block', marginBottom: '16px'}}>Bienvenido</span>
-              <h1 className="hero-headline" style={{fontSize: 'clamp(24px, 5vw, 32px)', lineHeight: '1.3', marginBottom: '16px'}}>
-                Si llegaste hasta aquí, es porque <span className="highlight">tú también lo sientes</span>.
-              </h1>
-              {/* Imagen debajo del headline */}
-              <img 
-                src="/LANDING_TOP_PICTURE.jpeg" 
-                alt="Familia unida" 
-                style={{
-                  width: '100%',
-                  maxWidth: '280px',
-                  height: 'auto',
-                  borderRadius: '12px',
-                  marginTop: '16px'
-                }}
-              />
-            </div>
+        {/* Contenedor imagen izquierda + form derecha */}
+        <div className="hero-grid" style={{padding: '0 24px 60px', maxWidth: '1200px', margin: '0 auto'}}>
+          
+          {/* Video izquierda (mobile: arriba, desktop: izquierda) */}
+          <div className="hero-grid-image">
+            <video 
+              src="/VIDEO_LANDING_SIN_FIN.MOV" 
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{
+                width: '100%',
+                maxWidth: '500px',
+                height: 'auto',
+                borderRadius: '16px',
+                margin: '0 auto',
+                display: 'block'
+              }}
+            />
+          </div>
 
-            {/* Community Message */}
-            <div className="community-message">
-              <p>
-                <strong>Queremos conocerte.</strong><br />
-                Sabemos que tu corazón está lejos.<br />
-                <span className="magenta">Por eso tenemos 100 espacios para nuevas familias.</span>
-              </p>
-            </div>
+          {/* Contenido derecha (mobile: abajo, desktop: derecha) */}
+          <div className="hero-grid-content">
+              
+              {/* Community Message */}
+              <div className="community-message">
+                <p>
+                  <strong>Queremos conocerte.</strong><br />
+                  Sabemos que tu corazón está lejos.<br />
+                  <span className="magenta">Por eso tenemos 100 espacios para nuevas familias.</span>
+                </p>
+              </div>
 
-            {/* FOMO Counter */}
-            <div className="fomo-counter">
+              {/* FOMO Counter */}
+              <div className="fomo-counter">
               <p className="fomo-label">Familias Fundadoras</p>
               <div className="fomo-numbers">
                 <span className="fomo-current">87</span>
@@ -1134,14 +1157,14 @@ export default function LandingPage() {
               </div>
             </div>
 
-          </div>
-        </div>
+          </div> {/* Cierre contenido derecha */}
+        </div> {/* Cierre hero-grid */}
       </section>
 
       {/* 4 Pillars Section */}
       <section className="pillars">
         <div className="pillars-content">
-          <span className="section-label">Los 4 Pilares</span>
+          <span className="section-label">Los Cuatro Pilares de SaludCompartida</span>
           <h2 className="pillars-headline">
             Tú pagas <span className="cyan">aquí</span>.<br />
             Ellos se cuidan <span className="magenta">allá</span>.
@@ -1154,23 +1177,24 @@ export default function LandingPage() {
             {/* Pillar 1 */}
             <div className="pillar-card">
               <div className="pillar-number">1</div>
-              <h3 className="pillar-title">Ayuda Médica</h3>
+              <h3 className="pillar-title">Servicios Médicos que te permitan ahorrar dinero</h3>
               <p className="pillar-description">
                 Doctor por videollamada 24/7. Sin citas, sin esperas, sin madrugadas. 
-                Más descuentos de hasta 75% en más de 1,700 farmacias en todo México.
+                Descuentos en farmacias en todos los productos hasta un 75% en más de 1,700 farmacias en todo México. 
+                Soporte emocional para quien más lo necesita de tu familia semanalmente.
               </p>
               <div className="pillar-stat">
                 <div className="pillar-stat-number">$6.3B</div>
-                <div className="pillar-stat-label">Gasto anual en salud que queremos reducir para cada familia</div>
+                <div className="pillar-stat-label">En México las familias que reciben remesas gastan out of pocket anuales en gastos de Salud. Nuestra prioridad es ayudar a cada familia a reducir ese gasto</div>
               </div>
             </div>
 
             {/* Pillar 2 */}
             <div className="pillar-card">
               <div className="pillar-number">2</div>
-              <h3 className="pillar-title">Te Acompañamos</h3>
+              <h3 className="pillar-title">Te Acompañamos y Queremos Mejorar para ti</h3>
               <p className="pillar-description">
-                Por WhatsApp te preguntamos: ¿Cómo te atendieron? ¿Qué dudas tienes? 
+                Pregúntanos a través de WhatsApp. ¿Cómo te atendieron? ¿Qué dudas tienes? 
                 ¿En qué más te podemos ayudar? No estás solo navegando el sistema.
               </p>
               <div className="pillar-stat">
@@ -1182,10 +1206,10 @@ export default function LandingPage() {
             {/* Pillar 3 */}
             <div className="pillar-card">
               <div className="pillar-number">3</div>
-              <h3 className="pillar-title">Tus Ahorros</h3>
+              <h3 className="pillar-title">Nos comprometemos a mostrarte cuánto estás ahorrando</h3>
               <p className="pillar-description">
-                Te mostramos exactamente cuánto estás ahorrando. Dashboard visible 
-                para ti y para tu familia. Sin sorpresas, sin letras pequeñas.
+                Información visible para ti y para tu familia. Ayudarte a reducir tus gastos es nuestra prioridad. 
+                Dashboard accesible en todo momento.
               </p>
               <div className="pillar-stat">
                 <div className="pillar-stat-number">$432</div>
@@ -1196,10 +1220,11 @@ export default function LandingPage() {
             {/* Pillar 4 */}
             <div className="pillar-card">
               <div className="pillar-number">4</div>
-              <h3 className="pillar-title">Compañía</h3>
+              <h3 className="pillar-title">Acompañar a tus seres queridos</h3>
               <p className="pillar-description">
-                Lupita y Fernanda llaman a tu familia para platicar, compartir recetas, 
-                elegir ropa para un evento. Porque la soledad no se cura con dinero.
+                Acompañar a tus seres queridos en otros temas no necesariamente médicamente relacionados: 
+                comidas que le gustan a tu familia, música, precios más baratos de alimentos, etc. 
+                Nuestro objetivo es acompañar a tus seres queridos en caso de que se sientan solos.
               </p>
               <div className="pillar-stat">
                 <div className="pillar-stat-number">∞</div>
@@ -1213,14 +1238,13 @@ export default function LandingPage() {
       {/* Bridge Section - Loneliness */}
       <section className="bridge">
         <div className="bridge-content">
-          <p className="bridge-intro">Con 40¢ al día cubrimos doctor, farmacias y terapia. Pero...</p>
-          <h2 className="bridge-headline">
-            Hay algo que el dinero <span className="magenta">no puede comprar</span>.
+          <h2 className="bridge-headline" style={{fontSize: 'clamp(32px, 5vw, 48px)', marginBottom: '32px'}}>
+            <strong style={{color: 'var(--magenta)'}}>La soledad de tu mamá</strong> cuando sus hijos están lejos. 
+            <strong style={{color: 'var(--magenta)'}}>El abuelo</strong> que ya no tiene con quién platicar. 
+            <strong style={{color: 'var(--magenta)'}}>La esposa</strong> que carga sola con tres niños mientras tú trabajas aquí.
           </h2>
-          <p className="bridge-subtext">
-            La soledad de tu mamá cuando sus hijos están lejos. El abuelo que ya no tiene con quién platicar. 
-            La esposa que carga sola con tres niños mientras tú trabajas aquí.<br /><br />
-            <strong>Por eso creamos a Lupita y Fernanda.</strong>
+          <p className="bridge-subtext" style={{fontSize: '20px', fontWeight: 600}}>
+            Por eso creamos a Lupita y Fernanda para que te acompañen siempre.
           </p>
         </div>
       </section>
@@ -1229,7 +1253,7 @@ export default function LandingPage() {
       <section className="companions">
         <div className="companions-content">
           <div className="companions-header">
-            <span className="companions-label">El Diferenciador</span>
+            <span className="companions-label" style={{fontSize: '18px', fontWeight: 700, padding: '12px 28px'}}>El Diferenciador</span>
             <h2 className="companions-title">Lupita y Fernanda</h2>
             <p className="companions-subtitle">
               No son asistentes. Son amigas que llaman para alegrar el día.
@@ -1237,13 +1261,10 @@ export default function LandingPage() {
           </div>
 
           <div className="companion-cards">
-            {/* Lupita */}
+            {/* Lupita - SIN FOTO */}
             <div className="companion-card lupita">
-              <div className="companion-image">
-                <img src="/SENIOR_CITIZEN_COOKING.jpeg" alt="Lupita acompañando" />
-                <span className="companion-badge">Para adultos 55+</span>
-              </div>
-              <div className="companion-body">
+              <div className="companion-body" style={{paddingTop: '32px'}}>
+                <span className="companion-badge" style={{position: 'static', display: 'inline-block', marginBottom: '16px'}}>Para adultos 55+</span>
                 <h3 className="companion-name">Lupita</h3>
                 <p className="companion-for">Para tus papás y abuelos</p>
                 <p className="companion-description">
@@ -1258,13 +1279,10 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Fernanda */}
+            {/* Fernanda - SIN FOTO */}
             <div className="companion-card fernanda">
-              <div className="companion-image">
-                <img src="https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=600&h=400&fit=crop" alt="Fernanda acompañando" />
-                <span className="companion-badge">Para mamás 25-50</span>
-              </div>
-              <div className="companion-body">
+              <div className="companion-body" style={{paddingTop: '32px'}}>
+                <span className="companion-badge" style={{position: 'static', display: 'inline-block', marginBottom: '16px'}}>Para mamás 25-50</span>
                 <h3 className="companion-name">Fernanda</h3>
                 <p className="companion-for">Para tu esposa, hermana, prima</p>
                 <p className="companion-description">
@@ -1351,7 +1369,7 @@ export default function LandingPage() {
       <section className="pricing">
         <div className="pricing-content">
           <div className="pricing-box">
-            <p className="pricing-label">Protege hasta 4 familiares por</p>
+            <p className="pricing-label">Cuida a los que más quieres en México</p>
             <div className="pricing-amount">
               <span className="pricing-currency">$</span>
               <span className="pricing-number">12</span>
@@ -1360,7 +1378,7 @@ export default function LandingPage() {
             <p className="pricing-daily">Solo 40¢ al día — menos que un café</p>
 
             <div className="pricing-includes">
-              <p className="pricing-includes-title">Incluye para toda tu familia</p>
+              <p className="pricing-includes-title">Incluye para toda tu familia (hasta cuatro personas)</p>
               <div className="pricing-includes-list">
                 <div className="pricing-includes-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1372,19 +1390,19 @@ export default function LandingPage() {
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
+                  Terapia semanal por quien más lo necesite
+                </div>
+                <div className="pricing-includes-item" style={{fontWeight: 700, color: 'var(--cyan)'}}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
                   Hasta 75% descuento en 1,700+ farmacias
                 </div>
-                <div className="pricing-includes-item">
+                <div className="pricing-includes-item" style={{fontWeight: 700, color: 'var(--magenta)', cursor: 'pointer'}} onClick={scrollToForm}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
-                  Terapia psicológica semanal
-                </div>
-                <div className="pricing-includes-item">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                  Lupita y Fernanda (compañía ilimitada)
+                  <span style={{textDecoration: 'underline'}}>Lupita y Fernanda (compañía ilimitada)</span>
                 </div>
                 <div className="pricing-includes-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1396,15 +1414,15 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <button onClick={scrollToForm} className="cta-final">
-            Unirme a las 100 Familias Fundadoras
+          <button onClick={() => window.location.href = 'https://saludcompartida.app/subscribe'} className="cta-final">
+            Quiero unirme hoy a las siguientes 100 Familias Fundadoras
           </button>
 
           <div className="guarantee">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             </svg>
-            Cancela cuando quieras. Sin preguntas. Sin letras pequeñas.
+            *Cancela la suscripción en cualquier momento.
           </div>
         </div>
       </section>
@@ -1414,11 +1432,10 @@ export default function LandingPage() {
         <div className="final-fomo-content">
           <h2 className="final-fomo-headline">¿Todavía estás pensando?</h2>
           <p className="final-fomo-numbers">
-            Solo quedan <strong>13 lugares</strong> de 100.<br />
             Cerramos el <strong>30 de enero</strong>.
           </p>
-          <button onClick={scrollToForm} className="cta-white">
-            Reservar Mi Lugar Ahora
+          <button onClick={() => window.location.href = 'https://saludcompartida.app/subscribe'} className="cta-white">
+            Quiero MI Lugar Ahora - Me quiero suscribir
           </button>
         </div>
       </section>
