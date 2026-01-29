@@ -5,3 +5,7 @@ node_modules/
 *.log
 .env.local
 .env.*.local
+
+# CRÍTICO: Prevenir conflicto pages vs app router
+src/pages/
+pages/
