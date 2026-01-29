@@ -26,10 +26,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log('💳 Llamando a Square API directamente...');
+    console.log('💳 Llamando a Square API (SANDBOX)...');
     
-    // Llamar a Square REST API directamente (Production)
-    const response = await fetch('https://connect.squareup.com/v2/payments', {
+    // Llamar a Square REST API - SANDBOX para pruebas
+    const response = await fetch('https://connect.squareupsandbox.com/v2/payments', {
       method: 'POST',
       headers: {
         'Square-Version': '2024-12-18',
