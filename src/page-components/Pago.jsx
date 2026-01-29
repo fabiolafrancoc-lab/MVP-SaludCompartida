@@ -55,7 +55,7 @@ export default function Pago() {
         // Cargar el script de Square
         if (!window.Square) {
           const script = document.createElement('script');
-          script.src = 'https://sandbox.web.squarecdn.com/v1/square.js';
+          script.src = 'https://web.squarecdn.com/v1/square.js';
           script.async = false; // Cambiar a false para carga sincrónica
           script.onload = () => {
             console.log('✅ Script de Square cargado');
@@ -313,7 +313,19 @@ export default function Pago() {
 
     // Redirigir a confirmación después de 1.5 segundos
     setTimeout(() => {
-      navigate('/confirmacion', { state: subscriptionData });
+      // Guardar datos en sessionStorage para la nueva página de confirmación
+      sessionStorage.setItem('registrationData', JSON.stringify({
+        registration_id: subscriptionData.confirmationNumber,
+        family_code: familyCode,
+        companion_assigned: currentUserData.companion || 'lupita',
+        migrant_phone_full: `${currentUserData.countryCode}${currentUserData.phone}`,
+        family_phone_full: `${currentUserData.familyCountryCode}${currentUserData.familyPhone}`,
+        migrant_first_name: currentUserData.firstName,
+        family_first_name: currentUserData.familyFirstName,
+      }));
+      
+      // Redirigir con window.location para Next.js
+      window.location.href = '/confirmacion';
     }, 1500);
   };
 

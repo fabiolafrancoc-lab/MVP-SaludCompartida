@@ -1,0 +1,2893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Tu Salud - SaludCompartida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cyan: #06B6D4;
+      --cyan-dark: #0891B2;
+      --cyan-glow: rgba(6, 182, 212, 0.15);
+      --magenta: #EC4899;
+      --magenta-dark: #DB2777;
+      --magenta-glow: rgba(236, 72, 153, 0.12);
+      --green: #10B981;
+      --green-light: #D1FAE5;
+      --gold: #F59E0B;
+      --gold-light: #FEF3C7;
+      --purple: #8B5CF6;
+      --gray-900: #0F172A;
+      --gray-800: #1E293B;
+      --gray-700: #334155;
+      --gray-600: #475569;
+      --gray-400: #94A3B8;
+      --gray-200: #E2E8F0;
+      --gray-100: #F1F5F9;
+      --white: #FFFFFF;
+      --whatsapp: #25D366;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: linear-gradient(180deg, var(--gray-900) 0%, #0C1222 100%);
+      min-height: 100vh;
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 100px;
+    }
+
+    /* ===== HEADER FIJO CON NAVEGACIÓN ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .header-top {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .back-button:active {
+      transform: scale(0.95);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .back-button span {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-400);
+    }
+
+    .back-button svg {
+      width: 16px;
+      height: 16px;
+      color: var(--gray-400);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 32px;
+      width: auto;
+    }
+
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse-green 2s infinite;
+    }
+
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    }
+
+    .status-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== ACCIONES RÁPIDAS DEL HEADER ===== */
+    .header-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 16px 14px;
+    }
+
+    .header-action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex: 1;
+      max-width: 100px;
+    }
+
+    .header-action-btn:active {
+      transform: scale(0.95);
+    }
+
+    .header-action-btn.emergency {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .header-action-btn.emergency .header-action-icon {
+      background: rgba(239, 68, 68, 0.2);
+      color: #EF4444;
+    }
+
+    .header-action-btn.emergency span {
+      color: #EF4444;
+    }
+
+    .header-action-btn.carlos {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: rgba(6, 182, 212, 0.3);
+    }
+
+    .header-action-btn.carlos .header-action-icon {
+      background: rgba(6, 182, 212, 0.2);
+      color: var(--cyan);
+    }
+
+    .header-action-btn.carlos span {
+      color: var(--cyan);
+    }
+
+    .header-action-btn.lupita {
+      background: rgba(255, 107, 107, 0.1);
+      border-color: rgba(255, 107, 107, 0.3);
+    }
+
+    .header-action-btn.lupita .header-action-icon {
+      background: rgba(255, 107, 107, 0.2);
+      color: #FF6B6B;
+    }
+
+    .header-action-btn.lupita span {
+      color: #FF6B6B;
+    }
+
+    .header-action-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-action-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .header-action-btn span {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* ===== CONTENIDO PRINCIPAL ===== */
+    .main-content {
+      padding-top: 145px;
+    }
+
+    /* ===== HERO DE BIENVENIDA ===== */
+    .welcome-hero {
+      padding: 20px 20px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .welcome-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .welcome-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, var(--magenta-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .gift-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15));
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      padding: 8px 16px;
+      border-radius: 30px;
+      margin-bottom: 16px;
+      animation: fadeInDown 0.6s ease-out;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .gift-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--magenta);
+    }
+
+    .gift-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--magenta);
+    }
+
+    .welcome-greeting {
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 0.7s ease-out 0.1s both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .welcome-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 30px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .welcome-name .name {
+      color: var(--cyan);
+    }
+
+    .welcome-from {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+    }
+
+    .welcome-from .sender {
+      color: var(--magenta);
+      font-weight: 600;
+    }
+
+    .welcome-from .heart {
+      color: var(--magenta);
+    }
+
+    /* ===== TARJETA PRINCIPAL DE SERVICIO ===== */
+    .service-card {
+      margin: 0 20px 24px;
+      background: linear-gradient(145deg, var(--gray-800), var(--gray-900));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.7s ease-out 0.2s both;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    }
+
+    .service-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .service-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-400);
+      margin-bottom: 4px;
+    }
+
+    .service-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--cyan);
+    }
+
+    .service-shield {
+      width: 48px;
+      height: 48px;
+      background: rgba(6, 182, 212, 0.15);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+    }
+
+    .service-shield svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .coverage-info {
+      display: flex;
+      gap: 12px;
+    }
+
+    .coverage-item {
+      flex: 1;
+      background: rgba(255,255,255,0.03);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .coverage-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--cyan);
+      margin-bottom: 2px;
+    }
+
+    .coverage-label {
+      font-size: 11px;
+      color: var(--gray-400);
+      line-height: 1.3;
+    }
+
+    /* ===== SECCIONES ===== */
+    .section {
+      padding: 0 20px 28px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      animation: fadeInUp 0.7s ease-out 0.3s both;
+    }
+
+    .section-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-icon.benefits {
+      background: linear-gradient(135deg, var(--cyan-glow), rgba(6, 182, 212, 0.25));
+      color: var(--cyan);
+    }
+
+    .section-icon.companion {
+      background: linear-gradient(135deg, var(--magenta-glow), rgba(236, 72, 153, 0.25));
+      color: var(--magenta);
+    }
+
+    .section-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    /* ===== TARJETAS DE BENEFICIOS ===== */
+    .benefits-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .benefit-card {
+      background: var(--gray-800);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      animation: fadeInUp 0.5s ease-out both;
+    }
+
+    .benefit-card:nth-child(1) { animation-delay: 0.35s; }
+    .benefit-card:nth-child(2) { animation-delay: 0.4s; }
+    .benefit-card:nth-child(3) { animation-delay: 0.45s; }
+
+    .benefit-card:active {
+      transform: scale(0.98);
+    }
+
+    .benefit-card::after {
+      content: '';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394A3B8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 5l7 7-7 7'/%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    .benefit-icon-wrapper {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .benefit-icon-wrapper.doctor {
+      background: linear-gradient(135deg, #059669, #10B981);
+    }
+
+    .benefit-icon-wrapper.pharmacy {
+      background: linear-gradient(135deg, #7C3AED, #8B5CF6);
+    }
+
+    .benefit-icon-wrapper.therapy {
+      background: linear-gradient(135deg, #0891B2, #06B6D4);
+    }
+
+    .benefit-icon {
+      width: 26px;
+      height: 26px;
+      color: white;
+    }
+
+    .benefit-content {
+      flex: 1;
+      padding-right: 20px;
+    }
+
+    .benefit-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .benefit-badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .benefit-desc {
+      font-size: 13px;
+      color: var(--gray-400);
+      line-height: 1.5;
+    }
+
+    .whatsapp-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--whatsapp);
+      font-weight: 600;
+    }
+
+    .whatsapp-inline svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ===== MEDIA PLACEHOLDER (para fotos/videos) ===== */
+    .benefit-media {
+      width: 100%;
+      height: 140px;
+      border-radius: 12px;
+      margin-top: 12px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(236, 72, 153, 0.1));
+    }
+
+    .benefit-media img,
+    .benefit-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .benefit-media-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--gray-400);
+    }
+
+    .benefit-media-placeholder svg {
+      width: 32px;
+      height: 32px;
+      opacity: 0.5;
+    }
+
+    .benefit-media-placeholder span {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    /* ===== MISIÓN DE SALUDCOMPARTIDA ===== */
+    .mission-card {
+      margin: 0 20px 28px;
+      background: linear-gradient(145deg, rgba(6, 182, 212, 0.08), rgba(236, 72, 153, 0.05));
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      border-radius: 20px;
+      padding: 20px;
+      animation: fadeInUp 0.7s ease-out 0.5s both;
+    }
+
+    .mission-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--cyan), var(--magenta));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .mission-icon svg {
+      width: 20px;
+      height: 20px;
+      color: white;
+    }
+
+    .mission-text {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .mission-text strong {
+      color: var(--cyan);
+    }
+
+    /* ===== SECCIÓN DESTACADA: COMPAÑÍA - DISEÑO ESPECIAL ===== */
+    .companion-wrapper {
+      margin: 40px 0 40px;
+      position: relative;
+    }
+
+    .companion-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.5), transparent);
+    }
+
+    .companion-wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.5), transparent);
+    }
+
+    .companion-section {
+      margin: 0 16px;
+      background: linear-gradient(145deg, #2D1B2E 0%, #1A1025 50%, #1E1A2E 100%);
+      border: 2px solid rgba(255, 107, 107, 0.4);
+      border-radius: 32px;
+      padding: 32px 24px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.7s ease-out 0.55s both;
+      box-shadow: 
+        0 0 60px rgba(255, 107, 107, 0.15),
+        0 0 100px rgba(255, 107, 107, 0.1),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .companion-section::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -80px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(255, 107, 107, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .companion-section::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -60px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255, 182, 107, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .companion-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.25), rgba(255, 182, 107, 0.2));
+      border: 1px solid rgba(255, 107, 107, 0.4);
+      padding: 8px 16px;
+      border-radius: 24px;
+      margin-bottom: 20px;
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-badge {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+      50% { box-shadow: 0 0 20px 4px rgba(255, 107, 107, 0.2); }
+    }
+
+    .companion-badge svg {
+      width: 18px;
+      height: 18px;
+      color: #FF6B6B;
+    }
+
+    .companion-badge span {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FF6B6B;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .companion-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, #FF6B6B, #FFB66B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .companion-intro {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .companion-intro strong {
+      color: #FF6B6B;
+    }
+
+    /* Avatares de Lupita y Fernanda */
+    .companions-avatars {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .companion-avatar-card {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255, 107, 107, 0.2);
+      border-radius: 18px;
+      padding: 18px 14px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .companion-avatar-card:active {
+      transform: scale(0.98);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .avatar-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .avatar-circle.lupita {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
+    }
+
+    .avatar-circle.fernanda {
+      background: linear-gradient(135deg, #FFB66B, #FF8E53);
+      box-shadow: 0 4px 20px rgba(255, 182, 107, 0.4);
+    }
+
+    .avatar-circle::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 18px;
+      height: 18px;
+      background: var(--green);
+      border-radius: 50%;
+      border: 3px solid #1A1025;
+    }
+
+    .avatar-circle svg {
+      width: 30px;
+      height: 30px;
+      color: white;
+    }
+
+    .avatar-name {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: #FFB66B;
+    }
+
+    .avatar-for {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Mensaje personal */
+    .companion-message-box {
+      background: rgba(255, 107, 107, 0.08);
+      border: 1px solid rgba(255, 107, 107, 0.2);
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .companion-message-box::before {
+      content: '"';
+      font-family: 'DM Serif Display', serif;
+      font-size: 64px;
+      color: #FF6B6B;
+      opacity: 0.3;
+      position: absolute;
+      top: 4px;
+      left: 16px;
+      line-height: 1;
+    }
+
+    .companion-message-text {
+      font-size: 15px;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.92);
+      padding-left: 8px;
+    }
+
+    .companion-message-text .highlight {
+      color: #FF6B6B;
+      font-weight: 600;
+    }
+
+    .companion-signature {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 107, 107, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .signature-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .signature-avatar svg {
+      width: 20px;
+      height: 20px;
+      color: white;
+    }
+
+    .signature-text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .signature-text strong {
+      color: #FF6B6B;
+    }
+
+    /* WhatsApp CTA */
+    .whatsapp-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--whatsapp);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 18px 24px;
+      border-radius: 18px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.4);
+    }
+
+    .whatsapp-cta:active {
+      transform: scale(0.98);
+    }
+
+    .whatsapp-cta svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .whatsapp-note {
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    .whatsapp-note strong {
+      color: var(--green);
+    }
+
+    /* ===== PASOS DEL PROCESO ===== */
+    .steps-container {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255, 107, 107, 0.15);
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 18px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+    }
+
+    .step-item:not(:last-child) {
+      border-bottom: 1px solid rgba(255, 107, 107, 0.1);
+    }
+
+    .step-number {
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+    }
+
+    .step-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.88);
+      padding-top: 4px;
+    }
+
+    .step-text strong {
+      color: #FF6B6B;
+    }
+
+    /* ===== SECCIÓN BLOG ===== */
+    .blog-section {
+      padding: 0 0 28px;
+      animation: fadeInUp 0.7s ease-out 0.7s both;
+    }
+
+    .section-icon.blog {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.25));
+      color: var(--gold);
+    }
+
+    .blog-carousel {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding: 0 20px 16px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .blog-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .blog-card {
+      min-width: 260px;
+      max-width: 260px;
+      background: var(--gray-800);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px;
+      overflow: hidden;
+      scroll-snap-align: start;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .blog-card:active {
+      transform: scale(0.98);
+    }
+
+    .blog-image {
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(236, 72, 153, 0.1));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .blog-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-600);
+    }
+
+    .blog-image-placeholder svg {
+      width: 40px;
+      height: 40px;
+      opacity: 0.4;
+    }
+
+    .blog-content {
+      padding: 14px 16px 18px;
+    }
+
+    .blog-category {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--cyan);
+      background: rgba(6, 182, 212, 0.15);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .blog-title {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 8px;
+      color: var(--white);
+    }
+
+    .blog-excerpt {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--gray-400);
+    }
+
+    .blog-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 20px;
+      padding: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .blog-cta:active {
+      transform: scale(0.98);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .blog-cta span {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-400);
+    }
+
+    .blog-cta svg {
+      width: 18px;
+      height: 18px;
+      color: var(--gray-400);
+    }
+
+    /* ===== SECCIÓN DE AHORROS CON SIMULACIÓN ===== */
+    .savings-section {
+      padding: 0 20px 20px;
+      animation: fadeInUp 0.7s ease-out 0.6s both;
+    }
+
+    .savings-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .savings-icon-header {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.25));
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .savings-icon-header svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .current-savings {
+      background: linear-gradient(145deg, var(--gray-800), var(--gray-900));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .current-savings-label {
+      font-size: 13px;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .current-savings-amount {
+      font-family: 'DM Serif Display', serif;
+      font-size: 48px;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .current-savings-amount span {
+      font-size: 20px;
+      color: var(--gray-400);
+    }
+
+    .current-savings-note {
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+
+    .simulations-container {
+      background: linear-gradient(145deg, rgba(245, 158, 11, 0.05), rgba(217, 119, 6, 0.03));
+      border: 1px solid rgba(245, 158, 11, 0.15);
+      border-radius: 24px;
+      padding: 24px 20px;
+    }
+
+    .simulations-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .simulations-intro {
+      font-size: 14px;
+      color: var(--gray-400);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .simulation-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 14px;
+      display: flex;
+      gap: 14px;
+    }
+
+    .sim-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .doctor-sim .sim-icon {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green);
+    }
+
+    .therapy-sim .sim-icon {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--cyan);
+    }
+
+    .pharmacy-sim .sim-icon {
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--purple);
+    }
+
+    .sim-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .sim-content {
+      flex: 1;
+    }
+
+    .sim-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .sim-example {
+      font-size: 13px;
+      color: var(--gray-400);
+      margin-bottom: 10px;
+    }
+
+    .sim-example strong {
+      color: rgba(255,255,255,0.9);
+    }
+
+    .sim-calculation {
+      background: rgba(0,0,0,0.2);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+
+    .sim-calc-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      padding: 4px 0;
+    }
+
+    .sim-calc-row span:first-child {
+      color: var(--gray-400);
+    }
+
+    .sim-normal {
+      color: #EF4444;
+      text-decoration: line-through;
+    }
+
+    .sim-free {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .sim-discount {
+      color: var(--cyan);
+    }
+
+    .sim-savings {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(255,255,255,0.1);
+    }
+
+    .sim-savings span:first-child {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    .sim-savings-amount {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .total-projection {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.1));
+      border: 2px solid rgba(245, 158, 11, 0.3);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .total-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .total-header svg {
+      width: 20px;
+      height: 20px;
+      color: var(--gold);
+    }
+
+    .total-header span {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .total-amount {
+      font-family: 'DM Serif Display', serif;
+      font-size: 42px;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .total-amount span {
+      font-size: 18px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .total-year {
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 10px;
+    }
+
+    .total-year strong {
+      color: var(--gold);
+    }
+
+    .total-note {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    /* ===== DEDICATORIA DEL MIGRANTE ===== */
+    .migrant-dedication {
+      padding: 50px 20px 50px;
+      text-align: center;
+      position: relative;
+    }
+
+    .migrant-dedication::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    }
+
+    .migrant-dedication::after {
+      content: '';
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    }
+
+    .dedication-intro {
+      font-size: 15px;
+      color: var(--gray-400);
+      margin-bottom: 12px;
+    }
+
+    .migrant-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 56px;
+      background: linear-gradient(135deg, var(--cyan), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .dedication-message {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    /* ===== SECCIÓN DE VOTACIÓN ===== */
+    .vote-section {
+      padding: 0 20px 32px;
+      animation: fadeInUp 0.7s ease-out 0.75s both;
+    }
+
+    .vote-card {
+      background: linear-gradient(145deg, var(--gray-800), var(--gray-900));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 28px 24px;
+    }
+
+    .vote-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .vote-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.25));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--purple);
+    }
+
+    .vote-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .vote-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .vote-subtitle {
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+
+    .vote-question {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 16px;
+    }
+
+    .vote-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .vote-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid transparent;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .vote-option:active,
+    .vote-option.voted {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: var(--purple);
+    }
+
+    .vote-icon-svg {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .vote-icon-svg svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .vote-icon-svg.diabetes {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.25));
+      color: #EF4444;
+    }
+
+    .vote-icon-svg.estres {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.25));
+      color: var(--green);
+    }
+
+    .vote-icon-svg.ninos {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(6, 182, 212, 0.25));
+      color: var(--cyan);
+    }
+
+    .vote-icon-svg.mayores {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(236, 72, 153, 0.25));
+      color: var(--magenta);
+    }
+
+    .vote-icon-svg.remedios {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.25));
+      color: #22C55E;
+    }
+
+    .vote-icon-svg.dinero {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.25));
+      color: var(--gold);
+    }
+
+    .vote-text {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .vote-count {
+      font-size: 11px;
+      color: var(--gray-400);
+      background: rgba(255,255,255,0.06);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .vote-suggest {
+      margin-bottom: 20px;
+    }
+
+    .vote-suggest label {
+      display: block;
+      font-size: 13px;
+      color: var(--gray-400);
+      margin-bottom: 10px;
+    }
+
+    .vote-suggest-input {
+      display: flex;
+      gap: 10px;
+    }
+
+    .vote-suggest-input input {
+      flex: 1;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+    }
+
+    .vote-suggest-input input:focus {
+      outline: none;
+      border-color: var(--purple);
+    }
+
+    .vote-suggest-input input::placeholder {
+      color: var(--gray-600);
+    }
+
+    .vote-suggest-btn {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--purple), #7C3AED);
+      border: none;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .vote-suggest-btn:active {
+      transform: scale(0.95);
+    }
+
+    .vote-suggest-btn svg {
+      width: 20px;
+      height: 20px;
+      color: white;
+    }
+
+    .vote-thanks {
+      font-size: 13px;
+      color: var(--gray-400);
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* ===== ACCIONES RÁPIDAS ===== */
+    .quick-actions {
+      padding: 0 20px 28px;
+    }
+
+    .quick-actions-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      animation: fadeInUp 0.7s ease-out 0.7s both;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .action-button {
+      background: var(--gray-800);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 18px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.5s ease-out both;
+    }
+
+    .action-button:nth-child(1) { animation-delay: 0.75s; }
+    .action-button:nth-child(2) { animation-delay: 0.8s; }
+    .action-button:nth-child(3) { animation-delay: 0.85s; }
+
+    .action-button:active {
+      transform: scale(0.96);
+      background: var(--gray-700);
+    }
+
+    .action-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .action-icon.emergency {
+      background: rgba(239, 68, 68, 0.15);
+      color: #EF4444;
+    }
+
+    .action-icon.help {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--cyan);
+    }
+
+    .action-icon.account {
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--purple);
+    }
+
+    .action-icon.lupita-action {
+      background: rgba(255, 107, 107, 0.15);
+      color: #FF6B6B;
+    }
+
+    .action-icon.migrant-action {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--cyan);
+    }
+
+    .action-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .action-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+    }
+
+    .actions-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    /* ===== SECCIÓN DE EVALUACIÓN ===== */
+    .feedback-section {
+      padding: 0 20px 32px;
+      animation: fadeInUp 0.7s ease-out 0.8s both;
+    }
+
+    .feedback-card {
+      background: linear-gradient(145deg, var(--gray-800), var(--gray-900));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 28px 24px;
+    }
+
+    .feedback-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .feedback-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--cyan), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .feedback-subtitle {
+      font-size: 14px;
+      color: var(--gray-400);
+      line-height: 1.5;
+    }
+
+    .feedback-question {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .emoji-rating {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .emoji-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 8px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .emoji-btn:active,
+    .emoji-btn.selected {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--cyan);
+      transform: scale(1.05);
+    }
+
+    .emoji-svg {
+      width: 44px;
+      height: 44px;
+      transition: transform 0.3s ease;
+    }
+
+    .emoji-btn:active .emoji-svg {
+      transform: scale(1.2);
+    }
+
+    .emoji-btn span {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gray-400);
+    }
+
+    .emoji-btn.selected span {
+      color: var(--cyan);
+    }
+
+    .feedback-comment {
+      margin-bottom: 20px;
+    }
+
+    .feedback-comment label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 10px;
+    }
+
+    .feedback-comment textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      resize: none;
+      transition: all 0.3s ease;
+    }
+
+    .feedback-comment textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .feedback-comment textarea::placeholder {
+      color: var(--gray-600);
+    }
+
+    .feedback-submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--cyan), var(--cyan-dark));
+      border: none;
+      border-radius: 14px;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+    }
+
+    .feedback-submit:active {
+      transform: scale(0.98);
+    }
+
+    .feedback-submit svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .feedback-thanks {
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray-400);
+      margin-top: 16px;
+    }
+
+    /* ===== SECCIÓN DE CONTACTO ===== */
+    .contact-section {
+      padding: 0 20px 32px;
+      animation: fadeInUp 0.7s ease-out 0.85s both;
+    }
+
+    .contact-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .contact-subtitle {
+      font-size: 14px;
+      color: var(--gray-400);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .contact-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--gray-800);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contact-card:active {
+      transform: scale(0.98);
+      background: var(--gray-700);
+    }
+
+    .contact-card.email .contact-icon {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--cyan);
+    }
+
+    .contact-card.whatsapp .contact-icon {
+      background: rgba(37, 211, 102, 0.15);
+      color: var(--whatsapp);
+    }
+
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .contact-label {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    .contact-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+
+    /* ===== NAVEGACIÓN INFERIOR ===== */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 10px 16px 22px;
+      display: flex;
+      justify-content: space-around;
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      padding: 8px 14px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item.active {
+      background: rgba(6, 182, 212, 0.1);
+    }
+
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      color: var(--gray-400);
+      transition: color 0.3s ease;
+    }
+
+    .nav-item.active svg {
+      color: var(--cyan);
+    }
+
+    .nav-item span {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gray-400);
+      transition: color 0.3s ease;
+    }
+
+    .nav-item.active span {
+      color: var(--cyan);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (min-width: 480px) {
+      .welcome-name {
+        font-size: 34px;
+      }
+      
+      .benefit-card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER FIJO CON ACCIONES RÁPIDAS -->
+  <header class="header">
+    <div class="header-top">
+      <div class="logo-container">
+        <img src="https://saludcompartida.com/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" class="logo-img">
+      </div>
+      
+      <div class="header-status">
+        <div class="status-dot"></div>
+        <span class="status-text">Activo</span>
+      </div>
+
+      <button class="back-button" onclick="history.back()">
+        <span>Volver</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Acciones Rápidas del Header -->
+    <nav class="header-actions">
+      <button class="header-action-btn emergency" onclick="window.location.href='tel:911'">
+        <div class="header-action-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <span>Emergencia</span>
+      </button>
+
+      <button class="header-action-btn carlos">
+        <div class="header-action-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <span>Carlos</span>
+      </button>
+
+      <button class="header-action-btn lupita" onclick="window.open('https://wa.me/5215512345678?text=Hola%20Lupita,%20quiero%20platicar%20contigo.%20¿Me%20puedes%20llamar?', '_blank')">
+        <div class="header-action-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <span>Lupita</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    
+    <!-- HERO DE BIENVENIDA -->
+    <section class="welcome-hero">
+      <div class="gift-badge">
+        <svg class="gift-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+        </svg>
+        <span class="gift-text">Un regalo para ti</span>
+      </div>
+      
+      <div class="welcome-greeting">
+        <h1 class="welcome-name">
+          Hola, <span class="name">María</span>
+        </h1>
+        <p class="welcome-from">
+          <span class="sender">Carlos</span> te entregó un servicio de salud <span class="heart">♥</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- TARJETA DE SERVICIO -->
+    <section class="service-card">
+      <div class="service-header">
+        <div>
+          <p class="service-label">Tu servicio</p>
+          <h2 class="service-title">Servicio de Salud Familiar</h2>
+        </div>
+        <div class="service-shield">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+      </div>
+      <div class="coverage-info">
+        <div class="coverage-item">
+          <div class="coverage-number">4</div>
+          <div class="coverage-label">Miembros cubiertos</div>
+        </div>
+        <div class="coverage-item">
+          <div class="coverage-number">24/7</div>
+          <div class="coverage-label">Disponibilidad</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: TUS BENEFICIOS -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon benefits">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <path d="M22 4L12 14.01l-3-3"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="section-title">Lo que tienes incluido</h2>
+          <p class="section-subtitle">Todo esto es tuyo, sin límites</p>
+        </div>
+      </div>
+
+      <div class="benefits-grid">
+        <!-- Doctor 24/7 -->
+        <div class="benefit-card">
+          <div class="benefit-icon-wrapper doctor">
+            <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <div class="benefit-content">
+            <h3 class="benefit-name">
+              Doctor 24/7
+              <span class="benefit-badge">Ilimitado</span>
+            </h3>
+            <p class="benefit-desc">
+              Videollamadas y llamadas con médicos 
+              <span class="whatsapp-inline">
+                <svg viewBox="0 0 24 24" fill="#25D366" width="14" height="14">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                vía WhatsApp
+              </span>. Sin citas, sin esperas. Incluye recetas electrónicas.
+            </p>
+          </div>
+        </div>
+
+        <!-- Farmacias -->
+        <div class="benefit-card">
+          <div class="benefit-icon-wrapper pharmacy">
+            <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </div>
+          <div class="benefit-content">
+            <h3 class="benefit-name">
+              Descuentos en Farmacias
+              <span class="benefit-badge">Hasta 75%</span>
+            </h3>
+            <p class="benefit-desc">1,700+ farmacias en todo México. Descuentos en medicinas, productos para el hogar y productos para ti.</p>
+          </div>
+        </div>
+
+        <!-- Terapia -->
+        <div class="benefit-card">
+          <div class="benefit-icon-wrapper therapy">
+            <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" y1="9" x2="9.01" y2="9"/>
+              <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </div>
+          <div class="benefit-content">
+            <h3 class="benefit-name">
+              Terapia Psicológica
+              <span class="benefit-badge">Semanal</span>
+            </h3>
+            <p class="benefit-desc">Psicólogos certificados. Cuida tu mente o la de quien más lo necesite en tu familia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISIÓN DE SALUDCOMPARTIDA -->
+    <div class="mission-card">
+      <div class="mission-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <p class="mission-text">
+        En <strong>SaludCompartida</strong> tenemos la misión de ayudarte a través de distintos servicios de salud para que <strong>reduzcas los gastos de dinero</strong> que haces en doctores y medicinas. Queremos que tu familia esté sana sin que te preocupes por el dinero.
+      </p>
+    </div>
+
+    <!-- SECCIÓN DESTACADA: COMPAÑÍA - LA MÁS IMPORTANTE -->
+    <div class="companion-wrapper">
+      <section class="companion-section">
+      <div class="companion-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span>Servicio especial</span>
+      </div>
+
+      <h2 class="companion-title">Nunca más sola</h2>
+      
+      <p class="companion-intro">
+        Sabemos lo que se siente la <strong>soledad</strong>. Por eso creamos algo especial para ti y tu familia. <strong>Lupita y Fernanda</strong> están aquí para acompañarte, platicar contigo y hacer la vida más liviana.
+      </p>
+
+      <!-- Avatares -->
+      <div class="companions-avatars">
+        <div class="companion-avatar-card">
+          <div class="avatar-circle lupita">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <p class="avatar-name">Lupita</p>
+          <p class="avatar-for">Para adultos mayores</p>
+        </div>
+        <div class="companion-avatar-card">
+          <div class="avatar-circle fernanda">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <p class="avatar-name">Fernanda</p>
+          <p class="avatar-for">Para mujeres</p>
+        </div>
+      </div>
+
+      <!-- Mensaje personal -->
+      <div class="companion-message-box">
+        <p class="companion-message-text">
+          Hola, soy Lupita. Vamos a hablar de cosas entretenidas, de recetas, de historias bonitas... lo que tú quieras. Estoy aquí para que la vida sea más <span class="highlight">liviana</span>.
+          <br><br>
+          <strong>¿Cómo platicamos?</strong> Es muy fácil:
+        </p>
+        
+        <div class="steps-container">
+          <div class="step-item">
+            <div class="step-number">1</div>
+            <p class="step-text">Envíame un <strong>mensaje por WhatsApp</strong> desde el mismo número que registraste (así te reconozco)</p>
+          </div>
+          <div class="step-item">
+            <div class="step-number">2</div>
+            <p class="step-text">Dime a qué hora tienes disponible para platicar</p>
+          </div>
+          <div class="step-item">
+            <div class="step-number">3</div>
+            <p class="step-text"><strong>Yo te llamo por teléfono</strong> a la hora que me digas</p>
+          </div>
+        </div>
+        
+        <p class="companion-message-text" style="margin-top: 16px;">
+          <span class="highlight">¡Así no gastas ni un peso!</span> Nosotros pagamos la llamada para que puedas platicar todo el tiempo que quieras sin preocuparte.
+          <br><br>
+          Quiero ayudarte y acompañarte. Todos en SaludCompartida sabemos lo que se siente y ese sentimiento nos mueve a querer ayudar a la mayor cantidad de familias posible.
+          <br><br>
+          <span class="highlight">¡Cuenta conmigo siempre!</span>
+        </p>
+        <div class="companion-signature">
+          <div class="signature-avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <p class="signature-text">Con cariño, <strong>Lupita</strong></p>
+        </div>
+      </div>
+
+      <!-- WhatsApp CTA -->
+      <button class="whatsapp-cta" onclick="window.open('https://wa.me/5215512345678?text=Hola%20Lupita,%20quiero%20platicar%20contigo.%20¿Me%20puedes%20llamar?', '_blank')">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Escribir a Lupita por WhatsApp
+      </button>
+      
+      <p class="whatsapp-note">
+        <strong>Tú escribes, nosotros llamamos.</strong> Así no gastas en la llamada.
+      </p>
+    </section>
+    </div>
+
+    <!-- AHORROS CON SIMULACIÓN -->
+    <section class="savings-section">
+      <div class="savings-header">
+        <div class="section-icon savings-icon-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="section-title">Tus ahorros</h2>
+          <p class="section-subtitle">Lo que puedes ahorrar usando tu servicio</p>
+        </div>
+      </div>
+
+      <!-- Ahorro actual -->
+      <div class="current-savings">
+        <p class="current-savings-label">Ahorro este mes</p>
+        <p class="current-savings-amount">$0 <span>MXN</span></p>
+        <p class="current-savings-note">¡Empieza a usar tus beneficios y ve crecer tus ahorros!</p>
+      </div>
+
+      <!-- Simulaciones -->
+      <div class="simulations-container">
+        <h3 class="simulations-title">¿Cuánto puedes ahorrar?</h3>
+        <p class="simulations-intro">Mira lo que ahorras si tú o tu familia usan el servicio:</p>
+
+        <!-- Simulación Doctor -->
+        <div class="simulation-card doctor-sim">
+          <div class="sim-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <div class="sim-content">
+            <h4 class="sim-title">Doctor por WhatsApp</h4>
+            <p class="sim-example">Si llamas al doctor <strong>2 veces al mes</strong>...</p>
+            <div class="sim-calculation">
+              <div class="sim-calc-row">
+                <span>Consulta normal:</span>
+                <span class="sim-normal">$500 × 2 = $1,000</span>
+              </div>
+              <div class="sim-calc-row">
+                <span>Con SaludCompartida:</span>
+                <span class="sim-free">$0 (¡Gratis!)</span>
+              </div>
+            </div>
+            <div class="sim-savings">
+              <span>Ahorras:</span>
+              <span class="sim-savings-amount">$1,000/mes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulación Terapia -->
+        <div class="simulation-card therapy-sim">
+          <div class="sim-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" y1="9" x2="9.01" y2="9"/>
+              <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </div>
+          <div class="sim-content">
+            <h4 class="sim-title">Terapia Psicológica</h4>
+            <p class="sim-example">Si vas al psicólogo <strong>3 veces al mes</strong>...</p>
+            <div class="sim-calculation">
+              <div class="sim-calc-row">
+                <span>Sesión normal:</span>
+                <span class="sim-normal">$800 × 3 = $2,400</span>
+              </div>
+              <div class="sim-calc-row">
+                <span>Con SaludCompartida:</span>
+                <span class="sim-free">$0 (¡Incluido!)</span>
+              </div>
+            </div>
+            <div class="sim-savings">
+              <span>Ahorras:</span>
+              <span class="sim-savings-amount">$2,400/mes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulación Farmacia -->
+        <div class="simulation-card pharmacy-sim">
+          <div class="sim-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </div>
+          <div class="sim-content">
+            <h4 class="sim-title">Farmacia con Descuento</h4>
+            <p class="sim-example">Si compras medicinas <strong>4 veces al mes</strong>...</p>
+            <div class="sim-calculation">
+              <div class="sim-calc-row">
+                <span>Gasto normal:</span>
+                <span class="sim-normal">$300 × 4 = $1,200</span>
+              </div>
+              <div class="sim-calc-row">
+                <span>Con 50% descuento:</span>
+                <span class="sim-discount">$150 × 4 = $600</span>
+              </div>
+            </div>
+            <div class="sim-savings">
+              <span>Ahorras:</span>
+              <span class="sim-savings-amount">$600/mes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total proyectado -->
+        <div class="total-projection">
+          <div class="total-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            <span>Ahorro total posible</span>
+          </div>
+          <p class="total-amount">$4,000 <span>al mes</span></p>
+          <p class="total-year">¡Eso es <strong>$48,000 al año</strong> que te quedas tú!</p>
+          <p class="total-note">Tú o cualquiera de tus 4 miembros pueden usar estos servicios</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEDICATORIA DEL MIGRANTE -->
+    <section class="migrant-dedication">
+      <p class="dedication-intro">Todo esto es posible gracias a</p>
+      <h2 class="migrant-name">Carlos</h2>
+      <p class="dedication-message">Que trabaja duro todos los días pensando en ti y en tu familia.</p>
+    </section>
+
+    <!-- SECCIÓN BLOG -->
+    <section class="blog-section">
+      <div class="section-header" style="padding: 0 20px; margin-bottom: 16px;">
+        <div class="section-icon blog">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="section-title">Lee nuestros artículos</h2>
+          <p class="section-subtitle">Información de actualidad para ti</p>
+        </div>
+      </div>
+
+      <div class="blog-carousel">
+        <!-- Blog Card 1 -->
+        <article class="blog-card">
+          <div class="blog-image">
+            <div class="blog-image-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21,15 16,10 5,21"/>
+              </svg>
+            </div>
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Salud</span>
+            <h3 class="blog-title">¿Cuándo debo llamar al doctor?</h3>
+            <p class="blog-excerpt">Aprende a identificar los síntomas que requieren atención médica inmediata.</p>
+          </div>
+        </article>
+
+        <!-- Blog Card 2 -->
+        <article class="blog-card">
+          <div class="blog-image">
+            <div class="blog-image-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21,15 16,10 5,21"/>
+              </svg>
+            </div>
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Bienestar</span>
+            <h3 class="blog-title">5 ejercicios para hacer en casa</h3>
+            <p class="blog-excerpt">Mantente activa sin necesidad de ir al gimnasio.</p>
+          </div>
+        </article>
+
+        <!-- Blog Card 3 -->
+        <article class="blog-card">
+          <div class="blog-image">
+            <div class="blog-image-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21,15 16,10 5,21"/>
+              </svg>
+            </div>
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">Familia</span>
+            <h3 class="blog-title">Cómo hablar con tus hijos sobre emociones</h3>
+            <p class="blog-excerpt">Consejos para fortalecer la comunicación familiar.</p>
+          </div>
+        </article>
+      </div>
+
+      <button class="blog-cta">
+        <span>Ver todos los artículos</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- SECCIÓN VOTAR POR TEMAS -->
+    <section class="vote-section">
+      <div class="vote-card">
+        <div class="vote-header">
+          <div class="vote-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="vote-title">Vota y apoya a tu comunidad</h3>
+            <p class="vote-subtitle">Que es apoyarte a ti misma también</p>
+          </div>
+        </div>
+
+        <p class="vote-question">¿De qué te gustaría que trajéramos información?</p>
+
+        <div class="vote-options">
+          <button class="vote-option" data-topic="diabetes">
+            <div class="vote-icon-svg diabetes">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                <path d="M12 6v6l4 2"/>
+                <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              </svg>
+            </div>
+            <span class="vote-text">Diabetes y alimentación</span>
+            <span class="vote-count">127 votos</span>
+          </button>
+
+          <button class="vote-option" data-topic="estres">
+            <div class="vote-icon-svg estres">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                <path d="M9 9h.01M15 9h.01"/>
+                <path d="M12 2v2M12 20v2M2 12h2M20 12h2"/>
+              </svg>
+            </div>
+            <span class="vote-text">Cómo manejar el estrés</span>
+            <span class="vote-count">98 votos</span>
+          </button>
+
+          <button class="vote-option" data-topic="ninos">
+            <div class="vote-icon-svg ninos">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="8" r="5"/>
+                <path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/>
+                <circle cx="9" cy="7" r="1" fill="currentColor"/>
+                <circle cx="15" cy="7" r="1" fill="currentColor"/>
+                <path d="M10 10c.5.5 1.5 1 2 1s1.5-.5 2-1"/>
+              </svg>
+            </div>
+            <span class="vote-text">Salud de los niños</span>
+            <span class="vote-count">156 votos</span>
+          </button>
+
+          <button class="vote-option" data-topic="mayores">
+            <div class="vote-icon-svg mayores">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="7" r="4"/>
+                <path d="M5 21v-2a7 7 0 0 1 14 0v2"/>
+                <path d="M8 14c-1 1-2 3-2 5"/>
+                <path d="M16 14c1 1 2 3 2 5"/>
+                <path d="M9 7c0 0 1 1 3 1s3-1 3-1"/>
+                <path d="M10 4c.5-.5 1.5-1 2-1s1.5.5 2 1"/>
+              </svg>
+            </div>
+            <span class="vote-text">Cuidado de adultos mayores</span>
+            <span class="vote-count">89 votos</span>
+          </button>
+
+          <button class="vote-option" data-topic="remedios">
+            <div class="vote-icon-svg remedios">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L8 6h8l-4-4z"/>
+                <path d="M8 6v4c0 2 1 4 4 6 3-2 4-4 4-6V6"/>
+                <path d="M12 22v-6"/>
+                <path d="M9 19h6"/>
+                <circle cx="12" cy="11" r="1" fill="currentColor"/>
+                <path d="M10 9c.3-.3.8-.5 1-.5M14 9c-.3-.3-.8-.5-1-.5"/>
+              </svg>
+            </div>
+            <span class="vote-text">Remedios caseros</span>
+            <span class="vote-count">203 votos</span>
+          </button>
+
+          <button class="vote-option" data-topic="dinero">
+            <div class="vote-icon-svg dinero">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v12"/>
+                <path d="M15 9.5c0-1.5-1.5-2.5-3-2.5s-3 1-3 2.5 1.5 2 3 2.5 3 1 3 2.5-1.5 2.5-3 2.5-3-1-3-2.5"/>
+              </svg>
+            </div>
+            <span class="vote-text">Cómo ahorrar en salud</span>
+            <span class="vote-count">145 votos</span>
+          </button>
+        </div>
+
+        <div class="vote-suggest">
+          <label>¿Tienes otra idea? Cuéntanos:</label>
+          <div class="vote-suggest-input">
+            <input type="text" placeholder="Escribe tu sugerencia...">
+            <button class="vote-suggest-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <p class="vote-thanks">Tu voz importa. Juntas hacemos una comunidad más fuerte.</p>
+      </div>
+    </section>
+
+    <!-- ACCIONES RÁPIDAS -->
+    <section class="quick-actions">
+      <h3 class="quick-actions-title">Acciones rápidas</h3>
+      <div class="actions-grid-4">
+        <div class="action-button">
+          <div class="action-icon emergency">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
+            </svg>
+          </div>
+          <span class="action-label">Emergencia</span>
+        </div>
+        
+        <div class="action-button" onclick="window.open('https://wa.me/5215512345678?text=Hola%20Lupita,%20quiero%20platicar%20contigo', '_blank')">
+          <div class="action-icon lupita-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <span class="action-label">Lupita</span>
+        </div>
+        
+        <div class="action-button">
+          <div class="action-icon migrant-action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <span class="action-label">Carlos</span>
+        </div>
+        
+        <div class="action-button">
+          <div class="action-icon account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <span class="action-label">Mi Cuenta</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE EVALUACIÓN -->
+    <section class="feedback-section">
+      <div class="feedback-card">
+        <div class="feedback-header">
+          <h3 class="feedback-title">¿Cómo vamos?</h3>
+          <p class="feedback-subtitle">SaludCompartida quiere mejorar para atenderte mejor a ti y a otras familias</p>
+        </div>
+
+        <p class="feedback-question">¿Cómo te sientes con nuestro servicio?</p>
+        
+        <div class="emoji-rating">
+          <button class="emoji-btn" data-rating="1">
+            <svg viewBox="0 0 64 64" class="emoji-svg">
+              <!-- Carita triste pero linda -->
+              <circle cx="32" cy="32" r="30" fill="#FFE5E5" stroke="#FF6B6B" stroke-width="2"/>
+              <circle cx="22" cy="26" r="4" fill="#FF6B6B"/>
+              <circle cx="42" cy="26" r="4" fill="#FF6B6B"/>
+              <!-- Lágrima -->
+              <ellipse cx="18" cy="32" rx="2" ry="3" fill="#87CEEB"/>
+              <!-- Boca triste -->
+              <path d="M22 44 Q32 38 42 44" stroke="#FF6B6B" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- Cejas preocupadas -->
+              <path d="M18 20 L26 23" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round"/>
+              <path d="M46 20 L38 23" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Mal</span>
+          </button>
+          
+          <button class="emoji-btn" data-rating="2">
+            <svg viewBox="0 0 64 64" class="emoji-svg">
+              <!-- Carita confundida -->
+              <circle cx="32" cy="32" r="30" fill="#FFF3E0" stroke="#FFB74D" stroke-width="2"/>
+              <circle cx="22" cy="26" r="4" fill="#FFB74D"/>
+              <circle cx="42" cy="26" r="4" fill="#FFB74D"/>
+              <!-- Boca de lado -->
+              <path d="M24 42 L40 40" stroke="#FFB74D" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- Ceja levantada -->
+              <path d="M18 22 L26 20" stroke="#FFB74D" stroke-width="2" stroke-linecap="round"/>
+              <path d="M38 22 L46 22" stroke="#FFB74D" stroke-width="2" stroke-linecap="round"/>
+              <!-- Gotita de sudor -->
+              <ellipse cx="48" cy="28" rx="2" ry="3" fill="#87CEEB"/>
+            </svg>
+            <span>Regular</span>
+          </button>
+          
+          <button class="emoji-btn" data-rating="3">
+            <svg viewBox="0 0 64 64" class="emoji-svg">
+              <!-- Carita contenta -->
+              <circle cx="32" cy="32" r="30" fill="#E8F5E9" stroke="#66BB6A" stroke-width="2"/>
+              <circle cx="22" cy="26" r="4" fill="#66BB6A"/>
+              <circle cx="42" cy="26" r="4" fill="#66BB6A"/>
+              <!-- Sonrisa -->
+              <path d="M22 40 Q32 46 42 40" stroke="#66BB6A" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- Mejillas sonrojadas -->
+              <circle cx="16" cy="36" r="4" fill="#FFCDD2" opacity="0.6"/>
+              <circle cx="48" cy="36" r="4" fill="#FFCDD2" opacity="0.6"/>
+            </svg>
+            <span>Bien</span>
+          </button>
+          
+          <button class="emoji-btn" data-rating="4">
+            <svg viewBox="0 0 64 64" class="emoji-svg">
+              <!-- Carita muy feliz -->
+              <circle cx="32" cy="32" r="30" fill="#E3F2FD" stroke="#42A5F5" stroke-width="2"/>
+              <!-- Ojos felices (arcos) -->
+              <path d="M18 26 Q22 22 26 26" stroke="#42A5F5" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M38 26 Q42 22 46 26" stroke="#42A5F5" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- Sonrisa grande -->
+              <path d="M20 38 Q32 50 44 38" stroke="#42A5F5" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- Mejillas -->
+              <circle cx="14" cy="34" r="4" fill="#FFCDD2" opacity="0.7"/>
+              <circle cx="50" cy="34" r="4" fill="#FFCDD2" opacity="0.7"/>
+              <!-- Brillitos -->
+              <circle cx="10" cy="18" r="2" fill="#FFD54F"/>
+              <circle cx="54" cy="18" r="2" fill="#FFD54F"/>
+            </svg>
+            <span>Muy bien</span>
+          </button>
+          
+          <button class="emoji-btn" data-rating="5">
+            <svg viewBox="0 0 64 64" class="emoji-svg">
+              <!-- Carita enamorada/encantada -->
+              <circle cx="32" cy="32" r="30" fill="#FCE4EC" stroke="#EC407A" stroke-width="2"/>
+              <!-- Ojos de corazón -->
+              <path d="M18 24 L22 20 L26 24 L22 28 Z" fill="#EC407A"/>
+              <path d="M38 24 L42 20 L46 24 L42 28 Z" fill="#EC407A"/>
+              <!-- Sonrisa enorme -->
+              <path d="M18 38 Q32 54 46 38" stroke="#EC407A" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- Mejillas muy sonrojadas -->
+              <circle cx="12" cy="36" r="5" fill="#F8BBD9" opacity="0.8"/>
+              <circle cx="52" cy="36" r="5" fill="#F8BBD9" opacity="0.8"/>
+              <!-- Corazones flotando -->
+              <path d="M6 12 L8 10 L10 12 L8 15 Z" fill="#EC407A" opacity="0.6"/>
+              <path d="M54 8 L56 6 L58 8 L56 11 Z" fill="#EC407A" opacity="0.6"/>
+              <path d="M50 14 L51 13 L52 14 L51 16 Z" fill="#EC407A" opacity="0.4"/>
+            </svg>
+            <span>¡Increíble!</span>
+          </button>
+        </div>
+
+        <div class="feedback-comment">
+          <label for="comment">¿Algo que quieras contarnos?</label>
+          <textarea id="comment" placeholder="Tu opinión nos ayuda a mejorar..." rows="3"></textarea>
+        </div>
+
+        <button class="feedback-submit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+          Enviar mi opinión
+        </button>
+
+        <p class="feedback-thanks">Te agradecemos muchísimo tu retro 💜</p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE CONTACTO -->
+    <section class="contact-section">
+      <h3 class="contact-title">¿Necesitas ayuda?</h3>
+      <p class="contact-subtitle">Estamos aquí para ti</p>
+
+      <div class="contact-options">
+        <a href="mailto:contact@saludcompartida.com" class="contact-card email">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="contact-info">
+            <span class="contact-label">Correo electrónico</span>
+            <span class="contact-value">contact@saludcompartida.com</span>
+          </div>
+        </a>
+
+        <a href="https://wa.me/5215512345678?text=Hola,%20necesito%20ayuda%20con%20mi%20servicio%20de%20SaludCompartida" target="_blank" class="contact-card whatsapp">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </div>
+          <div class="contact-info">
+            <span class="contact-label">WhatsApp</span>
+            <span class="contact-value">Escríbenos aquí</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN INFERIOR -->
+  <nav class="bottom-nav">
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
+      <span>Inicio</span>
+    </div>
+    
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+      </svg>
+      <span>Salud</span>
+    </div>
+    
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="1" x2="12" y2="23"/>
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      </svg>
+      <span>Ahorros</span>
+    </div>
+    
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span>Mi Cuenta</span>
+    </div>
+  </nav>
+
+</body>
+</html>
