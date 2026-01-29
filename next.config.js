@@ -9,6 +9,8 @@ const nextConfig = {
       },
     ],
   },
+  // FORZAR webpack legacy (sin Turbopack)
+  turbo: false,
   // URGENTE: Desactivar TypeScript check para deploy inmediato
   typescript: {
     ignoreBuildErrors: true,
