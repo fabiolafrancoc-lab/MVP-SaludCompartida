@@ -2,7 +2,16 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+  // Desactivar Turbopack temporalmente para evitar crashes
+  experimental: {
+    turbo: undefined,
   },
 }
 
