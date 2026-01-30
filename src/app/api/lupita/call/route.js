@@ -4,13 +4,10 @@
 // ============================================
 
 import { NextResponse } from 'next/server';
-import { lupitaCall } from '@/lib/lupita-caller';
-import { createClient } from '@supabase/supabase-js';
+import { initiateCallNow } from '@/lib/lupita-caller';
+import { getSupabaseClient } from '@/lib/supabase';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+const supabase = getSupabaseClient();
 
 /**
  * POST /api/lupita/call
@@ -40,14 +37,13 @@ export async function POST(request) {
     console.log(`[API] Initiating Lupita call to: ${phoneNumber}`);
 
     // Ejecutar llamada
-    const result = await lupitaCall(phoneNumber);
+    const result = await initiateCallNow(phoneNumber);
 
     if (result.success) {
       return NextResponse.json({
         success: true,
         callId: result.callId,
         phoneNumber: result.phoneNumber,
-        startedAt: result.startedAt,
         message: 'Lupita is calling now!'
       });
     } else {
