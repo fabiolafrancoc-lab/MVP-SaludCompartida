@@ -1145,7 +1145,7 @@ export default function LandingPage() {
 
       {/* Header */}
       <header className="header">
-        <img src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="logo-img" />
+        <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="logo-img" />
       </header>
 
       {/* Hero Section */}
