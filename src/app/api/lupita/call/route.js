@@ -7,8 +7,6 @@ import { NextResponse } from 'next/server';
 import { initiateCallNow } from '@/lib/lupita-caller';
 import { getSupabaseClient } from '@/lib/supabase';
 
-const supabase = getSupabaseClient();
-
 /**
  * POST /api/lupita/call
  * Iniciar llamada proactiva de Lupita
@@ -68,6 +66,8 @@ export async function POST(request) {
  */
 export async function GET() {
   try {
+    const supabase = getSupabaseClient();
+    
     const { data: scheduledCalls } = await supabase
       .from('scheduled_callbacks')
       .select('*')

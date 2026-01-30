@@ -8,9 +8,6 @@ import { NextResponse } from 'next/server';
 import { getSupabaseClient } from '@/lib/supabase';
 import { processCallAudio } from '@/lib/vapi-audio-handler';
 
-// Configurar Supabase
-const supabase = getSupabaseClient();
-
 /**
  * POST /api/vapi-webhook
  * Recibe eventos de VAPI (call-start, call-end, etc.)
