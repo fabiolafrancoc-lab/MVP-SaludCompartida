@@ -544,7 +544,7 @@ export default function PaymentSuccessPage() {
       <nav className="nav">
         <div className="nav-inner">
           <img 
-            src="https://saludcompartida.com/saludcompartida-dark-no-tagline.png" 
+            src="/saludcompartida-dark-no-tagline.png" 
             alt="SaludCompartida" 
             className="nav-logo"
           />
