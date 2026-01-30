@@ -113,15 +113,33 @@ export type ServiceUsageUpdate = Partial<ServiceUsageInsert>;
 let supabaseClient: any = null;
 
 export function getSupabaseClient() {
-  if (supabaseClient) return supabaseClient;
-
-  const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error('Missing Supabase environment variables');
+  // Return cached client if it exists
+  if (supabaseClient) {
+    return supabaseClient;
   }
 
+  // Get environment variables - these will only be available at runtime in production
+  // Support both SUPABASE_SERVICE_ROLE_KEY and SUPABASE_SERVICE_KEY for compatibility
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = 
+    process.env.SUPABASE_SERVICE_ROLE_KEY || 
+    process.env.SUPABASE_SERVICE_KEY || 
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // Provide more descriptive error messages
+  if (!supabaseUrl) {
+    throw new Error(
+      'Missing Supabase URL. Please set SUPABASE_URL or NEXT_PUBLIC_SUPABASE_URL environment variable.'
+    );
+  }
+
+  if (!supabaseKey) {
+    throw new Error(
+      'Missing Supabase key. Please set SUPABASE_SERVICE_ROLE_KEY, SUPABASE_SERVICE_KEY, or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable.'
+    );
+  }
+
+  // Create and cache the client - this only happens at runtime when the function is called
   supabaseClient = createClient(supabaseUrl, supabaseKey, {
     auth: {
       autoRefreshToken: false,
