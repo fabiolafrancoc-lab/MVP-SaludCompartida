@@ -3,15 +3,12 @@
 // Sistema para que Lupita llame proactivamente a usuarios
 // ============================================
 
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from './supabase';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+const supabase = getSupabaseClient();
 
 const VAPI_API_KEY = process.env.VAPI_API_KEY;
-const VAPI_ASSISTANT_ID = process.env.VAPI_PHONE_NUMBER_ID;
+const VAPI_ASSISTANT_ID = process.env.VAPI_ASSISTANT_ID || process.env.VAPI_PHONE_NUMBER_ID;
 
 /**
  * Obtener contexto del usuario para personalizar la llamada
