@@ -1019,7 +1019,7 @@ export default function LandingPage() {
 
       {/* Header */}
       <header className="header">
-        <img src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="logo-img" />
+        <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="logo-img" />
       </header>
 
       {/* Hero Section */}
@@ -1426,7 +1426,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="footer">
         <img 
-          src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" 
+          src="/saludcompartida-dark-no-tagline.png" 
           alt="SaludCompartida" 
           className="footer-logo"
         />

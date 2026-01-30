@@ -70,9 +70,9 @@ export default function ComoUtilizarPage() {
 
       <div className="guia-page">
         <div className="guia-container">
-          <h1 className="page-title">Cómo utilizar nuestros servicios</h1>
+          <h1 className="page-title">Así de fácil funciona</h1>
           <p className="page-subtitle">
-            Guía paso a paso para aprovechar al máximo SaludCompartida
+            Guías para tu familia en México
           </p>
 
           <div className="guia-image-wrapper">
