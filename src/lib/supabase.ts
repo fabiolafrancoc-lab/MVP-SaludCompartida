@@ -118,9 +118,13 @@ export function getSupabaseClient() {
     return supabaseClient;
   }
 
-  // Get environment variables - these will only be available at runtime in production
-  // Support both SUPABASE_SERVICE_ROLE_KEY and SUPABASE_SERVICE_KEY for compatibility
+  // Get environment variables
+  // Note: Server-side variables (non-NEXT_PUBLIC_) are only available at runtime,
+  // while NEXT_PUBLIC_ variables are available at build time
   const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  
+  // Priority order: Standard service role key -> Legacy service key -> Public anon key (fallback)
+  // The anon key should only be used as a last resort and has limited permissions
   const supabaseKey = 
     process.env.SUPABASE_SERVICE_ROLE_KEY || 
     process.env.SUPABASE_SERVICE_KEY || 
@@ -136,6 +140,15 @@ export function getSupabaseClient() {
   if (!supabaseKey) {
     throw new Error(
       'Missing Supabase key. Please set SUPABASE_SERVICE_ROLE_KEY, SUPABASE_SERVICE_KEY, or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable.'
+    );
+  }
+
+  // Log warning if using anon key instead of service role key
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY && !process.env.SUPABASE_SERVICE_KEY) {
+    console.warn(
+      '⚠️ Using NEXT_PUBLIC_SUPABASE_ANON_KEY instead of service role key. ' +
+      'This has limited permissions and may cause issues with protected operations. ' +
+      'Please set SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SERVICE_KEY environment variable.'
     );
   }
 
