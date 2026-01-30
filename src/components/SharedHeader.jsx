@@ -172,7 +172,7 @@ export default function SharedHeader() {
 
           {/* Desktop Navigation */}
           <nav className="shared-nav-menu">
-            {/* Quiénes Somos */}
+            {/* 1. Quiénes Somos - SIN CAMBIOS */}
             <div className="shared-nav-item">
               Quiénes Somos
               <div className="shared-dropdown">
@@ -183,21 +183,25 @@ export default function SharedHeader() {
               </div>
             </div>
 
-            {/* Cómo Utilizar SaludCompartida */}
+            {/* 2. Qué nos hace Únicos - ACTUALIZADO */}
             <div className="shared-nav-item">
-              Cómo Utilizar SaludCompartida
+              <a href="/#que-nos-hace-unicos" style={{color: 'inherit', textDecoration: 'none', cursor: 'pointer'}}>
+                Qué nos hace Únicos
+              </a>
               <div className="shared-dropdown">
-                <a href="/como-utilizar" className="shared-dropdown-item">Cómo utilizar nuestros servicios</a>
-                <a href="/como-utilizar-adulto-mayor" className="shared-dropdown-item">Cómo nuestro Adulto Mayor utiliza nuestros servicios</a>
+                <a href="/#que-nos-hace-unicos" className="shared-dropdown-item">Lupita y Fernanda</a>
+                <a href="/por-que-creamos" className="shared-dropdown-item">Por qué creamos SaludCompartida</a>
               </div>
             </div>
 
-            {/* Lo que nos hace únicos */}
+            {/* 3. Cómo Funciona - ACTUALIZADO */}
             <div className="shared-nav-item">
-              Lo que nos hace Únicos
+              <a href="/#como-funciona" style={{color: 'inherit', textDecoration: 'none', cursor: 'pointer'}}>
+                Cómo Funciona
+              </a>
               <div className="shared-dropdown">
-                <a href="/por-que-creamos" className="shared-dropdown-item">Por qué creamos SaludCompartida</a>
-                <a href="/lupita-fernanda" className="shared-dropdown-item">Lupita y Fernanda</a>
+                <a href="/como-utilizar" className="shared-dropdown-item">Guías para tu familia en México</a>
+                <a href="/como-utilizar-adulto-mayor" className="shared-dropdown-item">Guía para Adultos Mayores</a>
               </div>
             </div>
           </nav>
