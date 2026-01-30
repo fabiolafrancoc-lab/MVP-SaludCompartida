@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { sendPostPaymentNotifications } from '@/lib/post-payment-notifications';
 import { getSupabaseClient } from '@/lib/supabase';
 
-const supabase = getSupabaseClient();
-
 export async function POST(request: NextRequest) {
   try {
+    const supabase = getSupabaseClient();
+    
     const body = await request.json();
     const { registration_id } = body;
 
