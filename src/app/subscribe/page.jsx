@@ -69,14 +69,13 @@ export default function SubscribePage() {
         background: '#111827'
       }}>
         <div style={{ textAlign: 'center', color: '#FFFFFF' }}>
-          <div style={{
+          <div className="animate-spin" style={{
             width: '48px',
             height: '48px',
             border: '4px solid #06B6D4',
             borderTopColor: 'transparent',
             borderRadius: '50%',
-            margin: '0 auto 16px',
-            animation: 'spin 1s linear infinite'
+            margin: '0 auto 16px'
           }}></div>
           <p style={{ fontSize: '18px' }}>Cargando...</p>
         </div>
