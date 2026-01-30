@@ -39,6 +39,14 @@ export default function LupitaFernandaPage() {
           background-clip: text;
         }
 
+        .page-section-title {
+          font-size: 28px;
+          font-weight: 700;
+          text-align: center;
+          margin-bottom: 40px;
+          color: rgba(255,255,255,0.9);
+        }
+
         .page-subtitle {
           font-size: 22px;
           text-align: center;
@@ -170,7 +178,7 @@ export default function LupitaFernandaPage() {
       <div className="lupita-fernanda-page">
         <div className="container">
           <h1 className="page-title">Qué nos hace Únicos</h1>
-          <h2 className="page-subtitle" style={{fontSize: '28px', fontWeight: '700', marginBottom: '40px'}}>
+          <h2 className="page-section-title">
             Lupita y Fernanda
           </h2>
           <p className="page-subtitle">

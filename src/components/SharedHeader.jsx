@@ -59,6 +59,11 @@ export default function SharedHeader() {
           color: #06B6D4;
         }
 
+        .shared-nav-link {
+          color: inherit;
+          text-decoration: none;
+        }
+
         .shared-dropdown {
           position: absolute;
           top: 100%;
@@ -185,7 +190,7 @@ export default function SharedHeader() {
 
             {/* Qué nos hace Únicos */}
             <div className="shared-nav-item">
-              <a href="/lupita-fernanda" style={{color: 'inherit', textDecoration: 'none', cursor: 'pointer'}}>
+              <a href="/lupita-fernanda" className="shared-nav-link">
                 Qué nos hace Únicos
               </a>
               <div className="shared-dropdown">
@@ -196,7 +201,7 @@ export default function SharedHeader() {
 
             {/* Cómo Funciona */}
             <div className="shared-nav-item">
-              <a href="/como-utilizar" style={{color: 'inherit', textDecoration: 'none', cursor: 'pointer'}}>
+              <a href="/como-utilizar" className="shared-nav-link">
                 Cómo Funciona
               </a>
               <div className="shared-dropdown">
