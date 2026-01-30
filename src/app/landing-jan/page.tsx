@@ -1470,7 +1470,7 @@ export default function LandingPage() {
       <nav className={`nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-inner">
           <img 
-            src="https://saludcompartida.com/saludcompartida-dark-no-tagline.png" 
+            src="/saludcompartida-dark-no-tagline.png" 
             alt="SaludCompartida" 
             className="nav-logo"
           />

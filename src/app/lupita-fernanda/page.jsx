@@ -169,7 +169,10 @@ export default function LupitaFernandaPage() {
 
       <div className="lupita-fernanda-page">
         <div className="container">
-          <h1 className="page-title">Lupita y Fernanda</h1>
+          <h1 className="page-title">Qué nos hace Únicos</h1>
+          <h2 className="page-subtitle" style={{fontSize: '28px', fontWeight: '700', marginBottom: '40px'}}>
+            Lupita y Fernanda
+          </h2>
           <p className="page-subtitle">
             El soporte que nuestras familias de manera silenciosa necesitan
           </p>

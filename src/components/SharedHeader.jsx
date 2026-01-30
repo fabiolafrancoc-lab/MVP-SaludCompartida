@@ -167,7 +167,7 @@ export default function SharedHeader() {
         <div className="shared-header-content">
           {/* Logo */}
           <a href="/">
-            <img src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="shared-logo-img" />
+            <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="shared-logo-img" />
           </a>
 
           {/* Desktop Navigation */}
@@ -183,21 +183,25 @@ export default function SharedHeader() {
               </div>
             </div>
 
-            {/* Cómo Utilizar SaludCompartida */}
+            {/* Qué nos hace Únicos */}
             <div className="shared-nav-item">
-              Cómo Utilizar SaludCompartida
+              <a href="/lupita-fernanda" style={{color: 'inherit', textDecoration: 'none', cursor: 'pointer'}}>
+                Qué nos hace Únicos
+              </a>
               <div className="shared-dropdown">
-                <a href="/como-utilizar" className="shared-dropdown-item">Cómo utilizar nuestros servicios</a>
-                <a href="/como-utilizar-adulto-mayor" className="shared-dropdown-item">Cómo nuestro Adulto Mayor utiliza nuestros servicios</a>
+                <a href="/lupita-fernanda" className="shared-dropdown-item">Lupita y Fernanda</a>
+                <a href="/por-que-creamos" className="shared-dropdown-item">Por qué creamos SaludCompartida</a>
               </div>
             </div>
 
-            {/* Lo que nos hace únicos */}
+            {/* Cómo Funciona */}
             <div className="shared-nav-item">
-              Lo que nos hace Únicos
+              <a href="/como-utilizar" style={{color: 'inherit', textDecoration: 'none', cursor: 'pointer'}}>
+                Cómo Funciona
+              </a>
               <div className="shared-dropdown">
-                <a href="/por-que-creamos" className="shared-dropdown-item">Por qué creamos SaludCompartida</a>
-                <a href="/lupita-fernanda" className="shared-dropdown-item">Lupita y Fernanda</a>
+                <a href="/como-utilizar" className="shared-dropdown-item">Así de fácil funciona - Guías para tu familia en México</a>
+                <a href="/como-utilizar-adulto-mayor" className="shared-dropdown-item">Guía para Adultos Mayores</a>
               </div>
             </div>
           </nav>
