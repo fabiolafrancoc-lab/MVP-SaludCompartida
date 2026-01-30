@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendPostPaymentNotifications } from '@/lib/post-payment-notifications';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '@/lib/supabase';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_KEY || ''
-);
+const supabase = getSupabaseClient();
 
 export async function POST(request: NextRequest) {
   try {
