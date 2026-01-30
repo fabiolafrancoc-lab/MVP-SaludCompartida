@@ -167,7 +167,7 @@ export default function SharedHeader() {
         <div className="shared-header-content">
           {/* Logo */}
           <a href="/">
-            <img src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="shared-logo-img" />
+            <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" className="shared-logo-img" />
           </a>
 
           {/* Desktop Navigation */}

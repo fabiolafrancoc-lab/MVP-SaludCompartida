@@ -69,7 +69,7 @@ export default function SharedFooter() {
 
       <footer className="shared-footer">
         <img 
-          src="https://saludcompartida.app/saludcompartida-dark-no-tagline.png" 
+          src="/saludcompartida-dark-no-tagline.png" 
           alt="SaludCompartida" 
           className="shared-footer-logo"
         />
