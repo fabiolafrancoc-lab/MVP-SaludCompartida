@@ -1907,7 +1907,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="footer">
         <img 
-          src="https://saludcompartida.com/saludcompartida-dark-no-tagline.png" 
+          src="/saludcompartida-dark-no-tagline.png" 
           alt="SaludCompartida" 
           className="footer-logo"
         />
