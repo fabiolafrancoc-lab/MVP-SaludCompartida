@@ -113,15 +113,46 @@ export type ServiceUsageUpdate = Partial<ServiceUsageInsert>;
 let supabaseClient: any = null;
 
 export function getSupabaseClient() {
-  if (supabaseClient) return supabaseClient;
-
-  const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error('Missing Supabase environment variables');
+  // Return cached client if it exists
+  if (supabaseClient) {
+    return supabaseClient;
   }
 
+  // Get environment variables
+  // Note: Server-side variables (non-NEXT_PUBLIC_) are only available at runtime,
+  // while NEXT_PUBLIC_ variables are available at build time
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  
+  // Priority order: Standard service role key -> Legacy service key -> Public anon key (fallback)
+  // The anon key should only be used as a last resort and has limited permissions
+  const supabaseKey = 
+    process.env.SUPABASE_SERVICE_ROLE_KEY || 
+    process.env.SUPABASE_SERVICE_KEY || 
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // Provide more descriptive error messages
+  if (!supabaseUrl) {
+    throw new Error(
+      'Missing Supabase URL. Please set SUPABASE_URL or NEXT_PUBLIC_SUPABASE_URL environment variable.'
+    );
+  }
+
+  if (!supabaseKey) {
+    throw new Error(
+      'Missing Supabase key. Please set SUPABASE_SERVICE_ROLE_KEY, SUPABASE_SERVICE_KEY, or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable.'
+    );
+  }
+
+  // Log warning if using anon key instead of service role key
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY && !process.env.SUPABASE_SERVICE_KEY) {
+    console.warn(
+      '⚠️ Using NEXT_PUBLIC_SUPABASE_ANON_KEY instead of service role key. ' +
+      'This has limited permissions and may cause issues with protected operations. ' +
+      'Please set SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SERVICE_KEY environment variable.'
+    );
+  }
+
+  // Create and cache the client - this only happens at runtime when the function is called
   supabaseClient = createClient(supabaseUrl, supabaseKey, {
     auth: {
       autoRefreshToken: false,
