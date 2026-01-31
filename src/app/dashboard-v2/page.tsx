@@ -78,7 +78,7 @@ export default function DashboardV2() {
 
   const familyFirstName = userData?.family_first_name || 'María';
   const migrantFirstName = userData?.migrant_first_name || 'Carlos';
-  const companionName = userData?.companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
+  const companionName = userData?.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
 
   return (
     <>
