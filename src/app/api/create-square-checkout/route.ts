@@ -7,9 +7,20 @@ export async function POST(request: NextRequest) {
   
   try {
     // Initialize Square client inside the function
+    const squareEnvironment = process.env.SQUARE_ENVIRONMENT;
+    
+    // Validate environment variable
+    if (squareEnvironment !== 'sandbox' && squareEnvironment !== 'production') {
+      console.error('❌ Invalid SQUARE_ENVIRONMENT:', squareEnvironment);
+      return NextResponse.json({
+        success: false,
+        error: 'Invalid payment configuration',
+      }, { status: 500 });
+    }
+    
     const squareClient = new Client({
       accessToken: process.env.SQUARE_ACCESS_TOKEN || '',
-      environment: process.env.SQUARE_ENVIRONMENT === 'sandbox' ? Environment.Sandbox : Environment.Production,
+      environment: squareEnvironment === 'sandbox' ? Environment.Sandbox : Environment.Production,
     });
 
     const supabase = createClient(
@@ -56,7 +67,7 @@ export async function POST(request: NextRequest) {
     
     // Create Square payment link
     const response = await squareClient.checkoutApi.createPaymentLink({
-      idempotencyKey: `reg-${registration_id}-${Date.now()}`,
+      idempotencyKey: `reg-${registration_id}`, // No timestamp for proper idempotency
       order: {
         locationId: process.env.SQUARE_LOCATION_ID!,
         lineItems: [

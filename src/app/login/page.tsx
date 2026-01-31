@@ -60,10 +60,14 @@ export default function LoginPage() {
       // Check if terms already accepted
       if (data.terms_accepted) {
         // Update last_login_at
-        await supabase
+        const { error: updateError } = await supabase
           .from('registrations')
           .update({ last_login_at: new Date().toISOString() })
           .eq('id', data.id);
+          
+        if (updateError) {
+          console.error('Failed to update last_login_at:', updateError);
+        }
 
         router.push('/dashboard');
       } else {

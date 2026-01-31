@@ -132,7 +132,7 @@ export default function RegistrationPage() {
       }
 
       // Validate emails
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
       if (!emailRegex.test(formData.migrant_email)) {
         setError('Email del migrante inválido');
         setIsSubmitting(false);
@@ -145,13 +145,20 @@ export default function RegistrationPage() {
         return;
       }
 
-      // Generate 2 unique codes
-      let migrant_code = generateFamilyCode(); // "A3X9K2"
-      let family_code = generateFamilyCode();  // "R7P4N8"
+      // Generate 2 unique codes with safety counter
+      let migrant_code = generateFamilyCode();
+      let family_code = generateFamilyCode();
+      let attempts = 0;
+      const maxAttempts = 10;
 
       // Ensure they're different
-      while (migrant_code === family_code) {
+      while (migrant_code === family_code && attempts < maxAttempts) {
         family_code = generateFamilyCode();
+        attempts++;
+      }
+      
+      if (migrant_code === family_code) {
+        throw new Error('Unable to generate unique codes');
       }
       
       // Limpiar teléfonos (solo números)

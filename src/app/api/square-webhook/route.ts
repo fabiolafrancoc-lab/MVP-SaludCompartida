@@ -10,6 +10,10 @@ export async function POST(request: NextRequest) {
     
     const event = await request.json();
     
+    // TODO: Add Square webhook signature verification for production
+    // See: https://developer.squareup.com/docs/webhooks/step3validate
+    // This prevents unauthorized requests from activating payments
+    
     console.log('📥 Square webhook received', {
       type: event.type,
       timestamp: new Date().toISOString(),

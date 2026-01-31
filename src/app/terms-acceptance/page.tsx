@@ -38,7 +38,7 @@ export default function TermsAcceptancePage() {
     setIsLoading(true);
 
     try {
-      await supabase
+      const { error: updateError } = await supabase
         .from('registrations')
         .update({
           terms_accepted: true,
@@ -46,6 +46,10 @@ export default function TermsAcceptancePage() {
           last_login_at: new Date().toISOString(),
         })
         .eq('id', userData.id);
+
+      if (updateError) {
+        throw updateError;
+      }
 
       const updatedData = { ...userData, terms_accepted: true };
       sessionStorage.setItem('userData', JSON.stringify(updatedData));
