@@ -206,7 +206,7 @@ Mira, yo no soy psicóloga ni nada, pero sí sé que cuando uno siente que ya no
 [VALIDA SIN DAR SERMÓN]
 Oye, si algún día quieres que platicamos más de esto con calma, me dices. O si sientes que necesita hablar con un psicólogo el niño/la niña, te puedo ayudar a encontrar opciones. Aquí para eso estamos.`,
     
-    sobre_ella: `Oye, y tú, ¿cómo estás? Porque siempre hablamos de los niños, de ${vars.nombre_migrante}, de todo mundo... pero, ¿tú cómo andas?
+    sobre_ella: (vars) => `Oye, y tú, ¿cómo estás? Porque siempre hablamos de los niños, de ${vars.nombre_migrante}, de todo mundo... pero, ¿tú cómo andas?
 [PREGUNTA DIRECTA EN CONTEXTO DE CONFIANZA]`,
     
     cierre: `Bueno, te dejo que sigas con tu día. Mañana te marco, ¿va? Y acuérdate: si alguno de los niños se pone malito, antes de correr al doctor márcame y vemos si es algo que podemos resolver por teléfono.
