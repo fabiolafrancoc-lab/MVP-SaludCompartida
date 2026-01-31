@@ -823,6 +823,77 @@ export default function RegistrationPage() {
         .footer-note a:hover {
           text-decoration: underline;
         }
+
+        /* Registration Two-Column Layout */
+        .registration-two-column-layout {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 0;
+          min-height: 100vh;
+        }
+
+        @media (min-width: 1024px) {
+          .registration-two-column-layout {
+            grid-template-columns: 40% 60%;
+            gap: 0;
+          }
+        }
+
+        /* Hero Image Column */
+        .hero-image-column {
+          position: relative;
+          width: 100%;
+          height: 300px;
+          overflow: hidden;
+        }
+
+        @media (min-width: 1024px) {
+          .hero-image-column {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+          }
+        }
+
+        .registration-hero-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+
+        /* Form Column */
+        .form-column {
+          display: flex;
+          flex-direction: column;
+          padding: 40px 20px;
+          background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2E 100%);
+        }
+
+        @media (min-width: 768px) {
+          .form-column {
+            padding: 60px 40px;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .form-column {
+            padding: 80px 60px;
+            min-height: 100vh;
+          }
+        }
+
+        /* Ajustar form-card para que no tenga padding extra en layout de dos columnas */
+        .registration-two-column-layout .form-card {
+          background: transparent;
+          border: none;
+          box-shadow: none;
+          padding: 0;
+        }
+
+        .registration-two-column-layout .form-header {
+          margin-bottom: 40px;
+        }
       `}</style>
 
       {/* Navigation */}
@@ -879,12 +950,24 @@ export default function RegistrationPage() {
           {/* Step 1: Migrante USA */}
           {step === 1 && (
             <form onSubmit={handleNextStep}>
-              <div className="form-card">
-                <div className="form-header">
-                  <div className="form-icon usa">🇺🇸</div>
-                  <h1 className="form-title serif">Tu información</h1>
-                  <p className="form-subtitle">Datos del titular de la cuenta en Estados Unidos</p>
+              <div className="registration-two-column-layout">
+                {/* Columna izquierda - Imagen */}
+                <div className="hero-image-column">
+                  <img 
+                    src="/FOTO-20.jpeg" 
+                    alt="Familia SaludCompartida"
+                    className="registration-hero-image"
+                  />
                 </div>
+
+                {/* Columna derecha - Formulario */}
+                <div className="form-column">
+                  <div className="form-card">
+                    <div className="form-header">
+                      <div className="form-icon usa">🇺🇸</div>
+                      <h1 className="form-title serif">Tu información</h1>
+                      <p className="form-subtitle">Datos del titular de la cuenta en Estados Unidos</p>
+                    </div>
 
                 <div className="form-section">
                   <div className="form-section-title">Nombre completo</div>
@@ -1009,6 +1092,8 @@ export default function RegistrationPage() {
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                   </svg>
                   <span>Tu información está protegida y segura</span>
+                </div>
+              </div>
                 </div>
               </div>
             </form>
