@@ -67,7 +67,7 @@ export async function POST(request) {
     
     // Create Square payment link
     const response = await squareClient.checkoutApi.createPaymentLink({
-      idempotencyKey: `reg-${registration_id}`, // No timestamp for proper idempotency
+      idempotencyKey: `reg-${registration_id}-${Date.now()}`,
       order: {
         locationId: process.env.SQUARE_LOCATION_ID,
         lineItems: [
