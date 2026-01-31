@@ -120,7 +120,7 @@ export async function POST(request) {
       orderId: orderId,
     });
     
-  } catch (error: any) {
+  } catch (error) {
     console.error('❌ Square checkout failed', {
       error: error.message,
       stack: error.stack,
