@@ -166,7 +166,7 @@ export default function RegistrationPage() {
       const family_phone_clean = formData.family_phone.replace(/\D/g, '');
       
       // Determinar companion según edad del usuario en México
-      const companion_assigned = determineCompanion(formData.family_birthdate);
+      const family_companion_assigned = determineCompanion(formData.family_birthdate);
 
       // Guardar en tabla REGISTRATIONS - nombres EXACTOS de columnas Supabase
       const { data: registrationData, error: registrationError } = await supabase
@@ -198,7 +198,7 @@ export default function RegistrationPage() {
           family_country: 'MX',
           
           // Companion asignado
-          companion_assigned: companion_assigned,
+          family_companion_assigned: family_companion_assigned,
           
           // Status y términos
           status: 'pending_payment',
@@ -217,7 +217,7 @@ export default function RegistrationPage() {
         registration_id: registrationData.id,
         migrant_code: migrant_code,
         family_code: family_code,
-        companion_assigned: companion_assigned,
+        family_companion_assigned: family_companion_assigned,
         // Para WATI: +1 + número limpio
         migrant_phone_full: `+1${migrant_phone_clean}`,
         // Para WATI: +52 + número limpio  

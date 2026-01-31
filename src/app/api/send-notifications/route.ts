@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       family_last_name: registration.family_last_name,
       family_email: registration.family_email || undefined,
       family_phone: `${registration.family_country_code}${registration.family_phone}`,
-      companion_assigned: registration.companion_assigned,
+      family_companion_assigned: registration.family_companion_assigned,
     });
 
     // Actualizar el registro con timestamp de notificaciones

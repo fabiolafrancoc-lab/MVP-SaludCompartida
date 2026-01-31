@@ -317,7 +317,7 @@ export default function Pago() {
       sessionStorage.setItem('registrationData', JSON.stringify({
         registration_id: subscriptionData.confirmationNumber,
         family_code: familyCode,
-        companion_assigned: currentUserData.companion || 'lupita',
+        family_companion_assigned: currentUserData.companion || 'lupita',
         migrant_phone_full: `${currentUserData.countryCode}${currentUserData.phone}`,
         family_phone_full: `${currentUserData.familyCountryCode}${currentUserData.familyPhone}`,
         migrant_first_name: currentUserData.firstName,
