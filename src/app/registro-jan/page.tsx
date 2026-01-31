@@ -823,6 +823,205 @@ export default function RegistrationPage() {
         .footer-note a:hover {
           text-decoration: underline;
         }
+
+        /* ================================ */
+        /* INTRO SECTION - Hero Emocional */
+        /* ================================ */
+        .intro-section {
+          max-width: 900px;
+          margin: 120px auto 60px;
+          padding: 0 20px;
+          text-align: center;
+        }
+
+        .intro-pretext {
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--cyan);
+          margin-bottom: 16px;
+        }
+
+        .intro-title {
+          font-size: 42px;
+          line-height: 1.2;
+          margin-bottom: 24px;
+          color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+          .intro-title {
+            font-size: 32px;
+          }
+        }
+
+        .intro-title .highlight {
+          background: linear-gradient(135deg, var(--magenta) 0%, var(--cyan) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .intro-subtitle {
+          font-size: 18px;
+          line-height: 1.7;
+          color: var(--text-secondary);
+          margin-bottom: 48px;
+          max-width: 700px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .intro-subtitle strong {
+          color: var(--text-primary);
+          font-weight: 600;
+        }
+
+        /* Signatures Section */
+        .signatures-section {
+          margin: 48px 0;
+          padding: 40px 20px;
+          background: rgba(255, 255, 255, 0.02);
+          border-radius: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .signatures-title {
+          font-size: 16px;
+          color: var(--text-secondary);
+          margin-bottom: 32px;
+          font-style: italic;
+        }
+
+        .signatures-cloud {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 20px 30px;
+          min-height: 200px;
+        }
+
+        .signature {
+          display: inline-block;
+          padding: 8px 16px;
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: 8px;
+          transition: all 0.3s;
+          cursor: default;
+        }
+
+        .signature:hover {
+          transform: scale(1.05);
+          background: rgba(255, 255, 255, 0.06);
+        }
+
+        .sig-child {
+          font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+          transform: rotate(-2deg);
+          font-weight: 700;
+        }
+
+        .sig-elder {
+          font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+          font-style: italic;
+          font-weight: 400;
+          transform: rotate(1deg);
+        }
+
+        /* Benefits Tags */
+        .intro-benefits {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 12px;
+          margin: 40px 0;
+        }
+
+        .benefit-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 20px;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          font-size: 15px;
+          color: var(--text-primary);
+          font-weight: 500;
+          transition: all 0.3s;
+        }
+
+        .benefit-tag:hover {
+          background: rgba(255, 255, 255, 0.08);
+          transform: translateY(-2px);
+        }
+
+        /* Badges */
+        .intro-badges {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 16px;
+          margin-top: 32px;
+        }
+
+        .badge-urgency,
+        .badge-price {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 14px 24px;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 700;
+        }
+
+        .badge-urgency {
+          background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+          color: white;
+          box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+          animation: pulse 2s ease-in-out infinite;
+        }
+
+        .badge-price {
+          background: linear-gradient(135deg, var(--green) 0%, #059669 100%);
+          color: white;
+          box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.05);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .intro-section {
+            margin-top: 100px;
+          }
+          
+          .signatures-cloud {
+            gap: 15px 20px;
+          }
+          
+          .signature {
+            font-size: 14px !important;
+          }
+          
+          .intro-benefits {
+            gap: 8px;
+          }
+          
+          .benefit-tag {
+            font-size: 13px;
+            padding: 10px 16px;
+          }
+        }
       `}</style>
 
       {/* Navigation */}
@@ -838,6 +1037,58 @@ export default function RegistrationPage() {
           </div>
         </div>
       </nav>
+
+      {/* Hero Section - Emotional Intro */}
+      <section className="intro-section">
+        <p className="intro-pretext">Estás a un paso de cuidarlos</p>
+        <h1 className="intro-title serif">
+          El amor que sientes<br/>
+          <span className="highlight">ahora se convierte en protección</span>
+        </h1>
+        <p className="intro-subtitle">
+          Llegaste hasta aquí porque sabes que el dinero no lo resuelve todo.<br/>
+          Ellos necesitan <strong>salud, compañía y tu tranquilidad</strong>.
+        </p>
+
+        {/* Firmas manuscritas */}
+        <div className="signatures-section">
+          <p className="signatures-title">Esto es lo que las familias quieren decirte...</p>
+          <div className="signatures-cloud">
+            {/* Niños - letra desordenada */}
+            <span className="signature sig-child" style={{fontSize: '22px', color: '#2563EB'}}>Gracias papá</span>
+            <span className="signature sig-child" style={{fontSize: '17px', color: '#DC2626'}}>gracias mami</span>
+            <span className="signature sig-child" style={{fontSize: '19px', color: '#16A34A'}}>Grasias tío</span>
+            <span className="signature sig-child" style={{fontSize: '16px', color: '#DB2777'}}>te kiero tía</span>
+            <span className="signature sig-child" style={{fontSize: '15px', color: '#EA580C'}}>ya no me duele</span>
+            <span className="signature sig-child" style={{fontSize: '18px', color: '#0891B2'}}>gracias abuelita</span>
+            
+            {/* Adultos mayores - cursiva elegante */}
+            <span className="signature sig-elder" style={{fontSize: '24px', color: '#7C3AED'}}>Gracias, mijo</span>
+            <span className="signature sig-elder" style={{fontSize: '20px', color: '#15803D'}}>Bendiciones, mijita</span>
+            <span className="signature sig-elder" style={{fontSize: '22px', color: '#92400E'}}>Dios te bendiga</span>
+            <span className="signature sig-elder" style={{fontSize: '25px', color: '#1E40AF'}}>Que Dios te lo pague</span>
+          </div>
+        </div>
+
+        {/* Benefits Tags */}
+        <div className="intro-benefits">
+          <span className="benefit-tag">🩺 Telemedicina 24/7</span>
+          <span className="benefit-tag">💊 Hasta 75% en farmacias</span>
+          <span className="benefit-tag">🧠 Terapia incluida</span>
+          <span className="benefit-tag">💜 Lupita o Fernanda</span>
+        </div>
+
+        {/* Urgency & Price */}
+        <div className="intro-badges">
+          <span className="badge-urgency">
+            <span>🔥</span>
+            Solo 13 espacios disponibles
+          </span>
+          <span className="badge-price">
+            💚 $12 USD/mes
+          </span>
+        </div>
+      </section>
 
       {/* Registration */}
       <div className="registration">
