@@ -20,7 +20,7 @@ function SubscribeContent() {
     if (phone) params.set('phone', phone);
 
     const queryString = params.toString();
-    const targetUrl = queryString ? `/registro-nuevo?${queryString}` : '/registro-nuevo';
+    const targetUrl = queryString ? `/registro-jan?${queryString}` : '/registro-jan';
 
     // Redirect to the registration page
     router.push(targetUrl);
