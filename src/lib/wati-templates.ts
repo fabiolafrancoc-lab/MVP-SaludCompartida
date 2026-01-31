@@ -4,7 +4,7 @@ export interface WhatsAppData {
   migrant_first_name: string;
   family_first_name: string;
   family_code: string;
-  companion_assigned: 'lupita' | 'fernanda';
+  family_companion_assigned: 'lupita' | 'fernanda';
   phone_number: string;      // Número para llamar a compañera (ej: "+52 55 9990 6900")
   migrant_phone: string;      // +1XXXXXXXXXX
   family_phone: string;       // +52XXXXXXXXXX
@@ -14,7 +14,7 @@ export interface WhatsAppData {
  * Envía WhatsApp de bienvenida al migrante en USA
  */
 export async function sendWhatsAppMigrante(data: WhatsAppData) {
-  const companionName = data.companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
+  const companionName = data.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
   
   try {
     const response = await fetch(
@@ -60,7 +60,7 @@ export async function sendWhatsAppMigrante(data: WhatsAppData) {
  * Envía WhatsApp de bienvenida al usuario en México
  */
 export async function sendWhatsAppUsuarioMexico(data: WhatsAppData) {
-  const companionName = data.companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
+  const companionName = data.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
   
   try {
     const response = await fetch(
