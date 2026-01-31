@@ -685,7 +685,7 @@ export default function PaymentSuccessPage() {
           <div className="step-item">
             <div className="step-number">3</div>
             <div className="step-content">
-              <h4>{registrationData?.companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda'} llamará pronto</h4>
+              <h4>{registrationData?.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda'} llamará pronto</h4>
               <p>Nuestra compañera se presentará y explicará todos los beneficios.</p>
             </div>
           </div>

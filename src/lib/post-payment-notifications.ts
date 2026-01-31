@@ -23,7 +23,7 @@ export interface PostPaymentData {
   family_last_name: string;
   family_email?: string;        // Opcional
   family_phone: string;         // +52XXXXXXXXXX
-  companion_assigned: 'lupita' | 'fernanda';
+  family_companion_assigned: 'lupita' | 'fernanda';
 }
 
 /**
@@ -51,7 +51,7 @@ export async function sendPostPaymentNotifications(data: PostPaymentData) {
     migrant_first_name: data.migrant_first_name,
     family_first_name: data.family_first_name,
     family_code: data.family_code,
-    companion_assigned: data.companion_assigned,
+    family_companion_assigned: data.family_companion_assigned,
     phone_number: companionPhone,
   };
 
@@ -60,7 +60,7 @@ export async function sendPostPaymentNotifications(data: PostPaymentData) {
     migrant_first_name: data.migrant_first_name,
     family_first_name: data.family_first_name,
     family_code: data.family_code,
-    companion_assigned: data.companion_assigned,
+    family_companion_assigned: data.family_companion_assigned,
     phone_number: companionPhone,
     migrant_phone: data.migrant_phone,
     family_phone: data.family_phone,
@@ -171,7 +171,7 @@ export async function notifyPostPayment(registrationId: string, supabase: any) {
       family_last_name: registration.family_last_name,
       family_email: registration.family_email || undefined,
       family_phone: `${registration.family_country_code}${registration.family_phone}`,
-      companion_assigned: registration.companion_assigned,
+      family_companion_assigned: registration.family_companion_assigned,
     });
 
     return { success: true, results };

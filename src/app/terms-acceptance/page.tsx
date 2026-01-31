@@ -71,7 +71,11 @@ export default function TermsAcceptancePage() {
   const phone = isMigrant ? 
     `+1 ${userData.migrant_phone}` : 
     `+52 ${userData.family_phone}`;
-  const companionName = userData.companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
+
+  // ✅ Only show companion if user is from Mexico
+  const companionName = !isMigrant && userData.family_companion_assigned
+    ? (userData.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda')
+    : null;
 
   return (
     <>
@@ -249,10 +253,13 @@ export default function TermsAcceptancePage() {
               <span className="user-info-label">Teléfono:</span>
               <span className="user-info-value">{phone}</span>
             </div>
-            <div className="user-info-row">
-              <span className="user-info-label">Acompañante:</span>
-              <span className="user-info-value">{companionName}</span>
-            </div>
+            {/* ✅ Only show companion for Mexico user */}
+            {companionName && (
+              <div className="user-info-row">
+                <span className="user-info-label">Acompañante:</span>
+                <span className="user-info-value">{companionName}</span>
+              </div>
+            )}
           </div>
 
           <div className="terms-checkbox">
