@@ -69,7 +69,7 @@ export async function POST(request) {
     const response = await squareClient.checkoutApi.createPaymentLink({
       idempotencyKey: `reg-${registration_id}`, // No timestamp for proper idempotency
       order: {
-        locationId: process.env.SQUARE_LOCATION_ID!,
+        locationId: process.env.SQUARE_LOCATION_ID,
         lineItems: [
           {
             name: description || 'SaludCompartida - Plan Familiar',
