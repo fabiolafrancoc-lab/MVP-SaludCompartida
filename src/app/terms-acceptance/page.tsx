@@ -250,7 +250,7 @@ export default function TermsAcceptancePage() {
               <span className="user-info-value">{phone}</span>
             </div>
             <div className="user-info-row">
-              <span className="user-info-label">Companion:</span>
+              <span className="user-info-label">Acompañante:</span>
               <span className="user-info-value">{companionName}</span>
             </div>
           </div>

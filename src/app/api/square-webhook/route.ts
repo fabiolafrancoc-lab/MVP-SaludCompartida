@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
         
         if (registration) {
           // Update status to active
-          await supabase
+          const { error: updateError } = await supabase
             .from('registrations')
             .update({
               status: 'active',
@@ -46,6 +46,13 @@ export async function POST(request: NextRequest) {
               updated_at: new Date().toISOString(),
             })
             .eq('id', registration.id);
+          
+          if (updateError) {
+            console.error('❌ Failed to activate registration:', updateError);
+            return NextResponse.json({ 
+              error: 'Failed to activate registration' 
+            }, { status: 500 });
+          }
           
           console.log('✅ Registration activated', {
             registration_id: registration.id,
