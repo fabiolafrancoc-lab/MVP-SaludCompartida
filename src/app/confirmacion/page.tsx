@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 export default function PaymentSuccessPage() {
   const [registrationData, setRegistrationData] = useState<any>(null);
+  const [migrantCode, setMigrantCode] = useState('');
   const [familyCode, setFamilyCode] = useState('');
   const [showConfetti, setShowConfetti] = useState(true);
 
@@ -13,6 +14,7 @@ export default function PaymentSuccessPage() {
     if (data) {
       const parsed = JSON.parse(data);
       setRegistrationData(parsed);
+      setMigrantCode(parsed.migrant_code || 'XXXXXX');
       setFamilyCode(parsed.family_code || 'XXXXXX');
     }
 
@@ -544,7 +546,7 @@ export default function PaymentSuccessPage() {
       <nav className="nav">
         <div className="nav-inner">
           <img 
-            src="https://saludcompartida.com/saludcompartida-dark-no-tagline.png" 
+            src="/saludcompartida-dark-no-tagline.png" 
             alt="SaludCompartida" 
             className="nav-logo"
           />
@@ -622,7 +624,7 @@ export default function PaymentSuccessPage() {
             </div>
             <div className="code-display">
               <div className="code-label">Tu código de acceso</div>
-              <div className="code-value">{familyCode}</div>
+              <div className="code-value">{migrantCode}</div>
             </div>
             <div className="code-sent">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
