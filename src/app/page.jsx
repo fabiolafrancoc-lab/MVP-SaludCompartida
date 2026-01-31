@@ -1471,7 +1471,7 @@ export default function LandingPage() {
       <nav className={`nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-inner">
           <img 
-            src="https://saludcompartida.com/saludcompartida-dark-no-tagline.png" 
+            src="/saludcompartida-dark-no-tagline.png" 
             alt="SaludCompartida" 
             className="nav-logo"
           />
@@ -1547,96 +1547,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 1. Solution Section - 4 Pilares */}
-      <section className="solution-section" id="como-utilizar">
-        <div className="section-inner">
-          <div className="solution-header">
-            <div className="solution-label">Los 4 Pilares</div>
-            <h2 className="solution-title serif">Todo lo que tu familia necesita</h2>
-            <p className="solution-sub">Con $12 al mes, tu familia tiene acceso completo a:</p>
-          </div>
-          
-          <div className="pillars-grid">
-            <div className="pillar-card cyan">
-              <div className="pillar-number">PILAR 01</div>
-              <div className="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/></svg>
-              </div>
-              <h3 className="pillar-title">Atención Médica 24/7</h3>
-              <p className="pillar-desc">
-                En México, las familias que reciben remesas gastan de su bolsillo ~$6.3 billones anuales en salud. Nuestra misión es reducir ese gasto. Telemedicina ilimitada por video o teléfono, sin citas, sin esperas. A las 3 AM si es necesario.
-              </p>
-              <div className="pillar-highlight">
-                <strong>75%</strong> descuento en 1,700+ farmacias
-              </div>
-            </div>
-            
-            <div className="pillar-card gold">
-              <div className="pillar-number">PILAR 02</div>
-              <div className="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-              </div>
-              <h3 className="pillar-title">Terapia Psicológica</h3>
-              <p className="pillar-desc">
-                Sesiones semanales con psicólogos certificados. Para tu mamá que necesita hablar, para tu esposa que necesita apoyo, para quien más lo necesite.
-              </p>
-              <div className="pillar-highlight">
-                <strong>Ilimitada</strong> para toda la familia
-              </div>
-            </div>
-            
-            <div className="pillar-card green">
-              <div className="pillar-number">PILAR 03</div>
-              <div className="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </div>
-              <h3 className="pillar-title">Panel de Ahorros</h3>
-              <p className="pillar-desc">
-                Un panel mensual donde ves los ahorros reales que estás obteniendo al utilizar los servicios de SaludCompartida. Cada consulta, cada descuento, cada peso ahorrado. Sin sorpresas.
-              </p>
-              <div className="pillar-highlight">
-                <strong>$432</strong> ahorro promedio anual
-              </div>
-            </div>
-            
-            <div className="pillar-card magenta">
-              <div className="pillar-number">PILAR 04</div>
-              <div className="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-              </div>
-              <h3 className="pillar-title">Compañía</h3>
-              <p className="pillar-desc">
-                Lupita y Fernanda llaman a tu familia para platicar de lo que les gusta: recetas de cocina, qué tipo de baile prefieren, cómo pasan el fin de semana, cosas que les levanten el ánimo. Una amiga que siempre tiene tiempo.
-              </p>
-              <div className="pillar-highlight">
-                <strong>Proactivas</strong> — ellas llaman primero
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Video Section */}
-      <section className="video-section">
-        <div className="video-container">
-          <div className="video-header">
-            <h2 className="video-title serif">Por qué creamos SaludCompartida</h2>
-            <p className="video-subtitle">Escucha una conversación real con Lupita</p>
-          </div>
-          <div className="video-wrapper">
-            <video 
-              src="/Video_Pagina_copy.mp4"
-              controls
-              playsInline
-              preload="metadata"
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Pain Section - La verdad que nadie dice */}
-      <section className="pain-section" id="quienes-somos">
+      {/* 2. Pain Section - La verdad que nadie dice */}
+      <section className="pain-section" id="la-verdad">
         <div className="section-inner">
           <div className="pain-inner">
             <div className="pain-truth">
@@ -1694,20 +1606,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* CTA Intermedio - Antes de Lupita y Fernanda */}
-      <section className="cta-intermedio">
-        <div className="cta-intermedio-inner">
-          <h2 className="cta-intermedio-title serif">¿Listo para cuidar a tu familia?</h2>
-          <p className="cta-intermedio-text">Empieza hoy. Tu familia lo sentirá mañana.</p>
-          <a href="https://saludcompartida.app/subscribe" className="btn btn-primary btn-hero">
-            Quiero Contratar Ahora →
-          </a>
-        </div>
-      </section>
-
-      {/* 4. Companions Section - Lupita y Fernanda */}
+      {/* 3. Merged Section - Qué nos hace Únicos (Companions + Video) */}
       <section className="companions-section" id="que-nos-hace-unicos">
         <div className="companions-inner">
+          <h1 className="page-title" style={{fontSize: '52px', fontWeight: '800', textAlign: 'center', marginBottom: '24px'}}>Qué nos hace Únicos</h1>
+          
           <div className="companions-header">
             <div className="companions-badge">✨ Esto no es salud. Es conexión.</div>
             <h2 className="companions-title serif">
@@ -1752,11 +1655,106 @@ export default function LandingPage() {
             <p><strong>Ellas llaman a tu familia.</strong></p>
             <small>Tu familia no tiene que hacer nada. Solo contestar y platicar con una amiga.</small>
           </div>
+
+          {/* Video Section - Merged Inside */}
+          <div className="video-container" style={{marginTop: '60px'}}>
+            <div className="video-header">
+              <h2 className="video-title serif">Por qué creamos SaludCompartida</h2>
+              <p className="video-subtitle">Escucha una conversación real con Lupita</p>
+            </div>
+            <div className="video-wrapper">
+              <video 
+                src="/Video_Pagina_copy.mp4"
+                controls
+                playsInline
+                preload="metadata"
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+          </div>
+
+          {/* CTA after Video */}
+          <div className="cta-intermediate" style={{textAlign: 'center', marginTop: '40px'}}>
+            <a href="/subscribe" className="btn btn-primary btn-hero">
+              Quiero esto para mi familia →
+            </a>
+            <p style={{fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginTop: '12px'}}>
+              🔒 Activación inmediata • Cancela cuando quieras
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Solution Section - 4 Pilares */}
+      <section className="solution-section" id="pilares">
+        <div className="section-inner">
+          <div className="solution-header">
+            <h2 className="solution-title serif" style={{fontSize: '52px', fontWeight: '800'}}>Por qué SaludCompartida es tu solución</h2>
+            <p className="solution-sub" style={{fontSize: '28px'}}>Los 4 pilares de tu tranquilidad</p>
+          </div>
+          
+          <div className="pillars-grid">
+            <div className="pillar-card cyan">
+              <div className="pillar-number">PILAR 01</div>
+              <div className="pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/></svg>
+              </div>
+              <h3 className="pillar-title">Atención Médica 24/7</h3>
+              <p className="pillar-desc" style={{fontSize: '18px'}}>
+                En México, las familias que reciben remesas gastan de su bolsillo ~$6.3 billones anuales en salud. Nuestra misión es reducir ese gasto. Telemedicina ilimitada por video o teléfono, sin citas, sin esperas. A las 3 AM si es necesario.
+              </p>
+              <div className="pillar-highlight">
+                <strong>75%</strong> descuento en 1,700+ farmacias
+              </div>
+            </div>
+            
+            <div className="pillar-card gold">
+              <div className="pillar-number">PILAR 02</div>
+              <div className="pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              </div>
+              <h3 className="pillar-title">Terapia Psicológica</h3>
+              <p className="pillar-desc" style={{fontSize: '18px'}}>
+                Sesiones semanales con psicólogos certificados. Para tu mamá que necesita hablar, para tu esposa que necesita apoyo, para quien más lo necesite.
+              </p>
+              <div className="pillar-highlight">
+                <strong>Ilimitada</strong> para toda la familia
+              </div>
+            </div>
+            
+            <div className="pillar-card green">
+              <div className="pillar-number">PILAR 03</div>
+              <div className="pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <h3 className="pillar-title">Panel de Ahorros</h3>
+              <p className="pillar-desc" style={{fontSize: '18px'}}>
+                Un panel mensual donde ves los ahorros reales que estás obteniendo al utilizar los servicios de SaludCompartida. Cada consulta, cada descuento, cada peso ahorrado. Sin sorpresas.
+              </p>
+              <div className="pillar-highlight">
+                <strong>$432</strong> ahorro promedio anual
+              </div>
+            </div>
+            
+            <div className="pillar-card magenta">
+              <div className="pillar-number">PILAR 04</div>
+              <div className="pillar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <h3 className="pillar-title">Compañía</h3>
+              <p className="pillar-desc" style={{fontSize: '18px'}}>
+                Lupita y Fernanda llaman a tu familia para platicar de lo que les gusta: recetas de cocina, qué tipo de baile prefieren, cómo pasan el fin de semana, cosas que les levanten el ánimo. Una amiga que siempre tiene tiempo.
+              </p>
+              <div className="pillar-highlight">
+                <strong>Proactivas</strong> — ellas llaman primero
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* 5. Guides Section - Así de fácil funciona */}
-      <section className="guides-section" id="ver-como-funciona">
+      <section className="guides-section" id="como-funciona">
         <div className="guides-container">
           <div className="guides-header">
             <h2 className="guides-title serif">Así de fácil funciona</h2>
@@ -1781,8 +1779,72 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 6. Testimonials - Historias Reales */}
-      <section className="testimonials-section">
+      {/* 6. Nuevo - Último Empujón */}
+      <section className="ultimo-empujon" style={{
+        background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(236, 72, 153, 0.1))',
+        borderRadius: '32px',
+        padding: '60px 40px',
+        margin: '80px auto',
+        maxWidth: '1200px',
+        border: '2px solid var(--cyan)',
+        textAlign: 'center'
+      }}>
+        <div className="urgency-badge" style={{
+          display: 'inline-block',
+          background: '#EC4899',
+          color: 'white',
+          padding: '8px 24px',
+          borderRadius: '24px',
+          fontSize: '14px',
+          fontWeight: '700',
+          marginBottom: '24px'
+        }}>
+          🔥 Últimos espacios disponibles
+        </div>
+        
+        <h2 style={{fontSize: '42px', fontWeight: '800', marginBottom: '16px'}}>
+          Tu familia te lo agradecerá mañana
+        </h2>
+        
+        <p style={{fontSize: '20px', marginBottom: '32px', maxWidth: '700px', margin: '0 auto 32px'}}>
+          Únete a las 87 familias fundadoras que ya están cuidando a sus seres queridos desde hoy.
+        </p>
+        
+        <div className="benefits-quick" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '16px',
+          maxWidth: '800px',
+          margin: '0 auto 40px',
+          textAlign: 'left'
+        }}>
+          <div>✅ Activación inmediata (30 segundos)</div>
+          <div>✅ Doctor disponible 24/7</div>
+          <div>✅ Lupita llama esta semana</div>
+          <div>✅ $12/mes • Cancela cuando quieras</div>
+        </div>
+        
+        <a href="/subscribe" className="btn btn-primary btn-hero" style={{
+          display: 'inline-block',
+          padding: '16px 48px',
+          background: 'linear-gradient(135deg, #EC4899, #DB2777)',
+          color: 'white',
+          fontSize: '18px',
+          fontWeight: '700',
+          borderRadius: '12px',
+          textDecoration: 'none',
+          marginBottom: '16px'
+        }}>
+          Asegura tu lugar ahora →
+        </a>
+        
+        <p style={{fontSize: '14px', color: 'rgba(255,255,255,0.6)'}}>
+          🔒 Pago seguro • Sin contratos • Garantía 30 días
+        </p>
+      </section>
+
+      {/* 7. Testimonials - Historias Reales */}
+      <section className="testimonials-section" id="testimonios">
         <div className="testimonials-header">
           <div className="testimonials-label">Historias Reales</div>
           <h2 className="testimonials-title serif">Lo que dicen las familias</h2>
@@ -1845,12 +1907,13 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. Final CTA - Cuida a los que más quieres */}
+      {/* 8. Final CTA - Cuida a los que más quieres */}
       <section className="pricing-section" id="precio">
         <div className="pricing-inner">
           <div className="pricing-header">
-            <h2 className="pricing-title serif">Cuida a los que más quieres</h2>
-            <p className="pricing-subtitle">Todo lo que necesita tu familia por solo $12 al mes</p>
+            <h2 className="pricing-title serif">Inscríbete hoy y forma parte de las 100 familias que vamos a cuidar</h2>
+            <p className="pricing-subtitle">Cuida a los que más quieres</p>
+            <p className="pricing-subtitle">Todo lo que necesita tu familia por solo $12 al mes.</p>
           </div>
           
           <div className="pricing-card">
@@ -1907,7 +1970,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="footer">
         <img 
-          src="https://saludcompartida.com/saludcompartida-dark-no-tagline.png" 
+          src="/saludcompartida-dark-no-tagline.png" 
           alt="SaludCompartida" 
           className="footer-logo"
         />
