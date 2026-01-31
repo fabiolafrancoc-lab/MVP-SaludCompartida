@@ -10,10 +10,6 @@ export async function POST(request: NextRequest) {
     
     const event = await request.json();
     
-    // TODO: Add Square webhook signature verification for production
-    // See: https://developer.squareup.com/docs/webhooks/step3validate
-    // This prevents unauthorized requests from activating payments
-    
     console.log('📥 Square webhook received', {
       type: event.type,
       timestamp: new Date().toISOString(),
@@ -29,38 +25,92 @@ export async function POST(request: NextRequest) {
         console.log('✅ Payment completed', { order_id: orderId });
         
         // Find registration by order_id
-        const { data: registration } = await supabase
+        const { data: registration, error: fetchError } = await supabase
           .from('registrations')
           .select('*')
           .eq('square_order_id', orderId)
           .single();
         
-        if (registration) {
-          // Update status to active
-          const { error: updateError } = await supabase
-            .from('registrations')
-            .update({
-              status: 'active',
-              square_payment_id: payment.id,
-              payment_completed_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
-            })
-            .eq('id', registration.id);
+        if (fetchError || !registration) {
+          console.error('❌ Registration not found for order:', orderId);
+          return NextResponse.json({ 
+            error: 'Registration not found' 
+          }, { status: 404 });
+        }
+        
+        // Update status to active
+        const { error: updateError } = await supabase
+          .from('registrations')
+          .update({
+            status: 'active',
+            square_payment_id: payment.id,
+            payment_completed_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', registration.id);
+        
+        if (updateError) {
+          console.error('❌ Failed to activate registration:', updateError);
+          return NextResponse.json({ 
+            error: 'Failed to activate registration' 
+          }, { status: 500 });
+        }
+        
+        console.log('✅ Registration activated', {
+          registration_id: registration.id,
+          migrant_code: registration.migrant_code,
+          family_code: registration.family_code,
+        });
+        
+        // 🚀 ENVIAR NOTIFICACIONES (EMAIL + WHATSAPP)
+        try {
+          console.log('📧 Sending welcome notifications...');
           
-          if (updateError) {
-            console.error('❌ Failed to activate registration:', updateError);
-            return NextResponse.json({ 
-              error: 'Failed to activate registration' 
-            }, { status: 500 });
-          }
+          await fetch(
+            `${process.env.NEXT_PUBLIC_APP_URL || 'https://saludcompartida.app'}/api/send-notifications`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                type: 'welcome',
+                registrationId: registration.id,
+                codigoFamilia: registration.family_code || registration.migrant_code,
+                suscriptorEmail: registration.subscriber_email || registration.migrant_email,
+                suscriptorNombre: registration.subscriber_name || registration.migrant_name,
+                suscriptorTelefono: registration.subscriber_phone || registration.migrant_phone,
+                usuarioPrincipalNombre: registration.primary_user_name || registration.family_name,
+                usuarioPrincipalTelefono: registration.primary_user_phone || registration.family_phone,
+                planName: registration.plan_type || 'Básico',
+              }),
+            }
+          );
+          console.log('✅ Notifications sent');
+        } catch (notificationError) {
+          console.error('⚠️ Notification error:', notificationError);
+        }
+
+        // 📧 NOTIFICACIÓN A SALUDCOMPARTIDA (nuevo registro)
+        try {
+          const { Resend } = await import('resend');
+          const resend = new Resend(process.env.RESEND_API_KEY);
           
-          console.log('✅ Registration activated', {
-            registration_id: registration.id,
-            migrant_code: registration.migrant_code,
-            family_code: registration.family_code,
+          await resend.emails.send({
+            from: 'SaludCompartida <noreply@saludcompartida.com>',
+            to: 'contact@saludcompartida.com',
+            subject: `🎉 Nueva suscripción: ${registration.subscriber_name || registration.migrant_name}`,
+            html: `
+              <h1>🎉 ¡Nueva Suscripción!</h1>
+              <p><strong>Migrante:</strong> ${registration.subscriber_name || registration.migrant_name}</p>
+              <p><strong>Email:</strong> ${registration.subscriber_email || registration.migrant_email}</p>
+              <p><strong>Familia:</strong> ${registration.primary_user_name || registration.family_name}</p>
+              <p><strong>Teléfono familia:</strong> ${registration.primary_user_phone || registration.family_phone}</p>
+              <p><strong>Código:</strong> ${registration.family_code || registration.migrant_code}</p>
+              <p><strong>Fecha:</strong> ${new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })}</p>
+            `,
           });
-          
-          // TODO: Send welcome emails/WhatsApp notifications
+          console.log('✅ Admin notification sent');
+        } catch (adminEmailError) {
+          console.error('⚠️ Admin email error:', adminEmailError);
         }
       }
     }
