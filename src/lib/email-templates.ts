@@ -4,7 +4,7 @@ export interface EmailData {
   migrant_first_name: string;
   family_first_name: string;
   family_code: string;
-  companion_assigned: 'lupita' | 'fernanda';
+  family_companion_assigned: 'lupita' | 'fernanda';
   phone_number: string; // Número de teléfono para llamar a la compañera
 }
 
@@ -12,8 +12,8 @@ export interface EmailData {
 // EMAIL 1: MIGRANTE EN USA (Titular/Suscriptor)
 // ============================================
 export const emailMigranteTemplate = (data: EmailData) => {
-  const companionName = data.companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
-  const companionAge = data.companion_assigned === 'lupita' ? '55+' : '25-54';
+  const companionName = data.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
+  const companionAge = data.family_companion_assigned === 'lupita' ? '55+' : '25-54';
   
   return {
     subject: `¡Bienvenido a SaludCompartida! ${data.family_first_name} ahora tiene a ${companionName}`,
@@ -256,8 +256,8 @@ Gracias por confiar en SaludCompartida.
 // EMAIL 2: USUARIO EN MÉXICO (Beneficiario)
 // ============================================
 export const emailUsuarioMexicoTemplate = (data: EmailData) => {
-  const companionName = data.companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
-  const companionDescription = data.companion_assigned === 'lupita' 
+  const companionName = data.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
+  const companionDescription = data.family_companion_assigned === 'lupita' 
     ? 'especializada en adultos mayores de 55 años' 
     : 'especializada en adultos de 25 a 54 años';
   
