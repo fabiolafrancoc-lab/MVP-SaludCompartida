@@ -238,6 +238,11 @@ export default function RegistrationPage() {
         }),
       });
 
+      if (!checkoutResponse.ok) {
+        const errorData = await checkoutResponse.json().catch(() => ({ error: 'Network error' }));
+        throw new Error(errorData.error || 'Error creating checkout');
+      }
+
       const checkoutData = await checkoutResponse.json();
 
       if (!checkoutData.success) {
@@ -1025,7 +1030,7 @@ export default function RegistrationPage() {
                       const companionName = age >= 55 ? 'Lupita' : 'Fernanda';
                       return (
                         <span style={{ display: 'block', marginTop: '8px', color: 'var(--magenta)', fontWeight: 600 }}>
-                          Su companion será: {companionName}
+                          Su acompañante será: {companionName}
                         </span>
                       );
                     })()}

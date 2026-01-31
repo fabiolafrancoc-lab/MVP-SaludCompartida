@@ -95,13 +95,18 @@ export async function POST(request: NextRequest) {
     }
     
     // Save Square order_id to registration
-    await supabase
+    const { error: updateError } = await supabase
       .from('registrations')
       .update({ 
         square_order_id: orderId,
         updated_at: new Date().toISOString(),
       })
       .eq('id', registration_id);
+    
+    if (updateError) {
+      console.error('Failed to save order_id:', updateError);
+      throw new Error('Failed to save payment tracking');
+    }
     
     console.log('✅ Square checkout created', {
       registration_id,
