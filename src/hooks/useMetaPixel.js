@@ -57,9 +57,5 @@ export const trackEvent = (eventName, data = {}) => {
     window.fbq('track', eventName, data);
     console.log('📊 Meta Pixel Event:', eventName, data);
   }
-    
-    window.ttq.track(tiktokEvent, enrichedData);
-    console.log('📊 TikTok Pixel Event:', tiktokEvent, enrichedData);
-  }
 };
 
