@@ -2,14 +2,12 @@ import { NextResponse } from 'next/server';
 import { Client, Environment } from 'square';
 import { createClient } from '@supabase/supabase-js';
 
-export async function POST(request) {
+export async function POST(request: Request) {
   const startTime = Date.now();
   
   try {
-    // Initialize Square client inside the function
     const squareEnvironment = process.env.SQUARE_ENVIRONMENT;
     
-    // Validate environment variable
     if (squareEnvironment !== 'sandbox' && squareEnvironment !== 'production') {
       console.error('❌ Invalid SQUARE_ENVIRONMENT:', squareEnvironment);
       return NextResponse.json({
@@ -36,7 +34,6 @@ export async function POST(request) {
       timestamp: new Date().toISOString(),
     });
     
-    // Validate amount is exactly $12.00
     if (amount !== 1200) {
       return NextResponse.json({
         success: false,
@@ -44,7 +41,6 @@ export async function POST(request) {
       }, { status: 400 });
     }
     
-    // Verify registration exists and is not already paid
     const { data: registration, error: fetchError } = await supabase
       .from('registrations')
       .select('status')
@@ -65,7 +61,6 @@ export async function POST(request) {
       }, { status: 400 });
     }
     
-    // Create Square payment link
     const response = await squareClient.checkoutApi.createPaymentLink({
       idempotencyKey: `reg-${registration_id}-${Date.now()}`,
       order: {
@@ -94,7 +89,6 @@ export async function POST(request) {
       throw new Error('No checkout URL received from Square');
     }
     
-    // Save Square order_id to registration
     const { error: updateError } = await supabase
       .from('registrations')
       .update({ 
@@ -120,16 +114,19 @@ export async function POST(request) {
       orderId: orderId,
     });
     
-  } catch (error) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorStack = error instanceof Error ? error.stack : '';
+    
     console.error('❌ Square checkout failed', {
-      error: error.message,
-      stack: error.stack,
+      error: errorMessage,
+      stack: errorStack,
       duration_ms: Date.now() - startTime,
     });
     
     return NextResponse.json({
       success: false,
-      error: error.message || 'Internal server error',
+      error: errorMessage || 'Internal server error',
     }, { status: 500 });
   }
 }
