@@ -218,6 +218,8 @@ function RegistroSimpleContent() {
         });
 
         const data = await response.json();
+        
+        console.log('🔍 Response completa:', response.status, data);
 
         if (data.success) {
           // Actualizar registro
@@ -233,6 +235,7 @@ function RegistroSimpleContent() {
           // Redirigir
           router.push(`/dashboard?nuevo=true`);
         } else {
+          console.error('❌ Error de Square:', data.error);
           throw new Error(data.error || 'Error procesando pago');
         }
       } else {
