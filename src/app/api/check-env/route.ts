@@ -1,13 +1,23 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
 // API temporal para verificar qué variables existen en Vercel
-export async function GET() {
+export async function GET(request: NextRequest) {
   return NextResponse.json({
-    square_access_token_exists: !!process.env.SQUARE_ACCESS_TOKEN,
-    square_location_id_exists: !!process.env.SQUARE_LOCATION_ID,
-    square_access_token_length: process.env.SQUARE_ACCESS_TOKEN?.length || 0,
-    square_access_token_preview: process.env.SQUARE_ACCESS_TOKEN?.substring(0, 10) || 'MISSING',
-    next_public_square_app_id: process.env.NEXT_PUBLIC_SQUARE_APP_ID || 'MISSING',
-    next_public_square_location_id: process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || 'MISSING',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'unknown',
+    square_variables: {
+      SQUARE_ACCESS_TOKEN: process.env.SQUARE_ACCESS_TOKEN ? `✅ Definida (${process.env.SQUARE_ACCESS_TOKEN.substring(0, 10)}...)` : '❌ NO DEFINIDA',
+      SQUARE_LOCATION_ID: process.env.SQUARE_LOCATION_ID || '❌ NO DEFINIDA',
+      NEXT_PUBLIC_SQUARE_APP_ID: process.env.NEXT_PUBLIC_SQUARE_APP_ID || '❌ NO DEFINIDA',
+      NEXT_PUBLIC_SQUARE_LOCATION_ID: process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || '❌ NO DEFINIDA',
+    },
+    diagnosis: [
+      process.env.SQUARE_ACCESS_TOKEN ? '✅ Backend tiene token de Square' : '🚨 CRÍTICO: SQUARE_ACCESS_TOKEN faltante en Vercel',
+      process.env.SQUARE_LOCATION_ID ? '✅ Backend tiene Location ID' : '🚨 CRÍTICO: SQUARE_LOCATION_ID faltante en Vercel',
+      process.env.NEXT_PUBLIC_SQUARE_APP_ID ? '✅ Frontend tiene App ID' : '🚨 CRÍTICO: NEXT_PUBLIC_SQUARE_APP_ID faltante en Vercel',
+      process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID ? '✅ Frontend tiene Location ID' : '🚨 CRÍTICO: NEXT_PUBLIC_SQUARE_LOCATION_ID faltante en Vercel',
+    ]
   });
 }
+
+export const dynamic = 'force-dynamic';
