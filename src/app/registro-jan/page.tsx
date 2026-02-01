@@ -228,7 +228,7 @@ export default function RegistrationPage() {
       }));
 
       // Call API to create Square checkout
-      const checkoutResponse = await fetch('/api/create-square-checkout', {
+      const checkoutResponse = await fetch('/api/square-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
