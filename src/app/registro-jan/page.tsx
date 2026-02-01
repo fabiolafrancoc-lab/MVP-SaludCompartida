@@ -1,16 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef, Suspense } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import Image from 'next/image';
-
-// Square Web Payments SDK types
-declare global {
-  interface Window {
-    Square: any;
-  }
-}
 
 // Supabase client
 const supabase = createClient(
@@ -18,7 +9,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 );
 
-// Generar código de familia
+// Función para generar código de familia único (6 dígitos alfanuméricos, SIN prefijo)
 function generateFamilyCode(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   let code = '';
@@ -28,7 +19,7 @@ function generateFamilyCode(): string {
   return code;
 }
 
-// Determinar companion
+// Función para determinar companion (Lupita 55+ / Fernanda 25-50)
 function determineCompanion(fechaNacimiento: string): 'lupita' | 'fernanda' {
   const birthDate = new Date(fechaNacimiento);
   const today = new Date();
@@ -36,19 +27,26 @@ function determineCompanion(fechaNacimiento: string): 'lupita' | 'fernanda' {
   return age >= 55 ? 'lupita' : 'fernanda';
 }
 
-function RegistroSimpleContent() {
-  const router = useRouter();
+// Función para validar edad (18+)
+function validateAge(birthdate: string): boolean {
+  const birth = new Date(birthdate);
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const monthDiff = today.getMonth() - birth.getMonth();
   
-  const [step, setStep] = useState(1); // 1=datos, 2=pago
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+  
+  return age >= 18;
+}
+
+export default function RegistrationPage() {
+  const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [squareLoaded, setSquareLoaded] = useState(false);
   const [error, setError] = useState('');
-  const cardContainerRef = useRef<HTMLDivElement>(null);
-  const [card, setCard] = useState<any>(null);
-  const [registrationId, setRegistrationId] = useState('');
-  
   const [formData, setFormData] = useState({
-    // Migrante USA
+    // Migrante USA - nombres exactos de Supabase
     migrant_first_name: '',
     migrant_last_name: '',
     migrant_mother_last_name: '',
@@ -56,7 +54,7 @@ function RegistroSimpleContent() {
     migrant_birthdate: '',
     migrant_email: '',
     migrant_phone: '',
-    // Familia México
+    // Usuario México - nombres exactos de Supabase
     family_first_name: '',
     family_last_name: '',
     family_mother_last_name: '',
@@ -64,546 +62,1380 @@ function RegistroSimpleContent() {
     family_birthdate: '',
     family_email: '',
     family_phone: '',
+    // Términos
     terms_accepted: false,
   });
 
-  // Cargar Square cuando pasamos a step 2
-  useEffect(() => {
-    if (step !== 2) return;
-
-    const loadSquareSDK = async () => {
-      try {
-        if (!window.Square) {
-          const script = document.createElement('script');
-          script.src = 'https://web.squarecdn.com/v1/square.js';
-          script.async = false;
-          script.onload = () => {
-            console.log('✅ Square SDK cargado');
-            setTimeout(() => initializeSquare(), 500);
-          };
-          script.onerror = () => {
-            setError('Error cargando el sistema de pago. Recarga la página.');
-          };
-          document.body.appendChild(script);
-        } else {
-          initializeSquare();
-        }
-      } catch (error) {
-        console.error('Error cargando Square SDK:', error);
-      }
-    };
-
-    const initializeSquare = async () => {
-      try {
-        if (!window.Square) return;
-
-        const appId = process.env.NEXT_PUBLIC_SQUARE_APP_ID;
-        const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID;
-
-        if (!appId || !locationId) {
-          setError('Sistema de pago no configurado');
-          return;
-        }
-
-        const payments = window.Square.payments(appId, locationId);
-        const cardInstance = await payments.card();
-        await cardInstance.attach('#card-container');
-        
-        setCard(cardInstance);
-        setSquareLoaded(true);
-        console.log('✅ Square listo');
-      } catch (error) {
-        console.error('❌ Error inicializando Square:', error);
-        setError('Error iniciando sistema de pago');
-      }
-    };
-
-    loadSquareSDK();
-  }, [step]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
     
-    if (type === 'checkbox') {
-      setFormData(prev => ({ ...prev, [name]: (e.target as HTMLInputElement).checked }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+    // Formatear teléfono USA: (555) 123-4567
+    if (name === 'migrant_phone') {
+      const cleaned = value.replace(/\D/g, '').slice(0, 10);
+      let formatted = '';
+      if (cleaned.length > 0) {
+        formatted = '(' + cleaned.slice(0, 3);
+      }
+      if (cleaned.length > 3) {
+        formatted += ') ' + cleaned.slice(3, 6);
+      }
+      if (cleaned.length > 6) {
+        formatted += '-' + cleaned.slice(6, 10);
+      }
+      setFormData(prev => ({ ...prev, [name]: formatted }));
+      return;
     }
+    
+    // Formatear teléfono México: 55 1234 5678
+    if (name === 'family_phone') {
+      const cleaned = value.replace(/\D/g, '').slice(0, 10);
+      let formatted = '';
+      if (cleaned.length > 0) {
+        formatted = cleaned.slice(0, 2);
+      }
+      if (cleaned.length > 2) {
+        formatted += ' ' + cleaned.slice(2, 6);
+      }
+      if (cleaned.length > 6) {
+        formatted += ' ' + cleaned.slice(6, 10);
+      }
+      setFormData(prev => ({ ...prev, [name]: formatted }));
+      return;
+    }
+    
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // Submit datos de registro
-  const handleSubmitDatos = async (e: React.FormEvent) => {
+  const handleNextStep = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setStep(2);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsSubmitting(true);
+    setError('');
 
     try {
-      // Validaciones
-      if (!formData.terms_accepted) {
-        throw new Error('Debes aceptar los términos');
+      // Validate age 18+
+      if (!validateAge(formData.migrant_birthdate)) {
+        setError('El migrante debe ser mayor de 18 años');
+        setIsSubmitting(false);
+        return;
       }
 
-      // Generar código y companion
-      const codigoFamilia = generateFamilyCode();
-      const companion = determineCompanion(formData.family_birthdate);
+      if (!validateAge(formData.family_birthdate)) {
+        setError('El usuario en México debe ser mayor de 18 años');
+        setIsSubmitting(false);
+        return;
+      }
 
-      // Guardar en Supabase
-      const { data, error: dbError } = await supabase
+      // Validate emails
+      const emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+      if (!emailRegex.test(formData.migrant_email)) {
+        setError('Email del migrante inválido');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!emailRegex.test(formData.family_email)) {
+        setError('Email del usuario en México inválido');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Generate 2 unique codes with safety counter
+      let migrant_code = generateFamilyCode();
+      let family_code = generateFamilyCode();
+      let attempts = 0;
+      const maxAttempts = 10;
+
+      // Ensure they're different
+      while (migrant_code === family_code && attempts < maxAttempts) {
+        family_code = generateFamilyCode();
+        attempts++;
+      }
+      
+      if (migrant_code === family_code) {
+        throw new Error('Unable to generate unique codes');
+      }
+      
+      // Limpiar teléfonos (solo números)
+      const migrant_phone_clean = formData.migrant_phone.replace(/\D/g, '');
+      const family_phone_clean = formData.family_phone.replace(/\D/g, '');
+      
+      // Determinar companion según edad del usuario en México
+      const family_companion_assigned = determineCompanion(formData.family_birthdate);
+
+      // Guardar en tabla REGISTRATIONS - nombres EXACTOS de columnas Supabase
+      const { data: registrationData, error: registrationError } = await supabase
         .from('registrations')
-        .insert([{
-          // Migrante
+        .insert({
+          // Códigos (2 different codes)
+          migrant_code: migrant_code,
+          family_code: family_code,
+          
+          // Datos del migrante (USA)
           migrant_first_name: formData.migrant_first_name,
           migrant_last_name: formData.migrant_last_name,
-          migrant_mother_last_name: formData.migrant_mother_last_name,
+          migrant_mother_last_name: formData.migrant_mother_last_name || null,
           migrant_sex: formData.migrant_sex,
           migrant_birthdate: formData.migrant_birthdate,
           migrant_email: formData.migrant_email,
-          migrant_phone: formData.migrant_phone,
-          // Familia
+          migrant_country_code: '+1',
+          migrant_phone: migrant_phone_clean,
+          
+          // Datos del usuario en México
           family_first_name: formData.family_first_name,
           family_last_name: formData.family_last_name,
-          family_mother_last_name: formData.family_mother_last_name,
+          family_mother_last_name: formData.family_mother_last_name || null,
           family_sex: formData.family_sex,
           family_birthdate: formData.family_birthdate,
           family_email: formData.family_email,
-          family_phone: formData.family_phone,
-          // Sistema
-          family_code: codigoFamilia,
-          family_companion_assigned: companion,
+          family_country_code: '+52',
+          family_phone: family_phone_clean,
+          family_country: 'MX',
+          
+          // Companion asignado
+          family_companion_assigned: family_companion_assigned,
+          
+          // Status y términos
           status: 'pending_payment',
-          terms_accepted: true,
+          terms_accepted: formData.terms_accepted,
           terms_accepted_at: new Date().toISOString(),
-        }])
+          
+          created_at: new Date().toISOString(),
+        })
         .select()
         .single();
 
-      if (dbError) throw dbError;
+      if (registrationError) throw registrationError;
 
-      setRegistrationId(data.id);
-      setStep(2); // Ir a pago
+      // Guardar en sessionStorage para /confirmacion y /dashboard
+      sessionStorage.setItem('registrationData', JSON.stringify({
+        registration_id: registrationData.id,
+        migrant_code: migrant_code,
+        family_code: family_code,
+        family_companion_assigned: family_companion_assigned,
+        // Para WATI: +1 + número limpio
+        migrant_phone_full: `+1${migrant_phone_clean}`,
+        // Para WATI: +52 + número limpio  
+        family_phone_full: `+52${family_phone_clean}`,
+        // Datos adicionales para dashboard
+        migrant_first_name: formData.migrant_first_name,
+        family_first_name: formData.family_first_name,
+      }));
+
+      // ✅ REDIRIGIR A PÁGINA DE PAGO CON FORMULARIO DE TARJETA
+      window.location.href = `/pago?id=${registrationData.id}`;
+
     } catch (err: any) {
       console.error('Error en registro:', err);
-      setError(err.message || 'Error guardando datos');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // Procesar pago
-  const handlePayment = async () => {
-    if (!card) {
-      setError('El sistema de pago no está listo');
-      return;
-    }
-
-    setIsSubmitting(true);
-    setError('');
-
-    try {
-      // Tokenizar tarjeta
-      const result = await card.tokenize();
-      
-      if (result.status === 'OK') {
-        // Enviar al backend
-        const response = await fetch('/api/square-payment', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            sourceId: result.token,
-            amount: 1200,
-            currency: 'USD',
-            description: 'SaludCompartida - Plan Familiar',
-            registrationId: registrationId,
-          }),
-        });
-
-        const data = await response.json();
-        
-        console.log('🔍 Response completa:', response.status, data);
-        console.log('🔍 Data.success:', data.success);
-        console.log('🔍 Data.error:', data.error);
-        console.log('🔍 Data completo:', JSON.stringify(data, null, 2));
-
-        if (data.success) {
-          // Actualizar registro
-          await supabase
-            .from('registrations')
-            .update({
-              status: 'active',
-              square_payment_id: data.data.id,
-              payment_completed_at: new Date().toISOString(),
-            })
-            .eq('id', registrationId);
-
-          // Redirigir
-          router.push(`/dashboard?nuevo=true`);
-        } else {
-          console.error('❌ Error de Square:', data.error);
-          throw new Error(data.error || 'Error procesando pago');
-        }
-      } else {
-        setError('Verifica los datos de tu tarjeta');
-        setIsSubmitting(false);
-      }
-    } catch (err: any) {
-      console.error('❌ Error en pago:', err);
-      setError(err.message || 'Error procesando el pago');
+      setError(err.message || 'Ocurrió un error. Por favor intenta de nuevo.');
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      {/* Header */}
-      <nav className="bg-gray-900/80 backdrop-blur-sm border-b border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 py-3">
-          <Image 
+    <>
+      <style jsx global>{`
+        :root {
+          --bg-dark: #0a0a0a;
+          --bg-light: #1a1a2E;
+          --cyan: #0EA5E9;
+          --cyan-deep: #0284C7;
+          --cyan-glow: rgba(14, 165, 233, 0.12);
+          --magenta: #EC4899;
+          --magenta-deep: #DB2777;
+          --magenta-glow: rgba(236, 72, 153, 0.12);
+          --navy: #0a0a0a;
+          --navy-light: #12121f;
+          --navy-card: #16162a;
+          --green: #10B981;
+          --text-primary: #FFFFFF;
+          --text-secondary: rgba(255, 255, 255, 0.75);
+          --text-muted: rgba(255, 255, 255, 0.5);
+        }
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          font-family: 'DM Sans', -apple-system, sans-serif;
+          background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2E 100%);
+          background-attachment: fixed;
+          color: var(--text-primary);
+          -webkit-font-smoothing: antialiased;
+          line-height: 1.6;
+          min-height: 100vh;
+        }
+
+        .serif {
+          font-family: 'Instrument Serif', Georgia, serif;
+        }
+
+        /* Navigation */
+        .nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 1000;
+          padding: 16px 20px;
+          background: #0a0a0a;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-inner {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .nav-logo {
+          height: 36px;
+        }
+
+        .nav-help {
+          font-size: 14px;
+          color: var(--text-secondary);
+        }
+
+        .nav-help a {
+          color: var(--cyan);
+          text-decoration: none;
+        }
+
+        /* Registration Container */
+        .registration {
+          min-height: 100vh;
+          padding: 100px 20px 60px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .registration-wrapper {
+          display: grid;
+          gap: 48px;
+          width: 100%;
+          max-width: 1100px;
+          align-items: center;
+        }
+
+        @media (min-width: 900px) {
+          .registration-wrapper {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        .registration-image {
+          display: none;
+        }
+
+        @media (min-width: 900px) {
+          .registration-image {
+            display: block;
+          }
+        }
+
+        .registration-image img {
+          width: 100%;
+          height: 500px;
+          object-fit: cover;
+          border-radius: 24px;
+          box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+        }
+
+        .registration-image-caption {
+          text-align: center;
+          margin-top: 16px;
+          font-size: 15px;
+          color: var(--text-secondary);
+          font-style: italic;
+        }
+
+        .registration-container {
+          width: 100%;
+          max-width: 600px;
+        }
+
+        /* Progress Steps */
+        .progress-container {
+          margin-bottom: 40px;
+        }
+
+        .progress-steps {
+          display: flex;
+          justify-content: center;
+          gap: 12px;
+          margin-bottom: 16px;
+        }
+
+        .progress-step {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .progress-dot {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 14px;
+          transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+          background: var(--magenta);
+          color: white;
+        }
+
+        .progress-dot.completed {
+          background: var(--green);
+          color: white;
+        }
+
+        .progress-dot.inactive {
+          background: var(--navy-card);
+          color: var(--text-muted);
+          border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .progress-label {
+          font-size: 14px;
+          color: var(--text-secondary);
+          display: none;
+        }
+
+        @media (min-width: 480px) {
+          .progress-label {
+            display: block;
+          }
+        }
+
+        .progress-line {
+          width: 60px;
+          height: 2px;
+          background: rgba(255,255,255,0.1);
+          margin: 0 8px;
+        }
+
+        .progress-line.active {
+          background: var(--green);
+        }
+
+        .progress-text {
+          text-align: center;
+          font-size: 14px;
+          color: var(--text-muted);
+        }
+
+        /* Form Card */
+        .form-card {
+          background: var(--navy-card);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 24px;
+          padding: 40px 32px;
+        }
+
+        @media (max-width: 480px) {
+          .form-card {
+            padding: 32px 20px;
+          }
+        }
+
+        .form-header {
+          text-align: center;
+          margin-bottom: 32px;
+        }
+
+        .form-icon {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 20px;
+          font-size: 32px;
+        }
+
+        .form-icon.usa {
+          background: rgba(14, 165, 233, 0.15);
+        }
+
+        .form-icon.mexico {
+          background: rgba(16, 185, 129, 0.15);
+        }
+
+        .form-title {
+          font-size: 28px;
+          margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+          font-size: 16px;
+          color: var(--text-secondary);
+        }
+
+        /* Form Fields */
+        .form-section {
+          margin-bottom: 28px;
+        }
+
+        .form-section-title {
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: var(--cyan);
+          margin-bottom: 16px;
+        }
+
+        .form-row {
+          display: grid;
+          gap: 16px;
+          margin-bottom: 16px;
+        }
+
+        .form-row.two-col {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .form-row.three-col {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        @media (max-width: 480px) {
+          .form-row.two-col,
+          .form-row.three-col {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .form-label {
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--text-secondary);
+          display: flex;
+          align-items: center;
+        }
+
+        .form-label .required {
+          color: var(--magenta);
+        }
+
+        .form-input,
+        .form-select {
+          width: 100%;
+          padding: 14px 16px;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 12px;
+          color: var(--text-primary);
+          font-size: 16px;
+          font-family: inherit;
+          transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+          outline: none;
+          border-color: var(--cyan);
+          background: rgba(255,255,255,0.06);
+        }
+
+        .form-input::placeholder {
+          color: var(--text-muted);
+        }
+
+        .form-select {
+          cursor: pointer;
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 12px center;
+          padding-right: 44px;
+        }
+
+        .form-select option {
+          background: var(--navy-card);
+          color: var(--text-primary);
+        }
+
+        /* Phone Input with Flag */
+        .phone-input-container {
+          position: relative;
+        }
+
+        .phone-flag {
+          position: absolute;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: var(--text-muted);
+          font-size: 14px;
+        }
+
+        .phone-input {
+          padding-left: 80px !important;
+        }
+
+        .phone-hint {
+          font-size: 12px;
+          color: var(--text-muted);
+          margin-top: 6px;
+        }
+
+        .phone-hint strong {
+          color: var(--text-secondary);
+        }
+
+        .phone-example {
+          color: var(--cyan);
+          font-family: monospace;
+          background: rgba(14, 165, 233, 0.1);
+          padding: 2px 6px;
+          border-radius: 4px;
+        }
+
+        .phone-note {
+          font-size: 11px;
+          color: var(--gold);
+          margin-top: 4px;
+          font-style: italic;
+        }
+
+        /* WhatsApp Icon */
+        .whatsapp-icon {
+          width: 18px;
+          height: 18px;
+          vertical-align: middle;
+          margin-right: 6px;
+        }
+
+        /* Terms Checkbox */
+        .terms-checkbox {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          padding: 16px;
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 12px;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+          width: 20px;
+          height: 20px;
+          margin-top: 2px;
+          accent-color: var(--magenta);
+          cursor: pointer;
+          flex-shrink: 0;
+        }
+
+        .terms-label {
+          font-size: 14px;
+          color: var(--text-secondary);
+          line-height: 1.5;
+        }
+
+        .terms-label a {
+          color: var(--cyan);
+          text-decoration: none;
+        }
+
+        .terms-label a:hover {
+          text-decoration: underline;
+        }
+
+        .terms-label .required {
+          color: var(--magenta);
+        }
+
+        /* Date Input */
+        .date-input {
+          position: relative;
+        }
+
+        .date-input::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+          cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 16px 32px;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 700;
+          text-decoration: none;
+          transition: all 0.3s;
+          cursor: pointer;
+          border: none;
+          font-family: inherit;
+          width: 100%;
+        }
+
+        .btn-primary {
+          background: var(--magenta);
+          color: white;
+          box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        .btn-primary:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        .btn-secondary {
+          background: transparent;
+          color: var(--text-secondary);
+          border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-secondary:hover {
+          border-color: rgba(255,255,255,0.2);
+          color: var(--text-primary);
+        }
+
+        .form-actions {
+          display: flex;
+          gap: 12px;
+          margin-top: 32px;
+        }
+
+        .form-actions .btn {
+          flex: 1;
+        }
+
+        /* Security Note */
+        .security-note {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 24px;
+          font-size: 13px;
+          color: var(--text-muted);
+        }
+
+        .security-note svg {
+          width: 16px;
+          height: 16px;
+          color: var(--green);
+        }
+
+        /* Error Message */
+        .error-message {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 14px 18px;
+          background: rgba(239, 68, 68, 0.1);
+          border: 1px solid rgba(239, 68, 68, 0.3);
+          border-radius: 12px;
+          margin-top: 16px;
+        }
+
+        .error-message svg {
+          width: 20px;
+          height: 20px;
+          color: #EF4444;
+          flex-shrink: 0;
+        }
+
+        .error-message span {
+          font-size: 14px;
+          color: #FCA5A5;
+        }
+
+        /* Footer Note */
+        .footer-note {
+          text-align: center;
+          margin-top: 32px;
+          font-size: 14px;
+          color: var(--text-muted);
+        }
+
+        .footer-note a {
+          color: var(--cyan);
+          text-decoration: none;
+        }
+
+        .footer-note a:hover {
+          text-decoration: underline;
+        }
+
+        /* ================================ */
+        /* INTRO SECTION - Hero Emocional */
+        /* ================================ */
+        .intro-section {
+          max-width: 900px;
+          margin: 120px auto 60px;
+          padding: 0 20px;
+          text-align: center;
+        }
+
+        .intro-pretext {
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--cyan);
+          margin-bottom: 16px;
+        }
+
+        .intro-title {
+          font-size: 42px;
+          line-height: 1.2;
+          margin-bottom: 24px;
+          color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+          .intro-title {
+            font-size: 32px;
+          }
+        }
+
+        .intro-title .highlight {
+          background: linear-gradient(135deg, var(--magenta) 0%, var(--cyan) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .intro-subtitle {
+          font-size: 18px;
+          line-height: 1.7;
+          color: var(--text-secondary);
+          margin-bottom: 48px;
+          max-width: 700px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .intro-subtitle strong {
+          color: var(--text-primary);
+          font-weight: 600;
+        }
+
+        /* Signatures Section */
+        .signatures-section {
+          margin: 48px 0;
+          padding: 40px 20px;
+          background: rgba(255, 255, 255, 0.02);
+          border-radius: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .signatures-title {
+          font-size: 16px;
+          color: var(--text-secondary);
+          margin-bottom: 32px;
+          font-style: italic;
+        }
+
+        .signatures-cloud {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 20px 30px;
+          min-height: 200px;
+        }
+
+        .signature {
+          display: inline-block;
+          padding: 8px 16px;
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: 8px;
+          transition: all 0.3s;
+          cursor: default;
+        }
+
+        .signature:hover {
+          transform: scale(1.05);
+          background: rgba(255, 255, 255, 0.06);
+        }
+
+        .sig-child {
+          font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+          transform: rotate(-2deg);
+          font-weight: 700;
+        }
+
+        .sig-elder {
+          font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+          font-style: italic;
+          font-weight: 400;
+          transform: rotate(1deg);
+        }
+
+        /* Benefits Tags */
+        .intro-benefits {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 12px;
+          margin: 40px 0;
+        }
+
+        .benefit-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 20px;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          font-size: 15px;
+          color: var(--text-primary);
+          font-weight: 500;
+          transition: all 0.3s;
+        }
+
+        .benefit-tag:hover {
+          background: rgba(255, 255, 255, 0.08);
+          transform: translateY(-2px);
+        }
+
+        /* Badges */
+        .intro-badges {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 16px;
+          margin-top: 32px;
+        }
+
+        .badge-urgency,
+        .badge-price {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 14px 24px;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 700;
+        }
+
+        .badge-urgency {
+          background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+          color: white;
+          box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+          animation: pulse 2s ease-in-out infinite;
+        }
+
+        .badge-price {
+          background: linear-gradient(135deg, var(--green) 0%, #059669 100%);
+          color: white;
+          box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.05);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .intro-section {
+            margin-top: 100px;
+          }
+          
+          .signatures-cloud {
+            gap: 15px 20px;
+          }
+          
+          .signature {
+            font-size: 14px !important;
+          }
+          
+          .intro-benefits {
+            gap: 8px;
+          }
+          
+          .benefit-tag {
+            font-size: 13px;
+            padding: 10px 16px;
+          }
+        }
+      `}</style>
+
+      {/* Navigation */}
+      <nav className="nav">
+        <div className="nav-inner">
+          <img 
             src="/saludcompartida-dark-no-tagline.png" 
             alt="SaludCompartida" 
-            width={180} 
-            height={40}
-            className="h-10 w-auto"
+            className="nav-logo"
           />
+          <div className="nav-help">
+            ¿Dudas? <a href="mailto:hola@saludcompartida.com">Contáctanos</a>
+          </div>
         </div>
       </nav>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        
-        {/* STEP 1: Formulario de Registro */}
-        {step === 1 && (
-          <div className="bg-white rounded-2xl p-8 shadow-2xl">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Registro Familiar
-            </h1>
-            <p className="text-gray-600 mb-8">
-              $12/mes - Telemedicina + Descuentos + Terapia
+      {/* Hero Section - Emotional Intro */}
+      <section className="intro-section">
+        <p className="intro-pretext">Estás a un paso de cuidarlos</p>
+        <h1 className="intro-title serif">
+          El amor que sientes<br/>
+          <span className="highlight">ahora se convierte en protección</span>
+        </h1>
+        <p className="intro-subtitle">
+          Llegaste hasta aquí porque sabes que el dinero no lo resuelve todo.<br/>
+          Ellos necesitan <strong>salud, compañía y tu tranquilidad</strong>.
+        </p>
+
+        {/* Firmas manuscritas */}
+        <div className="signatures-section">
+          <p className="signatures-title">Esto es lo que las familias quieren decirte...</p>
+          <div className="signatures-cloud">
+            {/* Niños - letra desordenada */}
+            <span className="signature sig-child" style={{fontSize: '22px', color: '#2563EB'}}>Gracias papá</span>
+            <span className="signature sig-child" style={{fontSize: '17px', color: '#DC2626'}}>gracias mami</span>
+            <span className="signature sig-child" style={{fontSize: '19px', color: '#16A34A'}}>Grasias tío</span>
+            <span className="signature sig-child" style={{fontSize: '16px', color: '#DB2777'}}>te kiero tía</span>
+            <span className="signature sig-child" style={{fontSize: '15px', color: '#EA580C'}}>ya no me duele</span>
+            <span className="signature sig-child" style={{fontSize: '18px', color: '#0891B2'}}>gracias abuelita</span>
+            
+            {/* Adultos mayores - cursiva elegante */}
+            <span className="signature sig-elder" style={{fontSize: '24px', color: '#7C3AED'}}>Gracias, mijo</span>
+            <span className="signature sig-elder" style={{fontSize: '20px', color: '#15803D'}}>Bendiciones, mijita</span>
+            <span className="signature sig-elder" style={{fontSize: '22px', color: '#92400E'}}>Dios te bendiga</span>
+            <span className="signature sig-elder" style={{fontSize: '25px', color: '#1E40AF'}}>Que Dios te lo pague</span>
+          </div>
+        </div>
+
+        {/* Benefits Tags */}
+        <div className="intro-benefits">
+          <span className="benefit-tag">🩺 Telemedicina 24/7</span>
+          <span className="benefit-tag">💊 Hasta 75% en farmacias</span>
+          <span className="benefit-tag">🧠 Terapia incluida</span>
+          <span className="benefit-tag">💜 Lupita o Fernanda</span>
+        </div>
+
+        {/* Urgency & Price */}
+        <div className="intro-badges">
+          <span className="badge-urgency">
+            <span>🔥</span>
+            Solo 13 espacios disponibles
+          </span>
+          <span className="badge-price">
+            💚 $12 USD/mes
+          </span>
+        </div>
+      </section>
+
+      {/* Registration */}
+      <div className="registration">
+        <div className="registration-wrapper">
+          
+          {/* Imagen */}
+          <div className="registration-image">
+            <img 
+              src="/girl3.jpeg" 
+              alt="Cuidando a tu familia con SaludCompartida"
+            />
+            <p className="registration-image-caption">
+              "Ahora sé que mi mamá está acompañada"
             </p>
+          </div>
 
-            {error && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-700">{error}</p>
+        <div className="registration-container">
+          
+          {/* Progress Steps */}
+          <div className="progress-container">
+            <div className="progress-steps">
+              <div className="progress-step">
+                <div className={`progress-dot ${step === 1 ? 'active' : 'completed'}`}>
+                  {step > 1 ? '✓' : '1'}
+                </div>
+                <span className="progress-label">Tus datos</span>
               </div>
-            )}
+              <div className={`progress-line ${step > 1 ? 'active' : ''}`}></div>
+              <div className="progress-step">
+                <div className={`progress-dot ${step === 2 ? 'active' : 'inactive'}`}>2</div>
+                <span className="progress-label">Usuario en México</span>
+              </div>
+            </div>
+            <p className="progress-text">
+              {step === 1 ? 'Paso 1 de 2: Tu información' : 'Paso 2 de 2: Usuario en México'}
+            </p>
+          </div>
 
-            <form onSubmit={handleSubmitDatos} className="space-y-8">
-              {/* Migrante USA */}
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-cyan-500">
-                  👤 Persona en USA (quien paga)
-                </h2>
-                
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Nombre *
-                    </label>
-                    <input
-                      type="text"
-                      name="migrant_first_name"
-                      value={formData.migrant_first_name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Apellido Paterno *
-                    </label>
-                    <input
-                      type="text"
-                      name="migrant_last_name"
-                      value={formData.migrant_last_name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                    />
-                  </div>
+          {/* Step 1: Migrante USA */}
+          {step === 1 && (
+            <form onSubmit={handleNextStep}>
+              <div className="form-card">
+                <div className="form-header">
+                  <div className="form-icon usa">🇺🇸</div>
+                  <h1 className="form-title serif">Tu información</h1>
+                  <p className="form-subtitle">Datos del titular de la cuenta en Estados Unidos</p>
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Apellido Materno
-                    </label>
-                    <input
-                      type="text"
-                      name="migrant_mother_last_name"
-                      value={formData.migrant_mother_last_name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                    />
+                <div className="form-section">
+                  <div className="form-section-title">Nombre completo</div>
+                  <div className="form-row three-col">
+                    <div className="form-group">
+                      <label className="form-label">Nombre <span className="required">*</span></label>
+                      <input 
+                        type="text"
+                        name="migrant_first_name"
+                        value={formData.migrant_first_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="Juan"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Apellido paterno <span className="required">*</span></label>
+                      <input 
+                        type="text"
+                        name="migrant_last_name"
+                        value={formData.migrant_last_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="García"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Apellido materno</label>
+                      <input 
+                        type="text"
+                        name="migrant_mother_last_name"
+                        value={formData.migrant_mother_last_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="López"
+                      />
+                    </div>
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Sexo *
-                    </label>
-                    <select
-                      name="migrant_sex"
-                      value={formData.migrant_sex}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                    >
-                      <option value="">Selecciona</option>
-                      <option value="M">Masculino</option>
-                      <option value="F">Femenino</option>
-                    </select>
+                <div className="form-section">
+                  <div className="form-section-title">Información personal</div>
+                  <div className="form-row two-col">
+                    <div className="form-group">
+                      <label className="form-label">Sexo <span className="required">*</span></label>
+                      <select 
+                        name="migrant_sex"
+                        value={formData.migrant_sex}
+                        onChange={handleChange}
+                        className="form-select"
+                        required
+                      >
+                        <option value="">Seleccionar</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Fecha de nacimiento <span className="required">*</span></label>
+                      <input 
+                        type="date"
+                        name="migrant_birthdate"
+                        value={formData.migrant_birthdate}
+                        onChange={handleChange}
+                        className="form-input date-input"
+                        required
+                      />
+                    </div>
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Fecha de Nacimiento *
-                    </label>
-                    <input
-                      type="date"
-                      name="migrant_birthdate"
-                      value={formData.migrant_birthdate}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Email *
-                    </label>
-                    <input
+                <div className="form-section">
+                  <div className="form-section-title">Contacto</div>
+                  <div className="form-group">
+                    <label className="form-label">Correo electrónico <span className="required">*</span></label>
+                    <input 
                       type="email"
                       name="migrant_email"
                       value={formData.migrant_email}
                       onChange={handleChange}
+                      className="form-input"
+                      placeholder="tu@email.com"
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                     />
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Teléfono USA *
+                  <div className="form-group">
+                    <label className="form-label">
+                      <svg className="whatsapp-icon" viewBox="0 0 24 24" fill="#25D366">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                      </svg>
+                      Número de celular (WhatsApp) <span className="required">*</span>
                     </label>
-                    <input
-                      type="tel"
-                      name="migrant_phone"
-                      value={formData.migrant_phone}
-                      onChange={handleChange}
-                      placeholder="(555) 123-4567"
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                    />
+                    <div className="phone-input-container">
+                      <span className="phone-flag">🇺🇸 +1</span>
+                      <input 
+                        type="tel"
+                        name="migrant_phone"
+                        value={formData.migrant_phone}
+                        onChange={handleChange}
+                        className="form-input phone-input"
+                        placeholder="(555) 123-4567"
+                        required
+                      />
+                    </div>
+                    <p className="phone-hint">
+                      <strong>Escribe solo los 10 dígitos.</strong> El formato se aplica automáticamente.
+                    </p>
+                    <p className="phone-note">Nosotros agregamos el +1 automáticamente. No lo escribas.</p>
                   </div>
                 </div>
+
+                <div className="form-actions">
+                  <button type="submit" className="btn btn-primary">
+                    Continuar →
+                  </button>
+                </div>
+
+                <div className="security-note">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                  <span>Tu información está protegida y segura</span>
+                </div>
               </div>
+            </form>
+          )}
 
-              {/* Familia México */}
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-pink-500">
-                  👨‍👩‍👧‍👦 Familiar en México (quien usa)
-                </h2>
-                
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Nombre *
-                    </label>
-                    <input
-                      type="text"
-                      name="family_first_name"
-                      value={formData.family_first_name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Apellido Paterno *
-                    </label>
-                    <input
-                      type="text"
-                      name="family_last_name"
-                      value={formData.family_last_name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    />
-                  </div>
+          {/* Step 2: Usuario México */}
+          {step === 2 && (
+            <form onSubmit={handleSubmit}>
+              <div className="form-card">
+                <div className="form-header">
+                  <div className="form-icon mexico">🇲🇽</div>
+                  <h1 className="form-title serif">Usuario en México</h1>
+                  <p className="form-subtitle">
+                    Datos de quien recibirá los beneficios
+                    {formData.family_birthdate && (() => {
+                      const birthDate = new Date(formData.family_birthdate);
+                      const today = new Date();
+                      const age = today.getFullYear() - birthDate.getFullYear();
+                      const companionName = age >= 55 ? 'Lupita' : 'Fernanda';
+                      return (
+                        <span style={{ display: 'block', marginTop: '8px', color: 'var(--magenta)', fontWeight: 600 }}>
+                          Su acompañante será: {companionName}
+                        </span>
+                      );
+                    })()}
+                  </p>
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Apellido Materno
-                    </label>
-                    <input
-                      type="text"
-                      name="family_mother_last_name"
-                      value={formData.family_mother_last_name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    />
+                <div className="form-section">
+                  <div className="form-section-title">Nombre completo</div>
+                  <div className="form-row three-col">
+                    <div className="form-group">
+                      <label className="form-label">Nombre <span className="required">*</span></label>
+                      <input 
+                        type="text"
+                        name="family_first_name"
+                        value={formData.family_first_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="María"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Apellido paterno <span className="required">*</span></label>
+                      <input 
+                        type="text"
+                        name="family_last_name"
+                        value={formData.family_last_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="García"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Apellido materno</label>
+                      <input 
+                        type="text"
+                        name="family_mother_last_name"
+                        value={formData.family_mother_last_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="López"
+                      />
+                    </div>
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Sexo *
-                    </label>
-                    <select
-                      name="family_sex"
-                      value={formData.family_sex}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    >
-                      <option value="">Selecciona</option>
-                      <option value="M">Masculino</option>
-                      <option value="F">Femenino</option>
-                    </select>
+                <div className="form-section">
+                  <div className="form-section-title">Información personal</div>
+                  <div className="form-row two-col">
+                    <div className="form-group">
+                      <label className="form-label">Sexo <span className="required">*</span></label>
+                      <select 
+                        name="family_sex"
+                        value={formData.family_sex}
+                        onChange={handleChange}
+                        className="form-select"
+                        required
+                      >
+                        <option value="">Seleccionar</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Fecha de nacimiento <span className="required">*</span></label>
+                      <input 
+                        type="date"
+                        name="family_birthdate"
+                        value={formData.family_birthdate}
+                        onChange={handleChange}
+                        className="form-input date-input"
+                        required
+                      />
+                    </div>
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Fecha de Nacimiento *
-                    </label>
-                    <input
-                      type="date"
-                      name="family_birthdate"
-                      value={formData.family_birthdate}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Email *
-                    </label>
-                    <input
+                <div className="form-section">
+                  <div className="form-section-title">Contacto</div>
+                  <div className="form-group">
+                    <label className="form-label">Correo electrónico <span className="required">*</span></label>
+                    <input 
                       type="email"
                       name="family_email"
                       value={formData.family_email}
                       onChange={handleChange}
+                      className="form-input"
+                      placeholder="email@ejemplo.com"
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                     />
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Teléfono México *
+                  <div className="form-group">
+                    <label className="form-label">
+                      <svg className="whatsapp-icon" viewBox="0 0 24 24" fill="#25D366">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.824 3 7.938l3-2.647z"/>
+                      </svg>
+                      Número de WhatsApp <span className="required">*</span>
                     </label>
-                    <input
-                      type="tel"
-                      name="family_phone"
-                      value={formData.family_phone}
-                      onChange={handleChange}
-                      placeholder="55 1234 5678"
+                    <div className="phone-input-container">
+                      <span className="phone-flag">🇲🇽 +52</span>
+                      <input 
+                        type="tel"
+                        name="family_phone"
+                        value={formData.family_phone}
+                        onChange={handleChange}
+                        className="form-input phone-input"
+                        placeholder="55 1234 5678"
+                        required
+                      />
+                    </div>
+                    <p className="phone-hint">
+                      <strong>Escribe solo los 10 dígitos.</strong> El formato se aplica automáticamente.
+                    </p>
+                    <p className="phone-note">Nosotros agregamos el +52 automáticamente. No lo escribas.</p>
+                  </div>
+                </div>
+
+                <div className="form-section">
+                  <div className="terms-checkbox">
+                    <input 
+                      type="checkbox"
+                      id="terms_accepted"
+                      name="terms_accepted"
+                      checked={formData.terms_accepted}
+                      onChange={(e) => setFormData(prev => ({ ...prev, terms_accepted: e.target.checked }))}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                     />
+                    <label htmlFor="terms_accepted" className="terms-label">
+                      He leído y acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a> y los <a href="/terminos" target="_blank">Términos y Condiciones</a> <span className="required">*</span>
+                    </label>
                   </div>
                 </div>
-              </div>
 
-              {/* Términos */}
-              <div className="flex items-start gap-3">
-                <input
-                  type="checkbox"
-                  name="terms_accepted"
-                  checked={formData.terms_accepted}
-                  onChange={handleChange}
-                  required
-                  className="mt-1"
-                />
-                <label className="text-sm text-gray-600">
-                  Acepto los <a href="/terminos" className="text-cyan-600 hover:underline">Términos y Condiciones</a>
-                </label>
-              </div>
+                <div className="form-actions">
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary"
+                    onClick={() => setStep(1)}
+                    disabled={isSubmitting}
+                  >
+                    ← Atrás
+                  </button>
+                  <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                    {isSubmitting ? 'Procesando...' : 'Continuar al pago →'}
+                  </button>
+                </div>
 
-              {/* Botón */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold py-4 text-lg rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all disabled:opacity-50"
-              >
-                {isSubmitting ? 'Guardando...' : 'Continuar al Pago →'}
-              </button>
-            </form>
-          </div>
-        )}
-
-        {/* STEP 2: Pago */}
-        {step === 2 && (
-          <div className="bg-white rounded-2xl p-8 shadow-2xl">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Completa tu Pago
-            </h1>
-            <p className="text-gray-600 mb-8">
-              $12/mes - Plan Familiar
-            </p>
-
-            {error && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-700">{error}</p>
-              </div>
-            )}
-
-            {/* Square Card Container */}
-            <div className="mb-6">
-              {!squareLoaded && (
-                <div className="text-center py-8">
-                  <div className="inline-flex items-center gap-2 text-gray-500">
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                {error && (
+                  <div className="error-message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <line x1="15" y1="9" x2="9" y2="15"/>
+                      <line x1="9" y1="9" x2="15" y2="15"/>
                     </svg>
-                    <span>Cargando formulario de pago...</span>
+                    <span>{error}</span>
                   </div>
-                </div>
-              )}
-              
-              <div 
-                id="card-container" 
-                ref={cardContainerRef}
-                className={`border-2 border-gray-200 rounded-lg p-4 min-h-[120px] ${squareLoaded ? 'block' : 'hidden'}`}
-              />
-            </div>
+                )}
 
-            {/* Botón de pago */}
-            <button
-              onClick={handlePayment}
-              disabled={isSubmitting || !squareLoaded}
-              className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold py-4 text-lg rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all disabled:opacity-50"
-            >
-              {isSubmitting ? 'Procesando...' : 'Pagar $12.00 USD / mes'}
-            </button>
-
-            {/* Seguridad */}
-            <div className="mt-6 p-4 bg-gray-50 rounded-xl">
-              <div className="flex items-start gap-3">
-                <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                <div>
-                  <p className="text-xs text-gray-600">
-                    <strong>Pago seguro con Square.</strong> Tus datos están protegidos.
-                  </p>
+                <div className="security-note">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                  <span>Podrás agregar hasta 3 usuarios más después en tu cuenta</span>
                 </div>
               </div>
-            </div>
-          </div>
-        )}
 
+              <p className="footer-note">
+                ¿Ya tienes cuenta? <a href="https://saludcompartida.app/login">Inicia sesión</a>
+              </p>
+            </form>
+          )}
+
+        </div>
+        </div>
       </div>
-    </div>
-  );
-}
-
-export default function RegistroJanPage() {
-  return (
-    <Suspense fallback={<div style={{ padding: '100px 20px', textAlign: 'center', color: 'white' }}>Cargando...</div>}>
-      <RegistroSimpleContent />
-    </Suspense>
+    </>
   );
 }
