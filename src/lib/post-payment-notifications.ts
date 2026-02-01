@@ -80,7 +80,7 @@ export async function sendPostPaymentNotifications(data: PostPaymentData) {
     });
 
     results.emailMigrante = { success: true, error: null };
-    console.log('✅ Email migrante enviado:', emailResult.id);
+    console.log('✅ Email migrante enviado:', emailResult.data?.id || 'sin ID');
   } catch (error: any) {
     console.error('❌ Error email migrante:', error);
     results.emailMigrante = { success: false, error: error.message };
@@ -101,7 +101,7 @@ export async function sendPostPaymentNotifications(data: PostPaymentData) {
       });
 
       results.emailUsuario = { success: true, error: null };
-      console.log('✅ Email usuario enviado:', emailResult.id);
+      console.log('✅ Email usuario enviado:', emailResult.data?.id || 'sin ID');
     } catch (error: any) {
       console.error('❌ Error email usuario:', error);
       results.emailUsuario = { success: false, error: error.message };
@@ -115,8 +115,8 @@ export async function sendPostPaymentNotifications(data: PostPaymentData) {
     console.log('📱 Enviando WhatsApp a ambos números...');
     const whatsappResults = await sendPostPaymentWhatsApp(whatsappData);
     
-    results.whatsappMigrante = whatsappResults.migrante;
-    results.whatsappUsuario = whatsappResults.usuario;
+    results.whatsappMigrante = whatsappResults.migrante as { success: boolean; error: any };
+    results.whatsappUsuario = whatsappResults.usuario as { success: boolean; error: any };
   } catch (error: any) {
     console.error('❌ Error enviando WhatsApp:', error);
     results.whatsappMigrante = { success: false, error: error.message };
