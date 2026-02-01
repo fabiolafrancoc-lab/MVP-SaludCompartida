@@ -42,7 +42,6 @@ function validateAge(birthdate: string): boolean {
 }
 
 export default function RegistrationPage() {
-  const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
@@ -104,12 +103,6 @@ export default function RegistrationPage() {
     }
     
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleNextStep = (e: React.FormEvent) => {
-    e.preventDefault();
-    setStep(2);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -330,7 +323,7 @@ export default function RegistrationPage() {
           gap: 48px;
           width: 100%;
           max-width: 1100px;
-          align-items: center;
+          align-items: start;
         }
 
         @media (min-width: 900px) {
@@ -346,6 +339,8 @@ export default function RegistrationPage() {
         @media (min-width: 900px) {
           .registration-image {
             display: block;
+            position: sticky;
+            top: 100px;
           }
         }
 
@@ -367,7 +362,6 @@ export default function RegistrationPage() {
 
         .registration-container {
           width: 100%;
-          max-width: 600px;
         }
 
         /* Progress Steps */
@@ -1023,49 +1017,6 @@ export default function RegistrationPage() {
           El amor que sientes<br/>
           <span className="highlight">ahora se convierte en protección</span>
         </h1>
-        <p className="intro-subtitle">
-          Llegaste hasta aquí porque sabes que el dinero no lo resuelve todo.<br/>
-          Ellos necesitan <strong>salud, compañía y tu tranquilidad</strong>.
-        </p>
-
-        {/* Firmas manuscritas */}
-        <div className="signatures-section">
-          <p className="signatures-title">Esto es lo que las familias quieren decirte...</p>
-          <div className="signatures-cloud">
-            {/* Niños - letra desordenada */}
-            <span className="signature sig-child" style={{fontSize: '22px', color: '#2563EB'}}>Gracias papá</span>
-            <span className="signature sig-child" style={{fontSize: '17px', color: '#DC2626'}}>gracias mami</span>
-            <span className="signature sig-child" style={{fontSize: '19px', color: '#16A34A'}}>Grasias tío</span>
-            <span className="signature sig-child" style={{fontSize: '16px', color: '#DB2777'}}>te kiero tía</span>
-            <span className="signature sig-child" style={{fontSize: '15px', color: '#EA580C'}}>ya no me duele</span>
-            <span className="signature sig-child" style={{fontSize: '18px', color: '#0891B2'}}>gracias abuelita</span>
-            
-            {/* Adultos mayores - cursiva elegante */}
-            <span className="signature sig-elder" style={{fontSize: '24px', color: '#7C3AED'}}>Gracias, mijo</span>
-            <span className="signature sig-elder" style={{fontSize: '20px', color: '#15803D'}}>Bendiciones, mijita</span>
-            <span className="signature sig-elder" style={{fontSize: '22px', color: '#92400E'}}>Dios te bendiga</span>
-            <span className="signature sig-elder" style={{fontSize: '25px', color: '#1E40AF'}}>Que Dios te lo pague</span>
-          </div>
-        </div>
-
-        {/* Benefits Tags */}
-        <div className="intro-benefits">
-          <span className="benefit-tag">🩺 Telemedicina 24/7</span>
-          <span className="benefit-tag">💊 Hasta 75% en farmacias</span>
-          <span className="benefit-tag">🧠 Terapia incluida</span>
-          <span className="benefit-tag">💜 Lupita o Fernanda</span>
-        </div>
-
-        {/* Urgency & Price */}
-        <div className="intro-badges">
-          <span className="badge-urgency">
-            <span>🔥</span>
-            Solo 13 espacios disponibles
-          </span>
-          <span className="badge-price">
-            💚 $12 USD/mes
-          </span>
-        </div>
       </section>
 
       {/* Registration */}
@@ -1085,35 +1036,18 @@ export default function RegistrationPage() {
 
         <div className="registration-container">
           
-          {/* Progress Steps */}
-          <div className="progress-container">
-            <div className="progress-steps">
-              <div className="progress-step">
-                <div className={`progress-dot ${step === 1 ? 'active' : 'completed'}`}>
-                  {step > 1 ? '✓' : '1'}
-                </div>
-                <span className="progress-label">Tus datos</span>
+          <form onSubmit={handleSubmit}>
+            <div className="form-card">
+              {/* SECCIÓN USA */}
+              <div className="form-header">
+                <div className="form-icon usa">🇺🇸</div>
+                <h1 className="form-title serif">Registro Rápido</h1>
+                <p className="form-subtitle">Completa los datos del titular (USA) y usuario (México)</p>
               </div>
-              <div className={`progress-line ${step > 1 ? 'active' : ''}`}></div>
-              <div className="progress-step">
-                <div className={`progress-dot ${step === 2 ? 'active' : 'inactive'}`}>2</div>
-                <span className="progress-label">Usuario en México</span>
-              </div>
-            </div>
-            <p className="progress-text">
-              {step === 1 ? 'Paso 1 de 2: Tu información' : 'Paso 2 de 2: Usuario en México'}
-            </p>
-          </div>
 
-          {/* Step 1: Migrante USA */}
-          {step === 1 && (
-            <form onSubmit={handleNextStep}>
-              <div className="form-card">
-                <div className="form-header">
-                  <div className="form-icon usa">🇺🇸</div>
-                  <h1 className="form-title serif">Tu información</h1>
-                  <p className="form-subtitle">Datos del titular de la cuenta en Estados Unidos</p>
-                </div>
+              <div className="form-section-title" style={{marginBottom: '24px', fontSize: '15px', color: 'var(--cyan)'}}>
+                👤 TITULAR EN ESTADOS UNIDOS
+              </div>
 
                 <div className="form-section">
                   <div className="form-section-title">Nombre completo</div>
@@ -1227,43 +1161,9 @@ export default function RegistrationPage() {
                   </div>
                 </div>
 
-                <div className="form-actions">
-                  <button type="submit" className="btn btn-primary">
-                    Continuar →
-                  </button>
-                </div>
-
-                <div className="security-note">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  </svg>
-                  <span>Tu información está protegida y segura</span>
-                </div>
-              </div>
-            </form>
-          )}
-
-          {/* Step 2: Usuario México */}
-          {step === 2 && (
-            <form onSubmit={handleSubmit}>
-              <div className="form-card">
-                <div className="form-header">
-                  <div className="form-icon mexico">🇲🇽</div>
-                  <h1 className="form-title serif">Usuario en México</h1>
-                  <p className="form-subtitle">
-                    Datos de quien recibirá los beneficios
-                    {formData.family_birthdate && (() => {
-                      const birthDate = new Date(formData.family_birthdate);
-                      const today = new Date();
-                      const age = today.getFullYear() - birthDate.getFullYear();
-                      const companionName = age >= 55 ? 'Lupita' : 'Fernanda';
-                      return (
-                        <span style={{ display: 'block', marginTop: '8px', color: 'var(--magenta)', fontWeight: 600 }}>
-                          Su acompañante será: {companionName}
-                        </span>
-                      );
-                    })()}
-                  </p>
+                {/* SECCIÓN MÉXICO */}
+                <div className="form-section-title" style={{marginTop: '48px', marginBottom: '24px', fontSize: '15px', color: 'var(--green)'}}>
+                  🇲🇽 USUARIO EN MÉXICO
                 </div>
 
                 <div className="form-section">
@@ -1395,15 +1295,7 @@ export default function RegistrationPage() {
                 </div>
 
                 <div className="form-actions">
-                  <button 
-                    type="button" 
-                    className="btn btn-secondary"
-                    onClick={() => setStep(1)}
-                    disabled={isSubmitting}
-                  >
-                    ← Atrás
-                  </button>
-                  <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                  <button type="submit" className="btn btn-primary" disabled={isSubmitting} style={{width: '100%'}}>
                     {isSubmitting ? 'Procesando...' : 'Continuar al pago →'}
                   </button>
                 </div>
@@ -1431,7 +1323,6 @@ export default function RegistrationPage() {
                 ¿Ya tienes cuenta? <a href="https://saludcompartida.app/login">Inicia sesión</a>
               </p>
             </form>
-          )}
 
         </div>
         </div>
