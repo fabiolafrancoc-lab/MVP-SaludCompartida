@@ -245,22 +245,8 @@ function PagoContent() {
               Completa tu Suscripción
             </h1>
             <p className="text-gray-400 mb-6">
-              Un paso más para proteger a tu familia
+              Último paso para activar tu plan familiar
             </p>
-
-            {/* Mensajes de familias */}
-            <div className="bg-gray-800/50 rounded-2xl p-6 mb-6 border border-gray-700">
-              <p className="text-cyan-400 text-sm font-medium mb-4">
-                Esto es lo que las familias quieren decirte...
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                {['Gracias papá', 'gracias mami', 'Grasias tío', 'te kiero tía', 'ya no me duele', 'gracias abuelita'].map((msg, i) => (
-                  <div key={i} className="bg-gray-700/50 rounded-lg p-3 text-center">
-                    <p className="text-white text-sm font-handwriting">{msg}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
 
             {/* Plan */}
             <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
