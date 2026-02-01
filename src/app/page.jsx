@@ -544,7 +544,7 @@ export default function LandingPage() {
           <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '12px' }}>
             <Link href="/terminos" style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Términos</Link>
             <Link href="/privacidad" style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Privacidad</Link>
-            <Link href="mailto:hola@saludcompartida.com" style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Contacto</Link>
+            <Link href="/contacto" style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Contáctanos</Link>
           </div>
           <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)' }}>
             © 2025 SaludCompartida. Todos los derechos reservados.
