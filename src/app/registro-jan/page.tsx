@@ -220,6 +220,9 @@ function RegistroSimpleContent() {
         const data = await response.json();
         
         console.log('🔍 Response completa:', response.status, data);
+        console.log('🔍 Data.success:', data.success);
+        console.log('🔍 Data.error:', data.error);
+        console.log('🔍 Data completo:', JSON.stringify(data, null, 2));
 
         if (data.success) {
           // Actualizar registro
