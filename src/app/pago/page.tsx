@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 
@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-export default function PagoPage() {
+function PagoContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const registrationId = searchParams.get('id');
@@ -372,5 +372,13 @@ export default function PagoPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PagoPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: '100px 20px', textAlign: 'center', color: 'white' }}>Cargando...</div>}>
+      <PagoContent />
+    </Suspense>
   );
 }
