@@ -3,6 +3,13 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import { createClient } from '@supabase/supabase-js';
+
+// Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://rzmdekjegbdgitqekjee.supabase.co',
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+);
 
 // Square Web Payments SDK types
 declare global {
@@ -24,7 +31,7 @@ function PagoContent() {
   const [card, setCard] = useState<any>(null);
   const [userData, setUserData] = useState<any>({});
 
-  // Cargar datos del registro desde Supabase
+  // Cargar datos del registro desde Supabase DIRECTAMENTE
   useEffect(() => {
     if (!registrationId) {
       router.push('/registro-jan');
@@ -33,13 +40,19 @@ function PagoContent() {
 
     const loadRegistration = async () => {
       try {
-        const response = await fetch(`/api/registro?id=${registrationId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setUserData(data);
-        } else {
+        const { data, error } = await supabase
+          .from('registrations')
+          .select('*')
+          .eq('id', registrationId)
+          .single();
+
+        if (error || !data) {
+          console.error('Error cargando registro:', error);
           router.push('/registro-jan');
+          return;
         }
+
+        setUserData(data);
       } catch (err) {
         console.error('Error cargando registro:', err);
         router.push('/registro-jan');
@@ -145,17 +158,19 @@ function PagoContent() {
         if (data.success) {
           console.log('✅ Pago exitoso:', data.data.id);
           
-          // Actualizar registro en Supabase
-          await fetch('/api/registro', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              id: registrationId,
+          // Actualizar registro en Supabase DIRECTAMENTE
+          const { error: updateError } = await supabase
+            .from('registrations')
+            .update({
               status: 'active',
               square_payment_id: data.data.id,
               payment_completed_at: new Date().toISOString(),
-            }),
-          });
+            })
+            .eq('id', registrationId);
+
+          if (updateError) {
+            console.error('Error actualizando registro:', updateError);
+          }
 
           // Enviar notificaciones
           await fetch('/api/send-notifications', {
