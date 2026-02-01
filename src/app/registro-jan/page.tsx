@@ -249,8 +249,8 @@ export default function RegistrationPage() {
         throw new Error(checkoutData.error || 'Error creating checkout');
       }
 
-      // Redirect to Square checkout
-      window.location.href = checkoutData.checkoutUrl;
+      // Payment successful - redirect to dashboard
+      window.location.href = '/dashboard?nuevo=true';
 
     } catch (err: any) {
       console.error('Error en registro:', err);
