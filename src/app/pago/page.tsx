@@ -121,18 +121,8 @@ function PagoContent() {
           style: {
             input: {
               color: '#FFFFFF',
-              fontFamily: 'DM Sans, -apple-system, sans-serif',
+              fontFamily: 'Helvetica, Arial, sans-serif',
               fontSize: '16px'
-            },
-            'input::placeholder': {
-              color: 'rgba(255, 255, 255, 0.4)'
-            },
-            '.input-container': {
-              borderColor: 'rgba(255, 255, 255, 0.1)',
-              borderRadius: '12px'
-            },
-            '.input-container.is-focus': {
-              borderColor: '#0EA5E9'
             }
           }
         });
