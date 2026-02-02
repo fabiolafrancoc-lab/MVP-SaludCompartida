@@ -69,13 +69,13 @@ function PagoContent() {
     const initSquarePayments = async () => {
       try {
         // TEMPORAL: Hardcoded mientras Vercel actualiza env vars
-        const appId = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID || 'sq0idp-TDgOgQ1CmhJqDdCqulhnIw';
+        const appId = process.env.NEXT_PUBLIC_SQUARE_APP_ID || 'sq0idp-TDgOgQ1CmhJqDdCqulhnIw';
         const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || 'L9W263XHC7876';
 
         console.log('🔵 Iniciando Square Payments...');
         console.log('App ID:', appId);
         console.log('Location ID:', locationId);
-        console.log('Usando fallback?', !process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID);
+        console.log('Usando fallback?', !process.env.NEXT_PUBLIC_SQUARE_APP_ID);
 
         if (!appId || !locationId) {
           throw new Error(
