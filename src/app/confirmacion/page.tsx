@@ -1,34 +1,48 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
+interface RegistrationData {
+  migrant_first_name?: string;
+  migrant_last_name?: string;
+  family_primary_name?: string;
+  plan_type?: string;
+  amount_paid?: number;
+}
 
 export default function PaymentSuccessPage() {
-  const [registrationData, setRegistrationData] = useState<any>(null);
-  const [migrantCode, setMigrantCode] = useState('');
-  const [familyCode, setFamilyCode] = useState('');
+  const router = useRouter();
   const [showConfetti, setShowConfetti] = useState(true);
+  const [registrationData, setRegistrationData] = useState<RegistrationData | null>(null);
+  const [migrantCode, setMigrantCode] = useState('SC-XXXXXX');
+  const [familyCode, setFamilyCode] = useState('SC-XXXXXX');
 
   useEffect(() => {
-    // Recuperar datos del registro
+    // Recuperar datos del registro desde sessionStorage o URL params
     const data = sessionStorage.getItem('registrationData');
     if (data) {
       const parsed = JSON.parse(data);
       setRegistrationData(parsed);
-      setMigrantCode(parsed.migrant_code || 'XXXXXX');
-      setFamilyCode(parsed.family_code || 'XXXXXX');
+      setMigrantCode(parsed.migrant_code || 'SC-M2X9K7');
+      setFamilyCode(parsed.family_code || 'SC-F8P3L2');
     }
 
-    // Ocultar confetti después de 5 segundos
-    setTimeout(() => setShowConfetti(false), 5000);
+    // Ocultar confetti después de 6 segundos
+    const timer = setTimeout(() => setShowConfetti(false), 6000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
       <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif&display=swap');
+
         :root {
           --bg-dark: #0a0a0a;
           --bg-light: #1a1a2E;
-          --cyan: #0EA5E9;
+          --cyan: #06B6D4;
           --magenta: #EC4899;
           --green: #10B981;
           --gold: #F59E0B;
@@ -36,21 +50,6 @@ export default function PaymentSuccessPage() {
           --text-primary: #FFFFFF;
           --text-secondary: rgba(255, 255, 255, 0.75);
           --text-muted: rgba(255, 255, 255, 0.5);
-        }
-
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-
-        body {
-          font-family: 'DM Sans', -apple-system, sans-serif;
-          background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2E 100%);
-          background-attachment: fixed;
-          color: var(--text-primary);
-          min-height: 100vh;
-          overflow-x: hidden;
         }
 
         .serif {
@@ -73,64 +72,48 @@ export default function PaymentSuccessPage() {
           position: absolute;
           width: 10px;
           height: 10px;
+          opacity: 0;
           animation: confetti-fall 4s ease-out forwards;
         }
 
         @keyframes confetti-fall {
           0% {
-            transform: translateY(-100px) rotate(0deg);
             opacity: 1;
+            transform: translateY(-100px) rotate(0deg);
           }
           100% {
-            transform: translateY(100vh) rotate(720deg);
             opacity: 0;
+            transform: translateY(100vh) rotate(720deg);
           }
         }
 
-        /* Nav */
+        /* Navigation */
         .nav {
-          position: fixed;
+          position: sticky;
           top: 0;
-          left: 0;
-          right: 0;
+          background: rgba(10, 10, 10, 0.95);
+          backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           z-index: 100;
           padding: 16px 20px;
-          background: #0a0a0a;
-          border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .nav-inner {
           max-width: 1200px;
           margin: 0 auto;
           display: flex;
-          justify-content: space-between;
-          align-items: center;
+          justify-content: center;
         }
 
         .nav-logo {
           height: 36px;
         }
 
-        .nav-login-btn {
-          background: var(--cyan);
-          color: white;
-          padding: 10px 20px;
-          border-radius: 8px;
-          font-size: 14px;
-          font-weight: 600;
-          text-decoration: none;
-          transition: all 0.3s;
-        }
-
-        .nav-login-btn:hover {
-          background: #0284C7;
-          transform: translateY(-1px);
-        }
-
         /* Success Page */
         .success-page {
-          min-height: 100vh;
-          padding: 100px 20px 60px;
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 40px 20px 80px;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -151,16 +134,8 @@ export default function PaymentSuccessPage() {
           align-items: center;
           justify-content: center;
           margin: 0 auto 24px;
-          animation: pulse-success 2s infinite;
-        }
-
-        @keyframes pulse-success {
-          0%, 100% {
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
-          }
-          50% {
-            box-shadow: 0 0 0 20px rgba(16, 185, 129, 0);
-          }
+          animation: pulse-success 2s ease-in-out infinite;
+          box-shadow: 0 0 40px rgba(16, 185, 129, 0.4);
         }
 
         .success-icon svg {
@@ -169,133 +144,103 @@ export default function PaymentSuccessPage() {
           color: white;
         }
 
+        @keyframes pulse-success {
+          0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(16, 185, 129, 0.4); }
+          50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(16, 185, 129, 0.6); }
+        }
+
         .success-title {
-          font-size: 36px;
+          font-size: 42px;
+          font-weight: 400;
           margin-bottom: 12px;
+          background: linear-gradient(135deg, var(--green) 0%, var(--cyan) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
 
         .success-subtitle {
-          font-size: 18px;
+          font-size: 20px;
           color: var(--text-secondary);
         }
 
         /* Gratitude Section - HANDWRITTEN SIGNATURES */
         .gratitude-section {
           width: 100%;
-          max-width: 950px;
+          max-width: 900px;
           margin-bottom: 48px;
           padding: 40px 20px;
-          text-align: center;
+          background: linear-gradient(135deg, rgba(22, 22, 42, 0.8), rgba(10, 10, 10, 0.9));
+          border-radius: 24px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .gratitude-intro {
-          font-size: 16px;
+          text-align: center;
           color: var(--text-muted);
-          margin-bottom: 40px;
+          font-size: 16px;
+          margin-bottom: 32px;
+          font-style: italic;
         }
 
         .signatures-cloud {
-          position: relative;
-          min-height: 320px;
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
           align-items: center;
-          gap: 8px 16px;
+          gap: 12px 20px;
+          min-height: 320px;
           padding: 20px;
         }
 
         .signature {
           display: inline-block;
           padding: 4px 12px;
-          animation: float-signature 0.6s ease-out forwards;
-          opacity: 0;
-          white-space: nowrap;
+          transition: transform 0.3s ease;
           cursor: default;
-          transition: transform 0.2s ease;
         }
 
         .signature:hover {
-          transform: scale(1.1) rotate(var(--rotation, 0deg)) !important;
+          transform: scale(1.15) !important;
         }
 
-        @keyframes float-signature {
-          to {
-            opacity: 1;
-            transform: rotate(var(--rotation, 0deg));
-          }
-        }
-
-        /* Child handwriting - big, messy, crayon-like */
+        /* Niños - Comic Sans, colores de lapicero */
         .sig-child {
-          font-family: 'Comic Sans MS', 'Chalkboard', 'Marker Felt', cursive;
-          font-weight: bold;
-          letter-spacing: 0.5px;
+          font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+          font-size: 20px;
         }
 
-        /* Elder handwriting - cursive, pen-like */
+        .sig-1 { color: #60A5FA; transform: rotate(-5deg); }
+        .sig-2 { color: #1E3A5F; transform: rotate(3deg); font-size: 18px; }
+        .sig-3 { color: #DC2626; transform: rotate(-2deg); font-size: 24px; }
+        .sig-4 { color: #7C3AED; transform: rotate(4deg); }
+        .sig-5 { color: #059669; transform: rotate(-6deg); font-size: 22px; }
+        .sig-6 { color: #60A5FA; transform: rotate(2deg); font-size: 19px; }
+        .sig-7 { color: #EC4899; transform: rotate(-3deg); font-size: 21px; }
+        .sig-8 { color: #1E3A5F; transform: rotate(5deg); font-size: 17px; }
+        .sig-17 { color: #DC2626; transform: rotate(-4deg); font-size: 20px; }
+        .sig-18 { color: #7C3AED; transform: rotate(3deg); font-size: 23px; }
+        .sig-21 { color: #059669; transform: rotate(-2deg); font-size: 18px; }
+        .sig-22 { color: #60A5FA; transform: rotate(4deg); font-size: 22px; }
+
+        /* Adultos mayores - Brush Script, cursiva elegante */
         .sig-elder {
-          font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive;
-          font-style: italic;
-          letter-spacing: 0.5px;
+          font-family: 'Brush Script MT', 'Segoe Script', cursive;
+          font-size: 26px;
         }
 
-        /* COLORES DE LAPICERO / PLUMA - Realistas */
-        /* Azules (bolígrafo común) */
-        .sig-1 { font-size: 26px; color: #2563EB; --rotation: -3deg; animation-delay: 0.05s; }
-        .sig-2 { font-size: 22px; color: #1D4ED8; --rotation: 4deg; animation-delay: 0.1s; }
-        
-        /* Rojo (lapicero rojo) */
-        .sig-3 { font-size: 28px; color: #DC2626; --rotation: -2deg; animation-delay: 0.15s; }
-        .sig-4 { font-size: 24px; color: #B91C1C; --rotation: 5deg; animation-delay: 0.2s; }
-        
-        /* Verde (pluma verde) */
-        .sig-5 { font-size: 30px; color: #16A34A; --rotation: -4deg; animation-delay: 0.25s; }
-        .sig-6 { font-size: 20px; color: #15803D; --rotation: 2deg; animation-delay: 0.3s; }
-        
-        /* Morado (pluma morada) */
-        .sig-7 { font-size: 25px; color: #7C3AED; --rotation: -1deg; animation-delay: 0.35s; }
-        .sig-8 { font-size: 23px; color: #6D28D9; --rotation: 3deg; animation-delay: 0.4s; }
-        
-        /* Rosa/Magenta (pluma rosa) */
-        .sig-9 { font-size: 27px; color: #DB2777; --rotation: -5deg; animation-delay: 0.45s; }
-        .sig-10 { font-size: 21px; color: #BE185D; --rotation: 1deg; animation-delay: 0.5s; }
-        
-        /* Azul oscuro (tinta elegante) */
-        .sig-11 { font-size: 28px; color: #1E40AF; --rotation: -2deg; animation-delay: 0.55s; }
-        .sig-12 { font-size: 26px; color: #1E3A8A; --rotation: 4deg; animation-delay: 0.6s; }
-        
-        /* Negro (pluma fuente) */
-        .sig-13 { font-size: 24px; color: #374151; --rotation: -3deg; animation-delay: 0.65s; }
-        .sig-14 { font-size: 30px; color: #1F2937; --rotation: 2deg; animation-delay: 0.7s; }
-        
-        /* Turquesa */
-        .sig-15 { font-size: 22px; color: #0891B2; --rotation: -1deg; animation-delay: 0.75s; }
-        .sig-16 { font-size: 29px; color: #0E7490; --rotation: 5deg; animation-delay: 0.8s; }
-        
-        /* Naranja (marcador) */
-        .sig-17 { font-size: 25px; color: #EA580C; --rotation: -4deg; animation-delay: 0.85s; }
-        .sig-18 { font-size: 32px; color: #C2410C; --rotation: 1deg; animation-delay: 0.9s; }
-        
-        /* Café (tinta sepia) */
-        .sig-19 { font-size: 26px; color: #92400E; --rotation: -2deg; animation-delay: 0.95s; }
-        .sig-20 { font-size: 24px; color: #78350F; --rotation: 3deg; animation-delay: 1.0s; }
-        
-        /* Más azules */
-        .sig-21 { font-size: 23px; color: #3B82F6; --rotation: -3deg; animation-delay: 1.05s; }
-        .sig-22 { font-size: 28px; color: #2563EB; --rotation: 2deg; animation-delay: 1.1s; }
-        
-        /* Más rojos */
-        .sig-23 { font-size: 27px; color: #EF4444; --rotation: -1deg; animation-delay: 1.15s; }
-        .sig-24 { font-size: 20px; color: #DC2626; --rotation: 4deg; animation-delay: 1.2s; }
-        
-        /* Más verdes */
-        .sig-25 { font-size: 29px; color: #22C55E; --rotation: -5deg; animation-delay: 1.25s; }
-        .sig-26 { font-size: 22px; color: #16A34A; --rotation: 1deg; animation-delay: 1.3s; }
-        
-        /* Más morados */
-        .sig-27 { font-size: 26px; color: #8B5CF6; --rotation: -2deg; animation-delay: 1.35s; }
-        .sig-28 { font-size: 24px; color: #7C3AED; --rotation: 3deg; animation-delay: 1.4s; }
+        .sig-9 { color: #A78BFA; transform: rotate(2deg); }
+        .sig-10 { color: #34D399; transform: rotate(-3deg); font-size: 24px; }
+        .sig-11 { color: #F472B6; transform: rotate(4deg); }
+        .sig-12 { color: #60A5FA; transform: rotate(-2deg); font-size: 28px; }
+        .sig-13 { color: #FCD34D; transform: rotate(3deg); font-size: 25px; }
+        .sig-14 { color: #A78BFA; transform: rotate(-4deg); }
+        .sig-15 { color: #34D399; transform: rotate(2deg); font-size: 23px; }
+        .sig-16 { color: #F472B6; transform: rotate(-3deg); font-size: 27px; }
+        .sig-19 { color: #60A5FA; transform: rotate(3deg); font-size: 24px; }
+        .sig-20 { color: #FCD34D; transform: rotate(-2deg); font-size: 26px; }
+        .sig-23 { color: #A78BFA; transform: rotate(4deg); font-size: 25px; }
+        .sig-24 { color: #34D399; transform: rotate(-3deg); }
 
         /* Codes Section */
         .codes-section {
@@ -306,54 +251,53 @@ export default function PaymentSuccessPage() {
 
         .codes-title {
           text-align: center;
-          font-size: 14px;
-          font-weight: 700;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          color: var(--cyan);
-          margin-bottom: 20px;
+          font-size: 24px;
+          font-weight: 600;
+          margin-bottom: 24px;
+          color: var(--text-primary);
         }
 
         .code-card {
           background: var(--navy-card);
-          border: 2px solid rgba(14, 165, 233, 0.3);
           border-radius: 20px;
-          padding: 28px;
+          padding: 24px;
           margin-bottom: 16px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .code-card-header {
           display: flex;
           align-items: center;
-          gap: 12px;
-          margin-bottom: 16px;
+          gap: 16px;
+          margin-bottom: 20px;
         }
 
         .code-card-flag {
-          font-size: 28px;
+          font-size: 32px;
         }
 
         .code-card-info h3 {
-          font-size: 16px;
+          font-size: 18px;
           font-weight: 600;
-          margin-bottom: 2px;
+          color: var(--text-primary);
+          margin-bottom: 4px;
         }
 
         .code-card-info p {
-          font-size: 13px;
+          font-size: 14px;
           color: var(--text-muted);
         }
 
         .code-display {
-          background: rgba(14, 165, 233, 0.1);
-          border: 1px dashed var(--cyan);
+          background: rgba(0, 0, 0, 0.3);
           border-radius: 12px;
-          padding: 16px;
+          padding: 20px;
           text-align: center;
+          margin-bottom: 16px;
         }
 
         .code-label {
-          font-size: 11px;
+          font-size: 12px;
           color: var(--text-muted);
           text-transform: uppercase;
           letter-spacing: 1px;
@@ -361,11 +305,20 @@ export default function PaymentSuccessPage() {
         }
 
         .code-value {
+          font-family: 'SF Mono', 'Fira Code', monospace;
           font-size: 32px;
           font-weight: 700;
-          font-family: 'SF Mono', 'Consolas', monospace;
+          letter-spacing: 6px;
+        }
+
+        .code-value.cyan {
           color: var(--cyan);
-          letter-spacing: 3px;
+          text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+
+        .code-value.magenta {
+          color: var(--magenta);
+          text-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
         }
 
         .code-sent {
@@ -373,340 +326,282 @@ export default function PaymentSuccessPage() {
           align-items: center;
           justify-content: center;
           gap: 8px;
-          margin-top: 16px;
-          font-size: 13px;
           color: var(--green);
+          font-size: 14px;
         }
 
         .code-sent svg {
-          width: 16px;
-          height: 16px;
+          width: 18px;
+          height: 18px;
         }
 
         /* Next Steps */
         .next-steps {
           width: 100%;
           max-width: 600px;
-          background: var(--navy-card);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 20px;
-          padding: 28px;
           margin-bottom: 40px;
         }
 
         .next-steps-title {
-          font-size: 18px;
-          font-weight: 700;
-          margin-bottom: 20px;
           text-align: center;
+          font-size: 20px;
+          font-weight: 600;
+          margin-bottom: 24px;
+          color: var(--text-primary);
         }
 
         .step-item {
           display: flex;
-          align-items: flex-start;
           gap: 16px;
-          margin-bottom: 20px;
+          padding: 20px;
+          background: var(--navy-card);
+          border-radius: 16px;
+          margin-bottom: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .step-item:last-child {
-          margin-bottom: 0;
-        }
-
-        .step-number {
-          width: 32px;
-          height: 32px;
-          background: var(--magenta);
-          border-radius: 50%;
+        .step-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 14px;
-          font-weight: 700;
           flex-shrink: 0;
+          font-size: 24px;
         }
 
+        .step-icon.whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
+        .step-icon.phone { background: linear-gradient(135deg, var(--magenta), #BE185D); }
+        .step-icon.check { background: linear-gradient(135deg, var(--green), #059669); }
+
         .step-content h4 {
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 600;
+          color: var(--text-primary);
           margin-bottom: 4px;
         }
 
         .step-content p {
-          font-size: 13px;
-          color: var(--text-muted);
-          line-height: 1.5;
-        }
-
-        .step-content strong {
-          color: var(--cyan);
-        }
-
-        /* Step Highlight - 30 segundos */
-        .step-highlight {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-top: 24px;
-          padding: 16px;
-          background: rgba(16, 185, 129, 0.1);
-          border: 1px solid rgba(16, 185, 129, 0.3);
-          border-radius: 12px;
-        }
-
-        .highlight-icon {
-          font-size: 24px;
-        }
-
-        .step-highlight p {
           font-size: 14px;
-          color: var(--text-secondary);
-          margin: 0;
+          color: var(--text-muted);
         }
 
-        .step-highlight strong {
-          color: var(--green);
+        .companion-name {
+          color: var(--magenta);
+          font-weight: 600;
         }
 
-        /* CTA */
-        .cta-section {
-          text-align: center;
-        }
-
+        /* CTA Button */
         .cta-button {
           display: inline-flex;
           align-items: center;
-          gap: 10px;
-          padding: 16px 40px;
-          background: var(--cyan);
+          justify-content: center;
+          gap: 12px;
+          background: linear-gradient(135deg, var(--cyan), #0891B2);
           color: white;
-          border: none;
-          border-radius: 12px;
-          font-size: 16px;
+          font-size: 18px;
           font-weight: 700;
+          padding: 18px 48px;
+          border-radius: 16px;
+          border: none;
           cursor: pointer;
-          transition: all 0.3s;
           text-decoration: none;
+          transition: all 0.3s ease;
+          box-shadow: 0 8px 32px rgba(6, 182, 212, 0.3);
         }
 
         .cta-button:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 30px rgba(14, 165, 233, 0.4);
+          box-shadow: 0 12px 40px rgba(6, 182, 212, 0.4);
         }
 
-        .cta-secondary {
-          display: block;
-          margin-top: 16px;
-          font-size: 14px;
-          color: var(--text-muted);
-        }
-
-        .cta-secondary a {
-          color: var(--cyan);
-          text-decoration: none;
-        }
-
-        /* WhatsApp floating */
-        .whatsapp-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          background: #25D366;
-          color: white;
-          padding: 6px 12px;
-          border-radius: 20px;
-          font-size: 12px;
-          font-weight: 600;
-        }
-
-        .whatsapp-badge svg {
-          width: 14px;
-          height: 14px;
+        /* Responsive */
+        @media (max-width: 640px) {
+          .success-title { font-size: 28px; }
+          .code-value { font-size: 24px; letter-spacing: 4px; }
+          .signatures-cloud { gap: 8px 14px; min-height: 280px; }
+          .signature { padding: 2px 8px; }
+          .sig-child { font-size: 16px !important; }
+          .sig-elder { font-size: 20px !important; }
+          .cta-button { width: 100%; padding: 16px 24px; font-size: 16px; }
         }
       `}</style>
 
-      {/* Confetti */}
-      {showConfetti && (
-        <div className="confetti-container">
-          {[...Array(50)].map((_, i) => (
-            <div
-              key={i}
-              className="confetti"
-              style={{
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                backgroundColor: ['#EC4899', '#0EA5E9', '#10B981', '#F59E0B', '#A78BFA'][Math.floor(Math.random() * 5)],
-                borderRadius: Math.random() > 0.5 ? '50%' : '0',
-              }}
+      <div className="min-h-screen" style={{ 
+        background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a2E 100%)',
+        fontFamily: "'DM Sans', -apple-system, sans-serif",
+        color: '#FFFFFF'
+      }}>
+        {/* Confetti */}
+        {showConfetti && (
+          <div className="confetti-container">
+            {[...Array(100)].map((_, i) => (
+              <div
+                key={i}
+                className="confetti"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 3}s`,
+                  backgroundColor: ['#06B6D4', '#EC4899', '#10B981', '#F59E0B', '#8B5CF6'][Math.floor(Math.random() * 5)],
+                  borderRadius: Math.random() > 0.5 ? '50%' : '0',
+                }}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Navigation */}
+        <nav className="nav">
+          <div className="nav-inner">
+            <Image 
+              src="/saludcompartida-dark-no-tagline.png" 
+              alt="SaludCompartida" 
+              width={180}
+              height={36}
+              className="nav-logo"
             />
-          ))}
-        </div>
-      )}
-
-      {/* Navigation */}
-      <nav className="nav">
-        <div className="nav-inner">
-          <img 
-            src="/saludcompartida-dark-no-tagline.png" 
-            alt="SaludCompartida" 
-            className="nav-logo"
-          />
-          <a href="/login" className="nav-login-btn">
-            Ya Tengo Mi Código / Login
-          </a>
-        </div>
-      </nav>
-
-      <div className="success-page">
-        {/* Success Header */}
-        <div className="success-header">
-          <div className="success-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
           </div>
-          <h1 className="success-title serif">¡Pago exitoso!</h1>
-          <p className="success-subtitle">Tu familia en México ya está protegida</p>
-        </div>
+        </nav>
 
-        {/* EMOTIONAL GRATITUDE SECTION - HANDWRITTEN SIGNATURES */}
-        <div className="gratitude-section">
-          <p className="gratitude-intro">Esto es lo que las familias quieren decirte...</p>
-          
-          <div className="signatures-cloud">
-            {/* Niños - letra grande, desordenada, errores de ortografía */}
-            <span className="signature sig-child sig-1">Gracias papá</span>
-            <span className="signature sig-child sig-2">gracias mami</span>
-            <span className="signature sig-child sig-3">Grasias Papa</span>
-            <span className="signature sig-child sig-4">te quiero mamá</span>
-            <span className="signature sig-child sig-5">GRACIAS TÍO</span>
-            <span className="signature sig-child sig-6">gracias tía</span>
-            <span className="signature sig-child sig-7">Te extraño papi</span>
-            <span className="signature sig-child sig-8">grasias tia</span>
-            <span className="signature sig-child sig-9">Gracias abuelita</span>
-            <span className="signature sig-child sig-10">te kiero tio</span>
-            
-            {/* Adultos mayores - letra cursiva elegante */}
-            <span className="signature sig-elder sig-11">Gracias, mijo</span>
-            <span className="signature sig-elder sig-12">Bendiciones, mijita</span>
-            <span className="signature sig-elder sig-13">Gracias, mi niño</span>
-            <span className="signature sig-elder sig-14">Dios te bendiga, hija</span>
-            <span className="signature sig-elder sig-15">Mil gracias, sobrino</span>
-            <span className="signature sig-elder sig-16">Te quiero mucho, sobrina</span>
-            <span className="signature sig-elder sig-17">Gracias por no olvidarnos</span>
-            <span className="signature sig-elder sig-18">Que Dios te lo pague</span>
-            <span className="signature sig-elder sig-19">Siempre en mi corazón</span>
-            <span className="signature sig-elder sig-20">Gracias por cuidarnos</span>
-            
-            {/* Más variedad */}
-            <span className="signature sig-child sig-21">ya no me duele</span>
-            <span className="signature sig-child sig-22">Gracias Papito</span>
-            <span className="signature sig-elder sig-23">Bendito seas, hijo</span>
-            <span className="signature sig-child sig-24">tenkiu mama</span>
-            <span className="signature sig-elder sig-25">Gracias mi niña</span>
-            <span className="signature sig-child sig-26">eres el mejor tio</span>
-            <span className="signature sig-elder sig-27">Te recordamos siempre</span>
-            <span className="signature sig-child sig-28">gracias por la mesina</span>
-          </div>
-        </div>
-
-        {/* Codes Section */}
-        <div className="codes-section">
-          <h2 className="codes-title">Tus códigos de acceso</h2>
-          
-          {/* Code for Migrant */}
-          <div className="code-card">
-            <div className="code-card-header">
-              <span className="code-card-flag">🇺🇸</span>
-              <div className="code-card-info">
-                <h3>Para ti (Titular)</h3>
-                <p>Acceso al panel de ahorros y seguimiento</p>
-              </div>
-            </div>
-            <div className="code-display">
-              <div className="code-label">Tu código de acceso</div>
-              <div className="code-value">{migrantCode}</div>
-            </div>
-            <div className="code-sent">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <div className="success-page">
+          {/* Success Header */}
+          <div className="success-header">
+            <div className="success-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
-              Enviado a tu WhatsApp y email
+            </div>
+            <h1 className="success-title serif">¡Pago exitoso!</h1>
+            <p className="success-subtitle">Tu familia en México ya está protegida</p>
+          </div>
+
+          {/* EMOTIONAL GRATITUDE SECTION - HANDWRITTEN SIGNATURES */}
+          <div className="gratitude-section">
+            <p className="gratitude-intro">Esto es lo que las familias quieren decirte...</p>
+            
+            <div className="signatures-cloud">
+              {/* Niños - letra grande, desordenada, errores de ortografía */}
+              <span className="signature sig-child sig-1">Gracias papá</span>
+              <span className="signature sig-child sig-2">gracias mami</span>
+              <span className="signature sig-child sig-3">Grasias Papa</span>
+              <span className="signature sig-child sig-4">te quiero mamá</span>
+              <span className="signature sig-child sig-5">GRACIAS TÍO</span>
+              <span className="signature sig-child sig-6">gracias papi</span>
+              <span className="signature sig-child sig-7">Te extraño</span>
+              <span className="signature sig-child sig-8">grasias mama</span>
+              
+              {/* Adultos mayores - letra cursiva elegante */}
+              <span className="signature sig-elder sig-9">Gracias, mijo</span>
+              <span className="signature sig-elder sig-10">Bendiciones, mijita</span>
+              <span className="signature sig-elder sig-11">Gracias, mi niño</span>
+              <span className="signature sig-elder sig-12">Dios te bendiga, hija</span>
+              <span className="signature sig-elder sig-13">Mil gracias, mijo</span>
+              <span className="signature sig-elder sig-14">Te quiero mucho, mijita</span>
+              <span className="signature sig-elder sig-15">Gracias por no olvidarnos</span>
+              <span className="signature sig-elder sig-16">Que Dios te lo pague</span>
+              
+              {/* Más niños */}
+              <span className="signature sig-child sig-17">ya no me duele</span>
+              <span className="signature sig-child sig-18">Gracias Papito</span>
+              <span className="signature sig-child sig-21">tenkiu mami</span>
+              <span className="signature sig-child sig-22">gracias por la mesina</span>
+              
+              {/* Más adultos mayores */}
+              <span className="signature sig-elder sig-19">Siempre en mi corazón</span>
+              <span className="signature sig-elder sig-20">Gracias por cuidarnos</span>
+              <span className="signature sig-elder sig-23">Te recordamos siempre</span>
+              <span className="signature sig-elder sig-24">Eres nuestra bendición</span>
             </div>
           </div>
 
-          {/* Code for Family */}
-          <div className="code-card">
-            <div className="code-card-header">
-              <span className="code-card-flag">🇲🇽</span>
-              <div className="code-card-info">
-                <h3>Para {registrationData?.family_first_name || 'tu familiar'} en México</h3>
-                <p>Acceso completo a todos los servicios</p>
+          {/* Codes Section */}
+          <div className="codes-section">
+            <h2 className="codes-title">Tus códigos de acceso</h2>
+            
+            {/* Code for Migrant */}
+            <div className="code-card">
+              <div className="code-card-header">
+                <span className="code-card-flag">🇺🇸</span>
+                <div className="code-card-info">
+                  <h3>Para ti ({registrationData?.migrant_first_name || 'Titular'})</h3>
+                  <p>Acceso al panel de ahorros y seguimiento</p>
+                </div>
               </div>
-            </div>
-            <div className="code-display">
-              <div className="code-label">Código de acceso familiar</div>
-              <div className="code-value">{familyCode}</div>
-            </div>
-            <div className="code-sent">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-              Enviado a su WhatsApp
-              <span className="whatsapp-badge">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              <div className="code-display">
+                <div className="code-label">Tu código de acceso</div>
+                <div className="code-value cyan">{migrantCode}</div>
+              </div>
+              <div className="code-sent">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                WhatsApp
-              </span>
+                Enviado a tu WhatsApp y email
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Next Steps */}
-        <div className="next-steps">
-          <h3 className="next-steps-title">¿Qué sigue?</h3>
-          
-          <div className="step-item">
-            <div className="step-number">1</div>
-            <div className="step-content">
-              <h4>Tu familiar recibe WhatsApp ahora</h4>
-              <p>En los próximos segundos, {registrationData?.family_first_name || 'tu familiar'} recibirá su código y las instrucciones.</p>
-            </div>
-          </div>
-
-          <div className="step-item">
-            <div className="step-number">2</div>
-            <div className="step-content">
-              <h4>Ingresa el código en "Ya Tengo Mi Código / Login"</h4>
-              <p>{registrationData?.family_first_name || 'Tu familiar'} debe ingresar el código que recibió por email y WhatsApp en el botón <strong>"Ya Tengo Mi Código / Login"</strong> para empezar a utilizar los beneficios de SaludCompartida.</p>
-            </div>
-          </div>
-
-          <div className="step-item">
-            <div className="step-number">3</div>
-            <div className="step-content">
-              <h4>{registrationData?.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda'} llamará pronto</h4>
-              <p>Nuestra compañera se presentará y explicará todos los beneficios.</p>
+            {/* Code for Family */}
+            <div className="code-card">
+              <div className="code-card-header">
+                <span className="code-card-flag">🇲🇽</span>
+                <div className="code-card-info">
+                  <h3>Para tu familia ({registrationData?.family_primary_name || 'en México'})</h3>
+                  <p>Acceso a telemedicina, farmacia y compañía</p>
+                </div>
+              </div>
+              <div className="code-display">
+                <div className="code-label">Código de tu familia</div>
+                <div className="code-value magenta">{familyCode}</div>
+              </div>
+              <div className="code-sent">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Enviado por WhatsApp a México
+              </div>
             </div>
           </div>
 
-          <div className="step-highlight">
-            <span className="highlight-icon">⚡</span>
-            <p>¿Ves? <strong>En tan solo 30 segundos</strong> tus seres queridos ya pueden empezar a ahorrar.</p>
-          </div>
-        </div>
+          {/* Next Steps */}
+          <div className="next-steps">
+            <h3 className="next-steps-title">¿Qué sigue?</h3>
+            
+            <div className="step-item">
+              <div className="step-icon whatsapp">📱</div>
+              <div className="step-content">
+                <h4>WhatsApp enviado</h4>
+                <p>Tu familia ya recibió su código y las instrucciones</p>
+              </div>
+            </div>
 
-        {/* CTA */}
-        <div className="cta-section">
-          <a href="/login" className="cta-button">
-            Ya Tengo Mi Código / Login
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+            <div className="step-item">
+              <div className="step-icon phone">📞</div>
+              <div className="step-content">
+                <h4>Llamada de bienvenida</h4>
+                <p>En las próximas 24 horas, <span className="companion-name">Lupita</span> llamará a tu familia para presentarse</p>
+              </div>
+            </div>
+
+            <div className="step-item">
+              <div className="step-icon check">✓</div>
+              <div className="step-content">
+                <h4>Servicios activos</h4>
+                <p>Telemedicina, farmacia, terapia y compañía ya están disponibles</p>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Button */}
+          <button 
+            className="cta-button"
+            onClick={() => router.push('/dashboard')}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
             </svg>
-          </a>
-          <p className="cta-secondary">
-            ¿Tienes dudas? <a href="mailto:hola@saludcompartida.com">Contáctanos</a>
-          </p>
+            Ir a mi panel de ahorros
+          </button>
         </div>
       </div>
     </>
