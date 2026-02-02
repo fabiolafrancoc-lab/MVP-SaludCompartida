@@ -197,7 +197,7 @@ function PagoContent() {
          */
 
         /* Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Dancing+Script:wght@400;600;700&display=swap');
 
         /* CSS Variables */
         :root {
@@ -226,6 +226,10 @@ function PagoContent() {
 
         .serif {
           font-family: 'Instrument Serif', Georgia, serif;
+        }
+
+        .handwritten {
+          font-family: 'Dancing Script', cursive;
         }
 
         /* Loading Screen */
@@ -315,7 +319,7 @@ function PagoContent() {
         }
 
         .emotional-title {
-          font-size: 2.5rem;
+          font-size: 2rem;
           font-weight: 400;
           margin-bottom: 12px;
           color: var(--text-primary);
@@ -324,35 +328,85 @@ function PagoContent() {
         .emotional-subtitle {
           font-size: 1.125rem;
           color: var(--text-secondary);
+          margin-bottom: 32px;
         }
 
-        /* Testimonials */
-        .testimonials {
+        /* Family Signatures */
+        .signatures-container {
           display: flex;
+          flex-wrap: wrap;
           justify-content: center;
-          gap: 24px;
+          gap: 20px;
           margin-top: 32px;
+          max-width: 900px;
+          margin-left: auto;
+          margin-right: auto;
         }
 
-        .testimonial-card {
-          background: rgba(14, 165, 233, 0.08);
-          border: 1px solid rgba(14, 165, 233, 0.2);
+        .signature-card {
+          background: rgba(14, 165, 233, 0.05);
+          border: 2px solid rgba(14, 165, 233, 0.15);
           border-radius: 16px;
-          padding: 24px;
-          max-width: 400px;
+          padding: 24px 28px;
+          min-width: 260px;
+          text-align: center;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
         }
 
-        .testimonial-text {
-          font-size: 1.125rem;
-          font-style: italic;
+        .signature-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .signature-card:hover {
+          border-color: rgba(14, 165, 233, 0.4);
+          transform: translateY(-4px);
+          box-shadow: 0 8px 24px rgba(14, 165, 233, 0.15);
+        }
+
+        .signature-card:hover::before {
+          opacity: 1;
+        }
+
+        .signature-text {
+          font-size: 1.5rem;
           color: var(--text-primary);
-          margin-bottom: 12px;
+          margin-bottom: 16px;
+          line-height: 1.4;
+          font-weight: 600;
         }
 
-        .testimonial-author {
-          font-size: 0.875rem;
+        .signature-name {
+          font-size: 1rem;
           color: var(--cyan);
-          font-weight: 600;
+          font-weight: 500;
+          font-style: italic;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .signature-icon {
+          width: 18px;
+          height: 18px;
+          color: var(--cyan);
+          opacity: 0.9;
+          transition: all 0.3s ease;
+        }
+
+        .signature-card:hover .signature-icon {
+          opacity: 1;
+          transform: scale(1.15);
+          filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.6));
         }
 
         /* Payment Container - Two Columns */
@@ -725,15 +779,38 @@ function PagoContent() {
 
       {/* MAIN CONTENT */}
       <main className="payment-page">
-        {/* Testimonial Section */}
+        {/* Family Signatures Section */}
         <div className="emotional-section">
-          <h1 className="emotional-title serif">¡Gracias {registrationData?.migrant_first_name}!</h1>
-          <p className="emotional-subtitle">Tu familia en México te lo agradece</p>
+          <h1 className="emotional-title serif">Tu familia te está esperando, {registrationData?.migrant_first_name}</h1>
+          <p className="emotional-subtitle">Ellos te lo agradecen desde el corazón</p>
           
-          <div className="testimonials">
-            <div className="testimonial-card">
-              <div className="testimonial-text">"Gracias por cuidar de nosotros"</div>
-              <div className="testimonial-author">- {registrationData?.family_first_name || 'Tu familia'}</div>
+          <div className="signatures-container">
+            <div className="signature-card">
+              <div className="signature-text handwritten">"Te queremos Mijo"</div>
+              <div className="signature-name">
+                ~ Mamá 
+                <svg className="signature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
+            <div className="signature-card">
+              <div className="signature-text handwritten">"Te extrañamos mucho papá"</div>
+              <div className="signature-name">
+                ~ {registrationData?.family_first_name || 'Tu familia'}
+                <svg className="signature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
+            <div className="signature-card">
+              <div className="signature-text handwritten">"Te queremos papá"</div>
+              <div className="signature-name">
+                ~ Los niños
+                <svg className="signature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
