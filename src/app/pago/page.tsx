@@ -214,10 +214,17 @@ function PagoContent() {
           // Redirigir a confirmación
           router.push(`/confirmacion?id=${registrationId}`);
         } else {
-          throw new Error(result.error || 'Error procesando el pago');
+          // Mostrar el error específico de Square con más detalles
+          const errorMsg = result.error || 'Error procesando el pago';
+          const errorCode = result.errorCode ? ` (Código: ${result.errorCode})` : '';
+          console.error('❌ [SQUARE] Error del servidor:', result);
+          throw new Error(`${errorMsg}${errorCode}`);
         }
       } else {
-        throw new Error('Error al tokenizar la tarjeta. Verifica los datos.');
+        const tokenErrors = tokenResult.errors || [];
+        const errorMsg = tokenErrors.map((e: any) => e.message).join(', ') || 'Error al tokenizar la tarjeta. Verifica los datos.';
+        console.error('❌ [SQUARE] Error de tokenización:', tokenResult);
+        throw new Error(errorMsg);
       }
     } catch (err: any) {
       console.error('Error en el pago:', err);
