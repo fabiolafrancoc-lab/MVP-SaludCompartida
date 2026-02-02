@@ -201,20 +201,74 @@ function PagoContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <>
+      <style jsx global>{`
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: #111827; }
+        .page-container { min-height: 100vh; background: #111827; }
+        .nav { background: #111827; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
+        .nav-inner { max-width: 800px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+        .btn-back { color: #06B6D4; cursor: pointer; transition: color 0.2s; font-size: 14px; background: none; border: 2px solid #06B6D4; padding: 8px 16px; border-radius: 8px; font-weight: 600; }
+        .btn-back:hover { background: #06B6D4; color: white; }
+        .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+        .title { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 700; color: white; margin-bottom: 8px; text-align: center; }
+        .subtitle { color: rgba(255,255,255,0.7); margin-bottom: 32px; text-align: center; font-size: 16px; }
+        .plan-card { background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(236,72,153,0.1)); border-radius: 20px; padding: 24px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 24px; }
+        .plan-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        .plan-title { font-weight: 700; color: white; font-size: 18px; }
+        .plan-price { font-size: 32px; font-weight: 700; color: #06B6D4; }
+        .plan-price-small { font-size: 16px; color: rgba(255,255,255,0.6); }
+        .plan-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .plan-feature { display: flex; align-items: center; gap: 12px; }
+        .plan-feature-icon { font-size: 20px; }
+        .plan-feature-text { color: rgba(255,255,255,0.9); font-size: 14px; }
+        .plan-divider { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .plan-user { color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 6px; }
+        .plan-user-name { color: white; font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+        .plan-user-email { color: rgba(255,255,255,0.7); font-size: 14px; }
+        .payment-card { background: #1F2937; border-radius: 16px; padding: 28px 24px; border: 1px solid rgba(255,255,255,0.1); }
+        .payment-header { margin-bottom: 20px; text-align: center; }
+        .payment-title { font-size: 18px; font-weight: 700; color: white; margin-bottom: 4px; }
+        .payment-subtitle { font-size: 14px; color: rgba(255,255,255,0.6); }
+        .error-box { margin-bottom: 16px; padding: 14px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 12px; }
+        .error-text { color: #FCA5A5; font-size: 14px; }
+        .loading-box { text-align: center; padding: 32px 0; }
+        .loading-text { display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.6); }
+        #card-container { border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; min-height: 120px; background: rgba(255,255,255,0.05); }
+        .btn-pay { width: 100%; background: linear-gradient(135deg, #EC4899, #DB2777); color: white; font-weight: 700; padding: 18px; font-size: 18px; border-radius: 12px; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(236,72,153,0.3); }
+        .btn-pay:hover:not(:disabled) { box-shadow: 0 12px 40px rgba(236,72,153,0.4); transform: translateY(-2px); }
+        .btn-pay:disabled { opacity: 0.6; cursor: not-allowed; }
+        .security-box { margin-top: 20px; padding: 16px; background: rgba(6,182,212,0.1); border-radius: 12px; border: 1px solid rgba(6,182,212,0.2); }
+        .security-content { display: flex; align-items: flex-start; gap: 12px; }
+        .security-icon { width: 20px; height: 20px; color: #06B6D4; flex-shrink: 0; margin-top: 2px; }
+        .security-text { font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.5; }
+        .terms-text { margin-top: 16px; font-size: 12px; text-align: center; color: rgba(255,255,255,0.5); }
+        .terms-link { color: #06B6D4; text-decoration: none; }
+        .terms-link:hover { text-decoration: underline; }
+        .modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 16px; backdrop-filter: blur(4px); }
+        .modal-content { background: #1F2937; border-radius: 20px; padding: 40px 32px; max-width: 400px; width: 100%; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .modal-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #10B981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; animation: pulse 1.5s ease-in-out infinite; }
+        .modal-icon svg { width: 40px; height: 40px; color: white; }
+        .modal-title { font-size: 24px; font-weight: 700; color: white; margin-bottom: 8px; }
+        .modal-text { color: rgba(255,255,255,0.7); font-size: 14px; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spin { animation: spin 1s linear infinite; }
+      `}</style>
+      <div className="page-container">
       {/* Header */}
-      <nav className="bg-gray-900/80 backdrop-blur-sm border-b border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <nav className="nav">
+        <div className="nav-inner">
           <Image 
             src="/saludcompartida-dark-no-tagline.png" 
             alt="SaludCompartida" 
-            width={180} 
-            height={40}
-            className="h-10 w-auto"
+            width={140} 
+            height={36}
+            style={{ height: '36px', width: 'auto' }}
           />
           <button
             onClick={() => router.back()}
-            className="text-gray-400 hover:text-white transition-colors text-sm"
+            className="btn-back"
           >
             ← Volver
           </button>
@@ -223,156 +277,141 @@ function PagoContent() {
 
       {/* Modal de éxito */}
       {showSuccess && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center animate-pulse">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="modal">
+          <div className="modal-content">
+            <div className="modal-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">¡Pago Exitoso!</h3>
-            <p className="text-gray-600">Preparando tu cuenta...</p>
+            <h3 className="modal-title">¡Pago Exitoso!</h3>
+            <p className="modal-text">Preparando tu cuenta...</p>
           </div>
         </div>
       )}
 
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-2 gap-8">
+      <div className="container">
+        <h1 className="title">Completa tu Suscripción</h1>
+        <p className="subtitle">Último paso para activar tu plan familiar</p>
+
+        {/* Plan */}
+        <div className="plan-card">
+          <div className="plan-header">
+            <h3 className="plan-title">Plan Familiar</h3>
+            <span className="plan-price">$12<span className="plan-price-small">/mes</span></span>
+          </div>
           
-          {/* Columna izquierda - Resumen */}
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
-              Completa tu Suscripción
-            </h1>
-            <p className="text-gray-400 mb-6">
-              Último paso para activar tu plan familiar
-            </p>
-
-            {/* Plan */}
-            <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-bold text-white">Plan Familiar</h3>
-                <span className="text-2xl font-bold text-cyan-400">$12<span className="text-sm text-gray-400">/mes</span></span>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-cyan-400">🩺</span>
-                  <span className="text-gray-300 text-sm">Telemedicina 24/7</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-cyan-400">💊</span>
-                  <span className="text-gray-300 text-sm">Hasta 75% en farmacias</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-cyan-400">🧠</span>
-                  <span className="text-gray-300 text-sm">Terapia incluida</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-cyan-400">💜</span>
-                  <span className="text-gray-300 text-sm">{userData.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda'} - Tu acompañante</span>
-                </div>
-              </div>
-
-              {/* Datos del usuario */}
-              {userData.migrant_first_name && (
-                <div className="mt-6 pt-4 border-t border-gray-700">
-                  <p className="text-gray-400 text-xs mb-1">Suscripción para:</p>
-                  <p className="text-white font-medium">
-                    {userData.migrant_first_name} {userData.migrant_last_name}
-                  </p>
-                  <p className="text-gray-400 text-sm">{userData.migrant_email}</p>
-                </div>
-              )}
+          <div className="plan-features">
+            <div className="plan-feature">
+              <span className="plan-feature-icon">🩺</span>
+              <span className="plan-feature-text">Telemedicina 24/7 ilimitada</span>
+            </div>
+            <div className="plan-feature">
+              <span className="plan-feature-icon">💊</span>
+              <span className="plan-feature-text">Hasta 75% de descuento en farmacias</span>
+            </div>
+            <div className="plan-feature">
+              <span className="plan-feature-icon">🧠</span>
+              <span className="plan-feature-text">Terapia psicológica incluida</span>
+            </div>
+            <div className="plan-feature">
+              <span className="plan-feature-icon">💜</span>
+              <span className="plan-feature-text">{userData.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda'} - Tu compañera de vida</span>
             </div>
           </div>
 
-          {/* Columna derecha - Formulario de pago */}
-          <div>
-            <div className="bg-white rounded-2xl p-6 shadow-2xl">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-pink-500 rounded-lg flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
-                </div>
-                <h2 className="text-xl font-bold text-gray-900">Información de Pago</h2>
-              </div>
-
-              {/* Error */}
-              {error && (
-                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-red-700 text-sm">{error}</p>
-                </div>
-              )}
-
-              {/* Square Card Container */}
-              <div className="mb-6">
-                {!squareLoaded && (
-                  <div className="text-center py-8">
-                    <div className="inline-flex items-center gap-2 text-gray-500">
-                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                      </svg>
-                      <span>Cargando formulario de pago...</span>
-                    </div>
-                  </div>
-                )}
-                
-                <div 
-                  id="card-container" 
-                  ref={cardContainerRef}
-                  className={`border-2 border-gray-200 rounded-lg p-4 min-h-[120px] ${squareLoaded ? 'block' : 'hidden'}`}
-                />
-              </div>
-
-              {/* Botón de pago */}
-              <button
-                onClick={handlePayment}
-                disabled={isProcessing || !squareLoaded}
-                className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold py-4 text-lg rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-              >
-                {isProcessing ? (
-                  <span className="inline-flex items-center gap-2">
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    Procesando...
-                  </span>
-                ) : (
-                  'Pagar $12.00 USD / mes'
-                )}
-              </button>
-
-              {/* Seguridad */}
-              <div className="mt-6 p-4 bg-gray-50 rounded-xl">
-                <div className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                  <div>
-                    <p className="text-xs text-gray-600">
-                      <strong>Pago seguro con Square.</strong> Tus datos están protegidos con encriptación de nivel bancario. 
-                      SaludCompartida nunca almacena información de tu tarjeta.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Términos */}
-              <p className="mt-4 text-xs text-center text-gray-500">
-                Al completar el pago, aceptas nuestros{' '}
-                <a href="/terminos" className="text-cyan-600 hover:underline">Términos</a>
-                {' '}y{' '}
-                <a href="/privacidad" className="text-cyan-600 hover:underline">Privacidad</a>
+          {/* Datos del usuario */}
+          {userData.migrant_first_name && (
+            <div className="plan-divider">
+              <p className="plan-user">Titular de la suscripción:</p>
+              <p className="plan-user-name">
+                {userData.migrant_first_name} {userData.migrant_last_name}
               </p>
+              <p className="plan-user-email">{userData.migrant_email}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Formulario de pago */}
+        <div className="payment-card">
+          <div className="payment-header">
+            <h2 className="payment-title">💳 Información de Pago</h2>
+            <p className="payment-subtitle">Pago seguro procesado por Square</p>
+          </div>
+
+          {/* Error */}
+          {error && (
+            <div className="error-box">
+              <p className="error-text">⚠️ {error}</p>
+            </div>
+          )}
+
+          {/* Square Card Container */}
+          <div style={{ marginBottom: '20px' }}>
+            {!squareLoaded && (
+              <div className="loading-box">
+                <div className="loading-text">
+                  <svg className="spin" style={{ width: '20px', height: '20px' }} viewBox="0 0 24 24">
+                    <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  <span>Cargando formulario de pago...</span>
+                </div>
+              </div>
+            )}
+            
+            <div 
+              id="card-container" 
+              ref={cardContainerRef}
+              style={{ display: squareLoaded ? 'block' : 'none' }}
+            />
+          </div>
+
+          {/* Botón de pago */}
+          <button
+            onClick={handlePayment}
+            disabled={isProcessing || !squareLoaded}
+            className="btn-pay"
+          >
+            {isProcessing ? (
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <svg className="spin" style={{ width: '20px', height: '20px' }} viewBox="0 0 24 24">
+                  <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                  <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+                Procesando pago...
+              </span>
+            ) : (
+              '✓ Pagar $12.00 USD / mes'
+            )}
+          </button>
+
+          {/* Seguridad */}
+          <div className="security-box">
+            <div className="security-content">
+              <svg className="security-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <div>
+                <p className="security-text">
+                  <strong>🔒 Pago 100% seguro.</strong> Tus datos están protegidos con encriptación bancaria. 
+                  SaludCompartida nunca almacena información de tu tarjeta.
+                </p>
+              </div>
             </div>
           </div>
+
+          {/* Términos */}
+          <p className="terms-text">
+            Al completar el pago, aceptas nuestros{' '}
+            <a href="/terminos" className="terms-link">Términos y Condiciones</a>
+            {' '}y{' '}
+            <a href="/privacidad" className="terms-link">Política de Privacidad</a>
+          </p>
         </div>
       </div>
     </div>
+    </>
   );
 }
 
