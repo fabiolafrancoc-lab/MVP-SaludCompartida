@@ -185,27 +185,29 @@ function PagoContent() {
             })
             .eq('id', registrationId);
 
-          // 🎯 NUEVO: Enviar email de bienvenida con Resend
+          // 🎯 ENVIAR EMAILS CON RESEND (Migrante + Usuario México)
+          // ✅ Conectado a Supabase para obtener todos los datos
+          // ✅ Usa templates diseñados "El Que Nunca Olvida" + "El Regalo de Amor"
           try {
-            console.log('📧 Enviando email de bienvenida...');
-            await fetch('/api/send-notifications', {
+            console.log('📧 [SQUARE] Pago completado. Enviando emails de bienvenida...');
+            const emailResponse = await fetch('/api/send-notifications', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 type: 'payment_success',
-                registrationId: registrationId,
-                codigoFamilia: registrationData.migrant_code,
-                suscriptorEmail: registrationData.migrant_email,
-                suscriptorNombre: `${registrationData.migrant_first_name} ${registrationData.migrant_last_name}`,
-                suscriptorTelefono: registrationData.migrant_phone,
-                usuarioPrincipalNombre: `${registrationData.family_first_name} ${registrationData.family_last_name}`,
-                usuarioPrincipalTelefono: registrationData.family_phone,
-                planName: 'SaludCompartida Familiar'
+                registrationId: registrationId
               })
             });
-            console.log('✅ Email enviado exitosamente');
+
+            const emailResult = await emailResponse.json();
+            
+            if (emailResult.success) {
+              console.log('✅ [RESEND] Emails enviados exitosamente:', emailResult);
+            } else {
+              console.warn('⚠️ [RESEND] Error enviando emails (no crítico):', emailResult.error);
+            }
           } catch (emailError) {
-            console.error('⚠️ Error enviando email (no crítico):', emailError);
+            console.error('⚠️ [RESEND] Error en llamada a /api/send-notifications:', emailError);
             // No bloqueamos el flujo si el email falla
           }
 
