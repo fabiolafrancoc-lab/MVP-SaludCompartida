@@ -1,18 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// API para procesar pagos con Square - REST API directo (sin SDK)
+// ════════════════════════════════════════════════════════════
+// API SQUARE PAYMENT - Procesar pagos con Square
+// ════════════════════════════════════════════════════════════
+// Modo: SANDBOX (testing) o PRODUCTION
+// ════════════════════════════════════════════════════════════
+
 export async function POST(request: NextRequest) {
-  console.log('🔍 Square Payment API called');
+  console.log('🔍 [SQUARE] Payment API called');
   
   try {
     const body = await request.json();
-    const { sourceId, amount, currency, description, registrationId } = body;
+    const { sourceId, amount, currency, description, registrationId, idempotencyKey } = body;
     
     const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN;
     const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID;
+    
+    // Detectar si estamos en Sandbox o Production
+    const isSandbox = SQUARE_ACCESS_TOKEN?.startsWith('EAAAE');
+    const apiUrl = isSandbox 
+      ? 'https://connect.squareupsandbox.com/v2/payments'
+      : 'https://connect.squareup.com/v2/payments';
+
+    console.log(`🔧 [SQUARE] Modo: ${isSandbox ? 'SANDBOX' : 'PRODUCTION'}`);
+    console.log('📍 [SQUARE] Location ID:', SQUARE_LOCATION_ID);
+    console.log('💰 [SQUARE] Amount:', amount, currency || 'USD');
+    console.log('🔑 [SQUARE] Idempotency Key:', idempotencyKey);
 
     if (!SQUARE_ACCESS_TOKEN || !SQUARE_LOCATION_ID) {
-      console.error('❌ Square credentials not configured');
+      console.error('❌ [SQUARE] Credentials not configured');
       return NextResponse.json(
         {
           success: false,
@@ -23,25 +39,24 @@ export async function POST(request: NextRequest) {
     }
 
     if (!sourceId || !amount) {
+      console.error('❌ [SQUARE] Missing required fields');
       return NextResponse.json(
         {
           success: false,
-          error: 'Missing required fields',
+          error: 'Missing required fields: sourceId and amount are required',
         },
         { status: 400 }
       );
     }
 
-    console.log('💳 Llamando a Square API directamente...');
-    console.log('📍 Location ID:', SQUARE_LOCATION_ID);
-    console.log('💰 Amount:', amount, currency || 'USD');
+    console.log('💳 [SQUARE] Calling Square API...');
 
-    // Llamar a Square REST API directamente (Production)
-    const response = await fetch('https://connect.squareup.com/v2/payments', {
+    // Llamar a Square API (Sandbox o Production)
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Square-Version': '2024-12-18',
-        Authorization: `Bearer ${SQUARE_ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${SQUARE_ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -51,40 +66,51 @@ export async function POST(request: NextRequest) {
           currency: currency || 'USD',
         },
         location_id: SQUARE_LOCATION_ID,
-        idempotency_key: `${Date.now()}-${Math.random().toString(36).substring(7)}`,
+        idempotency_key: idempotencyKey || `${Date.now()}-${Math.random().toString(36).substring(7)}`,
       }),
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      console.error('❌ Square API error:', data);
+      console.error('❌ [SQUARE] API error:', JSON.stringify(data, null, 2));
+      
+      // Extraer error detallado
+      const errorDetail = data.errors?.[0]?.detail || 'Error processing payment';
+      const errorCode = data.errors?.[0]?.code || 'UNKNOWN';
+      
       return NextResponse.json(
         {
           success: false,
-          error: data.errors?.[0]?.detail || 'Error processing payment',
+          error: errorDetail,
+          errorCode: errorCode,
           details: data.errors,
         },
         { status: response.status }
       );
     }
 
-    console.log('✅ Payment successful:', data.payment.id);
+    console.log('✅ [SQUARE] Payment successful!');
+    console.log('   Payment ID:', data.payment.id);
+    console.log('   Status:', data.payment.status);
+    console.log('   Amount:', data.payment.amount_money.amount, data.payment.amount_money.currency);
 
     return NextResponse.json({
       success: true,
       data: {
         id: data.payment.id,
         status: data.payment.status,
+        amount: data.payment.amount_money,
+        receipt_url: data.payment.receipt_url,
       },
     });
 
   } catch (error: any) {
-    console.error('❌ Error:', error);
+    console.error('❌ [SQUARE] Unexpected error:', error);
     return NextResponse.json(
       {
         success: false,
-        error: error.message,
+        error: error.message || 'Unexpected error processing payment',
       },
       { status: 500 }
     );
