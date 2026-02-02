@@ -102,8 +102,6 @@ export default function RegistrationPage() {
     migrant_birthdate: '',
     migrant_email: '',
     migrant_phone: '',
-    migrant_country: 'US', // País donde está el migrante
-    migrant_state: '', // Estado/ciudad del migrante
     // Usuario México - nombres exactos de Supabase
     family_first_name: '',
     family_last_name: '',
@@ -112,8 +110,6 @@ export default function RegistrationPage() {
     family_birthdate: '',
     family_email: '',
     family_phone: '',
-    family_country: 'MX', // País de la familia (solo México habilitado)
-    family_state: '', // Estado de la familia en México
     // Términos
     terms_accepted: false,
   });
@@ -231,8 +227,6 @@ export default function RegistrationPage() {
           migrant_email: formData.migrant_email,
           migrant_country_code: '+1',
           migrant_phone: migrant_phone_clean,
-          migrant_country: formData.migrant_country,
-          migrant_state: formData.migrant_state || null,
           
           // Datos del usuario en México
           family_first_name: formData.family_first_name,
@@ -243,8 +237,6 @@ export default function RegistrationPage() {
           family_email: formData.family_email,
           family_country_code: '+52',
           family_phone: family_phone_clean,
-          family_country: formData.family_country,
-          family_state: formData.family_state || null,
           
           // Companion asignado
           family_companion_assigned: family_companion_assigned,
@@ -288,25 +280,6 @@ export default function RegistrationPage() {
 
   return (
     <>
-      {/* DEV BADGE - MVP JAN 2026 */}
-      <div style={{
-        position: 'fixed',
-        top: '10px',
-        right: '10px',
-        zIndex: 9999,
-        background: 'linear-gradient(135deg, #FF6B35, #FF8C42)',
-        color: 'white',
-        padding: '6px 12px',
-        borderRadius: '6px',
-        fontSize: '11px',
-        fontWeight: 700,
-        letterSpacing: '0.5px',
-        boxShadow: '0 4px 12px rgba(255, 107, 53, 0.4)',
-        border: '1px solid rgba(255, 255, 255, 0.2)'
-      }}>
-        MVP JAN 2026
-      </div>
-
       <style jsx global>{`
         :root {
           --bg-dark: #0a0a0a;
@@ -1236,46 +1209,6 @@ export default function RegistrationPage() {
                   </div>
                 </div>
 
-                <div className="form-section">
-                  <div className="form-section-title">Ubicación</div>
-                  <div className="form-row two-col">
-                    <div className="form-group">
-                      <label className="form-label">¿Dónde estás actualmente? <span className="required">*</span></label>
-                      <select 
-                        name="migrant_country"
-                        value={formData.migrant_country}
-                        onChange={handleChange}
-                        className="form-select"
-                        required
-                      >
-                        <option value="">Seleccionar país</option>
-                        {COUNTRIES.filter(c => c.enabled).map(country => (
-                          <option key={country.code} value={country.code}>
-                            {country.flag} {country.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    {formData.migrant_country === 'US' && (
-                      <div className="form-group">
-                        <label className="form-label">Estado <span className="required">*</span></label>
-                        <select 
-                          name="migrant_state"
-                          value={formData.migrant_state}
-                          onChange={handleChange}
-                          className="form-select"
-                          required
-                        >
-                          <option value="">Seleccionar estado</option>
-                          {USA_STATES.map(state => (
-                            <option key={state} value={state}>{state}</option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
                 {/* SECCIÓN MÉXICO */}
                 <div className="form-section-title" style={{marginTop: '48px', marginBottom: '24px', fontSize: '15px', color: 'var(--green)'}}>
                   🇲🇽 USUARIO EN MÉXICO
@@ -1390,51 +1323,6 @@ export default function RegistrationPage() {
                       <strong>Escribe solo los 10 dígitos.</strong> El formato se aplica automáticamente.
                     </p>
                     <p className="phone-note">Nosotros agregamos el +52 automáticamente. No lo escribas.</p>
-                  </div>
-                </div>
-
-                <div className="form-section">
-                  <div className="form-section-title">Ubicación</div>
-                  <div className="form-row two-col">
-                    <div className="form-group">
-                      <label className="form-label">¿En qué país está tu familia? <span className="required">*</span></label>
-                      <select 
-                        name="family_country"
-                        value={formData.family_country}
-                        onChange={handleChange}
-                        className="form-select"
-                        required
-                      >
-                        <option value="">Seleccionar país</option>
-                        {COUNTRIES.map(country => (
-                          <option 
-                            key={country.code} 
-                            value={country.code}
-                            disabled={!country.enabled}
-                            style={{ opacity: country.enabled ? 1 : 0.5 }}
-                          >
-                            {country.flag} {!country.enabled && '(Próximamente)'}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    {formData.family_country === 'MX' && (
-                      <div className="form-group">
-                        <label className="form-label">Estado <span className="required">*</span></label>
-                        <select 
-                          name="family_state"
-                          value={formData.family_state}
-                          onChange={handleChange}
-                          className="form-select"
-                          required
-                        >
-                          <option value="">Seleccionar estado</option>
-                          {MEXICO_STATES.map(state => (
-                            <option key={state} value={state}>{state}</option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
                   </div>
                 </div>
 

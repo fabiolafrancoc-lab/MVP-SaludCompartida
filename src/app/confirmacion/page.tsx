@@ -76,25 +76,6 @@ function ConfirmacionContent() {
 
   return (
     <>
-      {/* DEV BADGE - MVP JAN 2026 */}
-      <div style={{
-        position: 'fixed',
-        top: '10px',
-        right: '10px',
-        zIndex: 9999,
-        background: 'linear-gradient(135deg, #FF6B35, #FF8C42)',
-        color: 'white',
-        padding: '6px 12px',
-        borderRadius: '6px',
-        fontSize: '11px',
-        fontWeight: 700,
-        letterSpacing: '0.5px',
-        boxShadow: '0 4px 12px rgba(255, 107, 53, 0.4)',
-        border: '1px solid rgba(255, 255, 255, 0.2)'
-      }}>
-        MVP JAN 2026
-      </div>
-
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif&display=swap');
 
