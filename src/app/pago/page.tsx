@@ -257,6 +257,22 @@ function PagoContent() {
     <>
       <style jsx>{`
         /* ========================================== */
+        /* GLOBAL STYLES - FONDO OSCURO FORZADO      */
+        /* ========================================== */
+        :global(html) {
+          background: #0a0a0a;
+        }
+
+        :global(body) {
+          font-family: 'DM Sans', -apple-system, sans-serif;
+          background: #111827;
+          color: #FFFFFF;
+          min-height: 100vh;
+          margin: 0;
+          padding: 0;
+        }
+
+        /* ========================================== */
         /* ARQUITECTURA DE DISEÑO                     */
         /* ========================================== */
         /* 
@@ -291,11 +307,12 @@ function PagoContent() {
           box-sizing: border-box;
         }
 
-        body {
-          font-family: 'DM Sans', -apple-system, sans-serif;
-          background: #111827;
-          color: var(--text-primary);
+        /* Main Layout */
+        .payment-page {
           min-height: 100vh;
+          padding: 100px 20px 60px;
+          background: #111827;
+          position: relative;
         }
 
         .serif {
@@ -313,7 +330,7 @@ function PagoContent() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          background: var(--bg-dark);
+          background: #0a0a0a;
           color: white;
         }
 
