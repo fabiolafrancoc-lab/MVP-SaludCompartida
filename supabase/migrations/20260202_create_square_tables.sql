@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS square_customers (
   -- ════════════════════════════════════════════════════════════
   -- COMPAÑERA ASIGNADA
   -- ════════════════════════════════════════════════════════════
-  assigned_companion_id BIGINT REFERENCES ai_companions(id)
+  assigned_companion_id UUID REFERENCES ai_companions(id)
 );
 
 CREATE INDEX idx_square_customers_registration ON square_customers(registration_id);
