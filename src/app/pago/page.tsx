@@ -26,6 +26,10 @@ function PagoContent() {
   const [error, setError] = useState('');
   const [registrationData, setRegistrationData] = useState<any>(null);
   const [card, setCard] = useState<any>(null);
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+  const [contactSending, setContactSending] = useState(false);
+  const [contactSuccess, setContactSuccess] = useState(false);
 
   // Cargar datos del registro desde Supabase
   useEffect(() => {
@@ -64,20 +68,46 @@ function PagoContent() {
 
     const initSquarePayments = async () => {
       try {
+        // Obtener credenciales de Square
+        const appId = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID;
+        const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID;
+
+        console.log('🔵 Iniciando Square Payments...');
+        console.log('App ID presente:', !!appId);
+        console.log('Location ID presente:', !!locationId);
+        console.log('App ID:', appId);
+        console.log('Location ID:', locationId);
+
+        // Validar que las credenciales existan
+        if (!appId || !locationId) {
+          throw new Error('Credenciales de Square no configuradas. Contacta a soporte.');
+        }
+
         // Verificar que Square SDK esté cargado
         if (!window.Square) {
+          console.log('⏳ Cargando Square SDK...');
           const script = document.createElement('script');
           script.src = 'https://web.squarecdn.com/v1/square.js';
           script.async = true;
-          script.onload = () => initSquarePayments();
+          script.onload = () => {
+            console.log('✅ Square SDK cargado');
+            initSquarePayments();
+          };
+          script.onerror = () => {
+            console.error('❌ Error cargando Square SDK');
+            setError('Error al cargar Square. Verifica tu conexión a internet.');
+          };
           document.head.appendChild(script);
           return;
         }
 
-        const payments = window.Square.payments(
-          process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID,
-          process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID
-        );
+        console.log('✅ Square SDK disponible');
+        console.log('Inicializando con appId:', appId);
+        console.log('Inicializando con locationId:', locationId);
+        
+        const payments = window.Square.payments(appId, locationId);
+
+        console.log('✅ Square Payments inicializado');
 
         // Inicializar UN SOLO card element (Square lo requiere así)
         const cardInstance = await payments.card({
@@ -100,12 +130,16 @@ function PagoContent() {
           }
         });
         
+        console.log('✅ Card instance creado');
+        
         await cardInstance.attach('#card-container');
+        console.log('✅ Card adjuntado al DOM');
+        
         setCard(cardInstance);
 
       } catch (err) {
-        console.error('Error inicializando Square:', err);
-        setError('Error al cargar el formulario de pago. Por favor recarga la página.');
+        console.error('❌ Error inicializando Square:', err);
+        setError(`Error al cargar el formulario de pago: ${err instanceof Error ? err.message : 'Error desconocido'}. Por favor recarga la página.`);
       }
     };
 
@@ -165,6 +199,39 @@ function PagoContent() {
       setError(err.message || 'Error procesando el pago. Intenta nuevamente.');
     } finally {
       setIsProcessing(false);
+    }
+  };
+
+  // Enviar formulario de contacto
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactSending(true);
+
+    try {
+      const response = await fetch('/api/send-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...contactForm,
+          subject: '💳 Consulta sobre el cobro - Página de Pago',
+          source: 'payment_page'
+        })
+      });
+
+      if (response.ok) {
+        setContactSuccess(true);
+        setTimeout(() => {
+          setShowContactModal(false);
+          setContactSuccess(false);
+          setContactForm({ name: '', email: '', message: '' });
+        }, 2000);
+      } else {
+        alert('Error al enviar el mensaje. Por favor intenta nuevamente.');
+      }
+    } catch (error) {
+      alert('Error al enviar el mensaje. Por favor intenta nuevamente.');
+    } finally {
+      setContactSending(false);
     }
   };
 
@@ -730,6 +797,190 @@ function PagoContent() {
           text-decoration: underline;
         }
 
+        /* Contact Button */
+        .contact-button {
+          background: rgba(14, 165, 233, 0.1);
+          border: 1px solid rgba(14, 165, 233, 0.3);
+          color: var(--cyan);
+          padding: 8px 16px;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .contact-button:hover {
+          background: rgba(14, 165, 233, 0.2);
+          border-color: var(--cyan);
+        }
+
+        .contact-button svg {
+          width: 14px;
+          height: 14px;
+        }
+
+        /* Contact Modal */
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(4px);
+          z-index: 2000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        .modal-content {
+          background: #16162a;
+          border: 1px solid rgba(14, 165, 233, 0.2);
+          border-radius: 20px;
+          padding: 32px;
+          max-width: 500px;
+          width: 100%;
+          position: relative;
+          animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+          from { transform: translateY(20px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-close {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          background: rgba(255, 255, 255, 0.05);
+          border: none;
+          color: var(--text-muted);
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: white;
+        }
+
+        .modal-title {
+          font-size: 24px;
+          font-weight: 600;
+          color: white;
+          margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+          font-size: 14px;
+          color: var(--text-muted);
+          margin-bottom: 24px;
+        }
+
+        .contact-form {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .form-label {
+          font-size: 13px;
+          font-weight: 500;
+          color: var(--text-secondary);
+        }
+
+        .form-input,
+        .form-textarea {
+          background: rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          padding: 12px;
+          font-size: 14px;
+          color: white;
+          font-family: 'DM Sans', sans-serif;
+          transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+          outline: none;
+          border-color: var(--cyan);
+          background: rgba(0, 0, 0, 0.4);
+        }
+
+        .form-textarea {
+          min-height: 100px;
+          resize: vertical;
+        }
+
+        .form-submit {
+          background: linear-gradient(135deg, var(--cyan), #0891B2);
+          color: white;
+          border: none;
+          padding: 14px 24px;
+          border-radius: 10px;
+          font-size: 15px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-top: 8px;
+        }
+
+        .form-submit:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+        }
+
+        .form-submit:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        .success-message {
+          background: rgba(16, 185, 129, 0.1);
+          border: 1px solid rgba(16, 185, 129, 0.3);
+          color: var(--green);
+          padding: 12px 16px;
+          border-radius: 8px;
+          font-size: 14px;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+
+        .success-message svg {
+          width: 18px;
+          height: 18px;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
           .payment-page {
@@ -767,12 +1018,24 @@ function PagoContent() {
             alt="SaludCompartida" 
             className="nav-logo" 
           />
-          <div className="nav-secure">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-            Pago Seguro
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <button 
+              className="contact-button"
+              onClick={() => setShowContactModal(true)}
+              type="button"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              ¿Consultas sobre el cobro?
+            </button>
+            <div className="nav-secure">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              Pago Seguro
+            </div>
           </div>
         </div>
       </nav>
@@ -990,6 +1253,80 @@ function PagoContent() {
           </div>
         </div>
       </main>
+
+      {/* Contact Modal */}
+      {showContactModal && (
+        <div className="modal-overlay" onClick={() => setShowContactModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="modal-close"
+              onClick={() => setShowContactModal(false)}
+              type="button"
+            >
+              ✕
+            </button>
+            
+            <h2 className="modal-title">¿Consultas sobre el cobro?</h2>
+            <p className="modal-subtitle">
+              Responderemos a tu email lo antes posible
+            </p>
+
+            {contactSuccess ? (
+              <div className="success-message">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                ¡Mensaje enviado! Te responderemos pronto.
+              </div>
+            ) : (
+              <form className="contact-form" onSubmit={handleContactSubmit}>
+                <div className="form-group">
+                  <label className="form-label">Nombre completo</label>
+                  <input 
+                    type="text"
+                    className="form-input"
+                    value={contactForm.name}
+                    onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
+                    required
+                    placeholder="Tu nombre"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Email</label>
+                  <input 
+                    type="email"
+                    className="form-input"
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
+                    required
+                    placeholder="tu@email.com"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Tu consulta</label>
+                  <textarea 
+                    className="form-textarea"
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
+                    required
+                    placeholder="¿En qué podemos ayudarte?"
+                  />
+                </div>
+
+                <button 
+                  type="submit" 
+                  className="form-submit"
+                  disabled={contactSending}
+                >
+                  {contactSending ? 'Enviando...' : 'Enviar consulta'}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="footer">
