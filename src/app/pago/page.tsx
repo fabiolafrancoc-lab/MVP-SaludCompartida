@@ -79,8 +79,8 @@ function PagoContent() {
           process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID
         );
 
-        // Inicializar campos individuales de Square
-        const cardNumber = await payments.card({
+        // Inicializar UN SOLO card element (Square lo requiere así)
+        const cardInstance = await payments.card({
           style: {
             input: {
               color: '#FFFFFF',
@@ -89,56 +89,19 @@ function PagoContent() {
               '::placeholder': {
                 color: 'rgba(255, 255, 255, 0.4)'
               }
+            },
+            '.input-container': {
+              borderColor: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '12px'
+            },
+            '.input-container.is-focus': {
+              borderColor: '#0EA5E9'
             }
           }
         });
-        await cardNumber.attach('#sq-card-number');
-
-        const expirationDate = await payments.card({
-          style: {
-            input: {
-              color: '#FFFFFF',
-              fontFamily: '"DM Sans", -apple-system, sans-serif',
-              fontSize: '16px',
-              '::placeholder': {
-                color: 'rgba(255, 255, 255, 0.4)'
-              }
-            }
-          }
-        });
-        await expirationDate.attach('#sq-expiration-date');
-
-        const cvv = await payments.card({
-          style: {
-            input: {
-              color: '#FFFFFF',
-              fontFamily: '"DM Sans", -apple-system, sans-serif',
-              fontSize: '16px',
-              '::placeholder': {
-                color: 'rgba(255, 255, 255, 0.4)'
-              }
-            }
-          }
-        });
-        await cvv.attach('#sq-cvv');
-
-        // Opcional: Postal Code
-        const postalCode = await payments.card({
-          style: {
-            input: {
-              color: '#FFFFFF',
-              fontFamily: '"DM Sans", -apple-system, sans-serif',
-              fontSize: '16px',
-              '::placeholder': {
-                color: 'rgba(255, 255, 255, 0.4)'
-              }
-            }
-          }
-        });
-        await postalCode.attach('#sq-postal-code');
-
-        // Guardar referencia del card para tokenización
-        setCard(cardNumber);
+        
+        await cardInstance.attach('#card-container');
+        setCard(cardInstance);
 
       } catch (err) {
         console.error('Error inicializando Square:', err);
@@ -256,8 +219,7 @@ function PagoContent() {
 
         body {
           font-family: 'DM Sans', -apple-system, sans-serif;
-          background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2E 100%);
-          background-attachment: fixed;
+          background: #111827;
           color: var(--text-primary);
           min-height: 100vh;
         }
@@ -334,7 +296,7 @@ function PagoContent() {
           padding: 100px 20px 60px;
         }
 
-        /* Emotional Section - "Tu familia te está esperando" */
+        /* Emotional Section - Testimonials */
         .emotional-section {
           text-align: center;
           margin-bottom: 48px;
@@ -364,40 +326,33 @@ function PagoContent() {
           color: var(--text-secondary);
         }
 
-        /* Family Waiting Avatar */
-        .family-waiting {
+        /* Testimonials */
+        .testimonials {
           display: flex;
           justify-content: center;
           gap: 24px;
           margin-top: 32px;
         }
 
-        .family-member {
-          text-align: center;
+        .testimonial-card {
+          background: rgba(14, 165, 233, 0.08);
+          border: 1px solid rgba(14, 165, 233, 0.2);
+          border-radius: 16px;
+          padding: 24px;
+          max-width: 400px;
         }
 
-        .family-avatar {
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, var(--cyan), var(--magenta));
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2.5rem;
-          margin: 0 auto 12px;
-          box-shadow: 0 8px 32px rgba(14, 165, 233, 0.3);
-        }
-
-        .family-name {
-          font-size: 1rem;
-          font-weight: 600;
+        .testimonial-text {
+          font-size: 1.125rem;
+          font-style: italic;
           color: var(--text-primary);
+          margin-bottom: 12px;
         }
 
-        .family-relation {
+        .testimonial-author {
           font-size: 0.875rem;
-          color: var(--text-muted);
+          color: var(--cyan);
+          font-weight: 600;
         }
 
         /* Payment Container - Two Columns */
@@ -571,9 +526,9 @@ function PagoContent() {
           margin: 12px 0;
         }
 
-        /* ========================================== */
+        /* ========================================== */}
         /* FORMULARIO DE TARJETA - SQUARE SECTION    */
-        /* Estos campos son renderizados por Square  */
+        /* Square renderiza TODO en #card-container  */
         /* ========================================== */
         
         .card-form-section {
@@ -585,43 +540,24 @@ function PagoContent() {
           font-size: 13px;
           font-weight: 600;
           color: var(--text-secondary);
-          margin-bottom: 8px;
+          margin-bottom: 12px;
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
 
-        /* Contenedores individuales de Square */
-        #sq-card-number,
-        #sq-expiration-date,
-        #sq-cvv,
-        #sq-postal-code {
+        /* Contenedor principal de Square */
+        #card-container {
           background: rgba(255, 255, 255, 0.05);
           border: 2px solid rgba(255, 255, 255, 0.1);
           border-radius: 12px;
-          padding: 14px 16px;
-          min-height: 50px;
+          padding: 16px;
+          min-height: 120px;
           transition: all 0.3s ease;
         }
 
-        #sq-card-number:focus-within,
-        #sq-expiration-date:focus-within,
-        #sq-cvv:focus-within,
-        #sq-postal-code:focus-within {
+        #card-container:focus-within {
           border-color: var(--cyan);
           box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
-        }
-
-        /* Grid para Expiration y CVV lado a lado */
-        .card-details-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 16px;
-          margin-top: 16px;
-        }
-
-        .card-field-group {
-          display: flex;
-          flex-direction: column;
         }
 
         /* ========================================== */
@@ -789,16 +725,15 @@ function PagoContent() {
 
       {/* MAIN CONTENT */}
       <main className="payment-page">
-        {/* Emotional Section */}
+        {/* Testimonial Section */}
         <div className="emotional-section">
-          <h1 className="emotional-title serif">Tu familia te está esperando</h1>
-          <p className="emotional-subtitle">En unos segundos, estarán protegidos</p>
+          <h1 className="emotional-title serif">¡Gracias {registrationData?.migrant_first_name}!</h1>
+          <p className="emotional-subtitle">Tu familia en México te lo agradece</p>
           
-          <div className="family-waiting">
-            <div className="family-member">
-              <div className="family-avatar">👵</div>
-              <div className="family-name">{registrationData?.family_first_name || 'Tu familiar'}</div>
-              <div className="family-relation">Usuario principal</div>
+          <div className="testimonials">
+            <div className="testimonial-card">
+              <div className="testimonial-text">"Gracias por cuidar de nosotros"</div>
+              <div className="testimonial-author">- {registrationData?.family_first_name || 'Tu familia'}</div>
             </div>
           </div>
         </div>
@@ -915,29 +850,12 @@ function PagoContent() {
 
             {/* ====================================== */}
             {/* SQUARE PAYMENT FORM                   */}
-            {/* Los iframes de Square se renderizan aquí */}
+            {/* Square renderiza TODO aquí (tarjeta, fecha, CVV) */}
             {/* ====================================== */}
             <div className="card-form-section">
-              <label className="card-form-label">Número de tarjeta</label>
-              {/* Square renderiza su iframe aquí */}
-              <div id="sq-card-number"></div>
-
-              <div className="card-details-row">
-                <div className="card-field-group">
-                  <label className="card-form-label">Vencimiento</label>
-                  {/* Square renderiza su iframe aquí */}
-                  <div id="sq-expiration-date"></div>
-                </div>
-                <div className="card-field-group">
-                  <label className="card-form-label">CVV</label>
-                  {/* Square renderiza su iframe aquí */}
-                  <div id="sq-cvv"></div>
-                </div>
-              </div>
-
-              {/* Código Postal (opcional, para validación AVS) */}
-              <label className="card-form-label" style={{ marginTop: '16px' }}>Código Postal</label>
-              <div id="sq-postal-code"></div>
+              <label className="card-form-label">Información de pago</label>
+              {/* Square renderiza su iframe COMPLETO aquí */}
+              <div id="card-container"></div>
             </div>
             {/* ====================================== */}
             {/* FIN SQUARE PAYMENT FORM               */}
