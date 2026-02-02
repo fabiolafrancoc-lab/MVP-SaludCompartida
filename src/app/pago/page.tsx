@@ -68,57 +68,60 @@ function PagoContent() {
 
     const initSquarePayments = async () => {
       try {
-        // Obtener credenciales de Square
         const appId = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID;
         const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID;
 
         console.log('🔵 Iniciando Square Payments...');
-        console.log('App ID presente:', !!appId);
-        console.log('Location ID presente:', !!locationId);
         console.log('App ID:', appId);
         console.log('Location ID:', locationId);
 
-        // Validar que las credenciales existan
         if (!appId || !locationId) {
-          throw new Error('Credenciales de Square no configuradas. Contacta a soporte.');
+          throw new Error(
+            'Square no está configurado correctamente. Falta APPLICATION_ID o LOCATION_ID.'
+          );
         }
 
-        // Verificar que Square SDK esté cargado
-        if (!window.Square) {
+        // Asegurarnos de que el SDK exista
+        if (!window.Square || typeof window.Square.payments !== 'function') {
           console.log('⏳ Cargando Square SDK...');
-          const script = document.createElement('script');
-          script.src = 'https://web.squarecdn.com/v1/square.js';
-          script.async = true;
-          script.onload = () => {
-            console.log('✅ Square SDK cargado');
-            initSquarePayments();
-          };
-          script.onerror = () => {
-            console.error('❌ Error cargando Square SDK');
-            setError('Error al cargar Square. Verifica tu conexión a internet.');
-          };
-          document.head.appendChild(script);
-          return;
+
+          await new Promise<void>((resolve, reject) => {
+            const existing = document.querySelector<HTMLScriptElement>(
+              'script[src="https://web.squarecdn.com/v1/square.js"]'
+            );
+            if (existing) {
+              existing.onload = () => resolve();
+              existing.onerror = () => reject(new Error('Error cargando Square SDK'));
+              return;
+            }
+
+            const script = document.createElement('script');
+            script.src = 'https://web.squarecdn.com/v1/square.js';
+            script.async = true;
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error('Error cargando Square SDK'));
+            document.head.appendChild(script);
+          });
+
+          if (!window.Square || typeof window.Square.payments !== 'function') {
+            throw new Error('Square SDK no disponible después de cargar el script.');
+          }
         }
 
-        console.log('✅ Square SDK disponible');
-        console.log('Inicializando con appId:', appId);
-        console.log('Inicializando con locationId:', locationId);
-        
+        console.log('✅ Square SDK disponible, creando payments…');
+
         const payments = window.Square.payments(appId, locationId);
+        if (!payments) {
+          throw new Error('Square.payments devolvió un valor inválido.');
+        }
 
-        console.log('✅ Square Payments inicializado');
-
-        // Inicializar UN SOLO card element (Square lo requiere así)
         const cardInstance = await payments.card({
           style: {
             input: {
               color: '#FFFFFF',
               fontFamily: '"DM Sans", -apple-system, sans-serif',
               fontSize: '16px',
-              '::placeholder': {
-                color: 'rgba(255, 255, 255, 0.4)'
-              }
+              '::placeholder': { color: 'rgba(255, 255, 255, 0.4)' }
             },
             '.input-container': {
               borderColor: 'rgba(255, 255, 255, 0.1)',
@@ -129,17 +132,19 @@ function PagoContent() {
             }
           }
         });
-        
+
         console.log('✅ Card instance creado');
-        
         await cardInstance.attach('#card-container');
         console.log('✅ Card adjuntado al DOM');
-        
-        setCard(cardInstance);
 
-      } catch (err) {
+        setCard(cardInstance);
+      } catch (err: any) {
         console.error('❌ Error inicializando Square:', err);
-        setError(`Error al cargar el formulario de pago: ${err instanceof Error ? err.message : 'Error desconocido'}. Por favor recarga la página.`);
+        setError(
+          `Error al cargar el formulario de pago: ${
+            err?.message || 'Error desconocido'
+          }. Por favor recarga la página.`
+        );
       }
     };
 
