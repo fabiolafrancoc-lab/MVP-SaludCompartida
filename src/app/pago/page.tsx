@@ -185,6 +185,30 @@ function PagoContent() {
             })
             .eq('id', registrationId);
 
+          // 🎯 NUEVO: Enviar email de bienvenida con Resend
+          try {
+            console.log('📧 Enviando email de bienvenida...');
+            await fetch('/api/send-notifications', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                type: 'payment_success',
+                registrationId: registrationId,
+                codigoFamilia: registrationData.migrant_code,
+                suscriptorEmail: registrationData.migrant_email,
+                suscriptorNombre: `${registrationData.migrant_first_name} ${registrationData.migrant_last_name}`,
+                suscriptorTelefono: registrationData.migrant_phone,
+                usuarioPrincipalNombre: `${registrationData.family_first_name} ${registrationData.family_last_name}`,
+                usuarioPrincipalTelefono: registrationData.family_phone,
+                planName: 'SaludCompartida Familiar'
+              })
+            });
+            console.log('✅ Email enviado exitosamente');
+          } catch (emailError) {
+            console.error('⚠️ Error enviando email (no crítico):', emailError);
+            // No bloqueamos el flujo si el email falla
+          }
+
           // Redirigir a confirmación
           router.push(`/confirmacion?id=${registrationId}`);
         } else {
