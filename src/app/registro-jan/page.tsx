@@ -1232,7 +1232,7 @@ export default function RegistrationPage() {
                         <option value="">Seleccionar país</option>
                         {COUNTRIES.filter(c => c.enabled).map(country => (
                           <option key={country.code} value={country.code}>
-                            {country.flag}
+                            {country.flag} {country.name}
                           </option>
                         ))}
                       </select>
