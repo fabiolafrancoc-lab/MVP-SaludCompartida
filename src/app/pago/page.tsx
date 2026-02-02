@@ -184,7 +184,7 @@ function PagoContent() {
             .from('registrations')
             .update({
               payment_status: 'completed',
-              payment_id: result.payment.id,
+              payment_id: result.data.id,
               updated_at: new Date().toISOString()
             })
             .eq('id', registrationId);
