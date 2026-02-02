@@ -9,6 +9,55 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 );
 
+// Países disponibles (solo México habilitado inicialmente)
+const COUNTRIES = [
+  { code: 'US', flag: '🇺🇸', name: 'Estados Unidos', enabled: true },
+  { code: 'MX', flag: '🇲🇽', name: 'México', enabled: true },
+  { code: 'GT', flag: '🇬🇹', name: 'Guatemala', enabled: false },
+  { code: 'SV', flag: '🇸🇻', name: 'El Salvador', enabled: false },
+  { code: 'HN', flag: '🇭🇳', name: 'Honduras', enabled: false },
+  { code: 'NI', flag: '🇳🇮', name: 'Nicaragua', enabled: false },
+  { code: 'CR', flag: '🇨🇷', name: 'Costa Rica', enabled: false },
+  { code: 'PA', flag: '🇵🇦', name: 'Panamá', enabled: false },
+  { code: 'CO', flag: '🇨🇴', name: 'Colombia', enabled: false },
+  { code: 'VE', flag: '🇻🇪', name: 'Venezuela', enabled: false },
+  { code: 'EC', flag: '🇪🇨', name: 'Ecuador', enabled: false },
+  { code: 'PE', flag: '🇵🇪', name: 'Perú', enabled: false },
+  { code: 'BO', flag: '🇧🇴', name: 'Bolivia', enabled: false },
+  { code: 'PY', flag: '🇵🇾', name: 'Paraguay', enabled: false },
+  { code: 'UY', flag: '🇺🇾', name: 'Uruguay', enabled: false },
+  { code: 'AR', flag: '🇦🇷', name: 'Argentina', enabled: false },
+  { code: 'CL', flag: '🇨🇱', name: 'Chile', enabled: false },
+  { code: 'DO', flag: '🇩🇴', name: 'República Dominicana', enabled: false },
+  { code: 'CU', flag: '🇨🇺', name: 'Cuba', enabled: false },
+  { code: 'PR', flag: '🇵🇷', name: 'Puerto Rico', enabled: false },
+];
+
+// Estados de México
+const MEXICO_STATES = [
+  'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche',
+  'Chiapas', 'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima',
+  'Durango', 'Guanajuato', 'Guerrero', 'Hidalgo', 'Jalisco',
+  'México', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León',
+  'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí',
+  'Sinaloa', 'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala',
+  'Veracruz', 'Yucatán', 'Zacatecas'
+];
+
+// Estados de USA (principales)
+const USA_STATES = [
+  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
+  'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
+  'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada',
+  'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
+  'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon',
+  'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota',
+  'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington',
+  'West Virginia', 'Wisconsin', 'Wyoming'
+];
+
 // Función para generar código de familia único (6 dígitos alfanuméricos, SIN prefijo)
 function generateFamilyCode(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -53,6 +102,8 @@ export default function RegistrationPage() {
     migrant_birthdate: '',
     migrant_email: '',
     migrant_phone: '',
+    migrant_country: 'US', // País donde está el migrante
+    migrant_state: '', // Estado/ciudad del migrante
     // Usuario México - nombres exactos de Supabase
     family_first_name: '',
     family_last_name: '',
@@ -61,6 +112,8 @@ export default function RegistrationPage() {
     family_birthdate: '',
     family_email: '',
     family_phone: '',
+    family_country: 'MX', // País de la familia (solo México habilitado)
+    family_state: '', // Estado de la familia en México
     // Términos
     terms_accepted: false,
   });
@@ -178,6 +231,8 @@ export default function RegistrationPage() {
           migrant_email: formData.migrant_email,
           migrant_country_code: '+1',
           migrant_phone: migrant_phone_clean,
+          migrant_country: formData.migrant_country,
+          migrant_state: formData.migrant_state || null,
           
           // Datos del usuario en México
           family_first_name: formData.family_first_name,
@@ -188,7 +243,8 @@ export default function RegistrationPage() {
           family_email: formData.family_email,
           family_country_code: '+52',
           family_phone: family_phone_clean,
-          family_country: 'MX',
+          family_country: formData.family_country,
+          family_state: formData.family_state || null,
           
           // Companion asignado
           family_companion_assigned: family_companion_assigned,
@@ -1161,6 +1217,46 @@ export default function RegistrationPage() {
                   </div>
                 </div>
 
+                <div className="form-section">
+                  <div className="form-section-title">Ubicación</div>
+                  <div className="form-row two-col">
+                    <div className="form-group">
+                      <label className="form-label">¿Dónde estás actualmente? <span className="required">*</span></label>
+                      <select 
+                        name="migrant_country"
+                        value={formData.migrant_country}
+                        onChange={handleChange}
+                        className="form-select"
+                        required
+                      >
+                        <option value="">Seleccionar país</option>
+                        {COUNTRIES.filter(c => c.enabled).map(country => (
+                          <option key={country.code} value={country.code}>
+                            {country.flag}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    {formData.migrant_country === 'US' && (
+                      <div className="form-group">
+                        <label className="form-label">Estado <span className="required">*</span></label>
+                        <select 
+                          name="migrant_state"
+                          value={formData.migrant_state}
+                          onChange={handleChange}
+                          className="form-select"
+                          required
+                        >
+                          <option value="">Seleccionar estado</option>
+                          {USA_STATES.map(state => (
+                            <option key={state} value={state}>{state}</option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 {/* SECCIÓN MÉXICO */}
                 <div className="form-section-title" style={{marginTop: '48px', marginBottom: '24px', fontSize: '15px', color: 'var(--green)'}}>
                   🇲🇽 USUARIO EN MÉXICO
@@ -1275,6 +1371,51 @@ export default function RegistrationPage() {
                       <strong>Escribe solo los 10 dígitos.</strong> El formato se aplica automáticamente.
                     </p>
                     <p className="phone-note">Nosotros agregamos el +52 automáticamente. No lo escribas.</p>
+                  </div>
+                </div>
+
+                <div className="form-section">
+                  <div className="form-section-title">Ubicación</div>
+                  <div className="form-row two-col">
+                    <div className="form-group">
+                      <label className="form-label">¿En qué país está tu familia? <span className="required">*</span></label>
+                      <select 
+                        name="family_country"
+                        value={formData.family_country}
+                        onChange={handleChange}
+                        className="form-select"
+                        required
+                      >
+                        <option value="">Seleccionar país</option>
+                        {COUNTRIES.map(country => (
+                          <option 
+                            key={country.code} 
+                            value={country.code}
+                            disabled={!country.enabled}
+                            style={{ opacity: country.enabled ? 1 : 0.5 }}
+                          >
+                            {country.flag} {!country.enabled && '(Próximamente)'}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    {formData.family_country === 'MX' && (
+                      <div className="form-group">
+                        <label className="form-label">Estado <span className="required">*</span></label>
+                        <select 
+                          name="family_state"
+                          value={formData.family_state}
+                          onChange={handleChange}
+                          className="form-select"
+                          required
+                        >
+                          <option value="">Seleccionar estado</option>
+                          {MEXICO_STATES.map(state => (
+                            <option key={state} value={state}>{state}</option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
                   </div>
                 </div>
 
