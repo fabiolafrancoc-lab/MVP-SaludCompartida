@@ -1,38 +1,78 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { createClient } from '@supabase/supabase-js';
 import Image from 'next/image';
+
+// Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://rzmdekjegbdgitqekjee.supabase.co',
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+);
 
 interface RegistrationData {
   migrant_first_name?: string;
   migrant_last_name?: string;
-  family_primary_name?: string;
+  family_first_name?: string;
   plan_type?: string;
   amount_paid?: number;
+  migrant_code?: string;
+  family_code?: string;
+  companion_assigned?: string;
 }
 
 export default function PaymentSuccessPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const registrationId = searchParams.get('id');
+  
   const [showConfetti, setShowConfetti] = useState(true);
   const [registrationData, setRegistrationData] = useState<RegistrationData | null>(null);
-  const [migrantCode, setMigrantCode] = useState('SC-XXXXXX');
-  const [familyCode, setFamilyCode] = useState('SC-XXXXXX');
+  const [migrantCode, setMigrantCode] = useState('Cargando...');
+  const [familyCode, setFamilyCode] = useState('Cargando...');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Recuperar datos del registro desde sessionStorage o URL params
-    const data = sessionStorage.getItem('registrationData');
-    if (data) {
-      const parsed = JSON.parse(data);
-      setRegistrationData(parsed);
-      setMigrantCode(parsed.migrant_code || 'SC-M2X9K7');
-      setFamilyCode(parsed.family_code || 'SC-F8P3L2');
-    }
+    const loadRegistrationData = async () => {
+      if (!registrationId) {
+        console.error('No registration ID provided');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        // Cargar datos REALES desde Supabase
+        const { data, error } = await supabase
+          .from('registrations')
+          .select('*')
+          .eq('id', registrationId)
+          .single();
+
+        if (error || !data) {
+          console.error('Error cargando registro:', error);
+          setLoading(false);
+          return;
+        }
+
+        console.log('✅ Datos cargados desde Supabase:', data);
+        
+        setRegistrationData(data);
+        setMigrantCode(data.migrant_code || 'SC-ERROR');
+        setFamilyCode(data.family_code || 'SC-ERROR');
+        setLoading(false);
+      } catch (err) {
+        console.error('Error:', err);
+        setLoading(false);
+      }
+    };
+
+    loadRegistrationData();
 
     // Ocultar confetti después de 6 segundos
     const timer = setTimeout(() => setShowConfetti(false), 6000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [registrationId]);
 
   return (
     <>
@@ -545,7 +585,7 @@ export default function PaymentSuccessPage() {
               <div className="code-card-header">
                 <span className="code-card-flag">🇲🇽</span>
                 <div className="code-card-info">
-                  <h3>Para tu familia ({registrationData?.family_primary_name || 'en México'})</h3>
+                  <h3>Para tu familia ({registrationData?.family_first_name || 'en México'})</h3>
                   <p>Acceso a telemedicina, farmacia y compañía</p>
                 </div>
               </div>
@@ -578,7 +618,7 @@ export default function PaymentSuccessPage() {
               <div className="step-icon phone">📞</div>
               <div className="step-content">
                 <h4>Llamada de bienvenida</h4>
-                <p>En las próximas 24 horas, <span className="companion-name">Lupita</span> llamará a tu familia para presentarse</p>
+                <p>En las próximas 24 horas, <span className="companion-name">{registrationData?.companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda'}</span> llamará a tu familia para presentarse</p>
               </div>
             </div>
 
