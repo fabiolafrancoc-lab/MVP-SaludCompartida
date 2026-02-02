@@ -120,7 +120,7 @@ function PagoContent() {
         const cardInstance = await payments.card({
           style: {
             input: {
-              color: '#FFFFFF',
+              color: '#000000',
               fontFamily: 'Helvetica, Arial, sans-serif',
               fontSize: '16px'
             }
