@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Email - SaludCompartida</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #111827;
+            margin-bottom: 20px;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 15px;
+        }
+        button {
+            background: linear-gradient(135deg, #E91E8C, #BE185D);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+        .success {
+            background: #ECFDF5;
+            border: 1px solid #10B981;
+            color: #065F46;
+        }
+        .error {
+            background: #FEF2F2;
+            border: 1px solid #EF4444;
+            color: #991B1B;
+        }
+        .info {
+            padding: 15px;
+            background: #EFF6FF;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1E40AF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Email de Bienvenida</h1>
+        
+        <div class="info">
+            ℹ️ Este test enviará un email usando el endpoint <strong>/api/send-notifications</strong>. 
+            Asegúrate de estar corriendo el servidor local (<code>npm run dev</code>).
+        </div>
+
+        <form id="testForm">
+            <label><strong>Tu Email (para recibir el test):</strong></label>
+            <input type="email" id="email" placeholder="tu@email.com" required>
+            
+            <label><strong>Tu Nombre:</strong></label>
+            <input type="text" id="nombre" placeholder="Juan Pérez" required>
+            
+            <label><strong>Nombre del Familiar en México:</strong></label>
+            <input type="text" id="familiar" placeholder="María López" required>
+            
+            <label><strong>Código de 6 dígitos (simulado):</strong></label>
+            <input type="text" id="codigo" value="A3K9M2" maxlength="6" required>
+            
+            <button type="submit" id="submitBtn">📧 Enviar Email de Prueba</button>
+        </form>
+
+        <div id="result" class="result"></div>
+
+        <div style="margin-top: 20px; font-size: 13px; color: #6B7280;">
+            <strong>Nota:</strong> El email será enviado usando Resend. Revisa tu bandeja de entrada 
+            (y spam si no lo ves).
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('result');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Enviando...';
+            resultDiv.style.display = 'none';
+
+            const formData = {
+                type: 'payment_success',
+                registrationId: 'test-' + Date.now(),
+                codigoFamilia: document.getElementById('codigo').value,
+                suscriptorEmail: document.getElementById('email').value,
+                suscriptorNombre: document.getElementById('nombre').value,
+                suscriptorTelefono: '+1234567890',
+                usuarioPrincipalNombre: document.getElementById('familiar').value,
+                usuarioPrincipalTelefono: '+52123456789',
+                planName: 'SaludCompartida Familiar'
+            };
+
+            try {
+                const response = await fetch('/api/send-notifications', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        ✅ <strong>Email enviado exitosamente!</strong><br>
+                        Revisa tu bandeja de entrada: ${formData.suscriptorEmail}<br>
+                        <small>Si no lo ves, revisa spam/correo no deseado.</small>
+                    `;
+                } else {
+                    throw new Error(data.error || 'Error desconocido');
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    ❌ <strong>Error al enviar:</strong><br>
+                    ${error.message}<br>
+                    <small>Verifica que el servidor esté corriendo y que RESEND_API_KEY esté configurado.</small>
+                `;
+            } finally {
+                resultDiv.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = '📧 Enviar Email de Prueba';
+            }
+        });
+    </script>
+</body>
+</html>
