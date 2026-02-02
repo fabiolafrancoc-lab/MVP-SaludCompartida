@@ -9,10 +9,10 @@ import { sendPostPaymentEmails } from '@/lib/email-templates';
 // Conexión: Supabase + Resend + Square
 // ════════════════════════════════════════════════════════════════════════════
 
-// Inicializar Supabase con service role key
+// Inicializar Supabase con service role key o anon key como fallback
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 );
 
 export async function POST(request: NextRequest) {
