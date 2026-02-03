@@ -236,71 +236,16 @@ function PagoContent() {
 
         if (!response.ok || !result.success) {
           console.error('❌ [SQUARE] Error del servidor:', result);
-          console.error('🔴 [SQUARE] HTTP Status:', response.status);
-          console.error('🔴 [SQUARE] Result structure:', Object.keys(result));
-          
-          // Extraer mensaje de error específico con múltiples fallbacks
-          let errorMessage = '';
-          
-          // Prioridad 1: Error directo
-          if (result?.error && typeof result.error === 'string') {
-            errorMessage = result.error;
-          } 
-          // Prioridad 2: Details array (Square format)
-          else if (result?.details && Array.isArray(result.details) && result.details.length > 0) {
-            const detail = result.details[0];
-            errorMessage = detail.detail || detail.message || detail.code || '';
-            
-            // Agregar código de error si existe
-            if (detail.code && errorMessage && !errorMessage.includes(detail.code)) {
-              errorMessage = `${errorMessage} (Código: ${detail.code})`;
-            }
-          } 
-          // Prioridad 3: Message
-          else if (result?.message) {
-            errorMessage = result.message;
-          }
-          // Prioridad 4: Errors array alternativo
-          else if (result?.errors && Array.isArray(result.errors) && result.errors.length > 0) {
-            errorMessage = result.errors[0].detail || result.errors[0].message || '';
-          }
-          
-          // Fallback final basado en status code
-          if (!errorMessage) {
-            switch (response.status) {
-              case 400:
-                errorMessage = 'Datos de pago inválidos. Verifica la información de tu tarjeta.';
-                break;
-              case 401:
-                errorMessage = 'Error de autenticación con el procesador de pagos.';
-                break;
-              case 403:
-                errorMessage = 'Acceso denegado. Verifica tu información de pago.';
-                break;
-              case 404:
-                errorMessage = 'Plan de suscripción no encontrado. Contacta soporte.';
-                break;
-              case 429:
-                errorMessage = 'Demasiados intentos. Espera un momento e intenta nuevamente.';
-                break;
-              case 500:
-                errorMessage = 'Error del servidor de pagos. Por favor intenta más tarde.';
-                break;
-              case 503:
-                errorMessage = 'Servicio de pagos temporalmente no disponible.';
-                break;
-              default:
-                errorMessage = `Error del servidor (${response.status}). Por favor intenta nuevamente.`;
-            }
-          }
-
-          console.error('🔴 [SQUARE] Mensaje final:', errorMessage);
-          setError(errorMessage);
+          const msg =
+            result?.error ||
+            (result?.details && result.details[0]?.detail) ||
+            'Error procesando el pago';
+          setError(msg);
           setIsProcessing(false);
           return;
         }
 
-        // Si todo salió bien, redirigimos a la página de éxito
+        // Solo aquí consideramos éxito
         console.log('✅ [SQUARE] Suscripción creada:', result.data);
         router.push(`/confirmacion?id=${registrationId}`);
         setIsProcessing(false);
