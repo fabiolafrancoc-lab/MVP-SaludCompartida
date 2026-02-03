@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { sourceId, registrationId } = body;
     
-    console.log('📥 [SQUARE] Body recibido:', { sourceId: sourceId?.substring(0, 20) + '...', registrationId });
+    console.log('� [SQUARE] Body recibido:', { sourceId: sourceId?.substring(0, 20) + '...', registrationId });
     
     // ⚠️ SIMULACIÓN TEMPORAL - ELIMINAR DESPUÉS
     console.log('🧪 [SQUARE] Devolviendo respuesta de simulación para testing');
@@ -27,45 +27,43 @@ export async function POST(request: NextRequest) {
       },
     });
     // ⚠️ FIN SIMULACIÓN TEMPORAL
-    
-    // ════════════════════════════════════════════════════════════
-    // 1. VALIDAR CREDENCIALES
-    // ════════════════════════════════════════════════════════════
-    const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN;
-    const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID;
-    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (!SQUARE_ACCESS_TOKEN || !SQUARE_LOCATION_ID) {
-      console.error('❌ [SQUARE] Credenciales no configuradas');
-      return NextResponse.json(
-        { success: false, error: 'Payment system not configured' },
-        { status: 500 }
-      );
-    }
-
-    if (!SUPABASE_URL || !SUPABASE_KEY) {
-      console.error('❌ [SUPABASE] Credenciales no configuradas');
-      return NextResponse.json(
-        { success: false, error: 'Database not configured' },
-        { status: 500 }
-      );
-    }
-
+    // Validación de parámetros
     if (!sourceId || !registrationId) {
+      console.error('❌ [SQUARE] Faltan parámetros requeridos');
       return NextResponse.json(
-        { success: false, error: 'Missing required fields' },
+        { success: false, error: 'Missing required parameters' },
         { status: 400 }
       );
     }
 
-    console.log('✅ [SQUARE] Credenciales OK');
-    console.log('📍 [SQUARE] Location ID:', SQUARE_LOCATION_ID);
-    console.log('🔑 [SUPABASE] Registration ID:', registrationId);
+    // ════════════════════════════════════════════════════════════════════════
+    // 1️⃣ SQUARE CREDENTIALS
+    // ════════════════════════════════════════════════════════════════════════
+    const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN;
+    const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID;
+    const SQUARE_PLAN_VARIATION_ID = process.env.SQUARE_PLAN_VARIATION_ID || 'VU76FHKSAXPGGJT2MM72WKSZ';
 
-    // ════════════════════════════════════════════════════════════
-    // 2. OBTENER DATOS DEL CLIENTE DESDE SUPABASE
-    // ════════════════════════════════════════════════════════════
+    if (!SQUARE_ACCESS_TOKEN || !SQUARE_LOCATION_ID) {
+      console.error('❌ [SQUARE] Missing Square credentials');
+      return NextResponse.json(
+        { success: false, error: 'Square configuration error' },
+        { status: 500 }
+      );
+    }
+
+    const SQUARE_API = 'https://connect.squareup.com/v2';
+
+    console.log('✅ [SQUARE] Credentials loaded');
+    console.log('📍 [SQUARE] Location ID:', SQUARE_LOCATION_ID);
+    console.log('📦 [SQUARE] Plan ID:', SQUARE_PLAN_VARIATION_ID);
+
+    // ════════════════════════════════════════════════════════════════════════
+    // 2️⃣ SUPABASE - GET USER DATA
+    // ════════════════════════════════════════════════════════════════════════
+    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
     if (!SUPABASE_URL || !SUPABASE_KEY) {
       console.error('❌ [SUPABASE] Missing Supabase credentials');
       return NextResponse.json(
@@ -73,362 +71,300 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
-    
+
     const supabase = createClient(SUPABASE_URL as string, SUPABASE_KEY as string);
-    
-    const { data: registration, error: dbError } = await supabase
+
+    console.log('🔍 [SUPABASE] Fetching registration:', registrationId);
+
+    const { data: registration, error: supabaseError } = await supabase
       .from('registrations')
       .select('*')
       .eq('id', registrationId)
       .single();
 
-    if (dbError || !registration) {
-      console.error('❌ [SUPABASE] Error obteniendo registro:', dbError);
+    if (supabaseError || !registration) {
+      console.error('❌ [SUPABASE] Registration not found:', supabaseError);
       return NextResponse.json(
         { success: false, error: 'Registration not found' },
         { status: 404 }
       );
     }
 
-    console.log('✅ [SUPABASE] Datos obtenidos:', {
-      migrant_email: registration.migrant_email,
-      migrant_first_name: registration.migrant_first_name,
-    });
+    console.log('✅ [SUPABASE] Registration found:', registration.migrant_email);
 
-    // ════════════════════════════════════════════════════════════
-    // 3. CREAR CUSTOMER EN SQUARE
-    // ════════════════════════════════════════════════════════════
-    console.log('👤 [SQUARE] Creando customer...');
-    
-    const customerResponse = await fetch('https://connect.squareup.com/v2/customers', {
+    // ════════════════════════════════════════════════════════════════════════
+    // 3️⃣ SQUARE - CREATE CUSTOMER
+    // ════════════════════════════════════════════════════════════════════════
+    console.log('👤 [SQUARE] Creating customer...');
+
+    const customerPayload = {
+      idempotency_key: `customer_${registrationId}_${Date.now()}`,
+      given_name: registration.migrant_first_name,
+      family_name: registration.migrant_last_name,
+      email_address: registration.migrant_email,
+      phone_number: registration.migrant_phone,
+      reference_id: registrationId,
+    };
+
+    console.log('📤 [SQUARE] Customer payload:', customerPayload);
+
+    const customerResponse = await fetch(`${SQUARE_API}/customers`, {
       method: 'POST',
       headers: {
         'Square-Version': '2024-12-18',
         'Authorization': `Bearer ${SQUARE_ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        idempotency_key: `customer-${registrationId}-${Date.now()}`,
-        given_name: registration.migrant_first_name || 'Cliente',
-        family_name: registration.migrant_last_name || '',
-        email_address: registration.migrant_email,
-        phone_number: registration.migrant_phone,
-        reference_id: `supabase-${registrationId}`,
-      }),
+      body: JSON.stringify(customerPayload),
     });
 
     const customerData = await customerResponse.json();
 
-    if (!customerResponse.ok) {
-      console.error('❌ [SQUARE] Error creando customer:', JSON.stringify(customerData, null, 2));
+    if (!customerResponse.ok || customerData.errors) {
+      console.error('❌ [SQUARE] Customer creation failed:', customerData);
       return NextResponse.json(
         {
           success: false,
-          error: customerData.errors?.[0]?.detail || 'Error creating customer',
-          details: customerData.errors,
+          error: 'Failed to create Square customer',
+          details: customerData.errors || [],
         },
-        { status: customerResponse.status }
+        { status: 500 }
       );
     }
 
     const customerId = customerData.customer.id;
-    console.log('✅ [SQUARE] Customer creado:', customerId);
+    console.log('✅ [SQUARE] Customer created:', customerId);
 
-    // ════════════════════════════════════════════════════════════
-    // 4. GUARDAR CARD ON FILE
-    // ════════════════════════════════════════════════════════════
-    console.log('💳 [SQUARE] Guardando tarjeta...');
-    
-    const cardResponse = await fetch('https://connect.squareup.com/v2/cards', {
+    // ════════════════════════════════════════════════════════════════════════
+    // 4️⃣ SQUARE - STORE CARD ON FILE
+    // ════════════════════════════════════════════════════════════════════════
+    console.log('💳 [SQUARE] Storing card on file...');
+
+    const cardPayload = {
+      idempotency_key: `card_${registrationId}_${Date.now()}`,
+      source_id: sourceId,
+      card: {
+        customer_id: customerId,
+      },
+    };
+
+    console.log('� [SQUARE] Card payload:', { ...cardPayload, source_id: sourceId.substring(0, 20) + '...' });
+
+    const cardResponse = await fetch(`${SQUARE_API}/cards`, {
       method: 'POST',
       headers: {
         'Square-Version': '2024-12-18',
         'Authorization': `Bearer ${SQUARE_ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        idempotency_key: `card-${registrationId}-${Date.now()}`,
-        source_id: sourceId,
-        card: {
-          customer_id: customerId,
-        },
-      }),
+      body: JSON.stringify(cardPayload),
     });
 
     const cardData = await cardResponse.json();
 
-    if (!cardResponse.ok) {
-      console.error('❌ [SQUARE] Error guardando tarjeta:', JSON.stringify(cardData, null, 2));
+    if (!cardResponse.ok || cardData.errors) {
+      console.error('❌ [SQUARE] Card storage failed:', cardData);
       return NextResponse.json(
         {
           success: false,
-          error: cardData.errors?.[0]?.detail || 'Error saving card',
-          details: cardData.errors,
+          error: 'Failed to store card',
+          details: cardData.errors || [],
         },
-        { status: cardResponse.status }
+        { status: 500 }
       );
     }
 
     const cardId = cardData.card.id;
-    console.log('✅ [SQUARE] Tarjeta guardada:', cardId);
+    console.log('✅ [SQUARE] Card stored:', cardId);
 
-    // ════════════════════════════════════════════════════════════
-    // 5. BUSCAR CATALOG ITEM "SaludCompartida"
-    // ════════════════════════════════════════════════════════════
-    console.log('🔍 [SQUARE] Buscando plan de suscripción...');
-    
-    const catalogResponse = await fetch('https://connect.squareup.com/v2/catalog/search', {
+    // ════════════════════════════════════════════════════════════════════════
+    // 5️⃣ SQUARE - CREATE SUBSCRIPTION
+    // ════════════════════════════════════════════════════════════════════════
+    console.log('� [SQUARE] Creating subscription...');
+
+    const subscriptionPayload = {
+      idempotency_key: `subscription_${registrationId}_${Date.now()}`,
+      location_id: SQUARE_LOCATION_ID,
+      plan_variation_id: SQUARE_PLAN_VARIATION_ID,
+      customer_id: customerId,
+      card_id: cardId,
+      start_date: new Date().toISOString().split('T')[0], // YYYY-MM-DD
+      timezone: 'America/Mexico_City',
+    };
+
+    console.log('📤 [SQUARE] Subscription payload:', subscriptionPayload);
+
+    const subscriptionResponse = await fetch(`${SQUARE_API}/subscriptions`, {
       method: 'POST',
       headers: {
         'Square-Version': '2024-12-18',
         'Authorization': `Bearer ${SQUARE_ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        object_types: ['ITEM'],
-        query: {
-          text_query: {
-            keywords: ['SaludCompartida'],
-          },
-        },
-      }),
-    });
-
-    const catalogData = await catalogResponse.json();
-
-    if (!catalogResponse.ok || !catalogData.objects || catalogData.objects.length === 0) {
-      console.error('❌ [SQUARE] Plan "SaludCompartida" no encontrado');
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Subscription plan not found in Square. Please create "SaludCompartida" item in Square Dashboard.',
-        },
-        { status: 404 }
-      );
-    }
-
-    const planItem = catalogData.objects[0];
-    const planVariationId = planItem.item_data.variations[0].id;
-    console.log('✅ [SQUARE] Plan encontrado:', planItem.id);
-    console.log('✅ [SQUARE] Variation ID:', planVariationId);
-
-    // ════════════════════════════════════════════════════════════
-    // 6. CREAR SUBSCRIPTION
-    // ════════════════════════════════════════════════════════════
-    console.log('📋 [SQUARE] Creando suscripción...');
-    
-    const subscriptionResponse = await fetch('https://connect.squareup.com/v2/subscriptions', {
-      method: 'POST',
-      headers: {
-        'Square-Version': '2024-12-18',
-        'Authorization': `Bearer ${SQUARE_ACCESS_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        idempotency_key: `subscription-${registrationId}-${Date.now()}`,
-        location_id: SQUARE_LOCATION_ID,
-        customer_id: customerId,
-        plan_variation_id: planVariationId,
-        card_id: cardId,
-        start_date: new Date().toISOString().split('T')[0], // Hoy
-      }),
+      body: JSON.stringify(subscriptionPayload),
     });
 
     const subscriptionData = await subscriptionResponse.json();
 
-    if (!subscriptionResponse.ok) {
-      console.error('❌ [SQUARE] Error creando suscripción:', JSON.stringify(subscriptionData, null, 2));
+    if (!subscriptionResponse.ok || subscriptionData.errors) {
+      console.error('❌ [SQUARE] Subscription creation failed:', subscriptionData);
       return NextResponse.json(
         {
           success: false,
-          error: subscriptionData.errors?.[0]?.detail || 'Error creating subscription',
-          details: subscriptionData.errors,
+          error: 'Failed to create subscription',
+          details: subscriptionData.errors || [],
         },
-        { status: subscriptionResponse.status }
+        { status: 500 }
       );
     }
 
     const subscriptionId = subscriptionData.subscription.id;
-    console.log('✅ [SQUARE] Suscripción creada:', subscriptionId);
+    console.log('✅ [SQUARE] Subscription created:', subscriptionId);
 
-    // ════════════════════════════════════════════════════════════
-    // 6.5 PROCESAR PAGO INICIAL DE $12 USD
-    // ════════════════════════════════════════════════════════════
-    console.log('💳 [SQUARE] Procesando pago inicial de $12...');
-    
-    const paymentResponse = await fetch('https://connect.squareup.com/v2/payments', {
+    // ════════════════════════════════════════════════════════════════════════
+    // 6️⃣ SQUARE - CREATE INITIAL PAYMENT ($12.00)
+    // ════════════════════════════════════════════════════════════════════════
+    console.log('💰 [SQUARE] Processing initial payment...');
+
+    const paymentPayload = {
+      idempotency_key: `payment_${registrationId}_${Date.now()}`,
+      source_id: cardId,
+      amount_money: {
+        amount: 1200, // $12.00 USD en centavos
+        currency: 'USD',
+      },
+      customer_id: customerId,
+      location_id: SQUARE_LOCATION_ID,
+      autocomplete: true,
+    };
+
+    console.log('📤 [SQUARE] Payment payload:', paymentPayload);
+
+    const paymentResponse = await fetch(`${SQUARE_API}/payments`, {
       method: 'POST',
       headers: {
         'Square-Version': '2024-12-18',
         'Authorization': `Bearer ${SQUARE_ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        idempotency_key: `payment-${registrationId}-${Date.now()}`,
-        source_id: cardId,
-        amount_money: {
-          amount: 1200, // $12.00 en centavos
-          currency: 'USD',
-        },
-        customer_id: customerId,
-        location_id: SQUARE_LOCATION_ID,
-        note: `SaludCompartida - Pago inicial - Registration ${registrationId}`,
-      }),
+      body: JSON.stringify(paymentPayload),
     });
 
     const paymentData = await paymentResponse.json();
 
-    if (!paymentResponse.ok) {
-      console.error('❌ [SQUARE] Error procesando pago inicial:', JSON.stringify(paymentData, null, 2));
+    if (!paymentResponse.ok || paymentData.errors) {
+      console.error('❌ [SQUARE] Payment failed:', paymentData);
       return NextResponse.json(
         {
           success: false,
-          error: paymentData.errors?.[0]?.detail || 'Error processing initial payment',
-          details: paymentData.errors,
+          error: 'Payment failed',
+          details: paymentData.errors || [],
         },
-        { status: paymentResponse.status }
+        { status: 500 }
       );
     }
 
     const paymentId = paymentData.payment.id;
-    console.log('✅ [SQUARE] Pago inicial procesado:', paymentId);
+    console.log('✅ [SQUARE] Payment successful:', paymentId);
 
-    // ════════════════════════════════════════════════════════════
-    // 7. GUARDAR EN SUPABASE (TABLAS SEPARADAS DE SQUARE)
-    // ════════════════════════════════════════════════════════════
-    
-    // 7.1 Crear registro en square_customers (MISMA nomenclatura que registrations)
-    const { data: customerRecord, error: customerError } = await supabase
+    // ════════════════════════════════════════════════════════════════════════
+    // 7️⃣ SUPABASE - SAVE TO DATABASE
+    // ════════════════════════════════════════════════════════════════════════
+    console.log('💾 [SUPABASE] Saving to database...');
+
+    // Save customer
+    const { error: customerError } = await supabase
       .from('square_customers')
       .insert({
         registration_id: registrationId,
         square_customer_id: customerId,
-        square_card_id: cardId,
-        
-        // Datos del migrante (USA)
-        migrant_email: registration.migrant_email,
-        migrant_first_name: registration.migrant_first_name,
-        migrant_last_name: registration.migrant_last_name,
-        migrant_phone: registration.migrant_phone,
-        migrant_code: registration.migrant_code,
-        
-        // Datos de la familia (México)
-        family_primary_email: registration.family_primary_email,
-        family_first_name: registration.family_first_name,
-        family_code: registration.family_code,
-        
-        // Compañera asignada
-        assigned_companion_id: registration.assigned_companion_id,
-      })
-      .select()
-      .single();
+        email: registration.migrant_email,
+        first_name: registration.migrant_first_name,
+        last_name: registration.migrant_last_name,
+      });
 
     if (customerError) {
-      console.error('⚠️ [SUPABASE] Error guardando customer:', customerError);
+      console.error('❌ [SUPABASE] Customer save failed:', customerError);
     } else {
-      console.log('✅ [SUPABASE] Customer guardado');
+      console.log('✅ [SUPABASE] Customer saved');
     }
 
-    // 7.2 Crear registro en square_subscriptions
-    const { data: subscriptionRecord, error: subscriptionError } = await supabase
+    // Save subscription
+    const { error: subscriptionError } = await supabase
       .from('square_subscriptions')
       .insert({
         registration_id: registrationId,
-        square_customer_id: customerId,
         square_subscription_id: subscriptionId,
-        square_plan_variation_id: planVariationId,
-        status: subscriptionData.subscription.status,
-        start_date: new Date().toISOString().split('T')[0],
-      })
-      .select()
-      .single();
+        square_customer_id: customerId,
+        plan_variation_id: SQUARE_PLAN_VARIATION_ID,
+        status: 'ACTIVE',
+        start_date: new Date().toISOString(),
+      });
 
     if (subscriptionError) {
-      console.error('⚠️ [SUPABASE] Error guardando subscription:', subscriptionError);
+      console.error('❌ [SUPABASE] Subscription save failed:', subscriptionError);
     } else {
-      console.log('✅ [SUPABASE] Subscription guardada');
+      console.log('✅ [SUPABASE] Subscription saved');
     }
 
-    // 7.3 Crear primer pago en square_payments (pago inicial)
+    // Save payment
     const { error: paymentError } = await supabase
       .from('square_payments')
       .insert({
-        subscription_id: subscriptionRecord?.id,
-        square_subscription_id: subscriptionId,
+        registration_id: registrationId,
+        square_payment_id: paymentId,
         square_customer_id: customerId,
-        square_payment_id: paymentId, // ID del pago de Square
-        amount_cents: 1200, // $12.00
+        amount_cents: 1200,
+        currency: 'USD',
         status: 'COMPLETED',
-        payment_date: new Date().toISOString().split('T')[0],
-        billing_period_start: new Date().toISOString().split('T')[0],
-        attempt_number: 1,
       });
 
     if (paymentError) {
-      console.error('⚠️ [SUPABASE] Error guardando primer pago:', paymentError);
+      console.error('❌ [SUPABASE] Payment save failed:', paymentError);
     } else {
-      console.log('✅ [SUPABASE] Primer pago registrado');
+      console.log('✅ [SUPABASE] Payment saved');
     }
 
-    // 7.4 Actualizar registrations con payment_status y payment_id
+    // Update registration status
     const { error: updateError } = await supabase
       .from('registrations')
       .update({
         payment_status: 'completed',
-        payment_id: paymentId, // Guardar el payment_id de Square
+        square_customer_id: customerId,
       })
       .eq('id', registrationId);
 
     if (updateError) {
-      console.error('⚠️ [SUPABASE] Error actualizando registration:', updateError);
+      console.error('❌ [SUPABASE] Registration update failed:', updateError);
     } else {
-      console.log('✅ [SUPABASE] Registration actualizada');
+      console.log('✅ [SUPABASE] Registration updated');
     }
 
-    // ════════════════════════════════════════════════════════════
-    // 8. RETORNAR ÉXITO
-    // ════════════════════════════════════════════════════════════
-    console.log('🎉 [SQUARE] Suscripción creada exitosamente');
+    // ════════════════════════════════════════════════════════════════════════
+    // 8️⃣ SUCCESS RESPONSE
+    // ════════════════════════════════════════════════════════════════════════
+    console.log('🎉 [SQUARE] All operations completed successfully');
 
     return NextResponse.json({
       success: true,
       data: {
-        subscription_id: subscriptionId,
-        customer_id: customerId,
-        status: subscriptionData.subscription.status,
+        customerId,
+        subscriptionId,
+        paymentId,
+        registrationId,
       },
     });
 
   } catch (error: any) {
-    console.error('❌ [ERROR FATAL] Error no manejado:', error);
-    console.error('❌ [ERROR STACK]:', error.stack);
-    
-    // Determinar mensaje de error apropiado
-    let errorMessage = 'Internal server error';
-    let statusCode = 500;
-    
-    if (error.message) {
-      errorMessage = error.message;
-    }
-    
-    // Si el error viene de un fetch que falló
-    if (error.cause) {
-      console.error('❌ [ERROR CAUSE]:', error.cause);
-      errorMessage = `Network error: ${error.cause.message || 'Failed to connect to payment service'}`;
-      statusCode = 503;
-    }
+    console.error('❌ [SQUARE] Unexpected error:', error);
+    console.error('❌ [SQUARE] Error stack:', error?.stack);
     
     return NextResponse.json(
       {
         success: false,
-        error: errorMessage,
-        details: [{
-          category: 'API_ERROR',
-          code: 'INTERNAL_ERROR',
-          detail: errorMessage,
-        }],
+        error: error?.message || 'Internal server error',
       },
-      { status: statusCode }
+      { status: 500 }
     );
   }
 }
