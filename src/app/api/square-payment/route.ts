@@ -230,6 +230,48 @@ export async function POST(request: NextRequest) {
     console.log('✅ [SQUARE] Suscripción creada:', subscriptionId);
 
     // ════════════════════════════════════════════════════════════
+    // 6.5 PROCESAR PAGO INICIAL DE $12 USD
+    // ════════════════════════════════════════════════════════════
+    console.log('💳 [SQUARE] Procesando pago inicial de $12...');
+    
+    const paymentResponse = await fetch('https://connect.squareup.com/v2/payments', {
+      method: 'POST',
+      headers: {
+        'Square-Version': '2024-12-18',
+        'Authorization': `Bearer ${SQUARE_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        idempotency_key: `payment-${registrationId}-${Date.now()}`,
+        source_id: cardId,
+        amount_money: {
+          amount: 1200, // $12.00 en centavos
+          currency: 'USD',
+        },
+        customer_id: customerId,
+        location_id: SQUARE_LOCATION_ID,
+        note: `SaludCompartida - Pago inicial - Registration ${registrationId}`,
+      }),
+    });
+
+    const paymentData = await paymentResponse.json();
+
+    if (!paymentResponse.ok) {
+      console.error('❌ [SQUARE] Error procesando pago inicial:', JSON.stringify(paymentData, null, 2));
+      return NextResponse.json(
+        {
+          success: false,
+          error: paymentData.errors?.[0]?.detail || 'Error processing initial payment',
+          details: paymentData.errors,
+        },
+        { status: paymentResponse.status }
+      );
+    }
+
+    const paymentId = paymentData.payment.id;
+    console.log('✅ [SQUARE] Pago inicial procesado:', paymentId);
+
+    // ════════════════════════════════════════════════════════════
     // 7. GUARDAR EN SUPABASE (TABLAS SEPARADAS DE SQUARE)
     // ════════════════════════════════════════════════════════════
     
@@ -292,6 +334,7 @@ export async function POST(request: NextRequest) {
         subscription_id: subscriptionRecord?.id,
         square_subscription_id: subscriptionId,
         square_customer_id: customerId,
+        square_payment_id: paymentId, // ID del pago de Square
         amount_cents: 1200, // $12.00
         status: 'COMPLETED',
         payment_date: new Date().toISOString().split('T')[0],
@@ -305,11 +348,12 @@ export async function POST(request: NextRequest) {
       console.log('✅ [SUPABASE] Primer pago registrado');
     }
 
-    // 7.4 Actualizar registrations con payment_status
+    // 7.4 Actualizar registrations con payment_status y payment_id
     const { error: updateError } = await supabase
       .from('registrations')
       .update({
         payment_status: 'completed',
+        payment_id: paymentId, // Guardar el payment_id de Square
       })
       .eq('id', registrationId);
 
@@ -334,13 +378,35 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('❌ [ERROR]:', error);
+    console.error('❌ [ERROR FATAL] Error no manejado:', error);
+    console.error('❌ [ERROR STACK]:', error.stack);
+    
+    // Determinar mensaje de error apropiado
+    let errorMessage = 'Internal server error';
+    let statusCode = 500;
+    
+    if (error.message) {
+      errorMessage = error.message;
+    }
+    
+    // Si el error viene de un fetch que falló
+    if (error.cause) {
+      console.error('❌ [ERROR CAUSE]:', error.cause);
+      errorMessage = `Network error: ${error.cause.message || 'Failed to connect to payment service'}`;
+      statusCode = 503;
+    }
+    
     return NextResponse.json(
       {
         success: false,
-        error: error.message,
+        error: errorMessage,
+        details: [{
+          category: 'API_ERROR',
+          code: 'INTERNAL_ERROR',
+          detail: errorMessage,
+        }],
       },
-      { status: 500 }
+      { status: statusCode }
     );
   }
 }

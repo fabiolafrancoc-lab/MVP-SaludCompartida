@@ -34,27 +34,41 @@ function PagoContent() {
   // Cargar datos del registro desde Supabase
   useEffect(() => {
     if (!registrationId) {
+      console.warn('⚠️ [PAYMENT] No registration ID provided');
       router.push('/registro-jan');
       return;
     }
 
     const loadRegistration = async () => {
       try {
+        console.log('🔍 [PAYMENT] Cargando registro:', registrationId);
+        
         const { data, error } = await supabase
           .from('registrations')
           .select('*')
           .eq('id', registrationId)
           .single();
 
-        if (error || !data) {
-          console.error('Error cargando registro:', error);
+        if (error) {
+          console.error('❌ [PAYMENT] Error de Supabase:', error);
+          console.error('❌ [PAYMENT] Error code:', error.code);
+          console.error('❌ [PAYMENT] Error message:', error.message);
+          router.push('/registro-jan');
+          return;
+        }
+        
+        if (!data) {
+          console.error('❌ [PAYMENT] No se encontró el registro');
           router.push('/registro-jan');
           return;
         }
 
+        console.log('✅ [PAYMENT] Registro cargado exitosamente');
         setRegistrationData(data);
-      } catch (err) {
-        console.error('Error:', err);
+      } catch (err: any) {
+        console.error('❌ [PAYMENT] Error fatal cargando registro:', err);
+        console.error('❌ [PAYMENT] Error name:', err?.name);
+        console.error('❌ [PAYMENT] Error message:', err?.message);
         router.push('/registro-jan');
       }
     };
@@ -64,18 +78,22 @@ function PagoContent() {
 
   // Inicializar Square Web Payments SDK
   useEffect(() => {
-    if (!registrationData) return;
+    if (!registrationData) {
+      console.log('⏳ [SQUARE] Esperando datos de registro...');
+      return;
+    }
 
     const initSquarePayments = async () => {
       try {
+        console.log('🔵 [SQUARE] Iniciando Square Payments SDK...');
+        
         // TEMPORAL: Hardcoded mientras Vercel actualiza env vars
         const appId = process.env.NEXT_PUBLIC_SQUARE_APP_ID || 'sq0idp-TDgOgQ1CmhJqDdCqulhnIw';
         const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || 'L9W263XHC7876';
 
-        console.log('🔵 Iniciando Square Payments...');
-        console.log('App ID:', appId);
-        console.log('Location ID:', locationId);
-        console.log('Usando fallback?', !process.env.NEXT_PUBLIC_SQUARE_APP_ID);
+        console.log('🔵 [SQUARE] App ID:', appId);
+        console.log('🔵 [SQUARE] Location ID:', locationId);
+        console.log('🔵 [SQUARE] Usando fallback?', !process.env.NEXT_PUBLIC_SQUARE_APP_ID);
 
         if (!appId || !locationId) {
           throw new Error(
@@ -85,23 +103,37 @@ function PagoContent() {
 
         // Asegurarnos de que el SDK exista
         if (!window.Square || typeof window.Square.payments !== 'function') {
-          console.log('⏳ Cargando Square SDK...');
+          console.log('⏳ [SQUARE] Cargando Square SDK...');
 
           await new Promise<void>((resolve, reject) => {
             const existing = document.querySelector<HTMLScriptElement>(
               'script[src="https://web.squarecdn.com/v1/square.js"]'
             );
             if (existing) {
-              existing.onload = () => resolve();
-              existing.onerror = () => reject(new Error('Error cargando Square SDK'));
+              console.log('🔵 [SQUARE] Script ya existe, esperando carga...');
+              existing.onload = () => {
+                console.log('✅ [SQUARE] Script existente cargado');
+                resolve();
+              };
+              existing.onerror = () => {
+                console.error('❌ [SQUARE] Error cargando script existente');
+                reject(new Error('Error cargando Square SDK'));
+              };
               return;
             }
 
+            console.log('🔵 [SQUARE] Creando nuevo script tag...');
             const script = document.createElement('script');
             script.src = 'https://web.squarecdn.com/v1/square.js';
             script.async = true;
-            script.onload = () => resolve();
-            script.onerror = () => reject(new Error('Error cargando Square SDK'));
+            script.onload = () => {
+              console.log('✅ [SQUARE] Script nuevo cargado exitosamente');
+              resolve();
+            };
+            script.onerror = () => {
+              console.error('❌ [SQUARE] Error cargando script nuevo');
+              reject(new Error('Error cargando Square SDK'));
+            };
             document.head.appendChild(script);
           });
 
@@ -110,13 +142,15 @@ function PagoContent() {
           }
         }
 
-        console.log('✅ Square SDK disponible, creando payments…');
+        console.log('✅ [SQUARE] SDK disponible, creando payments instance...');
 
         const payments = window.Square.payments(appId, locationId);
         if (!payments) {
           throw new Error('Square.payments devolvió un valor inválido.');
         }
 
+        console.log('✅ [SQUARE] Payments instance creado, inicializando card...');
+        
         const cardInstance = await payments.card({
           style: {
             input: {
@@ -127,13 +161,18 @@ function PagoContent() {
           }
         });
 
-        console.log('✅ Card instance creado');
+        console.log('✅ [SQUARE] Card instance creado, adjuntando al DOM...');
         await cardInstance.attach('#card-container');
-        console.log('✅ Card adjuntado al DOM');
+        console.log('✅ [SQUARE] Card adjuntado exitosamente al DOM');
 
         setCard(cardInstance);
+        console.log('🎉 [SQUARE] Inicialización completa');
       } catch (err: any) {
-        console.error('❌ Error inicializando Square:', err);
+        console.error('❌ [SQUARE] Error inicializando Square:', err);
+        console.error('❌ [SQUARE] Error name:', err?.name);
+        console.error('❌ [SQUARE] Error message:', err?.message);
+        console.error('❌ [SQUARE] Error stack:', err?.stack);
+        
         setError(
           `Error al cargar el formulario de pago: ${
             err?.message || 'Error desconocido'
@@ -153,16 +192,23 @@ function PagoContent() {
     setError('');
 
     try {
+      console.log('🔵 [PAYMENT] Iniciando proceso de pago...');
+      
       // Tokenizar la tarjeta con Square
       const tokenResult = await card.tokenize();
+      console.log('🔵 [PAYMENT] Tokenización resultado:', tokenResult.status);
       
       if (tokenResult.status === 'OK') {
         const token = tokenResult.token;
+        console.log('✅ [PAYMENT] Token obtenido, llamando al backend...');
 
         // Llamar al endpoint de backend para procesar el pago
         const response = await fetch('/api/square-payment', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
           body: JSON.stringify({
             sourceId: token,
             amount: 1200, // $12.00 USD en centavos
@@ -172,64 +218,131 @@ function PagoContent() {
           })
         });
 
+        console.log('🔵 [PAYMENT] Response status:', response.status);
+        
+        // Verificar si la respuesta es JSON válido
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          console.error('❌ [PAYMENT] Respuesta no es JSON:', contentType);
+          throw new Error('El servidor no respondió correctamente. Por favor intenta nuevamente.');
+        }
+
         const result = await response.json();
 
-        if (result.success) {
-          // Actualizar estado en Supabase
-          await supabase
-            .from('registrations')
-            .update({
-              payment_status: 'completed',
-              payment_id: result.data.id,
-              updated_at: new Date().toISOString()
-            })
-            .eq('id', registrationId);
+        console.log(
+          '📊 [SQUARE] Respuesta completa del servidor:',
+          JSON.stringify(result, null, 2)
+        );
 
-          // 🎯 ENVIAR EMAILS CON RESEND (Migrante + Usuario México)
-          // ✅ Conectado a Supabase para obtener todos los datos
-          // ✅ Usa templates diseñados "El Que Nunca Olvida" + "El Regalo de Amor"
-          try {
-            console.log('📧 [SQUARE] Pago completado. Enviando emails de bienvenida...');
-            const emailResponse = await fetch('/api/send-notifications', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                type: 'payment_success',
-                registrationId: registrationId
-              })
-            });
-
-            const emailResult = await emailResponse.json();
+        if (!response.ok || !result.success) {
+          console.error('❌ [SQUARE] Error del servidor:', result);
+          console.error('🔴 [SQUARE] HTTP Status:', response.status);
+          console.error('🔴 [SQUARE] Result structure:', Object.keys(result));
+          
+          // Extraer mensaje de error específico con múltiples fallbacks
+          let errorMessage = '';
+          
+          // Prioridad 1: Error directo
+          if (result?.error && typeof result.error === 'string') {
+            errorMessage = result.error;
+          } 
+          // Prioridad 2: Details array (Square format)
+          else if (result?.details && Array.isArray(result.details) && result.details.length > 0) {
+            const detail = result.details[0];
+            errorMessage = detail.detail || detail.message || detail.code || '';
             
-            if (emailResult.success) {
-              console.log('✅ [RESEND] Emails enviados exitosamente:', emailResult);
-            } else {
-              console.warn('⚠️ [RESEND] Error enviando emails (no crítico):', emailResult.error);
+            // Agregar código de error si existe
+            if (detail.code && errorMessage && !errorMessage.includes(detail.code)) {
+              errorMessage = `${errorMessage} (Código: ${detail.code})`;
             }
-          } catch (emailError) {
-            console.error('⚠️ [RESEND] Error en llamada a /api/send-notifications:', emailError);
-            // No bloqueamos el flujo si el email falla
+          } 
+          // Prioridad 3: Message
+          else if (result?.message) {
+            errorMessage = result.message;
+          }
+          // Prioridad 4: Errors array alternativo
+          else if (result?.errors && Array.isArray(result.errors) && result.errors.length > 0) {
+            errorMessage = result.errors[0].detail || result.errors[0].message || '';
+          }
+          
+          // Fallback final basado en status code
+          if (!errorMessage) {
+            switch (response.status) {
+              case 400:
+                errorMessage = 'Datos de pago inválidos. Verifica la información de tu tarjeta.';
+                break;
+              case 401:
+                errorMessage = 'Error de autenticación con el procesador de pagos.';
+                break;
+              case 403:
+                errorMessage = 'Acceso denegado. Verifica tu información de pago.';
+                break;
+              case 404:
+                errorMessage = 'Plan de suscripción no encontrado. Contacta soporte.';
+                break;
+              case 429:
+                errorMessage = 'Demasiados intentos. Espera un momento e intenta nuevamente.';
+                break;
+              case 500:
+                errorMessage = 'Error del servidor de pagos. Por favor intenta más tarde.';
+                break;
+              case 503:
+                errorMessage = 'Servicio de pagos temporalmente no disponible.';
+                break;
+              default:
+                errorMessage = `Error del servidor (${response.status}). Por favor intenta nuevamente.`;
+            }
           }
 
-          // Redirigir a confirmación
-          router.push(`/confirmacion?id=${registrationId}`);
-        } else {
-          // Mostrar el error específico de Square con más detalles
-          const errorMsg = result.error || 'Error procesando el pago';
-          const errorCode = result.errorCode ? ` (Código: ${result.errorCode})` : '';
-          console.error('❌ [SQUARE] Error del servidor:', result);
-          throw new Error(`${errorMsg}${errorCode}`);
+          console.error('🔴 [SQUARE] Mensaje final:', errorMessage);
+          setError(errorMessage);
+          setIsProcessing(false);
+          return;
         }
+
+        // Si todo salió bien, redirigimos a la página de éxito
+        console.log('✅ [SQUARE] Suscripción creada:', result.data);
+        router.push(`/confirmacion?id=${registrationId}`);
+        setIsProcessing(false);
       } else {
         const tokenErrors = tokenResult.errors || [];
         const errorMsg = tokenErrors.map((e: any) => e.message).join(', ') || 'Error al tokenizar la tarjeta. Verifica los datos.';
         console.error('❌ [SQUARE] Error de tokenización:', tokenResult);
-        throw new Error(errorMsg);
+        setError(errorMsg);
+        setIsProcessing(false);
       }
     } catch (err: any) {
-      console.error('Error en el pago:', err);
-      setError(err.message || 'Error procesando el pago. Intenta nuevamente.');
-    } finally {
+      console.error('❌ [PAYMENT] Error fatal en el pago:', err);
+      console.error('❌ [PAYMENT] Error name:', err.name);
+      console.error('❌ [PAYMENT] Error message:', err.message);
+      console.error('❌ [PAYMENT] Error stack:', err.stack);
+      
+      // Determinar el tipo de error específico
+      let errorMessage = 'Error procesando el pago';
+      
+      // Errores de red
+      if (err.name === 'TypeError' && err.message.includes('fetch')) {
+        errorMessage = 'Error de conexión con el servidor. Verifica tu internet.';
+      } 
+      // Errores de parsing JSON
+      else if (err instanceof SyntaxError && err.message.includes('JSON')) {
+        errorMessage = 'El servidor respondió con un formato inválido. Por favor contacta soporte.';
+      }
+      // Errores de Next.js router
+      else if (err.message && err.message.includes('NEXT_')) {
+        errorMessage = 'Error de navegación. Por favor recarga la página.';
+      }
+      // Timeout
+      else if (err.name === 'AbortError') {
+        errorMessage = 'La solicitud tardó demasiado. Por favor intenta nuevamente.';
+      }
+      // Error con mensaje específico
+      else if (err.message && !err.message.includes('undefined')) {
+        errorMessage = err.message;
+      }
+      
+      console.error('🔴 [PAYMENT] Mensaje final de error:', errorMessage);
+      setError(errorMessage);
       setIsProcessing(false);
     }
   };
