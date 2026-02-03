@@ -61,12 +61,20 @@ export async function POST(request: NextRequest) {
 
     console.log('✅ [SQUARE] Credenciales OK');
     console.log('📍 [SQUARE] Location ID:', SQUARE_LOCATION_ID);
-    console.log('� [SUPABASE] Registration ID:', registrationId);
+    console.log('🔑 [SUPABASE] Registration ID:', registrationId);
 
     // ════════════════════════════════════════════════════════════
     // 2. OBTENER DATOS DEL CLIENTE DESDE SUPABASE
     // ════════════════════════════════════════════════════════════
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
+      console.error('❌ [SUPABASE] Missing Supabase credentials');
+      return NextResponse.json(
+        { success: false, error: 'Supabase configuration error' },
+        { status: 500 }
+      );
+    }
+    
+    const supabase = createClient(SUPABASE_URL as string, SUPABASE_KEY as string);
     
     const { data: registration, error: dbError } = await supabase
       .from('registrations')
