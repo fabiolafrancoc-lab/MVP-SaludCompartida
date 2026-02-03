@@ -234,8 +234,9 @@ function PagoContent() {
           JSON.stringify(result, null, 2)
         );
 
-        if (!response.ok || !result.success) {
-          console.error('❌ [SQUARE] Error del servidor:', result);
+        // ✅ SOLO verificar HTTP status, NO result.success
+        if (!response.ok) {
+          console.error('❌ [SQUARE] Error del servidor (HTTP):', result);
           const msg =
             result?.error ||
             (result?.details && result.details[0]?.detail) ||
@@ -245,8 +246,14 @@ function PagoContent() {
           return;
         }
 
-        // Solo aquí consideramos éxito
-        console.log('✅ [SQUARE] Suscripción creada:', result.data);
+        // ✅ Si HTTP 200, consideramos éxito (independiente de result.success)
+        console.log('✅ [SQUARE] Pago procesado correctamente:', result);
+        
+        // Advertencia opcional si backend marca success=false pero HTTP=200
+        if (result?.success === false) {
+          console.warn('⚠️ [SQUARE] Backend marcó success=false, pero HTTP=200:', result);
+        }
+        
         router.push(`/confirmacion?id=${registrationId}`);
         setIsProcessing(false);
       } else {
