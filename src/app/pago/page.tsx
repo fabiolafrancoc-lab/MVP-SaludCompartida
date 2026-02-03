@@ -1229,7 +1229,7 @@ function PagoContent() {
             <div className="order-item">
               <div>
                 <div className="order-item-name">
-                  ✓ Compañía {registrationData?.companion_assigned === 'lupita' ? '👵 Lupita' : '👩 Fernanda'}
+                  ✓ Compañía {registrationData?.family_companion_assigned === 'lupita' ? '👵 Lupita' : '👩 Fernanda'}
                 </div>
                 <div className="order-item-detail">Llamadas de acompañamiento</div>
               </div>
@@ -1285,7 +1285,7 @@ function PagoContent() {
               <div className="user-summary-row">
                 <span className="user-summary-label">Compañía asignada</span>
                 <span className="user-summary-value" style={{ color: '#EC4899' }}>
-                  {registrationData?.companion_assigned === 'lupita' ? '👵 Lupita' : '👩 Fernanda'}
+                  {registrationData?.family_companion_assigned === 'lupita' ? '👵 Lupita' : '👩 Fernanda'}
                 </span>
               </div>
             </div>

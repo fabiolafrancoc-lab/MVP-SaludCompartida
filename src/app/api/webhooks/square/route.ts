@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseClient } from '@/lib/supabase';
+import { 
+  sendMigrantWelcomeEmail, 
+  sendFamilyWelcomeEmail, 
+  sendAuraImmediateNotification 
+} from '@/lib/resend';
 
 export async function POST(request: NextRequest) {
   try {
@@ -50,26 +55,66 @@ async function handlePaymentCompleted(payment: any) {
     })
     .eq('registration_id', registration.registration_id);
 
-  console.log('Registration activated:', registration.codigo_familia);
+  console.log('✅ Registration activated:', registration.codigo_familia);
 
-  // Disparar notificaciones
+  // ════════════════════════════════════════════════════════════════════════
+  // ENVIAR EMAILS PERSONALIZADOS (con datos de Supabase)
+  // ════════════════════════════════════════════════════════════════════════
+  console.log('📧 [WEBHOOK] Sending personalized emails from Supabase data...');
+
   try {
-    await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/notificaciones`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: 'activation',
-        registrationId: registration.registration_id,
-        codigoFamilia: registration.codigo_familia,
-        suscriptorEmail: registration.suscriptor_email,
-        suscriptorNombre: registration.suscriptor_nombre,
-        suscriptorTelefono: registration.suscriptor_telefono,
-        usuarioPrincipalNombre: registration.usuario_principal_nombre,
-        usuarioPrincipalTelefono: registration.usuario_principal_telefono,
-        planName: registration.plan_name,
-      }),
+    const now = new Date();
+    const activationDate = now.toLocaleDateString('es-MX', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
     });
-  } catch (notifError) {
-    console.error('Error sending notifications:', notifError);
+    const activationTime = now.toLocaleTimeString('es-MX', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    });
+
+    // Email 1: Al migrante en USA
+    await sendMigrantWelcomeEmail({
+      migrantName: registration.suscriptor_nombre,
+      migrantEmail: registration.suscriptor_email,
+      codigoFamilia: registration.codigo_familia,
+      planName: registration.plan_name || 'SaludCompartida Familiar',
+      planPrice: registration.plan_price || 12,
+    });
+    console.log('✅ [WEBHOOK] Migrant email sent');
+
+    // Email 2: A la familia en México
+    await sendFamilyWelcomeEmail({
+      familyName: registration.usuario_principal_nombre,
+      familyEmail: registration.suscriptor_email, // Por ahora usa el del migrante
+      migrantName: registration.suscriptor_nombre,
+      familyCode: registration.codigo_familia,
+      familyPhone: registration.usuario_principal_telefono,
+    });
+    console.log('✅ [WEBHOOK] Family email sent');
+
+    // Email 3: A contact@saludcompartida.app
+    await sendAuraImmediateNotification({
+      migrantName: registration.suscriptor_nombre.split(' ')[0],
+      migrantLastName: registration.suscriptor_nombre.split(' ').slice(1).join(' '),
+      migrantEmail: registration.suscriptor_email,
+      migrantPhone: registration.suscriptor_telefono,
+      principalName: registration.usuario_principal_nombre.split(' ')[0],
+      principalLastName: registration.usuario_principal_nombre.split(' ').slice(1).join(' '),
+      principalBirthDate: 'N/A',
+      principalPhone: registration.usuario_principal_telefono,
+      codigoFamilia: registration.codigo_familia,
+      planName: registration.plan_name || 'SaludCompartida Familiar',
+      planPrice: registration.plan_price || 12,
+      familyMembersCount: 1,
+      activationDate,
+      activationTime,
+    });
+    console.log('✅ [WEBHOOK] Aura notification sent to contact@saludcompartida.app');
+
+  } catch (emailError) {
+    console.error('❌ [WEBHOOK] Error sending emails:', emailError);
   }
 }

@@ -153,7 +153,7 @@ export async function sendAuraImmediateNotification(data: {
   migrantLastName: string;
   migrantEmail: string;
   migrantPhone: string;
-  migrantState: string;
+  migrantState?: string; // ✅ OPCIONAL - No requerido
   principalName: string;
   principalLastName: string;
   principalBirthDate: string;
@@ -212,7 +212,7 @@ export async function sendAuraImmediateNotification(data: {
                 <tr><td>Apellido Paterno</td><td><strong>${data.migrantLastName}</strong></td></tr>
                 <tr><td>Email</td><td>${data.migrantEmail}</td></tr>
                 <tr><td>Teléfono</td><td>${data.migrantPhone}</td></tr>
-                <tr><td>Estado (USA)</td><td>${data.migrantState}</td></tr>
+                ${data.migrantState ? `<tr><td>Estado (USA)</td><td>${data.migrantState}</td></tr>` : ''}
               </table>
               
               <h3>👨‍👩‍👧 Usuario Principal (México) - DATOS COMPLETOS</h3>
