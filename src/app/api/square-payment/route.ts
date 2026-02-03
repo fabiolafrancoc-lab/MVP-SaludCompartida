@@ -14,6 +14,20 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { sourceId, registrationId } = body;
     
+    console.log('📥 [SQUARE] Body recibido:', { sourceId: sourceId?.substring(0, 20) + '...', registrationId });
+    
+    // ⚠️ SIMULACIÓN TEMPORAL - ELIMINAR DESPUÉS
+    console.log('🧪 [SQUARE] Devolviendo respuesta de simulación para testing');
+    return NextResponse.json({
+      success: true,
+      data: {
+        simulation: true,
+        received: true,
+        registrationId,
+      },
+    });
+    // ⚠️ FIN SIMULACIÓN TEMPORAL
+    
     // ════════════════════════════════════════════════════════════
     // 1. VALIDAR CREDENCIALES
     // ════════════════════════════════════════════════════════════
