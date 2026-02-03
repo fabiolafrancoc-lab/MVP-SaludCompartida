@@ -512,46 +512,22 @@ function ConfirmacionContent() {
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             </div>
-            <h1 className="success-title serif">¡Pago exitoso!</h1>
-            <p className="success-subtitle">Tu familia en México ya está protegida</p>
+            <h1 className="success-title serif">¡Gracias por confiar en SaludCompartida!</h1>
+            <p className="success-subtitle">Tu familia en México puede usar todos los beneficios en 30 segundos</p>
           </div>
 
           {/* EMOTIONAL GRATITUDE SECTION - HANDWRITTEN SIGNATURES */}
           <div className="gratitude-section">
-            <p className="gratitude-intro">Esto es lo que las familias quieren decirte...</p>
+            <p className="gratitude-intro">Tu familia te lo agradece...</p>
             
             <div className="signatures-cloud">
-              {/* Niños - letra grande, desordenada, errores de ortografía */}
+              {/* Solo 6 firmas máximo */}
               <span className="signature sig-child sig-1">Gracias papá</span>
-              <span className="signature sig-child sig-2">gracias mami</span>
-              <span className="signature sig-child sig-3">Grasias Papa</span>
-              <span className="signature sig-child sig-4">te quiero mamá</span>
-              <span className="signature sig-child sig-5">GRACIAS TÍO</span>
-              <span className="signature sig-child sig-6">gracias papi</span>
-              <span className="signature sig-child sig-7">Te extraño</span>
-              <span className="signature sig-child sig-8">grasias mama</span>
-              
-              {/* Adultos mayores - letra cursiva elegante */}
-              <span className="signature sig-elder sig-9">Gracias, mijo</span>
-              <span className="signature sig-elder sig-10">Bendiciones, mijita</span>
-              <span className="signature sig-elder sig-11">Gracias, mi niño</span>
-              <span className="signature sig-elder sig-12">Dios te bendiga, hija</span>
-              <span className="signature sig-elder sig-13">Mil gracias, mijo</span>
-              <span className="signature sig-elder sig-14">Te quiero mucho, mijita</span>
-              <span className="signature sig-elder sig-15">Gracias por no olvidarnos</span>
-              <span className="signature sig-elder sig-16">Que Dios te lo pague</span>
-              
-              {/* Más niños */}
-              <span className="signature sig-child sig-17">ya no me duele</span>
-              <span className="signature sig-child sig-18">Gracias Papito</span>
-              <span className="signature sig-child sig-21">tenkiu mami</span>
-              <span className="signature sig-child sig-22">gracias por la mesina</span>
-              
-              {/* Más adultos mayores */}
-              <span className="signature sig-elder sig-19">Siempre en mi corazón</span>
-              <span className="signature sig-elder sig-20">Gracias por cuidarnos</span>
-              <span className="signature sig-elder sig-23">Te recordamos siempre</span>
-              <span className="signature sig-elder sig-24">Eres nuestra bendición</span>
+              <span className="signature sig-elder sig-2">Gracias, mijo</span>
+              <span className="signature sig-child sig-3">te quiero mamá</span>
+              <span className="signature sig-elder sig-4">Dios te bendiga</span>
+              <span className="signature sig-child sig-5">Grasias Papa</span>
+              <span className="signature sig-elder sig-6">Mil gracias, mijita</span>
             </div>
           </div>
 
@@ -609,8 +585,8 @@ function ConfirmacionContent() {
             <div className="step-item">
               <div className="step-icon whatsapp">📱</div>
               <div className="step-content">
-                <h4>WhatsApp enviado</h4>
-                <p>Tu familia ya recibió su código y las instrucciones</p>
+                <h4>Mail y WhatsApp enviados</h4>
+                <p>Tu familia en México recibirá su código e instrucciones para empezar a disfrutar SaludCompartida</p>
               </div>
             </div>
 
@@ -618,15 +594,15 @@ function ConfirmacionContent() {
               <div className="step-icon phone">📞</div>
               <div className="step-content">
                 <h4>Llamada de bienvenida</h4>
-                <p>En las próximas 24 horas, <span className="companion-name">{registrationData?.companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda'}</span> llamará a tu familia para presentarse</p>
+                <p>En las próximas 24 horas, <span className="companion-name">Lupita</span> llamará a tu familia para presentarse. Lupita está para acompañar a tus seres queridos cuando tú no estás</p>
               </div>
             </div>
 
             <div className="step-item">
               <div className="step-icon check">✓</div>
               <div className="step-content">
-                <h4>Servicios activos</h4>
-                <p>Telemedicina, farmacia, terapia y compañía ya están disponibles</p>
+                <h4>Servicios disponibles ahora</h4>
+                <p>Telemedicina, descuentos en farmacia, terapia semanal y compañía para tu familia, donde está tu corazón</p>
               </div>
             </div>
           </div>

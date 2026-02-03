@@ -98,6 +98,7 @@ export async function POST(request: NextRequest) {
         migrantLastName: migrantLastName,
         migrantEmail: suscriptor.email,
         migrantPhone: suscriptor.telefono,
+        // migrantState: No requerido - campo eliminado del formulario
         principalName: usuarioPrincipal.nombre,
         principalLastName: usuarioPrincipal.apellido,
         principalBirthDate: usuarioPrincipal.fechaNacimiento,

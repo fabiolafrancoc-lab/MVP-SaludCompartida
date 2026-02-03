@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { 
+  sendMigrantWelcomeEmail, 
+  sendFamilyWelcomeEmail, 
+  sendAuraImmediateNotification 
+} from '@/lib/resend';
 
 // ════════════════════════════════════════════════════════════════════════════
 // ENDPOINT: /api/square-payment
@@ -341,7 +346,68 @@ export async function POST(request: NextRequest) {
     }
 
     // ════════════════════════════════════════════════════════════════════════
-    // 8️⃣ SUCCESS RESPONSE
+    // 8️⃣ SEND EMAILS (TODOS)
+    // ════════════════════════════════════════════════════════════════════════
+    console.log('📧 [EMAILS] Sending all welcome emails...');
+
+    try {
+      const now = new Date();
+      const activationDate = now.toLocaleDateString('es-MX', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      const activationTime = now.toLocaleTimeString('es-MX', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true 
+      });
+
+      // Email 1: Al migrante
+      await sendMigrantWelcomeEmail({
+        migrantName: registration.migrant_first_name,
+        migrantEmail: registration.migrant_email,
+        codigoFamilia: registration.family_code || 'N/A',
+        planName: 'SaludCompartida Familiar',
+        planPrice: 12,
+      });
+      console.log('✅ [EMAILS] Migrant email sent');
+
+      // Email 2: A la familia en México
+      await sendFamilyWelcomeEmail({
+        familyName: registration.family_first_name,
+        familyEmail: registration.family_email || registration.migrant_email,
+        migrantName: registration.migrant_first_name,
+        familyCode: registration.family_code || 'N/A',
+        familyPhone: registration.family_phone || 'N/A',
+      });
+      console.log('✅ [EMAILS] Family email sent');
+
+      // Email 3: A contact@saludcompartida (notificación interna)
+      await sendAuraImmediateNotification({
+        migrantName: registration.migrant_first_name,
+        migrantLastName: registration.migrant_last_name,
+        migrantEmail: registration.migrant_email,
+        migrantPhone: registration.migrant_phone,
+        principalName: registration.family_first_name,
+        principalLastName: registration.family_last_name || '',
+        principalBirthDate: registration.family_birthdate || 'N/A',
+        principalPhone: registration.family_phone || 'N/A',
+        codigoFamilia: registration.family_code || 'N/A',
+        planName: 'SaludCompartida Familiar',
+        planPrice: 12,
+        familyMembersCount: 1,
+        activationDate,
+        activationTime,
+      });
+      console.log('✅ [EMAILS] Aura notification sent to contact@saludcompartida.app');
+    } catch (emailError) {
+      console.error('❌ [EMAILS] Error sending emails:', emailError);
+      // No bloqueamos el pago si fallan los emails
+    }
+
+    // ════════════════════════════════════════════════════════════════════════
+    // 9️⃣ SUCCESS RESPONSE
     // ════════════════════════════════════════════════════════════════════════
     console.log('🎉 [SQUARE] All operations completed successfully');
 
