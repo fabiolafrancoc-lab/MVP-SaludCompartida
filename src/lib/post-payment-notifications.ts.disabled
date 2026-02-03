@@ -1,10 +1,9 @@
+// ⚠️ ARCHIVO DEPRECADO - NO USAR
+// Los emails se envían ahora directamente desde email-templates.ts usando sendPostPaymentEmails()
+// Este archivo se mantiene solo para referencia histórica
+
 // Función principal para enviar notificaciones post-pago
 import { Resend } from 'resend';
-import { 
-  emailMigranteTemplate, 
-  emailUsuarioMexicoTemplate,
-  type EmailData 
-} from './email-templates';
 import {
   sendPostPaymentWhatsApp,
   type WhatsAppData
