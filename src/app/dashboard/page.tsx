@@ -63,29 +63,38 @@ export default function Dashboard() {
     }
 
     try {
-      // Primero buscar sin filtro de ACTIVE para debuggear
-      const { data: allData, error: allError } = await supabase
-        .from('registrations')
-        .select('*')
-        .or(`migrant_code.eq.${code},family_code.eq.${code}`);
-      
-      console.log('🔍 [DASHBOARD] Registro encontrado (sin filtro ACTIVE):', allData);
-
+      // Buscar registro por código (migrant_code o family_code)
       const { data, error } = await supabase
         .from('registrations')
         .select('*')
         .or(`migrant_code.eq.${code},family_code.eq.${code}`)
-        .eq('subscription_status', 'ACTIVE')
-        .single();
+        .maybeSingle();
 
-      console.log('🔍 [DASHBOARD] Query result:', { data, error, code });
+      console.log('🔍 [DASHBOARD] Registro encontrado:', { data, error, code });
 
-      if (error || !data) {
-        console.error('❌ [DASHBOARD] Error:', error);
-        setCodeError('Código no válido o suscripción no activa.');
+      if (error) {
+        console.error('❌ [DASHBOARD] Error de Supabase:', error);
+        setCodeError('Error al validar código. Intenta de nuevo.');
         setIsLoading(false);
         return;
       }
+
+      if (!data) {
+        console.error('❌ [DASHBOARD] Código no encontrado');
+        setCodeError('Código no válido.');
+        setIsLoading(false);
+        return;
+      }
+
+      // Verificar que el pago esté completado
+      if (data.payment_status !== 'completed') {
+        console.error('❌ [DASHBOARD] Pago pendiente:', data.payment_status);
+        setCodeError('Este código está pendiente de pago. Completa el pago primero.');
+        setIsLoading(false);
+        return;
+      }
+
+      console.log('✅ [DASHBOARD] Código válido, pago completado');
 
       const type: UserType = (data.migrant_code === code) ? 'migrant' : 'mexico';
       setUserType(type);
