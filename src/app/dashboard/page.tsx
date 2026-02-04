@@ -63,6 +63,14 @@ export default function Dashboard() {
     }
 
     try {
+      // Primero buscar sin filtro de ACTIVE para debuggear
+      const { data: allData, error: allError } = await supabase
+        .from('registrations')
+        .select('*')
+        .or(`migrant_code.eq.${code},family_code.eq.${code}`);
+      
+      console.log('🔍 [DASHBOARD] Registro encontrado (sin filtro ACTIVE):', allData);
+
       const { data, error } = await supabase
         .from('registrations')
         .select('*')
@@ -70,7 +78,10 @@ export default function Dashboard() {
         .eq('subscription_status', 'ACTIVE')
         .single();
 
+      console.log('🔍 [DASHBOARD] Query result:', { data, error, code });
+
       if (error || !data) {
+        console.error('❌ [DASHBOARD] Error:', error);
         setCodeError('Código no válido o suscripción no activa.');
         setIsLoading(false);
         return;
