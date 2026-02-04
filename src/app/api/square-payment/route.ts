@@ -318,10 +318,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Update registration status
+    // Valores válidos: 'pending', 'active', 'cancelled', 'expired', 'paused'
     const { error: updateError } = await supabase
       .from('registrations')
       .update({
-        status: 'completed',
+        status: 'active',
         payment_completed_at: new Date().toISOString(),
         square_customer_id: customerId,
       })

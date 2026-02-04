@@ -86,16 +86,16 @@ export default function Dashboard() {
         return;
       }
 
-      // Verificar que el pago esté completado
-      // La columna se llama 'status', no 'payment_status'
-      if (data.status !== 'completed') {
-        console.error('❌ [DASHBOARD] Pago pendiente. status:', data.status);
-        setCodeError('Este código está pendiente de pago. Completa el pago primero.');
+      // Verificar que el pago esté completado y la suscripción activa
+      // Valores válidos: 'pending', 'active', 'cancelled', 'expired', 'paused'
+      if (data.status !== 'active') {
+        console.error('❌ [DASHBOARD] Suscripción no activa. status:', data.status);
+        setCodeError('Este código no está activo. Completa el pago primero.');
         setIsLoading(false);
         return;
       }
 
-      console.log('✅ [DASHBOARD] Código válido, pago completado, suscripción activa');
+      console.log('✅ [DASHBOARD] Código válido, suscripción activa');
 
       const type: UserType = (data.migrant_code === code) ? 'migrant' : 'mexico';
       setUserType(type);
