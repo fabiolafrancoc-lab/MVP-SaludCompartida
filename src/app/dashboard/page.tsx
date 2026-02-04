@@ -87,19 +87,10 @@ export default function Dashboard() {
       }
 
       // Verificar que el pago esté completado
-      if (data.payment_status !== 'completed') {
-        console.error('❌ [DASHBOARD] Pago pendiente. payment_status:', data.payment_status);
+      // La columna se llama 'status', no 'payment_status'
+      if (data.status !== 'completed') {
+        console.error('❌ [DASHBOARD] Pago pendiente. status:', data.status);
         setCodeError('Este código está pendiente de pago. Completa el pago primero.');
-        setIsLoading(false);
-        return;
-      }
-
-      // Verificar estado de suscripción (opcional, algunos registros pueden no tenerlo aún)
-      // Los valores válidos de Square son: 'ACTIVE', 'CANCELED', 'PAUSED'
-      // Si no existe el campo, dejamos pasar (compatibilidad hacia atrás)
-      if (data.subscription_status && data.subscription_status !== 'ACTIVE') {
-        console.error('❌ [DASHBOARD] Suscripción no activa. subscription_status:', data.subscription_status);
-        setCodeError('Tu suscripción no está activa. Contacta soporte.');
         setIsLoading(false);
         return;
       }

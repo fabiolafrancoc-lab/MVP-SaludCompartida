@@ -321,7 +321,8 @@ export async function POST(request: NextRequest) {
     const { error: updateError } = await supabase
       .from('registrations')
       .update({
-        payment_status: 'completed',
+        status: 'completed',
+        payment_completed_at: new Date().toISOString(),
         square_customer_id: customerId,
       })
       .eq('id', registrationId);
