@@ -146,7 +146,7 @@ export default function Dashboard() {
   }
 
   const userName = userType === 'migrant' ? registration?.migrant_first_name : registration?.family_first_name;
-  const migrantName = registration?.migrant_first_name || 'Carlos';
+  const migrantName = registration?.migrant_first_name || 'Fabiola';
   const companionName = userType === 'migrant' ? 'Fernanda' : 'Lupita';
   
   // Scroll suave a sección
@@ -163,40 +163,40 @@ export default function Dashboard() {
       <header style={{ 
         background: 'rgba(255,255,255,0.04)', 
         borderBottom: '1px solid rgba(255,255,255,0.06)', 
-        padding: '16px 20px',
+        padding: '20px 20px',
         position: 'sticky',
         top: 0,
         zIndex: 100
       }}>
         <div style={{ maxWidth: '430px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {/* Logo + Icono */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <div style={{ 
-              width: '40px', 
-              height: '40px', 
-              borderRadius: '12px', 
+              width: '48px', 
+              height: '48px', 
+              borderRadius: '14px', 
               background: 'linear-gradient(135deg, #06B6D4, #0891B2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '20px'
+              fontSize: '26px'
             }}>
               ✚
             </div>
-            <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: '24px' }} onError={(e) => e.currentTarget.style.display = 'none'} />
+            <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: '36px' }} onError={(e) => e.currentTarget.style.display = 'none'} />
           </div>
           
           {/* Usuario + Status */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <span style={{ 
-                width: '8px', 
-                height: '8px', 
+                width: '10px', 
+                height: '10px', 
                 borderRadius: '50%', 
                 background: '#10B981',
                 display: 'inline-block'
               }} />
-              <span style={{ color: '#fff', fontSize: '14px', fontWeight: '600' }}>{userName}</span>
+              <span style={{ color: '#fff', fontSize: '17px', fontWeight: '700' }}>{userName}</span>
             </div>
             <button 
               onClick={handleLogout}
@@ -205,7 +205,7 @@ export default function Dashboard() {
                 background: 'transparent',
                 border: 'none',
                 color: 'rgba(255,255,255,0.5)',
-                fontSize: '20px',
+                fontSize: '26px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center'
@@ -261,7 +261,7 @@ export default function Dashboard() {
               <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px', fontWeight: '600', margin: 0, textTransform: 'uppercase' }}>MIEMBROS</p>
             </div>
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '20px', textAlign: 'center' }}>
-              <p style={{ color: '#10B981', fontSize: '32px', fontWeight: '800', margin: '0 0 8px 0' }}>$3,255</p>
+              <p style={{ color: '#10B981', fontSize: '32px', fontWeight: '800', margin: '0 0 8px 0' }}>$0</p>
               <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px', fontWeight: '600', margin: 0, textTransform: 'uppercase' }}>AHORRADO</p>
             </div>
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '20px', textAlign: 'center' }}>
@@ -404,7 +404,7 @@ export default function Dashboard() {
               <div style={{ fontSize: '40px' }}>💰</div>
               <div>
                 <h4 style={{ color: '#fff', fontSize: '18px', fontWeight: '700', margin: '0 0 4px 0' }}>Mis Ahorros</h4>
-                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', margin: 0 }}>$3,255 MXN este mes</p>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', margin: 0 }}>$0 MXN este mes</p>
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
