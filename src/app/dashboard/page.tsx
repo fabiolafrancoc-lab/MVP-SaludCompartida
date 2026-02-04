@@ -147,18 +147,26 @@ export default function Dashboard() {
 
   const userName = userType === 'migrant' ? registration?.migrant_first_name : registration?.family_first_name;
   
-  // Tabs para Usuario México (9 tabs)
-  const navItems: { id: Page; label: string; emoji: string }[] = [
-    { id: 'quienes-somos', label: 'Quiénes Somos', emoji: '🏠' },
-    { id: 'telemedicina', label: 'Telemedicina', emoji: '🩺' },
-    { id: 'farmacia', label: 'Farmacia', emoji: '💊' },
-    { id: 'terapia', label: 'Terapia', emoji: '💙' },
-    { id: 'ahorros', label: 'Ahorros', emoji: '💰' },
-    { id: 'lupita-fernanda', label: 'Lupita & Fernanda', emoji: '🤖' },
-    { id: 'mi-cuenta', label: 'Mi Cuenta', emoji: '👤' },
-    { id: 'evaluacion', label: 'Evaluación', emoji: '⭐' },
-    { id: 'blog', label: 'Blog', emoji: '�' },
-  ];
+  // Tabs condicionales según tipo de usuario
+  // Migrante (USA - quien paga): 3 tabs
+  // Usuario México (familia que recibe beneficios): 9 tabs
+  const navItems: { id: Page; label: string; emoji: string }[] = userType === 'migrant' 
+    ? [
+        { id: 'quienes-somos', label: 'Quiénes Somos', emoji: '🏠' },
+        { id: 'contactanos', label: 'Contáctanos', emoji: '💬' },
+        { id: 'terminos', label: 'Términos', emoji: '📄' },
+      ]
+    : [
+        { id: 'quienes-somos', label: 'Quiénes Somos', emoji: '🏠' },
+        { id: 'telemedicina', label: 'Telemedicina', emoji: '🩺' },
+        { id: 'farmacia', label: 'Farmacia', emoji: '💊' },
+        { id: 'terapia', label: 'Terapia', emoji: '💙' },
+        { id: 'ahorros', label: 'Ahorros', emoji: '💰' },
+        { id: 'lupita-fernanda', label: 'Lupita & Fernanda', emoji: '🤖' },
+        { id: 'mi-cuenta', label: 'Mi Cuenta', emoji: '👤' },
+        { id: 'evaluacion', label: 'Evaluación', emoji: '⭐' },
+        { id: 'blog', label: 'Blog', emoji: '📚' },
+      ];
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#111827', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
@@ -183,16 +191,17 @@ export default function Dashboard() {
       </nav>
       <main>
         {currentPage === 'quienes-somos' && <QuienesSomos userType={userType!} />}
-        {currentPage === 'telemedicina' && <Telemedicina userType={userType!} onBack={() => {}} />}
-        {currentPage === 'farmacia' && <Farmacia userType={userType!} onBack={() => {}} />}
-        {currentPage === 'terapia' && <Terapia userType={userType!} />}
-        {currentPage === 'ahorros' && <Ahorros userType={userType!} onBack={() => {}} />}
-        {currentPage === 'lupita-fernanda' && <LupitaFernanda userType={userType!} onBack={() => {}} />}
-        {currentPage === 'mi-cuenta' && <MiCuenta userType={userType!} />}
-        {currentPage === 'evaluacion' && <Evaluacion userType={userType!} onBack={() => {}} />}
-        {currentPage === 'blog' && <Blog userType={userType!} onBack={() => {}} />}
         {currentPage === 'contactanos' && <Contactanos userType={userType!} />}
         {currentPage === 'terminos' && <TerminosPrivacidad />}
+        {/* Tabs solo para Usuario México */}
+        {userType === 'mexico' && currentPage === 'telemedicina' && <Telemedicina userType={userType!} onBack={() => {}} />}
+        {userType === 'mexico' && currentPage === 'farmacia' && <Farmacia userType={userType!} onBack={() => {}} />}
+        {userType === 'mexico' && currentPage === 'terapia' && <Terapia userType={userType!} />}
+        {userType === 'mexico' && currentPage === 'ahorros' && <Ahorros userType={userType!} onBack={() => {}} />}
+        {userType === 'mexico' && currentPage === 'lupita-fernanda' && <LupitaFernanda userType={userType!} onBack={() => {}} />}
+        {userType === 'mexico' && currentPage === 'mi-cuenta' && <MiCuenta userType={userType!} />}
+        {userType === 'mexico' && currentPage === 'evaluacion' && <Evaluacion userType={userType!} onBack={() => {}} />}
+        {userType === 'mexico' && currentPage === 'blog' && <Blog userType={userType!} onBack={() => {}} />}
       </main>
       <footer style={{ background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '30px 20px', marginTop: '60px', textAlign: 'center' }}>
         <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', margin: 0 }}>© 2026 SaludCompartida · Hecho con 💙</p>
