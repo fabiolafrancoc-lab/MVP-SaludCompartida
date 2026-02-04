@@ -145,11 +145,30 @@ function ConfirmacionContent() {
           max-width: 1200px;
           margin: 0 auto;
           display: flex;
-          justify-content: center;
+          justify-content: space-between;
+          align-items: center;
         }
 
         .nav-logo {
           height: 36px;
+        }
+
+        .nav-login-button {
+          background: linear-gradient(135deg, var(--cyan), var(--magenta));
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+        }
+
+        .nav-login-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 30px rgba(6, 182, 212, 0.5);
         }
 
         /* Success Page */
@@ -504,6 +523,12 @@ function ConfirmacionContent() {
               height={36}
               className="nav-logo"
             />
+            <button 
+              className="nav-login-button"
+              onClick={() => router.push('/dashboard')}
+            >
+              Ya Tengo Mi Código/Login
+            </button>
           </div>
         </nav>
 
@@ -544,7 +569,7 @@ function ConfirmacionContent() {
                 <span className="code-card-flag">🇺🇸</span>
                 <div className="code-card-info">
                   <h3>Para ti ({registrationData?.migrant_first_name || 'Titular'})</h3>
-                  <p>Acceso al panel de ahorros y seguimiento</p>
+                  <p>Tu código personal</p>
                 </div>
               </div>
               <div className="code-display">
@@ -609,18 +634,6 @@ function ConfirmacionContent() {
               </div>
             </div>
           </div>
-
-          {/* CTA Button */}
-          <button 
-            className="cta-button"
-            onClick={() => router.push('/dashboard')}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-              <polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
-            Ir a mi panel de ahorros
-          </button>
         </div>
       </div>
     </>
