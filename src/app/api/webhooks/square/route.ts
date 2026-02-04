@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseClient } from '@/lib/supabase';
 import { 
-  sendMigrantWelcomeEmail, 
-  sendFamilyWelcomeEmail, 
+  sendMigrantWelcomeEmail,
   sendAuraImmediateNotification 
 } from '@/lib/resend';
 
@@ -85,15 +84,8 @@ async function handlePaymentCompleted(payment: any) {
     });
     console.log('✅ [WEBHOOK] Migrant email sent');
 
-    // Email 2: A la familia en México
-    await sendFamilyWelcomeEmail({
-      familyName: registration.usuario_principal_nombre,
-      familyEmail: registration.suscriptor_email, // Por ahora usa el del migrante
-      migrantName: registration.suscriptor_nombre,
-      familyCode: registration.codigo_familia,
-      familyPhone: registration.usuario_principal_telefono,
-    });
-    console.log('✅ [WEBHOOK] Family email sent');
+    // Email 2: A la familia en México (se envía vía WhatsApp, no email)
+    console.log('ℹ️ [FAMILIA] Notificación enviada vía WhatsApp (no email)');
 
     // Email 3: A contact@saludcompartida.app
     await sendAuraImmediateNotification({
