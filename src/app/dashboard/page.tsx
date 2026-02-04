@@ -357,50 +357,59 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Acompañamiento + Ahorros */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '40px' }}>
-            {/* Acompañamiento con Lupita/Fernanda */}
-            <div 
-              onClick={() => scrollToSection('acompanamiento-section')}
-              style={{ 
-                background: 'linear-gradient(135deg, rgba(139,92,246,0.15), rgba(124,58,237,0.1))',
-                border: '1px solid rgba(139,92,246,0.3)',
-                borderRadius: '20px',
-                padding: '24px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                textAlign: 'center',
-                cursor: 'pointer',
-                minHeight: '160px'
-              }}
-            >
-              <div style={{ fontSize: '48px', marginBottom: '12px' }}>👥</div>
-              <h4 style={{ color: '#fff', fontSize: '16px', fontWeight: '700', margin: '0 0 6px 0' }}>Acompañamiento {companionName}</h4>
-              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px', margin: 0 }}>Tu compañía siempre</p>
+          {/* Acompañamiento con Lupita/Fernanda */}
+          <div 
+            onClick={() => scrollToSection('acompanamiento-section')}
+            style={{ 
+              background: 'linear-gradient(135deg, rgba(168,85,247,0.15), rgba(147,51,234,0.1))',
+              border: '1px solid rgba(168,85,247,0.3)',
+              borderRadius: '20px',
+              padding: '24px',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              cursor: 'pointer'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{ fontSize: '40px' }}>👥</div>
+              <div>
+                <h4 style={{ color: '#fff', fontSize: '18px', fontWeight: '700', margin: '0 0 4px 0' }}>Acompañamiento {companionName}</h4>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', margin: 0 }}>Tu compañía siempre</p>
+              </div>
             </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ color: '#A855F7', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase' }}>24/7 ONLINE</span>
+              <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '20px' }}>›</span>
+            </div>
+          </div>
 
-            {/* Mis Ahorros */}
-            <div 
-              onClick={() => scrollToSection('ahorros-section')}
-              style={{ 
-                background: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.1))',
-                border: '1px solid rgba(16,185,129,0.3)',
-                borderRadius: '20px',
-                padding: '24px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                textAlign: 'center',
-                cursor: 'pointer',
-                minHeight: '160px'
-              }}
-            >
-              <div style={{ fontSize: '48px', marginBottom: '12px' }}>💰</div>
-              <h4 style={{ color: '#fff', fontSize: '16px', fontWeight: '700', margin: '0 0 6px 0' }}>Mis Ahorros</h4>
-              <p style={{ color: '#10B981', fontSize: '13px', fontWeight: '600', margin: 0 }}>$3,255 MXN este mes</p>
+          {/* Mis Ahorros */}
+          <div 
+            onClick={() => scrollToSection('ahorros-section')}
+            style={{ 
+              background: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.1))',
+              border: '1px solid rgba(16,185,129,0.3)',
+              borderRadius: '20px',
+              padding: '24px',
+              marginBottom: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              cursor: 'pointer'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{ fontSize: '40px' }}>💰</div>
+              <div>
+                <h4 style={{ color: '#fff', fontSize: '18px', fontWeight: '700', margin: '0 0 4px 0' }}>Mis Ahorros</h4>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', margin: 0 }}>$3,255 MXN este mes</p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ color: '#10B981', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase' }}>VER DETALLE</span>
+              <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '20px' }}>›</span>
             </div>
           </div>
         </div>
