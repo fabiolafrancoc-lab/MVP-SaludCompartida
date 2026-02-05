@@ -137,6 +137,11 @@ export default function Dashboard() {
   const [giftOpened, setGiftOpened] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
+  // Scroll to top cuando cambia de página
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
+
   useEffect(() => {
     if (isAuthenticated) {
       setTimeout(() => setAnimateIn(true), 50);
@@ -195,15 +200,60 @@ export default function Dashboard() {
     setUserType(previewData.userType);
     setRegistration(previewData);
     setIsAuthenticated(true);
+    
+    // SOLO guardar el código - Supabase tiene todo lo demás
     localStorage.setItem('dashboardCode', codeInput.trim().toUpperCase());
-    localStorage.setItem('dashboardUserType', previewData.userType);
   };
 
   useEffect(() => {
+    // Intentar auto-login con código guardado
     const savedCode = localStorage.getItem('dashboardCode');
+    console.log('🔍 [AUTO-LOGIN] Código guardado:', savedCode);
+    
     if (savedCode) {
       setCodeInput(savedCode);
-      setTimeout(() => document.querySelector('form')?.requestSubmit(), 100);
+      // Auto-validar el código con Supabase para traer datos frescos
+      setTimeout(async () => {
+        setIsLoading(true);
+        console.log('🔐 [AUTO-LOGIN] Validando con Supabase...');
+        try {
+          const { data, error } = await supabase
+            .from('registrations')
+            .select('*')
+            .or(`migrant_code.eq.${savedCode},family_code.eq.${savedCode}`)
+            .maybeSingle();
+
+          console.log('📊 [AUTO-LOGIN] Resultado Supabase:', { data, error });
+
+          if (error || !data) {
+            console.error('❌ [AUTO-LOGIN] Error o no encontrado:', error);
+            localStorage.removeItem('dashboardCode');
+            setIsLoading(false);
+            return;
+          }
+
+          if (data.status !== 'active') {
+            console.error('❌ [AUTO-LOGIN] Status no activo:', data.status);
+            localStorage.removeItem('dashboardCode');
+            setIsLoading(false);
+            return;
+          }
+
+          // Autenticar automáticamente con datos frescos de Supabase
+          const type: UserType = (data.migrant_code === savedCode) ? 'migrant' : 'mexico';
+          console.log('✅ [AUTO-LOGIN] Login exitoso:', { type, code: savedCode });
+          setUserType(type);
+          setRegistration({ ...data, userType: type });
+          setIsAuthenticated(true);
+          setIsLoading(false);
+        } catch (error) {
+          console.error('❌ [AUTO-LOGIN] Error inesperado:', error);
+          localStorage.removeItem('dashboardCode');
+          setIsLoading(false);
+        }
+      }, 100);
+    } else {
+      console.log('ℹ️ [AUTO-LOGIN] No hay código guardado');
     }
   }, []);
 
@@ -268,39 +318,102 @@ export default function Dashboard() {
             </form>
           ) : (
             <div>
-              {/* Preview de datos autocompletados */}
+              {/* Preview COMPLETO de datos del usuario */}
               <div style={{ marginBottom: '24px', textAlign: 'left' }}>
-                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                  Datos de tu cuenta:
+                <div style={{ 
+                  background: 'linear-gradient(135deg, rgba(6,182,212,0.1), rgba(236,72,153,0.08))',
+                  border: '1px solid rgba(6,182,212,0.2)',
+                  borderRadius: '16px',
+                  padding: '20px',
+                  marginBottom: '20px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #06B6D4, #0891B2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '20px',
+                      fontWeight: '800',
+                      color: '#fff'
+                    }}>
+                      {(previewData.userType === 'migrant' ? previewData.migrant_first_name : previewData.family_first_name)?.charAt(0)}
+                    </div>
+                    <div>
+                      <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '2px' }}>
+                        {previewData.userType === 'migrant' ? '🇺🇸 Usuario Migrante' : '🇲🇽 Usuario Familia en México'}
+                      </p>
+                      <p style={{ color: '#06B6D4', fontSize: '13px', fontWeight: '700' }}>
+                        Código: {previewData.userType === 'migrant' ? previewData.migrant_code : previewData.family_code}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '16px' }}>
+                    {/* Nombre Completo */}
+                    <div style={{ marginBottom: '14px' }}>
+                      <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginBottom: '4px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        Nombre Completo
+                      </p>
+                      <p style={{ color: '#fff', fontSize: '16px', fontWeight: '700' }}>
+                        {previewData.userType === 'migrant' 
+                          ? `${previewData.migrant_first_name} ${previewData.migrant_last_name}`
+                          : `${previewData.family_first_name} ${previewData.family_last_name}`
+                        }
+                      </p>
+                    </div>
+
+                    {/* Email */}
+                    <div style={{ marginBottom: '14px' }}>
+                      <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginBottom: '4px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        📧 Email
+                      </p>
+                      <p style={{ color: '#06B6D4', fontSize: '14px', fontWeight: '600' }}>
+                        {previewData.userType === 'migrant' ? previewData.migrant_email : previewData.family_email}
+                      </p>
+                    </div>
+
+                    {/* WhatsApp */}
+                    <div style={{ marginBottom: '14px' }}>
+                      <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginBottom: '4px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        📱 WhatsApp
+                      </p>
+                      <p style={{ color: '#25D366', fontSize: '15px', fontWeight: '700' }}>
+                        {previewData.userType === 'migrant' ? previewData.migrant_phone : previewData.family_phone}
+                      </p>
+                    </div>
+
+                    {/* Status */}
+                    <div style={{
+                      marginTop: '16px',
+                      padding: '12px',
+                      background: 'rgba(16,185,129,0.1)',
+                      border: '1px solid rgba(16,185,129,0.2)',
+                      borderRadius: '10px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}>
+                      <span style={{
+                        width: '8px',
+                        height: '8px',
+                        borderRadius: '50%',
+                        background: '#10B981',
+                        boxShadow: '0 0 8px #10B981'
+                      }} />
+                      <p style={{ color: '#10B981', fontSize: '13px', fontWeight: '700' }}>
+                        Suscripción Activa
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', marginBottom: '20px', textAlign: 'center', lineHeight: '1.6' }}>
+                  ¿Esta información es correcta? Verifica que coincida con tus datos antes de continuar.
                 </p>
-                
-                <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
-                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '4px' }}>Nombre</p>
-                  <p style={{ color: '#fff', fontSize: '15px', fontWeight: '600' }}>
-                    {previewData.userType === 'migrant' ? previewData.migrant_first_name : previewData.family_first_name}
-                  </p>
-                </div>
-
-                <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
-                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '4px' }}>Apellido</p>
-                  <p style={{ color: '#fff', fontSize: '15px', fontWeight: '600' }}>
-                    {previewData.userType === 'migrant' ? previewData.migrant_last_name : previewData.family_last_name}
-                  </p>
-                </div>
-
-                <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
-                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '4px' }}>Email</p>
-                  <p style={{ color: '#fff', fontSize: '14px', fontWeight: '600' }}>
-                    {previewData.userType === 'migrant' ? previewData.migrant_email : previewData.family_email}
-                  </p>
-                </div>
-
-                <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
-                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '4px' }}>Teléfono</p>
-                  <p style={{ color: '#fff', fontSize: '15px', fontWeight: '600' }}>
-                    {previewData.userType === 'migrant' ? previewData.migrant_phone : previewData.family_phone}
-                  </p>
-                </div>
               </div>
 
               {/* Checkbox de Términos y Condiciones */}
@@ -879,32 +992,12 @@ export default function Dashboard() {
         zIndex: 100
       }}>
         <div style={{ maxWidth: '430px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '14px',
-              background: 'linear-gradient(135deg, #06B6D4, #0891B2)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              <Icons.MedicalCross s={26} />
-            </div>
-            <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: '36px' }} onError={(e) => e.currentTarget.style.display = 'none'} />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: '48px' }} onError={(e) => e.currentTarget.style.display = 'none'} />
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{
-                width: '10px',
-                height: '10px',
-                borderRadius: '50%',
-                background: '#10B981',
-                display: 'inline-block'
-              }} />
-              <span style={{ color: '#fff', fontSize: '17px', fontWeight: '700' }}>{userName}</span>
-            </div>
+            <span style={{ color: '#fff', fontSize: '17px', fontWeight: '700' }}>{userName}</span>
             <button
               onClick={handleLogout}
               style={{
