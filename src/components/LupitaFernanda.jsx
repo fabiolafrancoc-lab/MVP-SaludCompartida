@@ -35,7 +35,7 @@ const FERNANDA_TOPICS = [
 
 export default function LupitaFernanda({ userType = 'mexico', onBack }) {
   const [selected, setSelected] = useState(null); // 'lupita' | 'fernanda'
-  const migrantName = 'Carlos';
+  const migrantName = 'Fabiola';
   const familyName = 'María';
 
   const S = {

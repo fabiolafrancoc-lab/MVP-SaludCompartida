@@ -34,7 +34,7 @@ const totalPotential = POTENTIAL.reduce((s, i) => s + i.saved, 0);
 export default function Ahorros({ userType = 'mexico', onBack }) {
   const [animated, setAnimated] = useState(0);
   const [tab, setTab] = useState(0); // 0=actual, 1=potencial
-  const migrantName = 'Carlos';
+  const migrantName = 'Fabiola';
 
   useEffect(() => {
     const target = tab === 0 ? totalSavings : totalPotential;

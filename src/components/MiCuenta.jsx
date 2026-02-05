@@ -91,11 +91,11 @@ export default function MiCuenta({ userType = 'mexico' }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><I.Shield /><span style={{ fontSize: 15, fontWeight: 700 }}>Membresía</span></div>
             <span style={{ ...S.badge, background: 'rgba(16,185,129,0.15)', color: '#10B981' }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10B981', display: 'inline-block' }} /> Activa</span>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}><span style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>Pagada por</span><span style={{ fontSize: 13, fontWeight: 700, color: '#06B6D4' }}>Carlos (EE.UU.)</span></div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}><span style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>Pagada por</span><span style={{ fontSize: 13, fontWeight: 700, color: '#06B6D4' }}>Fabiola (EE.UU.)</span></div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>Miembros registrados</span><span style={{ fontSize: 13, fontWeight: 700, color: '#F59E0B' }}>{filledCount} de 4</span></div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'rgba(236,72,153,0.06)', border: '1px solid rgba(236,72,153,0.12)', borderRadius: 12, padding: 14, marginBottom: 8 }}>
-          <I.Heart /><p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}><span style={{ color: '#06B6D4', fontWeight: 700 }}>Carlos</span> paga esta membresía para que tú y tu familia estén protegidos.</p>
+          <I.Heart /><p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}><span style={{ color: '#06B6D4', fontWeight: 700 }}>Fabiola</span> paga esta membresía para que tú y tu familia estén protegidos.</p>
         </div>
 
         <p style={S.st}>Miembros ({filledCount}/4)</p>
@@ -144,7 +144,7 @@ export default function MiCuenta({ userType = 'mexico' }) {
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', lineHeight: 1.6 }}>No es necesario completar todos a la vez. Registra a tus miembros poco a poco. Puedes modificar los datos en cualquier momento.</p>
         </div>
         <button style={{ ...S.btn, marginTop: 24, marginBottom: 12 }} onClick={handleSave}><I.Save /> Guardar</button>
-        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', textAlign: 'center', marginBottom: 20 }}>La administración de pagos es gestionada por Carlos desde EE.UU.</p>
+        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', textAlign: 'center', marginBottom: 20 }}>La administración de pagos es gestionada por Fabiola desde EE.UU.</p>
       </div>
       {toast && <div style={{ position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)', background: 'rgba(16,185,129,0.95)', color: '#fff', borderRadius: 14, padding: '14px 24px', display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, fontWeight: 600, boxShadow: '0 8px 30px rgba(0,0,0,0.4)', maxWidth: 380, zIndex: 100 }}><I.Check s={20} c="#fff" /> Datos guardados correctamente</div>}
       <div style={{ padding: '28px 20px 20px', borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: 8 }}><p style={S.tagline}>SaludCompartida, donde está tu corazón</p></div>
