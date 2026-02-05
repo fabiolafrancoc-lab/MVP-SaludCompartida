@@ -48,7 +48,7 @@ const ArrIcon = ({ s = 20, c = 'currentColor' }) => <svg width={s} height={s} vi
 /* ── Main Component ── */
 export default function Telemedicina({ userType = 'mexico', onBack }) {
   const [phraseIdx, setPhraseIdx] = useState(0);
-  const migrantName = 'Carlos'; // TODO: from Supabase session
+  const migrantName = 'Fabiola'; // TODO: from Supabase session
 
   useEffect(() => {
     const t = setInterval(() => setPhraseIdx(i => (i + 1) % PHRASES.length), 3000);
