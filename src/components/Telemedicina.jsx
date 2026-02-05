@@ -174,23 +174,45 @@ export default function Telemedicina({ userType = 'mexico', onBack }) {
         {/* WhatsApp CTA */}
         <p style={S.sTitle}>Acceso inmediato</p>
 
-        <div style={{ background: 'rgba(37,211,102,0.1)', border: '2px solid rgba(37,211,102,0.35)', borderRadius: 18, padding: 20, cursor: 'pointer' }}>
+        <a 
+          href="https://wa.me/525610178639?text=Hola%2C%20necesito%20una%20consulta%20m%C3%A9dica" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{ 
+            display: 'block',
+            background: 'rgba(37,211,102,0.1)', 
+            border: '2px solid rgba(37,211,102,0.35)', 
+            borderRadius: 18, 
+            padding: 20, 
+            cursor: 'pointer',
+            textDecoration: 'none',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(37,211,102,0.15)';
+            e.currentTarget.style.transform = 'scale(1.02)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(37,211,102,0.1)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <div style={{ width: 52, height: 52, borderRadius: 16, background: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <WAIcon />
             </div>
             <div style={{ flex: 1 }}>
-              <p style={{ fontSize: 16, fontWeight: 700, color: '#25D366', marginBottom: 2 }}>Conectar por WhatsApp</p>
-              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>
+              <p style={{ fontSize: 18, fontWeight: 700, color: '#25D366', marginBottom: 2 }}>Conectar por WhatsApp</p>
+              <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.65)', lineHeight: 1.5, fontWeight: 500 }}>
                 Presiona y un médico te contactará. Sin colas, sin esperas.
               </p>
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 14, paddingTop: 14, borderTop: '1px solid rgba(37,211,102,0.15)' }}>
-            <ClkIcon c="rgba(255,255,255,0.4)" />
-            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>Disponible 24 horas, 7 días a la semana</span>
+            <ClkIcon c="rgba(255,255,255,0.5)" />
+            <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>Disponible 24 horas, 7 días a la semana</span>
           </div>
-        </div>
+        </a>
 
         {/* Zero-friction pills */}
         <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center', gap: 20, marginBottom: 16 }}>
