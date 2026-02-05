@@ -33,11 +33,11 @@ const totalPotential = POTENTIAL.reduce((s, i) => s + i.saved, 0);
 
 export default function Ahorros({ userType = 'mexico', onBack }) {
   const [animated, setAnimated] = useState(0);
-  const [tab, setTab] = useState(0); // 0=actual, 1=potencial
+  // Solo "Potencial mensual" - tab removido
   const migrantName = 'Fabiola';
 
   useEffect(() => {
-    const target = tab === 0 ? totalSavings : totalPotential;
+    const target = totalPotential; // Siempre mostrar potencial
     let c = 0;
     const step = Math.ceil(target / 40);
     const t = setInterval(() => {
@@ -46,7 +46,7 @@ export default function Ahorros({ userType = 'mexico', onBack }) {
       setAnimated(c);
     }, 30);
     return () => clearInterval(t);
-  }, [tab]);
+  }, []); // Sin dependencia de tab
 
   const S = {
     page: { minHeight: '100vh', background: '#111827', color: '#fff', fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", maxWidth: 430, margin: '0 auto' },
@@ -82,24 +82,7 @@ export default function Ahorros({ userType = 'mexico', onBack }) {
           </h2>
         </div>
 
-        {/* Tabs */}
-        <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
-          {['Este mes', 'Potencial mensual'].map((label, i) => (
-            <div
-              key={i}
-              onClick={() => setTab(i)}
-              style={{
-                flex: 1, textAlign: 'center', padding: '10px 0', borderRadius: 12,
-                background: tab === i ? 'rgba(16,185,129,0.15)' : 'rgba(255,255,255,0.04)',
-                border: `1px solid ${tab === i ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.06)'}`,
-                color: tab === i ? '#10B981' : 'rgba(255,255,255,0.5)',
-                fontSize: 13, fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s',
-              }}
-            >
-              {label}
-            </div>
-          ))}
-        </div>
+        {/* Tabs eliminados - solo "Potencial mensual" */}
 
         {/* Main counter */}
         <div style={{
@@ -109,11 +92,11 @@ export default function Ahorros({ userType = 'mexico', onBack }) {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 8 }}>
             <div style={{ width: 44, height: 44, borderRadius: 12, background: 'linear-gradient(135deg, #059669, #10B981)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              {tab === 0 ? <DollarIcon s={22} /> : <TrendIcon s={22} c="#fff" />}
+              <TrendIcon s={22} c="#fff" />
             </div>
             <div>
               <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 2 }}>
-                {tab === 0 ? 'Ahorraste este mes' : 'Podrías ahorrar hasta'}
+                Podrías ahorrar hasta
               </p>
               <p style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, color: '#10B981' }}>
                 ${animated.toLocaleString()} <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>MXN</span>
@@ -121,61 +104,31 @@ export default function Ahorros({ userType = 'mexico', onBack }) {
             </div>
           </div>
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
-            {tab === 0
-              ? `Usando los servicios que ${migrantName} paga para ti y tu familia:`
-              : `Usando los servicios que ${migrantName} ya pagó para ti y tu familia:`
-            }
+            Usando los servicios que {migrantName} ya pagó para ti y tu familia:
           </p>
         </div>
 
-        {/* Breakdown */}
-        {tab === 0 ? (
-          <>
-            <p style={S.sTitle}>Detalle de transacciones</p>
-            {SAVINGS.map((s, i) => (
-              <div key={i} style={{
-                display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px',
-                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)',
-                borderRadius: 14, marginBottom: 8,
-              }}>
-                <div style={{ width: 38, height: 38, borderRadius: 10, background: `${s.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <DollarIcon s={18} c={s.color} />
-                </div>
-                <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 2 }}>{s.service}</p>
-                  <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)' }}>{s.date}</p>
-                </div>
-                <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                  <p style={{ fontSize: 14, fontWeight: 700, color: '#10B981' }}>-${s.saved}</p>
-                  <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', textDecoration: 'line-through' }}>${s.original}</p>
-                </div>
-              </div>
-            ))}
-          </>
-        ) : (
-          <>
-            <p style={S.sTitle}>Desglose por servicio</p>
-            {POTENTIAL.map((p, i) => (
-              <div key={i} style={{
-                display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px',
-                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)',
-                borderRadius: 14, marginBottom: 8,
-              }}>
-                <div style={{ width: 38, height: 38, borderRadius: 10, background: `${p.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <DollarIcon s={18} c={p.color} />
-                </div>
-                <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 2 }}>{p.service}</p>
-                  <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)' }}>{p.desc}</p>
-                </div>
-                <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                  <p style={{ fontSize: 14, fontWeight: 700, color: '#10B981' }}>-${p.saved}</p>
-                  <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', textDecoration: 'line-through' }}>${p.normal}</p>
-                </div>
-              </div>
-            ))}
-          </>
-        )}
+        {/* Breakdown - Solo "Potencial" */}
+        <p style={S.sTitle}>Desglose por servicio</p>
+        {POTENTIAL.map((p, i) => (
+          <div key={i} style={{
+            display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px',
+            background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)',
+            borderRadius: 14, marginBottom: 8,
+          }}>
+            <div style={{ width: 38, height: 38, borderRadius: 10, background: `${p.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <DollarIcon s={18} c={p.color} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 2 }}>{p.service}</p>
+              <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)' }}>{p.desc}</p>
+            </div>
+            <div style={{ textAlign: 'right', flexShrink: 0 }}>
+              <p style={{ fontSize: 14, fontWeight: 700, color: '#10B981' }}>-${p.saved}</p>
+              <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', textDecoration: 'line-through' }}>${p.normal}</p>
+            </div>
+          </div>
+        ))}
 
         {/* CTA */}
         <div style={{
