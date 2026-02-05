@@ -210,51 +210,55 @@ export default function Dashboard() {
     const savedCode = localStorage.getItem('dashboardCode');
     console.log('🔍 [AUTO-LOGIN] Código guardado:', savedCode);
     
-    if (savedCode) {
+    if (!savedCode) {
+      console.log('ℹ️ [AUTO-LOGIN] No hay código guardado');
+      return;
+    }
+
+    // Auto-validar el código con Supabase para traer datos frescos
+    const autoLogin = async () => {
+      setIsLoading(true);
       setCodeInput(savedCode);
-      // Auto-validar el código con Supabase para traer datos frescos
-      setTimeout(async () => {
-        setIsLoading(true);
-        console.log('🔐 [AUTO-LOGIN] Validando con Supabase...');
-        try {
-          const { data, error } = await supabase
-            .from('registrations')
-            .select('*')
-            .or(`migrant_code.eq.${savedCode},family_code.eq.${savedCode}`)
-            .maybeSingle();
+      console.log('🔐 [AUTO-LOGIN] Validando con Supabase...');
+      
+      try {
+        const { data, error } = await supabase
+          .from('registrations')
+          .select('*')
+          .or(`migrant_code.eq.${savedCode},family_code.eq.${savedCode}`)
+          .maybeSingle();
 
-          console.log('📊 [AUTO-LOGIN] Resultado Supabase:', { data, error });
+        console.log('📊 [AUTO-LOGIN] Resultado Supabase:', { data, error });
 
-          if (error || !data) {
-            console.error('❌ [AUTO-LOGIN] Error o no encontrado:', error);
-            localStorage.removeItem('dashboardCode');
-            setIsLoading(false);
-            return;
-          }
-
-          if (data.status !== 'active') {
-            console.error('❌ [AUTO-LOGIN] Status no activo:', data.status);
-            localStorage.removeItem('dashboardCode');
-            setIsLoading(false);
-            return;
-          }
-
-          // Autenticar automáticamente con datos frescos de Supabase
-          const type: UserType = (data.migrant_code === savedCode) ? 'migrant' : 'mexico';
-          console.log('✅ [AUTO-LOGIN] Login exitoso:', { type, code: savedCode });
-          setUserType(type);
-          setRegistration({ ...data, userType: type });
-          setIsAuthenticated(true);
-          setIsLoading(false);
-        } catch (error) {
-          console.error('❌ [AUTO-LOGIN] Error inesperado:', error);
+        if (error || !data) {
+          console.error('❌ [AUTO-LOGIN] Error o no encontrado:', error);
           localStorage.removeItem('dashboardCode');
           setIsLoading(false);
+          return;
         }
-      }, 100);
-    } else {
-      console.log('ℹ️ [AUTO-LOGIN] No hay código guardado');
-    }
+
+        if (data.status !== 'active') {
+          console.error('❌ [AUTO-LOGIN] Status no activo:', data.status);
+          localStorage.removeItem('dashboardCode');
+          setIsLoading(false);
+          return;
+        }
+
+        // Autenticar automáticamente con datos frescos de Supabase
+        const type: UserType = (data.migrant_code === savedCode) ? 'migrant' : 'mexico';
+        console.log('✅ [AUTO-LOGIN] Login exitoso:', { type, code: savedCode });
+        setUserType(type);
+        setRegistration({ ...data, userType: type });
+        setIsAuthenticated(true);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('❌ [AUTO-LOGIN] Error inesperado:', error);
+        localStorage.removeItem('dashboardCode');
+        setIsLoading(false);
+      }
+    };
+
+    autoLogin();
   }, []);
 
   const handleLogout = () => {
