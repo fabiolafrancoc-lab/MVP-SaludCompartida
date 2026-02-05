@@ -49,7 +49,7 @@ const S = {
   prefix:{display:'flex',alignItems:'center',gap:6,background:'rgba(37,211,102,0.1)',border:'1px solid rgba(37,211,102,0.25)',borderRadius:12,padding:'12px 12px',fontSize:14,fontWeight:700,color:'#25D366',flexShrink:0,fontFamily:"'Plus Jakarta Sans', sans-serif"},
 };
 
-export default function Terapia({ userType = 'mexico' }) {
+export default function Terapia({ userType = 'mexico', onBack }) {
   const cfg = WAC[userType] || WAC.mexico;
   const [view,setView]=useState('main');
   const [nombre,setNombre]=useState('');const [apellido,setApellido]=useState('');
@@ -139,7 +139,7 @@ export default function Terapia({ userType = 'mexico' }) {
   return(
     <div style={S.page}><div style={S.header}><img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{height:40}} /><div style={{display:'flex',alignItems:'center'}}><span style={{width:8,height:8,borderRadius:'50%',background:'#10B981',marginRight:6,boxShadow:'0 0 8px #10B981'}} /><span style={{fontSize:12,color:'#10B981',fontWeight:600}}>Activo</span></div></div>
     <div style={S.px}>
-      <button style={S.back}><I.Arrow /> Volver al inicio</button>
+      <button style={{...S.back, fontSize: 15, fontWeight: 700, color: '#FFFFFF'}} onClick={onBack}><I.Arrow c="#FFFFFF" /> VOLVER</button>
       <div style={{textAlign:'center',marginBottom:24}}>
         <div style={{width:72,height:72,borderRadius:22,background:'rgba(245,158,11,0.15)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 16px'}}><I.Brain s={36} c="#F59E0B" /></div>
         <h2 style={{fontFamily:"'DM Serif Display', serif",fontSize:26,marginBottom:8,lineHeight:1.3}}>Tu Bienestar<br />Emocional <span style={{color:'#F59E0B'}}>Importa</span></h2>

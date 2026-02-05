@@ -34,7 +34,7 @@ const COLORS = ['#06B6D4', '#8B5CF6', '#EC4899', '#F59E0B'];
 const LABELS = ['Titular', 'Miembro 2', 'Miembro 3', 'Miembro 4'];
 
 const INITIAL = [
-  { nombre: 'María', apellido: 'González', email: 'maria.gonzalez@gmail.com', waDigits: '5589123456', nacimiento: '1973-06-15' },
+  { nombre: '', apellido: '', email: '', waDigits: '', nacimiento: '' },
   { nombre: '', apellido: '', email: '', waDigits: '', nacimiento: '' },
   { nombre: '', apellido: '', email: '', waDigits: '', nacimiento: '' },
   { nombre: '', apellido: '', email: '', waDigits: '', nacimiento: '' },
@@ -85,17 +85,17 @@ export default function MiCuenta({ userType = 'mexico' }) {
           <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 26, marginBottom: 8 }}>Mi Cuenta</h2>
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, maxWidth: 320, margin: '0 auto' }}>Administra tus datos y los de tu familia. Puedes registrar hasta 4 miembros.</p>
         </div>
-        {/* Membresía */}
+        {/* Suscripción */}
         <div style={{ background: 'linear-gradient(135deg, rgba(6,182,212,0.08), rgba(236,72,153,0.06))', border: '1px solid rgba(6,182,212,0.15)', borderRadius: 16, padding: 20, marginBottom: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><I.Shield /><span style={{ fontSize: 15, fontWeight: 700 }}>Membresía</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><I.Shield /><span style={{ fontSize: 15, fontWeight: 700 }}>Suscripción</span></div>
             <span style={{ ...S.badge, background: 'rgba(16,185,129,0.15)', color: '#10B981' }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10B981', display: 'inline-block' }} /> Activa</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}><span style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>Pagada por</span><span style={{ fontSize: 13, fontWeight: 700, color: '#06B6D4' }}>Fabiola (EE.UU.)</span></div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>Miembros registrados</span><span style={{ fontSize: 13, fontWeight: 700, color: '#F59E0B' }}>{filledCount} de 4</span></div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'rgba(236,72,153,0.06)', border: '1px solid rgba(236,72,153,0.12)', borderRadius: 12, padding: 14, marginBottom: 8 }}>
-          <I.Heart /><p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}><span style={{ color: '#06B6D4', fontWeight: 700 }}>Fabiola</span> paga esta membresía para que tú y tu familia estén protegidos.</p>
+          <I.Heart /><p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}><span style={{ color: '#06B6D4', fontWeight: 700 }}>Fabiola</span> paga esta suscripción para que tú y tu familia estén protegidos.</p>
         </div>
 
         <p style={S.st}>Miembros ({filledCount}/4)</p>
