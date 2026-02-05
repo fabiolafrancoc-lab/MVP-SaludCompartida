@@ -99,7 +99,7 @@ export default function Terapia({ userType = 'mexico' }) {
   /* ═══════ BOOKING ═══════ */
   if(view==='booking'){const slots=selDate&&selDate.getDay()===6?SLOTS_SAT:SLOTS_WK;return(
     <div style={S.page}><div style={S.header}><img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{height:40}} /></div><div style={S.px}>
-      <button style={S.back} onClick={()=>setView('main')}><I.Arrow /> Volver</button>
+      <button style={{...S.back, fontSize: 15, fontWeight: 700, color: '#FFFFFF'}} onClick={()=>setView('main')}><I.Arrow c="#FFFFFF" /> VOLVER</button>
       <h2 style={{fontFamily:"'DM Serif Display', serif",fontSize:24,marginBottom:6}}>Agendar <span style={{color:'#F59E0B'}}>Sesión</span></h2>
       <p style={{fontSize:13,color:'rgba(255,255,255,0.5)',marginBottom:28,lineHeight:1.5}}>Completa los datos y elige el día y hora que mejor te funcione.</p>
       <p style={S.st}>¿Quién va a la sesión?</p>
