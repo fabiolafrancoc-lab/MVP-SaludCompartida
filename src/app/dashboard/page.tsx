@@ -93,6 +93,8 @@ export default function Dashboard() {
   const [codeError, setCodeError] = useState('');
   const [userType, setUserType] = useState<UserType | null>(null);
   const [registration, setRegistration] = useState<RegistrationData | null>(null);
+  const [previewData, setPreviewData] = useState<any>(null);
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [animateIn, setAnimateIn] = useState(false);
 
@@ -106,6 +108,7 @@ export default function Dashboard() {
     e.preventDefault();
     setIsLoading(true);
     setCodeError('');
+    setPreviewData(null);
 
     const code = codeInput.trim().toUpperCase();
 
@@ -134,17 +137,27 @@ export default function Dashboard() {
         return;
       }
 
+      // Mostrar preview de datos ANTES de autenticar
       const type: UserType = (data.migrant_code === code) ? 'migrant' : 'mexico';
-      setUserType(type);
-      setRegistration(data);
-      setIsAuthenticated(true);
+      setPreviewData({ ...data, userType: type });
       setIsLoading(false);
-      localStorage.setItem('dashboardCode', code);
-      localStorage.setItem('dashboardUserType', type);
     } catch (error) {
       setCodeError('Error al validar código.');
       setIsLoading(false);
     }
+  };
+
+  const handleConfirmAccess = () => {
+    if (!acceptTerms) {
+      setCodeError('Debes aceptar los Términos y Condiciones.');
+      return;
+    }
+    
+    setUserType(previewData.userType);
+    setRegistration(previewData);
+    setIsAuthenticated(true);
+    localStorage.setItem('dashboardCode', codeInput.trim().toUpperCase());
+    localStorage.setItem('dashboardUserType', previewData.userType);
   };
 
   useEffect(() => {
@@ -168,17 +181,155 @@ export default function Dashboard() {
   if (!isAuthenticated) {
     return (
       <div style={{ minHeight: '100vh', backgroundColor: '#111827', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
-        <div style={{ width: '100%', maxWidth: '400px', background: 'rgba(255,255,255,0.04)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.06)', padding: '40px 30px', textAlign: 'center' }}>
-          <img src="/saludcompartida-dark-no-tagline.png" alt="Logo" style={{ height: '50px', margin: '0 auto 30px' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-          <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: '700', marginBottom: '10px' }}>Dashboard</h1>
-          <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '15px', marginBottom: '30px' }}>Ingresa tu código de acceso</p>
-          <form onSubmit={handleCodeSubmit}>
-            <input type="text" value={codeInput} onChange={(e) => setCodeInput(e.target.value.toUpperCase())} placeholder="Código" disabled={isLoading} style={{ width: '100%', padding: '16px', fontSize: '16px', color: '#fff', background: 'rgba(255,255,255,0.08)', border: '2px solid rgba(255,255,255,0.12)', borderRadius: '12px', textAlign: 'center', textTransform: 'uppercase' }} />
-            {codeError && <p style={{ color: '#EF4444', fontSize: '14px', marginTop: '12px' }}>{codeError}</p>}
-            <button type="submit" disabled={isLoading || codeInput.length < 4} style={{ width: '100%', marginTop: '20px', padding: '16px', fontSize: '16px', fontWeight: '700', color: '#fff', background: 'linear-gradient(135deg, #06B6D4, #0891B2)', border: 'none', borderRadius: '12px', cursor: 'pointer', opacity: isLoading ? 0.6 : 1 }}>
-              {isLoading ? 'Validando...' : 'Ingresar'}
-            </button>
-          </form>
+        <div style={{ width: '100%', maxWidth: '450px', background: 'rgba(255,255,255,0.04)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.06)', padding: '40px 30px' }}>
+          <img src="/saludcompartida-dark-no-tagline.png" alt="Logo" style={{ height: '50px', margin: '0 auto 30px', display: 'block' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+          <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: '700', marginBottom: '10px', textAlign: 'center' }}>Dashboard</h1>
+          <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '15px', marginBottom: '30px', textAlign: 'center' }}>Ingresa tu código de acceso</p>
+          
+          {!previewData ? (
+            <form onSubmit={handleCodeSubmit}>
+              <input 
+                type="text" 
+                value={codeInput} 
+                onChange={(e) => { setCodeInput(e.target.value.toUpperCase()); setCodeError(''); }} 
+                placeholder="Código" 
+                disabled={isLoading} 
+                style={{ 
+                  width: '100%', 
+                  padding: '16px', 
+                  fontSize: '16px', 
+                  color: '#fff', 
+                  background: 'rgba(255,255,255,0.08)', 
+                  border: '2px solid rgba(255,255,255,0.12)', 
+                  borderRadius: '12px', 
+                  textAlign: 'center', 
+                  textTransform: 'uppercase' 
+                }} 
+              />
+              {codeError && <p style={{ color: '#EF4444', fontSize: '14px', marginTop: '12px', textAlign: 'center' }}>{codeError}</p>}
+              <button 
+                type="submit" 
+                disabled={isLoading || codeInput.length < 4} 
+                style={{ 
+                  width: '100%', 
+                  marginTop: '20px', 
+                  padding: '16px', 
+                  fontSize: '16px', 
+                  fontWeight: '700', 
+                  color: '#fff', 
+                  background: 'linear-gradient(135deg, #06B6D4, #0891B2)', 
+                  border: 'none', 
+                  borderRadius: '12px', 
+                  cursor: 'pointer', 
+                  opacity: (isLoading || codeInput.length < 4) ? 0.6 : 1 
+                }}
+              >
+                {isLoading ? 'Validando...' : 'Validar Código'}
+              </button>
+            </form>
+          ) : (
+            <div>
+              {/* Preview de datos autocompletados */}
+              <div style={{ marginBottom: '24px', textAlign: 'left' }}>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                  Datos de tu cuenta:
+                </p>
+                
+                <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '4px' }}>Nombre</p>
+                  <p style={{ color: '#fff', fontSize: '15px', fontWeight: '600' }}>
+                    {previewData.userType === 'migrant' ? previewData.migrant_first_name : previewData.family_first_name}
+                  </p>
+                </div>
+
+                <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '4px' }}>Apellido</p>
+                  <p style={{ color: '#fff', fontSize: '15px', fontWeight: '600' }}>
+                    {previewData.userType === 'migrant' ? previewData.migrant_last_name : previewData.family_last_name}
+                  </p>
+                </div>
+
+                <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '4px' }}>Email</p>
+                  <p style={{ color: '#fff', fontSize: '14px', fontWeight: '600' }}>
+                    {previewData.userType === 'migrant' ? previewData.migrant_email : previewData.family_email}
+                  </p>
+                </div>
+
+                <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '12px', padding: '16px', marginBottom: '12px' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '4px' }}>Teléfono</p>
+                  <p style={{ color: '#fff', fontSize: '15px', fontWeight: '600' }}>
+                    {previewData.userType === 'migrant' ? previewData.migrant_phone : previewData.family_phone}
+                  </p>
+                </div>
+              </div>
+
+              {/* Checkbox de Términos y Condiciones */}
+              <label style={{ 
+                display: 'flex', 
+                alignItems: 'flex-start', 
+                gap: '12px', 
+                marginBottom: '20px', 
+                cursor: 'pointer',
+                textAlign: 'left'
+              }}>
+                <input 
+                  type="checkbox" 
+                  checked={acceptTerms} 
+                  onChange={(e) => { setAcceptTerms(e.target.checked); setCodeError(''); }}
+                  style={{ 
+                    marginTop: '3px',
+                    width: '18px', 
+                    height: '18px',
+                    cursor: 'pointer',
+                    accentColor: '#06B6D4'
+                  }} 
+                />
+                <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '13px', lineHeight: '1.6' }}>
+                  Acepto los <a href="/terminos" target="_blank" style={{ color: '#06B6D4', textDecoration: 'underline' }}>Términos y Condiciones</a> y la <a href="/privacidad" target="_blank" style={{ color: '#06B6D4', textDecoration: 'underline' }}>Política de Privacidad</a> de SaludCompartida.
+                </span>
+              </label>
+
+              {codeError && <p style={{ color: '#EF4444', fontSize: '14px', marginBottom: '16px', textAlign: 'center' }}>{codeError}</p>}
+
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <button 
+                  onClick={() => { setPreviewData(null); setAcceptTerms(false); setCodeError(''); }}
+                  style={{ 
+                    flex: 1,
+                    padding: '14px', 
+                    fontSize: '15px', 
+                    fontWeight: '600', 
+                    color: 'rgba(255,255,255,0.7)', 
+                    background: 'rgba(255,255,255,0.08)', 
+                    border: '1px solid rgba(255,255,255,0.12)', 
+                    borderRadius: '12px', 
+                    cursor: 'pointer'
+                  }}
+                >
+                  Cancelar
+                </button>
+                <button 
+                  onClick={handleConfirmAccess}
+                  disabled={!acceptTerms}
+                  style={{ 
+                    flex: 2,
+                    padding: '14px', 
+                    fontSize: '15px', 
+                    fontWeight: '700', 
+                    color: '#fff', 
+                    background: acceptTerms ? 'linear-gradient(135deg, #06B6D4, #0891B2)' : 'rgba(255,255,255,0.1)', 
+                    border: 'none', 
+                    borderRadius: '12px', 
+                    cursor: acceptTerms ? 'pointer' : 'not-allowed',
+                    opacity: acceptTerms ? 1 : 0.5
+                  }}
+                >
+                  Acceder al Dashboard
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -198,32 +349,48 @@ export default function Dashboard() {
     {
       id: 'telemedicina' as Page,
       icon: Icons.Doctor,
-      title: 'Médico 24/7',
-      subtitle: 'Tu doctor disponible ahora. Sin esperas.',
-      tag: 'ILIMITADO',
-      tagColor: '#06B6D4',
-      gradient: 'linear-gradient(135deg, rgba(6,182,212,0.12), rgba(6,182,212,0.04))',
-      border: 'rgba(6,182,212,0.2)',
+      title: 'Videollamada con un Doctor',
+      subtitle: 'Consulta médica inmediata. Sin filas, sin esperas.',
+      badges: [
+        { text: 'ILIMITADO', bg: 'rgba(6,182,212,0.35)', color: '#06B6D4' },
+        { text: '24/7 · Todo el año', bg: 'rgba(251,191,36,0.35)', color: '#FBB020' },
+      ],
+      detail: 'CONSULTAS ILIMITADAS · Para ti y 3 familiares',
+      detailColor: '#10B981',
+      gradient: 'linear-gradient(135deg, rgba(6,182,212,0.18), rgba(6,182,212,0.08))',
+      border: 'rgba(6,182,212,0.5)',
+      iconBg: 'linear-gradient(135deg, rgba(6,182,212,0.35), rgba(6,182,212,0.2))',
     },
     {
       id: 'farmacia' as Page,
       icon: Icons.Pill,
-      title: 'Farmacia',
+      title: 'Descuento en Farmacias',
       subtitle: 'Ahorra hasta 75% en medicinas. En cualquier farmacia.',
-      tag: '1,700+ FARMACIAS',
-      tagColor: '#EC4899',
-      gradient: 'linear-gradient(135deg, rgba(236,72,153,0.12), rgba(236,72,153,0.04))',
-      border: 'rgba(236,72,153,0.2)',
+      badges: [
+        { text: '1,700+ FARMACIAS', bg: 'rgba(236,72,153,0.35)', color: '#EC4899' },
+        { text: 'Hasta 75% OFF', bg: 'rgba(34,197,94,0.35)', color: '#22C55E' },
+      ],
+      detail: 'SIN LÍMITE DE USO · Toda tu familia',
+      detailColor: '#EC4899',
+      gradient: 'linear-gradient(135deg, rgba(236,72,153,0.18), rgba(236,72,153,0.08))',
+      border: 'rgba(236,72,153,0.5)',
+      iconBg: 'linear-gradient(135deg, rgba(236,72,153,0.35), rgba(236,72,153,0.2))',
     },
     {
       id: 'terapia' as Page,
       icon: Icons.Brain,
-      title: 'Terapia',
-      subtitle: 'Habla hoy. Siente la diferencia mañana.',
-      tag: 'CONFIDENCIAL',
-      tagColor: '#8B5CF6',
-      gradient: 'linear-gradient(135deg, rgba(139,92,246,0.12), rgba(139,92,246,0.04))',
-      border: 'rgba(139,92,246,0.2)',
+      title: 'Tu Sesión de Terapia',
+      subtitle: 'Hablar no es de débiles, es de valientes. Para ti o quien más lo necesite.',
+      badges: [
+        { text: 'Semanal · 50 min', bg: 'rgba(251,146,60,0.35)', color: '#FB923C' },
+        { text: 'Cambio de terapeuta', bg: 'rgba(139,92,246,0.35)', color: '#8B5CF6' },
+        { text: '100% Confidencial', bg: 'rgba(236,72,153,0.35)', color: '#EC4899' },
+      ],
+      detail: '4 SESIONES MENSUALES · 1 por miembro',
+      detailColor: '#10B981',
+      gradient: 'linear-gradient(135deg, rgba(139,92,246,0.18), rgba(139,92,246,0.08))',
+      border: 'rgba(139,92,246,0.5)',
+      iconBg: 'linear-gradient(135deg, rgba(139,92,246,0.35), rgba(139,92,246,0.2))',
     },
   ];
 
@@ -311,47 +478,86 @@ export default function Dashboard() {
           key={svc.id}
           style={{
             background: svc.gradient,
-            border: `1px solid ${svc.border}`,
-            borderRadius: 16,
-            padding: '18px 16px',
-            marginBottom: 10,
+            border: `2px solid ${svc.border}`,
+            borderRadius: 20,
+            padding: '24px 20px',
+            marginBottom: 16,
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 14 }}>
-            {/* Icon */}
+          {/* Header con Icon + Title */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16 }}>
             <div style={{
-              width: 50,
-              height: 50,
-              borderRadius: 14,
-              background: 'rgba(255,255,255,0.04)',
+              width: 64,
+              height: 64,
+              borderRadius: 18,
+              background: svc.iconBg,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
+              boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
             }}>
-              <svc.icon />
+              <svc.icon s={36} />
             </div>
+            <h3 style={{ fontSize: 19, fontWeight: 800, margin: 0, color: '#fff', flex: 1, lineHeight: 1.3 }}>
+              {svc.title}
+            </h3>
+          </div>
 
-            {/* Text */}
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: 16, fontWeight: 700, margin: '0 0 3px', color: '#fff' }}>{svc.title}</p>
-              <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: 0 }}>{svc.subtitle}</p>
-            </div>
+          {/* Subtitle */}
+          <p style={{ 
+            fontSize: 14, 
+            color: 'rgba(255,255,255,0.85)', 
+            margin: '0 0 16px', 
+            lineHeight: 1.6,
+            fontWeight: 500, 
+          }}>
+            {svc.subtitle}
+          </p>
 
-            {/* Tag */}
-            <span style={{
-              fontSize: 9,
-              fontWeight: 700,
-              letterSpacing: '0.5px',
-              padding: '4px 8px',
-              borderRadius: 6,
-              background: `${svc.tagColor}18`,
-              color: svc.tagColor,
-              whiteSpace: 'nowrap',
-              flexShrink: 0,
+          {/* Badges (múltiples) */}
+          <div style={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: 8, 
+            marginBottom: 16 
+          }}>
+            {svc.badges.map((badge, i) => (
+              <span key={i} style={{
+                fontSize: 11,
+                fontWeight: 800,
+                letterSpacing: '0.5px',
+                padding: '8px 14px',
+                borderRadius: 10,
+                background: badge.bg,
+                color: badge.color,
+                whiteSpace: 'nowrap',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              }}>
+                {badge.text}
+              </span>
+            ))}
+          </div>
+
+          {/* Detail line (beneficio clave) */}
+          <div style={{
+            background: 'rgba(16,185,129,0.15)',
+            border: '1px solid rgba(16,185,129,0.3)',
+            borderRadius: 12,
+            padding: '12px 16px',
+            marginBottom: 16,
+          }}>
+            <p style={{ 
+              fontSize: 12, 
+              fontWeight: 800, 
+              letterSpacing: '0.8px',
+              color: svc.detailColor, 
+              margin: 0,
+              textAlign: 'center',
             }}>
-              {svc.tag}
-            </span>
+              {svc.detail}
+            </p>
           </div>
 
           {/* Conocer Más Button */}
@@ -359,29 +565,35 @@ export default function Dashboard() {
             onClick={() => setCurrentPage(svc.id)}
             style={{
               width: '100%',
-              padding: '10px 14px',
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: 10,
+              padding: '14px 18px',
+              background: 'rgba(255,255,255,0.12)',
+              border: '1.5px solid rgba(255,255,255,0.25)',
+              borderRadius: 14,
               color: '#fff',
-              fontSize: 13,
-              fontWeight: 600,
+              fontSize: 14,
+              fontWeight: 700,
               cursor: 'pointer',
+              color: '#fff',
+              fontSize: 14,
+              fontWeight: 700,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 6,
+              gap: 8,
               transition: 'all 0.2s ease',
+              cursor: 'pointer',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.18)';
+              e.currentTarget.style.transform = 'scale(1.02)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.12)';
+              e.currentTarget.style.transform = 'scale(1)';
             }}
           >
-            Conocer Más
-            <Icons.Arrow s={14} />
+            Conocer más
+            <Icons.Arrow s={16} />
           </button>
         </div>
       ))}
