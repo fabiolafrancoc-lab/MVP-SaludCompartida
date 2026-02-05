@@ -438,10 +438,10 @@ export default function Dashboard() {
     <div style={{ padding: '0 20px 100px', opacity: animateIn ? 1 : 0, transition: 'opacity 0.4s ease' }}>
       {/* Greeting */}
       <div style={{ paddingTop: 24, marginBottom: 28 }}>
-        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', fontWeight: 500, marginBottom: 4 }}>{greeting}</p>
+        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.5)', fontWeight: 600, marginBottom: 6 }}>{greeting}</p>
         <h1 style={{
           fontFamily: "'DM Serif Display', serif",
-          fontSize: 28,
+          fontSize: 34,
           lineHeight: 1.25,
           margin: 0,
           color: '#fff',
@@ -451,7 +451,7 @@ export default function Dashboard() {
             : <>{userName}, <span style={{ color: '#06B6D4' }}>{migrantName}</span> te cuida</>
           }
         </h1>
-        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, marginTop: 8 }}>
+        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.65)', lineHeight: 1.6, marginTop: 10, fontWeight: 500 }}>
           {isMigrant
             ? 'Tu familia tiene acceso a doctor, medicinas y compañía.'
             : 'Tienes acceso a médico, medicinas, terapia y compañía para ti y tu familia.'
@@ -463,20 +463,20 @@ export default function Dashboard() {
       <div style={{
         background: 'linear-gradient(135deg, rgba(236,72,153,0.1), rgba(6,182,212,0.08))',
         border: '1px solid rgba(236,72,153,0.15)',
-        borderRadius: 16,
-        padding: '16px 18px',
+        borderRadius: 18,
+        padding: '20px 20px',
         marginBottom: 28,
         display: 'flex',
         alignItems: 'flex-start',
-        gap: 12,
+        gap: 14,
       }}>
-        <div style={{ flexShrink: 0, marginTop: 2 }}>
-          <Icons.Heart s={22} />
+        <div style={{ flexShrink: 0, marginTop: 3 }}>
+          <Icons.Heart s={26} />
         </div>
-        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', lineHeight: 1.75, margin: 0 }}>
+        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.8)', lineHeight: 1.75, margin: 0, fontWeight: 500 }}>
           {isMigrant
-            ? <><b style={{ color: '#EC4899' }}>{userName}</b>, tu familia ya tiene acceso a todos los servicios. Cada vez que los usan, tú cuidas aunque estés lejos.</>
-            : <><b style={{ color: '#EC4899' }}>{migrantName}</b> eligió SaludCompartida para que tú y tu familia estén protegidos. Es su forma de estar cerca, aunque esté lejos.</>
+            ? <><b style={{ color: '#EC4899', fontSize: 16 }}>{userName}</b>, tu familia ya tiene acceso a todos los servicios. Cada vez que los usan, tú cuidas aunque estés lejos.</>
+            : <><b style={{ color: '#EC4899', fontSize: 16 }}>{migrantName}</b> eligió SaludCompartida para que tú y tu familia estén protegidos. Es su forma de estar cerca, aunque esté lejos.</>
           }
         </p>
       </div>
@@ -537,18 +537,18 @@ export default function Dashboard() {
               flexShrink: 0,
               boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
             }}>
-              <svc.icon s={36} />
+              <svc.icon s={40} />
             </div>
-            <h3 style={{ fontSize: 19, fontWeight: 800, margin: 0, color: '#fff', flex: 1, lineHeight: 1.3 }}>
+            <h3 style={{ fontSize: 21, fontWeight: 800, margin: 0, color: '#fff', flex: 1, lineHeight: 1.3 }}>
               {svc.title}
             </h3>
           </div>
 
           {/* Subtitle */}
           <p style={{ 
-            fontSize: 14, 
-            color: 'rgba(255,255,255,0.85)', 
-            margin: '0 0 16px', 
+            fontSize: 16, 
+            color: 'rgba(255,255,255,0.9)', 
+            margin: '0 0 18px', 
             lineHeight: 1.6,
             fontWeight: 500, 
           }}>
@@ -559,16 +559,16 @@ export default function Dashboard() {
           <div style={{ 
             display: 'flex', 
             flexWrap: 'wrap', 
-            gap: 8, 
-            marginBottom: 16 
+            gap: 10, 
+            marginBottom: 18 
           }}>
             {svc.badges.map((badge, i) => (
               <span key={i} style={{
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 800,
                 letterSpacing: '0.5px',
-                padding: '8px 14px',
-                borderRadius: 10,
+                padding: '9px 16px',
+                borderRadius: 11,
                 background: badge.bg,
                 color: badge.color,
                 whiteSpace: 'nowrap',
@@ -584,11 +584,11 @@ export default function Dashboard() {
             background: 'rgba(16,185,129,0.15)',
             border: '1px solid rgba(16,185,129,0.3)',
             borderRadius: 12,
-            padding: '12px 16px',
-            marginBottom: 16,
+            padding: '14px 18px',
+            marginBottom: 18,
           }}>
             <p style={{ 
-              fontSize: 12, 
+              fontSize: 13, 
               fontWeight: 800, 
               letterSpacing: '0.8px',
               color: svc.detailColor, 
@@ -604,18 +604,18 @@ export default function Dashboard() {
             onClick={() => setCurrentPage(svc.id)}
             style={{
               width: '100%',
-              padding: '14px 18px',
+              padding: '16px 20px',
               background: 'rgba(255,255,255,0.12)',
               border: '1.5px solid rgba(255,255,255,0.25)',
               borderRadius: 14,
               color: '#fff',
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 8,
+              gap: 10,
               transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
@@ -628,7 +628,7 @@ export default function Dashboard() {
             }}
           >
             Conocer más
-            <Icons.Arrow s={16} />
+            <Icons.Arrow s={18} />
           </button>
         </div>
       ))}
