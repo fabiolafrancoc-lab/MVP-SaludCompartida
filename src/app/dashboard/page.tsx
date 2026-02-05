@@ -594,16 +594,15 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* Quick stats */}
+      {/* Quick stats - SOLO 2 STATS (eliminado "Ahorrado") */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr',
+        gridTemplateColumns: '1fr 1fr',
         gap: 10,
         marginBottom: 28,
       }}>
         {[
           { num: '4', label: 'Miembros', color: '#06B6D4' },
-          { num: '$0', label: 'Ahorrado', color: '#10B981' },
           { num: '24/7', label: 'Acceso', color: '#F59E0B' },
         ].map((s, i) => (
           <div key={i} style={{
