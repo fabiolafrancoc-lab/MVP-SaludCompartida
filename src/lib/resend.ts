@@ -4,10 +4,12 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'noreply@saludcompartida.app';
 const AURA_EMAILS = [
+  'contact@saludcompartida.app',
   'stephania.cardenas@anevent.com.mx',
   'stephania.cardenas@auramultiasistencias.com'
 ];
 const THERAPY_EMAILS = [
+  'contact@saludcompartida.app',
   'stephania.cardenas@auramultiasistencias.com',
   'administracion@auramultiasistencias.com'
 ];
