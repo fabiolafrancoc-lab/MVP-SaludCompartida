@@ -84,6 +84,43 @@ const Icons = {
       <line x1="21" y1="12" x2="9" y2="12" />
     </svg>
   ),
+  Gift: ({ s = 80 }: { s?: number }) => (
+    <svg width={s} height={s} viewBox="0 0 100 100" fill="none">
+      {/* Moño superior */}
+      <path d="M35 25 Q30 15, 25 20 Q20 25, 25 30 L35 35" fill="#EC4899" stroke="#EC4899" strokeWidth="2"/>
+      <path d="M65 25 Q70 15, 75 20 Q80 25, 75 30 L65 35" fill="#EC4899" stroke="#EC4899" strokeWidth="2"/>
+      
+      {/* Lazo central */}
+      <ellipse cx="50" cy="30" rx="8" ry="6" fill="#F472B6"/>
+      
+      {/* Caja principal */}
+      <rect x="25" y="35" width="50" height="45" rx="4" fill="url(#giftGradient)" stroke="#8B5CF6" strokeWidth="2.5"/>
+      
+      {/* Listón vertical */}
+      <rect x="47" y="35" width="6" height="45" fill="#F59E0B" opacity="0.9"/>
+      
+      {/* Listón horizontal */}
+      <rect x="25" y="55" width="50" height="6" fill="#10B981" opacity="0.9"/>
+      
+      {/* Brillos */}
+      <circle cx="40" cy="50" r="3" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="65" cy="65" r="2" fill="rgba(255,255,255,0.3)"/>
+      
+      <defs>
+        <linearGradient id="giftGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.8"/>
+          <stop offset="100%" stopColor="#6366F1" stopOpacity="0.9"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  ),
+  Sparkles: ({ s = 20 }: { s?: number }) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
+      <path d="M12 3L13.5 8.5L19 10L13.5 11.5L12 17L10.5 11.5L5 10L10.5 8.5L12 3Z" fill="#FCD34D"/>
+      <path d="M19 3L19.5 5L21.5 5.5L19.5 6L19 8L18.5 6L16.5 5.5L18.5 5L19 3Z" fill="#FCD34D"/>
+      <path d="M5 14L5.5 16L7.5 16.5L5.5 17L5 19L4.5 17L2.5 16.5L4.5 16L5 14Z" fill="#FCD34D"/>
+    </svg>
+  ),
 };
 
 export default function Dashboard() {
@@ -97,6 +134,8 @@ export default function Dashboard() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [animateIn, setAnimateIn] = useState(false);
+  const [giftOpened, setGiftOpened] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -573,15 +612,11 @@ export default function Dashboard() {
               fontSize: 14,
               fontWeight: 700,
               cursor: 'pointer',
-              color: '#fff',
-              fontSize: 14,
-              fontWeight: 700,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: 8,
               transition: 'all 0.2s ease',
-              cursor: 'pointer',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(255,255,255,0.18)';
@@ -598,44 +633,237 @@ export default function Dashboard() {
         </div>
       ))}
 
-      {/* Secondary row (Ahorros + Acompañamiento) */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 8 }}>
-        <button
-          onClick={() => setCurrentPage('ahorros')}
-          style={{
-            padding: '16px 14px',
-            background: 'rgba(16,185,129,0.06)',
-            border: '1px solid rgba(16,185,129,0.15)',
-            borderRadius: 14,
-            cursor: 'pointer',
-            textAlign: 'center',
-            color: '#fff',
-            transition: 'transform 0.15s',
-          }}
-        >
-          <Icons.Savings />
-          <p style={{ fontSize: 13, fontWeight: 700, margin: '8px 0 2px' }}>Mis Ahorros</p>
-          <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', margin: 0 }}>$0 MXN este mes</p>
-        </button>
+      {/* Sorpresa de Fin de Mes - Dinámico y Alegre! */}
+      <div 
+        onClick={() => {
+          setGiftOpened(!giftOpened);
+          if (!giftOpened) {
+            setShowConfetti(true);
+            setTimeout(() => setShowConfetti(false), 3000);
+          }
+        }}
+        style={{
+          marginTop: 16,
+          marginBottom: 16,
+          padding: '28px 24px',
+          background: giftOpened 
+            ? 'linear-gradient(135deg, rgba(251,146,60,0.25), rgba(236,72,153,0.25), rgba(139,92,246,0.25))'
+            : 'linear-gradient(135deg, rgba(139,92,246,0.15), rgba(236,72,153,0.15))',
+          border: giftOpened 
+            ? '2px solid rgba(251,146,60,0.5)' 
+            : '2px solid rgba(139,92,246,0.4)',
+          borderRadius: 20,
+          cursor: 'pointer',
+          position: 'relative',
+          overflow: 'hidden',
+          transition: 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+          transform: giftOpened ? 'scale(1.02)' : 'scale(1)',
+          boxShadow: giftOpened 
+            ? '0 12px 40px rgba(251,146,60,0.3)' 
+            : '0 8px 32px rgba(139,92,246,0.2)',
+        }}
+      >
+        {/* Confetti animado */}
+        {showConfetti && (
+          <>
+            {[...Array(20)].map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: ['#FCD34D', '#EC4899', '#8B5CF6', '#10B981', '#06B6D4'][i % 5],
+                  animation: `confetti-${i} 2s ease-out forwards`,
+                  opacity: 0,
+                }}
+              />
+            ))}
+          </>
+        )}
 
-        <button
-          onClick={() => setCurrentPage('lupita-fernanda')}
-          style={{
-            padding: '16px 14px',
-            background: 'rgba(139,92,246,0.06)',
-            border: '1px solid rgba(139,92,246,0.15)',
-            borderRadius: 14,
-            cursor: 'pointer',
-            textAlign: 'center',
-            color: '#fff',
-            transition: 'transform 0.15s',
-          }}
-        >
-          <Icons.Companion />
-          <p style={{ fontSize: 13, fontWeight: 700, margin: '8px 0 2px' }}>{companionName}</p>
-          <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', margin: 0 }}>Tu compañía siempre</p>
-        </button>
+        <style>{`
+          ${[...Array(20)].map((_, i) => `
+            @keyframes confetti-${i} {
+              0% {
+                transform: translate(-50%, -50%) translate(0, 0) rotate(0deg);
+                opacity: 1;
+              }
+              100% {
+                transform: translate(-50%, -50%) 
+                           translate(${Math.cos(i * 18 * Math.PI / 180) * 150}px, 
+                                     ${Math.sin(i * 18 * Math.PI / 180) * 150}px) 
+                           rotate(${i * 45}deg);
+                opacity: 0;
+              }
+            }
+          `).join('')}
+          
+          @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+          }
+          
+          @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+        `}</style>
+
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          gap: 16,
+          position: 'relative',
+          zIndex: 1,
+        }}>
+          {/* SVG de Regalo con animación */}
+          <div style={{ 
+            animation: giftOpened ? 'rotate 0.6s ease-out' : 'bounce 2s ease-in-out infinite',
+            transformOrigin: 'center',
+          }}>
+            <Icons.Gift s={giftOpened ? 100 : 80} />
+          </div>
+
+          {/* Sparkles alrededor */}
+          {!giftOpened && (
+            <>
+              <div style={{ position: 'absolute', top: 10, left: 20, animation: 'bounce 1.5s ease-in-out infinite 0.2s' }}>
+                <Icons.Sparkles s={16} />
+              </div>
+              <div style={{ position: 'absolute', top: 15, right: 25, animation: 'bounce 1.5s ease-in-out infinite 0.5s' }}>
+                <Icons.Sparkles s={20} />
+              </div>
+              <div style={{ position: 'absolute', bottom: 20, left: 30, animation: 'bounce 1.5s ease-in-out infinite 0.8s' }}>
+                <Icons.Sparkles s={14} />
+              </div>
+            </>
+          )}
+
+          {/* Mensaje */}
+          {!giftOpened ? (
+            <>
+              <h3 style={{ 
+                fontSize: 20, 
+                fontWeight: 800, 
+                color: '#FCD34D', 
+                margin: 0,
+                textAlign: 'center',
+                textShadow: '0 2px 8px rgba(252,211,77,0.3)',
+              }}>
+                ¡Sorpresa de Fin de Mes! 🎉
+              </h3>
+              <p style={{ 
+                fontSize: 15, 
+                color: 'rgba(255,255,255,0.85)', 
+                textAlign: 'center',
+                lineHeight: 1.6,
+                margin: 0,
+                fontWeight: 500,
+              }}>
+                Toca el regalo para descubrir la sorpresa que SaludCompartida tiene para ti
+              </p>
+              <p style={{ 
+                fontSize: 12, 
+                color: 'rgba(255,255,255,0.5)', 
+                textAlign: 'center',
+                margin: 0,
+                fontStyle: 'italic',
+              }}>
+                Presiona aquí 👆
+              </p>
+            </>
+          ) : (
+            <>
+              <h3 style={{ 
+                fontSize: 22, 
+                fontWeight: 800, 
+                color: '#10B981', 
+                margin: 0,
+                textAlign: 'center',
+                textShadow: '0 2px 12px rgba(16,185,129,0.4)',
+              }}>
+                ¡El regalo llega pronto! 🎁
+              </h3>
+              <p style={{ 
+                fontSize: 16, 
+                color: 'rgba(255,255,255,0.9)', 
+                textAlign: 'center',
+                lineHeight: 1.7,
+                margin: 0,
+                fontWeight: 600,
+              }}>
+                A <span style={{ color: '#FCD34D' }}>fin de mes</span>, te revelaremos <b style={{ color: '#EC4899' }}>todos los ahorros</b> que obtuviste. 
+              </p>
+              <p style={{ 
+                fontSize: 14, 
+                color: 'rgba(255,255,255,0.7)', 
+                textAlign: 'center',
+                lineHeight: 1.6,
+                margin: 0,
+              }}>
+                Cada consulta, cada medicina, cada terapia... ¡todo suma! 💰✨
+              </p>
+              <div style={{
+                marginTop: 8,
+                padding: '10px 20px',
+                background: 'rgba(16,185,129,0.2)',
+                borderRadius: 12,
+                border: '1px solid rgba(16,185,129,0.3)',
+              }}>
+                <p style={{ 
+                  fontSize: 13, 
+                  color: '#10B981', 
+                  fontWeight: 700,
+                  margin: 0,
+                  textAlign: 'center',
+                }}>
+                  🎊 Mientras más uses, más ahorras 🎊
+                </p>
+              </div>
+            </>
+          )}
+        </div>
       </div>
+
+      {/* Lupita/Fernanda - Solo botón */}
+      <button
+        onClick={() => setCurrentPage('lupita-fernanda')}
+        style={{
+          width: '100%',
+          padding: '20px 18px',
+          background: 'rgba(139,92,246,0.12)',
+          border: '2px solid rgba(139,92,246,0.3)',
+          borderRadius: 16,
+          cursor: 'pointer',
+          textAlign: 'center',
+          color: '#fff',
+          transition: 'all 0.2s ease',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 12,
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'rgba(139,92,246,0.18)';
+          e.currentTarget.style.transform = 'scale(1.01)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'rgba(139,92,246,0.12)';
+          e.currentTarget.style.transform = 'scale(1)';
+        }}
+      >
+        <Icons.Companion s={28} />
+        <div style={{ textAlign: 'left', flex: 1 }}>
+          <p style={{ fontSize: 16, fontWeight: 800, margin: 0 }}>{companionName}</p>
+          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', margin: 0 }}>Tu compañía siempre</p>
+        </div>
+        <Icons.Arrow s={18} />
+      </button>
     </div>
   );
 

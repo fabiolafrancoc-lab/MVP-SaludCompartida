@@ -77,8 +77,8 @@ export default function Telemedicina({ userType = 'mexico', onBack }) {
       <div style={S.section}>
         {/* Back */}
         <div style={{ paddingTop: 12, marginBottom: 8, cursor: 'pointer' }} onClick={onBack}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>
-            <ArrIcon s={16} c="rgba(255,255,255,0.4)" /> Volver
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 15, fontWeight: 700, color: '#FFFFFF' }}>
+            <ArrIcon s={18} c="#FFFFFF" /> VOLVER
           </span>
         </div>
 
@@ -210,8 +210,8 @@ export default function Telemedicina({ userType = 'mexico', onBack }) {
 
         {/* Bottom Volver */}
         <div style={{ textAlign: 'center', paddingTop: 20 }}>
-          <span onClick={onBack} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}>
-            <ArrIcon s={16} c="rgba(255,255,255,0.4)" /> Volver
+          <span onClick={onBack} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 15, fontWeight: 700, color: '#FFFFFF', cursor: 'pointer' }}>
+            <ArrIcon s={18} c="#FFFFFF" /> VOLVER
           </span>
         </div>
       </div>
