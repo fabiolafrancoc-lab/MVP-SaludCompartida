@@ -53,8 +53,6 @@ export default function Farmacia({ userType = 'mexico', onBack }) {
 
   return (
     <div style={S.page}>
-  return (
-    <div style={S.page}>
       {/* Header */}
       <div style={S.header}>
         <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: 40 }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
@@ -254,7 +252,7 @@ export default function Farmacia({ userType = 'mexico', onBack }) {
             <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}>
               <b style={{ color: '#EC4899' }}>{migrantName}</b> ya pagó por estos descuentos para ti. 
               Cada vez que ahorras en medicinas o productos del hogar, 
-              <b style={{ color: '#10B981' }}> él cuida de ti aunque esté lejos</b>.
+              <b style={{ color: '#10B981' }}> ella cuida de ti aunque esté lejos</b>.
             </p>
           </div>
         )}
