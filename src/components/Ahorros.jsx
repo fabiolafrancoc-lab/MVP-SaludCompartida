@@ -57,13 +57,7 @@ export default function Ahorros({ userType = 'mexico', onBack }) {
 
   return (
     <div style={S.page}>
-      <div style={S.header}>
-        <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: 40 }} />
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', marginRight: 6, boxShadow: '0 0 8px #10B981' }} />
-          <span style={{ fontSize: 12, color: '#10B981', fontWeight: 600 }}>Activo</span>
-        </div>
-      </div>
+      {/* Header eliminado - solo contenido */}
 
       <div style={S.section}>
         <div style={{ paddingTop: 12, marginBottom: 8, cursor: 'pointer' }} onClick={onBack}>
