@@ -2,17 +2,11 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClientBrowser } from '@/lib/supabase-client';
 import Image from 'next/image';
 
 // Force dynamic rendering for this page
 export const dynamic = 'force-dynamic';
-
-// Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://rzmdekjegbdgitqekjee.supabase.co',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
 
 interface RegistrationData {
   migrant_first_name?: string;
@@ -45,6 +39,9 @@ function ConfirmacionContent() {
       }
 
       try {
+        // Get supabase client
+        const supabase = getSupabaseClientBrowser();
+
         // Cargar datos REALES desde Supabase
         const { data, error } = await supabase
           .from('registrations')

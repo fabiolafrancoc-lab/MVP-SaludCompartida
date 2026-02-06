@@ -2,13 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { createClient } from '@supabase/supabase-js';
-
-// Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://rzmdekjegbdgitqekjee.supabase.co',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
+import { getSupabaseClientBrowser } from '@/lib/supabase-client';
 
 // Square Web Payments SDK types
 declare global {
@@ -43,6 +37,7 @@ function PagoContent() {
       try {
         console.log('🔍 [PAYMENT] Cargando registro:', registrationId);
         
+        const supabase = getSupabaseClientBrowser();
         const { data, error } = await supabase
           .from('registrations')
           .select('*')

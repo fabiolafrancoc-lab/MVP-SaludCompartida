@@ -1,13 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-// Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://rzmdekjegbdgitqekjee.supabase.co',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
+import { getSupabaseClientBrowser } from '@/lib/supabase-client';
 
 // Función para generar código de familia único (6 dígitos alfanuméricos, SIN prefijo)
 function generateFamilyCode(): string {
@@ -167,6 +161,9 @@ export default function RegistrationPage() {
       
       // Determinar companion según edad del usuario en México
       const family_companion_assigned = determineCompanion(formData.family_birthdate);
+
+      // Get supabase client
+      const supabase = getSupabaseClientBrowser();
 
       // Guardar en tabla REGISTRATIONS - nombres EXACTOS de columnas Supabase
       const { data: registrationData, error: registrationError } = await supabase

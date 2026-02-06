@@ -2,12 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
+import { getSupabaseClientBrowser } from '@/lib/supabase-client';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -28,6 +23,9 @@ export default function LoginPage() {
         setIsLoading(false);
         return;
       }
+
+      // Get supabase client
+      const supabase = getSupabaseClientBrowser();
 
       // Search by migrant_code OR family_code
       const { data, error: dbError } = await supabase
