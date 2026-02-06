@@ -125,6 +125,7 @@ const Icons = {
 
 export default function Dashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [hasAutoLoginRun, setHasAutoLoginRun] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [codeInput, setCodeInput] = useState('');
   const [codeError, setCodeError] = useState('');
@@ -206,12 +207,19 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
+    // Prevenir múltiples ejecuciones
+    if (hasAutoLoginRun) {
+      console.log('⏭️ [AUTO-LOGIN] Ya ejecutado, saltando...');
+      return;
+    }
+
     // Intentar auto-login con código guardado
     const savedCode = localStorage.getItem('dashboardCode');
     console.log('🔍 [AUTO-LOGIN] Código guardado:', savedCode);
     
     if (!savedCode) {
       console.log('ℹ️ [AUTO-LOGIN] No hay código guardado');
+      setHasAutoLoginRun(true);
       return;
     }
 
@@ -234,6 +242,7 @@ export default function Dashboard() {
           console.error('❌ [AUTO-LOGIN] Error o no encontrado:', error);
           localStorage.removeItem('dashboardCode');
           setIsLoading(false);
+          setHasAutoLoginRun(true);
           return;
         }
 
@@ -241,6 +250,7 @@ export default function Dashboard() {
           console.error('❌ [AUTO-LOGIN] Status no activo:', data.status);
           localStorage.removeItem('dashboardCode');
           setIsLoading(false);
+          setHasAutoLoginRun(true);
           return;
         }
 
@@ -251,15 +261,17 @@ export default function Dashboard() {
         setRegistration({ ...data, userType: type });
         setIsAuthenticated(true);
         setIsLoading(false);
+        setHasAutoLoginRun(true);
       } catch (error) {
         console.error('❌ [AUTO-LOGIN] Error inesperado:', error);
         localStorage.removeItem('dashboardCode');
         setIsLoading(false);
+        setHasAutoLoginRun(true);
       }
     };
 
     autoLogin();
-  }, []);
+  }, []); // Sin dependencias - solo ejecuta una vez
 
   const handleLogout = () => {
     localStorage.clear();
@@ -946,40 +958,223 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Lupita/Fernanda - Solo botón */}
-      <button
-        onClick={() => setCurrentPage('lupita-fernanda')}
-        style={{
-          width: '100%',
-          padding: '20px 18px',
-          background: 'rgba(139,92,246,0.12)',
-          border: '2px solid rgba(139,92,246,0.3)',
-          borderRadius: 16,
-          cursor: 'pointer',
-          textAlign: 'center',
-          color: '#fff',
-          transition: 'all 0.2s ease',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 12,
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'rgba(139,92,246,0.18)';
-          e.currentTarget.style.transform = 'scale(1.01)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'rgba(139,92,246,0.12)';
-          e.currentTarget.style.transform = 'scale(1)';
-        }}
-      >
-        <Icons.Companion s={28} />
-        <div style={{ textAlign: 'left', flex: 1 }}>
-          <p style={{ fontSize: 16, fontWeight: 800, margin: 0 }}>{companionName}</p>
-          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', margin: 0 }}>Tu compañía siempre</p>
+      {/* Lupita/Fernanda - EXPANDIDO: Vender el rol del acompañamiento y soledad */}
+      <div style={{
+        width: '100%',
+        padding: '24px 20px',
+        background: 'linear-gradient(135deg, rgba(139,92,246,0.12), rgba(236,72,153,0.08))',
+        border: '2px solid rgba(139,92,246,0.3)',
+        borderRadius: 18,
+        marginBottom: 16,
+      }}>
+        {/* Header con ícono y título principal */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
+          <div style={{
+            width: 56,
+            height: 56,
+            borderRadius: 16,
+            background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.15))',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '1.5px solid rgba(139,92,246,0.4)',
+          }}>
+            <Icons.Companion s={32} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <h3 style={{ 
+              fontSize: 20, 
+              fontWeight: 800, 
+              margin: 0, 
+              marginBottom: 4,
+              color: '#fff',
+              fontFamily: "'DM Serif Display', serif",
+            }}>
+              {companionName}
+            </h3>
+            <p style={{ 
+              fontSize: 13, 
+              color: 'rgba(255,255,255,0.55)', 
+              margin: 0,
+              fontWeight: 500,
+            }}>
+              Tu compañera de todos los días
+            </p>
+          </div>
         </div>
-        <Icons.Arrow s={18} />
-      </button>
+
+        {/* Mensaje emocional sobre soledad */}
+        <div style={{
+          background: 'rgba(236,72,153,0.1)',
+          border: '1px solid rgba(236,72,153,0.25)',
+          borderRadius: 14,
+          padding: '16px 18px',
+          marginBottom: 16,
+        }}>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#EC4899">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            <div>
+              <p style={{ 
+                fontSize: 14, 
+                color: '#EC4899', 
+                fontWeight: 700, 
+                margin: '0 0 8px 0',
+                lineHeight: 1.4,
+              }}>
+                La soledad es la enfermedad silenciosa de nuestro tiempo
+              </p>
+              <p style={{ 
+                fontSize: 13, 
+                color: 'rgba(255,255,255,0.7)', 
+                margin: 0,
+                lineHeight: 1.7,
+              }}>
+                Más del <b style={{ color: '#fff' }}>60% de migrantes</b> sienten soledad emocional lejos de casa. 
+                No estás solo en esto. <b style={{ color: '#8B5CF6' }}>{companionName}</b> está aquí para acompañarte 
+                en cada paso, en tu idioma, sin juicios.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Qué hace Lupita/Fernanda */}
+        <div style={{ marginBottom: 16 }}>
+          <p style={{ 
+            fontSize: 12, 
+            fontWeight: 700, 
+            textTransform: 'uppercase', 
+            letterSpacing: 1.5, 
+            color: 'rgba(255,255,255,0.4)', 
+            marginBottom: 12,
+          }}>
+            ¿QUÉ HACE {companionName.toUpperCase()}?
+          </p>
+          
+          {[
+            {
+              icon: '💬',
+              title: 'Conversaciones cuando las necesitas',
+              desc: 'Escríbele por WhatsApp a cualquier hora. Está disponible 24/7 para escucharte, aconsejarte y acompañarte.'
+            },
+            {
+              icon: '🤗',
+              title: 'Te entiende porque habla tu idioma',
+              desc: 'No solo español — habla tu cultura, tus expresiones, tus preocupaciones. Conoce lo que significa estar lejos de casa.'
+            },
+            {
+              icon: '🎯',
+              title: 'Recordatorios y motivación',
+              desc: 'Te ayuda a recordar tus citas médicas, tomar tus medicinas, y te anima cuando más lo necesitas.'
+            },
+            {
+              icon: '🔒',
+              title: '100% confidencial y sin juicios',
+              desc: 'Lo que compartes queda entre tú y ella. Nunca te va a juzgar, solo a apoyar.'
+            },
+          ].map((item, i) => (
+            <div key={i} style={{
+              display: 'flex',
+              gap: 12,
+              padding: '12px 0',
+              borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+            }}>
+              <span style={{ fontSize: 24, flexShrink: 0 }}>{item.icon}</span>
+              <div>
+                <p style={{ 
+                  fontSize: 14, 
+                  fontWeight: 700, 
+                  color: '#fff', 
+                  margin: '0 0 4px 0',
+                }}>
+                  {item.title}
+                </p>
+                <p style={{ 
+                  fontSize: 13, 
+                  color: 'rgba(255,255,255,0.6)', 
+                  margin: 0,
+                  lineHeight: 1.6,
+                }}>
+                  {item.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Testimonio rápido */}
+        <div style={{
+          background: 'rgba(139,92,246,0.1)',
+          border: '1px solid rgba(139,92,246,0.25)',
+          borderRadius: 12,
+          padding: '14px 16px',
+          marginBottom: 16,
+        }}>
+          <p style={{ 
+            fontSize: 13, 
+            color: 'rgba(255,255,255,0.75)', 
+            fontStyle: 'italic', 
+            margin: '0 0 8px 0',
+            lineHeight: 1.7,
+          }}>
+            "Fernanda me escribe cada semana para ver cómo estoy. A veces solo necesitaba 
+            alguien que me preguntara '¿Cómo estás?'. Me hace sentir menos sola."
+          </p>
+          <p style={{ 
+            fontSize: 12, 
+            color: '#8B5CF6', 
+            fontWeight: 600, 
+            margin: 0,
+          }}>
+            — Rosa, 39 años, miembro de SaludCompartida
+          </p>
+        </div>
+
+        {/* Botón CTA */}
+        <button
+          onClick={() => setCurrentPage('lupita-fernanda')}
+          style={{
+            width: '100%',
+            padding: '16px 20px',
+            background: 'linear-gradient(135deg, #8B5CF6, #EC4899)',
+            border: 'none',
+            borderRadius: 14,
+            cursor: 'pointer',
+            color: '#fff',
+            fontSize: 16,
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 10,
+            transition: 'all 0.2s ease',
+            boxShadow: '0 4px 16px rgba(139,92,246,0.25)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.02)';
+            e.currentTarget.style.boxShadow = '0 6px 24px rgba(139,92,246,0.35)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(139,92,246,0.25)';
+          }}
+        >
+          Hablar con {companionName}
+          <Icons.Arrow s={18} />
+        </button>
+
+        {/* Nota final */}
+        <p style={{ 
+          fontSize: 11, 
+          color: 'rgba(255,255,255,0.35)', 
+          textAlign: 'center', 
+          margin: '12px 0 0 0',
+          lineHeight: 1.5,
+        }}>
+          Ya está incluido en tu suscripción. No hay costos extra.
+        </p>
+      </div>
     </div>
   );
 

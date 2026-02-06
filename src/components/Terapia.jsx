@@ -70,7 +70,7 @@ export default function Terapia({ userType = 'mexico', onBack }) {
 
   /* ═══════ CONFIRMED ═══════ */
   if(view==='confirmed')return(
-    <div style={S.page}><div style={S.header}><img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{height:40}} /></div><div style={S.px}>
+    <div style={S.page}><div style={S.px}>
       <div style={{textAlign:'center',paddingTop:40,paddingBottom:20}}>
         <div style={{width:80,height:80,borderRadius:'50%',background:'rgba(16,185,129,0.15)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 20px'}}><I.Check /></div>
         <h2 style={{fontFamily:"'DM Serif Display', serif",fontSize:26,marginBottom:12,lineHeight:1.3}}>Tu sesión ha sido confirmada</h2>
@@ -98,7 +98,7 @@ export default function Terapia({ userType = 'mexico', onBack }) {
 
   /* ═══════ BOOKING ═══════ */
   if(view==='booking'){const slots=selDate&&selDate.getDay()===6?SLOTS_SAT:SLOTS_WK;return(
-    <div style={S.page}><div style={S.header}><img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{height:40}} /></div><div style={S.px}>
+    <div style={S.page}><div style={S.px}>
       <button style={{...S.back, fontSize: 15, fontWeight: 700, color: '#FFFFFF'}} onClick={()=>setView('main')}><I.Arrow c="#FFFFFF" /> VOLVER</button>
       <h2 style={{fontFamily:"'DM Serif Display', serif",fontSize:24,marginBottom:6}}>Agendar <span style={{color:'#F59E0B'}}>Sesión</span></h2>
       <p style={{fontSize:13,color:'rgba(255,255,255,0.5)',marginBottom:28,lineHeight:1.5}}>Completa los datos y elige el día y hora que mejor te funcione.</p>
@@ -137,7 +137,7 @@ export default function Terapia({ userType = 'mexico', onBack }) {
 
   /* ═══════ MAIN ═══════ */
   return(
-    <div style={S.page}><div style={S.header}><img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{height:40}} /><div style={{display:'flex',alignItems:'center'}}><span style={{width:8,height:8,borderRadius:'50%',background:'#10B981',marginRight:6,boxShadow:'0 0 8px #10B981'}} /><span style={{fontSize:12,color:'#10B981',fontWeight:600}}>Activo</span></div></div>
+    <div style={S.page}>
     <div style={S.px}>
       <button style={{...S.back, fontSize: 15, fontWeight: 700, color: '#FFFFFF'}} onClick={onBack}><I.Arrow c="#FFFFFF" /> VOLVER</button>
       <div style={{textAlign:'center',marginBottom:24}}>
