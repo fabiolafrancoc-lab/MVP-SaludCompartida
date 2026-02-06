@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '@/lib/supabase';
 import { 
   sendMigrantWelcomeEmail, 
   sendAuraImmediateNotification 
@@ -53,18 +53,7 @@ export async function POST(request: NextRequest) {
     // ════════════════════════════════════════════════════════════════════════
     // 2️⃣ SUPABASE - GET USER DATA
     // ════════════════════════════════════════════════════════════════════════
-    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-    if (!SUPABASE_URL || !SUPABASE_KEY) {
-      console.error('❌ [SUPABASE] Missing Supabase credentials');
-      return NextResponse.json(
-        { success: false, error: 'Supabase configuration error' },
-        { status: 500 }
-      );
-    }
-
-    const supabase = createClient(SUPABASE_URL as string, SUPABASE_KEY as string);
+    const supabase = getSupabaseClient();
 
     console.log('🔍 [SUPABASE] Fetching registration:', registrationId);
 

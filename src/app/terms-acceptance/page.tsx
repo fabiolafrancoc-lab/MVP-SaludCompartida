@@ -2,12 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
+import { getSupabaseClientBrowser } from '@/lib/supabase-client';
 
 export default function TermsAcceptancePage() {
   const router = useRouter();
@@ -38,6 +33,9 @@ export default function TermsAcceptancePage() {
     setIsLoading(true);
 
     try {
+      // Get supabase client
+      const supabase = getSupabaseClientBrowser();
+
       const { error: updateError } = await supabase
         .from('registrations')
         .update({

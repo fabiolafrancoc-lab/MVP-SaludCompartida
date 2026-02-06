@@ -1,13 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClientBrowser } from '@/lib/supabase-client';
 import { generateWhatsAppLink } from '@/utils/waE164';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
 
 export default function MiCuenta({ userType = 'mexico' }) {
   const [accountData, setAccountData] = useState({
@@ -111,6 +106,7 @@ export default function MiCuenta({ userType = 'mexico' }) {
   const handleLogout = async () => {
     if (confirm('¿Seguro que quieres cerrar sesión?')) {
       try {
+        const supabase = getSupabaseClientBrowser();
         await supabase.auth.signOut();
         // TODO: Redirigir a login
         window.location.href = '/';

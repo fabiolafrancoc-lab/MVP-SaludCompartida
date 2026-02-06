@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClientBrowser } from '@/lib/supabase-client';
 import QuienesSomos from '@/components/QuienesSomos';
 import Telemedicina from '@/components/Telemedicina';
 import Farmacia from '@/components/Farmacia';
@@ -13,12 +13,6 @@ import Evaluacion from '@/components/Evaluacion';
 import Blog from '@/components/Blog';
 import Contactanos from '@/components/Contactanos';
 import TerminosPrivacidad from '@/components/TerminosPrivacidad';
-
-// Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://rzmdekjegbdgitqekjee.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bWRla2plZ2JkZ2l0cWVramVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY2ODY4NTgsImV4cCI6MjA1MjI2Mjg1OH0.wUMLWc97WMJW0Q6KgDO-x10Klu8FrXKk_M0bUmX1QTg';
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 interface RegistrationData {
   id: number;
@@ -164,6 +158,9 @@ export default function Dashboard() {
     }
 
     try {
+      // Get supabase client
+      const supabase = getSupabaseClientBrowser();
+
       const { data, error } = await supabase
         .from('registrations')
         .select('*')
@@ -230,6 +227,9 @@ export default function Dashboard() {
       console.log('🔐 [AUTO-LOGIN] Validando con Supabase...');
       
       try {
+        // Get supabase client
+        const supabase = getSupabaseClientBrowser();
+
         const { data, error } = await supabase
           .from('registrations')
           .select('*')

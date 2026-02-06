@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '@/lib/supabase';
 import { sendPostPaymentEmails } from '@/lib/email-templates';
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -9,18 +9,15 @@ import { sendPostPaymentEmails } from '@/lib/email-templates';
 // Conexión: Supabase + Resend + Square
 // ════════════════════════════════════════════════════════════════════════════
 
-// Inicializar Supabase con service role key o anon key como fallback
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
-
 export async function POST(request: NextRequest) {
   try {
     const { type, registrationId } = await request.json();
 
     console.log(`📧 [RESEND] Iniciando envío de emails para registration:`, registrationId);
     console.log(`📧 [RESEND] Tipo de notificación:`, type);
+
+    // Get Supabase client
+    const supabase = getSupabaseClient();
 
     // ════════════════════════════════════════════════════════════
     // 1. OBTENER DATOS COMPLETOS DE SUPABASE
