@@ -66,9 +66,9 @@ export function mapLandingToPreCheckout(data: LandingFormData): PreCheckoutData 
     countryCode: data.countryCode || '+1',
     trafficSource: detectTrafficSource(),
     landingPage: typeof window !== 'undefined' ? window.location.pathname : '',
-    utmCampaign: getUrlParam('utm_campaign'),
-    utmSource: getUrlParam('utm_source'),
-    utmMedium: getUrlParam('utm_medium'),
+    utmCampaign: getUrlParam('utm_campaign') ?? undefined,
+    utmSource: getUrlParam('utm_source') ?? undefined,
+    utmMedium: getUrlParam('utm_medium') ?? undefined,
   };
 }
 

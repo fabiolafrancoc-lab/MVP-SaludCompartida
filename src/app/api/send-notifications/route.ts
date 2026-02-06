@@ -1,83 +1,152 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendPostPaymentNotifications } from '@/lib/post-payment-notifications';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '@/lib/supabase';
+import { sendPostPaymentEmails } from '@/lib/email-templates';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_KEY || ''
-);
+// ════════════════════════════════════════════════════════════════════════════
+// ENDPOINT: /api/send-notifications
+// ════════════════════════════════════════════════════════════════════════════
+// Descripción: Envía emails de bienvenida post-pago usando templates de Resend
+// Conexión: Supabase + Resend + Square
+// ════════════════════════════════════════════════════════════════════════════
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { registration_id } = body;
+    const { type, registrationId } = await request.json();
 
-    if (!registration_id) {
-      return NextResponse.json({
-        success: false,
-        error: 'Missing registration_id'
-      }, { status: 400 });
-    }
+    console.log(`📧 [RESEND] Iniciando envío de emails para registration:`, registrationId);
+    console.log(`📧 [RESEND] Tipo de notificación:`, type);
 
-    console.log('📧 Procesando notificaciones post-pago para:', registration_id);
+    // Get Supabase client
+    const supabase = getSupabaseClient();
 
-    // Obtener datos del registro
+    // ════════════════════════════════════════════════════════════
+    // 1. OBTENER DATOS COMPLETOS DE SUPABASE
+    // ════════════════════════════════════════════════════════════
+    // ✅ JOIN con ai_companions para obtener nombre de compañera
+    // ✅ Todos los campos necesarios para los templates
+    // ════════════════════════════════════════════════════════════
+    
     const { data: registration, error: fetchError } = await supabase
       .from('registrations')
-      .select('*')
-      .eq('id', registration_id)
+      .select(`
+        *,
+        ai_companions:assigned_companion_id (
+          companion_name
+        )
+      `)
+      .eq('id', registrationId)
       .single();
 
     if (fetchError || !registration) {
-      console.error('❌ Error obteniendo registro:', fetchError);
-      return NextResponse.json({
-        success: false,
-        error: 'Registration not found'
+      console.error('❌ [SUPABASE] Error obteniendo datos:', fetchError);
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Registro no encontrado en Supabase' 
       }, { status: 404 });
     }
 
-    // Verificar que tenga email del migrante
-    if (!registration.migrant_email) {
-      console.error('❌ Registro sin email de migrante');
+    console.log('✅ [SUPABASE] Datos obtenidos correctamente:', {
+      migrant_email: registration.migrant_email,
+      family_email: registration.family_primary_email,
+      migrant_code: registration.migrant_code,
+      family_code: registration.family_code,
+      companion: registration.ai_companions?.companion_name || 'Sin asignar',
+      payment_status: registration.payment_status
+    });
+
+    // ════════════════════════════════════════════════════════════
+    // 2. VALIDAR QUE RESEND ESTÉ CONFIGURADO
+    // ════════════════════════════════════════════════════════════
+    
+    if (!process.env.RESEND_API_KEY) {
+      console.error('❌ [RESEND] API Key no configurada en variables de entorno');
       return NextResponse.json({
         success: false,
-        error: 'Migrant email is required'
-      }, { status: 400 });
+        error: 'Servicio de email no configurado'
+      }, { status: 500 });
     }
 
-    // Enviar todas las notificaciones
-    const results = await sendPostPaymentNotifications({
-      registration_id: registration.id,
-      family_code: registration.family_code,
-      migrant_first_name: registration.migrant_first_name,
-      migrant_last_name: registration.migrant_last_name,
-      migrant_email: registration.migrant_email,
-      migrant_phone: `${registration.migrant_country_code}${registration.migrant_phone}`,
-      family_first_name: registration.family_first_name,
-      family_last_name: registration.family_last_name,
-      family_email: registration.family_email || undefined,
-      family_phone: `${registration.family_country_code}${registration.family_phone}`,
-      companion_assigned: registration.companion_assigned,
-    });
+    // ════════════════════════════════════════════════════════════
+    // 3. ENVIAR EMAILS CON LOS NUEVOS TEMPLATES
+    // ════════════════════════════════════════════════════════════
+    // ✅ Email 1: Migrante (USA) - "El Que Nunca Olvida"
+    // ✅ Email 2: Usuario México - "El Regalo de Amor"
+    // ✅ Ambos emails se envían en paralelo
+    // ════════════════════════════════════════════════════════════
+    
+    try {
+      // Obtener nombre de compañera (con fallback a Lupita)
+      const companionName = registration.ai_companions?.companion_name || 'Lupita';
 
-    // Actualizar el registro con timestamp de notificaciones
-    await supabase
-      .from('registrations')
-      .update({
-        notifications_sent_at: new Date().toISOString(),
-      })
-      .eq('id', registration_id);
+      console.log('📧 [RESEND] Enviando emails con templates:');
+      console.log('   → Email Migrante (USA):', registration.migrant_email);
+      console.log('   → Email Usuario México:', registration.family_primary_email);
+      console.log('   → Compañera asignada:', companionName);
 
-    return NextResponse.json({
-      success: true,
-      results,
-    });
+      // Enviar AMBOS emails usando la función de email-templates.ts
+      const emailResults = await sendPostPaymentEmails(
+        // Email 1: Migrante (USA)
+        {
+          migrant_email: registration.migrant_email,
+          migrant_code: registration.migrant_code,
+          migrant_first_name: registration.migrant_first_name,
+          companion_name: companionName,
+        },
+        // Email 2: Usuario México
+        {
+          family_primary_email: registration.family_primary_email,
+          family_first_name: registration.family_first_name,
+          family_code: registration.family_code,
+          migrant_first_name: registration.migrant_first_name,
+          companion_name: companionName,
+        }
+      );
 
-  } catch (error: any) {
-    console.error('❌ Error en send-notifications:', error);
+      // Log detallado de resultados
+      console.log('✅ [RESEND] Resultado Email Migrante:', 
+        emailResults.migrant.status === 'fulfilled' ? 
+        '✓ Enviado exitosamente' : 
+        `✗ Error: ${emailResults.migrant.status === 'rejected' ? emailResults.migrant.reason : 'Unknown'}`
+      );
+      
+      console.log('✅ [RESEND] Resultado Email Usuario México:', 
+        emailResults.family.status === 'fulfilled' ? 
+        '✓ Enviado exitosamente' : 
+        `✗ Error: ${emailResults.family.status === 'rejected' ? emailResults.family.reason : 'Unknown'}`
+      );
+
+      // Respuesta exitosa
+      return NextResponse.json({
+        success: true,
+        emails: {
+          migrant: {
+            sent: emailResults.migrant.status === 'fulfilled',
+            email: registration.migrant_email
+          },
+          family: {
+            sent: emailResults.family.status === 'fulfilled',
+            email: registration.family_primary_email
+          }
+        },
+        companion: companionName,
+        message: 'Emails de bienvenida enviados exitosamente'
+      });
+
+    } catch (emailError) {
+      console.error('❌ [RESEND] Error enviando emails:', emailError);
+      return NextResponse.json({
+        success: false,
+        error: 'Error enviando emails',
+        details: emailError instanceof Error ? emailError.message : 'Unknown error'
+      }, { status: 500 });
+    }
+
+  } catch (error) {
+    console.error('❌ [ENDPOINT] Error general en send-notifications:', error);
     return NextResponse.json({
       success: false,
-      error: error.message,
+      error: 'Error interno del servidor',
+      details: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

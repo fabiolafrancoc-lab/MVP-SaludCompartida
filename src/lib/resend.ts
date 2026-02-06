@@ -4,10 +4,12 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'noreply@saludcompartida.app';
 const AURA_EMAILS = [
+  'contact@saludcompartida.app',
   'stephania.cardenas@anevent.com.mx',
   'stephania.cardenas@auramultiasistencias.com'
 ];
 const THERAPY_EMAILS = [
+  'contact@saludcompartida.app',
   'stephania.cardenas@auramultiasistencias.com',
   'administracion@auramultiasistencias.com'
 ];
@@ -153,7 +155,7 @@ export async function sendAuraImmediateNotification(data: {
   migrantLastName: string;
   migrantEmail: string;
   migrantPhone: string;
-  migrantState: string;
+  migrantState?: string; // ✅ OPCIONAL - No requerido
   principalName: string;
   principalLastName: string;
   principalBirthDate: string;
@@ -212,7 +214,7 @@ export async function sendAuraImmediateNotification(data: {
                 <tr><td>Apellido Paterno</td><td><strong>${data.migrantLastName}</strong></td></tr>
                 <tr><td>Email</td><td>${data.migrantEmail}</td></tr>
                 <tr><td>Teléfono</td><td>${data.migrantPhone}</td></tr>
-                <tr><td>Estado (USA)</td><td>${data.migrantState}</td></tr>
+                ${data.migrantState ? `<tr><td>Estado (USA)</td><td>${data.migrantState}</td></tr>` : ''}
               </table>
               
               <h3>👨‍👩‍👧 Usuario Principal (México) - DATOS COMPLETOS</h3>

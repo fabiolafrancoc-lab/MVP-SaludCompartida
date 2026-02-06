@@ -4,9 +4,9 @@ import { CreditCard, Lock, ArrowLeft, CheckCircle } from 'lucide-react';
 import { trackEvent } from '../hooks/useMetaPixel';
 import { createRegistration } from '../lib/supabase';
 
-// Square Application ID y Location ID
-const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APP_ID || 'sandbox-sq0idb-NKXeieWPwl3DnnkJ3asYcw';
-const SQUARE_LOCATION_ID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || 'LT92PZMMZ3CQ2';
+// Square Application ID y Location ID - PRODUCCIÓN
+const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APP_ID || 'sq0idp-PM-rngX8E8LPCUr9iqsbyg';
+const SQUARE_LOCATION_ID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || 'L9W263XHC7876';
 
 export default function Pago() {
   const navigate = useNavigate();
@@ -317,7 +317,7 @@ export default function Pago() {
       sessionStorage.setItem('registrationData', JSON.stringify({
         registration_id: subscriptionData.confirmationNumber,
         family_code: familyCode,
-        companion_assigned: currentUserData.companion || 'lupita',
+        family_companion_assigned: currentUserData.companion || 'lupita',
         migrant_phone_full: `${currentUserData.countryCode}${currentUserData.phone}`,
         family_phone_full: `${currentUserData.familyCountryCode}${currentUserData.familyPhone}`,
         migrant_first_name: currentUserData.firstName,

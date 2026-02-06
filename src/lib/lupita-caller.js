@@ -3,20 +3,17 @@
 // Sistema para que Lupita llame proactivamente a usuarios
 // ============================================
 
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+import { getSupabaseClient } from './supabase';
 
 const VAPI_API_KEY = process.env.VAPI_API_KEY;
-const VAPI_ASSISTANT_ID = process.env.VAPI_PHONE_NUMBER_ID;
+const VAPI_ASSISTANT_ID = process.env.VAPI_ASSISTANT_ID || process.env.VAPI_PHONE_NUMBER_ID;
 
 /**
  * Obtener contexto del usuario para personalizar la llamada
  */
 async function getUserContext(phoneNumber) {
+  const supabase = getSupabaseClient();
+  
   // 1. Obtener últimas 4 llamadas
   const { data: recentCalls } = await supabase
     .from('companion_calls')
@@ -118,6 +115,8 @@ NO hablas de salud, NO das consejos médicos. Solo acompañas y reduces la soled
  * @param {string} reason - Razón de la llamada
  */
 export async function scheduleCall(phoneNumber, scheduledFor, reason = 'check-in diario') {
+  const supabase = getSupabaseClient();
+  
   const { data, error } = await supabase
     .from('scheduled_callbacks')
     .insert({
@@ -146,6 +145,8 @@ export async function scheduleCall(phoneNumber, scheduledFor, reason = 'check-in
  */
 export async function initiateCallNow(phoneNumber, callbackId = null) {
   console.log(`[Lupita Caller] Initiating call to ${phoneNumber}...`);
+  
+  const supabase = getSupabaseClient();
 
   try {
     // 1. Obtener contexto del usuario
@@ -243,6 +244,8 @@ export async function initiateCallNow(phoneNumber, callbackId = null) {
  */
 export async function processPendingCalls() {
   console.log('[Lupita Caller] Processing pending calls...');
+  
+  const supabase = getSupabaseClient();
 
   // Obtener llamadas que deben hacerse ahora
   const { data: pendingCalls } = await supabase
@@ -285,6 +288,8 @@ export async function processPendingCalls() {
  */
 export async function scheduleDailyCallsForAllUsers() {
   console.log('[Lupita Caller] Scheduling daily calls for all users...');
+  
+  const supabase = getSupabaseClient();
 
   // Obtener todos los usuarios activos con SaludCompartida
   const { data: activeUsers } = await supabase
