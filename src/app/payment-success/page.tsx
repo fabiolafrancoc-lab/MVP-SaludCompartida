@@ -57,6 +57,20 @@ function PaymentSuccessContent() {
         setRegistrationData(data);
         setMigrantCode(data.migrant_code || 'SC-ERROR');
         setFamilyCode(data.family_code || 'SC-ERROR');
+        
+        // Save codes to localStorage for persistence across sessions
+        if (data.migrant_code) {
+          localStorage.setItem('migrant_code', data.migrant_code);
+          console.log('✅ Migrant code saved to localStorage:', data.migrant_code);
+        }
+        if (data.family_code) {
+          localStorage.setItem('family_code', data.family_code);
+          console.log('✅ Family code saved to localStorage:', data.family_code);
+        }
+        
+        // Also save registration ID for future reference
+        localStorage.setItem('registration_id', data.id.toString());
+        
         setLoading(false);
       } catch (err) {
         console.error('Error:', err);
