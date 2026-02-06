@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getSupabaseClientBrowser } from '@/lib/supabase-client';
 
@@ -9,6 +9,77 @@ export default function LoginPage() {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [autoLoginAttempted, setAutoLoginAttempted] = useState(false);
+
+  // AUTO-LOGIN: Try to login with saved code from localStorage
+  useEffect(() => {
+    if (autoLoginAttempted) return;
+    
+    const savedCode = localStorage.getItem('migrant_code') || localStorage.getItem('family_code');
+    console.log('🔍 [AUTO-LOGIN] Código guardado:', savedCode || 'null');
+    
+    if (!savedCode) {
+      console.log('ℹ️ [AUTO-LOGIN] No hay código guardado');
+      setAutoLoginAttempted(true);
+      return;
+    }
+    
+    // Attempt auto-login with saved code
+    console.log('🔄 [AUTO-LOGIN] Intentando login automático...');
+    setAutoLoginAttempted(true);
+    setIsLoading(true);
+    
+    const attemptAutoLogin = async () => {
+      try {
+        const supabase = getSupabaseClientBrowser();
+        const cleanCode = savedCode.trim().toUpperCase();
+        
+        const { data, error: dbError } = await supabase
+          .from('registrations')
+          .select('*')
+          .or(`migrant_code.eq.${cleanCode},family_code.eq.${cleanCode}`)
+          .single();
+        
+        if (dbError || !data) {
+          console.log('⚠️ [AUTO-LOGIN] Código no encontrado en DB');
+          setIsLoading(false);
+          return;
+        }
+        
+        if (data.status !== 'active') {
+          console.log('⚠️ [AUTO-LOGIN] Código no está activo:', data.status);
+          setIsLoading(false);
+          return;
+        }
+        
+        // Save to sessionStorage
+        sessionStorage.setItem('userCode', cleanCode);
+        sessionStorage.setItem('userData', JSON.stringify(data));
+        
+        const isMigrant = data.migrant_code === cleanCode;
+        sessionStorage.setItem('userType', isMigrant ? 'migrant' : 'family');
+        
+        console.log('✅ [AUTO-LOGIN] Login exitoso');
+        
+        // Update last_login_at
+        await supabase
+          .from('registrations')
+          .update({ last_login_at: new Date().toISOString() })
+          .eq('id', data.id);
+        
+        if (data.terms_accepted) {
+          router.push('/dashboard');
+        } else {
+          router.push('/terms-acceptance');
+        }
+      } catch (err) {
+        console.error('❌ [AUTO-LOGIN] Error:', err);
+        setIsLoading(false);
+      }
+    };
+    
+    attemptAutoLogin();
+  }, [router, autoLoginAttempted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,12 +118,16 @@ export default function LoginPage() {
         return;
       }
 
+      // Determine if migrant or family
+      const isMigrant = data.migrant_code === cleanCode;
+      
+      // Save code to localStorage for future auto-login
+      localStorage.setItem(isMigrant ? 'migrant_code' : 'family_code', cleanCode);
+      console.log('✅ Código guardado en localStorage:', cleanCode);
+
       // Save to sessionStorage
       sessionStorage.setItem('userCode', cleanCode);
       sessionStorage.setItem('userData', JSON.stringify(data));
-
-      // Determine if migrant or family
-      const isMigrant = data.migrant_code === cleanCode;
       sessionStorage.setItem('userType', isMigrant ? 'migrant' : 'family');
 
       // Check if terms already accepted
