@@ -31,7 +31,6 @@ export interface Database {
 // Registration Types - matches actual Supabase table schema
 export interface Registration {
   id: number;
-  
   // Migrant (USA) fields
   migrant_first_name: string;
   migrant_last_name: string;

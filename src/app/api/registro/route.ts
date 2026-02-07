@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     // Split nombre into first/last names
     const suscriptorParts = suscriptor.nombre.split(' ');
     const suscriptorFirstName = suscriptorParts[0];
-    const suscriptorLastName = suscriptorParts.slice(1).join(' ') || suscriptorParts[0];
+    const suscriptorLastName = suscriptorParts.slice(1).join(' ') || '';
 
     const { data: registration, error: dbError } = await supabase
       .from('registrations')
