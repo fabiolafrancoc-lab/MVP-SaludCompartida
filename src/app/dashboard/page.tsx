@@ -174,9 +174,45 @@ export default function Dashboard() {
       }
 
       if (data.status !== 'active') {
-        setCodeError('Este código no está activo. Completa el pago primero.');
-        setIsLoading(false);
-        return;
+        // Check if payment was completed but status wasn't updated
+        if (data.payment_completed_at) {
+          console.log('🔄 [DASHBOARD] Payment completed but status not active, auto-correcting...');
+          // Auto-correct: update status to active since payment was completed
+          const { error: updateError } = await supabase
+            .from('registrations')
+            .update({ status: 'active' })
+            .eq('id', data.id);
+          if (!updateError) {
+            data.status = 'active';
+            console.log('✅ [DASHBOARD] Status auto-corrected to active');
+          }
+        }
+        // Also check if there's a completed payment in square_payments table
+        if (data.status !== 'active') {
+          const { data: paymentRecord } = await supabase
+            .from('square_payments')
+            .select('id')
+            .eq('registration_id', data.id)
+            .eq('status', 'COMPLETED')
+            .maybeSingle();
+
+          if (paymentRecord) {
+            console.log('🔄 [DASHBOARD] Found completed payment record, auto-correcting status...');
+            const { error: updateError } = await supabase
+              .from('registrations')
+              .update({ status: 'active', payment_completed_at: new Date().toISOString() })
+              .eq('id', data.id);
+            if (!updateError) {
+              data.status = 'active';
+              console.log('✅ [DASHBOARD] Status auto-corrected to active');
+            }
+          }
+        }
+        if (data.status !== 'active') {
+          setCodeError('Este código no está activo. Completa el pago primero.');
+          setIsLoading(false);
+          return;
+        }
       }
 
       // Mostrar preview de datos ANTES de autenticar
@@ -247,11 +283,46 @@ export default function Dashboard() {
         }
 
         if (data.status !== 'active') {
-          console.error('❌ [AUTO-LOGIN] Status no activo:', data.status);
-          localStorage.removeItem('dashboardCode');
-          setIsLoading(false);
-          setHasAutoLoginRun(true);
-          return;
+          // Check if payment was completed but status wasn't updated
+          if (data.payment_completed_at) {
+            console.log('🔄 [AUTO-LOGIN] Payment completed but status not active, auto-correcting...');
+            const { error: updateError } = await supabase
+              .from('registrations')
+              .update({ status: 'active' })
+              .eq('id', data.id);
+            if (!updateError) {
+              data.status = 'active';
+              console.log('✅ [AUTO-LOGIN] Status auto-corrected to active');
+            }
+          }
+          // Also check square_payments table
+          if (data.status !== 'active') {
+            const { data: paymentRecord } = await supabase
+              .from('square_payments')
+              .select('id')
+              .eq('registration_id', data.id)
+              .eq('status', 'COMPLETED')
+              .maybeSingle();
+
+            if (paymentRecord) {
+              console.log('🔄 [AUTO-LOGIN] Found completed payment record, auto-correcting status...');
+              const { error: updateError } = await supabase
+                .from('registrations')
+                .update({ status: 'active', payment_completed_at: new Date().toISOString() })
+                .eq('id', data.id);
+              if (!updateError) {
+                data.status = 'active';
+                console.log('✅ [AUTO-LOGIN] Status auto-corrected to active');
+              }
+            }
+          }
+          if (data.status !== 'active') {
+            console.error('❌ [AUTO-LOGIN] Status no activo:', data.status);
+            localStorage.removeItem('dashboardCode');
+            setIsLoading(false);
+            setHasAutoLoginRun(true);
+            return;
+          }
         }
 
         // Autenticar automáticamente con datos frescos de Supabase

@@ -42,9 +42,44 @@ export default function LoginPage() {
 
       // Verify payment is completed
       if (data.status !== 'active') {
-        setError('Este código está pendiente de pago. Completa el pago primero.');
-        setIsLoading(false);
-        return;
+        // Check if payment was completed but status wasn't updated
+        if (data.payment_completed_at) {
+          console.log('🔄 [LOGIN] Payment completed but status not active, auto-correcting...');
+          const { error: fixError } = await supabase
+            .from('registrations')
+            .update({ status: 'active' })
+            .eq('id', data.id);
+          if (!fixError) {
+            data.status = 'active';
+            console.log('✅ [LOGIN] Status auto-corrected to active');
+          }
+        }
+        // Also check square_payments table
+        if (data.status !== 'active') {
+          const { data: paymentRecord } = await supabase
+            .from('square_payments')
+            .select('id')
+            .eq('registration_id', data.id)
+            .eq('status', 'COMPLETED')
+            .maybeSingle();
+
+          if (paymentRecord) {
+            console.log('🔄 [LOGIN] Found completed payment record, auto-correcting status...');
+            const { error: fixError } = await supabase
+              .from('registrations')
+              .update({ status: 'active', payment_completed_at: new Date().toISOString() })
+              .eq('id', data.id);
+            if (!fixError) {
+              data.status = 'active';
+              console.log('✅ [LOGIN] Status auto-corrected to active');
+            }
+          }
+        }
+        if (data.status !== 'active') {
+          setError('Este código está pendiente de pago. Completa el pago primero.');
+          setIsLoading(false);
+          return;
+        }
       }
 
       // Save to sessionStorage
