@@ -97,7 +97,22 @@ export default function PrivacidadPage() {
         </section>
 
         <div style={{ textAlign: 'center', paddingTop: '32px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-          <a href="/dashboard" style={{ color: '#EC4899', textDecoration: 'none', fontSize: '14px', fontWeight: '600' }}>← Volver al Dashboard</a>
+          <button 
+            onClick={() => window.history.back()} 
+            aria-label="Volver a la página anterior"
+            style={{ 
+              color: '#EC4899', 
+              textDecoration: 'none', 
+              fontSize: '14px', 
+              fontWeight: '600',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontFamily: 'inherit'
+            }}
+          >
+            ← Volver
+          </button>
         </div>
       </div>
     </div>
