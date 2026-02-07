@@ -306,11 +306,14 @@ export async function POST(request: NextRequest) {
     // Save payment - get subscription_id for FK reference
     let savedSubscriptionId = null;
     if (!subscriptionError) {
-      const { data: subData } = await supabase
+      const { data: subData, error: subQueryError } = await supabase
         .from('square_subscriptions')
         .select('id')
         .eq('square_subscription_id', subscriptionId)
         .single();
+      if (subQueryError) {
+        console.error('❌ [SUPABASE] Subscription query failed:', subQueryError);
+      }
       savedSubscriptionId = subData?.id || null;
     }
 

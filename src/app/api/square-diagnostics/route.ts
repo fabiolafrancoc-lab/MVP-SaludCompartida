@@ -20,7 +20,7 @@ export async function GET() {
       allVariablesPresent: !!(SQUARE_ACCESS_TOKEN && SQUARE_LOCATION_ID && NEXT_PUBLIC_SQUARE_APP_ID && NEXT_PUBLIC_SQUARE_LOCATION_ID),
       locationIdsMatch: SQUARE_LOCATION_ID === NEXT_PUBLIC_SQUARE_LOCATION_ID,
     },
-    mode: SQUARE_ACCESS_TOKEN?.startsWith('EAAAl') || SQUARE_ACCESS_TOKEN?.startsWith('sandbox-') ? 'SANDBOX' : 'PRODUCTION',
+    mode: (SQUARE_ACCESS_TOKEN?.startsWith('EAAAl') || SQUARE_ACCESS_TOKEN?.startsWith('sandbox-')) ? 'SANDBOX' : 'PRODUCTION',
   };
 
   // Intentar llamar a Square API para verificar conectividad
