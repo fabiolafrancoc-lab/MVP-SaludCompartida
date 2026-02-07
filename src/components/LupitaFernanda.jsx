@@ -33,9 +33,9 @@ const FERNANDA_TOPICS = [
   'Lo que quieras, cuando quieras',
 ];
 
-export default function LupitaFernanda({ userType = 'mexico', onBack }) {
+export default function LupitaFernanda({ userType = 'mexico', onBack, migrantName: migrantNameProp }) {
   const [selected, setSelected] = useState(null); // 'lupita' | 'fernanda'
-  const migrantName = 'Fabiola';
+  const migrantName = migrantNameProp || 'Tu familiar';
   const familyName = 'María';
 
   const S = {
