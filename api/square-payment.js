@@ -1,4 +1,13 @@
 // API para procesar pagos con Square - REST API directo (sin SDK)
+import { createClient } from '@supabase/supabase-js';
+
+function getSupabase() {
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY;
+  if (!url || !key) return null;
+  return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
+}
+
 export default async function handler(req, res) {
   console.log('🔍 Square Payment API called');
   
@@ -6,7 +15,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { sourceId, amount, currency, description } = req.body;
+  const { sourceId, amount, currency, description, registrationId } = req.body;
   const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN;
   const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID;
 
@@ -58,6 +67,29 @@ export default async function handler(req, res) {
     }
 
     console.log('✅ Payment successful:', data.payment.id);
+
+    // Update registration status to 'active' in Supabase after successful payment
+    if (registrationId) {
+      const supabase = getSupabase();
+      if (supabase) {
+        console.log('💾 [SUPABASE] Updating registration status to active:', registrationId);
+        const { error: updateError } = await supabase
+          .from('registrations')
+          .update({
+            status: 'active',
+            payment_completed_at: new Date().toISOString(),
+          })
+          .eq('id', registrationId);
+
+        if (updateError) {
+          console.error('❌ [SUPABASE] Registration update failed:', updateError);
+        } else {
+          console.log('✅ [SUPABASE] Registration status updated to active');
+        }
+      } else {
+        console.warn('⚠️ [SUPABASE] Could not connect to update registration status');
+      }
+    }
 
     return res.status(200).json({
       success: true,
