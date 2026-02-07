@@ -391,7 +391,9 @@ export default function Dashboard() {
                         {(() => {
                           const bd = previewData.userType === 'migrant' ? previewData.migrant_birthdate : previewData.family_birthdate;
                           if (!bd) return 'No registrada';
-                          const d = new Date(bd + 'T00:00:00');
+                          const dateStr = String(bd).includes('T') ? bd : bd + 'T00:00:00';
+                          const d = new Date(dateStr);
+                          if (isNaN(d.getTime())) return 'No registrada';
                           return d.toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
                         })()}
                       </p>
