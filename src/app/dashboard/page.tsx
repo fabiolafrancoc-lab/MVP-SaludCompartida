@@ -1402,7 +1402,7 @@ export default function Dashboard() {
         {currentPage === 'evaluacion' && <Evaluacion userType={userType!} onBack={() => setCurrentPage('home')} />}
         {currentPage === 'blog' && <Blog userType={userType!} onBack={() => setCurrentPage('home')} />}
         {currentPage === 'contactanos' && <Contactanos userType={userType!} />}
-        {currentPage === 'terminos' && <TerminosPrivacidad />}
+        {currentPage === 'terminos' && <TerminosPrivacidad onBack={() => setCurrentPage('home')} />}
       </main>
 
       {/* Bottom Navigation */}
