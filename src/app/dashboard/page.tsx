@@ -382,6 +382,21 @@ export default function Dashboard() {
                       </p>
                     </div>
 
+                    {/* Fecha de Nacimiento */}
+                    <div style={{ marginBottom: '14px' }}>
+                      <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginBottom: '4px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        🎂 Fecha de Nacimiento
+                      </p>
+                      <p style={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}>
+                        {(() => {
+                          const bd = previewData.userType === 'migrant' ? previewData.migrant_birthdate : previewData.family_birthdate;
+                          if (!bd) return 'No registrada';
+                          const d = new Date(bd + 'T00:00:00');
+                          return d.toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+                        })()}
+                      </p>
+                    </div>
+
                     {/* Email */}
                     <div style={{ marginBottom: '14px' }}>
                       <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginBottom: '4px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
