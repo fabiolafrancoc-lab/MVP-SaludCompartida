@@ -58,7 +58,7 @@ export default function LoginPage() {
         if (data.status !== 'active') {
           const { data: paymentRecord } = await supabase
             .from('square_payments')
-            .select('id')
+            .select('id, created_at')
             .eq('registration_id', data.id)
             .eq('status', 'COMPLETED')
             .maybeSingle();
@@ -67,7 +67,7 @@ export default function LoginPage() {
             console.log('🔄 [LOGIN] Found completed payment record, auto-correcting status...');
             const { error: fixError } = await supabase
               .from('registrations')
-              .update({ status: 'active', payment_completed_at: new Date().toISOString() })
+              .update({ status: 'active', payment_completed_at: paymentRecord.created_at || new Date().toISOString() })
               .eq('id', data.id);
             if (!fixError) {
               data.status = 'active';
