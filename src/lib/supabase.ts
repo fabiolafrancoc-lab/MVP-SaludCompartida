@@ -28,32 +28,48 @@ export interface Database {
   };
 }
 
-// Registration Types
+// Registration Types - matches actual Supabase table schema
 export interface Registration {
   id: number;
-  codigo_familia: string;
-  
-  migrant_name: string;
+  // Migrant (USA) fields
+  migrant_first_name: string;
+  migrant_last_name: string;
+  migrant_mother_last_name: string | null;
   migrant_email: string;
   migrant_phone: string;
-  migrant_state: string;
+  migrant_country_code: string | null;
+  migrant_date_of_birth: string | null;
+  migrant_access_code: string | null;
   
-  principal_name: string;
-  principal_phone: string;
-  principal_relationship: string;
+  // Family (Mexico) fields
+  family_first_name: string | null;
+  family_last_name: string | null;
+  family_mother_last_name: string | null;
+  family_phone: string | null;
+  family_country_code: string | null;
+  family_date_of_birth: string | null;
+  family_code: string | null;
+  family_email: string | null;
+  family_companion_assigned: string | null;
   
-  plan_id: string;
-  plan_name: string;
-  plan_price: number;
+  // Payment fields
+  payment_method: string | null;
+  payment_id: string | null;
+  plan_type: string | null;
+  amount: number | null;
+  currency: string | null;
   
+  // Square fields
   square_customer_id: string | null;
   square_subscription_id: string | null;
+  square_card_id: string | null;
+  square_order_id: string | null;
   square_payment_id: string | null;
   
+  // Status fields
   status: 'pending' | 'active' | 'cancelled' | 'expired' | 'paused';
-  activated_at: string | null;
-  last_payment_at: string | null;
-  cancelled_at: string | null;
+  payment_completed_at: string | null;
+  last_login_at: string | null;
   
   created_at: string;
   updated_at: string;
@@ -163,7 +179,7 @@ export function getSupabaseClient() {
   return supabaseClient;
 }
 
-export async function createRegistration(data: RegistrationInsert): Promise<Registration> {
+export async function createRegistration(data: RegistrationInsert): Promise<{ success: boolean; data?: Registration; error?: string }> {
   const supabase = getSupabaseClient();
   
   const { data: registration, error } = await supabase
@@ -174,19 +190,20 @@ export async function createRegistration(data: RegistrationInsert): Promise<Regi
 
   if (error) {
     console.error('Error creating registration:', error);
-    throw new Error(`Failed to create registration: ${error.message}`);
+    return { success: false, error: error.message };
   }
 
-  return registration;
+  return { success: true, data: registration };
 }
 
 export async function getRegistrationByCode(codigoFamilia: string): Promise<Registration | null> {
   const supabase = getSupabaseClient();
   
+  // Try family_code first (current schema), then fall back to codigo_familia (legacy)
   const { data, error } = await supabase
     .from('registrations')
     .select()
-    .eq('codigo_familia', codigoFamilia)
+    .eq('family_code', codigoFamilia)
     .single();
 
   if (error) {
@@ -204,7 +221,7 @@ export async function updateUserByAccessCode(codigoFamilia: string, updates: Reg
   const { data, error } = await supabase
     .from('registrations')
     .update(updates)
-    .eq('codigo_familia', codigoFamilia)
+    .eq('family_code', codigoFamilia)
     .select()
     .single();
 
@@ -232,7 +249,7 @@ export function generateCodigoFamilia(): string {
 }
 
 // ALIAS: insertRegistration -> createRegistration (para compatibilidad)
-export async function insertRegistration(data: RegistrationInsert): Promise<Registration> {
+export async function insertRegistration(data: RegistrationInsert): Promise<{ success: boolean; data?: Registration; error?: string }> {
   return createRegistration(data);
 }
 

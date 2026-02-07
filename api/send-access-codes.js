@@ -8,6 +8,9 @@
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 
+// Use verified domain from env variable, fallback to .app (verified in Resend)
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'noreply@saludcompartida.app';
+
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
@@ -81,7 +84,7 @@ export default async function handler(req, res) {
       try {
         // Email al migrante
         const migrantEmail = await resend.emails.send({
-          from: 'SaludCompartida <noreply@saludcompartida.com>',
+          from: `SaludCompartida <${FROM_EMAIL}>`,
           to: user.migrant_email,
           subject: '🎉 ¡Felicidades! Has sido seleccionado - SaludCompartida',
           html: `
@@ -126,7 +129,7 @@ export default async function handler(req, res) {
 
         // Email al familiar
         const familyEmail = await resend.emails.send({
-          from: 'SaludCompartida <noreply@saludcompartida.com>',
+          from: `SaludCompartida <${FROM_EMAIL}>`,
           to: user.family_email,
           subject: '🎉 ¡Felicidades! Has sido seleccionado - SaludCompartida',
           html: `

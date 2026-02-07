@@ -259,9 +259,9 @@ export async function POST(request: NextRequest) {
       .insert({
         registration_id: registrationId,
         square_customer_id: customerId,
-        email: registration.migrant_email,
-        first_name: registration.migrant_first_name,
-        last_name: registration.migrant_last_name,
+        migrant_email: registration.migrant_email,
+        migrant_first_name: registration.migrant_first_name,
+        migrant_last_name: registration.migrant_last_name,
       });
 
     if (customerError) {
@@ -277,9 +277,9 @@ export async function POST(request: NextRequest) {
         registration_id: registrationId,
         square_subscription_id: subscriptionId,
         square_customer_id: customerId,
-        plan_variation_id: SQUARE_PLAN_VARIATION_ID,
+        square_plan_variation_id: SQUARE_PLAN_VARIATION_ID,
         status: 'ACTIVE',
-        start_date: new Date().toISOString(),
+        start_date: new Date().toISOString().split('T')[0],
       });
 
     if (subscriptionError) {
@@ -292,12 +292,13 @@ export async function POST(request: NextRequest) {
     const { error: paymentError } = await supabase
       .from('square_payments')
       .insert({
-        registration_id: registrationId,
+        square_subscription_id: subscriptionId,
         square_payment_id: paymentId,
         square_customer_id: customerId,
         amount_cents: 1200,
         currency: 'USD',
         status: 'COMPLETED',
+        payment_date: new Date().toISOString().split('T')[0],
       });
 
     if (paymentError) {

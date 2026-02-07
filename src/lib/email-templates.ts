@@ -8,6 +8,7 @@
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'noreply@saludcompartida.app';
 
 // =============================================================================
 // TIPOS DE DATOS REQUERIDOS DE SUPABASE
@@ -408,7 +409,7 @@ function getFamilyEmailTemplate(data: FamilyEmailData): string {
 export async function sendMigrantEmail(data: MigrantEmailData) {
   try {
     const response = await resend.emails.send({
-      from: 'SaludCompartida <hola@saludcompartida.com>',
+      from: `SaludCompartida <${FROM_EMAIL}>`,
       to: data.migrant_email,
       subject: '💜 Aunque estés lejos... tu familia está cuidada',
       html: getMigrantEmailTemplate(data),
@@ -428,7 +429,7 @@ export async function sendMigrantEmail(data: MigrantEmailData) {
 export async function sendFamilyEmail(data: FamilyEmailData) {
   try {
     const response = await resend.emails.send({
-      from: 'SaludCompartida <hola@saludcompartida.com>',
+      from: `SaludCompartida <${FROM_EMAIL}>`,
       to: data.family_primary_email,
       subject: `🎁 ${data.migrant_first_name} te acaba de dar un regalo especial`,
       html: getFamilyEmailTemplate(data),

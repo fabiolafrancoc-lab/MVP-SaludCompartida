@@ -29,21 +29,26 @@ export async function POST(request: NextRequest) {
     });
 
     // 1. Crear registro principal
+    // Split nombre into first/last names
+    const suscriptorParts = suscriptor.nombre.split(' ');
+    const suscriptorFirstName = suscriptorParts[0];
+    const suscriptorLastName = suscriptorParts.slice(1).join(' ') || '';
+
     const { data: registration, error: dbError } = await supabase
       .from('registrations')
       .insert({
-        codigo_familia: codigoFamilia,
-        migrant_name: suscriptor.nombre,
+        family_code: codigoFamilia,
+        migrant_first_name: suscriptorFirstName,
+        migrant_last_name: suscriptorLastName,
         migrant_email: suscriptor.email,
         migrant_phone: suscriptor.telefono,
-        principal_name: usuarioPrincipal.nombre,
-        principal_phone: usuarioPrincipal.telefono,
-        principal_relationship: usuarioPrincipal.parentesco,
-        plan_id: planId,
-        plan_name: planName,
-        plan_price: planPrice,
+        family_first_name: usuarioPrincipal.nombre,
+        family_last_name: usuarioPrincipal.apellido || '',
+        family_phone: usuarioPrincipal.telefono,
+        plan_type: planId || 'monthly',
+        amount: planPrice,
+        currency: 'USD',
         status: 'pending',
-        created_at: new Date().toISOString(),
       })
       .select()
       .single();
@@ -144,7 +149,7 @@ export async function GET(request: NextRequest) {
   const { data, error } = await supabase
     .from('registrations')
     .select('*')
-    .eq('codigo_familia', codigo)
+    .eq('family_code', codigo)
     .single();
 
   if (error || !data) {
@@ -152,9 +157,9 @@ export async function GET(request: NextRequest) {
   }
 
   return NextResponse.json({
-    status: data.subscription_status,
-    plan: data.plan_id,
-    codigoFamilia: data.codigo_familia,
-    fechaActivacion: data.activated_at,
+    status: data.status,
+    plan: data.plan_type,
+    codigoFamilia: data.family_code,
+    fechaActivacion: data.payment_completed_at,
   });
 }
