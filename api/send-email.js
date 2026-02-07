@@ -3,6 +3,9 @@ import { Resend } from 'resend';
 // Initialize Resend with API key from environment variables
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Use verified domain from env variable, fallback to .app (verified in Resend)
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'noreply@saludcompartida.app';
+
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -104,7 +107,7 @@ export default async function handler(req, res) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'SaludCompartida <noreply@saludcompartida.com>',
+      from: `SaludCompartida <${FROM_EMAIL}>`,
       to: [recipientEmail],
       subject: subject,
       html: isDirectEmail ? 

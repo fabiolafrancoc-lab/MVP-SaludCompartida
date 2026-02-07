@@ -113,9 +113,11 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid email type' }, { status: 400 });
     }
 
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@saludcompartida.app';
+
     // Enviar email con Resend
     const { data: emailData, error } = await resend.emails.send({
-      from: 'SaludCompartida <team@saludcompartida.com>',
+      from: `SaludCompartida <${fromEmail}>`,
       to: recipients,
       subject: subject,
       html: `
