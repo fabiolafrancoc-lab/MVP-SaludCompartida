@@ -81,6 +81,7 @@ export default function TerminosPage() {
         <div style={{ textAlign: 'center', paddingTop: '32px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
           <button 
             onClick={() => window.history.back()} 
+            aria-label="Volver a la página anterior"
             style={{ 
               color: '#06B6D4', 
               textDecoration: 'none', 

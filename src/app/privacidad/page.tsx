@@ -99,6 +99,7 @@ export default function PrivacidadPage() {
         <div style={{ textAlign: 'center', paddingTop: '32px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
           <button 
             onClick={() => window.history.back()} 
+            aria-label="Volver a la página anterior"
             style={{ 
               color: '#EC4899', 
               textDecoration: 'none', 

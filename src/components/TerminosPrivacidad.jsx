@@ -457,7 +457,7 @@ function TabPrivacidad() {
 /* ═══════════════════════════════════════════════════════════
    MAIN
    ═══════════════════════════════════════════════════════════ */
-export default function TerminosPrivacidad({ initialTab = 0, onBack }) {
+export default function TerminosPrivacidad({ initialTab = 0, onBack = () => {} }) {
   const [tab, setTab] = useState(initialTab);
 
   return (
