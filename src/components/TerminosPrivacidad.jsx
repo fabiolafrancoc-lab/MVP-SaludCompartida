@@ -462,14 +462,7 @@ export default function TerminosPrivacidad({ initialTab = 0 }) {
 
   return (
     <div style={S.page}>
-      <div style={S.header}>
-        {/* Logo: usar /saludcompartida-dark-no-tagline.png (h-16) */}
-        <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: 40 }} />
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', marginRight: 6, boxShadow: '0 0 8px #10B981' }} />
-          <span style={{ fontSize: 12, color: '#10B981', fontWeight: 600 }}>Activo</span>
-        </div>
-      </div>
+      {/* Header eliminado - solo contenido */}
 
       <div style={S.px}>
         <button style={S.back}><I.Arrow /> Volver al inicio</button>
