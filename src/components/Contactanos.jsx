@@ -68,8 +68,7 @@ export default function Contactanos({ userType = 'mexico' }) {
   /* ═══════ CONFIRMACIÓN ═══════ */
   if (view === 'sent') return (
     <div style={S.page}>
-      <div style={S.header}>{/* Logo: /saludcompartida-dark-no-tagline.png */}
-        <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: 40 }} /></div>
+      {/* Header eliminado - solo contenido */}
       <div style={S.px}>
         <div style={{ textAlign: 'center', paddingTop: 40, paddingBottom: 20 }}>
           <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(16,185,129,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}><I.Check /></div>
@@ -120,11 +119,7 @@ export default function Contactanos({ userType = 'mexico' }) {
   /* ═══════ FORMULARIO ═══════ */
   return (
     <div style={S.page}>
-      <div style={S.header}>
-        {/* Logo: /saludcompartida-dark-no-tagline.png */}
-        <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: 40 }} />
-        <div style={{ display: 'flex', alignItems: 'center' }}><span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', marginRight: 6, boxShadow: '0 0 8px #10B981' }} /><span style={{ fontSize: 12, color: '#10B981', fontWeight: 600 }}>Activo</span></div>
-      </div>
+      {/* Header eliminado - solo contenido */}
       <div style={S.px}>
         <button style={S.back}><I.Arrow /> Volver al inicio</button>
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
