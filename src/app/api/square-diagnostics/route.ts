@@ -20,13 +20,18 @@ export async function GET() {
       allVariablesPresent: !!(SQUARE_ACCESS_TOKEN && SQUARE_LOCATION_ID && NEXT_PUBLIC_SQUARE_APP_ID && NEXT_PUBLIC_SQUARE_LOCATION_ID),
       locationIdsMatch: SQUARE_LOCATION_ID === NEXT_PUBLIC_SQUARE_LOCATION_ID,
     },
-    mode: SQUARE_ACCESS_TOKEN?.startsWith('EAAAE') ? 'SANDBOX' : 'PRODUCTION',
+    mode: (SQUARE_ACCESS_TOKEN?.startsWith('EAAAl') || SQUARE_ACCESS_TOKEN?.startsWith('sandbox-')) ? 'SANDBOX' : 'PRODUCTION',
   };
 
   // Intentar llamar a Square API para verificar conectividad
   if (SQUARE_ACCESS_TOKEN) {
     try {
-      const response = await fetch('https://connect.squareup.com/v2/locations', {
+      const isSandbox = SQUARE_ACCESS_TOKEN.startsWith('EAAAl') || SQUARE_ACCESS_TOKEN.startsWith('sandbox-');
+      const squareApiUrl = isSandbox
+        ? 'https://connect.squareupsandbox.com/v2/locations'
+        : 'https://connect.squareup.com/v2/locations';
+
+      const response = await fetch(squareApiUrl, {
         headers: {
           'Square-Version': '2024-12-18',
           Authorization: `Bearer ${SQUARE_ACCESS_TOKEN}`,
