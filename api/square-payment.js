@@ -26,10 +26,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log('💳 Llamando a Square API directamente...');
+    // Detect sandbox vs production based on access token prefix
+    const isSandbox = SQUARE_ACCESS_TOKEN.startsWith('EAAAl') || SQUARE_ACCESS_TOKEN.startsWith('sandbox-');
+    const squareApiUrl = isSandbox
+      ? 'https://connect.squareupsandbox.com/v2/payments'
+      : 'https://connect.squareup.com/v2/payments';
+
+    console.log('💳 Llamando a Square API directamente...', isSandbox ? '(SANDBOX)' : '(PRODUCTION)');
     
-    // Llamar a Square REST API directamente (Production)
-    const response = await fetch('https://connect.squareup.com/v2/payments', {
+    // Llamar a Square REST API directamente
+    const response = await fetch(squareApiUrl, {
       method: 'POST',
       headers: {
         'Square-Version': '2024-12-18',

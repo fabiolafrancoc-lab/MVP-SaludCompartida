@@ -44,9 +44,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const SQUARE_API = 'https://connect.squareup.com/v2';
+    // Detect sandbox vs production based on access token prefix
+    const isSandbox = SQUARE_ACCESS_TOKEN.startsWith('EAAAl') || SQUARE_ACCESS_TOKEN.startsWith('sandbox-');
+    const SQUARE_API = isSandbox
+      ? 'https://connect.squareupsandbox.com/v2'
+      : 'https://connect.squareup.com/v2';
 
     console.log('✅ [SQUARE] Credentials loaded');
+    console.log('🔧 [SQUARE] Environment:', isSandbox ? 'SANDBOX' : 'PRODUCTION');
     console.log('📍 [SQUARE] Location ID:', SQUARE_LOCATION_ID);
     console.log('📦 [SQUARE] Plan ID:', SQUARE_PLAN_VARIATION_ID);
 
@@ -84,7 +89,7 @@ export async function POST(request: NextRequest) {
       family_name: registration.migrant_last_name,
       email_address: registration.migrant_email,
       phone_number: registration.migrant_phone,
-      reference_id: registrationId,
+      reference_id: String(registrationId),
     };
 
     console.log('📤 [SQUARE] Customer payload:', customerPayload);
@@ -259,68 +264,105 @@ export async function POST(request: NextRequest) {
       .insert({
         registration_id: registrationId,
         square_customer_id: customerId,
-        email: registration.migrant_email,
-        first_name: registration.migrant_first_name,
-        last_name: registration.migrant_last_name,
+        square_card_id: cardId,
+        // Use migrant_* column names (matching 20260202 migration schema)
+        migrant_email: registration.migrant_email,
+        migrant_first_name: registration.migrant_first_name,
+        migrant_last_name: registration.migrant_last_name,
+        migrant_phone: registration.migrant_phone,
+        migrant_code: registration.migrant_code,
+        family_primary_email: registration.family_email,
+        family_first_name: registration.family_first_name,
+        family_code: registration.family_code,
       });
 
     if (customerError) {
       console.error('❌ [SUPABASE] Customer save failed:', customerError);
+      console.error('❌ [SUPABASE] Customer error details:', JSON.stringify(customerError));
     } else {
       console.log('✅ [SUPABASE] Customer saved');
     }
 
     // Save subscription
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
     const { error: subscriptionError } = await supabase
       .from('square_subscriptions')
       .insert({
         registration_id: registrationId,
         square_subscription_id: subscriptionId,
         square_customer_id: customerId,
-        plan_variation_id: SQUARE_PLAN_VARIATION_ID,
+        square_plan_variation_id: SQUARE_PLAN_VARIATION_ID,
         status: 'ACTIVE',
-        start_date: new Date().toISOString(),
+        start_date: today,
       });
 
     if (subscriptionError) {
       console.error('❌ [SUPABASE] Subscription save failed:', subscriptionError);
+      console.error('❌ [SUPABASE] Subscription error details:', JSON.stringify(subscriptionError));
     } else {
       console.log('✅ [SUPABASE] Subscription saved');
     }
 
-    // Save payment
+    // Save payment - get subscription_id for FK reference
+    let savedSubscriptionId = null;
+    if (!subscriptionError) {
+      const { data: subData } = await supabase
+        .from('square_subscriptions')
+        .select('id')
+        .eq('square_subscription_id', subscriptionId)
+        .single();
+      savedSubscriptionId = subData?.id || null;
+    }
+
     const { error: paymentError } = await supabase
       .from('square_payments')
       .insert({
-        registration_id: registrationId,
+        subscription_id: savedSubscriptionId,
+        square_subscription_id: subscriptionId,
         square_payment_id: paymentId,
         square_customer_id: customerId,
         amount_cents: 1200,
         currency: 'USD',
         status: 'COMPLETED',
+        payment_date: today,
+        billing_period_start: today,
       });
 
     if (paymentError) {
       console.error('❌ [SUPABASE] Payment save failed:', paymentError);
+      console.error('❌ [SUPABASE] Payment error details:', JSON.stringify(paymentError));
     } else {
       console.log('✅ [SUPABASE] Payment saved');
     }
 
     // Update registration status
-    // Valores válidos: 'pending', 'active', 'cancelled', 'expired', 'paused'
+    // Valores válidos: 'pending_payment', 'active', 'cancelled', 'expired', 'paused'
     const { error: updateError } = await supabase
       .from('registrations')
       .update({
         status: 'active',
         payment_completed_at: new Date().toISOString(),
         square_customer_id: customerId,
+        square_subscription_id: subscriptionId,
+        square_payment_id: paymentId,
       })
       .eq('id', registrationId);
 
     if (updateError) {
       console.error('❌ [SUPABASE] Registration update failed:', updateError);
+      console.error('❌ [SUPABASE] Registration update error details:', JSON.stringify(updateError));
     } else {
-      console.log('✅ [SUPABASE] Registration updated');
+      console.log('✅ [SUPABASE] Registration updated to active');
+    }
+
+    // Collect DB save warnings (non-blocking but reported)
+    const dbWarnings: string[] = [];
+    if (customerError) dbWarnings.push(`customer: ${customerError.message}`);
+    if (subscriptionError) dbWarnings.push(`subscription: ${subscriptionError.message}`);
+    if (paymentError) dbWarnings.push(`payment: ${paymentError.message}`);
+    if (updateError) dbWarnings.push(`registration_update: ${updateError.message}`);
+    if (dbWarnings.length > 0) {
+      console.warn('⚠️ [SUPABASE] Some DB saves had issues:', dbWarnings);
     }
 
     // ════════════════════════════════════════════════════════════════════════
@@ -391,6 +433,7 @@ export async function POST(request: NextRequest) {
         paymentId,
         registrationId,
       },
+      ...(dbWarnings.length > 0 && { dbWarnings }),
     });
 
   } catch (error: any) {
