@@ -506,6 +506,7 @@ export default function Dashboard() {
   }
 
   const userName = userType === 'migrant' ? registration?.migrant_first_name : registration?.family_first_name;
+  const userLastName = userType === 'migrant' ? registration?.migrant_last_name : registration?.family_last_name;
   const migrantName = registration?.migrant_first_name || 'Tu familiar';
   const companionName = userType === 'migrant' ? 'Fernanda' : 'Lupita';
   const isMigrant = userType === 'migrant';
@@ -1400,7 +1401,7 @@ export default function Dashboard() {
         {currentPage === 'terapia' && <Terapia userType={userType!} onBack={() => setCurrentPage('home')} migrantName={migrantName} />}
         {currentPage === 'ahorros' && <Ahorros userType={userType!} onBack={() => setCurrentPage('home')} migrantName={migrantName} />}
         {currentPage === 'lupita-fernanda' && <LupitaFernanda userType={userType!} onBack={() => setCurrentPage('home')} migrantName={migrantName} />}
-        {currentPage === 'mi-cuenta' && <MiCuenta userType={userType!} migrantName={migrantName} userName={userName} userLastName={userType === 'migrant' ? registration?.migrant_last_name : registration?.family_last_name} />}
+        {currentPage === 'mi-cuenta' && <MiCuenta userType={userType!} migrantName={migrantName} userName={userName} userLastName={userLastName} />}
         {currentPage === 'evaluacion' && <Evaluacion userType={userType!} onBack={() => setCurrentPage('home')} />}
         {currentPage === 'blog' && <Blog userType={userType!} onBack={() => setCurrentPage('home')} />}
         {currentPage === 'contactanos' && <Contactanos userType={userType!} />}

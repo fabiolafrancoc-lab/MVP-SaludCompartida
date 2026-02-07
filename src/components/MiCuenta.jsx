@@ -75,7 +75,7 @@ export default function MiCuenta({ userType = 'mexico', migrantName: migrantName
       });
       setInitialized(true);
     }
-  }, [userName, userLastName, initialized]);
+  }, [userName, userLastName]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const upd = (idx, field, val) => {
     const u = [...members];
