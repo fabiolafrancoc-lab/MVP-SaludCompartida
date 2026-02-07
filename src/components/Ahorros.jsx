@@ -31,10 +31,10 @@ const POTENTIAL = [
 const totalSavings = SAVINGS.reduce((s, i) => s + i.saved, 0);
 const totalPotential = POTENTIAL.reduce((s, i) => s + i.saved, 0);
 
-export default function Ahorros({ userType = 'mexico', onBack }) {
+export default function Ahorros({ userType = 'mexico', onBack, migrantName: migrantNameProp }) {
   const [animated, setAnimated] = useState(0);
   // Solo "Potencial mensual" - tab removido
-  const migrantName = 'Fabiola';
+  const migrantName = migrantNameProp || 'Tu familiar';
 
   useEffect(() => {
     const target = totalPotential; // Siempre mostrar potencial

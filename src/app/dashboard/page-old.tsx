@@ -146,7 +146,7 @@ export default function Dashboard() {
   }
 
   const userName = userType === 'migrant' ? registration?.migrant_first_name : registration?.family_first_name;
-  const migrantName = registration?.migrant_first_name || 'Fabiola';
+  const migrantName = registration?.migrant_first_name || 'Tu familiar';
   const companionName = userType === 'migrant' ? 'Fernanda' : 'Lupita';
   
   // Scroll suave a sección

@@ -49,7 +49,8 @@ const S = {
   prefix:{display:'flex',alignItems:'center',gap:6,background:'rgba(37,211,102,0.1)',border:'1px solid rgba(37,211,102,0.25)',borderRadius:12,padding:'12px 12px',fontSize:14,fontWeight:700,color:'#25D366',flexShrink:0,fontFamily:"'Plus Jakarta Sans', sans-serif"},
 };
 
-export default function Terapia({ userType = 'mexico', onBack }) {
+export default function Terapia({ userType = 'mexico', onBack, migrantName: migrantNameProp }) {
+  const migrantName = migrantNameProp || 'Tu familiar';
   const cfg = WAC[userType] || WAC.mexico;
   const [view,setView]=useState('main');
   const [nombre,setNombre]=useState('');const [apellido,setApellido]=useState('');
@@ -146,7 +147,7 @@ export default function Terapia({ userType = 'mexico', onBack }) {
         <p style={{fontSize:15,color:'rgba(255,255,255,0.65)',lineHeight:1.7,maxWidth:320,margin:'0 auto'}}>Hablar con alguien que te escucha puede cambiar tu semana. Una sesión a la vez, a tu ritmo.</p>
       </div>
       <div style={{background:'linear-gradient(135deg, rgba(245,158,11,0.1), rgba(236,72,153,0.06))',border:'1px solid rgba(245,158,11,0.2)',borderRadius:16,padding:18,textAlign:'center',marginBottom:20}}>
-        <I.Heart /><p style={{fontSize:14,color:'rgba(255,255,255,0.7)',marginTop:8,lineHeight:1.6}}><span style={{color:'#06B6D4',fontWeight:700}}>Fabiola</span> quiere verte bien, por dentro y por fuera. Esta sesión es parte de lo que eligió para ti. <b style={{color:'#F59E0B'}}>Úsala — te lo mereces.</b></p>
+        <I.Heart /><p style={{fontSize:14,color:'rgba(255,255,255,0.7)',marginTop:8,lineHeight:1.6}}><span style={{color:'#06B6D4',fontWeight:700}}>{migrantName}</span> quiere verte bien, por dentro y por fuera. Esta sesión es parte de lo que eligió para ti. <b style={{color:'#F59E0B'}}>Úsala — te lo mereces.</b></p>
       </div>
       <div style={{...S.card,cursor:'default'}}><p style={{fontSize:13,fontWeight:700,color:'#F59E0B',marginBottom:8}}>Cuidarte por dentro es tan importante como cuidarte por fuera.</p><p style={{fontSize:13,color:'rgba(255,255,255,0.55)',lineHeight:1.7}}>Millones de personas ya hablan con un profesional cada semana. Aquí no hay juicios, solo alguien que te escucha con atención y respeto.</p></div>
       <div style={{background:'linear-gradient(135deg, rgba(245,158,11,0.12), rgba(16,185,129,0.08))',border:'1px solid rgba(245,158,11,0.25)',borderRadius:16,padding:18,textAlign:'center',marginBottom:24}}>

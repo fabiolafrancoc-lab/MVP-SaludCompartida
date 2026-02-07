@@ -46,9 +46,9 @@ const HrtIcon = ({ s = 18, c = '#EC4899' }) => <svg width={s} height={s} viewBox
 const ArrIcon = ({ s = 20, c = 'currentColor' }) => <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>;
 
 /* ── Main Component ── */
-export default function Telemedicina({ userType = 'mexico', onBack }) {
+export default function Telemedicina({ userType = 'mexico', onBack, migrantName: migrantNameProp }) {
   const [phraseIdx, setPhraseIdx] = useState(0);
-  const migrantName = 'Fabiola'; // TODO: from Supabase session
+  const migrantName = migrantNameProp || 'Tu familiar';
 
   useEffect(() => {
     const t = setInterval(() => setPhraseIdx(i => (i + 1) % PHRASES.length), 3000);

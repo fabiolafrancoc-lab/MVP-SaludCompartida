@@ -19,7 +19,9 @@ interface RegistrationData {
   migrant_code: string;
   family_code: string;
   migrant_first_name: string;
+  migrant_last_name: string;
   family_first_name: string;
+  family_last_name: string;
   migrant_email: string;
   family_primary_email: string;
   status: string;
@@ -504,7 +506,7 @@ export default function Dashboard() {
   }
 
   const userName = userType === 'migrant' ? registration?.migrant_first_name : registration?.family_first_name;
-  const migrantName = registration?.migrant_first_name || 'Fabiola';
+  const migrantName = registration?.migrant_first_name || 'Tu familiar';
   const companionName = userType === 'migrant' ? 'Fernanda' : 'Lupita';
   const isMigrant = userType === 'migrant';
 
@@ -1393,12 +1395,12 @@ export default function Dashboard() {
       <main style={{ maxWidth: '430px', margin: '0 auto' }}>
         {currentPage === 'home' && renderHome()}
         {currentPage === 'quienes-somos' && <QuienesSomos userType={userType!} />}
-        {currentPage === 'telemedicina' && <Telemedicina userType={userType!} onBack={() => setCurrentPage('home')} />}
-        {currentPage === 'farmacia' && <Farmacia userType={userType!} onBack={() => setCurrentPage('home')} />}
-        {currentPage === 'terapia' && <Terapia userType={userType!} />}
-        {currentPage === 'ahorros' && <Ahorros userType={userType!} onBack={() => setCurrentPage('home')} />}
-        {currentPage === 'lupita-fernanda' && <LupitaFernanda userType={userType!} onBack={() => setCurrentPage('home')} />}
-        {currentPage === 'mi-cuenta' && <MiCuenta userType={userType!} />}
+        {currentPage === 'telemedicina' && <Telemedicina userType={userType!} onBack={() => setCurrentPage('home')} migrantName={migrantName} />}
+        {currentPage === 'farmacia' && <Farmacia userType={userType!} onBack={() => setCurrentPage('home')} userName={userName} migrantName={migrantName} />}
+        {currentPage === 'terapia' && <Terapia userType={userType!} onBack={() => setCurrentPage('home')} migrantName={migrantName} />}
+        {currentPage === 'ahorros' && <Ahorros userType={userType!} onBack={() => setCurrentPage('home')} migrantName={migrantName} />}
+        {currentPage === 'lupita-fernanda' && <LupitaFernanda userType={userType!} onBack={() => setCurrentPage('home')} migrantName={migrantName} />}
+        {currentPage === 'mi-cuenta' && <MiCuenta userType={userType!} migrantName={migrantName} userName={userName} userLastName={userType === 'migrant' ? registration?.migrant_last_name : registration?.family_last_name} />}
         {currentPage === 'evaluacion' && <Evaluacion userType={userType!} onBack={() => setCurrentPage('home')} />}
         {currentPage === 'blog' && <Blog userType={userType!} onBack={() => setCurrentPage('home')} />}
         {currentPage === 'contactanos' && <Contactanos userType={userType!} />}
