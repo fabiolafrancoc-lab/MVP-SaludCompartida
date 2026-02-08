@@ -31,9 +31,9 @@ const PASOS = [
   { num: '3', title: 'Recibe descuentos', desc: 'Te dan la receta Y los descuentos aplicables. ¡Listo!' },
 ];
 
-export default function Farmacia({ userType = 'mexico', onBack }) {
-  const userName = 'Renata';
-  const migrantName = 'Fabiola';
+export default function Farmacia({ userType = 'mexico', onBack, registration }) {
+  const userName = registration?.family_first_name || 'Usuario';
+  const migrantName = registration?.migrant_first_name || 'el migrante';
 
   const handleWhatsApp = () => {
     const message = encodeURIComponent(

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahorros | SaludCompartida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0C0B12;
+      --bg-card: #151422;
+      --bg-elevated: #1A1928;
+      --purple: #7C3AED;
+      --purple-soft: #A78BFA;
+      --green: #10B981;
+      --green-soft: #34D399;
+      --blue-soft: #60A5FA;
+      --orange-soft: #FBBF24;
+      --coral: #F87171;
+      --text-primary: #F2F0F7;
+      --text-secondary: #BCB8CC;
+      --text-muted: #8A86A0;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-deep); color: var(--text-primary); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    .page-container { max-width: 760px; margin: 0 auto; padding: 48px 28px 80px; }
+    .page-header { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+    .page-logo { height: 32px; }
+    .page-title { font-family: var(--serif); font-size: 1.6rem; color: var(--text-primary); }
+
+    /* Current savings hero */
+    .savings-hero {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02));
+      border: 1px solid rgba(16, 185, 129, 0.12);
+      border-radius: 24px; padding: 36px 28px; text-align: center; margin-bottom: 32px;
+      position: relative; overflow: hidden;
+    }
+    .savings-hero::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+    }
+    .savings-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .savings-amount { font-family: var(--serif); font-size: 3.5rem; color: var(--green-soft); margin-bottom: 4px; }
+    .savings-period { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; }
+    .savings-note {
+      font-size: 0.82rem; color: var(--text-secondary); font-weight: 300;
+      padding: 10px 18px; border-radius: 100px;
+      background: rgba(255,255,255,0.03); display: inline-block;
+    }
+    .savings-note strong { color: var(--green-soft); }
+
+    /* Section title */
+    .section-title {
+      font-family: var(--serif); font-size: 1.2rem; color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .section-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px; }
+
+    /* Projection cards */
+    .projection-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+    .projection-card {
+      background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px; padding: 22px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+    .projection-card:hover { border-color: rgba(255,255,255,0.1); transform: translateX(4px); }
+    .projection-left { display: flex; align-items: center; gap: 16px; }
+    .projection-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .projection-icon svg { width: 22px; height: 22px; }
+    .projection-icon.doctor { background: rgba(59, 130, 246, 0.1); }
+    .projection-icon.doctor svg { color: var(--blue-soft); }
+    .projection-icon.farmacia { background: rgba(16, 185, 129, 0.1); }
+    .projection-icon.farmacia svg { color: var(--green-soft); }
+    .projection-icon.terapia { background: rgba(232, 160, 191, 0.1); }
+    .projection-icon.terapia svg { color: var(--rose, #E8A0BF); }
+    .projection-name { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+    .projection-desc { font-size: 0.72rem; color: var(--text-muted); }
+    .projection-amount { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; }
+    .projection-amount.green { color: var(--green-soft); }
+    .projection-per { font-size: 0.65rem; color: var(--text-muted); text-align: right; }
+
+    /* Timeline */
+    .timeline { margin-bottom: 36px; }
+    .timeline-row {
+      display: grid; grid-template-columns: 80px 1fr auto;
+      gap: 16px; align-items: center;
+      padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-month { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); }
+    .timeline-bar-bg {
+      height: 28px; border-radius: 8px;
+      background: rgba(255,255,255,0.03); overflow: hidden; position: relative;
+    }
+    .timeline-bar {
+      height: 100%; border-radius: 8px;
+      background: linear-gradient(90deg, var(--green), var(--green-soft));
+      transition: width 0.8s ease;
+      display: flex; align-items: center; justify-content: flex-end; padding-right: 8px;
+    }
+    .timeline-bar span { font-size: 0.65rem; font-weight: 800; color: white; }
+    .timeline-total { font-size: 0.9rem; font-weight: 800; color: var(--green-soft); text-align: right; }
+
+    /* Bottom CTA */
+    .savings-cta {
+      background: linear-gradient(160deg, rgba(124, 58, 237, 0.06) 0%, var(--bg-card) 100%);
+      border: 1px solid rgba(124, 58, 237, 0.1);
+      border-radius: 20px; padding: 28px 24px; text-align: center;
+      margin-bottom: 20px;
+    }
+    .savings-cta-title { font-family: var(--serif); font-size: 1.1rem; color: var(--text-primary); margin-bottom: 8px; }
+    .savings-cta-text { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 300; }
+    .savings-cta-text strong { color: var(--purple-soft); }
+
+    .volver-page {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 24px; padding: 12px 24px; border-radius: 100px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-muted); font-size: 0.82rem; font-weight: 600;
+      text-decoration: none; transition: all 0.25s ease;
+    }
+    .volver-page:hover { color: var(--purple-soft); border-color: rgba(124, 58, 237, 0.2); }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-header">
+      <img src="/dashboard-imgs/logo-saludcompartida.jpg" alt="SC" class="page-logo">
+      <h1 class="page-title">Tus Ahorros</h1>
+    </div>
+
+    <!-- Current savings -->
+    <div class="savings-hero">
+      <p class="savings-label">Ahorro acumulado</p>
+      <p class="savings-amount">$0</p>
+      <p class="savings-period">Acabas de empezar — ¡los ahorros vienen en camino!</p>
+      <div class="savings-note"><strong>Carlos</strong> invirtió $12 USD para que tú ahorres miles</div>
+    </div>
+
+    <!-- Projected savings -->
+    <h2 class="section-title">Lo que puedes ahorrar cada mes</h2>
+    <p class="section-sub">Estimación basada en el uso promedio de nuestros servicios</p>
+
+    <div class="projection-grid">
+      <div class="projection-card">
+        <div class="projection-left">
+          <div class="projection-icon doctor">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div>
+            <div class="projection-name">Videollamada 24/7</div>
+            <div class="projection-desc">Consulta privada promedio: $800 MXN</div>
+          </div>
+        </div>
+        <div>
+          <div class="projection-amount green">$2,400</div>
+          <div class="projection-per">MXN / mes</div>
+        </div>
+      </div>
+      <div class="projection-card">
+        <div class="projection-left">
+          <div class="projection-icon farmacia">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </div>
+          <div>
+            <div class="projection-name">Descuentos en Farmacias</div>
+            <div class="projection-desc">Hasta 75% en medicinas y productos</div>
+          </div>
+        </div>
+        <div>
+          <div class="projection-amount green">$1,500</div>
+          <div class="projection-per">MXN / mes</div>
+        </div>
+      </div>
+      <div class="projection-card">
+        <div class="projection-left">
+          <div class="projection-icon terapia">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div>
+            <div class="projection-name">Terapia Psicológica</div>
+            <div class="projection-desc">Sesión privada promedio: $1,200 MXN</div>
+          </div>
+        </div>
+        <div>
+          <div class="projection-amount green">$4,800</div>
+          <div class="projection-per">MXN / mes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Savings timeline projection -->
+    <h2 class="section-title">Proyección de ahorro anual</h2>
+    <p class="section-sub">Si usas todos los servicios disponibles</p>
+
+    <div class="timeline">
+      <div class="timeline-row">
+        <div class="timeline-month">Mes 1</div>
+        <div class="timeline-bar-bg"><div class="timeline-bar" style="width:10%"><span>$8.7k</span></div></div>
+        <div class="timeline-total">$8,700</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-month">Mes 3</div>
+        <div class="timeline-bar-bg"><div class="timeline-bar" style="width:30%"><span>$26.1k</span></div></div>
+        <div class="timeline-total">$26,100</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-month">Mes 6</div>
+        <div class="timeline-bar-bg"><div class="timeline-bar" style="width:58%"><span>$52.2k</span></div></div>
+        <div class="timeline-total">$52,200</div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-month">Año 1</div>
+        <div class="timeline-bar-bg"><div class="timeline-bar" style="width:100%"><span>$104.4k</span></div></div>
+        <div class="timeline-total">$104,400</div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="savings-cta">
+      <h3 class="savings-cta-title">Tu membresía cuesta $12 USD al mes</h3>
+      <p class="savings-cta-text">Ahorro potencial: <strong>$104,400 MXN al año</strong></p>
+      <p class="savings-cta-text">Eso es un retorno de <strong>más de 400x</strong> tu inversión</p>
+    </div>
+
+    <a href="javascript:history.back()" class="volver-page">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      ← Volver
+    </a>
+  </div>
+</body>
+</html>

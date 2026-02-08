@@ -33,10 +33,10 @@ const FERNANDA_TOPICS = [
   'Lo que quieras, cuando quieras',
 ];
 
-export default function LupitaFernanda({ userType = 'mexico', onBack }) {
+export default function LupitaFernanda({ userType = 'mexico', onBack, registration }) {
   const [selected, setSelected] = useState(null); // 'lupita' | 'fernanda'
-  const migrantName = 'Fabiola';
-  const familyName = 'María';
+  const migrantName = registration?.migrant_first_name || 'el migrante';
+  const familyName = registration?.family_first_name || 'Usuario';
 
   const S = {
     page: { minHeight: '100vh', background: '#111827', color: '#fff', fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", maxWidth: 430, margin: '0 auto' },
