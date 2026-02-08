@@ -13,14 +13,6 @@ const ArrIcon = ({s=20,c='currentColor'}) => <svg width={s} height={s} viewBox="
 const TrendIcon = ({s=18,c='currentColor'}) => <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>;
 const HrtIcon = ({s=16,c='#EC4899'}) => <svg width={s} height={s} viewBox="0 0 24 24" fill={c} stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>;
 
-const SAVINGS = [
-  { date: '30 Ene', service: 'Consulta Telemedicina', original: 850, paid: 0, saved: 850, color: '#06B6D4' },
-  { date: '28 Ene', service: 'Farmacia — Omeprazol + Vitaminas', original: 620, paid: 186, saved: 434, color: '#8B5CF6' },
-  { date: '25 Ene', service: 'Sesión Terapia Psicológica', original: 900, paid: 0, saved: 900, color: '#F59E0B' },
-  { date: '22 Ene', service: 'Farmacia — Paracetamol + Crema', original: 340, paid: 119, saved: 221, color: '#8B5CF6' },
-  { date: '18 Ene', service: 'Consulta Telemedicina', original: 850, paid: 0, saved: 850, color: '#06B6D4' },
-];
-
 const POTENTIAL = [
   { service: 'Videollamada con Doctor', desc: 'En vez de ir al consultorio', normal: 850, saved: 850, color: '#06B6D4' },
   { service: 'Farmacia con descuento', desc: 'Medicamentos y productos del hogar', normal: 620, saved: 434, color: '#8B5CF6' },
@@ -28,13 +20,10 @@ const POTENTIAL = [
   { service: 'Belleza y cuidado personal', desc: 'Maquillaje, cremas en farmacia', normal: 340, saved: 221, color: '#EC4899' },
 ];
 
-const totalSavings = SAVINGS.reduce((s, i) => s + i.saved, 0);
 const totalPotential = POTENTIAL.reduce((s, i) => s + i.saved, 0);
 
 export default function Ahorros({ userType = 'mexico', onBack }) {
   const [animated, setAnimated] = useState(0);
-  // Solo "Potencial mensual" - tab removido
-  const migrantName = 'Fabiola';
 
   useEffect(() => {
     const target = totalPotential; // Siempre mostrar potencial
@@ -98,7 +87,7 @@ export default function Ahorros({ userType = 'mexico', onBack }) {
             </div>
           </div>
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
-            Usando los servicios que {migrantName} ya pagó para ti y tu familia:
+            Usando los servicios que ya están pagados para ti y tu familia:
           </p>
         </div>
 
@@ -141,7 +130,10 @@ export default function Ahorros({ userType = 'mexico', onBack }) {
         <div style={{ background: 'rgba(236,72,153,0.06)', border: '1px solid rgba(236,72,153,0.15)', borderRadius: 16, padding: 18, textAlign: 'center', marginTop: 20 }}>
           <HrtIcon />
           <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', lineHeight: 1.6, marginTop: 8 }}>
-            <span style={{ color: '#06B6D4', fontWeight: 600 }}>{migrantName}</span> está orgulloso de que uses estos servicios. Cada peso que ahorras <b style={{ color: '#10B981' }}>es una victoria para tu familia</b>.
+            {userType === 'migrant' 
+              ? 'Cada peso que tu familia ahorra es una victoria compartida. Estás cuidando de ellos aunque estés lejos.'
+              : 'Tu familiar en EE.UU. está orgulloso de que uses estos servicios. Cada peso que ahorras es una victoria para tu familia.'
+            }
           </p>
         </div>
 

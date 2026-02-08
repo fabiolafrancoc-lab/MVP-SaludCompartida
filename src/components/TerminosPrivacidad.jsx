@@ -457,7 +457,7 @@ function TabPrivacidad() {
 /* ═══════════════════════════════════════════════════════════
    MAIN
    ═══════════════════════════════════════════════════════════ */
-export default function TerminosPrivacidad({ initialTab = 0 }) {
+export default function TerminosPrivacidad({ initialTab = 0, onBack }) {
   const [tab, setTab] = useState(initialTab);
 
   return (
@@ -472,7 +472,7 @@ export default function TerminosPrivacidad({ initialTab = 0 }) {
       </div>
 
       <div style={S.px}>
-        <button style={S.back}><I.Arrow /> Volver al inicio</button>
+        <button style={S.back} onClick={onBack}><I.Arrow /> Volver</button>
 
         {/* Tab Navigation */}
         <div style={{ display: 'flex', gap: 4, marginBottom: 24, background: 'rgba(255,255,255,0.03)', borderRadius: 14, padding: 4, border: '1px solid rgba(255,255,255,0.06)' }}>

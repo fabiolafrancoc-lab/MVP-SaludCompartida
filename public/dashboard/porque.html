@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Por qué SaludCompartida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0C0B12;
+      --bg-card: #151422;
+      --bg-elevated: #1A1928;
+      --purple: #7C3AED;
+      --purple-soft: #A78BFA;
+      --green: #10B981;
+      --green-soft: #34D399;
+      --blue-soft: #60A5FA;
+      --orange-soft: #FBBF24;
+      --coral: #F87171;
+      --rose: #E8A0BF;
+      --text-primary: #F2F0F7;
+      --text-secondary: #BCB8CC;
+      --text-muted: #8A86A0;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-deep); color: var(--text-primary); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    .page-container { max-width: 760px; margin: 0 auto; padding: 48px 28px 80px; }
+    .page-header { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+    .page-logo { height: 32px; }
+    .page-title { font-family: var(--serif); font-size: 1.6rem; }
+
+    /* Video hero */
+    .video-hero {
+      width: 100%; aspect-ratio: 16/9; border-radius: 22px; overflow: hidden;
+      margin-bottom: 36px; position: relative;
+      background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .video-hero:hover { border-color: rgba(124, 58, 237, 0.2); }
+    .video-play-btn {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--purple-soft));
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      box-shadow: 0 12px 40px rgba(124, 58, 237, 0.3);
+      transition: all 0.3s ease;
+    }
+    .video-hero:hover .video-play-btn { transform: scale(1.08); box-shadow: 0 16px 48px rgba(124, 58, 237, 0.4); }
+    .video-play-btn svg { width: 28px; height: 28px; color: white; margin-left: 3px; }
+    .video-label { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
+    .video-duration { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; opacity: 0.6; }
+
+    /* Quote */
+    .quote-section {
+      text-align: center; padding: 36px 20px; margin-bottom: 40px;
+    }
+    .quote-text {
+      font-family: var(--serif); font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+      color: var(--text-primary); line-height: 1.5; font-style: italic;
+    }
+    .quote-text span { color: var(--rose); }
+    .quote-attr {
+      margin-top: 16px; font-size: 0.78rem; color: var(--text-muted); font-weight: 500;
+    }
+
+    /* Story sections */
+    .story { margin-bottom: 40px; }
+    .story-label {
+      font-size: 0.65rem; font-weight: 800; color: var(--purple-soft);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;
+    }
+    .story-title {
+      font-family: var(--serif); font-size: 1.3rem; color: var(--text-primary);
+      margin-bottom: 14px; line-height: 1.3;
+    }
+    .story-text {
+      font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;
+      font-weight: 300;
+    }
+    .story-text strong { color: var(--text-primary); font-weight: 600; }
+
+    /* Image row */
+    .story-img {
+      width: 100%; height: 200px; border-radius: 16px; overflow: hidden;
+      margin-top: 20px;
+    }
+    .story-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Divider */
+    .divider {
+      height: 1px; margin: 0 0 40px;
+      background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.12), transparent);
+    }
+
+    /* Difference cards */
+    .diff-grid { display: flex; flex-direction: column; gap: 14px; margin-top: 20px; margin-bottom: 40px; }
+    .diff-card {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 22px 24px; border-radius: 16px;
+      background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.3s ease;
+    }
+    .diff-card:hover { border-color: rgba(255,255,255,0.1); transform: translateX(4px); }
+    .diff-icon {
+      width: 44px; height: 44px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .diff-icon svg { width: 20px; height: 20px; }
+    .diff-icon.purple { background: rgba(124, 58, 237, 0.1); }
+    .diff-icon.purple svg { color: var(--purple-soft); }
+    .diff-icon.rose { background: rgba(232, 160, 191, 0.1); }
+    .diff-icon.rose svg { color: var(--rose); }
+    .diff-icon.green { background: rgba(16, 185, 129, 0.1); }
+    .diff-icon.green svg { color: var(--green-soft); }
+    .diff-icon.blue { background: rgba(59, 130, 246, 0.1); }
+    .diff-icon.blue svg { color: var(--blue-soft); }
+    .diff-title { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .diff-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; font-weight: 300; }
+
+    /* Testimonial */
+    .testimonial {
+      padding: 28px 24px; border-radius: 20px;
+      background: linear-gradient(160deg, rgba(232, 160, 191, 0.05), rgba(124, 58, 237, 0.03));
+      border: 1px solid rgba(232, 160, 191, 0.08);
+      margin-bottom: 40px; text-align: center;
+    }
+    .testimonial-quote {
+      font-family: var(--serif); font-size: 1.05rem; font-style: italic;
+      color: var(--text-primary); line-height: 1.5; margin-bottom: 14px;
+    }
+    .testimonial-author { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
+
+    /* Closing */
+    .closing {
+      text-align: center; padding: 32px 20px; margin-bottom: 8px;
+      background: linear-gradient(160deg, rgba(124, 58, 237, 0.04), var(--bg-card));
+      border: 1px solid rgba(124, 58, 237, 0.06);
+      border-radius: 22px;
+    }
+    .closing-title { font-family: var(--serif); font-size: 1.2rem; color: var(--text-primary); margin-bottom: 10px; }
+    .closing-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
+    .closing-text strong { color: var(--purple-soft); }
+
+    .volver-page {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 28px; padding: 12px 24px; border-radius: 100px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-muted); font-size: 0.82rem; font-weight: 600;
+      text-decoration: none; transition: all 0.25s ease;
+    }
+    .volver-page:hover { color: var(--purple-soft); border-color: rgba(124, 58, 237, 0.2); background: rgba(124, 58, 237, 0.06); }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-header">
+      <img src="/dashboard-imgs/logo-saludcompartida.jpg" alt="SC" class="page-logo">
+      <h1 class="page-title">Por qué SaludCompartida</h1>
+    </div>
+
+    <!-- Video hero -->
+    <div class="video-hero">
+      <div class="video-play-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+      <div class="video-label">Conoce nuestra historia</div>
+      <div class="video-duration">2:30 min</div>
+    </div>
+
+    <!-- Opening quote -->
+    <div class="quote-section">
+      <p class="quote-text">
+        "Para algunas familias no es tema de dinero. Es la <span>soledad</span> de saber que tu ser querido está lejos."
+      </p>
+      <p class="quote-attr">— La razón por la que creamos SaludCompartida</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Story 1: The problem -->
+    <div class="story">
+      <div class="story-label">La realidad</div>
+      <h2 class="story-title">La distancia no solo se mide en kilómetros</h2>
+      <p class="story-text">
+        Cuando alguien de tu familia se va a trabajar lejos, la vida cambia para todos. Tú te quedas cargo de la casa, de los niños, de las decisiones. <strong>A veces el peso se siente demasiado.</strong>
+      </p>
+      <p class="story-text" style="margin-top:12px;">
+        Si tu mamá se enferma a las 3 de la mañana, ¿a quién le llamas? Si tus hijos necesitan hablar con alguien porque extrañan a papá, ¿quién los escucha? Si tú misma necesitas un momento para respirar, ¿quién está ahí?
+      </p>
+      <div class="story-img"><img src="/dashboard-imgs/mama-agotada.jpeg" alt="La distancia"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Story 2: The solution -->
+    <div class="story">
+      <div class="story-label">Nuestra respuesta</div>
+      <h2 class="story-title">Creamos lo que nos hubiera gustado que existiera</h2>
+      <p class="story-text">
+        SaludCompartida nació de una idea sencilla: <strong>las familias que están lejos de su ser querido merecen sentirse acompañadas, cuidadas y tranquilas.</strong>
+      </p>
+      <p class="story-text" style="margin-top:12px;">
+        No somos un seguro. No somos un hospital. Somos un equipo de personas que entiende lo que vives, y construimos algo que realmente sirve para el día a día de tu familia.
+      </p>
+      <div class="story-img"><img src="/dashboard-imgs/abuela-nieta.jpeg" alt="Conexión familiar"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- What makes us different -->
+    <div class="story">
+      <div class="story-label">Lo que nos hace diferentes</div>
+      <h2 class="story-title">Esto no es salud. Es conexión.</h2>
+    </div>
+
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div>
+          <div class="diff-title">Doctores a cualquier hora</div>
+          <div class="diff-desc">Videollamada con un médico a las 3 AM si es necesario. Sin citas, sin esperas, sin salir de casa.</div>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        </div>
+        <div>
+          <div class="diff-title">Medicinas con descuento real</div>
+          <div class="diff-desc">Hasta 75% de descuento en más de 1,700 farmacias. El dinero que ahorras, te queda a ti.</div>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon rose">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div>
+          <div class="diff-title">Alguien que te escuche</div>
+          <div class="diff-desc">Sesiones semanales con psicólogos que entienden lo que vive una familia separada por la distancia.</div>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div class="diff-title">Lupita y Fernanda</div>
+          <div class="diff-desc">Una amiga que llama a tu familia para platicar, para alegrar el día, para que nadie se sienta solo. Ellas llaman primero.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="testimonial">
+      <p class="testimonial-quote">"Mi mamá me habla de su amiga Lupita. Ya están intercambiando recetas."</p>
+      <p class="testimonial-author">José Luis M. • Los Angeles, CA</p>
+    </div>
+
+    <!-- Closing -->
+    <div class="closing">
+      <h3 class="closing-title">Esto lo hizo posible alguien que te quiere</h3>
+      <p class="closing-text"><strong>Carlos</strong> eligió SaludCompartida para que tú y tu familia tengan doctores, medicina, terapia y compañía — siempre. Porque cuidarte desde lejos es su manera de decirte que <strong>estás en su corazón.</strong></p>
+    </div>
+
+    <a href="javascript:history.back()" class="volver-page">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      ← Volver
+    </a>
+  </div>
+</body>
+</html>

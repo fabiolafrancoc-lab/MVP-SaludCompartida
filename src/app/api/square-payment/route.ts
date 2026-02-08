@@ -12,19 +12,25 @@ import {
 // ════════════════════════════════════════════════════════════════════════════
 
 export async function POST(request: NextRequest) {
-  console.log('🔍 [SQUARE] Iniciando creación de suscripción');
+  console.log('🔍 [SQUARE] ==================== INICIO PAGO ====================');
+  console.log('🔍 [SQUARE] Timestamp:', new Date().toISOString());
   
   try {
     const body = await request.json();
     const { sourceId, registrationId } = body;
     
-    console.log('📦 [SQUARE] Body recibido:', { sourceId: sourceId?.substring(0, 20) + '...', registrationId });
+    console.log('📦 [SQUARE] Body completo recibido:', JSON.stringify(body, null, 2));
+    console.log('📦 [SQUARE] SourceId:', sourceId);
+    console.log('📦 [SQUARE] RegistrationId:', registrationId);
+    console.log('📦 [SQUARE] RegistrationId type:', typeof registrationId);
 
     // Validación de parámetros
     if (!sourceId || !registrationId) {
       console.error('❌ [SQUARE] Faltan parámetros requeridos');
+      console.error('❌ [SQUARE] sourceId presente:', !!sourceId);
+      console.error('❌ [SQUARE] registrationId presente:', !!registrationId);
       return NextResponse.json(
-        { success: false, error: 'Missing required parameters' },
+        { success: false, error: 'Missing required parameters: sourceId and registrationId are required' },
         { status: 400 }
       );
     }
@@ -265,7 +271,8 @@ export async function POST(request: NextRequest) {
     console.log('💾 [SUPABASE] Saving to database...');
 
     // Save customer
-    const { error: customerError } = await supabase
+    console.log('💾 [SUPABASE] Guardando customer en square_customers...');
+    const { data: savedCustomer, error: customerError } = await supabase
       .from('square_customers')
       .insert({
         registration_id: registrationId,
@@ -273,16 +280,21 @@ export async function POST(request: NextRequest) {
         email: registration.migrant_email,
         first_name: registration.migrant_first_name,
         last_name: registration.migrant_last_name,
-      });
+      })
+      .select()
+      .single();
 
     if (customerError) {
-      console.error('❌ [SUPABASE] Customer save failed:', customerError);
+      console.error('❌ [SUPABASE] Customer save failed:', JSON.stringify(customerError, null, 2));
+      console.error('❌ [SUPABASE] Error code:', customerError.code);
+      console.error('❌ [SUPABASE] Error message:', customerError.message);
     } else {
-      console.log('✅ [SUPABASE] Customer saved');
+      console.log('✅ [SUPABASE] Customer saved:', savedCustomer?.id);
     }
 
     // Save subscription
-    const { error: subscriptionError } = await supabase
+    console.log('💾 [SUPABASE] Guardando subscription en square_subscriptions...');
+    const { data: savedSubscription, error: subscriptionError } = await supabase
       .from('square_subscriptions')
       .insert({
         registration_id: registrationId,
@@ -291,16 +303,21 @@ export async function POST(request: NextRequest) {
         plan_variation_id: SQUARE_PLAN_VARIATION_ID,
         status: 'ACTIVE',
         start_date: new Date().toISOString(),
-      });
+      })
+      .select()
+      .single();
 
     if (subscriptionError) {
-      console.error('❌ [SUPABASE] Subscription save failed:', subscriptionError);
+      console.error('❌ [SUPABASE] Subscription save failed:', JSON.stringify(subscriptionError, null, 2));
+      console.error('❌ [SUPABASE] Error code:', subscriptionError.code);
+      console.error('❌ [SUPABASE] Error message:', subscriptionError.message);
     } else {
-      console.log('✅ [SUPABASE] Subscription saved');
+      console.log('✅ [SUPABASE] Subscription saved:', savedSubscription?.id);
     }
 
     // Save payment
-    const { error: paymentError } = await supabase
+    console.log('💾 [SUPABASE] Guardando payment en square_payments...');
+    const { data: paymentData, error: paymentError } = await supabase
       .from('square_payments')
       .insert({
         registration_id: registrationId,
@@ -309,29 +326,44 @@ export async function POST(request: NextRequest) {
         amount_cents: 1200,
         currency: 'USD',
         status: 'COMPLETED',
-      });
+      })
+      .select()
+      .single();
 
     if (paymentError) {
-      console.error('❌ [SUPABASE] Payment save failed:', paymentError);
+      console.error('❌ [SUPABASE] Payment save failed:', JSON.stringify(paymentError, null, 2));
+      console.error('❌ [SUPABASE] Error code:', paymentError.code);
+      console.error('❌ [SUPABASE] Error message:', paymentError.message);
+      console.error('❌ [SUPABASE] Error details:', paymentError.details);
+      // NO retornar error, continuar el flujo
     } else {
-      console.log('✅ [SUPABASE] Payment saved');
+      console.log('✅ [SUPABASE] Payment saved:', paymentData?.id);
     }
 
     // Update registration status
     // Valores válidos: 'pending', 'active', 'cancelled', 'expired', 'paused'
-    const { error: updateError } = await supabase
+    console.log('💾 [SUPABASE] Actualizando registration status a ACTIVE...');
+    const { data: updatedReg, error: updateError } = await supabase
       .from('registrations')
       .update({
         status: 'active',
         payment_completed_at: new Date().toISOString(),
         square_customer_id: customerId,
       })
-      .eq('id', registrationId);
+      .eq('id', registrationId)
+      .select()
+      .single();
 
     if (updateError) {
-      console.error('❌ [SUPABASE] Registration update failed:', updateError);
+      console.error('❌ [SUPABASE] Registration update failed:', JSON.stringify(updateError, null, 2));
+      console.error('❌ [SUPABASE] Error code:', updateError.code);
+      console.error('❌ [SUPABASE] Error message:', updateError.message);
+      console.error('❌ [SUPABASE] Error details:', updateError.details);
+      console.error('❌ [SUPABASE] CRÍTICO: El registro NO se marcó como activo');
+      // Este error SÍ es crítico pero no bloqueamos el response
     } else {
-      console.log('✅ [SUPABASE] Registration updated');
+      console.log('✅ [SUPABASE] Registration updated to ACTIVE:', updatedReg?.status);
+      console.log('✅ [SUPABASE] Payment completed at:', updatedReg?.payment_completed_at);
     }
 
     // ════════════════════════════════════════════════════════════════════════

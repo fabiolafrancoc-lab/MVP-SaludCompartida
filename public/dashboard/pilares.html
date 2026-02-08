@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestros Pilares | SaludCompartida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0C0B12;
+      --bg-card: #151422;
+      --bg-elevated: #1A1928;
+      --purple: #7C3AED;
+      --purple-soft: #A78BFA;
+      --green: #10B981;
+      --green-soft: #34D399;
+      --blue: #3B82F6;
+      --blue-soft: #60A5FA;
+      --orange-soft: #FBBF24;
+      --coral: #F87171;
+      --rose: #E8A0BF;
+      --text-primary: #F2F0F7;
+      --text-secondary: #BCB8CC;
+      --text-muted: #8A86A0;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-deep); color: var(--text-primary); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    .page-container { max-width: 760px; margin: 0 auto; padding: 48px 28px 80px; }
+    .page-header { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+    .page-logo { height: 32px; }
+    .page-title { font-family: var(--serif); font-size: 1.6rem; }
+    .page-subtitle { font-size: 0.9rem; color: var(--text-secondary); font-weight: 300; line-height: 1.6; margin-bottom: 40px; }
+    .page-subtitle strong { color: var(--text-primary); font-weight: 600; }
+
+    /* Pilar card */
+    .pilar {
+      position: relative; margin-bottom: 24px;
+      background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 22px; overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .pilar:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-2px); }
+    .pilar-number {
+      position: absolute; top: 20px; right: 22px;
+      font-family: var(--serif); font-size: 3.5rem; font-weight: 400;
+      line-height: 1; opacity: 0.06; color: white;
+    }
+    .pilar-content { padding: 32px 28px; position: relative; z-index: 1; }
+    .pilar-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 100px;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 14px;
+    }
+    .pilar-badge.blue { background: rgba(59, 130, 246, 0.1); color: var(--blue-soft); }
+    .pilar-badge.rose { background: rgba(232, 160, 191, 0.1); color: var(--rose); }
+    .pilar-badge.green { background: rgba(16, 185, 129, 0.1); color: var(--green-soft); }
+    .pilar-badge.purple { background: rgba(124, 58, 237, 0.1); color: var(--purple-soft); }
+
+    .pilar-icon {
+      width: 52px; height: 52px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .pilar-icon svg { width: 26px; height: 26px; }
+    .pilar-icon.blue { background: rgba(59, 130, 246, 0.1); }
+    .pilar-icon.blue svg { color: var(--blue-soft); }
+    .pilar-icon.rose { background: rgba(232, 160, 191, 0.1); }
+    .pilar-icon.rose svg { color: var(--rose); }
+    .pilar-icon.green { background: rgba(16, 185, 129, 0.1); }
+    .pilar-icon.green svg { color: var(--green-soft); }
+    .pilar-icon.purple { background: rgba(124, 58, 237, 0.1); }
+    .pilar-icon.purple svg { color: var(--purple-soft); }
+
+    .pilar-title {
+      font-family: var(--serif); font-size: 1.3rem; color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .pilar-desc {
+      font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; font-weight: 300;
+      margin-bottom: 18px;
+    }
+    .pilar-desc strong { color: var(--text-primary); font-weight: 600; }
+    .pilar-features { display: flex; flex-direction: column; gap: 10px; }
+    .pilar-feature {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.82rem; color: var(--text-secondary);
+    }
+    .pilar-feature-icon {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .pilar-feature-icon svg { width: 14px; height: 14px; }
+    .pilar-feature-icon.blue { background: rgba(59, 130, 246, 0.08); }
+    .pilar-feature-icon.blue svg { color: var(--blue-soft); }
+    .pilar-feature-icon.rose { background: rgba(232, 160, 191, 0.08); }
+    .pilar-feature-icon.rose svg { color: var(--rose); }
+    .pilar-feature-icon.green { background: rgba(16, 185, 129, 0.08); }
+    .pilar-feature-icon.green svg { color: var(--green-soft); }
+    .pilar-feature-icon.purple { background: rgba(124, 58, 237, 0.08); }
+    .pilar-feature-icon.purple svg { color: var(--purple-soft); }
+
+    /* Image accent */
+    .pilar-img {
+      width: 100%; height: 160px; overflow: hidden; margin-top: 20px; border-radius: 14px;
+    }
+    .pilar-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Divider line */
+    .pilar-divider {
+      height: 1px; margin: 0;
+      background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.1), transparent);
+    }
+
+    /* Bottom summary */
+    .pilares-summary {
+      text-align: center; padding: 36px 24px; margin-top: 16px;
+      background: linear-gradient(160deg, rgba(124, 58, 237, 0.05), rgba(232, 160, 191, 0.03));
+      border: 1px solid rgba(124, 58, 237, 0.08);
+      border-radius: 22px;
+    }
+    .pilares-summary-title { font-family: var(--serif); font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px; }
+    .pilares-summary-text { font-size: 0.88rem; color: var(--text-secondary); font-weight: 300; line-height: 1.6; }
+    .pilares-summary-text strong { color: var(--purple-soft); }
+    .pilares-price {
+      display: inline-flex; align-items: baseline; gap: 6px;
+      margin-top: 16px;
+    }
+    .pilares-price-amount { font-family: var(--serif); font-size: 2.2rem; color: var(--green-soft); }
+    .pilares-price-label { font-size: 0.82rem; color: var(--text-muted); }
+
+    .volver-page {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 28px; padding: 12px 24px; border-radius: 100px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-muted); font-size: 0.82rem; font-weight: 600;
+      text-decoration: none; transition: all 0.25s ease;
+    }
+    .volver-page:hover { color: var(--purple-soft); border-color: rgba(124, 58, 237, 0.2); background: rgba(124, 58, 237, 0.06); }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-header">
+      <img src="/dashboard-imgs/logo-saludcompartida.jpg" alt="SC" class="page-logo">
+      <h1 class="page-title">Nuestros Pilares</h1>
+    </div>
+    <p class="page-subtitle">Los <strong>cuatro pilares</strong> que sostienen la tranquilidad de tu familia. Todo incluido en tu membresía, sin costos adicionales.</p>
+
+    <!-- PILAR 01: Atención Médica 24/7 -->
+    <div class="pilar">
+      <div class="pilar-number">01</div>
+      <div class="pilar-content">
+        <div class="pilar-badge blue">Pilar 01</div>
+        <div class="pilar-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h2 class="pilar-title">Atención Médica 24/7</h2>
+        <p class="pilar-desc"><strong>Nuestra misión es reducir tus gastos médicos.</strong> Telemedicina ilimitada por video o teléfono, sin citas, sin esperas. A las 3 AM si es necesario.</p>
+        <div class="pilar-features">
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Videollamadas ilimitadas con médicos certificados
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Recetas electrónicas incluidas
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            75% de descuento en 1,700+ farmacias
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Disponible 24 horas, los 7 días de la semana
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PILAR 02: Terapia Psicológica -->
+    <div class="pilar">
+      <div class="pilar-number">02</div>
+      <div class="pilar-content">
+        <div class="pilar-badge rose">Pilar 02</div>
+        <div class="pilar-icon rose">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h2 class="pilar-title">Tu Espacio para Hablar</h2>
+        <p class="pilar-desc">Sesiones semanales con psicólogos certificados. Para tu mamá que necesita hablar, para tu esposa que necesita apoyo, para tus hijos que extrañan a papá.</p>
+        <div class="pilar-features">
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Una sesión semanal sin costo adicional
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Psicólogos especializados en familias migrantes
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Para adultos, adolescentes y niños
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Si el terapeuta no te funciona, tendrás otro
+          </div>
+        </div>
+        <div class="pilar-img"><img src="/dashboard-imgs/salud-mental.jpeg" alt="Bienestar emocional"></div>
+      </div>
+    </div>
+
+    <!-- PILAR 03: Seguimiento de Ahorros -->
+    <div class="pilar">
+      <div class="pilar-number">03</div>
+      <div class="pilar-content">
+        <div class="pilar-badge green">Pilar 03</div>
+        <div class="pilar-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h2 class="pilar-title">Seguimiento de tus Ahorros</h2>
+        <p class="pilar-desc">Un seguimiento mensual donde ves los <strong>ahorros reales</strong> que estás obteniendo al utilizar los servicios de SaludCompartida. Cada consulta médica, cada descuento en farmacia, cada sesión de terapia — todo suma.</p>
+        <div class="pilar-features">
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Reporte mensual de ahorro acumulado
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Desglose por servicio: médico, farmacias, terapia
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Proyección anual de ahorro potencial
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PILAR 04: Compañía -->
+    <div class="pilar">
+      <div class="pilar-number">04</div>
+      <div class="pilar-content">
+        <div class="pilar-badge purple">Pilar 04</div>
+        <div class="pilar-icon purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h2 class="pilar-title">Compañía</h2>
+        <p class="pilar-desc"><strong>Lupita y Fernanda</strong> llaman a tu familia para platicar de lo que les gusta: recetas, bailes, el fin de semana. Una amiga que siempre tiene tiempo. Porque a veces lo que más necesitas no es un doctor — es alguien que te escuche.</p>
+        <div class="pilar-features">
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Lupita — para adultos mayores de 55+
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Fernanda — para mamás y mujeres de 25 a 50
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Ellas llaman primero — tu familia no tiene que hacer nada
+          </div>
+          <div class="pilar-feature">
+            <div class="pilar-feature-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Conversaciones por WhatsApp, sin descargas
+          </div>
+        </div>
+        <div class="pilar-img"><img src="/dashboard-imgs/abuela-cocinando.jpeg" alt="Compañía"></div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="pilares-summary">
+      <h3 class="pilares-summary-title">Todo esto es para ti y tu familia</h3>
+      <p class="pilares-summary-text"><strong>Carlos</strong> se aseguró de que no te falte nada. Usa cada servicio las veces que lo necesites, <strong>sin límites y sin costos adicionales.</strong></p>
+    </div>
+
+    <a href="javascript:history.back()" class="volver-page">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      ← Volver
+    </a>
+  </div>
+</body>
+</html>

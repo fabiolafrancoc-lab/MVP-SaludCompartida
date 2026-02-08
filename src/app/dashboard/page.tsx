@@ -1189,11 +1189,7 @@ export default function Dashboard() {
         top: 0,
         zIndex: 100
       }}>
-        <div style={{ maxWidth: '430px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: '48px' }} onError={(e) => e.currentTarget.style.display = 'none'} />
-          </div>
-
+        <div style={{ maxWidth: '430px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ color: '#fff', fontSize: '17px', fontWeight: '700' }}>{userName}</span>
             <button
@@ -1402,7 +1398,7 @@ export default function Dashboard() {
         {currentPage === 'evaluacion' && <Evaluacion userType={userType!} onBack={() => setCurrentPage('home')} />}
         {currentPage === 'blog' && <Blog userType={userType!} onBack={() => setCurrentPage('home')} />}
         {currentPage === 'contactanos' && <Contactanos userType={userType!} />}
-        {currentPage === 'terminos' && <TerminosPrivacidad />}
+        {currentPage === 'terminos' && <TerminosPrivacidad onBack={() => setCurrentPage('home')} />}
       </main>
 
       {/* Bottom Navigation */}
