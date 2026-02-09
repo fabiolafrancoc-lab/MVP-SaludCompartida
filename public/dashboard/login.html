@@ -252,14 +252,12 @@
     const btnIngresar = document.getElementById('btn-ingresar');
     const btnText = document.getElementById('btn-text');
 
+    // === SUPABASE CONNECTION ===
+    const SUPABASE_URL = 'https://rzmdekjegbdgitqekjee.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bWRla2plZ2JkZ2l0cWVramVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY2ODY4NTgsImV4cCI6MjA1MjI2Mjg1OH0.wUMLWc97WMJW0Q6KgDO-x10Klu8FrXKk_M0bUmX1QTg';
+
     let currentUser = null;
     let termsAccepted = false;
-
-    // === MOCK DB — replace with Supabase fetch in production ===
-    const mockDB = {
-      'XC5R2K': { type:'migrant', firstName:'Carlos', lastName:'García', email:'carlos.garcia@gmail.com', phone:'+1 305 522 7158', companion:null, redirect:'/dashboard-migrante' },
-      'GLARRM': { type:'family', firstName:'María', lastName:'García', email:'maria.garcia@gmail.com', phone:'55 8734 2190', companion:'Lupita', redirect:'/dashboard/dashboard-completo.html' }
-    };
 
     codeInput.addEventListener('input', function() {
       const code = this.value.trim().toUpperCase();
@@ -280,12 +278,40 @@
       if (e.key === 'Enter' && currentUser && termsAccepted) handleLogin();
     });
 
-    function validateCode(code) {
-      // PRODUCTION: fetch('/api/validate-code', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({code}) })
-      //   .then(r => r.json()).then(data => data.success ? showUser(data.user) : showError());
-      const user = mockDB[code];
-      if (user) showUser(user);
-      else if (code.length >= 6) showError();
+    async function validateCode(code) {
+      try {
+        // Buscar en Supabase por migrant_code o family_code
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/registrations?or=(migrant_code.eq.${code},family_code.eq.${code})&status=eq.active`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          const registration = data[0];
+          const isMigrant = registration.migrant_code === code;
+          
+          const user = {
+            type: isMigrant ? 'migrant' : 'family',
+            firstName: isMigrant ? registration.migrant_first_name : registration.family_first_name,
+            lastName: isMigrant ? registration.migrant_last_name : registration.family_last_name,
+            email: isMigrant ? registration.migrant_email : (registration.family_email || registration.family_primary_email),
+            phone: isMigrant ? registration.migrant_phone : registration.family_whatsapp,
+            companion: registration.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda',
+            redirect: '/dashboard/dashboard-completo.html'
+          };
+          
+          showUser(user);
+        } else if (code.length >= 6) {
+          showError();
+        }
+      } catch (error) {
+        console.error('Error validando código:', error);
+        if (code.length >= 6) showError();
+      }
     }
 
     function showUser(user) {
