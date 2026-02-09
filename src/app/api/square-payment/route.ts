@@ -51,7 +51,11 @@ export async function POST(request: NextRequest) {
 
     // Enviar emails post-pago
     if (registration) {
-      await sendPostPaymentEmails(
+      console.log('📧 Enviando emails post-pago...');
+      console.log('Migrante email:', registration.migrant_email);
+      console.log('Familia email:', registration.family_primary_email);
+      
+      const emailResults = await sendPostPaymentEmails(
         {
           migrant_email: registration.migrant_email,
           migrant_code: registration.migrant_code,
@@ -59,13 +63,16 @@ export async function POST(request: NextRequest) {
           companion_name: registration.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda',
         },
         {
-          family_primary_email: registration.family_primary_email,
+          family_primary_email: registration.family_email || registration.family_primary_email,
           family_first_name: registration.family_first_name,
           family_code: registration.family_code,
           migrant_first_name: registration.migrant_first_name,
           companion_name: registration.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda',
-        }
+        },
+        registration // ✅ Pasar datos completos para email de notificación a Aura
       );
+      
+      console.log('📧 Resultados de emails:', JSON.stringify(emailResults, null, 2));
     }
 
     return NextResponse.json({ success: true, data: { paymentId: paymentData.payment.id, registrationId } });
