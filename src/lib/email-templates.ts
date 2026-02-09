@@ -408,7 +408,7 @@ function getFamilyEmailTemplate(data: FamilyEmailData): string {
 export async function sendMigrantEmail(data: MigrantEmailData) {
   try {
     const response = await resend.emails.send({
-      from: 'SaludCompartida <hola@saludcompartida.com>',
+      from: 'SaludCompartida <noreply@saludcompartida.app>',
       to: data.migrant_email,
       subject: '💜 Aunque estés lejos... tu familia está cuidada',
       html: getMigrantEmailTemplate(data),
@@ -428,7 +428,7 @@ export async function sendMigrantEmail(data: MigrantEmailData) {
 export async function sendFamilyEmail(data: FamilyEmailData) {
   try {
     const response = await resend.emails.send({
-      from: 'SaludCompartida <hola@saludcompartida.com>',
+      from: 'SaludCompartida <noreply@saludcompartida.app>',
       to: data.family_primary_email,
       subject: `🎁 ${data.migrant_first_name} te acaba de dar un regalo especial`,
       html: getFamilyEmailTemplate(data),
@@ -443,20 +443,164 @@ export async function sendFamilyEmail(data: FamilyEmailData) {
 }
 
 /**
- * Envía ambos emails después de pago exitoso
+ * Envía email de notificación al equipo Aura con todos los datos
+ */
+export async function sendAuraNotificationEmail(registration: any) {
+  try {
+    const auraEmails = [
+      'ffranco@saludcompartida.com',
+      'contact@saludcompartida.app',
+      'stephania.cardenas@anevent.com.mx'
+    ];
+
+    const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; padding: 20px; }
+    .container { max-width: 650px; margin: 0 auto; background: white; border-radius: 12px; padding: 32px; box-shadow: 0 4px 6px rgba(0,0,0,0.07); }
+    .header { background: linear-gradient(135deg, #06B6D4, #EC4899); padding: 24px; border-radius: 8px; margin-bottom: 24px; }
+    .header h1 { color: white; margin: 0; font-size: 24px; }
+    .header p { color: rgba(255,255,255,0.9); margin: 8px 0 0 0; font-size: 14px; }
+    .section { margin-bottom: 28px; }
+    .section-title { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+    .data-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+    .data-label { font-weight: 600; color: #64748b; font-size: 13px; }
+    .data-value { color: #1e293b; font-size: 14px; font-weight: 500; }
+    .code-box { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border: 2px solid #10b981; border-radius: 8px; padding: 16px; text-align: center; margin: 12px 0; }
+    .code-label { font-size: 11px; color: #047857; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .code-value { font-size: 28px; font-family: 'Courier New', monospace; font-weight: 800; color: #059669; letter-spacing: 4px; }
+    .highlight { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; border-radius: 6px; margin: 16px 0; }
+    .highlight strong { color: #92400e; }
+    .footer { margin-top: 32px; padding-top: 20px; border-top: 2px solid #e2e8f0; text-align: center; color: #94a3b8; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎉 Nueva Suscripción Registrada</h1>
+      <p>Pago procesado exitosamente en Square</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">💳 Información del Pago</div>
+      <div class="data-row">
+        <span class="data-label">ID Registro:</span>
+        <span class="data-value">${registration.id}</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Monto Pagado:</span>
+        <span class="data-value">$12.00 USD</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Fecha de Pago:</span>
+        <span class="data-value">${new Date(registration.payment_completed_at || Date.now()).toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })}</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Estado:</span>
+        <span class="data-value" style="color: #10b981; font-weight: 700;">ACTIVO ✓</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">👤 Migrante (EE.UU.)</div>
+      <div class="data-row">
+        <span class="data-label">Nombre:</span>
+        <span class="data-value">${registration.migrant_first_name} ${registration.migrant_last_name}</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Email:</span>
+        <span class="data-value">${registration.migrant_email}</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Teléfono:</span>
+        <span class="data-value">${registration.migrant_phone}</span>
+      </div>
+      
+      <div class="code-box">
+        <div class="code-label">Código de Acceso Migrante</div>
+        <div class="code-value">${registration.migrant_code}</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">👨‍👩‍👧 Familia (México)</div>
+      <div class="data-row">
+        <span class="data-label">Nombre:</span>
+        <span class="data-value">${registration.family_first_name} ${registration.family_last_name}</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Email:</span>
+        <span class="data-value">${registration.family_primary_email}</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">WhatsApp:</span>
+        <span class="data-value">${registration.family_whatsapp}</span>
+      </div>
+      
+      <div class="code-box">
+        <div class="code-label">Código de Acceso Familia</div>
+        <div class="code-value">${registration.family_code}</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">💜 Acompañante Asignada</div>
+      <div class="highlight">
+        <strong>${registration.family_companion_assigned === 'lupita' ? 'Lupita 🌸' : 'Fernanda 🦋'}</strong> llamará en las próximas 24 horas
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><strong>SaludCompartida</strong> - Sistema de Notificaciones</p>
+      <p>Este email fue enviado automáticamente después del pago en Square</p>
+    </div>
+  </div>
+</body>
+</html>
+    `;
+
+    const response = await resend.emails.send({
+      from: 'SaludCompartida Notificaciones <noreply@saludcompartida.app>',
+      to: auraEmails,
+      subject: `🎉 Nueva suscripción: ${registration.migrant_first_name} → ${registration.family_first_name}`,
+      html: htmlContent,
+    });
+    
+    console.log('✅ Email de notificación enviado a Aura:', response);
+    return { success: true, data: response };
+  } catch (error) {
+    console.error('❌ Error enviando email a Aura:', error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * Envía todos los emails después de pago exitoso (3 emails)
  */
 export async function sendPostPaymentEmails(
   migrantData: MigrantEmailData,
-  familyData: FamilyEmailData
+  familyData: FamilyEmailData,
+  registrationData?: any
 ) {
-  const results = await Promise.allSettled([
+  const emailPromises = [
     sendMigrantEmail(migrantData),
     sendFamilyEmail(familyData),
-  ]);
+  ];
+
+  // Agregar email de notificación a Aura si hay datos completos
+  if (registrationData) {
+    emailPromises.push(sendAuraNotificationEmail(registrationData));
+  }
+
+  const results = await Promise.allSettled(emailPromises);
   
   return {
     migrant: results[0],
     family: results[1],
+    aura: results[2] || { status: 'fulfilled', value: { success: false, error: 'No registration data' } },
   };
 }
 
