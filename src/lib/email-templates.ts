@@ -114,7 +114,7 @@ function getMigrantEmailTemplate(data: MigrantEmailData): string {
     <div class="header-bar"></div>
     
     <div class="logo-section">
-      <img src="https://saludcompartida.com/images/saludcompartida-transp_light-bg-no-tagline.png" alt="SaludCompartida" class="logo-img">
+      <img src="https://saludcompartida.app/saludcompartida-transp%20light-bg-no-tagline.png" alt="SaludCompartida" class="logo-img">
     </div>
     
     <div class="quote-section">
@@ -299,7 +299,7 @@ function getFamilyEmailTemplate(data: FamilyEmailData): string {
     </div>
     
     <div class="logo-section">
-      <img src="https://saludcompartida.com/images/saludcompartida-transp_light-bg-no-tagline.png" alt="SaludCompartida" class="logo-img">
+      <img src="https://saludcompartida.app/saludcompartida-transp%20light-bg-no-tagline.png" alt="SaludCompartida" class="logo-img">
     </div>
     
     <div class="from-section">
