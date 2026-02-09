@@ -408,7 +408,7 @@ function getFamilyEmailTemplate(data: FamilyEmailData): string {
 export async function sendMigrantEmail(data: MigrantEmailData) {
   try {
     const response = await resend.emails.send({
-      from: 'SaludCompartida <noreply@saludcompartida.app>',
+      from: 'SaludCompartida <contact@saludcompartida.com>',
       to: data.migrant_email,
       subject: '💜 Aunque estés lejos... tu familia está cuidada',
       html: getMigrantEmailTemplate(data),
@@ -428,7 +428,7 @@ export async function sendMigrantEmail(data: MigrantEmailData) {
 export async function sendFamilyEmail(data: FamilyEmailData) {
   try {
     const response = await resend.emails.send({
-      from: 'SaludCompartida <noreply@saludcompartida.app>',
+      from: 'SaludCompartida <contact@saludcompartida.com>',
       to: data.family_primary_email,
       subject: `🎁 ${data.migrant_first_name} te acaba de dar un regalo especial`,
       html: getFamilyEmailTemplate(data),
@@ -563,7 +563,7 @@ export async function sendAuraNotificationEmail(registration: any) {
     `;
 
     const response = await resend.emails.send({
-      from: 'SaludCompartida Notificaciones <noreply@saludcompartida.app>',
+      from: 'SaludCompartida <contact@saludcompartida.com>',
       to: auraEmails,
       subject: `🎉 Nueva suscripción: ${registration.migrant_first_name} → ${registration.family_first_name}`,
       html: htmlContent,
