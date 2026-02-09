@@ -79,7 +79,7 @@ export default function TerminosPage() {
         </section>
 
         <div style={{ textAlign: 'center', paddingTop: '32px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-          <a href="/dashboard" style={{ color: '#06B6D4', textDecoration: 'none', fontSize: '14px', fontWeight: '600' }}>← Volver al Dashboard</a>
+          <button onClick={() => window.history.back()} style={{ background: 'none', border: 'none', color: '#06B6D4', cursor: 'pointer', fontSize: '14px', fontWeight: '600' }}>← Volver</button>
         </div>
       </div>
     </div>

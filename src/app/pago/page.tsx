@@ -87,8 +87,8 @@ function PagoContent() {
       try {
         console.log('🔵 [SQUARE] Iniciando Square Payments SDK...');
         
-        // TEMPORAL: Hardcoded mientras Vercel actualiza env vars
-        const appId = process.env.NEXT_PUBLIC_SQUARE_APP_ID || 'sq0idp-TDgOgQ1CmhJqDdCqulhnIw';
+        // Credenciales de Square PRODUCCIÓN
+        const appId = process.env.NEXT_PUBLIC_SQUARE_APP_ID || 'sq0idp-PM-rngX8E8LPCUr9iqsbyg';
         const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || 'L9W263XHC7876';
 
         console.log('🔵 [SQUARE] App ID:', appId);
@@ -761,7 +761,7 @@ function PagoContent() {
           margin: 12px 0;
         }
 
-        /* ========================================== */}
+        /* ========================================== */
         /* FORMULARIO DE TARJETA - SQUARE SECTION    */
         /* Square renderiza TODO en #card-container  */
         /* ========================================== */

@@ -776,7 +776,7 @@
               <span class="service-name">Videollamada 24/7</span>
               <span class="service-badge ilimitado">Ilimitado</span>
             </div>
-            <div class="service-desc">Videollamadas y llamadas con médicos. Sin citas, sin esperas. Incluye recetas electrónicas.</div>
+            <div class="service-desc"><span id="videollamada-migrant-name">Carlos</span> (Migrante) te cuida. Videollamadas y llamadas con médicos. Sin citas, sin esperas. Incluye recetas electrónicas.</div>
           </div>
         </div>
         <div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
@@ -793,9 +793,16 @@
             <svg width="20" height="20" fill="currentColor"><use href="#wa-icon"/></svg>
             Llama ahora al doctor
           </a>
-          <div class="video-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Video: Mamá con niño en videollamada con doctor
+          <div style="width: 100%; border-radius: 14px; overflow: hidden; margin-bottom: 16px;">
+            <video width="100%" controls style="display: block; border-radius: 14px;">
+              <source src="/telemedicina.mov" type="video/quicktime">
+              <source src="/telemedicina.mp4" type="video/mp4">
+              Tu navegador no soporta el elemento de video.
+            </video>
+          </div>
+          <div class="video-placeholder" style="margin-bottom: 16px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Video: Telemedicina placeholder</span>
           </div>
           <a href="javascript:void(0)" class="volver-btn" onclick="event.stopPropagation(); event.preventDefault(); var card=this.closest('.service-card'); card.classList.remove('open'); document.getElementById('card-doctor').scrollIntoView({behavior:'instant',block:'start'});">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -815,7 +822,7 @@
               <span class="service-name">Descuentos en Farmacias</span>
               <span class="service-badge descuento">Hasta 75%</span>
             </div>
-            <div class="service-desc">1,700+ farmacias en todo México. Descuentos en medicinas, productos para el hogar y productos para ti.</div>
+            <div class="service-desc"><span id="farmacia-migrant-name">El migrante</span> quiere que ahorres. 1,700+ farmacias en todo México. Descuentos en medicinas, productos para el hogar y productos para ti.</div>
           </div>
         </div>
         <div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
@@ -874,7 +881,12 @@
 
           <!-- Stats + image -->
           <div class="farmacia-grid">
-            <div class="farmacia-img"><img src="/dashboard-imgs/farmaceutico.jpeg" alt="Farmacéutico"></div>
+            <div class="farmacia-img">
+              <div style="width: 100%; height: 200px; border-radius: 14px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02)); border: 1px dashed rgba(16, 185, 129, 0.2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--text-muted); font-size: 0.8rem;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.4;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>
+                <span>Foto: Farmacéutico placeholder</span>
+              </div>
+            </div>
             <div class="farmacia-stats">
               <div class="farmacia-stat">
                 <div class="farmacia-stat-number">1,700+</div>
@@ -913,7 +925,7 @@
               <span class="service-name">Tu Espacio para Hablar</span>
               <span class="service-badge semanal">Semanal</span>
             </div>
-            <div class="service-desc">Alguien que te escuche de verdad. Para ti, tu pareja, tus hijos. Sin costo adicional.</div>
+            <div class="service-desc"><span id="terapia-migrant-name">El migrante</span> quiere verte bien, por dentro y por fuera. Alguien que te escuche de verdad. Para ti, tu pareja, tus hijos. Sin costo adicional.</div>
           </div>
         </div>
         <div class="service-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
@@ -979,13 +991,19 @@
 
           <!-- Videos -->
           <div class="terapia-videos">
-            <div class="terapia-video-placeholder antes">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              Video: El peso que cargas
+            <div style="border-radius: 14px; overflow: hidden;">
+              <video width="100%" controls style="display: block; border-radius: 14px;">
+                <source src="/MUJER GRITANDO.mov" type="video/quicktime">
+                <source src="/MUJER GRITANDO.mp4" type="video/mp4">
+                Tu navegador no soporta el elemento de video.
+              </video>
             </div>
-            <div class="terapia-video-placeholder despues">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              Video: Después de hablar
+            <div style="border-radius: 14px; overflow: hidden;">
+              <video width="100%" controls style="display: block; border-radius: 14px;">
+                <source src="/MUJER_RIENGO.mov" type="video/quicktime">
+                <source src="/MUJER_RIENGO.mp4" type="video/mp4">
+                Tu navegador no soporta el elemento de video.
+              </video>
             </div>
           </div>
 
@@ -1052,7 +1070,7 @@
               <p class="terapia-submit-note">Recibirás una confirmación por WhatsApp</p>
             </div>
           </div>
-          <a href="javascript:void(0)" class="volver-btn" onclick="event.stopPropagation(); event.preventDefault(); var card=this.closest('.service-card'); card.classList.remove('open'); document.getElementById('card-terapia').scrollIntoView({behavior:'instant',block:'start'});">
+          <a href="#card-terapia" class="volver-btn" onclick="event.stopPropagation(); event.preventDefault(); var card=this.closest('.service-card'); card.classList.remove('open'); setTimeout(function(){ document.getElementById('card-terapia').scrollIntoView({behavior:'smooth',block:'start'}); }, 100);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
             Volver
           </a>
@@ -1186,6 +1204,58 @@
   </footer>
 
   <script>
+    // === SUPABASE: Load user data ===
+    (function() {
+      const code = localStorage.getItem('dashboardCode');
+      if (!code) {
+        window.location.href = '/dashboard/login.html';
+        return;
+      }
+
+      // Supabase config
+      const SUPABASE_URL = 'https://rzmdekjegbdgitqekjee.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bWRla2plZ2JkZ2l0cWVramVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY2ODY4NTgsImV4cCI6MjA1MjI2Mjg1OH0.wUMLWc97WMJW0Q6KgDO-x10Klu8FrXKk_M0bUmX1QTg';
+
+      // Fetch user data
+      fetch(`${SUPABASE_URL}/rest/v1/registrations?or=(migrant_code.eq.${code},family_code.eq.${code})`, {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (!data || data.length === 0) {
+          window.location.href = '/dashboard/login.html';
+          return;
+        }
+
+        const user = data[0];
+        const isMigrant = user.migrant_code === code;
+        const userName = isMigrant ? user.migrant_first_name : user.family_first_name;
+        const otherName = isMigrant ? user.family_first_name : user.migrant_first_name;
+
+        // Update hero greeting
+        document.querySelector('.hero-greeting span').textContent = userName;
+        
+        // Update hero subtitle
+        document.querySelector('.hero-sub strong').textContent = otherName;
+
+        // Update service descriptions with migrant name
+        const videollamadaName = document.getElementById('videollamada-migrant-name');
+        if (videollamadaName) videollamadaName.textContent = otherName;
+
+        const farmaciaName = document.getElementById('farmacia-migrant-name');
+        if (farmaciaName) farmaciaName.textContent = otherName;
+
+        const terapiaName = document.getElementById('terapia-migrant-name');
+        if (terapiaName) terapiaName.textContent = otherName;
+      })
+      .catch(err => {
+        console.error('Error loading user data:', err);
+      });
+    })();
+
     // === Time chip selection ===
     document.querySelectorAll('.time-chip').forEach(chip => {
       chip.addEventListener('click', (e) => {

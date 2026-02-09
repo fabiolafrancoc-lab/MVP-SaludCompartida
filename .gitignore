@@ -29,3 +29,5 @@ out/
 
 # Temporarily exclude large video files for GitHub upload
 *.mov
+.vercel
+.env*.local

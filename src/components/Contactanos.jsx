@@ -128,7 +128,7 @@ export default function Contactanos({ userType = 'mexico' }) {
       <div style={S.px}>
         <button style={S.back}><I.Arrow /> Volver al inicio</button>
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <div style={{ width: 72, height: 72, borderRadius: 22, background: 'rgba(6,182,212,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}><I.Msg s={36} /></div>
+          <img src="/girl.jpeg" alt="Ayuda" style={{ width: 120, height: 120, borderRadius: '50%', objectFit: 'cover', margin: '0 auto 16px', border: '3px solid rgba(6,182,212,0.3)' }} />
           <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 26, marginBottom: 8, lineHeight: 1.3 }}>¿Necesitas <span style={{ color: '#06B6D4' }}>Ayuda</span>?</h2>
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, maxWidth: 320, margin: '0 auto' }}>Cuéntanos qué necesitas. Te responderemos en menos de 15 minutos.</p>
         </div>

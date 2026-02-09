@@ -65,9 +65,7 @@ export default function Evaluacion({ userType = 'mexico', onBack }) {
   if (submitted) {
     return (
       <div style={S.page}>
-        <div style={S.header}>
-          <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: 40 }} />
-        </div>
+        {/* Header eliminado - ya está en navegación superior */}
         <div style={{ ...S.section, textAlign: 'center', paddingTop: 80 }}>
           <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(16,185,129,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
@@ -85,13 +83,7 @@ export default function Evaluacion({ userType = 'mexico', onBack }) {
 
   return (
     <div style={S.page}>
-      <div style={S.header}>
-        <img src="/saludcompartida-dark-no-tagline.png" alt="SaludCompartida" style={{ height: 40 }} />
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', marginRight: 6, boxShadow: '0 0 8px #10B981' }} />
-          <span style={{ fontSize: 12, color: '#10B981', fontWeight: 600 }}>Activo</span>
-        </div>
-      </div>
+      {/* Header eliminado - ya está en navegación superior */}
 
       <div style={S.section}>
         <div style={{ paddingTop: 12, marginBottom: 8, cursor: 'pointer' }} onClick={onBack}>
