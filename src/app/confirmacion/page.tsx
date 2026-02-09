@@ -2,14 +2,17 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getSupabaseBrowserClient } from '@/lib/supabase-browser';
+import { createClient } from '@supabase/supabase-js';
 import Image from 'next/image';
 
 // Force dynamic rendering for this page
 export const dynamic = 'force-dynamic';
 
-// Supabase client singleton
-const supabase = getSupabaseBrowserClient();
+// Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://rzmdekjegbdgitqekjee.supabase.co',
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+);
 
 interface RegistrationData {
   migrant_first_name?: string;
@@ -522,14 +525,7 @@ function ConfirmacionContent() {
             />
             <button 
               className="nav-login-button"
-              onClick={() => {
-                // CRÍTICO: Guardar código de migrante en localStorage antes de ir al dashboard
-                if (migrantCode && migrantCode !== 'Cargando...' && migrantCode !== 'SC-ERROR') {
-                  console.log('💾 [CONFIRMACIÓN] Guardando código en localStorage:', migrantCode);
-                  localStorage.setItem('dashboardCode', migrantCode);
-                }
-                router.push('/dashboard');
-              }}
+              onClick={() => router.push('/dashboard/login.html')}
             >
               Ya Tengo Mi Código/Login
             </button>

@@ -1,6 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import twilio from 'twilio';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -8,7 +7,6 @@ const supabase = createClient(
 );
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 function generateCode() {
   return Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -46,16 +44,6 @@ export async function POST(req) {
         to: body.user_email,
         subject: `${body.user_first_name}, ${body.migrant_first_name} te envió algo especial`,
         html: `<h1>Tu código: ${user_code}</h1>`
-      }),
-      twilioClient.messages.create({
-        from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`,
-        to: `whatsapp:${body.migrant_phone}`,
-        body: `Hola ${body.migrant_first_name}! Tu código: ${migrant_code}`
-      }),
-      twilioClient.messages.create({
-        from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`,
-        to: `whatsapp:${body.user_phone}`,
-        body: `Hola ${body.user_first_name}! Tu código: ${user_code}`
       })
     ]);
 
