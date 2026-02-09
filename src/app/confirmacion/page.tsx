@@ -559,40 +559,24 @@ function ConfirmacionContent() {
             </div>
           </div>
 
-          {/* Codes Section - REMOVED CODES, ONLY EMAIL/WHATSAPP NOTIFICATION */}
+          {/* Codes Section - TEST A/B SEMANA 1: SIN CÓDIGOS */}
           <div className="codes-section">
-            <h2 className="codes-title">Tus códigos de acceso están en camino</h2>
+            <h2 className="codes-title">¡Todo listo para empezar!</h2>
             
-            {/* Email notification */}
+            {/* Simple confirmation - NO codes shown */}
             <div className="code-card">
               <div className="code-card-header">
-                <span className="code-card-flag">📧</span>
+                <span className="code-card-flag">✅</span>
                 <div className="code-card-info">
-                  <h3>Revisa tu correo electrónico</h3>
-                  <p>En menos de 15 minutos recibirás tus códigos de acceso</p>
+                  <h3>Tu familia ya puede usar SaludCompartida</h3>
+                  <p>Hemos enviado toda la información necesaria por email y WhatsApp</p>
                 </div>
               </div>
               <div className="code-sent" style={{marginTop: '16px', fontSize: '16px'}}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                Códigos enviados por email y WhatsApp
-              </div>
-            </div>
-
-            {/* WhatsApp notification */}
-            <div className="code-card">
-              <div className="code-card-header">
-                <span className="code-card-flag">💬</span>
-                <div className="code-card-info">
-                  <h3>También por WhatsApp</h3>
-                  <p>Tu familia en México recibirá su código por WhatsApp</p>
-                </div>
-              </div>
-              <div style={{padding: '16px', background: 'rgba(37, 211, 102, 0.1)', borderRadius: '12px', marginTop: '12px'}}>
-                <p style={{fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6', margin: 0}}>
-                  <strong style={{color: '#25D366'}}>Importante:</strong> Los códigos estarán activos y listos para usar en cuanto los recibas por email y WhatsApp.
-                </p>
+                Confirmación enviada por email y WhatsApp
               </div>
             </div>
           </div>
