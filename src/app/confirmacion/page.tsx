@@ -154,7 +154,7 @@ function ConfirmacionContent() {
         }
 
         .nav-login-button {
-          background: linear-gradient(135deg, var(--cyan), var(--magenta));
+          background: var(--cyan);
           color: white;
           border: none;
           padding: 12px 24px;
