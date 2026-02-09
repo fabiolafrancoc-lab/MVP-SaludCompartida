@@ -559,49 +559,40 @@ function ConfirmacionContent() {
             </div>
           </div>
 
-          {/* Codes Section */}
+          {/* Codes Section - REMOVED CODES, ONLY EMAIL/WHATSAPP NOTIFICATION */}
           <div className="codes-section">
-            <h2 className="codes-title">Tus códigos de acceso</h2>
+            <h2 className="codes-title">Tus códigos de acceso están en camino</h2>
             
-            {/* Code for Migrant */}
+            {/* Email notification */}
             <div className="code-card">
               <div className="code-card-header">
-                <span className="code-card-flag">🇺🇸</span>
+                <span className="code-card-flag">📧</span>
                 <div className="code-card-info">
-                  <h3>Para ti ({registrationData?.migrant_first_name || 'Titular'})</h3>
-                  <p>Tu código personal</p>
+                  <h3>Revisa tu correo electrónico</h3>
+                  <p>En menos de 15 minutos recibirás tus códigos de acceso</p>
                 </div>
               </div>
-              <div className="code-display">
-                <div className="code-label">Tu código de acceso</div>
-                <div className="code-value cyan">{migrantCode}</div>
-              </div>
-              <div className="code-sent">
+              <div className="code-sent" style={{marginTop: '16px', fontSize: '16px'}}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                Enviado a tu WhatsApp y email
+                Códigos enviados por email y WhatsApp
               </div>
             </div>
 
-            {/* Code for Family */}
+            {/* WhatsApp notification */}
             <div className="code-card">
               <div className="code-card-header">
-                <span className="code-card-flag">🇲🇽</span>
+                <span className="code-card-flag">💬</span>
                 <div className="code-card-info">
-                  <h3>Para tu familia ({registrationData?.family_first_name || 'en México'})</h3>
-                  <p>Acceso a telemedicina, farmacia y compañía</p>
+                  <h3>También por WhatsApp</h3>
+                  <p>Tu familia en México recibirá su código por WhatsApp</p>
                 </div>
               </div>
-              <div className="code-display">
-                <div className="code-label">Código de tu familia</div>
-                <div className="code-value magenta">{familyCode}</div>
-              </div>
-              <div className="code-sent">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                Enviado por WhatsApp a México
+              <div style={{padding: '16px', background: 'rgba(37, 211, 102, 0.1)', borderRadius: '12px', marginTop: '12px'}}>
+                <p style={{fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6', margin: 0}}>
+                  <strong style={{color: '#25D366'}}>Importante:</strong> Los códigos estarán activos y listos para usar en cuanto los recibas por email y WhatsApp.
+                </p>
               </div>
             </div>
           </div>
