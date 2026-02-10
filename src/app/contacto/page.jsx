@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function ContactoPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -37,10 +39,10 @@ export default function ContactoPage() {
         setShowSuccess(true);
         setFormData({ nombre: '', email: '', telefono: '', mensaje: '' });
         
-        // Ocultar mensaje después de 5 segundos
+        // Redirigir a registro después de 3 segundos
         setTimeout(() => {
-          setShowSuccess(false);
-        }, 5000);
+          router.push('/registro-jan');
+        }, 3000);
       }
     } catch (error) {
       console.error('Error enviando mensaje:', error);
