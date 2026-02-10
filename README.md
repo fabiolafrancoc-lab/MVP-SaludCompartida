@@ -1,16 +1,26 @@
-# React + Vite
+# 🏥 SaludCompartida MVP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Plataforma de salud para comunidades migrantes, construida con Next.js y React.
 
-Currently, two official plugins are available:
+## 🔑 Owner Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**¿Eres el owner de la plataforma y necesitas encontrar tus tokens?**
 
-## React Compiler
+Consulta la [Guía de Tokens para el Owner](OWNER_TOKENS_GUIDE.md) para instrucciones paso a paso sobre dónde encontrar y configurar cada token y API key necesario.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📚 Documentación
 
-## Expanding the ESLint configuration
+- [Guía de Tokens para el Owner](OWNER_TOKENS_GUIDE.md) - Dónde encontrar todos tus tokens y API keys
+- [Guía de Implementación](IMPLEMENTATION_GUIDE.md) - Setup completo del proyecto
+- [Checklist de Producción](PRODUCTION_CHECKLIST.md) - Verificaciones antes de lanzar
+- [Guía de Reparación](GUIA_REPARACION_PASO_A_PASO.md) - Troubleshooting paso a paso
+- [Códigos Automáticos](AUTOMATIC_CODES_README.md) - Configuración de cron jobs
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Quick Start
+
+```bash
+npm install
+npm run dev
+```
+
+Consulta [`.env.example`](.env.example) para las variables de entorno necesarias y la [Guía de Tokens](OWNER_TOKENS_GUIDE.md) para saber dónde obtener cada una.
