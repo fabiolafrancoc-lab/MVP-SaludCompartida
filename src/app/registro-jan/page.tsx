@@ -1053,7 +1053,7 @@ export default function RegistrationPage() {
             className="nav-logo"
           />
           <div className="nav-help">
-            ¿Dudas? <a href="mailto:hola@saludcompartida.com">Contáctanos</a>
+            ¿Dudas? <a href="/contacto">Contáctanos</a>
           </div>
         </div>
       </nav>
