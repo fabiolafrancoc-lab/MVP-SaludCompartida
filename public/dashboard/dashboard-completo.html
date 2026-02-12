@@ -1338,16 +1338,14 @@
       const loading = document.getElementById('lad-loading');
       const errorDiv = document.getElementById('lad-error');
       
-      // Get family code from localStorage
       const familyCode = localStorage.getItem('userCode');
       
       if (!familyCode) {
-        errorDiv.textContent = 'Error: No se encontró código de acceso. Por favor inicia sesión nuevamente.';
+        errorDiv.textContent = 'Error: No se encontró código de acceso.';
         errorDiv.style.display = 'block';
         return;
       }
       
-      // Show loading
       btn.style.display = 'none';
       loading.style.display = 'block';
       errorDiv.style.display = 'none';
@@ -1356,33 +1354,26 @@
         const response = await fetch('/api/lad/telemedicine', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            familyCode: familyCode,
-            consultationType: 'video'
-          })
+          body: JSON.stringify({ familyCode: familyCode })
         });
         
         const data = await response.json();
         
         if (!response.ok) {
-          throw new Error(data.error || 'Error al crear consulta');
+          throw new Error(data.error || 'Error al conectar');
         }
         
-        // Open video URL in new tab
-        if (data.consultation && data.consultation.video_url) {
-          window.open(data.consultation.video_url, '_blank');
-          loading.innerHTML = '<p style="color: #10B981; font-size: 14px;">✅ Videollamada iniciada. Revisa la nueva pestaña.</p>';
-          setTimeout(() => {
-            loading.style.display = 'none';
-            btn.style.display = 'flex';
-          }, 3000);
-        } else {
-          throw new Error('No se recibió URL de videollamada');
-        }
+        // Abrir app LAD
+        window.open(data.app_url, '_blank');
+        loading.innerHTML = '<p style="color: #10B981; font-size: 14px;">✅ Redirigiendo a Llamando al Doctor. Usa tu código: ' + familyCode + '</p>';
+        setTimeout(() => {
+          loading.style.display = 'none';
+          btn.style.display = 'flex';
+        }, 5000);
         
       } catch (error) {
         console.error('Error LAD:', error);
-        errorDiv.textContent = error.message || 'Error al conectar con el servicio médico';
+        errorDiv.textContent = error.message;
         errorDiv.style.display = 'block';
         loading.style.display = 'none';
         btn.style.display = 'flex';
