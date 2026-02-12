@@ -793,6 +793,20 @@
             <svg width="20" height="20" fill="currentColor"><use href="#wa-icon"/></svg>
             Llama ahora al doctor
           </a>
+          
+          <!-- LAD Videollamada Button -->
+          <button id="lad-video-btn" class="doctor-cta" style="margin-top: 12px; background: linear-gradient(135deg, #06B6D4, #0891B2); border: none; cursor: pointer;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="23 7 16 12 23 17 23 7"/>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </svg>
+            Iniciar Videollamada Médica
+          </button>
+          <div id="lad-loading" style="display: none; text-align: center; padding: 16px; color: #06B6D4;">
+            <div style="display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(6, 182, 212, 0.3); border-top-color: #06B6D4; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            <p style="margin-top: 8px; font-size: 14px;">Conectando con doctor...</p>
+          </div>
+          <div id="lad-error" style="display: none; padding: 12px; background: #FEE2E2; border-radius: 8px; color: #DC2626; font-size: 14px; margin-top: 12px;"></div>
           <div style="width: 100%; border-radius: 14px; overflow: hidden; margin-bottom: 16px;">
             <video width="100%" controls style="display: block; border-radius: 14px;">
               <source src="/telemedicina.mov" type="video/quicktime">
@@ -1314,3 +1328,64 @@
           opt.textContent = dayNames[day].charAt(0).toUpperCase() + dayNames[day].slice(1) +
             ' ' + current.getDate() + ' de ' + monthNames[current.getMonth()];
        
+
+    // === LAD Videollamada Integration ===
+    document.getElementById('lad-video-btn')?.addEventListener('click', async function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const btn = this;
+      const loading = document.getElementById('lad-loading');
+      const errorDiv = document.getElementById('lad-error');
+      
+      // Get family code from localStorage
+      const familyCode = localStorage.getItem('userCode');
+      
+      if (!familyCode) {
+        errorDiv.textContent = 'Error: No se encontró código de acceso. Por favor inicia sesión nuevamente.';
+        errorDiv.style.display = 'block';
+        return;
+      }
+      
+      // Show loading
+      btn.style.display = 'none';
+      loading.style.display = 'block';
+      errorDiv.style.display = 'none';
+      
+      try {
+        const response = await fetch('/api/lad/telemedicine', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            familyCode: familyCode,
+            consultationType: 'video'
+          })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Error al crear consulta');
+        }
+        
+        // Open video URL in new tab
+        if (data.consultation && data.consultation.video_url) {
+          window.open(data.consultation.video_url, '_blank');
+          loading.innerHTML = '<p style="color: #10B981; font-size: 14px;">✅ Videollamada iniciada. Revisa la nueva pestaña.</p>';
+          setTimeout(() => {
+            loading.style.display = 'none';
+            btn.style.display = 'flex';
+          }, 3000);
+        } else {
+          throw new Error('No se recibió URL de videollamada');
+        }
+        
+      } catch (error) {
+        console.error('Error LAD:', error);
+        errorDiv.textContent = error.message || 'Error al conectar con el servicio médico';
+        errorDiv.style.display = 'block';
+        loading.style.display = 'none';
+        btn.style.display = 'flex';
+      }
+    });
+  </script>
