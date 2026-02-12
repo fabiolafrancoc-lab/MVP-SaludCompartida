@@ -1,20 +1,241 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
-export default function LandingPage() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+// Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://rzmdekjegbdgitqekjee.supabase.co',
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+// Función para generar código de familia único (6 dígitos alfanuméricos, SIN prefijo)
+function generateFamilyCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = '';
+  for (let i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
 
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+// Función para determinar companion (Lupita 55+ / Fernanda 25-50)
+function determineCompanion(fechaNacimiento: string): 'lupita' | 'fernanda' {
+  const birthDate = new Date(fechaNacimiento);
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  return age >= 55 ? 'lupita' : 'fernanda';
+}
+
+// Función para validar edad (18+)
+function validateAge(birthdate: string): boolean {
+  const birth = new Date(birthdate);
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const monthDiff = today.getMonth() - birth.getMonth();
+  
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+  
+  return age >= 18;
+}
+
+export default function RegistrationPage() {
+  const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+    // Migrante USA - nombres exactos de Supabase
+    migrant_first_name: '',
+    migrant_last_name: '',
+    migrant_mother_last_name: '',
+    migrant_sex: '',
+    migrant_birthdate: '',
+    migrant_email: '',
+    migrant_phone: '',
+    // Usuario México - nombres exactos de Supabase
+    family_first_name: '',
+    family_last_name: '',
+    family_mother_last_name: '',
+    family_sex: '',
+    family_birthdate: '',
+    family_email: '',
+    family_phone: '',
+    // Términos
+    terms_accepted: false,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    
+    // Formatear teléfono USA: (555) 123-4567
+    if (name === 'migrant_phone') {
+      const cleaned = value.replace(/\D/g, '').slice(0, 10);
+      let formatted = '';
+      if (cleaned.length > 0) {
+        formatted = '(' + cleaned.slice(0, 3);
+      }
+      if (cleaned.length > 3) {
+        formatted += ') ' + cleaned.slice(3, 6);
+      }
+      if (cleaned.length > 6) {
+        formatted += '-' + cleaned.slice(6, 10);
+      }
+      setFormData(prev => ({ ...prev, [name]: formatted }));
+      return;
+    }
+    
+    // Formatear teléfono México: 55 1234 5678
+    if (name === 'family_phone') {
+      const cleaned = value.replace(/\D/g, '').slice(0, 10);
+      let formatted = '';
+      if (cleaned.length > 0) {
+        formatted = cleaned.slice(0, 2);
+      }
+      if (cleaned.length > 2) {
+        formatted += ' ' + cleaned.slice(2, 6);
+      }
+      if (cleaned.length > 6) {
+        formatted += ' ' + cleaned.slice(6, 10);
+      }
+      setFormData(prev => ({ ...prev, [name]: formatted }));
+      return;
+    }
+    
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleNextStep = (e: React.FormEvent) => {
+    e.preventDefault();
+    setStep(2);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      // Validate age 18+
+      if (!validateAge(formData.migrant_birthdate)) {
+        setError('El migrante debe ser mayor de 18 años');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validateAge(formData.family_birthdate)) {
+        setError('El usuario en México debe ser mayor de 18 años');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Validate emails
+      const emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+      if (!emailRegex.test(formData.migrant_email)) {
+        setError('Email del migrante inválido');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!emailRegex.test(formData.family_email)) {
+        setError('Email del usuario en México inválido');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Generate 2 unique codes with safety counter
+      let migrant_code = generateFamilyCode();
+      let family_code = generateFamilyCode();
+      let attempts = 0;
+      const maxAttempts = 10;
+
+      // Ensure they're different
+      while (migrant_code === family_code && attempts < maxAttempts) {
+        family_code = generateFamilyCode();
+        attempts++;
+      }
+      
+      if (migrant_code === family_code) {
+        throw new Error('Unable to generate unique codes');
+      }
+      
+      // Limpiar teléfonos (solo números)
+      const migrant_phone_clean = formData.migrant_phone.replace(/\D/g, '');
+      const family_phone_clean = formData.family_phone.replace(/\D/g, '');
+      
+      // Determinar companion según edad del usuario en México
+      const family_companion_assigned = determineCompanion(formData.family_birthdate);
+
+      // Guardar en tabla REGISTRATIONS - nombres EXACTOS de columnas Supabase
+      const { data: registrationData, error: registrationError } = await supabase
+        .from('registrations')
+        .insert({
+          // Códigos (2 different codes)
+          migrant_code: migrant_code,
+          family_code: family_code,
+          
+          // Datos del migrante (USA)
+          migrant_first_name: formData.migrant_first_name,
+          migrant_last_name: formData.migrant_last_name,
+          migrant_mother_last_name: formData.migrant_mother_last_name || null,
+          migrant_sex: formData.migrant_sex,
+          migrant_birthdate: formData.migrant_birthdate,
+          migrant_email: formData.migrant_email,
+          migrant_country_code: '+1',
+          migrant_phone: migrant_phone_clean,
+          
+          // Datos del usuario en México
+          family_first_name: formData.family_first_name,
+          family_last_name: formData.family_last_name,
+          family_mother_last_name: formData.family_mother_last_name || null,
+          family_sex: formData.family_sex,
+          family_birthdate: formData.family_birthdate,
+          family_email: formData.family_email,
+          family_country_code: '+52',
+          family_phone: family_phone_clean,
+          family_country: 'MX',
+          
+          // Companion asignado
+          family_companion_assigned: family_companion_assigned,
+          
+          // Status y términos
+          status: 'pending_payment',
+          terms_accepted: formData.terms_accepted,
+          terms_accepted_at: new Date().toISOString(),
+          
+          created_at: new Date().toISOString(),
+        })
+        .select()
+        .single();
+
+      if (registrationError) throw registrationError;
+
+      // Guardar en sessionStorage para /confirmacion y /dashboard
+      sessionStorage.setItem('registrationData', JSON.stringify({
+        registration_id: registrationData.id,
+        migrant_code: migrant_code,
+        family_code: family_code,
+        family_companion_assigned: family_companion_assigned,
+        // Para WATI: +1 + número limpio
+        migrant_phone_full: `+1${migrant_phone_clean}`,
+        // Para WATI: +52 + número limpio  
+        family_phone_full: `+52${family_phone_clean}`,
+        // Datos adicionales para dashboard
+        migrant_first_name: formData.migrant_first_name,
+        family_first_name: formData.family_first_name,
+      }));
+
+      // ✅ REDIRIGIR A PÁGINA DE PAGO CON FORMULARIO DE TARJETA
+      window.location.href = `/pago?id=${registrationData.id}`;
+
+    } catch (err: any) {
+      console.error('Error en registro:', err);
+      setError(err.message || 'Ocurrió un error. Por favor intenta de nuevo.');
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -31,10 +252,7 @@ export default function LandingPage() {
           --navy: #0a0a0a;
           --navy-light: #12121f;
           --navy-card: #16162a;
-          --cream: #FFFBF7;
-          --gold: #F59E0B;
           --green: #10B981;
-          --red: #EF4444;
           --text-primary: #FFFFFF;
           --text-secondary: rgba(255, 255, 255, 0.75);
           --text-muted: rgba(255, 255, 255, 0.5);
@@ -57,57 +275,11 @@ export default function LandingPage() {
           color: var(--text-primary);
           -webkit-font-smoothing: antialiased;
           line-height: 1.6;
-          overflow-x: hidden;
+          min-height: 100vh;
         }
 
         .serif {
           font-family: 'Instrument Serif', Georgia, serif;
-        }
-
-        /* Ambient Background */
-        .ambient {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          z-index: 0;
-        }
-
-        .ambient-orb {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(120px);
-          opacity: 0.2;
-        }
-
-        .ambient-orb.one {
-          width: 600px;
-          height: 600px;
-          background: #1a1a2E;
-          top: -200px;
-          left: -200px;
-          animation: drift1 30s ease-in-out infinite;
-        }
-
-        .ambient-orb.two {
-          width: 500px;
-          height: 500px;
-          background: #1a1a2E;
-          bottom: 20%;
-          right: -150px;
-          animation: drift2 25s ease-in-out infinite;
-        }
-
-        @keyframes drift1 {
-          0%, 100% { transform: translate(0, 0); }
-          50% { transform: translate(50px, 50px); }
-        }
-
-        @keyframes drift2 {
-          0%, 100% { transform: translate(0, 0); }
-          50% { transform: translate(-40px, -40px); }
         }
 
         /* Navigation */
@@ -118,15 +290,8 @@ export default function LandingPage() {
           right: 0;
           z-index: 1000;
           padding: 16px 20px;
-          transition: all 0.3s;
           background: #0a0a0a;
-        }
-
-        .nav.scrolled {
-          background: rgba(10, 10, 10, 0.98);
-          backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(255,255,255,0.05);
-          padding: 12px 20px;
         }
 
         .nav-inner {
@@ -135,130 +300,410 @@ export default function LandingPage() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          gap: 24px;
         }
 
         .nav-logo {
           height: 36px;
-          flex-shrink: 0;
         }
 
-        .nav-links {
-          display: none;
-          align-items: center;
-          gap: 32px;
-        }
-
-        .nav-links a {
+        .nav-help {
           font-size: 14px;
           color: var(--text-secondary);
+        }
+
+        .nav-help a {
+          color: var(--cyan);
           text-decoration: none;
-          transition: color 0.2s;
-          white-space: nowrap;
         }
 
-        .nav-links a:hover {
-          color: var(--text-primary);
-        }
-
-        .nav-cta {
-          display: none;
-          align-items: center;
-          gap: 12px;
-        }
-
-        .nav-mobile-toggle {
+        /* Registration Container */
+        .registration {
+          min-height: 100vh;
+          padding: 100px 20px 60px;
           display: flex;
-          flex-direction: column;
+          align-items: center;
           justify-content: center;
-          gap: 5px;
-          width: 32px;
-          height: 32px;
-          background: none;
-          border: none;
-          cursor: pointer;
-          padding: 4px;
         }
 
-        .nav-mobile-toggle span {
-          display: block;
+        .registration-wrapper {
+          display: grid;
+          gap: 48px;
           width: 100%;
-          height: 2px;
-          background: var(--text-primary);
-          border-radius: 2px;
+          max-width: 1100px;
+          align-items: center;
+        }
+
+        @media (min-width: 900px) {
+          .registration-wrapper {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        .registration-image {
+          display: none;
+        }
+
+        @media (min-width: 900px) {
+          .registration-image {
+            display: block;
+          }
+        }
+
+        .registration-image img {
+          width: 100%;
+          height: 500px;
+          object-fit: cover;
+          border-radius: 24px;
+          box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+        }
+
+        .registration-image-caption {
+          text-align: center;
+          margin-top: 16px;
+          font-size: 15px;
+          color: var(--text-secondary);
+          font-style: italic;
+        }
+
+        .registration-container {
+          width: 100%;
+          max-width: 600px;
+        }
+
+        /* Progress Steps */
+        .progress-container {
+          margin-bottom: 40px;
+        }
+
+        .progress-steps {
+          display: flex;
+          justify-content: center;
+          gap: 12px;
+          margin-bottom: 16px;
+        }
+
+        .progress-step {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .progress-dot {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 14px;
           transition: all 0.3s;
         }
 
-        .nav-mobile-toggle.active span:nth-child(1) {
-          transform: rotate(45deg) translate(5px, 5px);
+        .progress-dot.active {
+          background: var(--magenta);
+          color: white;
         }
 
-        .nav-mobile-toggle.active span:nth-child(2) {
-          opacity: 0;
+        .progress-dot.completed {
+          background: var(--green);
+          color: white;
         }
 
-        .nav-mobile-toggle.active span:nth-child(3) {
-          transform: rotate(-45deg) translate(5px, -5px);
+        .progress-dot.inactive {
+          background: var(--navy-card);
+          color: var(--text-muted);
+          border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .nav-mobile {
+        .progress-label {
+          font-size: 14px;
+          color: var(--text-secondary);
           display: none;
-          flex-direction: column;
-          gap: 16px;
-          padding: 24px 20px;
-          background: #0a0a0a;
-          border-top: 1px solid rgba(255,255,255,0.05);
-          margin-top: 16px;
         }
 
-        .nav-mobile.active {
+        @media (min-width: 480px) {
+          .progress-label {
+            display: block;
+          }
+        }
+
+        .progress-line {
+          width: 60px;
+          height: 2px;
+          background: rgba(255,255,255,0.1);
+          margin: 0 8px;
+        }
+
+        .progress-line.active {
+          background: var(--green);
+        }
+
+        .progress-text {
+          text-align: center;
+          font-size: 14px;
+          color: var(--text-muted);
+        }
+
+        /* Form Card */
+        .form-card {
+          background: var(--navy-card);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 24px;
+          padding: 40px 32px;
+        }
+
+        @media (max-width: 480px) {
+          .form-card {
+            padding: 32px 20px;
+          }
+        }
+
+        .form-header {
+          text-align: center;
+          margin-bottom: 32px;
+        }
+
+        .form-icon {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
           display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 20px;
+          font-size: 32px;
         }
 
-        .nav-mobile a {
+        .form-icon.usa {
+          background: rgba(14, 165, 233, 0.15);
+        }
+
+        .form-icon.mexico {
+          background: rgba(16, 185, 129, 0.15);
+        }
+
+        .form-title {
+          font-size: 28px;
+          margin-bottom: 8px;
+        }
+
+        .form-subtitle {
           font-size: 16px;
           color: var(--text-secondary);
-          text-decoration: none;
-          padding: 8px 0;
         }
 
-        .nav-mobile a:hover {
+        /* Form Fields */
+        .form-section {
+          margin-bottom: 28px;
+        }
+
+        .form-section-title {
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: var(--cyan);
+          margin-bottom: 16px;
+        }
+
+        .form-row {
+          display: grid;
+          gap: 16px;
+          margin-bottom: 16px;
+        }
+
+        .form-row.two-col {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .form-row.three-col {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        @media (max-width: 480px) {
+          .form-row.two-col,
+          .form-row.three-col {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .form-label {
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--text-secondary);
+          display: flex;
+          align-items: center;
+        }
+
+        .form-label .required {
+          color: var(--magenta);
+        }
+
+        .form-input,
+        .form-select {
+          width: 100%;
+          padding: 14px 16px;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 12px;
+          color: var(--text-primary);
+          font-size: 16px;
+          font-family: inherit;
+          transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+          outline: none;
+          border-color: var(--cyan);
+          background: rgba(255,255,255,0.06);
+        }
+
+        .form-input::placeholder {
+          color: var(--text-muted);
+        }
+
+        .form-select {
+          cursor: pointer;
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 12px center;
+          padding-right: 44px;
+        }
+
+        .form-select option {
+          background: var(--navy-card);
           color: var(--text-primary);
         }
 
-        .nav-mobile .btn {
-          text-align: center;
-          margin-top: 8px;
+        /* Phone Input with Flag */
+        .phone-input-container {
+          position: relative;
         }
 
-        @media (min-width: 1024px) {
-          .nav-links { display: flex; }
-          .nav-cta { display: flex; }
-          .nav-mobile-toggle { display: none; }
-          .nav-mobile { display: none !important; }
+        .phone-flag {
+          position: absolute;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: var(--text-muted);
+          font-size: 14px;
+        }
+
+        .phone-input {
+          padding-left: 80px !important;
+        }
+
+        .phone-hint {
+          font-size: 12px;
+          color: var(--text-muted);
+          margin-top: 6px;
+        }
+
+        .phone-hint strong {
+          color: var(--text-secondary);
+        }
+
+        .phone-example {
+          color: var(--cyan);
+          font-family: monospace;
+          background: rgba(14, 165, 233, 0.1);
+          padding: 2px 6px;
+          border-radius: 4px;
+        }
+
+        .phone-note {
+          font-size: 11px;
+          color: var(--gold);
+          margin-top: 4px;
+          font-style: italic;
+        }
+
+        /* WhatsApp Icon */
+        .whatsapp-icon {
+          width: 18px;
+          height: 18px;
+          vertical-align: middle;
+          margin-right: 6px;
+        }
+
+        /* Terms Checkbox */
+        .terms-checkbox {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          padding: 16px;
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 12px;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+          width: 20px;
+          height: 20px;
+          margin-top: 2px;
+          accent-color: var(--magenta);
+          cursor: pointer;
+          flex-shrink: 0;
+        }
+
+        .terms-label {
+          font-size: 14px;
+          color: var(--text-secondary);
+          line-height: 1.5;
+        }
+
+        .terms-label a {
+          color: var(--cyan);
+          text-decoration: none;
+        }
+
+        .terms-label a:hover {
+          text-decoration: underline;
+        }
+
+        .terms-label .required {
+          color: var(--magenta);
+        }
+
+        /* Date Input */
+        .date-input {
+          position: relative;
+        }
+
+        .date-input::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+          cursor: pointer;
         }
 
         /* Buttons */
         .btn {
-          padding: 12px 24px;
-          border-radius: 100px;
-          font-size: 14px;
-          font-weight: 600;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 16px 32px;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 700;
           text-decoration: none;
           transition: all 0.3s;
           cursor: pointer;
           border: none;
           font-family: inherit;
-          display: inline-block;
-        }
-
-        .btn-ghost {
-          background: transparent;
-          color: var(--text-secondary);
-        }
-
-        .btn-ghost:hover {
-          color: var(--text-primary);
+          width: 100%;
         }
 
         .btn-primary {
@@ -272,1656 +717,724 @@ export default function LandingPage() {
           box-shadow: 0 8px 30px rgba(236, 72, 153, 0.4);
         }
 
-        .btn-magenta {
-          background: var(--magenta);
-          color: white;
-          box-shadow: 0 4px 16px rgba(236, 72, 153, 0.3);
+        .btn-primary:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          transform: none;
         }
 
-        .btn-magenta:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(236, 72, 153, 0.4);
-        }
-
-        .btn-cyan {
-          background: var(--cyan);
-          color: white;
-          box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
-        }
-
-        .btn-cyan:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4);
-        }
-
-        .btn-hero {
-          padding: 18px 36px;
-          font-size: 17px;
-          border-radius: 14px;
-        }
-
-        /* Sections */
-        section {
-          position: relative;
-          z-index: 1;
-        }
-
-        .section-inner {
-          max-width: 1100px;
-          margin: 0 auto;
-          padding: 0 20px;
-        }
-
-        /* Hero */
-        .hero {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          padding: 120px 20px 80px;
-        }
-
-        .hero-inner {
-          max-width: 800px;
-          margin: 0 auto;
-          text-align: center;
-        }
-
-        .hero-eyebrow {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(14, 165, 233, 0.15);
-          border: 1px solid var(--cyan);
-          padding: 12px 24px;
-          border-radius: 100px;
-          font-size: 14px;
-          font-weight: 700;
-          color: white;
-          margin-bottom: 32px;
-          animation: fadeUp 0.8s ease-out;
-        }
-
-        .hero-eyebrow::before {
-          content: '';
-          width: 10px;
-          height: 10px;
-          background: var(--cyan);
-          border-radius: 50%;
-          animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.4; }
-        }
-
-        .hero-headline {
-          font-size: clamp(36px, 8vw, 64px);
-          line-height: 1.1;
-          margin-bottom: 24px;
-          animation: fadeUp 0.8s ease-out 0.1s both;
-        }
-
-        .hero-headline .you {
-          color: var(--cyan);
-        }
-
-        .hero-headline .them {
-          color: var(--cyan);
-        }
-
-        .hero-sub-emotional {
-          font-size: 19px;
+        .btn-secondary {
+          background: transparent;
           color: var(--text-secondary);
-          margin-bottom: 24px;
-          max-width: 580px;
-          margin-left: auto;
-          margin-right: auto;
-          line-height: 1.7;
-          animation: fadeUp 0.8s ease-out 0.15s both;
-        }
-
-        .hero-sub-solution {
-          font-size: 20px;
-          color: var(--text-primary);
-          margin-bottom: 32px;
-          animation: fadeUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero-proposition {
-          font-size: clamp(22px, 4vw, 32px);
-          margin-bottom: 40px;
-          padding: 24px 32px;
-          background: var(--navy-card);
           border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 16px;
-          display: inline-block;
-          animation: fadeUp 0.8s ease-out 0.25s both;
         }
 
-        .hero-ctas {
+        .btn-secondary:hover {
+          border-color: rgba(255,255,255,0.2);
+          color: var(--text-primary);
+        }
+
+        .form-actions {
           display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 16px;
-          margin-bottom: 48px;
-          animation: fadeUp 0.8s ease-out 0.3s both;
+          gap: 12px;
+          margin-top: 32px;
         }
 
-        .hero-stats {
+        .form-actions .btn {
+          flex: 1;
+        }
+
+        /* Security Note */
+        .security-note {
           display: flex;
+          align-items: center;
           justify-content: center;
-          gap: 48px;
-          flex-wrap: wrap;
-          animation: fadeUp 0.8s ease-out 0.4s both;
-        }
-
-        .hero-stat {
-          text-align: center;
-        }
-
-        .hero-stat-value {
-          font-size: 32px;
-          font-weight: 700;
-          color: var(--cyan);
-        }
-
-        .hero-stat-label {
-          font-size: 14px;
+          gap: 8px;
+          margin-top: 24px;
+          font-size: 13px;
           color: var(--text-muted);
         }
 
-        @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        /* Video Section */
-        .video-section {
-          padding: 80px 20px;
-          background: rgba(26, 26, 46, 0.3);
-        }
-
-        .video-container {
-          max-width: 800px;
-          margin: 0 auto;
-        }
-
-        .video-header {
-          text-align: center;
-          margin-bottom: 32px;
-        }
-
-        .video-title {
-          font-size: clamp(28px, 5vw, 40px);
-          margin-bottom: 12px;
-          color: var(--text-primary);
-        }
-
-        .video-subtitle {
-          font-size: 18px;
-          color: var(--text-secondary);
-        }
-
-        .video-wrapper {
-          position: relative;
-          padding-bottom: 56.25%;
-          border-radius: 20px;
-          overflow: hidden;
-          background: var(--navy-card);
-          box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-        }
-
-        .video-wrapper iframe {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border: none;
-        }
-
-        /* Guides Section */
-        .guides-section {
-          padding: 80px 20px;
-        }
-
-        .guides-container {
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-
-        .guides-header {
-          text-align: center;
-          margin-bottom: 48px;
-        }
-
-        .guides-title {
-          font-size: clamp(28px, 5vw, 40px);
-          margin-bottom: 12px;
-          color: var(--text-primary);
-        }
-
-        .guides-subtitle {
-          font-size: 18px;
-          color: var(--text-secondary);
-        }
-
-        .guides-grid {
-          display: grid;
-          gap: 32px;
-        }
-
-        @media (min-width: 768px) {
-          .guides-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        .guide-card {
-          background: var(--navy-card);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 20px;
-          overflow: hidden;
-          transition: all 0.3s ease;
-        }
-
-        .guide-card:hover {
-          transform: translateY(-4px);
-          border-color: rgba(255,255,255,0.15);
-          box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
-
-        .guide-image {
-          width: 100%;
-          height: auto;
-          display: block;
-        }
-
-        /* Solution Section */
-        .solution-section {
-          padding: 100px 20px;
-          background: linear-gradient(180deg, rgba(26, 26, 46, 0.5) 0%, rgba(10, 10, 10, 0.5) 100%);
-        }
-
-        .solution-header {
-          text-align: center;
-          margin-bottom: 64px;
-        }
-
-        .solution-label {
-          font-size: 13px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          color: var(--cyan);
-          margin-bottom: 16px;
-        }
-
-        .solution-title {
-          font-size: clamp(28px, 5vw, 44px);
-          margin-bottom: 16px;
-        }
-
-        .solution-sub {
-          font-size: 18px;
-          color: var(--text-secondary);
-          max-width: 600px;
-          margin: 0 auto;
-        }
-
-        .pillars-grid {
-          display: grid;
-          gap: 24px;
-        }
-
-        @media (min-width: 768px) {
-          .pillars-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        .pillar-card {
-          background: var(--navy-card);
-          border: 1px solid rgba(255,255,255,0.06);
-          border-radius: 24px;
-          padding: 36px 28px;
-          transition: all 0.4s;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .pillar-card::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 4px;
-          opacity: 0;
-          transition: opacity 0.3s;
-        }
-
-        .pillar-card:hover {
-          transform: translateY(-6px);
-          border-color: rgba(255,255,255,0.12);
-        }
-
-        .pillar-card:hover::before {
-          opacity: 1;
-        }
-
-        .pillar-card.cyan::before { background: var(--cyan); }
-        .pillar-card.magenta::before { background: var(--magenta); }
-        .pillar-card.green::before { background: var(--green); }
-        .pillar-card.gold::before { background: var(--gold); }
-
-        .pillar-number {
-          font-size: 13px;
-          font-weight: 700;
-          letter-spacing: 1px;
-          margin-bottom: 16px;
-        }
-
-        .pillar-card.cyan .pillar-number { color: var(--cyan); }
-        .pillar-card.magenta .pillar-number { color: var(--magenta); }
-        .pillar-card.green .pillar-number { color: var(--green); }
-        .pillar-card.gold .pillar-number { color: var(--gold); }
-
-        .pillar-icon {
-          width: 56px;
-          height: 56px;
-          border-radius: 16px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 20px;
-        }
-
-        .pillar-icon svg {
-          width: 28px;
-          height: 28px;
-        }
-
-        .pillar-card.cyan .pillar-icon {
-          background: var(--cyan-glow);
-          color: var(--cyan);
-        }
-
-        .pillar-card.magenta .pillar-icon {
-          background: var(--magenta-glow);
-          color: var(--magenta);
-        }
-
-        .pillar-card.green .pillar-icon {
-          background: rgba(16, 185, 129, 0.12);
+        .security-note svg {
+          width: 16px;
+          height: 16px;
           color: var(--green);
         }
 
-        .pillar-card.gold .pillar-icon {
-          background: rgba(245, 158, 11, 0.12);
-          color: var(--gold);
-        }
-
-        .pillar-title {
-          font-size: 22px;
-          margin-bottom: 12px;
-        }
-
-        .pillar-desc {
-          font-size: 15px;
-          color: var(--text-secondary);
-          line-height: 1.7;
-          margin-bottom: 20px;
-        }
-
-        .pillar-highlight {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 10px 16px;
-          background: rgba(255,255,255,0.04);
-          border-radius: 8px;
-          font-size: 14px;
-          color: var(--text-secondary);
-        }
-
-        .pillar-highlight strong {
-          color: var(--text-primary);
-          font-size: 18px;
-        }
-
-        /* Pain Section */
-        .pain-section {
-          padding: 100px 20px;
-        }
-
-        .pain-inner {
-          max-width: 900px;
-          margin: 0 auto;
-          text-align: center;
-        }
-
-        .pain-truth {
-          margin-bottom: 40px;
-        }
-
-        .pain-truth-label {
-          display: inline-block;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          color: var(--magenta);
-          margin-bottom: 16px;
-        }
-
-        .pain-truth-headline {
-          font-size: clamp(40px, 8vw, 72px);
-          line-height: 1.1;
-          color: var(--text-primary);
-        }
-
-        .pain-reality {
-          font-size: 20px;
-          color: var(--text-secondary);
-          margin-bottom: 48px;
-          max-width: 600px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        .pain-headline {
-          font-size: clamp(24px, 4vw, 36px);
-          line-height: 1.4;
-          margin-bottom: 48px;
-          color: var(--text-secondary);
-        }
-
-        .pain-headline em {
-          color: var(--magenta);
-          font-style: italic;
-        }
-
-        .pain-cards {
-          display: grid;
-          gap: 20px;
-          margin-bottom: 48px;
-        }
-
-        @media (min-width: 768px) {
-          .pain-cards {
-            grid-template-columns: repeat(3, 1fr);
-          }
-          .pain-card {
-            flex-direction: column;
-            text-align: center;
-          }
-          .pain-card-icon {
-            margin: 0 auto;
-          }
-        }
-
-        .pain-card {
-          background: var(--navy-card);
-          border: 1px solid rgba(255,255,255,0.06);
-          border-radius: 16px;
-          padding: 24px;
-          text-align: left;
-          display: flex;
-          align-items: flex-start;
-          gap: 16px;
-        }
-
-        .pain-card-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
-          background: rgba(239, 68, 68, 0.1);
-          color: var(--red);
+        /* Error Message */
+        .error-message {
           display: flex;
           align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-
-        .pain-card-icon svg {
-          width: 24px;
-          height: 24px;
-        }
-
-        .pain-card-content h4 {
-          font-size: 17px;
-          margin-bottom: 6px;
-        }
-
-        .pain-card-content p {
-          font-size: 15px;
-          color: var(--text-muted);
-          line-height: 1.6;
-        }
-
-        .pain-quote-box {
-          background: var(--navy-card);
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 20px;
-          padding: 40px 32px;
-          margin-top: 48px;
-        }
-
-        .pain-quote {
-          font-size: 22px;
-          color: var(--text-primary);
-          font-style: italic;
-          max-width: 600px;
-          margin: 0 auto;
-          line-height: 1.6;
-        }
-
-        .pain-quote strong {
-          color: var(--cyan);
-          font-style: normal;
-          font-weight: 700;
-        }
-
-        /* CTA Intermedio */
-        .cta-intermedio {
-          padding: 80px 20px;
-          text-align: center;
-          background: linear-gradient(180deg, rgba(26, 26, 46, 0.5) 0%, rgba(10, 10, 10, 0.5) 100%);
-        }
-
-        .cta-intermedio-inner {
-          max-width: 600px;
-          margin: 0 auto;
-        }
-
-        .cta-intermedio-title {
-          font-size: clamp(28px, 5vw, 40px);
-          margin-bottom: 16px;
-          color: var(--text-primary);
-        }
-
-        .cta-intermedio-text {
-          font-size: 18px;
-          color: var(--text-secondary);
-          margin-bottom: 32px;
-        }
-
-        /* Companions Section */
-        .companions-section {
-          padding: 120px 20px;
-          background: linear-gradient(180deg, transparent 0%, rgba(26, 26, 46, 0.3) 50%, transparent 100%);
-        }
-
-        .companions-inner {
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-
-        .companions-header {
-          text-align: center;
-          margin-bottom: 64px;
-        }
-
-        .companions-badge {
-          display: inline-block;
-          background: var(--navy-card);
-          border: 1px solid rgba(255,255,255,0.15);
-          padding: 10px 20px;
-          border-radius: 100px;
-          font-size: 13px;
-          font-weight: 700;
-          color: var(--text-primary);
-          margin-bottom: 24px;
-        }
-
-        .companions-title {
-          font-size: clamp(36px, 7vw, 56px);
-          line-height: 1.15;
-          margin-bottom: 20px;
-        }
-
-        .companions-title .lupita {
-          color: var(--magenta);
-        }
-
-        .companions-title .fernanda {
-          color: var(--cyan);
-        }
-
-        .companions-subtitle {
-          font-size: 20px;
-          color: var(--text-secondary);
-          max-width: 550px;
-          margin: 0 auto;
-        }
-
-        .companions-grid {
-          display: grid;
-          gap: 32px;
-          margin-bottom: 48px;
-        }
-
-        @media (min-width: 768px) {
-          .companions-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        .companion-card {
-          background: var(--navy-card);
-          border-radius: 28px;
-          padding: 40px 32px;
-          border: 1px solid rgba(255,255,255,0.06);
-          transition: all 0.4s;
-        }
-
-        .companion-card.lupita {
-          border-color: rgba(236, 72, 153, 0.15);
-        }
-
-        .companion-card.lupita:hover {
-          border-color: rgba(236, 72, 153, 0.3);
-          box-shadow: 0 24px 64px rgba(236, 72, 153, 0.12);
-          transform: translateY(-6px);
-        }
-
-        .companion-card.fernanda {
-          border-color: rgba(14, 165, 233, 0.15);
-        }
-
-        .companion-card.fernanda:hover {
-          border-color: rgba(14, 165, 233, 0.3);
-          box-shadow: 0 24px 64px rgba(14, 165, 233, 0.12);
-          transform: translateY(-6px);
-        }
-
-        .companion-badge-small {
-          display: inline-block;
-          padding: 8px 16px;
-          border-radius: 8px;
-          font-size: 12px;
-          font-weight: 700;
-          margin-bottom: 20px;
-        }
-
-        .lupita .companion-badge-small {
-          background: var(--magenta-glow);
-          color: var(--magenta);
-        }
-
-        .fernanda .companion-badge-small {
-          background: var(--cyan-glow);
-          color: var(--cyan);
-        }
-
-        .companion-name {
-          font-size: 36px;
-          margin-bottom: 8px;
-        }
-
-        .lupita .companion-name { color: var(--magenta); }
-        .fernanda .companion-name { color: var(--cyan); }
-
-        .companion-for {
-          font-size: 15px;
-          color: var(--text-muted);
-          margin-bottom: 20px;
-        }
-
-        .companion-desc {
-          font-size: 17px;
-          color: var(--text-secondary);
-          line-height: 1.75;
-          margin-bottom: 24px;
-        }
-
-        .companion-features {
-          display: flex;
-          flex-wrap: wrap;
           gap: 10px;
+          padding: 14px 18px;
+          background: rgba(239, 68, 68, 0.1);
+          border: 1px solid rgba(239, 68, 68, 0.3);
+          border-radius: 12px;
+          margin-top: 16px;
         }
 
-        .companion-feature {
-          padding: 10px 16px;
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.06);
-          border-radius: 100px;
-          font-size: 13px;
-          color: var(--text-secondary);
-        }
-
-        .companions-callout {
-          background: linear-gradient(135deg, #0a0a0a, #1a1a2E, #0a0a0a);
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 20px;
-          padding: 32px;
-          text-align: center;
-        }
-
-        .companions-callout p {
-          font-size: 20px;
-          margin-bottom: 8px;
-        }
-
-        .companions-callout small {
-          font-size: 15px;
-          opacity: 0.9;
-        }
-
-        /* Testimonials */
-        .testimonials-section {
-          padding: 100px 20px;
-          background: rgba(26, 26, 46, 0.4);
-        }
-
-        .testimonials-header {
-          text-align: center;
-          margin-bottom: 56px;
-        }
-
-        .testimonials-label {
-          font-size: 13px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          color: var(--gold);
-          margin-bottom: 16px;
-        }
-
-        .testimonials-title {
-          font-size: clamp(28px, 5vw, 40px);
-        }
-
-        .testimonials-grid {
-          display: grid;
-          gap: 24px;
-          max-width: 1100px;
-          margin: 0 auto;
-        }
-
-        @media (min-width: 768px) {
-          .testimonials-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-
-        .testimonial-card {
-          background: var(--navy-card);
-          border: 1px solid rgba(255,255,255,0.06);
-          border-radius: 24px;
-          padding: 32px 28px;
-        }
-
-        .testimonial-stars {
-          display: flex;
-          gap: 4px;
-          margin-bottom: 20px;
-        }
-
-        .testimonial-stars svg {
+        .error-message svg {
           width: 20px;
           height: 20px;
-          fill: var(--gold);
-          color: var(--gold);
+          color: #EF4444;
+          flex-shrink: 0;
         }
 
-        .testimonial-quote {
-          font-size: 17px;
-          line-height: 1.75;
-          margin-bottom: 24px;
-          color: var(--text-primary);
+        .error-message span {
+          font-size: 14px;
+          color: #FCA5A5;
         }
 
-        .testimonial-author {
-          display: flex;
-          align-items: center;
-          gap: 14px;
-        }
-
-        .testimonial-avatar {
-          width: 52px;
-          height: 52px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 700;
-          font-size: 18px;
-        }
-
-        .testimonial-avatar.cyan {
-          background: var(--cyan-glow);
-          color: var(--cyan);
-        }
-
-        .testimonial-avatar.magenta {
-          background: var(--magenta-glow);
-          color: var(--magenta);
-        }
-
-        .testimonial-avatar.green {
-          background: rgba(16, 185, 129, 0.12);
-          color: var(--green);
-        }
-
-        .testimonial-name {
-          font-weight: 600;
-          font-size: 16px;
-          margin-bottom: 2px;
-        }
-
-        .testimonial-location {
+        /* Footer Note */
+        .footer-note {
+          text-align: center;
+          margin-top: 32px;
           font-size: 14px;
           color: var(--text-muted);
         }
 
-        /* Pricing */
-        .pricing-section {
-          padding: 120px 20px;
+        .footer-note a {
+          color: var(--cyan);
+          text-decoration: none;
         }
 
-        .pricing-inner {
-          max-width: 600px;
-          margin: 0 auto;
+        .footer-note a:hover {
+          text-decoration: underline;
         }
 
-        .pricing-header {
+        /* ================================ */
+        /* INTRO SECTION - Hero Emocional */
+        /* ================================ */
+        .intro-section {
+          max-width: 900px;
+          margin: 120px auto 60px;
+          padding: 0 20px;
           text-align: center;
-          margin-bottom: 48px;
         }
 
-        .pricing-label {
+        .intro-pretext {
           font-size: 13px;
-          font-weight: 700;
+          font-weight: 600;
           letter-spacing: 2px;
           text-transform: uppercase;
           color: var(--cyan);
           margin-bottom: 16px;
         }
 
-        .pricing-title {
-          font-size: clamp(28px, 5vw, 40px);
-          margin-bottom: 16px;
-        }
-
-        .pricing-subtitle {
-          font-size: 18px;
-          color: var(--text-secondary);
-        }
-
-        .pricing-card {
-          background: var(--navy-card);
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 32px;
-          overflow: hidden;
-          color: var(--text-primary);
-        }
-
-        .pricing-card-body {
-          padding: 40px 32px;
-        }
-
-        .pricing-amount {
-          text-align: center;
-          margin-bottom: 32px;
-        }
-
-        .pricing-value {
-          display: flex;
-          align-items: flex-start;
-          justify-content: center;
-          gap: 4px;
-          margin-bottom: 8px;
-        }
-
-        .pricing-currency {
-          font-size: 28px;
-          font-weight: 600;
-          margin-top: 16px;
-          color: var(--cyan);
-        }
-
-        .pricing-number {
-          font-size: 80px;
-          font-weight: 800;
-          line-height: 1;
-          color: var(--cyan);
-        }
-
-        .pricing-period {
-          font-size: 20px;
-          color: var(--text-secondary);
-        }
-
-        .pricing-daily {
-          font-size: 18px;
-          color: var(--text-secondary);
-        }
-
-        .pricing-daily strong {
-          color: var(--green);
-        }
-
-        .pricing-features {
-          margin-bottom: 32px;
-        }
-
-        .pricing-feature {
-          display: flex;
-          align-items: flex-start;
-          gap: 14px;
-          padding: 16px 0;
-          border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .pricing-feature:last-child {
-          border-bottom: none;
-        }
-
-        .pricing-feature svg {
-          width: 24px;
-          height: 24px;
-          color: var(--green);
-          flex-shrink: 0;
-          margin-top: 2px;
-        }
-
-        .pricing-feature span {
-          font-size: 16px;
-          line-height: 1.5;
-          color: var(--text-primary);
-        }
-
-        .pricing-feature strong {
-          font-weight: 700;
-        }
-
-        .btn-pricing {
-          display: block;
-          width: 100%;
-          padding: 20px 32px;
-          background: var(--magenta);
-          color: white;
-          font-size: 18px;
-          font-weight: 700;
-          font-family: inherit;
-          border: none;
-          border-radius: 16px;
-          cursor: pointer;
-          text-decoration: none;
-          text-align: center;
-          transition: all 0.3s;
-          box-shadow: 0 8px 32px rgba(236, 72, 153, 0.35);
-        }
-
-        .btn-pricing:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 40px rgba(236, 72, 153, 0.45);
-          background: var(--magenta-deep);
-        }
-
-        .pricing-guarantee {
-          text-align: center;
-          margin-top: 20px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          font-size: 14px;
-          color: var(--text-muted);
-        }
-
-        .pricing-guarantee svg {
-          width: 18px;
-          height: 18px;
-          color: var(--green);
-        }
-
-        /* Urgency */
-        .urgency-section {
-          padding: 100px 20px;
-          background: rgba(26, 26, 46, 0.4);
-        }
-
-        .urgency-card {
-          max-width: 700px;
-          margin: 0 auto;
-          background: linear-gradient(135deg, #0a0a0a, #1a1a2E, #0a0a0a);
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 32px;
-          padding: 56px 36px;
-          text-align: center;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .urgency-content {
-          position: relative;
-          z-index: 1;
-        }
-
-        .urgency-number {
-          font-size: clamp(72px, 18vw, 140px);
-          font-weight: 800;
-          line-height: 1;
-          margin-bottom: 8px;
-          color: var(--cyan);
-        }
-
-        .urgency-label {
-          font-size: 28px;
-          font-weight: 600;
-          margin-bottom: 16px;
-        }
-
-        .urgency-deadline {
-          font-size: 20px;
-          opacity: 0.95;
-          margin-bottom: 12px;
-        }
-
-        .urgency-deadline strong {
-          text-decoration: underline;
-          text-underline-offset: 4px;
-        }
-
-        .urgency-reason {
-          font-size: 16px;
-          opacity: 0.85;
-          max-width: 450px;
-          margin: 0 auto 32px;
-          font-style: italic;
-        }
-
-        .btn-urgency {
-          display: inline-block;
-          padding: 20px 48px;
-          background: var(--magenta);
-          color: white;
-          font-size: 18px;
-          font-weight: 700;
-          font-family: inherit;
-          border: none;
-          border-radius: 16px;
-          cursor: pointer;
-          text-decoration: none;
-          transition: all 0.3s;
-          box-shadow: 0 8px 32px rgba(236, 72, 153, 0.35);
-        }
-
-        .btn-urgency:hover {
-          transform: translateY(-3px) scale(1.02);
-          box-shadow: 0 12px 40px rgba(236, 72, 153, 0.45);
-        }
-
-        /* Footer */
-        .footer {
-          padding: 60px 20px 40px;
-          text-align: center;
-          border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .footer-logo {
-          height: 40px;
-          margin-bottom: 20px;
-          opacity: 0.8;
-        }
-
-        .footer-tagline {
-          font-size: 16px;
-          color: var(--text-secondary);
+        .intro-title {
+          font-size: 42px;
+          line-height: 1.2;
           margin-bottom: 24px;
-        }
-
-        .footer-links {
-          display: flex;
-          justify-content: center;
-          gap: 32px;
-          margin-bottom: 24px;
-        }
-
-        .footer-links a {
-          font-size: 14px;
-          color: var(--text-muted);
-          text-decoration: none;
-        }
-
-        .footer-links a:hover {
           color: var(--text-primary);
-        }
-
-        .footer-copy {
-          font-size: 13px;
-          color: var(--text-muted);
-        }
-
-        /* Sticky CTA */
-        .sticky-cta {
-          display: none;
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          background: rgba(10, 10, 10, 0.95);
-          backdrop-filter: blur(20px);
-          padding: 16px 20px;
-          border-top: 1px solid rgba(255,255,255,0.1);
-          z-index: 999;
-        }
-
-        .sticky-cta.visible {
-          display: block;
-        }
-
-        .sticky-cta a {
-          display: block;
-          width: 100%;
-          padding: 16px 24px;
-          background: var(--magenta);
-          color: white;
-          font-size: 16px;
-          font-weight: 700;
-          text-align: center;
-          text-decoration: none;
-          border-radius: 12px;
         }
 
         @media (max-width: 768px) {
-          .sticky-cta.visible {
-            display: block;
-          }
-          .hero-ctas {
-            flex-direction: column;
-          }
-          .btn-hero {
-            width: 100%;
-            text-align: center;
+          .intro-title {
+            font-size: 32px;
           }
         }
 
-        /* Reveal Animation */
-        .reveal {
-          opacity: 0;
-          transform: translateY(40px);
-          transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .intro-title .highlight {
+          background: linear-gradient(135deg, var(--magenta) 0%, var(--cyan) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
 
-        .reveal.visible {
-          opacity: 1;
-          transform: translateY(0);
+        .intro-subtitle {
+          font-size: 18px;
+          line-height: 1.7;
+          color: var(--text-secondary);
+          margin-bottom: 48px;
+          max-width: 700px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .intro-subtitle strong {
+          color: var(--text-primary);
+          font-weight: 600;
+        }
+
+        /* Signatures Section */
+        .signatures-section {
+          margin: 48px 0;
+          padding: 40px 20px;
+          background: rgba(255, 255, 255, 0.02);
+          border-radius: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .signatures-title {
+          font-size: 16px;
+          color: var(--text-secondary);
+          margin-bottom: 32px;
+          font-style: italic;
+        }
+
+        .signatures-cloud {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 20px 30px;
+          min-height: 200px;
+        }
+
+        .signature {
+          display: inline-block;
+          padding: 8px 16px;
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: 8px;
+          transition: all 0.3s;
+          cursor: default;
+        }
+
+        .signature:hover {
+          transform: scale(1.05);
+          background: rgba(255, 255, 255, 0.06);
+        }
+
+        .sig-child {
+          font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+          transform: rotate(-2deg);
+          font-weight: 700;
+        }
+
+        .sig-elder {
+          font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+          font-style: italic;
+          font-weight: 400;
+          transform: rotate(1deg);
+        }
+
+        /* Benefits Tags */
+        .intro-benefits {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 12px;
+          margin: 40px 0;
+        }
+
+        .benefit-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 20px;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          font-size: 15px;
+          color: var(--text-primary);
+          font-weight: 500;
+          transition: all 0.3s;
+        }
+
+        .benefit-tag:hover {
+          background: rgba(255, 255, 255, 0.08);
+          transform: translateY(-2px);
+        }
+
+        /* Badges */
+        .intro-badges {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 16px;
+          margin-top: 32px;
+        }
+
+        .badge-urgency,
+        .badge-price {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 14px 24px;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 700;
+        }
+
+        .badge-urgency {
+          background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+          color: white;
+          box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+          animation: pulse 2s ease-in-out infinite;
+        }
+
+        .badge-price {
+          background: linear-gradient(135deg, var(--green) 0%, #059669 100%);
+          color: white;
+          box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.05);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .intro-section {
+            margin-top: 100px;
+          }
+          
+          .signatures-cloud {
+            gap: 15px 20px;
+          }
+          
+          .signature {
+            font-size: 14px !important;
+          }
+          
+          .intro-benefits {
+            gap: 8px;
+          }
+          
+          .benefit-tag {
+            font-size: 13px;
+            padding: 10px 16px;
+          }
         }
       `}</style>
 
-      {/* Ambient Background */}
-      <div className="ambient">
-        <div className="ambient-orb one"></div>
-        <div className="ambient-orb two"></div>
-      </div>
-
       {/* Navigation */}
-      <nav className={`nav ${isScrolled ? 'scrolled' : ''}`}>
+      <nav className="nav">
         <div className="nav-inner">
           <img 
-            src="https://saludcompartida.com/saludcompartida-dark-no-tagline.png" 
+            src="/saludcompartida-dark-no-tagline.png" 
             alt="SaludCompartida" 
             className="nav-logo"
           />
-          <div className="nav-links">
-            <a href="#quienes-somos">Quiénes Somos</a>
-            <a href="#como-utilizar">Cómo Utilizar</a>
-            <a href="#que-nos-hace-unicos">Qué Nos Hace Únicos</a>
+          <div className="nav-help">
+            ¿Dudas? <a href="mailto:hola@saludcompartida.com">Contáctanos</a>
           </div>
-          <div className="nav-cta">
-            <a href="https://saludcompartida.app/subscribe" className="btn btn-magenta">Quiero Contratar Ahora</a>
-            <a href="https://saludcompartida.app/login" className="btn btn-cyan">Ya Tengo Mi Código</a>
-          </div>
-          <button 
-            className={`nav-mobile-toggle ${isMobileMenuOpen ? 'active' : ''}`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Menú"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-        <div className={`nav-mobile ${isMobileMenuOpen ? 'active' : ''}`}>
-          <a href="#quienes-somos" onClick={closeMobileMenu}>Quiénes Somos</a>
-          <a href="#como-utilizar" onClick={closeMobileMenu}>Cómo Utilizar</a>
-          <a href="#que-nos-hace-unicos" onClick={closeMobileMenu}>Qué Nos Hace Únicos</a>
-          <a href="https://saludcompartida.app/subscribe" className="btn btn-magenta">Quiero Contratar Ahora</a>
-          <a href="https://saludcompartida.app/login" className="btn btn-cyan">Ya Tengo Mi Código</a>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-inner">
-          <div className="hero-eyebrow">Cuidamos a tu familia en México • 24/7</div>
-          
-          <h1 className="hero-headline serif">
-            Si llegaste hasta aquí, es porque <span className="them">tú también lo sientes</span>.
-          </h1>
-          
-          <p className="hero-sub-emotional">
-            Esa preocupación constante. Ese nudo en el estómago cuando tu mamá te dice que le duele algo y tú estás a miles de kilómetros. Esa culpa de no poder estar ahí.
-          </p>
-          
-          <p className="hero-sub-solution">
-            <strong>No tienes que seguir sintiéndote así.</strong>
-          </p>
-          
-          <div className="hero-proposition">
-            <span className="serif">Tú trabajas duro <span className="you">&quot;aquí&quot;</span>. Nosotros los cuidamos <span className="them">&quot;allá&quot;</span>.</span>
+      {/* Hero Section - Emotional Intro */}
+      <section className="intro-section">
+        <p className="intro-pretext">Estás a un paso de cuidarlos</p>
+        <h1 className="intro-title serif">
+          El amor que sientes<br/>
+          <span className="highlight">ahora se convierte en protección</span>
+        </h1>
+        <p className="intro-subtitle">
+          Llegaste hasta aquí porque sabes que el dinero no lo resuelve todo.<br/>
+          Ellos necesitan <strong>salud, compañía y tu tranquilidad</strong>.
+        </p>
+
+        {/* Firmas manuscritas */}
+        <div className="signatures-section">
+          <p className="signatures-title">Esto es lo que las familias quieren decirte...</p>
+          <div className="signatures-cloud">
+            {/* Niños - letra desordenada */}
+            <span className="signature sig-child" style={{fontSize: '22px', color: '#2563EB'}}>Gracias papá</span>
+            <span className="signature sig-child" style={{fontSize: '17px', color: '#DC2626'}}>gracias mami</span>
+            <span className="signature sig-child" style={{fontSize: '19px', color: '#16A34A'}}>Grasias tío</span>
+            <span className="signature sig-child" style={{fontSize: '16px', color: '#DB2777'}}>te kiero tía</span>
+            <span className="signature sig-child" style={{fontSize: '15px', color: '#EA580C'}}>ya no me duele</span>
+            <span className="signature sig-child" style={{fontSize: '18px', color: '#0891B2'}}>gracias abuelita</span>
+            
+            {/* Adultos mayores - cursiva elegante */}
+            <span className="signature sig-elder" style={{fontSize: '24px', color: '#7C3AED'}}>Gracias, mijo</span>
+            <span className="signature sig-elder" style={{fontSize: '20px', color: '#15803D'}}>Bendiciones, mijita</span>
+            <span className="signature sig-elder" style={{fontSize: '22px', color: '#92400E'}}>Dios te bendiga</span>
+            <span className="signature sig-elder" style={{fontSize: '25px', color: '#1E40AF'}}>Que Dios te lo pague</span>
           </div>
-          
-          <div className="hero-ctas">
-            <a href="https://saludcompartida.app/subscribe" className="btn btn-primary btn-hero">
-              Quiero cuidar a mi familia →
-            </a>
-          </div>
-          
-          <div className="hero-stats">
-            <div className="hero-stat">
-              <div className="hero-stat-value">24/7</div>
-              <div className="hero-stat-label">Doctores disponibles</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hero-stat-value">1,700+</div>
-              <div className="hero-stat-label">Farmacias con descuento</div>
-            </div>
-            <div className="hero-stat">
-              <div className="hero-stat-value">$432</div>
-              <div className="hero-stat-label">Ahorro promedio/año</div>
-            </div>
-          </div>
+        </div>
+
+        {/* Benefits Tags */}
+        <div className="intro-benefits">
+          <span className="benefit-tag">🩺 Telemedicina 24/7</span>
+          <span className="benefit-tag">💊 Hasta 75% en farmacias</span>
+          <span className="benefit-tag">🧠 Terapia incluida</span>
+          <span className="benefit-tag">💜 Lupita o Fernanda</span>
+        </div>
+
+        {/* Urgency & Price */}
+        <div className="intro-badges">
+          <span className="badge-urgency">
+            <span>🔥</span>
+            Solo 13 espacios disponibles
+          </span>
+          <span className="badge-price">
+            💚 $12 USD/mes
+          </span>
         </div>
       </section>
 
-      {/* 1. Solution Section - 4 Pilares */}
-      <section className="solution-section" id="como-utilizar">
-        <div className="section-inner">
-          <div className="solution-header">
-            <div className="solution-label">Los 4 Pilares</div>
-            <h2 className="solution-title serif">Todo lo que tu familia necesita</h2>
-            <p className="solution-sub">Con $12 al mes, tu familia tiene acceso completo a:</p>
-          </div>
+      {/* Registration */}
+      <div className="registration">
+        <div className="registration-wrapper">
           
-          <div className="pillars-grid">
-            <div className="pillar-card cyan">
-              <div className="pillar-number">PILAR 01</div>
-              <div className="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/></svg>
-              </div>
-              <h3 className="pillar-title">Atención Médica 24/7</h3>
-              <p className="pillar-desc">
-                En México, las familias que reciben remesas gastan de su bolsillo ~$6.3 billones anuales en salud. Nuestra misión es reducir ese gasto. Telemedicina ilimitada por video o teléfono, sin citas, sin esperas. A las 3 AM si es necesario.
-              </p>
-              <div className="pillar-highlight">
-                <strong>75%</strong> descuento en 1,700+ farmacias
-              </div>
-            </div>
-            
-            <div className="pillar-card gold">
-              <div className="pillar-number">PILAR 02</div>
-              <div className="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-              </div>
-              <h3 className="pillar-title">Terapia Psicológica</h3>
-              <p className="pillar-desc">
-                Sesiones semanales con psicólogos certificados. Para tu mamá que necesita hablar, para tu esposa que necesita apoyo, para quien más lo necesite.
-              </p>
-              <div className="pillar-highlight">
-                <strong>Ilimitada</strong> para toda la familia
-              </div>
-            </div>
-            
-            <div className="pillar-card green">
-              <div className="pillar-number">PILAR 03</div>
-              <div className="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </div>
-              <h3 className="pillar-title">Panel de Ahorros</h3>
-              <p className="pillar-desc">
-                Un panel mensual donde ves los ahorros reales que estás obteniendo al utilizar los servicios de SaludCompartida. Cada consulta, cada descuento, cada peso ahorrado. Sin sorpresas.
-              </p>
-              <div className="pillar-highlight">
-                <strong>$432</strong> ahorro promedio anual
-              </div>
-            </div>
-            
-            <div className="pillar-card magenta">
-              <div className="pillar-number">PILAR 04</div>
-              <div className="pillar-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-              </div>
-              <h3 className="pillar-title">Compañía</h3>
-              <p className="pillar-desc">
-                Lupita y Fernanda llaman a tu familia para platicar de lo que les gusta: recetas de cocina, qué tipo de baile prefieren, cómo pasan el fin de semana, cosas que les levanten el ánimo. Una amiga que siempre tiene tiempo.
-              </p>
-              <div className="pillar-highlight">
-                <strong>Proactivas</strong> — ellas llaman primero
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Video Section */}
-      <section className="video-section">
-        <div className="video-container">
-          <div className="video-header">
-            <h2 className="video-title serif">Por qué creamos SaludCompartida</h2>
-            <p className="video-subtitle">Escucha una conversación real con Lupita</p>
-          </div>
-          <div className="video-wrapper">
-            <video 
-              src="/Video_Pagina_copy.mp4"
-              controls
-              playsInline
-              preload="metadata"
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          {/* Imagen */}
+          <div className="registration-image">
+            <img 
+              src="/girl3.jpeg" 
+              alt="Cuidando a tu familia con SaludCompartida"
             />
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Pain Section - La verdad que nadie dice */}
-      <section className="pain-section" id="quienes-somos">
-        <div className="section-inner">
-          <div className="pain-inner">
-            <div className="pain-truth">
-              <span className="pain-truth-label">La verdad que nadie dice</span>
-              <h2 className="pain-truth-headline serif">No todo es dinero.</h2>
-            </div>
-            
-            <p className="pain-reality">
-              Sí, mandamos remesas. Sí, pagamos las cuentas. Pero el dinero no resuelve todo.
+            <p className="registration-image-caption">
+              "Ahora sé que mi mamá está acompañada"
             </p>
-            
-            <h3 className="pain-headline serif">
-              La <em>soledad de tu mamá</em> cuando sus hijos están lejos. El <em>abuelo</em> que ya no tiene con quién platicar. Tu <em>esposa</em> que carga sola con tres niños mientras tú trabajas aquí.
-            </h3>
-            
-            <div className="pain-cards">
-              <div className="pain-card">
-                <div className="pain-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+
+        <div className="registration-container">
+          
+          {/* Progress Steps */}
+          <div className="progress-container">
+            <div className="progress-steps">
+              <div className="progress-step">
+                <div className={`progress-dot ${step === 1 ? 'active' : 'completed'}`}>
+                  {step > 1 ? '✓' : '1'}
                 </div>
-                <div className="pain-card-content">
-                  <h4>La llamada a las 3 AM</h4>
-                  <p>Cuando tu mamá se enferma y no hay nadie que la lleve al doctor. El dinero no resuelve eso.</p>
-                </div>
+                <span className="progress-label">Tus datos</span>
               </div>
-              
-              <div className="pain-card">
-                <div className="pain-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                </div>
-                <div className="pain-card-content">
-                  <h4>La soledad que pesa</h4>
-                  <p>Tu papá sentado solo en la sala. Tu mamá sin nadie con quien platicar. El dinero no les hace compañía.</p>
-                </div>
-              </div>
-              
-              <div className="pain-card">
-                <div className="pain-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                </div>
-                <div className="pain-card-content">
-                  <h4>Tu esposa sola con los niños</h4>
-                  <p>Tres hijos, mil responsabilidades, y nadie con quien desahogarse. El dinero no la acompaña.</p>
-                </div>
+              <div className={`progress-line ${step > 1 ? 'active' : ''}`}></div>
+              <div className="progress-step">
+                <div className={`progress-dot ${step === 2 ? 'active' : 'inactive'}`}>2</div>
+                <span className="progress-label">Usuario en México</span>
               </div>
             </div>
-            
-            <div className="pain-quote-box">
-              <p className="pain-quote">
-                &quot;Para muchos de nosotros no es tema de dinero.<br/>
-                Es la <strong>soledad</strong> de saber que nuestro corazón está allá.&quot;
+            <p className="progress-text">
+              {step === 1 ? 'Paso 1 de 2: Tu información' : 'Paso 2 de 2: Usuario en México'}
+            </p>
+          </div>
+
+          {/* Step 1: Migrante USA */}
+          {step === 1 && (
+            <form onSubmit={handleNextStep}>
+              <div className="form-card">
+                <div className="form-header">
+                  <div className="form-icon usa">🇺🇸</div>
+                  <h1 className="form-title serif">Tu información</h1>
+                  <p className="form-subtitle">Datos del titular de la cuenta en Estados Unidos</p>
+                </div>
+
+                <div className="form-section">
+                  <div className="form-section-title">Nombre completo</div>
+                  <div className="form-row three-col">
+                    <div className="form-group">
+                      <label className="form-label">Nombre <span className="required">*</span></label>
+                      <input 
+                        type="text"
+                        name="migrant_first_name"
+                        value={formData.migrant_first_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="Juan"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Apellido paterno <span className="required">*</span></label>
+                      <input 
+                        type="text"
+                        name="migrant_last_name"
+                        value={formData.migrant_last_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="García"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Apellido materno</label>
+                      <input 
+                        type="text"
+                        name="migrant_mother_last_name"
+                        value={formData.migrant_mother_last_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="López"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-section">
+                  <div className="form-section-title">Información personal</div>
+                  <div className="form-row two-col">
+                    <div className="form-group">
+                      <label className="form-label">Sexo <span className="required">*</span></label>
+                      <select 
+                        name="migrant_sex"
+                        value={formData.migrant_sex}
+                        onChange={handleChange}
+                        className="form-select"
+                        required
+                      >
+                        <option value="">Seleccionar</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Fecha de nacimiento <span className="required">*</span></label>
+                      <input 
+                        type="date"
+                        name="migrant_birthdate"
+                        value={formData.migrant_birthdate}
+                        onChange={handleChange}
+                        className="form-input date-input"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-section">
+                  <div className="form-section-title">Contacto</div>
+                  <div className="form-group">
+                    <label className="form-label">Correo electrónico <span className="required">*</span></label>
+                    <input 
+                      type="email"
+                      name="migrant_email"
+                      value={formData.migrant_email}
+                      onChange={handleChange}
+                      className="form-input"
+                      placeholder="tu@email.com"
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">
+                      <svg className="whatsapp-icon" viewBox="0 0 24 24" fill="#25D366">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                      </svg>
+                      Número de celular (WhatsApp) <span className="required">*</span>
+                    </label>
+                    <div className="phone-input-container">
+                      <span className="phone-flag">🇺🇸 +1</span>
+                      <input 
+                        type="tel"
+                        name="migrant_phone"
+                        value={formData.migrant_phone}
+                        onChange={handleChange}
+                        className="form-input phone-input"
+                        placeholder="(555) 123-4567"
+                        required
+                      />
+                    </div>
+                    <p className="phone-hint">
+                      <strong>Escribe solo los 10 dígitos.</strong> El formato se aplica automáticamente.
+                    </p>
+                    <p className="phone-note">Nosotros agregamos el +1 automáticamente. No lo escribas.</p>
+                  </div>
+                </div>
+
+                <div className="form-actions">
+                  <button type="submit" className="btn btn-primary">
+                    Continuar →
+                  </button>
+                </div>
+
+                <div className="security-note">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                  <span>Tu información está protegida y segura</span>
+                </div>
+              </div>
+            </form>
+          )}
+
+          {/* Step 2: Usuario México */}
+          {step === 2 && (
+            <form onSubmit={handleSubmit}>
+              <div className="form-card">
+                <div className="form-header">
+                  <div className="form-icon mexico">🇲🇽</div>
+                  <h1 className="form-title serif">Usuario en México</h1>
+                  <p className="form-subtitle">
+                    Datos de quien recibirá los beneficios
+                    {formData.family_birthdate && (() => {
+                      const birthDate = new Date(formData.family_birthdate);
+                      const today = new Date();
+                      const age = today.getFullYear() - birthDate.getFullYear();
+                      const companionName = age >= 55 ? 'Lupita' : 'Fernanda';
+                      return (
+                        <span style={{ display: 'block', marginTop: '8px', color: 'var(--magenta)', fontWeight: 600 }}>
+                          Su acompañante será: {companionName}
+                        </span>
+                      );
+                    })()}
+                  </p>
+                </div>
+
+                <div className="form-section">
+                  <div className="form-section-title">Nombre completo</div>
+                  <div className="form-row three-col">
+                    <div className="form-group">
+                      <label className="form-label">Nombre <span className="required">*</span></label>
+                      <input 
+                        type="text"
+                        name="family_first_name"
+                        value={formData.family_first_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="María"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Apellido paterno <span className="required">*</span></label>
+                      <input 
+                        type="text"
+                        name="family_last_name"
+                        value={formData.family_last_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="García"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Apellido materno</label>
+                      <input 
+                        type="text"
+                        name="family_mother_last_name"
+                        value={formData.family_mother_last_name}
+                        onChange={handleChange}
+                        className="form-input"
+                        placeholder="López"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-section">
+                  <div className="form-section-title">Información personal</div>
+                  <div className="form-row two-col">
+                    <div className="form-group">
+                      <label className="form-label">Sexo <span className="required">*</span></label>
+                      <select 
+                        name="family_sex"
+                        value={formData.family_sex}
+                        onChange={handleChange}
+                        className="form-select"
+                        required
+                      >
+                        <option value="">Seleccionar</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Fecha de nacimiento <span className="required">*</span></label>
+                      <input 
+                        type="date"
+                        name="family_birthdate"
+                        value={formData.family_birthdate}
+                        onChange={handleChange}
+                        className="form-input date-input"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-section">
+                  <div className="form-section-title">Contacto</div>
+                  <div className="form-group">
+                    <label className="form-label">Correo electrónico <span className="required">*</span></label>
+                    <input 
+                      type="email"
+                      name="family_email"
+                      value={formData.family_email}
+                      onChange={handleChange}
+                      className="form-input"
+                      placeholder="email@ejemplo.com"
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">
+                      <svg className="whatsapp-icon" viewBox="0 0 24 24" fill="#25D366">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.824 3 7.938l3-2.647z"/>
+                      </svg>
+                      Número de WhatsApp <span className="required">*</span>
+                    </label>
+                    <div className="phone-input-container">
+                      <span className="phone-flag">🇲🇽 +52</span>
+                      <input 
+                        type="tel"
+                        name="family_phone"
+                        value={formData.family_phone}
+                        onChange={handleChange}
+                        className="form-input phone-input"
+                        placeholder="55 1234 5678"
+                        required
+                      />
+                    </div>
+                    <p className="phone-hint">
+                      <strong>Escribe solo los 10 dígitos.</strong> El formato se aplica automáticamente.
+                    </p>
+                    <p className="phone-note">Nosotros agregamos el +52 automáticamente. No lo escribas.</p>
+                  </div>
+                </div>
+
+                <div className="form-section">
+                  <div className="terms-checkbox">
+                    <input 
+                      type="checkbox"
+                      id="terms_accepted"
+                      name="terms_accepted"
+                      checked={formData.terms_accepted}
+                      onChange={(e) => setFormData(prev => ({ ...prev, terms_accepted: e.target.checked }))}
+                      required
+                    />
+                    <label htmlFor="terms_accepted" className="terms-label">
+                      He leído y acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a> y los <a href="/terminos" target="_blank">Términos y Condiciones</a> <span className="required">*</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="form-actions">
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary"
+                    onClick={() => setStep(1)}
+                    disabled={isSubmitting}
+                  >
+                    ← Atrás
+                  </button>
+                  <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                    {isSubmitting ? 'Procesando...' : 'Continuar al pago →'}
+                  </button>
+                </div>
+
+                {error && (
+                  <div className="error-message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <line x1="15" y1="9" x2="9" y2="15"/>
+                      <line x1="9" y1="9" x2="15" y2="15"/>
+                    </svg>
+                    <span>{error}</span>
+                  </div>
+                )}
+
+                <div className="security-note">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                  <span>Podrás agregar hasta 3 usuarios más después en tu cuenta</span>
+                </div>
+              </div>
+
+              <p className="footer-note">
+                ¿Ya tienes cuenta? <a href="https://saludcompartida.app/login">Inicia sesión</a>
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
+            </form>
+          )}
 
-      {/* CTA Intermedio - Antes de Lupita y Fernanda */}
-      <section className="cta-intermedio">
-        <div className="cta-intermedio-inner">
-          <h2 className="cta-intermedio-title serif">¿Listo para cuidar a tu familia?</h2>
-          <p className="cta-intermedio-text">Empieza hoy. Tu familia lo sentirá mañana.</p>
-          <a href="https://saludcompartida.app/subscribe" className="btn btn-primary btn-hero">
-            Quiero Contratar Ahora →
-          </a>
         </div>
-      </section>
-
-      {/* 4. Companions Section - Lupita y Fernanda */}
-      <section className="companions-section" id="que-nos-hace-unicos">
-        <div className="companions-inner">
-          <div className="companions-header">
-            <div className="companions-badge">✨ Esto no es salud. Es conexión.</div>
-            <h2 className="companions-title serif">
-              <span className="lupita">Lupita</span> y <span className="fernanda">Fernanda</span>
-            </h2>
-            <p className="companions-subtitle">
-              No son asistentes. No son robots. Son amigas que llaman a tu familia para alegrar el día.
-            </p>
-          </div>
-          
-          <div className="companions-grid">
-            <div className="companion-card lupita">
-              <div className="companion-badge-small">Para adultos 55+</div>
-              <h3 className="companion-name serif">Lupita</h3>
-              <p className="companion-for">Para tus papás y abuelos</p>
-              <p className="companion-desc">
-                Una voz cálida que llama para saber cómo están. Para intercambiar recetas, recordar el cumpleaños de la comadre, contar historias, o simplemente platicar de la vida.
-              </p>
-              <div className="companion-features">
-                <span className="companion-feature">Llamadas de compañía</span>
-                <span className="companion-feature">Intercambio de recetas</span>
-                <span className="companion-feature">Siempre con tiempo para ellos</span>
-              </div>
-            </div>
-            
-            <div className="companion-card fernanda">
-              <div className="companion-badge-small">Para mamás 25–50</div>
-              <h3 className="companion-name serif">Fernanda</h3>
-              <p className="companion-for">Para tu esposa, hermana, prima</p>
-              <p className="companion-desc">
-                Como una amiga que entiende lo que es manejar horarios de niños, lidiar con hijos adolescentes, elegir qué ponerse para el concierto, o simplemente necesitar desahogarse.
-              </p>
-              <div className="companion-features">
-                <span className="companion-feature">Alguien que escucha</span>
-                <span className="companion-feature">Consejos de amiga</span>
-                <span className="companion-feature">Sin juicios</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="companions-callout">
-            <p><strong>Ellas llaman a tu familia.</strong></p>
-            <small>Tu familia no tiene que hacer nada. Solo contestar y platicar con una amiga.</small>
-          </div>
         </div>
-      </section>
-
-      {/* 5. Guides Section - Así de fácil funciona */}
-      <section className="guides-section" id="ver-como-funciona">
-        <div className="guides-container">
-          <div className="guides-header">
-            <h2 className="guides-title serif">Así de fácil funciona</h2>
-            <p className="guides-subtitle">Guías para tu familia en México</p>
-          </div>
-          <div className="guides-grid">
-            <div className="guide-card">
-              <img 
-                src="/images/GUIA_DE_UTILIZACION.png" 
-                alt="Guía de utilización - Cómo ayudar a mi familia en México" 
-                className="guide-image"
-              />
-            </div>
-            <div className="guide-card">
-              <img 
-                src="/images/GUIA_DE_UTILIZACION_ADULTO_MAYOR.jpeg" 
-                alt="Guía de utilización para adultos mayores" 
-                className="guide-image"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Testimonials - Historias Reales */}
-      <section className="testimonials-section">
-        <div className="testimonials-header">
-          <div className="testimonials-label">Historias Reales</div>
-          <h2 className="testimonials-title serif">Lo que dicen las familias</h2>
-        </div>
-        
-        <div className="testimonials-grid">
-          <div className="testimonial-card">
-            <div className="testimonial-stars">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              ))}
-            </div>
-            <p className="testimonial-quote">
-              &quot;Por primera vez en 8 años, no me preocupo cuando mi mamá me dice que le duele algo. Sé que puede llamar al doctor en cualquier momento.&quot;
-            </p>
-            <div className="testimonial-author">
-              <div className="testimonial-avatar cyan">MR</div>
-              <div>
-                <div className="testimonial-name">María R.</div>
-                <div className="testimonial-location">Phoenix, Arizona</div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="testimonial-card">
-            <div className="testimonial-stars">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              ))}
-            </div>
-            <p className="testimonial-quote">
-              &quot;Mi mamá me habla de su amiga Lupita. Ya están intercambiando recetas. Me alegra tanto que se sienta acompañada.&quot;
-            </p>
-            <div className="testimonial-author">
-              <div className="testimonial-avatar magenta">JL</div>
-              <div>
-                <div className="testimonial-name">José Luis M.</div>
-                <div className="testimonial-location">Los Angeles, CA</div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="testimonial-card">
-            <div className="testimonial-stars">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              ))}
-            </div>
-            <p className="testimonial-quote">
-              &quot;Mandamos dinero, pero no servía cuando mi mamá se enfermó a las 3 AM. Ahora sé que tiene a quién llamar.&quot;
-            </p>
-            <div className="testimonial-author">
-              <div className="testimonial-avatar green">JC</div>
-              <div>
-                <div className="testimonial-name">José Carlos M.</div>
-                <div className="testimonial-location">Tucson, Arizona</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. Final CTA - Cuida a los que más quieres */}
-      <section className="pricing-section" id="precio">
-        <div className="pricing-inner">
-          <div className="pricing-header">
-            <h2 className="pricing-title serif">Cuida a los que más quieres</h2>
-            <p className="pricing-subtitle">Todo lo que necesita tu familia por solo $12 al mes</p>
-          </div>
-          
-          <div className="pricing-card">
-            <div className="pricing-card-body">
-              <div className="pricing-amount">
-                <div className="pricing-value">
-                  <span className="pricing-currency">$</span>
-                  <span className="pricing-number">12</span>
-                </div>
-                <p className="pricing-period">USD al mes</p>
-                <p className="pricing-daily">Solo <strong>40¢ al día</strong> — menos que un café</p>
-              </div>
-              
-              <div className="pricing-features">
-                <div className="pricing-feature">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>Hasta <strong>4 familiares</strong> incluidos</span>
-                </div>
-                <div className="pricing-feature">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>Telemedicina <strong>24/7 ilimitada</strong></span>
-                </div>
-                <div className="pricing-feature">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>Hasta <strong>75% descuento</strong> en 1,700+ farmacias</span>
-                </div>
-                <div className="pricing-feature">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span><strong>Terapia semanal</strong> incluida</span>
-                </div>
-                <div className="pricing-feature">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span><strong>Lupita o Fernanda</strong> — compañía ilimitada</span>
-                </div>
-                <div className="pricing-feature">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span><strong>Panel de ahorros</strong> para ver tus ahorros cada mes</span>
-                </div>
-              </div>
-              
-              <a href="https://saludcompartida.app/subscribe" className="btn-pricing">
-                Quiero Contratar Ahora →
-              </a>
-              
-              <div className="pricing-guarantee">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span>Cancela cuando quieras. Sin preguntas.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer">
-        <img 
-          src="https://saludcompartida.com/saludcompartida-dark-no-tagline.png" 
-          alt="SaludCompartida" 
-          className="footer-logo"
-        />
-        <p className="footer-tagline">Cuidando familias, acortando distancias.</p>
-        <div className="footer-links">
-          <a href="/terminos">Términos</a>
-          <a href="/privacidad">Privacidad</a>
-          <a href="mailto:hola@saludcompartida.com">Contacto</a>
-        </div>
-        <p className="footer-copy">© 2025 SaludCompartida. Todos los derechos reservados.</p>
-      </footer>
-
-      {/* Sticky CTA */}
-      <div className="sticky-cta" id="sticky-cta">
-        <a href="https://saludcompartida.app/subscribe">Quiero Contratar Ahora →</a>
       </div>
     </>
   );

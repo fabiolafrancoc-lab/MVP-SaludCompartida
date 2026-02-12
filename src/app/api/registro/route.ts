@@ -36,7 +36,6 @@ export async function POST(request: NextRequest) {
         migrant_name: suscriptor.nombre,
         migrant_email: suscriptor.email,
         migrant_phone: suscriptor.telefono,
-        migrant_state: suscriptor.estado,
         principal_name: usuarioPrincipal.nombre,
         principal_phone: usuarioPrincipal.telefono,
         principal_relationship: usuarioPrincipal.parentesco,
@@ -99,7 +98,7 @@ export async function POST(request: NextRequest) {
         migrantLastName: migrantLastName,
         migrantEmail: suscriptor.email,
         migrantPhone: suscriptor.telefono,
-        migrantState: suscriptor.estado,
+        // migrantState: No requerido - campo eliminado del formulario
         principalName: usuarioPrincipal.nombre,
         principalLastName: usuarioPrincipal.apellido,
         principalBirthDate: usuarioPrincipal.fechaNacimiento,

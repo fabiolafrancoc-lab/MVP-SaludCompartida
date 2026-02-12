@@ -1,81 +1,82 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
+import { sendPostPaymentEmails } from '@/lib/email-templates';
 
 export async function POST(request: NextRequest) {
-  console.log('🔍 Square Payment API called');
-  
   try {
     const body = await request.json();
-    const { sourceId, amount, currency, description } = body;
-    
+    const { sourceId, registrationId } = body;
+
+    if (!sourceId || !registrationId) {
+      return NextResponse.json({ success: false, error: 'Missing parameters' }, { status: 400 });
+    }
+
     const SQUARE_ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN;
     const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID;
+    const SQUARE_API = 'https://connect.squareup.com/v2';
 
-    if (!SQUARE_ACCESS_TOKEN || !SQUARE_LOCATION_ID) {
-      console.error('❌ Square credentials not configured');
-      return NextResponse.json({
-        success: false,
-        error: 'Payment system not configured'
-      }, { status: 500 });
-    }
+    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabase = createClient(SUPABASE_URL as string, SUPABASE_KEY as string);
 
-    if (!sourceId || !amount) {
-      return NextResponse.json({ 
-        success: false,
-        error: 'Missing required fields: sourceId and amount'
-      }, { status: 400 });
-    }
+    const { data: registration } = await supabase.from('registrations').select('*').eq('id', registrationId).single();
 
-    console.log('💳 Llamando a Square API (PRODUCCIÓN)...');
-    console.log('Amount:', amount, 'Currency:', currency || 'USD');
-    
-    // Llamar a Square REST API - PRODUCCIÓN (cobra dinero real)
-    const response = await fetch('https://connect.squareup.com/v2/payments', {
+    // Crear pago único de $12
+    const paymentPayload = {
+      idempotency_key: `payment_${registrationId}_${Date.now()}`,
+      source_id: sourceId,
+      amount_money: { amount: 1200, currency: 'USD' },
+      location_id: SQUARE_LOCATION_ID,
+      autocomplete: true,
+      buyer_email_address: registration?.migrant_email || undefined,
+    };
+
+    const paymentResponse = await fetch(`${SQUARE_API}/payments`, {
       method: 'POST',
       headers: {
         'Square-Version': '2024-12-18',
         'Authorization': `Bearer ${SQUARE_ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        source_id: sourceId,
-        amount_money: {
-          amount: amount,
-          currency: currency || 'USD',
-        },
-        location_id: SQUARE_LOCATION_ID,
-        idempotency_key: `${Date.now()}-${Math.random().toString(36).substring(7)}`,
-        note: description || 'SaludCompartida - Plan Familiar',
-      }),
+      body: JSON.stringify(paymentPayload),
     });
 
-    const data = await response.json();
+    const paymentData = await paymentResponse.json();
 
-    if (!response.ok) {
-      console.error('❌ Square API error:', data);
-      return NextResponse.json({
-        success: false,
-        error: data.errors?.[0]?.detail || 'Error processing payment',
-        details: data.errors,
-      }, { status: response.status });
+    if (!paymentResponse.ok || paymentData.errors) {
+      return NextResponse.json({ success: false, error: 'Payment failed', details: paymentData.errors }, { status: 500 });
     }
 
-    console.log('✅ Payment successful:', data.payment.id);
+    await supabase.from('registrations').update({ status: 'active', payment_completed_at: new Date().toISOString() }).eq('id', registrationId);
 
-    return NextResponse.json({
-      success: true,
-      data: {
-        id: data.payment.id,
-        status: data.payment.status,
-        amount: data.payment.amount_money,
-        created_at: data.payment.created_at,
-      },
-    });
+    // Enviar emails post-pago
+    if (registration) {
+      console.log('📧 Enviando emails post-pago...');
+      console.log('Migrante email:', registration.migrant_email);
+      console.log('Familia email:', registration.family_primary_email);
+      
+      const emailResults = await sendPostPaymentEmails(
+        {
+          migrant_email: registration.migrant_email,
+          migrant_code: registration.migrant_code,
+          migrant_first_name: registration.migrant_first_name,
+          companion_name: registration.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda',
+        },
+        {
+          family_primary_email: registration.family_email || registration.family_primary_email,
+          family_first_name: registration.family_first_name,
+          family_code: registration.family_code,
+          migrant_first_name: registration.migrant_first_name,
+          companion_name: registration.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda',
+        },
+        registration // ✅ Pasar datos completos para email de notificación a Aura
+      );
+      
+      console.log('📧 Resultados de emails:', JSON.stringify(emailResults, null, 2));
+    }
 
+    return NextResponse.json({ success: true, data: { paymentId: paymentData.payment.id, registrationId } });
   } catch (error: any) {
-    console.error('❌ Error processing payment:', error);
-    return NextResponse.json({
-      success: false,
-      error: error.message || 'Internal server error',
-    }, { status: 500 });
+    return NextResponse.json({ success: false, error: error?.message }, { status: 500 });
   }
 }

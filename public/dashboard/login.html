@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingresa tu Código | SaludCompartida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0C0B12;
+      --bg-card: #151422;
+      --purple: #7C3AED;
+      --purple-soft: #A78BFA;
+      --green: #10B981;
+      --green-soft: #34D399;
+      --cyan: #06B6D4;
+      --cyan-soft: #22D3EE;
+      --coral: #F87171;
+      --text-primary: #F2F0F7;
+      --text-secondary: #BCB8CC;
+      --text-muted: #8A86A0;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg-deep); color: var(--text-primary);
+      font-family: var(--sans); -webkit-font-smoothing: antialiased;
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+    .login-header {
+      display: flex; align-items: center; justify-content: center; padding: 24px 28px;
+    }
+    .login-header-inner { display: flex; align-items: center; gap: 12px; }
+    .login-logo { height: 32px; }
+    .login-logo-text { font-family: var(--serif); font-size: 1.05rem; color: var(--text-primary); }
+    .login-main {
+      flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px 28px;
+    }
+    .login-container { max-width: 440px; width: 100%; }
+    .login-visual { text-align: center; margin-bottom: 36px; }
+    .login-icon-wrap {
+      width: 80px; height: 80px; border-radius: 24px; margin: 0 auto 20px;
+      background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(124,58,237,0.1));
+      border: 1px solid rgba(6,182,212,0.12);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .login-icon-wrap svg { width: 36px; height: 36px; color: var(--cyan-soft); }
+    .login-title { font-family: var(--serif); font-size: 1.8rem; margin-bottom: 8px; }
+    .login-subtitle { font-size: 0.88rem; color: var(--text-secondary); font-weight: 300; line-height: 1.5; }
+    .code-form { margin-bottom: 16px; }
+    .code-label {
+      font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; display: block;
+    }
+    .code-input {
+      width: 100%; padding: 18px 20px; border-radius: 16px;
+      background: var(--bg-card); border: 2px solid rgba(255,255,255,0.08);
+      font-family: 'Courier New', monospace; font-size: 1.5rem; font-weight: 700;
+      color: var(--text-primary); text-align: center; letter-spacing: 0.15em;
+      text-transform: uppercase; outline: none; transition: all 0.3s ease;
+    }
+    .code-input::placeholder {
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 400;
+      color: var(--text-muted); letter-spacing: 0; text-transform: none;
+    }
+    .code-input:focus { border-color: var(--cyan); background: rgba(6,182,212,0.03); box-shadow: 0 0 0 4px rgba(6,182,212,0.08); }
+    .code-input.valid { border-color: var(--green); background: rgba(16,185,129,0.03); box-shadow: 0 0 0 4px rgba(16,185,129,0.08); }
+    .code-input.invalid { border-color: var(--coral); background: rgba(248,113,113,0.03); box-shadow: 0 0 0 4px rgba(248,113,113,0.08); }
+    .error-msg {
+      display: none; margin-top: 12px; padding: 12px 16px; border-radius: 12px;
+      background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.12);
+      font-size: 0.82rem; color: var(--coral); align-items: center; gap: 8px;
+    }
+    .error-msg.visible { display: flex; }
+    .error-msg svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .user-preview {
+      display: none; margin-top: 18px;
+      background: var(--bg-card); border: 1px solid rgba(16,185,129,0.15);
+      border-radius: 16px; padding: 20px 22px;
+      animation: slideUp 0.4s ease;
+    }
+    .user-preview.visible { display: block; }
+    @keyframes slideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .user-preview-header {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.7rem; font-weight: 700; color: var(--green-soft);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
+    }
+    .user-preview-header svg { width: 14px; height: 14px; }
+    .user-preview-name { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 4px; }
+    .user-preview-role { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px; }
+    .user-preview-details { display: flex; flex-direction: column; gap: 8px; }
+    .user-preview-detail { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: var(--text-secondary); }
+    .user-preview-detail svg { width: 14px; height: 14px; color: var(--text-muted); flex-shrink: 0; }
+    .detail-group { display: flex; flex-direction: column; gap: 2px; }
+    .detail-label { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .detail-value { font-size: 0.88rem; color: var(--text-primary); font-weight: 600; }
+    .terms-section { display: none; margin-top: 18px; animation: slideUp 0.4s ease; }
+    .terms-section.visible { display: block; }
+    .terms-check {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px 18px; border-radius: 14px;
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .terms-check:hover { border-color: rgba(255,255,255,0.1); }
+    .terms-check.checked { border-color: rgba(16,185,129,0.2); background: rgba(16,185,129,0.03); }
+    .terms-checkbox-custom {
+      width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease; margin-top: 1px;
+    }
+    .terms-check.checked .terms-checkbox-custom { background: var(--green); border-color: var(--green); }
+    .terms-checkbox-custom svg { width: 14px; height: 14px; color: white; opacity: 0; transition: opacity 0.2s; }
+    .terms-check.checked .terms-checkbox-custom svg { opacity: 1; }
+    .terms-text { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+    .terms-text a { color: var(--cyan-soft); text-decoration: none; font-weight: 600; }
+    .terms-text a:hover { text-decoration: underline; }
+    .btn-ingresar {
+      display: none; width: 100%; padding: 16px; border-radius: 14px;
+      color: white; font-family: var(--sans); font-size: 1rem; font-weight: 700;
+      border: none; cursor: pointer; margin-top: 18px; transition: all 0.3s ease;
+      align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-ingresar.visible { display: flex; }
+    .btn-ingresar:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+    .btn-ingresar.cyan { background: linear-gradient(135deg, var(--cyan), var(--cyan-soft)); box-shadow: 0 8px 28px rgba(6,182,212,0.25); }
+    .btn-ingresar.cyan:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(6,182,212,0.35); }
+    .btn-ingresar.purple { background: linear-gradient(135deg, var(--purple), var(--purple-soft)); box-shadow: 0 8px 28px rgba(124,58,237,0.25); }
+    .btn-ingresar.purple:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(124,58,237,0.35); }
+    .btn-ingresar svg { width: 18px; height: 18px; }
+    .login-help { text-align: center; margin-top: 32px; font-size: 0.75rem; color: var(--text-muted); }
+    .login-help a { color: var(--cyan-soft); text-decoration: none; }
+    .login-help a:hover { text-decoration: underline; }
+    .spinner {
+      width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .login-footer { text-align: center; padding: 20px 28px; font-size: 0.68rem; color: var(--text-muted); }
+    .login-footer a { color: var(--text-muted); text-decoration: none; margin: 0 4px; }
+    .login-footer a:hover { color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+  <header class="login-header">
+    <div class="login-header-inner">
+      <img src="/dashboard-imgs/logo-saludcompartida.jpg" alt="SC" class="login-logo">
+      <span class="login-logo-text">SaludCompartida</span>
+    </div>
+  </header>
+
+  <main class="login-main">
+    <div class="login-container">
+      <div class="login-visual">
+        <div class="login-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+        </div>
+        <h1 class="login-title">Ingresa tu código</h1>
+        <p class="login-subtitle">Escribe el código que recibiste por WhatsApp o correo electrónico.</p>
+      </div>
+
+      <div class="code-form">
+        <label class="code-label">Tu código de acceso</label>
+        <input type="text" id="code-input" class="code-input" placeholder="Ej: XC5R2K" maxlength="8" autocomplete="off" autofocus>
+
+        <div id="error-msg" class="error-msg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <span>Código no encontrado. Revisa e intenta de nuevo.</span>
+        </div>
+
+        <div id="user-preview" class="user-preview">
+          <div class="user-preview-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Código verificado
+          </div>
+          <div class="user-preview-details">
+            <div class="user-preview-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <div class="detail-group">
+                <span class="detail-label">Nombre</span>
+                <span id="preview-name" class="detail-value"></span>
+              </div>
+            </div>
+            <div class="user-preview-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <div class="detail-group">
+                <span class="detail-label">Apellido</span>
+                <span id="preview-lastname" class="detail-value"></span>
+              </div>
+            </div>
+            <div class="user-preview-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
+              <div class="detail-group">
+                <span class="detail-label">Correo electrónico</span>
+                <span id="preview-email" class="detail-value"></span>
+              </div>
+            </div>
+            <div class="user-preview-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <div class="detail-group">
+                <span class="detail-label">WhatsApp</span>
+                <span id="preview-phone" class="detail-value"></span>
+              </div>
+            </div>
+            <div class="user-preview-detail" id="preview-companion-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <div class="detail-group">
+                <span class="detail-label">Compañera asignada</span>
+                <span id="preview-companion" class="detail-value"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="terms-section" class="terms-section">
+          <div id="terms-check" class="terms-check" onclick="toggleTerms()">
+            <div class="terms-checkbox-custom">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="terms-text">
+              He leído y acepto los <a href="/dashboard/terminos.html" onclick="event.stopPropagation()">Términos y Condiciones</a> y la <a href="/dashboard/privacidad.html" onclick="event.stopPropagation()">Política de Privacidad</a> de SaludCompartida.
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-ingresar" class="btn-ingresar" onclick="handleLogin()" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          <span id="btn-text">Ingresar</span>
+        </button>
+      </div>
+
+      <div class="login-help">
+        ¿Problemas con tu código? <a href="https://wa.me/5215610178639">Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="login-footer">
+    <p>© 2026 SaludCompartida · <a href="/dashboard/privacidad.html">Privacidad</a> · <a href="/dashboard/terminos.html">Términos</a></p>
+  </footer>
+
+  <script>
+    const codeInput = document.getElementById('code-input');
+    const userPreview = document.getElementById('user-preview');
+    const errorMsg = document.getElementById('error-msg');
+    const termsSection = document.getElementById('terms-section');
+    const termsCheck = document.getElementById('terms-check');
+    const btnIngresar = document.getElementById('btn-ingresar');
+    const btnText = document.getElementById('btn-text');
+
+    // === SUPABASE CONNECTION ===
+    const SUPABASE_URL = 'https://rzmdekjegbdgitqekjee.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bWRla2plZ2JkZ2l0cWVramVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY2ODY4NTgsImV4cCI6MjA1MjI2Mjg1OH0.wUMLWc97WMJW0Q6KgDO-x10Klu8FrXKk_M0bUmX1QTg';
+
+    let currentUser = null;
+    let termsAccepted = false;
+
+    codeInput.addEventListener('input', function() {
+      const code = this.value.trim().toUpperCase();
+      this.value = code;
+      this.classList.remove('valid','invalid');
+      userPreview.classList.remove('visible');
+      errorMsg.classList.remove('visible');
+      termsSection.classList.remove('visible');
+      btnIngresar.classList.remove('visible');
+      termsCheck.classList.remove('checked');
+      termsAccepted = false;
+      btnIngresar.disabled = true;
+      currentUser = null;
+      if (code.length >= 5) validateCode(code);
+    });
+
+    codeInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && currentUser && termsAccepted) handleLogin();
+    });
+
+    async function validateCode(code) {
+      try {
+        // Buscar en Supabase por migrant_code o family_code
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/registrations?or=(migrant_code.eq.${code},family_code.eq.${code})&status=eq.active`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          const registration = data[0];
+          const isMigrant = registration.migrant_code === code;
+          
+          const user = {
+            type: isMigrant ? 'migrant' : 'family',
+            firstName: isMigrant ? registration.migrant_first_name : registration.family_first_name,
+            lastName: isMigrant ? registration.migrant_last_name : registration.family_last_name,
+            email: isMigrant ? registration.migrant_email : (registration.family_email || registration.family_primary_email),
+            phone: isMigrant ? registration.migrant_phone : registration.family_whatsapp,
+            companion: registration.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda',
+            redirect: '/dashboard/dashboard-completo.html'
+          };
+          
+          showUser(user);
+        } else if (code.length >= 6) {
+          showError();
+        }
+      } catch (error) {
+        console.error('Error validando código:', error);
+        if (code.length >= 6) showError();
+      }
+    }
+
+    function showUser(user) {
+      currentUser = user;
+      codeInput.classList.add('valid');
+      document.getElementById('preview-name').textContent = user.firstName;
+      document.getElementById('preview-lastname').textContent = user.lastName;
+      document.getElementById('preview-email').textContent = user.email;
+      document.getElementById('preview-phone').textContent = user.phone;
+      const crow = document.getElementById('preview-companion-row');
+      if (user.companion) { document.getElementById('preview-companion').textContent = user.companion; crow.style.display = 'flex'; }
+      else { crow.style.display = 'none'; }
+      userPreview.classList.add('visible');
+      termsSection.classList.add('visible');
+      btnIngresar.className = user.type === 'family' ? 'btn-ingresar visible cyan' : 'btn-ingresar visible purple';
+      btnText.textContent = user.type === 'family' ? 'Ingresar a SaludCompartida' : 'Ingresar como Suscriptor';
+      btnIngresar.disabled = true;
+    }
+
+    function showError() {
+      codeInput.classList.add('invalid');
+      errorMsg.classList.add('visible');
+    }
+
+    function toggleTerms() {
+      termsAccepted = !termsAccepted;
+      termsCheck.classList.toggle('checked', termsAccepted);
+      btnIngresar.disabled = !termsAccepted;
+    }
+
+    function handleLogin() {
+      if (!currentUser || !termsAccepted) return;
+      btnIngresar.innerHTML = '<div class="spinner"></div> Verificando...';
+      btnIngresar.disabled = true;
+      // PRODUCTION: store session, update last_login_at + terms_accepted_at in Supabase
+      setTimeout(() => {
+        localStorage.setItem('sc_user', JSON.stringify(currentUser));
+        localStorage.setItem('sc_code', codeInput.value.trim().toUpperCase());
+        localStorage.setItem('sc_terms_accepted', new Date().toISOString());
+        window.location.href = currentUser.redirect;
+      }, 800);
+    }
+  </script>
+</body>
+</html>

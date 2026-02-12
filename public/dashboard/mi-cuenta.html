@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Cuenta | SaludCompartida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0C0B12;
+      --bg-card: #151422;
+      --bg-elevated: #1A1928;
+      --purple: #7C3AED;
+      --purple-soft: #A78BFA;
+      --green: #10B981;
+      --green-soft: #34D399;
+      --blue-soft: #60A5FA;
+      --orange-soft: #FBBF24;
+      --coral: #F87171;
+      --rose: #E8A0BF;
+      --text-primary: #F2F0F7;
+      --text-secondary: #BCB8CC;
+      --text-muted: #8A86A0;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-deep); color: var(--text-primary); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+
+    .page-container { max-width: 760px; margin: 0 auto; padding: 48px 28px 80px; }
+
+    /* Header */
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; }
+    .page-header-left { display: flex; align-items: center; gap: 16px; }
+    .page-logo { height: 32px; }
+    .page-title { font-family: var(--serif); font-size: 1.6rem; color: var(--text-primary); }
+
+    /* Cover photo */
+    .cover-photo {
+      width: 100%; height: 200px; border-radius: 20px; overflow: hidden;
+      margin-bottom: -50px; position: relative; z-index: 1;
+    }
+    .cover-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .cover-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(12, 11, 18, 0.9) 100%);
+    }
+
+    /* Profile card */
+    .profile-card {
+      position: relative; z-index: 2;
+      background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px; padding: 60px 28px 28px; margin-bottom: 28px;
+    }
+    .profile-avatar {
+      position: absolute; top: -40px; left: 28px;
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--purple-soft));
+      display: flex; align-items: center; justify-content: center;
+      border: 4px solid var(--bg-card);
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
+    }
+    .profile-avatar span { font-family: var(--serif); font-size: 2rem; color: white; }
+    .profile-badge {
+      position: absolute; top: -30px; right: 28px;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 100px;
+      background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2);
+      font-size: 0.7rem; font-weight: 700; color: var(--green-soft);
+    }
+    .profile-name { font-family: var(--serif); font-size: 1.4rem; color: var(--text-primary); margin-bottom: 4px; }
+    .profile-role { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 20px; }
+
+    /* Form */
+    .form-section { margin-bottom: 32px; }
+    .form-section-title {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.9rem; font-weight: 700; color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .form-section-title svg { width: 18px; height: 18px; color: var(--purple-soft); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 500px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-label {
+      font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .form-input {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 12px 16px;
+      font-family: var(--sans); font-size: 0.88rem; color: var(--text-primary);
+      outline: none; transition: all 0.2s ease; width: 100%;
+    }
+    .form-input::placeholder { color: var(--text-muted); }
+    .form-input:focus { border-color: var(--purple-soft); background: rgba(124, 58, 237, 0.04); box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.08); }
+    .form-input:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-input-wa {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 0 16px; transition: all 0.2s ease;
+    }
+    .form-input-wa:focus-within { border-color: #25D366; background: rgba(37, 211, 102, 0.04); box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.08); }
+    .form-input-wa input { border: none; background: transparent; padding: 12px 0; flex: 1; font-family: var(--sans); font-size: 0.88rem; color: var(--text-primary); outline: none; }
+    .form-input-wa svg { flex-shrink: 0; }
+
+    /* Date input styling */
+    input[type="date"] { color-scheme: dark; }
+
+    /* Save button */
+    .save-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-soft));
+      color: white; font-family: var(--sans); font-size: 0.9rem; font-weight: 700;
+      border: none; cursor: pointer;
+      box-shadow: 0 6px 24px rgba(124, 58, 237, 0.25);
+      transition: all 0.3s ease; margin-top: 8px;
+    }
+    .save-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(124, 58, 237, 0.35); }
+    .save-btn svg { width: 18px; height: 18px; }
+
+    /* Divider */
+    .section-divider {
+      height: 1px; margin: 36px 0;
+      background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.15), transparent);
+    }
+
+    /* Member cards */
+    .members-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .members-title { font-family: var(--serif); font-size: 1.2rem; color: var(--text-primary); }
+    .members-count { font-size: 0.78rem; color: var(--text-muted); }
+    .member-card {
+      background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px; overflow: hidden; margin-bottom: 16px;
+      transition: all 0.3s ease;
+    }
+    .member-card:hover { border-color: rgba(255,255,255,0.1); }
+    .member-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px; cursor: pointer;
+    }
+    .member-header-left { display: flex; align-items: center; gap: 14px; }
+    .member-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.1rem; color: white;
+    }
+    .member-avatar.m1 { background: linear-gradient(135deg, var(--rose), var(--coral)); }
+    .member-avatar.m2 { background: linear-gradient(135deg, var(--blue-soft), var(--purple)); }
+    .member-avatar.m3 { background: linear-gradient(135deg, var(--orange-soft), var(--coral)); }
+    .member-name { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
+    .member-relation { font-size: 0.72rem; color: var(--text-muted); }
+    .member-status {
+      font-size: 0.68rem; font-weight: 700; padding: 4px 10px; border-radius: 100px;
+    }
+    .member-status.active { background: rgba(16, 185, 129, 0.1); color: var(--green-soft); }
+    .member-status.pending { background: rgba(245, 158, 11, 0.1); color: var(--orange-soft); }
+    .member-arrow { color: var(--text-muted); transition: transform 0.3s; }
+    .member-card.open .member-arrow { transform: rotate(90deg); color: var(--purple-soft); }
+    .member-expand { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .member-card.open .member-expand { max-height: 600px; }
+    .member-expand-inner { padding: 0 22px 22px; border-top: 1px solid rgba(255,255,255,0.04); }
+    .member-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 18px; }
+    @media (max-width: 500px) { .member-form-grid { grid-template-columns: 1fr; } }
+
+    /* Volver */
+    .volver-page {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 36px; padding: 12px 24px; border-radius: 100px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-muted); font-size: 0.82rem; font-weight: 600;
+      text-decoration: none; transition: all 0.25s ease;
+    }
+    .volver-page:hover { color: var(--purple-soft); border-color: rgba(124, 58, 237, 0.2); background: rgba(124, 58, 237, 0.06); }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+
+    <!-- Header -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <img src="/dashboard-imgs/logo-saludcompartida.jpg" alt="SC" class="page-logo">
+        <h1 class="page-title">Mi Cuenta</h1>
+      </div>
+    </div>
+
+    <!-- Cover photo -->
+    <div class="cover-photo" style="position:relative;">
+      <img src="/dashboard-imgs/nina-mariposa.jpeg" alt="SaludCompartida">
+      <div class="cover-overlay"></div>
+    </div>
+
+    <!-- Profile card - Titular -->
+    <div class="profile-card">
+      <div class="profile-avatar"><span>M</span></div>
+      <div class="profile-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Titular activo
+      </div>
+      <h2 class="profile-name">María García</h2>
+      <p class="profile-role">Beneficiaria principal • Miembro desde Feb 2026</p>
+
+      <div class="form-section">
+        <div class="form-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Información personal
+        </div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-input" value="María" placeholder="Tu nombre">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Apellido Paterno</label>
+            <input type="text" class="form-input" value="García" placeholder="Tu apellido">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Correo electrónico</label>
+            <input type="email" class="form-input" value="maria.garcia@gmail.com" placeholder="tu@correo.com">
+          </div>
+          <div class="form-field">
+            <label class="form-label">WhatsApp</label>
+            <div class="form-input-wa">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><circle cx="12" cy="12" r="10"/></svg>
+              <input type="tel" value="55 8734 2190" placeholder="55 1234 5678">
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Fecha de nacimiento</label>
+            <input type="date" class="form-input" value="1985-03-15">
+          </div>
+        </div>
+        <button class="save-btn" style="margin-top:20px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Guardar cambios
+        </button>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Family members -->
+    <div class="members-header">
+      <h2 class="members-title">Tu familia</h2>
+      <span class="members-count">3 miembros disponibles</span>
+    </div>
+
+    <!-- Member 1 -->
+    <div class="member-card" onclick="this.classList.toggle('open')">
+      <div class="member-header">
+        <div class="member-header-left">
+          <div class="member-avatar m1">A</div>
+          <div>
+            <div class="member-name">Ana García</div>
+            <div class="member-relation">Hija</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="member-status active">Activo</span>
+          <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+      <div class="member-expand">
+        <div class="member-expand-inner">
+          <div class="member-form-grid">
+            <div class="form-field">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-input" value="Ana" placeholder="Nombre">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Apellido Paterno</label>
+              <input type="text" class="form-input" value="García" placeholder="Apellido">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" class="form-input" value="ana.garcia@gmail.com" placeholder="correo">
+            </div>
+            <div class="form-field">
+              <label class="form-label">WhatsApp</label>
+              <div class="form-input-wa">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><circle cx="12" cy="12" r="10"/></svg>
+                <input type="tel" value="55 9012 3456" placeholder="WhatsApp">
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Fecha de nacimiento</label>
+              <input type="date" class="form-input" value="2008-07-22">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Parentesco</label>
+              <input type="text" class="form-input" value="Hija" placeholder="Parentesco">
+            </div>
+          </div>
+          <button class="save-btn" style="margin-top:16px; font-size:0.82rem; padding:12px 22px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Member 2 -->
+    <div class="member-card" onclick="this.classList.toggle('open')">
+      <div class="member-header">
+        <div class="member-header-left">
+          <div class="member-avatar m2">L</div>
+          <div>
+            <div class="member-name">Luis García</div>
+            <div class="member-relation">Hijo</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="member-status active">Activo</span>
+          <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+      <div class="member-expand">
+        <div class="member-expand-inner">
+          <div class="member-form-grid">
+            <div class="form-field">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-input" value="Luis" placeholder="Nombre">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Apellido Paterno</label>
+              <input type="text" class="form-input" value="García" placeholder="Apellido">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" class="form-input" placeholder="correo">
+            </div>
+            <div class="form-field">
+              <label class="form-label">WhatsApp</label>
+              <div class="form-input-wa">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><circle cx="12" cy="12" r="10"/></svg>
+                <input type="tel" placeholder="WhatsApp">
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Fecha de nacimiento</label>
+              <input type="date" class="form-input" value="2012-11-05">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Parentesco</label>
+              <input type="text" class="form-input" value="Hijo" placeholder="Parentesco">
+            </div>
+          </div>
+          <button class="save-btn" style="margin-top:16px; font-size:0.82rem; padding:12px 22px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Member 3 - Empty -->
+    <div class="member-card" onclick="this.classList.toggle('open')">
+      <div class="member-header">
+        <div class="member-header-left">
+          <div class="member-avatar m3">+</div>
+          <div>
+            <div class="member-name" style="color:var(--text-muted);">Agregar familiar</div>
+            <div class="member-relation">Espacio disponible</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="member-status pending">Pendiente</span>
+          <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+      <div class="member-expand">
+        <div class="member-expand-inner">
+          <div class="member-form-grid">
+            <div class="form-field">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-input" placeholder="Nombre del familiar">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Apellido Paterno</label>
+              <input type="text" class="form-input" placeholder="Apellido">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" class="form-input" placeholder="correo@ejemplo.com">
+            </div>
+            <div class="form-field">
+              <label class="form-label">WhatsApp</label>
+              <div class="form-input-wa">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><circle cx="12" cy="12" r="10"/></svg>
+                <input type="tel" placeholder="Número de WhatsApp">
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Fecha de nacimiento</label>
+              <input type="date" class="form-input">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Parentesco</label>
+              <input type="text" class="form-input" placeholder="Ej: Mamá, Abuela, Hijo">
+            </div>
+          </div>
+          <button class="save-btn" style="margin-top:16px; font-size:0.82rem; padding:12px 22px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 5v14m-7-7h14"/></svg>
+            Agregar familiar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Volver -->
+    <a href="javascript:history.back()" class="volver-page">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      ← Volver
+    </a>
+  </div>
+</body>
+</html>

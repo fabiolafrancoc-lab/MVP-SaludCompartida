@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Next.js
+.next/
+out/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -23,5 +27,11 @@ dist-ssr
 *.sln
 *.sw?
 
+# Environment variables (SEGURIDAD)
+.env
+.env.local
+.env*.local
+
 # Temporarily exclude large video files for GitHub upload
 *.mov
+.vercel

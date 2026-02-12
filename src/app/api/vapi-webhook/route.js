@@ -5,14 +5,8 @@
 // ============================================
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '@/lib/supabase';
 import { processCallAudio } from '@/lib/vapi-audio-handler';
-
-// Configurar Supabase
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
 
 /**
  * POST /api/vapi-webhook
@@ -63,6 +57,8 @@ export async function POST(request) {
  * Handler: Llamada iniciada
  */
 async function handleCallStart(event) {
+  const supabase = getSupabaseClient();
+  
   const call = event.call;
   const callId = call?.id;
   const phoneNumber = call?.customer?.number;
@@ -91,6 +87,8 @@ async function handleCallStart(event) {
  * AQUÍ SE GUARDA EL AUDIO EN AWS S3
  */
 async function handleCallEnd(event) {
+  const supabase = getSupabaseClient();
+  
   const call = event.call;
   const callId = call?.id;
   const recordingUrl = call?.recordingUrl;
@@ -159,6 +157,8 @@ async function handleTranscript(event) {
  * Handler: Usuario colgó
  */
 async function handleHang(event) {
+  const supabase = getSupabaseClient();
+  
   const callId = event.call?.id;
   console.log(`[VAPI] User hung up: ${callId}`);
   

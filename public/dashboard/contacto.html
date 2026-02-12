@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contáctanos | SaludCompartida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0C0B12;
+      --bg-card: #151422;
+      --purple: #7C3AED;
+      --purple-soft: #A78BFA;
+      --green-soft: #34D399;
+      --coral: #F87171;
+      --rose: #E8A0BF;
+      --text-primary: #F2F0F7;
+      --text-secondary: #BCB8CC;
+      --text-muted: #8A86A0;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-deep); color: var(--text-primary); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    .page-container { max-width: 760px; margin: 0 auto; padding: 48px 28px 80px; }
+    .page-header { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+    .page-logo { height: 32px; }
+    .page-title { font-family: var(--serif); font-size: 1.6rem; }
+
+    /* Hero image */
+    .contact-hero {
+      width: 100%; height: 280px; border-radius: 24px; overflow: hidden;
+      margin-bottom: 36px; position: relative;
+    }
+    .contact-hero img { width: 100%; height: 100%; object-fit: cover; }
+    .contact-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(12, 11, 18, 0.85) 100%);
+      display: flex; align-items: flex-end; padding: 28px;
+    }
+    .contact-hero-text { font-family: var(--serif); font-size: 1.4rem; color: white; line-height: 1.3; }
+    .contact-hero-text span { color: var(--purple-soft); }
+
+    /* Contact methods */
+    .contact-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+    .contact-card {
+      background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px; padding: 24px; display: flex; align-items: center; gap: 18px;
+      text-decoration: none; transition: all 0.3s ease;
+    }
+    .contact-card:hover { border-color: rgba(255,255,255,0.12); transform: translateX(4px); }
+    .contact-card-icon {
+      width: 52px; height: 52px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-card-icon svg { width: 24px; height: 24px; }
+    .contact-card-icon.email { background: rgba(124, 58, 237, 0.1); }
+    .contact-card-icon.email svg { color: var(--purple-soft); }
+    .contact-card-icon.whatsapp { background: rgba(37, 211, 102, 0.1); }
+    .contact-card-icon.whatsapp svg { color: #25D366; }
+    .contact-card-icon.web { background: rgba(59, 130, 246, 0.1); }
+    .contact-card-icon.web svg { color: var(--blue-soft, #60A5FA); }
+    .contact-card-info { }
+    .contact-card-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .contact-card-value { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+
+    /* Contact form */
+    .contact-form-section {
+      background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px; padding: 28px 24px; margin-bottom: 24px;
+    }
+    .contact-form-title { font-family: var(--serif); font-size: 1.15rem; color: var(--text-primary); margin-bottom: 6px; }
+    .contact-form-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px; }
+    .contact-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .form-input {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 12px 16px;
+      font-family: var(--sans); font-size: 0.88rem; color: var(--text-primary);
+      outline: none; transition: all 0.2s ease; width: 100%;
+    }
+    .form-input::placeholder { color: var(--text-muted); }
+    .form-input:focus { border-color: var(--purple-soft); background: rgba(124, 58, 237, 0.04); box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.08); }
+    textarea.form-input { min-height: 120px; resize: vertical; }
+    .send-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-soft));
+      color: white; font-family: var(--sans); font-size: 0.9rem; font-weight: 700;
+      border: none; cursor: pointer; box-shadow: 0 6px 24px rgba(124, 58, 237, 0.25);
+      transition: all 0.3s ease;
+    }
+    .send-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(124, 58, 237, 0.35); }
+    .send-btn svg { width: 18px; height: 18px; }
+
+    .horario-box {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 22px 24px; border-radius: 16px;
+      background: rgba(124, 58, 237, 0.04); border: 1px solid rgba(124, 58, 237, 0.1);
+      margin-bottom: 8px;
+    }
+    .horario-icon { flex-shrink: 0; margin-top: 2px; }
+    .horario-title { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+    .horario-text { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+
+    .volver-page {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 24px; padding: 12px 24px; border-radius: 100px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-muted); font-size: 0.82rem; font-weight: 600;
+      text-decoration: none; transition: all 0.25s ease;
+    }
+    .volver-page:hover { color: var(--purple-soft); border-color: rgba(124, 58, 237, 0.2); }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-header">
+      <img src="/dashboard-imgs/logo-saludcompartida.jpg" alt="SC" class="page-logo">
+      <h1 class="page-title">Contáctanos</h1>
+    </div>
+
+    <!-- Hero -->
+    <div class="contact-hero">
+      <img src="/dashboard-imgs/nina-mariposa.jpeg" alt="SaludCompartida">
+      <div class="contact-hero-overlay">
+        <div class="contact-hero-text">Estamos aquí para ti.<br>Siempre <span>contigo</span>.</div>
+      </div>
+    </div>
+
+    <!-- Contact methods -->
+    <div class="contact-grid">
+      <a href="/cdn-cgi/l/email-protection#6a0905041e0b091e2a190b061f0e0905071a0b181e030e0b44090507" class="contact-card">
+        <div class="contact-card-icon email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-card-info">
+          <div class="contact-card-label">Correo electrónico</div>
+          <div class="contact-card-value"><span class="__cf_email__" data-cfemail="4f2c20213b2e2c3b0f3c2e233a2b2c20223f2e3d3b262b2e612c2022">[email&#160;protected]</span></div>
+        </div>
+      </a>
+      <a href="https://wa.me/5215610178639" class="contact-card">
+        <div class="contact-card-icon whatsapp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="contact-card-info">
+          <div class="contact-card-label">WhatsApp</div>
+          <div class="contact-card-value">56 1017 8639</div>
+        </div>
+      </a>
+      <a href="https://saludcompartida.app" class="contact-card">
+        <div class="contact-card-icon web">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="contact-card-info">
+          <div class="contact-card-label">Sitio web</div>
+          <div class="contact-card-value">saludcompartida.app</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Contact form -->
+    <div class="contact-form-section">
+      <h2 class="contact-form-title">Envíanos un mensaje</h2>
+      <p class="contact-form-sub">Te responderemos lo antes posible.</p>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-input" placeholder="Tu nombre">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Correo electrónico</label>
+            <input type="email" class="form-input" placeholder="tu@correo.com">
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Asunto</label>
+          <input type="text" class="form-input" placeholder="¿En qué podemos ayudarte?">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Mensaje</label>
+          <textarea class="form-input" placeholder="Escribe tu mensaje aquí..."></textarea>
+        </div>
+        <button class="send-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Enviar mensaje
+        </button>
+      </div>
+    </div>
+
+    <!-- Horario -->
+    <div class="horario-box">
+      <div class="horario-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--purple-soft)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <div class="horario-title">Horario de atención</div>
+        <div class="horario-text">Lunes a Viernes: 9:00 AM – 6:00 PM (hora del centro)</div>
+        <div class="horario-text">Te responderemos en menos de 24 horas.</div>
+      </div>
+    </div>
+
+    <a href="javascript:history.back()" class="volver-page">
+      <svg width="16" height="16" viewBox="0 0 2
