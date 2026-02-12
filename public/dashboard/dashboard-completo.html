@@ -1363,13 +1363,17 @@
           throw new Error(data.error || 'Error al conectar');
         }
         
-        // Abrir app LAD
-        window.open(data.app_url, '_blank');
-        loading.innerHTML = '<p style="color: #10B981; font-size: 14px;">✅ Redirigiendo a Llamando al Doctor. Usa tu código: ' + familyCode + '</p>';
-        setTimeout(() => {
-          loading.style.display = 'none';
-          btn.style.display = 'flex';
-        }, 5000);
+        // Abrir PWA de LAD con token
+        if (data.pwa_url) {
+          window.open(data.pwa_url, '_blank');
+          loading.innerHTML = '<p style="color: #10B981; font-size: 14px;">✅ Videollamada iniciada. Revisa la nueva pestaña.</p>';
+          setTimeout(() => {
+            loading.style.display = 'none';
+            btn.style.display = 'flex';
+          }, 3000);
+        } else {
+          throw new Error('No se recibió URL de acceso');
+        }
         
       } catch (error) {
         console.error('Error LAD:', error);
