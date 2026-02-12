@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseClient } from '@/lib/supabase';
-import { mapSupabaseToLAD, validateRegistrationForLAD } from '@/lib/lad-mapper';
 
 export async function POST(request: NextRequest) {
   try {
-    const { familyCode, consultationType = 'video' } = await request.json();
+    const { familyCode } = await request.json();
     
     if (!familyCode) {
       return NextResponse.json({ error: 'Código familiar requerido' }, { status: 400 });
@@ -22,62 +21,24 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Código no encontrado' }, { status: 404 });
     }
     
-    const validation = validateRegistrationForLAD(registration);
-    if (!validation.valid) {
-      return NextResponse.json({ error: 'Datos incompletos', missing: validation.missing }, { status: 400 });
-    }
-    
-    const ladRequest = mapSupabaseToLAD(registration, 'telemedicine', consultationType);
-    
-    const tokenResponse = await fetch(`${process.env.LAD_API_URL}/auth/token`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        client_id: process.env.LAD_CLIENT_ID,
-        client_secret: process.env.LAD_CLIENT_SECRET,
-        grant_type: 'client_credentials'
-      })
-    });
-    
-    if (!tokenResponse.ok) {
-      throw new Error('Error de autenticación con LAD');
-    }
-    
-    const { access_token } = await tokenResponse.json();
-    
-    const consultationResponse = await fetch(`${process.env.LAD_API_URL}/consultations`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${access_token}`
-      },
-      body: JSON.stringify(ladRequest)
-    });
-    
-    if (!consultationResponse.ok) {
-      const errorData = await consultationResponse.json();
-      throw new Error(`Error creando consulta: ${JSON.stringify(errorData)}`);
-    }
-    
-    const consultation = await consultationResponse.json();
-    
+    // Guardar uso
     await supabase.from('service_usage').insert({
       registration_id: registration.id,
       service_type: 'telemedicina',
-      description: `Consulta ${consultationType} - LAD ID: ${consultation.id}`,
+      description: 'Acceso a videollamada LAD',
       amount_paid: 0,
       amount_saved: 50,
       used_at: new Date().toISOString()
     });
     
+    // URL de la app LAD (el usuario se loguea con su family_code)
+    const ladAppUrl = process.env.LAD_APP_URL || 'https://app.llamandoaldoctor.com';
+    
     return NextResponse.json({
       success: true,
-      consultation: {
-        id: consultation.id,
-        status: consultation.status,
-        video_url: consultation.video_url || consultation.meeting_url,
-        scheduled_at: consultation.scheduled_at
-      }
+      app_url: ladAppUrl,
+      documentNumber: registration.family_code,
+      instructions: 'Ingresa con tu código de familia como documento'
     });
     
   } catch (error: any) {
