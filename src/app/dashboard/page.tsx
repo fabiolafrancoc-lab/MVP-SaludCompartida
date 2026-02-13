@@ -529,6 +529,8 @@ export default function Dashboard() {
       border: 'rgba(6,182,212,0.75)',
       iconBg: 'linear-gradient(135deg, rgba(6,182,212,0.55), rgba(6,182,212,0.4))',
     },
+    // TEMPORALMENTE OCULTO - Descuentos en Farmacias
+    /*
     {
       id: 'farmacia' as Page,
       icon: Icons.Pill,
@@ -544,6 +546,7 @@ export default function Dashboard() {
       border: 'rgba(236,72,153,0.75)',
       iconBg: 'linear-gradient(135deg, rgba(236,72,153,0.55), rgba(236,72,153,0.4))',
     },
+    */
     {
       id: 'terapia' as Page,
       icon: Icons.Brain,
