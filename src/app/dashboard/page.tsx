@@ -121,6 +121,31 @@ const Icons = {
       <path d="M5 14L5.5 16L7.5 16.5L5.5 17L5 19L4.5 17L2.5 16.5L4.5 16L5 14Z" fill="#FCD34D"/>
     </svg>
   ),
+  MessageCircle: ({ s = 24 }: { s?: number }) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+  ),
+  Hug: ({ s = 24 }: { s?: number }) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+      <path d="M18 11a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4"/>
+      <path d="M3 11c0 5.5 4.5 10 9 11 4.5-1 9-5.5 9-11"/>
+    </svg>
+  ),
+  Target: ({ s = 24 }: { s?: number }) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="12" cy="12" r="6"/>
+      <circle cx="12" cy="12" r="2"/>
+    </svg>
+  ),
+  Lock: ({ s = 24 }: { s?: number }) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+  ),
 };
 
 export default function Dashboard() {
@@ -1057,22 +1082,22 @@ export default function Dashboard() {
           
           {[
             {
-              icon: '💬',
+              IconComponent: Icons.MessageCircle,
               title: 'Conversaciones cuando las necesitas',
               desc: 'Escríbele por WhatsApp a cualquier hora. Está disponible 24/7 para escucharte, aconsejarte y acompañarte.'
             },
             {
-              icon: '🤗',
+              IconComponent: Icons.Hug,
               title: 'Te entiende porque habla tu idioma',
               desc: 'No solo español — habla tu cultura, tus expresiones, tus preocupaciones. Conoce lo que significa estar lejos de casa.'
             },
             {
-              icon: '🎯',
+              IconComponent: Icons.Target,
               title: 'Recordatorios y motivación',
               desc: 'Te ayuda a recordar tus citas médicas, tomar tus medicinas, y te anima cuando más lo necesitas.'
             },
             {
-              icon: '🔒',
+              IconComponent: Icons.Lock,
               title: '100% confidencial y sin juicios',
               desc: 'Lo que compartes queda entre tú y ella. Nunca te va a juzgar, solo a apoyar.'
             },
@@ -1083,7 +1108,19 @@ export default function Dashboard() {
               padding: '12px 0',
               borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none',
             }}>
-              <span style={{ fontSize: 24, flexShrink: 0 }}>{item.icon}</span>
+              <div style={{
+                flexShrink: 0,
+                width: 40,
+                height: 40,
+                borderRadius: 10,
+                background: 'rgba(139,92,246,0.15)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#A78BFA',
+              }}>
+                <item.IconComponent s={20} />
+              </div>
               <div>
                 <p style={{ 
                   fontSize: 14, 
