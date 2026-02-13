@@ -32,6 +32,6 @@ out/
 .env.local
 .env*.local
 
-# Temporarily exclude large video files for GitHub upload
+# Videos demasiado grandes para GitHub (usar CDN)
 *.mov
 .vercel

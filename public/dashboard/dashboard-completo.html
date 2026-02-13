@@ -809,8 +809,7 @@
           <div id="lad-error" style="display: none; padding: 12px; background: #FEE2E2; border-radius: 8px; color: #DC2626; font-size: 14px; margin-top: 12px;"></div>
           <div style="width: 100%; border-radius: 14px; overflow: hidden; margin-bottom: 16px;">
             <video width="100%" controls style="display: block; border-radius: 14px;">
-              <source src="/telemedicina.mov" type="video/quicktime">
-              <source src="/telemedicina.mp4" type="video/mp4">
+              <source src="https://2ggmktafbimxkl1a.public.blob.vercel-storage.com/Telemedicina.mov" type="video/quicktime">
               Tu navegador no soporta el elemento de video.
             </video>
           </div>
@@ -1007,15 +1006,13 @@
           <div class="terapia-videos">
             <div style="border-radius: 14px; overflow: hidden;">
               <video width="100%" controls style="display: block; border-radius: 14px;">
-                <source src="/MUJER GRITANDO.mov" type="video/quicktime">
-                <source src="/MUJER GRITANDO.mp4" type="video/mp4">
+                <source src="https://2ggmktafbimxkl1a.public.blob.vercel-storage.com/MUJER_GRITANDO.mov" type="video/quicktime">
                 Tu navegador no soporta el elemento de video.
               </video>
             </div>
             <div style="border-radius: 14px; overflow: hidden;">
               <video width="100%" controls style="display: block; border-radius: 14px;">
-                <source src="/MUJER_RIENGO.mov" type="video/quicktime">
-                <source src="/MUJER_RIENGO.mp4" type="video/mp4">
+                <source src="https://2ggmktafbimxkl1a.public.blob.vercel-storage.com/MUJER_RIENGO.mov" type="video/quicktime">
                 Tu navegador no soporta el elemento de video.
               </video>
             </div>
@@ -1363,13 +1360,17 @@
           throw new Error(data.error || 'Error al conectar');
         }
         
-        // Abrir app LAD
-        window.open(data.app_url, '_blank');
-        loading.innerHTML = '<p style="color: #10B981; font-size: 14px;">✅ Redirigiendo a Llamando al Doctor. Usa tu código: ' + familyCode + '</p>';
-        setTimeout(() => {
-          loading.style.display = 'none';
-          btn.style.display = 'flex';
-        }, 5000);
+        // Abrir PWA de LAD con token
+        if (data.pwa_url) {
+          window.open(data.pwa_url, '_blank');
+          loading.innerHTML = '<p style="color: #10B981; font-size: 14px;">✅ Videollamada iniciada. Revisa la nueva pestaña.</p>';
+          setTimeout(() => {
+            loading.style.display = 'none';
+            btn.style.display = 'flex';
+          }, 3000);
+        } else {
+          throw new Error('No se recibió URL de acceso');
+        }
         
       } catch (error) {
         console.error('Error LAD:', error);
