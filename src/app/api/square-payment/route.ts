@@ -85,8 +85,10 @@ export async function POST(request: NextRequest) {
     
     const cardResp = await squareFetch('/v2/cards', {
       idempotency_key: `card_${registrationId}_${Date.now()}`,
+      card: {
+        customer_id: customerId,
+      },
       source_id: sourceId,
-      customer_id: customerId,
     }, SQUARE_ACCESS_TOKEN);
 
     const cardId = cardResp.card.id;
