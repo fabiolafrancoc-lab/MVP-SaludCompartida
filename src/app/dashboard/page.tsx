@@ -281,7 +281,12 @@ export default function Dashboard() {
 
         // Autenticar automáticamente con datos frescos de Supabase
         const type: UserType = (data.migrant_code === savedCode) ? 'migrant' : 'mexico';
-        console.log('✅ [AUTO-LOGIN] Login exitoso:', { type, code: savedCode });
+        console.log('✅ [AUTO-LOGIN] Login exitoso:', { 
+          type, 
+          code: savedCode,
+          userName: type === 'migrant' ? data.migrant_first_name : data.family_first_name,
+          fullData: data
+        });
         setUserType(type);
         setRegistration({ ...data, userType: type });
         setIsAuthenticated(true);
@@ -1084,7 +1089,26 @@ export default function Dashboard() {
             {
               IconComponent: Icons.MessageCircle,
               title: 'Conversaciones cuando las necesitas',
-              desc: 'Escríbele por WhatsApp a cualquier hora. Está disponible 24/7 para escucharte, aconsejarte y acompañarte.'
+              desc: (
+                <>
+                  <a 
+                    href={`https://wa.me/17869648040?text=Hola%20${companionName},%20necesito%20hablar%20contigo`}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{
+                      color: '#25D366',
+                      fontWeight: 600,
+                      textDecoration: 'underline',
+                      cursor: 'pointer',
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    Escríbele por WhatsApp
+                  </a> a cualquier hora. Está disponible 24/7 para escucharte, aconsejarte y acompañarte.
+                </>
+              )
             },
             {
               IconComponent: Icons.Hug,
