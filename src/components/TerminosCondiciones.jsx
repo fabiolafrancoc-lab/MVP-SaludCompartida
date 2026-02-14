@@ -727,14 +727,22 @@ export default function TerminosCondiciones() {
               </div>
             </a>
             
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              background: 'rgba(255,255,255,0.05)',
-              borderRadius: '12px',
-              padding: '12px',
-            }}>
+            <Link 
+              href="/contacto"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                background: 'rgba(255,255,255,0.05)',
+                borderRadius: '12px',
+                padding: '12px',
+                textDecoration: 'none',
+                color: 'white',
+                transition: 'background 0.2s',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+            >
               <div style={{
                 width: '40px',
                 height: '40px',
@@ -748,10 +756,10 @@ export default function TerminosCondiciones() {
                 ✉️
               </div>
               <div>
-                <p style={{ fontSize: '14px', fontWeight: '600' }}>contact@saludcompartida.com</p>
-                <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>Escríbenos</p>
+                <p style={{ fontSize: '14px', fontWeight: '600' }}>Formulario de Contacto</p>
+                <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>Escríbenos tus dudas</p>
               </div>
-            </div>
+            </Link>
           </div>
         </section>
 
