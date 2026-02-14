@@ -103,8 +103,8 @@ export default function LandingPage() {
         }}>
           {[
             { num: '24/7', label: 'Doctores disponibles' },
-            { num: '1,700+', label: 'Farmacias con descuento' },
-            { num: '75%', label: 'Descuento máximo' },
+            // { num: '1,700+', label: 'Farmacias con descuento' },
+            // { num: '75%', label: 'Descuento máximo' },
           ].map((s, i) => (
             <div key={i} style={{
               background: 'rgba(255,255,255,0.05)',
@@ -349,9 +349,9 @@ export default function LandingPage() {
             <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.75)', marginBottom: '12px' }}>
               Telemedicina ilimitada por video o teléfono, sin citas, sin esperas. A las 3 AM si es necesario.
             </p>
-            <p style={{ fontSize: '14px', color: '#10B981', fontWeight: '600' }}>
+            {/* <p style={{ fontSize: '14px', color: '#10B981', fontWeight: '600' }}>
               75% de descuento en 1,700+ farmacias.
-            </p>
+            </p> */}
           </div>
 
           {/* PILAR 2 */}
