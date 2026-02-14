@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { sendPostPaymentEmails } from '@/lib/email-templates';
+import { sendPostPaymentWhatsApp } from '@/lib/meta-whatsapp';
 
 // ════════════════════════════════════════════════════════════════════════════
 // ENDPOINT: /api/send-notifications
 // ════════════════════════════════════════════════════════════════════════════
-// Descripción: Envía emails de bienvenida post-pago usando templates de Resend
-// Conexión: Supabase + Resend + Square
+// Descripción: Envía emails + WhatsApp de bienvenida post-pago
+// Conexión: Supabase + Resend + Meta WhatsApp
 // ════════════════════════════════════════════════════════════════════════════
 
 // Inicializar Supabase con service role key o anon key como fallback
@@ -72,9 +73,12 @@ export async function POST(request: NextRequest) {
     // ════════════════════════════════════════════════════════════
     // 3. ENVIAR EMAILS CON LOS NUEVOS TEMPLATES
     // ════════════════════════════════════════════════════════════
+    // 3. ENVIAR EMAILS + WHATSAPP
+    // ════════════════════════════════════════════════════════════
     // ✅ Email 1: Migrante (USA) - "El Que Nunca Olvida"
     // ✅ Email 2: Usuario México - "El Regalo de Amor"
-    // ✅ Ambos emails se envían en paralelo
+    // ✅ WhatsApp 1: Código + Bienvenida Migrante
+    // ✅ WhatsApp 2: Código + Bienvenida Usuario México
     // ════════════════════════════════════════════════════════════
     
     try {
@@ -86,7 +90,7 @@ export async function POST(request: NextRequest) {
       console.log('   → Email Usuario México:', registration.family_primary_email);
       console.log('   → Compañera asignada:', companionName);
 
-      // Enviar AMBOS emails usando la función de email-templates.ts
+      // 📧 EMAILS
       const emailResults = await sendPostPaymentEmails(
         // Email 1: Migrante (USA)
         {
@@ -106,6 +110,26 @@ export async function POST(request: NextRequest) {
         }
       );
 
+      // 📱 WHATSAPP
+      let whatsappResults = null;
+      try {
+        console.log('📱 [META WHATSAPP] Enviando secuencia:');
+        console.log('   → WhatsApp Migrante (USA):', registration.migrant_phone);
+        console.log('   → WhatsApp Usuario México:', registration.family_phone);
+
+        whatsappResults = await sendPostPaymentWhatsApp({
+          migrant_phone: registration.migrant_phone,
+          migrant_first_name: registration.migrant_first_name,
+          migrant_code: registration.migrant_code,
+          family_phone: registration.family_phone,
+          family_first_name: registration.family_first_name,
+          family_code: registration.family_code,
+          companion_name: companionName
+        });
+      } catch (whatsappError) {
+        console.error('❌ [META WHATSAPP] Error (non-blocking):', whatsappError);
+      }
+
       // Log detallado de resultados
       console.log('✅ [RESEND] Resultado Email Migrante:', 
         emailResults.migrant.status === 'fulfilled' ? 
@@ -118,6 +142,21 @@ export async function POST(request: NextRequest) {
         '✓ Enviado exitosamente' : 
         `✗ Error: ${emailResults.family.status === 'rejected' ? emailResults.family.reason : 'Unknown'}`
       );
+
+      if (whatsappResults) {
+        console.log('✅ [META WHATSAPP] Resultado Migrante - Código:', 
+          whatsappResults.migrant.code.success ? '✓' : '✗'
+        );
+        console.log('✅ [META WHATSAPP] Resultado Migrante - Bienvenida:', 
+          whatsappResults.migrant.welcome.success ? '✓' : '✗'
+        );
+        console.log('✅ [META WHATSAPP] Resultado Usuario - Código:', 
+          whatsappResults.user.code.success ? '✓' : '✗'
+        );
+        console.log('✅ [META WHATSAPP] Resultado Usuario - Bienvenida:', 
+          whatsappResults.user.welcome.success ? '✓' : '✗'
+        );
+      }
 
       // Respuesta exitosa
       return NextResponse.json({
@@ -132,8 +171,20 @@ export async function POST(request: NextRequest) {
             email: registration.family_primary_email
           }
         },
+        whatsapp: whatsappResults ? {
+          migrant: {
+            code_sent: whatsappResults.migrant.code.success,
+            welcome_sent: whatsappResults.migrant.welcome.success,
+            phone: registration.migrant_phone
+          },
+          user: {
+            code_sent: whatsappResults.user.code.success,
+            welcome_sent: whatsappResults.user.welcome.success,
+            phone: registration.family_phone
+          }
+        } : { error: 'WhatsApp credentials not configured' },
         companion: companionName,
-        message: 'Emails de bienvenida enviados exitosamente'
+        message: 'Notificaciones enviadas (Email + WhatsApp)'
       });
 
     } catch (emailError) {

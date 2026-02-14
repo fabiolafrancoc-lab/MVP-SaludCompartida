@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { sendPostPaymentEmails } from '@/lib/email-templates';
+import { sendPostPaymentWhatsApp } from '@/lib/meta-whatsapp';
 
 // ════════════════════════════════════════════════════════════════════════════
 // ENDPOINT: /api/square-payment
 // FLUJO: Suscripciones recurrentes de Square
 // ════════════════════════════════════════════════════════════════════════════
-// 1. Customer → 2. Card → 3. Subscription → 4. Supabase → 5. Emails
+// 1. Customer → 2. Card → 3. Subscription → 4. Supabase → 5. Emails + WhatsApp
 // ════════════════════════════════════════════════════════════════════════════
 
 async function squareFetch(path: string, body: unknown, accessToken: string) {
@@ -134,17 +135,20 @@ export async function POST(request: NextRequest) {
     console.log('✅ Supabase updated');
 
     // ════════════════════════════════════════════════════════════════════════
-    // PASO 5: Enviar Emails
+    // PASO 5: Enviar Emails + WhatsApp
     // ════════════════════════════════════════════════════════════════════════
-    console.log('📧 Sending post-payment emails...');
+    console.log('📧 Sending post-payment notifications...');
     
     if (registration) {
+      const companionName = registration.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda';
+      
+      // 📧 EMAILS (Resend)
       const emailResults = await sendPostPaymentEmails(
         {
           migrant_email: registration.migrant_email,
           migrant_code: registration.migrant_code,
           migrant_first_name: registration.migrant_first_name,
-          companion_name: registration.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda',
+          companion_name: companionName,
         },
         {
           family_primary_email: registration.family_email || registration.family_primary_email,
@@ -152,12 +156,30 @@ export async function POST(request: NextRequest) {
           family_code: registration.family_code,
           migrant_first_name: registration.migrant_first_name,
           migrant_email: registration.migrant_email,
-          companion_name: registration.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda',
+          companion_name: companionName,
         },
         registration
       );
       
       console.log('✅ Emails sent:', JSON.stringify(emailResults, null, 2));
+
+      // 📱 WHATSAPP (Meta Business API)
+      try {
+        const whatsappResults = await sendPostPaymentWhatsApp({
+          migrant_phone: registration.migrant_phone,
+          migrant_first_name: registration.migrant_first_name,
+          migrant_code: registration.migrant_code,
+          family_phone: registration.family_phone,
+          family_first_name: registration.family_first_name,
+          family_code: registration.family_code,
+          companion_name: companionName
+        });
+        
+        console.log('✅ WhatsApp sent:', JSON.stringify(whatsappResults, null, 2));
+      } catch (whatsappError) {
+        console.error('❌ WhatsApp error (non-blocking):', whatsappError);
+        // No bloqueamos el flujo si WhatsApp falla
+      }
     }
 
     console.log('🎉 [SQUARE] ==================== SUSCRIPCIÓN EXITOSA ====================');
