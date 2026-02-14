@@ -248,6 +248,421 @@ export default function TerminosCondiciones() {
           </div>
         </section>
 
+        {/* Detalles Legales Acordeones */}
+        <section style={{ marginBottom: '32px' }}>
+          <h2 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            📋 Detalles del servicio
+          </h2>
+          
+          <div style={{
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: '16px',
+            overflow: 'hidden',
+          }}>
+            
+            {/* Qué incluye */}
+            <div style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <button
+                onClick={() => toggleSection('servicios')}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '16px',
+                  background: openSection === 'servicios' ? 'rgba(255,255,255,0.05)' : 'transparent',
+                  border: 'none',
+                  color: 'white',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'background 0.2s',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '10px',
+                    background: 'rgba(16, 185, 129, 0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>✓</div>
+                  <span style={{ fontSize: '15px', fontWeight: '600' }}>¿Qué incluye mi suscripción?</span>
+                </div>
+                <span style={{ fontSize: '20px' }}>{openSection === 'servicios' ? '−' : '+'}</span>
+              </button>
+              {openSection === 'servicios' && (
+                <div style={{ padding: '16px', background: 'rgba(0,0,0,0.2)' }}>
+                  <div style={{ fontSize: '13px', lineHeight: '1.7', color: 'rgba(255,255,255,0.8)' }}>
+                    <p style={{ marginBottom: '12px' }}>Tu plan mensual puede incluir:</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
+                      {['Consultas médicas por teléfono o video (24/7)', 'Sesiones de terapia psicológica semanal', 'Acompañamiento con Lupita/Fernanda (asistente virtual)'].map((item, i) => (
+                        <div key={i} style={{ display: 'flex', gap: '8px' }}>
+                          <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#06B6D4', marginTop: '6px', flexShrink: 0 }} />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{
+                      background: 'rgba(245, 158, 11, 0.1)',
+                      border: '1px solid rgba(245, 158, 11, 0.3)',
+                      borderRadius: '8px',
+                      padding: '12px',
+                    }}>
+                      <p style={{ fontSize: '12px', color: '#FCD34D' }}>
+                        <strong>Importante:</strong> No cubre emergencias graves ni hospitalizaciones. En una emergencia, llama al 911 o ve a urgencias.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Pago */}
+            <div style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <button
+                onClick={() => toggleSection('pago')}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '16px',
+                  background: openSection === 'pago' ? 'rgba(255,255,255,0.05)' : 'transparent',
+                  border: 'none',
+                  color: 'white',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'background 0.2s',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '10px',
+                    background: 'rgba(59, 130, 246, 0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>💳</div>
+                  <span style={{ fontSize: '15px', fontWeight: '600' }}>¿Cómo funciona el pago?</span>
+                </div>
+                <span style={{ fontSize: '20px' }}>{openSection === 'pago' ? '−' : '+'}</span>
+              </button>
+              {openSection === 'pago' && (
+                <div style={{ padding: '16px', background: 'rgba(0,0,0,0.2)' }}>
+                  <div style={{ fontSize: '13px', lineHeight: '1.7', color: 'rgba(255,255,255,0.8)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {[
+                      'Pagas en dólares (USD) desde Estados Unidos',
+                      'El cobro es automático cada mes en tu tarjeta',
+                      'Si tu banco cobra comisiones extra, esas van por tu cuenta',
+                      'Si subimos el precio, te avisamos antes'
+                    ].map((text, i) => (
+                      <div key={i} style={{ display: 'flex', gap: '12px' }}>
+                        <div style={{
+                          width: '24px',
+                          height: '24px',
+                          borderRadius: '50%',
+                          background: 'rgba(6, 182, 212, 0.2)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '11px',
+                          fontWeight: '700',
+                          color: '#06B6D4',
+                          flexShrink: 0,
+                        }}>{i + 1}</div>
+                        <p>{text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Cancelación */}
+            <div style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <button
+                onClick={() => toggleSection('cancelar')}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '16px',
+                  background: openSection === 'cancelar' ? 'rgba(255,255,255,0.05)' : 'transparent',
+                  border: 'none',
+                  color: 'white',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'background 0.2s',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '10px',
+                    background: 'rgba(245, 158, 11, 0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>⚠️</div>
+                  <span style={{ fontSize: '15px', fontWeight: '600' }}>¿Cómo cancelo?</span>
+                </div>
+                <span style={{ fontSize: '20px' }}>{openSection === 'cancelar' ? '−' : '+'}</span>
+              </button>
+              {openSection === 'cancelar' && (
+                <div style={{ padding: '16px', background: 'rgba(0,0,0,0.2)' }}>
+                  <div style={{ fontSize: '13px', lineHeight: '1.7', color: 'rgba(255,255,255,0.8)' }}>
+                    <p style={{ marginBottom: '12px' }}><strong>Puedes cancelar cuando quieras.</strong> Es fácil:</p>
+                    <div style={{ marginLeft: '16px', marginBottom: '16px' }}>
+                      <p>• Desde la app o el sitio web</p>
+                      <p>• Contactando a servicio al cliente</p>
+                    </div>
+                    <div style={{
+                      background: 'rgba(255,255,255,0.05)',
+                      borderRadius: '8px',
+                      padding: '12px',
+                      marginBottom: '12px',
+                    }}>
+                      <p style={{ fontSize: '12px' }}>
+                        Al cancelar, ya no te cobramos el siguiente mes. Tu servicio sigue activo hasta que termine el mes que ya pagaste.
+                      </p>
+                    </div>
+                    <div style={{
+                      background: 'rgba(59, 130, 246, 0.1)',
+                      border: '1px solid rgba(59, 130, 246, 0.3)',
+                      borderRadius: '8px',
+                      padding: '10px',
+                    }}>
+                      <p style={{ fontSize: '11px', color: '#60A5FA' }}>
+                        <strong>Nota:</strong> Borrar la app de tu teléfono NO cancela la suscripción. Debes cancelarla directamente.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Términos Legales Florida (Inglés/Español) */}
+            <div style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <button
+                onClick={() => toggleSection('legal-florida')}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '16px',
+                  background: openSection === 'legal-florida' ? 'rgba(255,255,255,0.05)' : 'transparent',
+                  border: 'none',
+                  color: 'white',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'background 0.2s',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '10px',
+                    background: 'rgba(139, 92, 246, 0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>⚖️</div>
+                  <div>
+                    <span style={{ fontSize: '15px', fontWeight: '600', display: 'block' }}>Términos Legales (Suscriptor en EE.UU.)</span>
+                    <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)' }}>Florida law • English & Español</span>
+                  </div>
+                </div>
+                <span style={{ fontSize: '20px' }}>{openSection === 'legal-florida' ? '−' : '+'}</span>
+              </button>
+              {openSection === 'legal-florida' && (
+                <div style={{ padding: '16px', background: 'rgba(0,0,0,0.2)', maxHeight: '400px', overflowY: 'auto' }}>
+                  <div style={{ fontSize: '12px', lineHeight: '1.7', color: 'rgba(255,255,255,0.7)' }}>
+                    
+                    <div style={{ marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                      <p style={{ color: 'white', fontWeight: '700', marginBottom: '8px' }}>A. MASTER TERMS & CONDITIONS (ENGLISH)</p>
+                      <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', marginBottom: '16px' }}>
+                        Account Holder pays in the US – Florida law applies
+                      </p>
+                      
+                      <div style={{ marginBottom: '12px' }}>
+                        <p style={{ color: 'rgba(255,255,255,0.9)', fontWeight: '600', fontSize: '12px', marginBottom: '4px' }}>
+                          1. Provider Identity and Scope
+                        </p>
+                        <p>
+                          Tech Solution Services FVR LLC ("Company", "we", "us") is a limited liability company organized under the laws of the State of Florida, United States of America, and operates the digital health access platform "SaludCompartida" (the "Platform").
+                        </p>
+                        <p style={{ marginTop: '8px' }}>
+                          The contractual relationship under these Terms & Conditions ("Terms") exists between the Company and the Account Holder (the person who pays for the subscription), regardless of the country where the Beneficiaries receive the health services.
+                        </p>
+                      </div>
+
+                      <div style={{ marginBottom: '12px' }}>
+                        <p style={{ color: 'rgba(255,255,255,0.9)', fontWeight: '600', fontSize: '12px', marginBottom: '4px' }}>
+                          2. Nature of the Service
+                        </p>
+                        <p>
+                          SaludCompartida is a digital access and coordination platform that connects Beneficiaries located in Mexico with NUEVO MÉTODO and other Providers for the delivery of medical and health-related services.
+                        </p>
+                        <p style={{ marginTop: '8px' }}>
+                          The Company does not itself provide medical care and is not a hospital, clinic, insurance company or health insurer, and does not guarantee any medical outcome.
+                        </p>
+                      </div>
+
+                      <div style={{ marginBottom: '12px' }}>
+                        <p style={{ color: 'rgba(255,255,255,0.9)', fontWeight: '600', fontSize: '12px', marginBottom: '4px' }}>
+                          3. Subscription and Payment
+                        </p>
+                        <p>
+                          The monthly subscription fee is charged in United States dollars (USD). Payment is processed automatically through Stripe. Subscription automatically renews each month until cancelled by the Account Holder.
+                        </p>
+                      </div>
+
+                      <div style={{ marginBottom: '12px' }}>
+                        <p style={{ color: 'rgba(255,255,255,0.9)', fontWeight: '600', fontSize: '12px', marginBottom: '4px' }}>
+                          4. Governing Law and Dispute Resolution
+                        </p>
+                        <p>
+                          These Terms shall be governed by and construed in accordance with the laws of the State of Florida, without regard to its conflict of law provisions. Any disputes arising from these Terms shall be resolved in the courts of Florida.
+                        </p>
+                      </div>
+
+                      <div style={{ marginBottom: '12px' }}>
+                        <p style={{ color: 'rgba(255,255,255,0.9)', fontWeight: '600', fontSize: '12px', marginBottom: '4px' }}>
+                          5. Limitation of Liability
+                        </p>
+                        <p>
+                          To the maximum extent permitted by law, the Company shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the Platform or services.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: '16px' }}>
+                      <p style={{ color: 'white', fontWeight: '700', marginBottom: '8px' }}>B. TÉRMINOS Y CONDICIONES PRINCIPALES (ESPAÑOL)</p>
+                      <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', marginBottom: '16px' }}>
+                        El titular de la cuenta paga en EE.UU. – se aplica la ley de Florida
+                      </p>
+                      
+                      <div style={{ marginBottom: '12px' }}>
+                        <p style={{ color: 'rgba(255,255,255,0.9)', fontWeight: '600', fontSize: '12px', marginBottom: '4px' }}>
+                          1. Identidad del Proveedor y Alcance
+                        </p>
+                        <p>
+                          Tech Solution Services FVR LLC ("la Compañía", "nosotros") es una sociedad de responsabilidad limitada organizada bajo las leyes del Estado de Florida, Estados Unidos de América, y opera la plataforma digital de acceso a servicios de salud "SaludCompartida" (la "Plataforma").
+                        </p>
+                        <p style={{ marginTop: '8px' }}>
+                          La relación contractual bajo estos Términos y Condiciones existe entre la Compañía y el Titular de la Cuenta (la persona que paga la suscripción), independientemente del país donde los Beneficiarios reciban los servicios de salud.
+                        </p>
+                      </div>
+
+                      <div style={{ marginBottom: '12px' }}>
+                        <p style={{ color: 'rgba(255,255,255,0.9)', fontWeight: '600', fontSize: '12px', marginBottom: '4px' }}>
+                          2. Naturaleza del Servicio
+                        </p>
+                        <p>
+                          SaludCompartida es una plataforma digital de acceso y coordinación que conecta a los Beneficiarios ubicados en México con NUEVO MÉTODO y otros Proveedores para la entrega de servicios médicos y relacionados con la salud.
+                        </p>
+                        <p style={{ marginTop: '8px' }}>
+                          La Compañía no proporciona atención médica directamente y no es un hospital, clínica, compañía de seguros o aseguradora de salud, y no garantiza ningún resultado médico.
+                        </p>
+                      </div>
+
+                      <div style={{ marginBottom: '12px' }}>
+                        <p style={{ color: 'rgba(255,255,255,0.9)', fontWeight: '600', fontSize: '12px', marginBottom: '4px' }}>
+                          3. Ley Aplicable y Resolución de Disputas
+                        </p>
+                        <p>
+                          Estos Términos se regirán e interpretarán de acuerdo con las leyes del Estado de Florida, sin tener en cuenta sus disposiciones sobre conflictos de leyes. Cualquier disputa que surja de estos Términos se resolverá en los tribunales de Florida.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Derechos de Usuarios en México */}
+            <div>
+              <button
+                onClick={() => toggleSection('derechos-mexico')}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '16px',
+                  background: openSection === 'derechos-mexico' ? 'rgba(255,255,255,0.05)' : 'transparent',
+                  border: 'none',
+                  color: 'white',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'background 0.2s',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '10px',
+                    background: 'rgba(236, 72, 153, 0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>🇲🇽</div>
+                  <div>
+                    <span style={{ fontSize: '15px', fontWeight: '600', display: 'block' }}>Derechos de Usuarios en México</span>
+                    <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)' }}>Normativa mexicana aplicable</span>
+                  </div>
+                </div>
+                <span style={{ fontSize: '20px' }}>{openSection === 'derechos-mexico' ? '−' : '+'}</span>
+              </button>
+              {openSection === 'derechos-mexico' && (
+                <div style={{ padding: '16px', background: 'rgba(0,0,0,0.2)' }}>
+                  <div style={{ fontSize: '13px', lineHeight: '1.7', color: 'rgba(255,255,255,0.8)' }}>
+                    <p style={{ marginBottom: '12px' }}>Si usas los servicios de salud en México, tienes derecho a:</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {[
+                        'Recibir información clara sobre qué incluye tu plan',
+                        'Ser atendido por doctores con licencia válida',
+                        'Trato digno y respetuoso',
+                        'Que tu información de salud sea confidencial',
+                        'Presentar quejas ante PROFECO o autoridades de salud mexicanas (COFEPRIS)',
+                        'Ejercer tus derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) sobre tus datos personales'
+                      ].map((text, i) => (
+                        <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'start' }}>
+                          <span style={{ color: '#06B6D4', fontSize: '16px' }}>✓</span>
+                          <span>{text}</span>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div style={{
+                      marginTop: '16px',
+                      background: 'rgba(236, 72, 153, 0.1)',
+                      border: '1px solid rgba(236, 72, 153, 0.2)',
+                      borderRadius: '8px',
+                      padding: '12px',
+                    }}>
+                      <p style={{ fontSize: '12px', color: '#F472B6' }}>
+                        <strong>Importante:</strong> Los servicios de salud en México son prestados por NUEVO MÉTODO y proveedores médicos mexicanos, quienes están sujetos a la normativa mexicana de salud (NOM-004-SSA3-2012, Ley General de Salud).
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+          </div>
+        </section>
+
         {/* Contacto */}
         <section style={{
           background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.1))',
