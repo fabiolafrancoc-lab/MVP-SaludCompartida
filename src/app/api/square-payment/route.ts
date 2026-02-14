@@ -151,6 +151,7 @@ export async function POST(request: NextRequest) {
           family_first_name: registration.family_first_name,
           family_code: registration.family_code,
           migrant_first_name: registration.migrant_first_name,
+          migrant_email: registration.migrant_email,
           companion_name: registration.family_companion_assigned === 'lupita' ? 'Lupita' : 'Fernanda',
         },
         registration
