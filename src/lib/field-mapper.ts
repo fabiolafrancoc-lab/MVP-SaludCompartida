@@ -93,6 +93,12 @@ export function mapRegistroToSupabase(data: RegistroFormData): Partial<Registrat
     
     codigo_familia: generateFamilyCode(),
     status: 'pending',
+    
+    // Tracking de origen
+    traffic_source: detectTrafficSource(),
+    utm_source: getUrlParam('utm_source') ?? undefined,
+    utm_medium: getUrlParam('utm_medium') ?? undefined,
+    utm_campaign: getUrlParam('utm_campaign') ?? undefined,
   };
 }
 

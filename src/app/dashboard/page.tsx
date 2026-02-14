@@ -1092,7 +1092,7 @@ export default function Dashboard() {
               desc: (
                 <>
                   <a 
-                    href={`https://wa.me/17869648040?text=Hola%20${companionName},%20necesito%20hablar%20contigo`}
+                    href={`https://wa.me/17869648040?text=Hola%20${companionName},%20soy%20${userData?.migrant_first_name || 'un%20usuario'}%20y%20necesito%20hablar%20contigo`}
                     target="_blank" 
                     rel="noopener noreferrer"
                     style={{
@@ -1103,6 +1103,13 @@ export default function Dashboard() {
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
+                      // Track WhatsApp click
+                      if (typeof window !== 'undefined' && window.gtag) {
+                        window.gtag('event', 'whatsapp_click', {
+                          companion_name: companionName,
+                          user_email: userData?.migrant_email || 'unknown'
+                        });
+                      }
                     }}
                   >
                     Escríbele por WhatsApp

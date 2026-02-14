@@ -55,6 +55,12 @@ export interface Registration {
   last_payment_at: string | null;
   cancelled_at: string | null;
   
+  // Tracking de origen
+  traffic_source: string | null;
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+  
   created_at: string;
   updated_at: string;
 }
