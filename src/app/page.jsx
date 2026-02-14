@@ -499,7 +499,7 @@ export default function LandingPage() {
           <ul style={{ textAlign: 'left', fontSize: '14px', lineHeight: '2', marginBottom: '20px', listStyle: 'none', padding: 0 }}>
             <li>✓ Hasta <strong>4 familiares</strong> incluidos</li>
             <li>✓ Telemedicina <strong>24/7 ilimitada</strong></li>
-            <li>✓ Hasta <strong>75% descuento</strong> en farmacias</li>
+            <li style={{ display: 'none' }}>✓ Hasta <strong>75% descuento</strong> en farmacias</li>
             <li>✓ <strong>Terapia semanal</strong> incluida</li>
             <li>✓ <strong>Lupita o Fernanda</strong> — compañía</li>
             <li>✓ <strong>Seguimiento de ahorros</strong> cada mes</li>
