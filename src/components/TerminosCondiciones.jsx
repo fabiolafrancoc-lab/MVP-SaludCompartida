@@ -132,7 +132,7 @@ export default function TerminosCondiciones() {
             <p>Para preguntas sobre estos términos, contáctanos en: <a href="mailto:hola@saludcompartida.app" className="text-cyan-400 hover:text-cyan-300 font-medium underline decoration-cyan-400/30 hover:decoration-cyan-300">hola@saludcompartida.app</a></p>
           </Accordion>
 
-        </div>
+          </div>
 
         {/* Footer CTA */}
         <div className="mt-8 text-center">
@@ -145,6 +145,7 @@ export default function TerminosCondiciones() {
             </svg>
             Volver al inicio
           </Link>
+        </div>
         </div>
       </main>
 
